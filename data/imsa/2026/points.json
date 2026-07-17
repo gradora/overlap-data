@@ -1,0 +1,1619 @@
+{
+ "schemaVersion": 1,
+ "series": "imsa",
+ "season": 2026,
+ "generatedAt": "2026-07-17T18:32:59.285Z",
+ "points": {
+  "drivers": {
+   "GTP": [
+    {
+     "key": "Jack Aitken",
+     "points": 2145,
+     "position": 1
+    },
+    {
+     "key": "Laurin Heinrich",
+     "points": 1942,
+     "position": 2
+    },
+    {
+     "key": "Nick Yelloly",
+     "points": 1900,
+     "position": 3
+    },
+    {
+     "key": "Renger van der Zande",
+     "points": 1900,
+     "position": 3
+    },
+    {
+     "key": "Felipe Nasr",
+     "points": 1887,
+     "position": 4
+    },
+    {
+     "key": "Julien Andlauer",
+     "points": 1887,
+     "position": 4
+    },
+    {
+     "key": "Earl Bamber",
+     "points": 1797,
+     "position": 5
+    },
+    {
+     "key": "Kevin Estre",
+     "points": 1774,
+     "position": 6
+    },
+    {
+     "key": "Laurens Vanthoor",
+     "points": 1774,
+     "position": 6
+    },
+    {
+     "key": "Tijmen van der Helm",
+     "points": 1705,
+     "position": 7
+    },
+    {
+     "key": "Dries Vanthoor",
+     "points": 1690,
+     "position": 8
+    },
+    {
+     "key": "Sheldon van der Linde",
+     "points": 1690,
+     "position": 8
+    },
+    {
+     "key": "Colin Braun",
+     "points": 1633,
+     "position": 9
+    },
+    {
+     "key": "Tom Blomqvist",
+     "points": 1633,
+     "position": 9
+    },
+    {
+     "key": "Marco Wittmann",
+     "points": 1623,
+     "position": 10
+    },
+    {
+     "key": "Philipp Eng",
+     "points": 1623,
+     "position": 10
+    },
+    {
+     "key": "Jordan Taylor",
+     "points": 1595,
+     "position": 11
+    },
+    {
+     "key": "Louis Deletraz",
+     "points": 1595,
+     "position": 11
+    },
+    {
+     "key": "Filipe Albuquerque",
+     "points": 1499,
+     "position": 12
+    },
+    {
+     "key": "Ricky Taylor",
+     "points": 1499,
+     "position": 12
+    },
+    {
+     "key": "Roman De Angelis",
+     "points": 1425,
+     "position": 13
+    },
+    {
+     "key": "Ross Gunn",
+     "points": 1425,
+     "position": 13
+    },
+    {
+     "key": "Frederik Vesti",
+     "points": 1408,
+     "position": 14
+    },
+    {
+     "key": "Kaylen Frederick",
+     "points": 844,
+     "position": 15
+    },
+    {
+     "key": "Matt Campbell",
+     "points": 654,
+     "position": 16
+    },
+    {
+     "key": "Kaku Ohta",
+     "points": 643,
+     "position": 17
+    },
+    {
+     "key": "Robin Frijns",
+     "points": 606,
+     "position": 18
+    },
+    {
+     "key": "Alex Palou",
+     "points": 567,
+     "position": 19
+    },
+    {
+     "key": "Scott Dixon",
+     "points": 560,
+     "position": 20
+    },
+    {
+     "key": "Colton Herta",
+     "points": 548,
+     "position": 21
+    },
+    {
+     "key": "Nico Pino",
+     "points": 518,
+     "position": 22
+    },
+    {
+     "key": "Kevin Magnussen",
+     "points": 482,
+     "position": 23
+    },
+    {
+     "key": "Alex Riberas",
+     "points": 472,
+     "position": 24
+    },
+    {
+     "key": "Will Stevens",
+     "points": 455,
+     "position": 25
+    },
+    {
+     "key": "Connor Zilisch",
+     "points": 340,
+     "position": 26
+    },
+    {
+     "key": "Rene Rast",
+     "points": 323,
+     "position": 27
+    },
+    {
+     "key": "Raffaele Marciello",
+     "points": 252,
+     "position": 28
+    },
+    {
+     "key": "AJ Allmendinger",
+     "points": 248,
+     "position": 29
+    },
+    {
+     "key": "Marco Sorensen",
+     "points": 231,
+     "position": 30
+    }
+   ],
+   "LMP2": [
+    {
+     "key": "Alex Quinn",
+     "points": 1355,
+     "position": 1
+    },
+    {
+     "key": "George Kurtz",
+     "points": 1355,
+     "position": 1
+    },
+    {
+     "key": "Jeremy Clarke",
+     "points": 1285,
+     "position": 2
+    },
+    {
+     "key": "Tom Dillmann",
+     "points": 1285,
+     "position": 2
+    },
+    {
+     "key": "Dane Cameron",
+     "points": 1274,
+     "position": 3
+    },
+    {
+     "key": "PJ Hyett",
+     "points": 1274,
+     "position": 3
+    },
+    {
+     "key": "Daniel Goldburg",
+     "points": 1242,
+     "position": 4
+    },
+    {
+     "key": "Misha Goikhberg",
+     "points": 1131,
+     "position": 5
+    },
+    {
+     "key": "Mikkel Jensen",
+     "points": 1114,
+     "position": 6
+    },
+    {
+     "key": "Phil Fayer",
+     "points": 1114,
+     "position": 6
+    },
+    {
+     "key": "John Farano",
+     "points": 1086,
+     "position": 7
+    },
+    {
+     "key": "Sebastian Alvarez",
+     "points": 1086,
+     "position": 7
+    },
+    {
+     "key": "Toby Sowery",
+     "points": 1007,
+     "position": 8
+    },
+    {
+     "key": "Chris Cumming",
+     "points": 995,
+     "position": 9
+    },
+    {
+     "key": "Pietro Fittipaldi",
+     "points": 995,
+     "position": 9
+    },
+    {
+     "key": "Tobi Lutke",
+     "points": 959,
+     "position": 10
+    },
+    {
+     "key": "Jonny Edgar",
+     "points": 952,
+     "position": 11
+    },
+    {
+     "key": "Paul Di Resta",
+     "points": 952,
+     "position": 12
+    },
+    {
+     "key": "Rasmus Lindh",
+     "points": 952,
+     "position": 12
+    },
+    {
+     "key": "Bijoy Garg",
+     "points": 900,
+     "position": 13
+    },
+    {
+     "key": "Ferdinand Habsburg",
+     "points": 865,
+     "position": 14
+    },
+    {
+     "key": "Jacob Abel",
+     "points": 865,
+     "position": 14
+    },
+    {
+     "key": "Naveen Rao",
+     "points": 865,
+     "position": 14
+    },
+    {
+     "key": "Hunter McElrea",
+     "points": 848,
+     "position": 15
+    },
+    {
+     "key": "Harry Tincknell",
+     "points": 819,
+     "position": 16
+    },
+    {
+     "key": "Parker Thompson",
+     "points": 819,
+     "position": 16
+    },
+    {
+     "key": "Manuel Espirito Santo",
+     "points": 720,
+     "position": 17
+    },
+    {
+     "key": "David Heinemeier Hansson",
+     "points": 715,
+     "position": 18
+    },
+    {
+     "key": "Jon Field",
+     "points": 710,
+     "position": 19
+    },
+    {
+     "key": "Oliver Jarvis",
+     "points": 710,
+     "position": 19
+    },
+    {
+     "key": "Seth Lucas",
+     "points": 710,
+     "position": 19
+    },
+    {
+     "key": "Mathias Beche",
+     "points": 695,
+     "position": 20
+    },
+    {
+     "key": "Tristan Vautier",
+     "points": 583,
+     "position": 21
+    },
+    {
+     "key": "Ben Hanley",
+     "points": 521,
+     "position": 22
+    },
+    {
+     "key": "Charles Milesi",
+     "points": 480,
+     "position": 23
+    },
+    {
+     "key": "Malthe Jakobsen",
+     "points": 373,
+     "position": 24
+    },
+    {
+     "key": "Antonio Felix da Costa",
+     "points": 355,
+     "position": 25
+    },
+    {
+     "key": "George Kolovos",
+     "points": 325,
+     "position": 26
+    },
+    {
+     "key": "Jakub Smiechowski",
+     "points": 325,
+     "position": 26
+    },
+    {
+     "key": "Nick Cassidy",
+     "points": 325,
+     "position": 26
+    },
+    {
+     "key": "Nolan Siegel",
+     "points": 325,
+     "position": 26
+    },
+    {
+     "key": "Ricky Taylor",
+     "points": 312,
+     "position": 27
+    },
+    {
+     "key": "Grégoire Saucy",
+     "points": 310,
+     "position": 28
+    },
+    {
+     "key": "Christian Rasmussen",
+     "points": 292,
+     "position": 29
+    },
+    {
+     "key": "Ben Keating",
+     "points": 278,
+     "position": 30
+    },
+    {
+     "key": "Job Van Uitert",
+     "points": 258,
+     "position": 31
+    },
+    {
+     "key": "Kyffin Simpson",
+     "points": 250,
+     "position": 32
+    },
+    {
+     "key": "Sebastien Bourdais",
+     "points": 250,
+     "position": 32
+    },
+    {
+     "key": "Logan Sargeant",
+     "points": 244,
+     "position": 33
+    },
+    {
+     "key": "Enzo Fittipaldi",
+     "points": 222,
+     "position": 34
+    },
+    {
+     "key": "Dylan Murry",
+     "points": 199,
+     "position": 35
+    },
+    {
+     "key": "Francois Perrodo",
+     "points": 199,
+     "position": 35
+    },
+    {
+     "key": "Matthieu Vaxiviere",
+     "points": 199,
+     "position": 35
+    },
+    {
+     "key": "Nicklas Nielsen",
+     "points": 199,
+     "position": 35
+    },
+    {
+     "key": "Gerry Kraut",
+     "points": 19,
+     "position": 36
+    },
+    {
+     "key": "Josh Burdon",
+     "points": 19,
+     "position": 36
+    },
+    {
+     "key": "Sennan Fielding",
+     "points": 19,
+     "position": 36
+    }
+   ],
+   "GTD": [
+    {
+     "key": "Connor De Phillippi",
+     "points": 1910,
+     "position": 1
+    },
+    {
+     "key": "Neil Verhagen",
+     "points": 1910,
+     "position": 2
+    },
+    {
+     "key": "Dudu Barrichello",
+     "points": 1825,
+     "position": 3
+    },
+    {
+     "key": "Nicky Catsburg",
+     "points": 1802,
+     "position": 4
+    },
+    {
+     "key": "Tommy Milner",
+     "points": 1802,
+     "position": 5
+    },
+    {
+     "key": "Harry King",
+     "points": 1766,
+     "position": 6
+    },
+    {
+     "key": "Nick Tandy",
+     "points": 1766,
+     "position": 7
+    },
+    {
+     "key": "Alexander Sims",
+     "points": 1765,
+     "position": 8
+    },
+    {
+     "key": "Antonio Garcia",
+     "points": 1765,
+     "position": 9
+    },
+    {
+     "key": "Ben Barnicoat",
+     "points": 1760,
+     "position": 10
+    },
+    {
+     "key": "Jack Hawksworth",
+     "points": 1760,
+     "position": 11
+    },
+    {
+     "key": "Christopher Mies",
+     "points": 1742,
+     "position": 12
+    },
+    {
+     "key": "Frederic Vervisch",
+     "points": 1742,
+     "position": 13
+    },
+    {
+     "key": "Aaron Telitz",
+     "points": 1733,
+     "position": 14
+    },
+    {
+     "key": "Benjamin Pedersen",
+     "points": 1733,
+     "position": 15
+    },
+    {
+     "key": "Patrick Gallagher",
+     "points": 1705,
+     "position": 16
+    },
+    {
+     "key": "Robby Foley",
+     "points": 1705,
+     "position": 17
+    },
+    {
+     "key": "Andrea Caldarelli",
+     "points": 1618,
+     "position": 18
+    },
+    {
+     "key": "Sandy Mitchell",
+     "points": 1618,
+     "position": 19
+    },
+    {
+     "key": "Philip Ellis",
+     "points": 1618,
+     "position": 20
+    },
+    {
+     "key": "Russell Ward",
+     "points": 1618,
+     "position": 21
+    },
+    {
+     "key": "Ben Barker",
+     "points": 1605,
+     "position": 22
+    },
+    {
+     "key": "Dennis Olsen",
+     "points": 1605,
+     "position": 23
+    },
+    {
+     "key": "Albert Costa",
+     "points": 1537,
+     "position": 24
+    },
+    {
+     "key": "Adam Adelson",
+     "points": 1497,
+     "position": 25
+    },
+    {
+     "key": "Callum Ilott",
+     "points": 1497,
+     "position": 26
+    },
+    {
+     "key": "Max Esterson",
+     "points": 1494,
+     "position": 27
+    },
+    {
+     "key": "Nikita Johnson",
+     "points": 1494,
+     "position": 28
+    },
+    {
+     "key": "Brendan Iribe",
+     "points": 1373,
+     "position": 29
+    },
+    {
+     "key": "Danny Formal",
+     "points": 1369,
+     "position": 30
+    },
+    {
+     "key": "Trent Hindman",
+     "points": 1369,
+     "position": 31
+    },
+    {
+     "key": "Matthew Bell",
+     "points": 1361,
+     "position": 32
+    },
+    {
+     "key": "Orey Fidani",
+     "points": 1361,
+     "position": 33
+    },
+    {
+     "key": "Tom Gamble",
+     "points": 1300,
+     "position": 34
+    },
+    {
+     "key": "Felipe Fraga",
+     "points": 1272,
+     "position": 35
+    },
+    {
+     "key": "Sheena Monk",
+     "points": 1272,
+     "position": 36
+    },
+    {
+     "key": "Frederik Schandorff",
+     "points": 1243,
+     "position": 37
+    },
+    {
+     "key": "Lorenzo Patrese",
+     "points": 1213,
+     "position": 38
+    },
+    {
+     "key": "Jake Walker",
+     "points": 1198,
+     "position": 39
+    },
+    {
+     "key": "Giacomo Altoè",
+     "points": 1165,
+     "position": 40
+    },
+    {
+     "key": "Mason Filippi",
+     "points": 1106,
+     "position": 41
+    },
+    {
+     "key": "Scott Andrews",
+     "points": 1026,
+     "position": 42
+    },
+    {
+     "key": "Frankie Montecalvo",
+     "points": 992,
+     "position": 43
+    },
+    {
+     "key": "Valentin Hasse Clot",
+     "points": 978,
+     "position": 44
+    },
+    {
+     "key": "Corey Lewis",
+     "points": 968,
+     "position": 45
+    },
+    {
+     "key": "Zacharie Robichon",
+     "points": 950,
+     "position": 46
+    },
+    {
+     "key": "Henrik Hedman",
+     "points": 931,
+     "position": 47
+    },
+    {
+     "key": "Spencer Pumpelly",
+     "points": 924,
+     "position": 48
+    },
+    {
+     "key": "Rory van der Steur",
+     "points": 913,
+     "position": 49
+    },
+    {
+     "key": "Klaus Bachler",
+     "points": 868,
+     "position": 50
+    },
+    {
+     "key": "Antonio Fuoco",
+     "points": 801,
+     "position": 51
+    },
+    {
+     "key": "Simon Mann",
+     "points": 801,
+     "position": 52
+    },
+    {
+     "key": "James Calado",
+     "points": 796,
+     "position": 53
+    },
+    {
+     "key": "Riccardo Agostini",
+     "points": 796,
+     "position": 54
+    },
+    {
+     "key": "James Roe",
+     "points": 791,
+     "position": 55
+    },
+    {
+     "key": "Lin Hodenius",
+     "points": 791,
+     "position": 56
+    },
+    {
+     "key": "Tom Sargent",
+     "points": 775,
+     "position": 57
+    },
+    {
+     "key": "Francis Selldorff",
+     "points": 770,
+     "position": 58
+    },
+    {
+     "key": "Manny Franco",
+     "points": 769,
+     "position": 59
+    },
+    {
+     "key": "Lars Kern",
+     "points": 739,
+     "position": 60
+    },
+    {
+     "key": "Casper Stevenson",
+     "points": 731,
+     "position": 61
+    },
+    {
+     "key": "Indy Dontje",
+     "points": 704,
+     "position": 62
+    },
+    {
+     "key": "Riccardo Pera",
+     "points": 688,
+     "position": 63
+    },
+    {
+     "key": "Ryan Hardwick",
+     "points": 688,
+     "position": 64
+    },
+    {
+     "key": "Kenton Koch",
+     "points": 682,
+     "position": 65
+    },
+    {
+     "key": "Onofrio Triarsi",
+     "points": 682,
+     "position": 66
+    },
+    {
+     "key": "Robert Megennis",
+     "points": 682,
+     "position": 67
+    },
+    {
+     "key": "Daniel Serra",
+     "points": 670,
+     "position": 68
+    },
+    {
+     "key": "Davide Rigon",
+     "points": 670,
+     "position": 69
+    },
+    {
+     "key": "Lilou Wadoux Ducellier",
+     "points": 661,
+     "position": 70
+    },
+    {
+     "key": "Max Hesse",
+     "points": 658,
+     "position": 71
+    },
+    {
+     "key": "Ricardo Feller",
+     "points": 658,
+     "position": 72
+    },
+    {
+     "key": "Thomas Preining",
+     "points": 658,
+     "position": 73
+    },
+    {
+     "key": "Nico Varrone",
+     "points": 628,
+     "position": 74
+    },
+    {
+     "key": "Charlie Eastwood",
+     "points": 609,
+     "position": 75
+    },
+    {
+     "key": "Salih Yoluc",
+     "points": 609,
+     "position": 76
+    },
+    {
+     "key": "Chaz Mostert",
+     "points": 584,
+     "position": 77
+    },
+    {
+     "key": "Alessio Picariello",
+     "points": 580,
+     "position": 78
+    },
+    {
+     "key": "Till Bechtolsheimer",
+     "points": 564,
+     "position": 79
+    },
+    {
+     "key": "Dillon Machavern",
+     "points": 559,
+     "position": 80
+    },
+    {
+     "key": "Jan Heylen",
+     "points": 559,
+     "position": 81
+    },
+    {
+     "key": "Richard Lietz",
+     "points": 553,
+     "position": 82
+    },
+    {
+     "key": "Graham Doyle",
+     "points": 529,
+     "position": 83
+    },
+    {
+     "key": "Marvin Kirchhöfer",
+     "points": 521,
+     "position": 84
+    },
+    {
+     "key": "Miguel Molina",
+     "points": 520,
+     "position": 85
+    },
+    {
+     "key": "Sebastian Priaulx",
+     "points": 517,
+     "position": 86
+    },
+    {
+     "key": "Jenson Altzman",
+     "points": 516,
+     "position": 87
+    },
+    {
+     "key": "Jason Hart",
+     "points": 512,
+     "position": 88
+    },
+    {
+     "key": "Luca Stolz",
+     "points": 512,
+     "position": 89
+    },
+    {
+     "key": "Scott Noble",
+     "points": 512,
+     "position": 90
+    },
+    {
+     "key": "Robert Wickens",
+     "points": 497,
+     "position": 91
+    },
+    {
+     "key": "Ollie Millroy",
+     "points": 491,
+     "position": 92
+    },
+    {
+     "key": "Dean MacDonald",
+     "points": 470,
+     "position": 93
+    },
+    {
+     "key": "Kyle Kirkwood",
+     "points": 465,
+     "position": 94
+    },
+    {
+     "key": "Mike Rockenfeller",
+     "points": 459,
+     "position": 95
+    },
+    {
+     "key": "John Potter",
+     "points": 456,
+     "position": 96
+    },
+    {
+     "key": "Sébastien Baud",
+     "points": 429,
+     "position": 97
+    },
+    {
+     "key": "Alessandro Pier Guidi",
+     "points": 388,
+     "position": 98
+    },
+    {
+     "key": "Lucas Auer",
+     "points": 382,
+     "position": 99
+    },
+    {
+     "key": "Joey Hand",
+     "points": 374,
+     "position": 100
+    },
+    {
+     "key": "Dan Harper",
+     "points": 366,
+     "position": 101
+    },
+    {
+     "key": "Kenny Habul",
+     "points": 350,
+     "position": 102
+    },
+    {
+     "key": "Maro Engel",
+     "points": 350,
+     "position": 103
+    },
+    {
+     "key": "Will Power",
+     "points": 350,
+     "position": 104
+    },
+    {
+     "key": "Morris Schuring",
+     "points": 338,
+     "position": 105
+    },
+    {
+     "key": "Madison Snow",
+     "points": 336,
+     "position": 106
+    },
+    {
+     "key": "Nicki Thiim",
+     "points": 336,
+     "position": 107
+    },
+    {
+     "key": "Mattia Drudi",
+     "points": 335,
+     "position": 108
+    },
+    {
+     "key": "Maxime Martin",
+     "points": 322,
+     "position": 109
+    },
+    {
+     "key": "Marius Fossard",
+     "points": 300,
+     "position": 110
+    },
+    {
+     "key": "Trenton Estep",
+     "points": 300,
+     "position": 111
+    },
+    {
+     "key": "Ben Green",
+     "points": 295,
+     "position": 112
+    },
+    {
+     "key": "Roman De Angelis",
+     "points": 285,
+     "position": 113
+    },
+    {
+     "key": "Tommaso Mosca",
+     "points": 285,
+     "position": 114
+    },
+    {
+     "key": "Ayhancan Guven",
+     "points": 278,
+     "position": 115
+    },
+    {
+     "key": "Ralf Aron",
+     "points": 273,
+     "position": 116
+    },
+    {
+     "key": "James Hinchcliffe",
+     "points": 271,
+     "position": 117
+    },
+    {
+     "key": "Mirko Bortolotti",
+     "points": 271,
+     "position": 118
+    },
+    {
+     "key": "Jack Hawksworth",
+     "points": 260,
+     "position": 119
+    },
+    {
+     "key": "Yifei Ye",
+     "points": 260,
+     "position": 120
+    },
+    {
+     "key": "Alessio Rovera",
+     "points": 258,
+     "position": 121
+    },
+    {
+     "key": "Fran Rueda",
+     "points": 250,
+     "position": 122
+    },
+    {
+     "key": "Marcus Ericsson",
+     "points": 249,
+     "position": 123
+    },
+    {
+     "key": "Jens Klingmann",
+     "points": 240,
+     "position": 124
+    },
+    {
+     "key": "Esteban Masson",
+     "points": 237,
+     "position": 125
+    },
+    {
+     "key": "Scott Andrews",
+     "points": 236,
+     "position": 126
+    },
+    {
+     "key": "Valentin Hasse Clot",
+     "points": 236,
+     "position": 127
+    },
+    {
+     "key": "Aaron Telitz",
+     "points": 234,
+     "position": 128
+    },
+    {
+     "key": "Franck Perera",
+     "points": 229,
+     "position": 129
+    },
+    {
+     "key": "Carl Bennett",
+     "points": 226,
+     "position": 130
+    },
+    {
+     "key": "Anthony Bartone",
+     "points": 225,
+     "position": 131
+    },
+    {
+     "key": "Fabian Schiller",
+     "points": 225,
+     "position": 132
+    },
+    {
+     "key": "Jules Gounon",
+     "points": 225,
+     "position": 133
+    },
+    {
+     "key": "Maximilian Goetz",
+     "points": 225,
+     "position": 134
+    },
+    {
+     "key": "Juri Vips",
+     "points": 222,
+     "position": 135
+    },
+    {
+     "key": "Eric Lux",
+     "points": 220,
+     "position": 136
+    },
+    {
+     "key": "Loek Hartog",
+     "points": 210,
+     "position": 137
+    },
+    {
+     "key": "Michael Christensen",
+     "points": 210,
+     "position": 138
+    },
+    {
+     "key": "David Fumanelli",
+     "points": 202,
+     "position": 139
+    },
+    {
+     "key": "Harry King",
+     "points": 202,
+     "position": 140
+    },
+    {
+     "key": "Mikkel Pedersen",
+     "points": 202,
+     "position": 141
+    },
+    {
+     "key": "Andrea Caldarelli",
+     "points": 193,
+     "position": 142
+    },
+    {
+     "key": "Zachary Vanier",
+     "points": 193,
+     "position": 143
+    },
+    {
+     "key": "Thierry Vermeulen",
+     "points": 188,
+     "position": 144
+    },
+    {
+     "key": "Matteo Cairoli",
+     "points": 174,
+     "position": 145
+    },
+    {
+     "key": "Dave Musial",
+     "points": 172,
+     "position": 146
+    },
+    {
+     "key": "Dave Musial Jr.",
+     "points": 172,
+     "position": 147
+    },
+    {
+     "key": "Peter Ludwig",
+     "points": 172,
+     "position": 148
+    },
+    {
+     "key": "Ryan Yardley",
+     "points": 172,
+     "position": 149
+    },
+    {
+     "key": "Scott McLaughlin",
+     "points": 168,
+     "position": 150
+    },
+    {
+     "key": "Alec Udell",
+     "points": 140,
+     "position": 151
+    },
+    {
+     "key": "Elliott Skeer",
+     "points": 131,
+     "position": 152
+    },
+    {
+     "key": "Jaxon Evans",
+     "points": 130,
+     "position": 153
+    },
+    {
+     "key": "Romain Grosjean",
+     "points": 130,
+     "position": 154
+    },
+    {
+     "key": "Mario Farnbacher",
+     "points": 120,
+     "position": 155
+    },
+    {
+     "key": "Eric Zitza",
+     "points": 111,
+     "position": 156
+    },
+    {
+     "key": "Sven Müller",
+     "points": 111,
+     "position": 157
+    }
+   ]
+  },
+  "teams": {
+   "GTP": [
+    {
+     "key": "31",
+     "points": 2145,
+     "position": 1
+    },
+    {
+     "key": "93",
+     "points": 1900,
+     "position": 2
+    },
+    {
+     "key": "7",
+     "points": 1887,
+     "position": 3
+    },
+    {
+     "key": "6",
+     "points": 1774,
+     "position": 4
+    },
+    {
+     "key": "5",
+     "points": 1705,
+     "position": 5
+    },
+    {
+     "key": "24",
+     "points": 1690,
+     "position": 6
+    },
+    {
+     "key": "60",
+     "points": 1633,
+     "position": 7
+    },
+    {
+     "key": "25",
+     "points": 1623,
+     "position": 8
+    },
+    {
+     "key": "40",
+     "points": 1595,
+     "position": 9
+    },
+    {
+     "key": "10",
+     "points": 1499,
+     "position": 10
+    },
+    {
+     "key": "23",
+     "points": 1425,
+     "position": 11
+    }
+   ],
+   "LMP2": [
+    {
+     "key": "04",
+     "points": 1355,
+     "position": 1
+    },
+    {
+     "key": "43",
+     "points": 1285,
+     "position": 2
+    },
+    {
+     "key": "99",
+     "points": 1274,
+     "position": 3
+    },
+    {
+     "key": "22",
+     "points": 1242,
+     "position": 4
+    },
+    {
+     "key": "52",
+     "points": 1131,
+     "position": 5
+    },
+    {
+     "key": "2",
+     "points": 1114,
+     "position": 6
+    },
+    {
+     "key": "8",
+     "points": 1086,
+     "position": 7
+    },
+    {
+     "key": "73",
+     "points": 995,
+     "position": 8
+    },
+    {
+     "key": "11",
+     "points": 959,
+     "position": 9
+    },
+    {
+     "key": "18",
+     "points": 865,
+     "position": 10
+    },
+    {
+     "key": "37",
+     "points": 710,
+     "position": 11
+    },
+    {
+     "key": "343",
+     "points": 325,
+     "position": 12
+    },
+    {
+     "key": "83",
+     "points": 199,
+     "position": 13
+    },
+    {
+     "key": "79",
+     "points": 19,
+     "position": 14
+    }
+   ],
+   "GTD": [
+    {
+     "key": "1",
+     "points": 1910,
+     "position": 1
+    },
+    {
+     "key": "27",
+     "points": 1825,
+     "position": 2
+    },
+    {
+     "key": "4",
+     "points": 1802,
+     "position": 3
+    },
+    {
+     "key": "77",
+     "points": 1766,
+     "position": 4
+    },
+    {
+     "key": "3",
+     "points": 1765,
+     "position": 5
+    },
+    {
+     "key": "14",
+     "points": 1760,
+     "position": 6
+    },
+    {
+     "key": "65",
+     "points": 1742,
+     "position": 7
+    },
+    {
+     "key": "12",
+     "points": 1733,
+     "position": 8
+    },
+    {
+     "key": "96",
+     "points": 1705,
+     "position": 9
+    },
+    {
+     "key": "9",
+     "points": 1618,
+     "position": 10
+    },
+    {
+     "key": "57",
+     "points": 1618,
+     "position": 11
+    },
+    {
+     "key": "64",
+     "points": 1605,
+     "position": 12
+    },
+    {
+     "key": "34",
+     "points": 1537,
+     "position": 13
+    },
+    {
+     "key": "120",
+     "points": 1497,
+     "position": 14
+    },
+    {
+     "key": "59",
+     "points": 1494,
+     "position": 15
+    },
+    {
+     "key": "70",
+     "points": 1373,
+     "position": 16
+    },
+    {
+     "key": "45",
+     "points": 1369,
+     "position": 17
+    },
+    {
+     "key": "13",
+     "points": 1361,
+     "position": 18
+    },
+    {
+     "key": "16",
+     "points": 1272,
+     "position": 19
+    },
+    {
+     "key": "068",
+     "points": 1213,
+     "position": 20
+    },
+    {
+     "key": "66",
+     "points": 1198,
+     "position": 21
+    },
+    {
+     "key": "81",
+     "points": 1165,
+     "position": 22
+    },
+    {
+     "key": "36",
+     "points": 1106,
+     "position": 23
+    },
+    {
+     "key": "911",
+     "points": 868,
+     "position": 24
+    },
+    {
+     "key": "21",
+     "points": 801,
+     "position": 25
+    },
+    {
+     "key": "033",
+     "points": 796,
+     "position": 26
+    },
+    {
+     "key": "80",
+     "points": 791,
+     "position": 27
+    },
+    {
+     "key": "912",
+     "points": 688,
+     "position": 28
+    },
+    {
+     "key": "023",
+     "points": 682,
+     "position": 29
+    },
+    {
+     "key": "62",
+     "points": 670,
+     "position": 30
+    },
+    {
+     "key": "28",
+     "points": 559,
+     "position": 31
+    },
+    {
+     "key": "48",
+     "points": 512,
+     "position": 32
+    },
+    {
+     "key": "44",
+     "points": 456,
+     "position": 33
+    },
+    {
+     "key": "75",
+     "points": 350,
+     "position": 34
+    },
+    {
+     "key": "89",
+     "points": 260,
+     "position": 35
+    },
+    {
+     "key": "68",
+     "points": 236,
+     "position": 36
+    },
+    {
+     "key": "15",
+     "points": 234,
+     "position": 37
+    },
+    {
+     "key": "69",
+     "points": 225,
+     "position": 38
+    },
+    {
+     "key": "177",
+     "points": 202,
+     "position": 39
+    },
+    {
+     "key": "46",
+     "points": 193,
+     "position": 40
+    },
+    {
+     "key": "123",
+     "points": 172,
+     "position": 41
+    }
+   ]
+  }
+ }
+}

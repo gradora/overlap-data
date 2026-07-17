@@ -1,0 +1,43 @@
+name: snapshot
+
+on:
+  schedule:
+    # раз в час; частить не нужно — финалы этапов замораживаются
+    - cron: "17 * * * *"
+  workflow_dispatch: {}
+
+# не запускать параллельные прогоны (перезапись data/)
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Собрать снапшоты IMSA
+        run: npm run imsa
+
+      - name: Закоммитить изменения
+        run: |
+          git config user.name  "overlap-bot"
+          git config user.email "overlap-bot@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "нет изменений"
+          else
+            git commit -m "snapshot $(date -u +%FT%TZ)"
+            git push
+          fi
