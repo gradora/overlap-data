@@ -7,6 +7,7 @@
   "scripts": {
     "imsa": "tsx src/imsa.ts",
     "f1": "tsx src/f1.ts",
+    "wec": "tsx src/wec.ts",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
