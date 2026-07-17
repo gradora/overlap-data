@@ -6,6 +6,7 @@
   "description": "Планировщик снапшотов результатов автогонок для приложения Overlap (старт — IMSA / Al Kamel).",
   "scripts": {
     "imsa": "tsx src/imsa.ts",
+    "f1": "tsx src/f1.ts",
     "typecheck": "tsc --noEmit"
   },
   "engines": {

@@ -30,6 +30,9 @@ jobs:
       - name: Собрать снапшоты IMSA
         run: npm run imsa
 
+      - name: Зеркало F1 (Jolpica)
+        run: npm run f1
+
       - name: Закоммитить изменения
         run: |
           git config user.name  "overlap-bot"
