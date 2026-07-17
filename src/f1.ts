@@ -5,8 +5,12 @@
 // чтобы ключи совпали без знания года. OpenF1 (детали протокола) — TODO, пока
 // приложение падает на прямой OpenF1.
 
+import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { isFrozen } from "./freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
+
+const NOW = Date.now();
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
@@ -56,12 +60,19 @@ async function main() {
   await mirrorPaginated("current/results.json");
   await mirrorPaginated("current/sprint.json");
 
-  // Времена сессий по каждому раунду.
+  // Времена сессий по каждому раунду. Агрегаты выше (results/standings) тянем
+  // всегда — они меняются штрафами/апелляциями (это и есть штраф-безопасность).
+  // А per-round времена сессий неизменны → морозим после 7д от дня гонки.
   const races = schedule?.MRData?.RaceTable?.Races ?? [];
   for (const race of races) {
     const season = String(race.season ?? YEAR);
     const round = String(race.round ?? "");
-    if (round) await mirror(`${season}/${round}.json`);
+    if (!round) continue;
+    const rel = `${season}/${round}.json`;
+    const frozen = race.date && isFrozen(Date.parse(`${race.date}T23:59:59Z`), NOW) &&
+      existsSync(join(OUT_DIR, mirrorSlug(rel)));
+    if (frozen) continue;
+    await mirror(rel);
   }
 
   console.log(`Done. ${races.length} rounds.`);

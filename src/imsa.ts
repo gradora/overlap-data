@@ -15,6 +15,7 @@ import {
   parseSession, pointsDataFolder, pointsFile, resultsFile, Round, rounds,
   sessionInstant, sessions, wallClockISO, weatherTechFolder,
 } from "./alkamel.js";
+import { isFrozen } from "./freeze.js";
 import { matchTrack, SCHEDULE, ScheduleEntry } from "./schedule.js";
 import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
@@ -240,8 +241,13 @@ async function main() {
     const matched = matchedTrack ? allRounds.find((r) => r.track === matchedTrack) : undefined;
 
     let snap: EventSnapshot | null = null;
-    if (existing?.status === "finished") {
-      snap = existing; // заморожен — не рескрейпим
+    // Freeze по возрасту финиша (7д), а НЕ сразу при status=finished: результат
+    // ещё может измениться штрафом/апелляцией в первые ~72ч. existing.end —
+    // старт последней сессии (окно 7д с запасом перекрывает длину гонки).
+    const frozen = existing?.status === "finished" &&
+      isFrozen(existing.end ? Date.parse(existing.end) : null, NOW);
+    if (frozen) {
+      snap = existing!; // оседание завершилось — не рескрейпим
       console.log(`  frozen  R${entry.round} ${fname}`);
     } else if (matched) {
       const weekend = await fetchWeekendSessions(seasonDir, matched);
