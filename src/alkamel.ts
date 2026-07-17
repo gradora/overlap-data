@@ -248,6 +248,12 @@ export function sessionInstant(w: WallClock, venue: string): Date {
   return new Date(wallToUTCms(w, tz ?? "UTC"));
 }
 
+// Wall-clock трассы, помещённый в UTC БЕЗ сдвига (цифры сохранены). Приложение
+// кладёт его в ref.date; его builder сам конвертит поясом трассы.
+export function wallClockISO(w: WallClock): string {
+  return new Date(wallToUTCms(w, "UTC")).toISOString();
+}
+
 // MARK: Классы
 
 export function raceClass(className: string): RaceClass {

@@ -11,7 +11,7 @@ import { join } from "node:path";
 import {
   fetchHTML, fetchJSON, files, lastHourFolder, mergeGTD, parsePointsTable,
   parseSession, pointsDataFolder, pointsFile, resultsFile, Round, rounds,
-  sessionInstant, sessions, weatherTechFolder,
+  sessionInstant, sessions, wallClockISO, weatherTechFolder,
 } from "./alkamel.js";
 import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
@@ -109,6 +109,7 @@ async function fetchWeekendSessions(
       name: ref.name,
       type: parsed?.sessionType ?? "",
       start: sessionInstant(ref.wallClock, r.track).toISOString(),
+      wallClock: wallClockISO(ref.wallClock),
       hasResults: parsed !== null,
       rows: parsed?.rows ?? [],
     });

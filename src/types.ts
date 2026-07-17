@@ -31,7 +31,10 @@ export interface ResultRow {
 export interface Session {
   name: string; // из имени папки: «Race» / «Qualifying» / «Practice 1»
   type: string; // session_type из JSON
-  start: string | null; // ISO-инстант (wall-clock папки + таймзона трассы)
+  start: string | null; // ISO реального инстанта (wall-clock + таймзона трассы)
+  wallClock: string | null; // ISO с цифрами wall-clock трассы В UTC (без сдвига);
+  // приложение кладёт его в ref.date, а builder сам применяет пояс — так
+  // клиентский путь идентичен прямому скрейпу и не конвертит пояс дважды.
   hasResults: boolean;
   rows: ResultRow[];
 }
