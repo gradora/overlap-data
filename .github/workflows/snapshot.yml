@@ -33,6 +33,9 @@ jobs:
       - name: Зеркало F1 (Jolpica)
         run: npm run f1
 
+      - name: Зеркало OpenF1 (детали протокола)
+        run: npm run openf1
+
       - name: Зеркало WEC (fiawec)
         run: npm run wec
 
