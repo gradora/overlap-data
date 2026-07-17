@@ -27,19 +27,43 @@ jobs:
 
       - run: npm ci
 
+      # Продьюсеры — с continue-on-error: один сломанный источник не блокирует
+      # остальные и коммит. Реальный результат каждого уходит в health-шаг через
+      # steps.<id>.outcome; health валит job (→ письмо GitHub), если что-то упало.
       - name: Собрать снапшоты IMSA
+        id: imsa
+        continue-on-error: true
         run: npm run imsa
 
       - name: Зеркало F1 (Jolpica)
+        id: f1
+        continue-on-error: true
         run: npm run f1
 
       - name: Зеркало OpenF1 (детали протокола)
+        id: openf1
+        continue-on-error: true
         run: npm run openf1
 
       - name: Зеркало WEC (fiawec)
+        id: wec
+        continue-on-error: true
         run: npm run wec
 
+      # Пишет data/health.json (дневной heartbeat — держит крон живым в
+      # межсезонье + сигнал устаревания приложению). Реальные результаты
+      # продьюсеров приходят через steps.<id>.outcome. Только пишет файл.
+      - name: Health heartbeat
+        if: always()
+        env:
+          IMSA_OUTCOME: ${{ steps.imsa.outcome }}
+          F1_OUTCOME: ${{ steps.f1.outcome }}
+          OPENF1_OUTCOME: ${{ steps.openf1.outcome }}
+          WEC_OUTCOME: ${{ steps.wec.outcome }}
+        run: npm run health
+
       - name: Закоммитить изменения
+        if: always()
         run: |
           git config user.name  "overlap-bot"
           git config user.email "overlap-bot@users.noreply.github.com"
@@ -48,5 +72,24 @@ jobs:
             echo "нет изменений"
           else
             git commit -m "snapshot $(date -u +%FT%TZ)"
+            git pull --rebase --autostash origin main || true
             git push
           fi
+
+      # Гейт алерта: любой продьюсер с outcome=failure валит job → GitHub шлёт
+      # владельцу письмо. Данные/heartbeat уже закоммичены выше (это отдельный
+      # шаг после), поэтому падение не мешает публикации того, что собралось.
+      - name: Проверка продьюсеров
+        if: always()
+        run: |
+          FAILED=""
+          for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
+                   "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}"; do
+            name="${p%%=*}"; outcome="${p##*=}"
+            if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
+          done
+          if [ -n "$FAILED" ]; then
+            echo "::error::упали продьюсеры:$FAILED — см. data/health.json"
+            exit 1
+          fi
+          echo "все продьюсеры ОК"
