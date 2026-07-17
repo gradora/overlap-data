@@ -7,8 +7,9 @@
 // приложении). Завершённые раунды ЗАМОРАЖИВАЕМ (их сессии неизменны) — иначе
 // каждый прогон долбил бы OpenF1 по всему сезону.
 
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { isFrozen } from "./freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -87,8 +88,9 @@ async function main() {
       continue;
     }
     const key = m.meeting_key;
-    // Freeze: раунд уже замиррорен (файл сессий есть) → сессии неизменны, пропуск.
-    if (existsSync(join(OUT_DIR, mirrorSlug(`sessions?meeting_key=${key}`)))) {
+    // Freeze по возрасту дня гонки (7д): в окне оседания результата ещё тянем
+    // (штраф/апелляция могут поменять классификацию), после — не рескрейпим.
+    if (isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW)) {
       console.log(`  R${r.round}: frozen (meeting ${key})`);
       continue;
     }
