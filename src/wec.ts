@@ -72,16 +72,25 @@ async function main() {
   const slugs = season ? raceSlugs(season) : [];
   for (const slug of slugs) await mirror(`/en/race/${slug}`);
 
-  // Per-race страница результатов (E5) — несёт дропдаун сессий, приложение
-  // берёт из неё sessionId. Per-session результаты (E6) НЕ зеркалим: fiawec
-  // рендерит их таблицу через JS, в сыром HTML её нет — байт-в-байт пусто и у
-  // приложения (не регресс); мирроринг ~50 пустых страниц/час — зря нагрузка.
+  // Per-race страница результатов (E5, дропдаун сессий) + per-session (E6).
+  // E6 fiawec рендерит таблицу только для СЫГРАННЫХ сессий; будущие отдают
+  // пустой HTML (~88КБ) — их не храним (гард «есть <table»), иначе зря
+  // тянем/держим большие пустышки каждый прогон.
   const raceIds = index ? raceOptions(index).map((o) => o.id) : [];
+  let e6 = 0;
   for (const raceId of raceIds) {
-    await mirror(`/en/page/resultats-1?raceId=${raceId}`);
+    const e5 = await mirror(`/en/page/resultats-1?raceId=${raceId}`);
+    const sessionIds = e5 ? sessionOptions(e5).map((o) => o.id) : [];
+    for (const sessionId of sessionIds) {
+      const path = `/en/page/resultats-1?raceId=${raceId}&sessionId=${sessionId}`;
+      const res = await fetchText(`${FIAWEC}${path}`);
+      if (res?.status === 200 && res.text.includes("<table")) {
+        if (writeIfChanged(join(OUT_DIR, mirrorSlug(path)), res.text)) e6++;
+      }
+    }
   }
 
-  console.log(`Done. ${slugs.length} events, ${raceIds.length} raceIds.`);
+  console.log(`Done. ${slugs.length} events, ${raceIds.length} raceIds, ${e6} session results.`);
 }
 
 main().catch((e) => {

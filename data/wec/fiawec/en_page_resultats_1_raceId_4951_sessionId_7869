@@ -570,7 +570,7 @@
                                         </div>
                                         <div class="fs-10 fw-bold lh-1">:</div>
                                         <div class="d-flex align-items-baseline lh-1">
-                                            <div class="fs-10 lh-1 fw-bold" data-countdown="seconds">24</div>
+                                            <div class="fs-10 lh-1 fw-bold" data-countdown="seconds">50</div>
                                             <div class="fs-13 lh-1 ms-1">s</div>
                                         </div>
                                     </div>
@@ -997,7 +997,7 @@
 
                     <div >
                 <div class="pt-8 pt-lg-9">
-    <div  data-controller="live" data-live-name-value="Editorial:CMS:CompleteResultsComponent" data-live-url-value="/en/_components/Editorial:CMS:CompleteResultsComponent" id="live-1755377758-0" data-live-props-value="{&quot;raceId&quot;:4947,&quot;sessionId&quot;:7796,&quot;seasonId&quot;:4175,&quot;categoryId&quot;:4167,&quot;allowedSeasonIds&quot;:[4175,4172],&quot;@attributes&quot;:{&quot;id&quot;:&quot;live-1755377758-0&quot;,&quot;data-host-template&quot;:&quot;b77ef632714720c27ff2545cab960534&quot;,&quot;data-embedded-template-index&quot;:17553777581},&quot;@checksum&quot;:&quot;+PMd5eiD4MPulgOz98WllPBq2EX2XTQPWpYFDufPEIU=&quot;}" is="default-component">
+    <div  data-controller="live" data-live-name-value="Editorial:CMS:CompleteResultsComponent" data-live-url-value="/en/_components/Editorial:CMS:CompleteResultsComponent" id="live-1755377758-0" data-live-props-value="{&quot;raceId&quot;:4951,&quot;sessionId&quot;:7869,&quot;seasonId&quot;:4175,&quot;categoryId&quot;:4167,&quot;allowedSeasonIds&quot;:[4175,4172],&quot;@attributes&quot;:{&quot;id&quot;:&quot;live-1755377758-0&quot;,&quot;data-host-template&quot;:&quot;b77ef632714720c27ff2545cab960534&quot;,&quot;data-embedded-template-index&quot;:17553777581},&quot;@checksum&quot;:&quot;3iyyDDli40ceK1I0Kb3ZhE3cf+uMFIZZa1hiqv7GxtA=&quot;}" is="default-component">
     <div data-loading="show">
     <div class="bg-dark text-light bg-opacity-75 position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center flex-column align-items-center text-center gap-4 zindex-popover">
         <div class="spinner-border" role="status">
@@ -1006,58 +1006,82 @@
     </div>
 </div>
                     <div class="ps-lg-6 ps-xl-10 mb-8 text-center">
-            <img src="/uploads/wec-rl-qatar26-classic-bluexnavy-rgb-69c2932d05ce5953343309.png" style="width:400px;"/>
+            <img src="/uploads/logo-calendrier-lemans-73b5ba-41684b-687f7f1e00e7d775726112.png" style="width:400px;"/>
         </div>
     
     <div class="d-flex flex-row mb-3">
         <div class="flex-column justify-content-start pt-10 pe-2 flex-shrink-0 d-none d-md-flex" style="width: 300px">
-                            <p class="fw-bold text-uppercase">22 - 24 october 2026</p>
+                            <p class="fw-bold text-uppercase">10 - 14 june 2026</p>
             
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7796"
+                   data-live-id-param="7709"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
-                         border-primary bg-primary                          text-nowrap text-truncate px-3 border-start" title="Race">Race</a>
+                         border-gray                          text-nowrap text-truncate px-3 border-start" title="Race">Race</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7795"
+                   data-live-id-param="7869"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
-                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole - HYPERCAR">Hyperpole - HYPERCAR</a>
+                         border-primary bg-primary                          text-nowrap text-truncate px-3 border-start" title="Warm-up">Warm-up</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7794"
+                   data-live-id-param="7868"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
-                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Qualifying - HYPERCAR">Qualifying - HYPERCAR</a>
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Free Practice 4">Free Practice 4</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7793"
+                   data-live-id-param="7867"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
-                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole - LMGT3">Hyperpole - LMGT3</a>
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole 2 - HYPERCAR">Hyperpole 2 - HYPERCAR</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7792"
+                   data-live-id-param="7866"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
-                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Qualifying - LMGT3">Qualifying - LMGT3</a>
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole 1 - HYPERCAR">Hyperpole 1 - HYPERCAR</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7791"
+                   data-live-id-param="7865"
+                   class="d-block fw-bold mb-2 cursor-pointer
+                        p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole 2 - LMP2 &amp; LMGT3">Hyperpole 2 - LMP2 &amp; LMGT3</a>
+                            <a role="button" data-action="live#action"
+                   data-live-action-param="changeSession"
+                   data-live-id-param="7864"
+                   class="d-block fw-bold mb-2 cursor-pointer
+                        p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Hyperpole 1 - LMP2 &amp; LMGT3">Hyperpole 1 - LMP2 &amp; LMGT3</a>
+                            <a role="button" data-action="live#action"
+                   data-live-action-param="changeSession"
+                   data-live-id-param="7861"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
                          border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Free Practice 3">Free Practice 3</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7790"
+                   data-live-id-param="7860"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
                          border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Free Practice 2">Free Practice 2</a>
                             <a role="button" data-action="live#action"
                    data-live-action-param="changeSession"
-                   data-live-id-param="7789"
+                   data-live-id-param="7863"
+                   class="d-block fw-bold mb-2 cursor-pointer
+                        p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Qualifying - HYPERCAR">Qualifying - HYPERCAR</a>
+                            <a role="button" data-action="live#action"
+                   data-live-action-param="changeSession"
+                   data-live-id-param="7862"
+                   class="d-block fw-bold mb-2 cursor-pointer
+                        p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
+                         border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Qualifying - LMP2 &amp; LMGT3">Qualifying - LMP2 &amp; LMGT3</a>
+                            <a role="button" data-action="live#action"
+                   data-live-action-param="changeSession"
+                   data-live-id-param="7859"
                    class="d-block fw-bold mb-2 cursor-pointer
                         p-2 ps-6 text-uppercase fs-10 border-2 bg-opacity-10
                          border-light-silver                          text-nowrap text-truncate px-3 border-start" title="Free Practice 1">Free Practice 1</a>
@@ -1079,11 +1103,11 @@
                         data-model="raceId">
                                                                     <option class="form-check-input"                                 value="4948">ITALY</option>
                                                                     <option class="form-check-input"                                 value="4949">BELGIUM</option>
-                                                                    <option class="form-check-input"                                 value="4951">FRANCE</option>
+                                                                    <option class="form-check-input" selected                                value="4951">FRANCE</option>
                                                                     <option class="form-check-input"                                 value="4952">BRAZIL</option>
                                                                     <option class="form-check-input"                                 value="4953">UNITED STATES</option>
                                                                     <option class="form-check-input"                                 value="4954">JAPAN</option>
-                                                                    <option class="form-check-input" selected                                value="4947">QATAR</option>
+                                                                    <option class="form-check-input"                                 value="4947">QATAR</option>
                                                                     <option class="form-check-input"                                 value="4955">BAHRAIN</option>
                                     </select>
 
@@ -1091,29 +1115,416 @@
                         data-live-action-param="sessionChanged"
                         data-model="sessionId">
                     >
-                                            <option class="form-check-input" selected                                value="7796">RACE</option>
-                                            <option class="form-check-input"                                 value="7795">HYPERPOLE - HYPERCAR</option>
-                                            <option class="form-check-input"                                 value="7794">QUALIFYING - HYPERCAR</option>
-                                            <option class="form-check-input"                                 value="7793">HYPERPOLE - LMGT3</option>
-                                            <option class="form-check-input"                                 value="7792">QUALIFYING - LMGT3</option>
-                                            <option class="form-check-input"                                 value="7791">FREE PRACTICE 3</option>
-                                            <option class="form-check-input"                                 value="7790">FREE PRACTICE 2</option>
-                                            <option class="form-check-input"                                 value="7789">FREE PRACTICE 1</option>
+                                            <option class="form-check-input"                                 value="7709">RACE</option>
+                                            <option class="form-check-input" selected                                value="7869">WARM-UP</option>
+                                            <option class="form-check-input"                                 value="7868">FREE PRACTICE 4</option>
+                                            <option class="form-check-input"                                 value="7867">HYPERPOLE 2 - HYPERCAR</option>
+                                            <option class="form-check-input"                                 value="7866">HYPERPOLE 1 - HYPERCAR</option>
+                                            <option class="form-check-input"                                 value="7865">HYPERPOLE 2 - LMP2 &amp; LMGT3</option>
+                                            <option class="form-check-input"                                 value="7864">HYPERPOLE 1 - LMP2 &amp; LMGT3</option>
+                                            <option class="form-check-input"                                 value="7861">FREE PRACTICE 3</option>
+                                            <option class="form-check-input"                                 value="7860">FREE PRACTICE 2</option>
+                                            <option class="form-check-input"                                 value="7863">QUALIFYING - HYPERCAR</option>
+                                            <option class="form-check-input"                                 value="7862">QUALIFYING - LMP2 &amp; LMGT3</option>
+                                            <option class="form-check-input"                                 value="7859">FREE PRACTICE 1</option>
                                                                                                 </select>
 
                 <select class="form-select text-center fw-bold mb-3 p-3" data-action="live#action"
                         data-live-action-param="changeCategory"
                         data-model="categoryId">
                                                                 <option class="form-check-input" selected                                value="4167">HYPERCAR</option>
-                                            <option class="form-check-input"                                 value="4183">LMGT3</option>
                                             <option class="form-check-input"                                 value="3">LMP2</option>
+                                            <option class="form-check-input"                                 value="4183">LMGT3</option>
                                     </select>
 
             </div>
 
             <div class="flex-grow-1 overflow-x-auto">
-                                    <div class="text-center text-uppercase fs-7 fs-lg-5 mt-3">
-                        Results available soon
+                                                                                                                                                                                                                                                                                                                                                                    <div class="border border-primary p-4 text-center"
+                         style="--bs-bg-opacity: .2; width: 100%;">
+                        <div class="ff-normal text-uppercase fs-7 fs-lg-5 fw-bold mb-lg-2">
+                                                            Hypercar
+                                                         - Final                        </div>
+                        <div class="table-responsive overflow-x-auto">
+                            <table class="table table-sm table-standing table-striped m-0 fs-11 fs-lg-9">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Pos.</th>
+                                                                                                                <th class="text-center text-nowrap">Competitors</th>
+                                        <td>N°</td>
+                                        <th class="text-start">Team</th>
+                                                                                                                <th class="text-center">Best lap</th>
+                                        <th class="text-center">Laps</th>
+                                        <th class="text-center">Gap</th>
+                                        <th class="text-center">Interval</th>
+                                                                                    <th class="text-center">Avg. (km/h)</th>
+                                                                                                                            <th class="text-center">Time of the day</th>
+                                                                                                            </tr>
+                                </thead>
+                                <tbody>
+                                                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">1</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/ferrari-69bc3209850bb730382627.png" alt="FERRARI"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-51-ferrari-droite-6a24388ee2b5f553483886.png" alt="#51"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#51</td>
+                                            <td class="text-start">FERRARI AF CORSE</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:26.540</td>
+                                            <td class="text-center text-nowrap">5</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                                                                            <td class="text-center text-nowrap">237.5</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:07:22</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">2</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/ferrari-69bc3209850bb730382627.png" alt="FERRARI"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-50-ferrari-droite-6a23f42be13ce192484583.png" alt="#50"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#50</td>
+                                            <td class="text-start">FERRARI AF CORSE</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:26.896</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+0.356</td>
+                                            <td class="text-center text-nowrap">+0.356</td>
+                                                                                            <td class="text-center text-nowrap">237.1</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:07:20</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">3</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/toyota-racing-69bc347ea56e0708258382.png" alt="TOYOTA"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-8-toyota-gr010-droite-6a23f429e7199801099749.png" alt="#8"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#8</td>
+                                            <td class="text-start">TOYOTA RACING</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:27.001</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+0.461</td>
+                                            <td class="text-center text-nowrap">+0.105</td>
+                                                                                            <td class="text-center text-nowrap">237</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:07:14</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">4</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/alpine-69bc30dcd9c83626933880.png" alt="ALPINE"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-36-alpine-droite-6a23f42b849da447833868.png" alt="#36"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#36</td>
+                                            <td class="text-start">ALPINE ENDURANCE TEAM</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:27.308</td>
+                                            <td class="text-center text-nowrap">3</td>
+                                            <td class="text-center text-nowrap">+0.768</td>
+                                            <td class="text-center text-nowrap">+0.307</td>
+                                                                                            <td class="text-center text-nowrap">236.6</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:15:00</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">5</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/genesis-69bc32dc0a28d505511707.png" alt="GENESIS"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-19-genesis-droite-6a23f42ae5ffc933140298.png" alt="#19"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#19</td>
+                                            <td class="text-start">GENESIS MAGMA RACING</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:27.310</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+0.770</td>
+                                            <td class="text-center text-nowrap">+0.002</td>
+                                                                                            <td class="text-center text-nowrap">236.6</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:15:03</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">6</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/toyota-racing-69bc347ea56e0708258382.png" alt="TOYOTA"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-7-toyota-gr010-droite-6a26fd966719f513419808.png" alt="#7"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#7</td>
+                                            <td class="text-start">TOYOTA RACING</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:27.369</td>
+                                            <td class="text-center text-nowrap">5</td>
+                                            <td class="text-center text-nowrap">+0.829</td>
+                                            <td class="text-center text-nowrap">+0.059</td>
+                                                                                            <td class="text-center text-nowrap">236.5</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:07:17</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">7</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/alpine-69bc30dcd9c83626933880.png" alt="ALPINE"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-35-alpine-droite-6a2445ca3bcde641089806.png" alt="#35"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#35</td>
+                                            <td class="text-start">ALPINE ENDURANCE TEAM</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.143</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+1.603</td>
+                                            <td class="text-center text-nowrap">+0.774</td>
+                                                                                            <td class="text-center text-nowrap">235.7</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:14:24</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">8</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/cadillac-racing-69bc319a1b2f4121452994.png" alt="CADILLAC"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-38-cadillac-droite-6a2586c3028d2165133795.png" alt="#38"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#38</td>
+                                            <td class="text-start">CADILLAC HERTZ TEAM JOTA</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.156</td>
+                                            <td class="text-center text-nowrap">5</td>
+                                            <td class="text-center text-nowrap">+1.616</td>
+                                            <td class="text-center text-nowrap">+0.013</td>
+                                                                                            <td class="text-center text-nowrap">235.7</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:14:52</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">9</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/bmw-m-69cbe29b5ae27418643786.png" alt="BMW"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-20-bmwm-hybrid-v8-droite-6a23f42b2307f957621104.png" alt="#20"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#20</td>
+                                            <td class="text-start">BMW M TEAM WRT</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.315</td>
+                                            <td class="text-center text-nowrap">5</td>
+                                            <td class="text-center text-nowrap">+1.775</td>
+                                            <td class="text-center text-nowrap">+0.159</td>
+                                                                                            <td class="text-center text-nowrap">235.5</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:17:42</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">10</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/peugeot-69bc3431a5353539683709.png" alt="PEUGEOT"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-93-peugeot-9x8-droite-6a23f45941b5c773534759.png" alt="#93"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#93</td>
+                                            <td class="text-start">PEUGEOT TOTALENERGIES</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.655</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+2.115</td>
+                                            <td class="text-center text-nowrap">+0.340</td>
+                                                                                            <td class="text-center text-nowrap">235.1</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:14:07</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">11</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/aston-martin-69bc311c06c78347141694.png" alt="ASTON MARTIN"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-007-aston-martin-valkyrie-droite-6a23f429b758d200643365.png" alt="#007"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#007</td>
+                                            <td class="text-start">ASTON MARTIN THOR TEAM</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.800</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+2.260</td>
+                                            <td class="text-center text-nowrap">+0.145</td>
+                                                                                            <td class="text-center text-nowrap">234.9</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:17:46</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">12</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/bmw-m-69cbe29b5ae27418643786.png" alt="BMW"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-15-bmwm-hybrid-v8-droite-6a23f42a84871843672959.png" alt="#15"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#15</td>
+                                            <td class="text-start">BMW M TEAM WRT</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.919</td>
+                                            <td class="text-center text-nowrap">5</td>
+                                            <td class="text-center text-nowrap">+2.379</td>
+                                            <td class="text-center text-nowrap">+0.119</td>
+                                                                                            <td class="text-center text-nowrap">234.8</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:17:33</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">13</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/aston-martin-69bc311c06c78347141694.png" alt="ASTON MARTIN"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-009-aston-martin-valkyrie-droite-6a2445c9db7a5747790382.png" alt="#009"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#009</td>
+                                            <td class="text-start">ASTON MARTIN THOR TEAM</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:28.941</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+2.401</td>
+                                            <td class="text-center text-nowrap">+0.022</td>
+                                                                                            <td class="text-center text-nowrap">234.8</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:14:02</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">14</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/cadillac-racing-69bc319a1b2f4121452994.png" alt="CADILLAC"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-101-cadillac-droite-6a26774633fed334664395.png" alt="#101"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#101</td>
+                                            <td class="text-start">CADILLAC WTR</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:30.964</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+4.424</td>
+                                            <td class="text-center text-nowrap">+2.023</td>
+                                                                                            <td class="text-center text-nowrap">232.5</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:17:03</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">15</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/cadillac-racing-69bc319a1b2f4121452994.png" alt="CADILLAC"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-12-cadillac-droite-6a2586c2c8f46935182024.png" alt="#12"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#12</td>
+                                            <td class="text-start">CADILLAC HERTZ TEAM JOTA</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:31.801</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+5.261</td>
+                                            <td class="text-center text-nowrap">+0.837</td>
+                                                                                            <td class="text-center text-nowrap">231.6</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:15:49</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">16</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/genesis-69bc32dc0a28d505511707.png" alt="GENESIS"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-17-genesis-droite-6a23f42ab7564435785600.png" alt="#17"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#17</td>
+                                            <td class="text-start">GENESIS MAGMA RACING</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap">3:35.681</td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">+9.141</td>
+                                            <td class="text-center text-nowrap">+3.880</td>
+                                                                                            <td class="text-center text-nowrap">227.4</td>
+                                                                                                                                        <td class="text-center text-nowrap">12:17:56</td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">17</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/ferrari-69bc3209850bb730382627.png" alt="FERRARI"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-83-ferrari-droite-6a23f42c4b83b193938633.png" alt="#83"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#83</td>
+                                            <td class="text-start">AF CORSE</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap"></td>
+                                            <td class="text-center text-nowrap">4</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                                                                            <td class="text-center text-nowrap"></td>
+                                                                                                                                        <td class="text-center text-nowrap"></td>
+                                                                                    
+                                    </tr>
+                                                                                                                                                                                                                                                                                            <tr>
+                                        <td class="text-center ff-normal fw-extrabold fs-5 lh-1">18</td>
+                                                                                                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                                                                            <img src="/uploads/peugeot-69bc3431a5353539683709.png" alt="PEUGEOT"
+                                                             class="brand-logo"/>
+                                                                                                                                                                <img src="/uploads/2026-lm-94-peugeot-9x8-droite-6a23f45972dd4058598378.png" alt="#94"
+                                                             class="car-illu"/>
+                                                                                                    </div>
+                                            </td>
+                                            <td>#94</td>
+                                            <td class="text-start">PEUGEOT TOTALENERGIES</td>
+                                                                                                                                                                                                                    <td class="text-center text-nowrap"></td>
+                                            <td class="text-center text-nowrap">3</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                            <td class="text-center text-nowrap">-</td>
+                                                                                            <td class="text-center text-nowrap"></td>
+                                                                                                                                        <td class="text-center text-nowrap"></td>
+                                                                                    
+                                    </tr>
+                                                                </tbody>
+                            </table>
+                        </div>
                     </div>
                             </div>
         </div>
@@ -1291,5 +1702,5 @@
 </script>
 </body>
     <script src="/build/runtime.d6698180.js" defer></script><script src="/build/185.bccdd8d2.js" defer></script><script src="/build/858.cb612a21.js" defer></script><script src="/build/379.649b3257.js" defer></script><script src="/build/635.51b0dc9f.js" defer></script><script src="/build/37.85f443ed.js" defer></script><script src="/build/430.ab07762c.js" defer></script><script src="/build/271.350bef2e.js" defer></script><script src="/build/959.76fabff1.js" defer></script><script src="/build/wec.82810dbf.js" defer></script>
-<!-- 2026-07-17 22:58:36 -->
+<!-- 2026-07-17 22:58:11 -->
 </html>
