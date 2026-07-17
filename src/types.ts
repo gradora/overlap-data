@@ -76,7 +76,7 @@ export interface IndexEvent {
   status: EventStatus;
   start: string | null;
   end: string | null;
-  resultsPath: string; // «imsa/2026/08_road-america.json»
+  resultsPath: string | null; // «imsa/2026/08_road-america.json»; null — этап ещё не гонялся
 }
 
 export interface SeasonIndex {

@@ -1,10 +1,12 @@
-// Оркестратор снапшотов IMSA. На каждый прогон:
-//   1) сезон-индекс → раунды (только с WeatherTech-папкой);
-//   2) для раунда: если снапшот уже finished — НЕ трогаем (заморожен), иначе
-//      тянем уикенд, считаем статус, пишем файл;
-//   3) POINTS DATA последнего сыгранного раунда → points.json;
-//   4) собираем index.json из всех снапшотов.
-// Пишем только изменившиеся файлы — git остаётся лёгким, а финалы вечны.
+// Оркестратор снапшотов IMSA. Расписание-driven: индекс строится из курируемого
+// расписания сезона (все 11 раундов, включая БУДУЩИЕ), а прошедшие/текущие
+// обогащаются скрейпом Al Kamel. На каждый прогон:
+//   1) курируемое расписание сезона (schedule.ts) — каркас индекса;
+//   2) сезон-индекс Al Kamel → раунды; матч к расписанию по трассе;
+//   3) сматченный раунд: finished — заморожен; иначе тянем уикенд, пишем файл;
+//   4) будущий раунд (нет данных) — только запись в index (status upcoming);
+//   5) POINTS DATA последнего сыгранного раунда → points.json.
+// Пишем только изменившиеся файлы — git лёгкий, финалы вечны.
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -13,6 +15,7 @@ import {
   parseSession, pointsDataFolder, pointsFile, resultsFile, Round, rounds,
   sessionInstant, sessions, wallClockISO, weatherTechFolder,
 } from "./alkamel.js";
+import { matchTrack, SCHEDULE, ScheduleEntry } from "./schedule.js";
 import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
   RaceClass, SCHEMA_VERSION, SeasonIndex, Session,
@@ -27,8 +30,8 @@ const FINISH_AFTER_MS = 30 * 3600 * 1000; // окно «уикенд ещё live
 const slugify = (s: string): string =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-const fileNameFor = (r: Round): string =>
-  `${String(r.ordinal).padStart(2, "0")}_${slugify(r.track)}.json`;
+const fileNameFor = (entry: ScheduleEntry): string =>
+  `${String(entry.round).padStart(2, "0")}_${slugify(entry.venue)}.json`;
 
 function readJSON<T>(path: string): T | null {
   try {
@@ -130,15 +133,17 @@ function computeStatus(sessionsList: Session[]): EventStatus {
   return anyPast || anyResults ? "live" : "upcoming";
 }
 
-function buildSnapshot(r: Round, wtSessions: Session[], meta: WeekendMeta): EventSnapshot {
+function buildSnapshot(entry: ScheduleEntry, wtSessions: Session[], meta: WeekendMeta): EventSnapshot {
+  // venue/round/name — из расписания (стабильны и совпадают с календарём
+  // приложения); circuit* и сессии — из скрейпа.
   return {
     schemaVersion: SCHEMA_VERSION,
     series: "imsa",
     season: YEAR,
-    round: r.ordinal,
-    slug: slugify(r.track),
-    name: meta.eventName || r.track,
-    venue: r.track,
+    round: entry.round,
+    slug: slugify(entry.venue),
+    name: meta.eventName || entry.name,
+    venue: entry.venue,
     circuitName: meta.circuitName,
     circuitLengthM: meta.circuitLengthM,
     status: computeStatus(wtSessions),
@@ -216,45 +221,59 @@ async function main() {
     process.exit(1);
   }
   const allRounds = rounds(seasonHTML);
-  console.log(`Rounds in season ${YEAR}: ${allRounds.length}`);
+  const schedule = SCHEDULE[YEAR] ?? [];
+  console.log(`Season ${YEAR}: ${schedule.length} scheduled rounds, ${allRounds.length} Al Kamel rounds`);
+  if (schedule.length === 0) {
+    console.error(`No curated schedule for ${YEAR} — add it to src/schedule.ts`);
+    process.exit(1);
+  }
 
   const indexEvents: IndexEvent[] = [];
+  const trackNames = allRounds.map((r) => r.track);
   let wrote = 0;
 
-  for (const r of allRounds) {
-    const fname = fileNameFor(r);
+  for (const entry of schedule) {
+    const fname = fileNameFor(entry);
     const outPath = join(OUT_DIR, fname);
     const existing = readJSON<EventSnapshot>(outPath);
+    const matchedTrack = matchTrack(entry.venue, trackNames);
+    const matched = matchedTrack ? allRounds.find((r) => r.track === matchedTrack) : undefined;
 
-    let snap: EventSnapshot;
+    let snap: EventSnapshot | null = null;
     if (existing?.status === "finished") {
       snap = existing; // заморожен — не рескрейпим
-      console.log(`  frozen  ${fname}`);
-    } else {
-      const weekend = await fetchWeekendSessions(seasonDir, r);
-      if (!weekend) {
-        console.log(`  skip    ${fname} (no WeatherTech yet)`);
-        continue;
-      }
-      snap = buildSnapshot(r, weekend.sessions, weekend.meta);
-      if (writeIfChanged(outPath, snap)) {
-        wrote++;
-        console.log(`  ${snap.status.padEnd(8)}${fname} (${snap.sessions.length} sessions)`);
-      } else {
-        console.log(`  same    ${fname}`);
+      console.log(`  frozen  R${entry.round} ${fname}`);
+    } else if (matched) {
+      const weekend = await fetchWeekendSessions(seasonDir, matched);
+      if (weekend && weekend.sessions.length > 0) {
+        snap = buildSnapshot(entry, weekend.sessions, weekend.meta);
+        if (writeIfChanged(outPath, snap)) {
+          wrote++;
+          console.log(`  ${snap.status.padEnd(8)}R${entry.round} ${fname} (${snap.sessions.length} sessions)`);
+        } else {
+          console.log(`  same    R${entry.round} ${fname}`);
+        }
       }
     }
 
-    indexEvents.push({
-      round: snap.round,
-      slug: snap.slug,
-      name: snap.name,
-      venue: snap.venue,
-      status: snap.status,
-      start: snap.start,
-      end: snap.end,
-      resultsPath: `imsa/${YEAR}/${fname}`,
-    });
+    if (snap) {
+      indexEvents.push({
+        round: entry.round, slug: snap.slug, name: snap.name, venue: entry.venue,
+        status: snap.status, start: snap.start, end: snap.end,
+        resultsPath: `imsa/${YEAR}/${fname}`,
+      });
+    } else {
+      // Будущий раунд (Al Kamel ещё не создал папку) — только в индекс, даты из
+      // расписания, без файла результатов.
+      console.log(`  upcoming R${entry.round} ${slugify(entry.venue)}`);
+      indexEvents.push({
+        round: entry.round, slug: slugify(entry.venue), name: entry.name, venue: entry.venue,
+        status: "upcoming",
+        start: `${entry.startDate}T00:00:00.000Z`,
+        end: `${entry.endDate}T00:00:00.000Z`,
+        resultsPath: null,
+      });
+    }
   }
 
   // POINTS DATA (последний сыгранный раунд).
