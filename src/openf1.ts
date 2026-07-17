@@ -1,0 +1,110 @@
+// Зеркало OpenF1 (детали протокола F1: сессии, классификации, шины) —
+// кэширующий прокси. Тянет ТЕ ЖЕ URL, что приложение (OpenF1Service), и кладёт
+// JSON как есть под f1/openf1/<slug>. Приложение (SnapshotMirror.openF1Path)
+// читает их первым, при промахе — прямой OpenF1.
+//
+// OpenF1 без ключа троттлит ~5 rps → строго последовательно, пауза 0.9с (как в
+// приложении). Завершённые раунды ЗАМОРАЖИВАЕМ (их сессии неизменны) — иначе
+// каждый прогон долбил бы OpenF1 по всему сезону.
+
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
+
+const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
+const OPENF1 = "https://api.openf1.org/v1";
+const OUT_DIR = join(process.cwd(), "data", "f1", "openf1");
+const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
+const NOW = Date.now();
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// Тянем OpenF1-относительный путь (после /v1/), кладём под f1/openf1/<slug>.
+// Базовая пауза 1.2с; на 429 (рейт-лимит) — ретрай с backoff. Возвращает JSON
+// или null (тогда приложение падает на прямой OpenF1 для этого файла).
+async function mirror(relative: string): Promise<any | null> {
+  for (let attempt = 0; attempt <= 3; attempt++) {
+    await sleep(attempt === 0 ? 1200 : 8000 * attempt); // 1.2с; backoff 8/16/24с
+    const res = await fetchText(`${OPENF1}/${relative}`);
+    if (res?.status === 200) {
+      writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), res.text);
+      try {
+        return JSON.parse(res.text);
+      } catch {
+        return null;
+      }
+    }
+    if (res?.status !== 429) {
+      console.log(`  MISS ${relative} (${res?.status ?? "net"})`);
+      return null;
+    }
+    console.log(`  429 ${relative} — retry ${attempt + 1}`);
+  }
+  console.log(`  MISS ${relative} (429 после ретраев)`);
+  return null;
+}
+
+// Завершённые раунды сезона из уже снятого Jolpica-расписания (f1.ts до нас).
+function completedRounds(): { round: string; date: string }[] {
+  try {
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    const races = d?.MRData?.RaceTable?.Races ?? [];
+    return races
+      .filter((r: any) => r.date && Date.parse(`${r.date}T23:59:59Z`) < NOW)
+      .map((r: any) => ({ round: String(r.round), date: String(r.date) }));
+  } catch {
+    return [];
+  }
+}
+
+// Митинг, чей интервал [date_start, date_end] пересекает день гонки (порт
+// OpenF1Service.matchMeeting — Лас-Вегас гонится в ночь между датами).
+function matchMeeting(meetings: any[], raceDate: string): any | undefined {
+  const dayStart = Date.parse(`${raceDate}T00:00:00Z`);
+  const dayEnd = dayStart + 86400000;
+  return meetings.find((m) => {
+    const s = Date.parse(m.date_start);
+    const e = Date.parse(m.date_end ?? m.date_start);
+    if (Number.isNaN(s)) return String(m.date_start ?? "").startsWith(raceDate);
+    return s < dayEnd && (Number.isNaN(e) ? s : e) > dayStart;
+  });
+}
+
+async function main() {
+  console.log(`OpenF1 mirror, season ${YEAR}`);
+  const meetings = await mirror(`meetings?year=${YEAR}`);
+  if (!Array.isArray(meetings)) {
+    console.error("meetings unavailable");
+    process.exit(1);
+  }
+  const rounds = completedRounds();
+  console.log(`  ${rounds.length} completed rounds, ${meetings.length} meetings`);
+
+  for (const r of rounds) {
+    const m = matchMeeting(meetings, r.date);
+    if (!m) {
+      console.log(`  R${r.round}: no meeting for ${r.date}`);
+      continue;
+    }
+    const key = m.meeting_key;
+    // Freeze: раунд уже замиррорен (файл сессий есть) → сессии неизменны, пропуск.
+    if (existsSync(join(OUT_DIR, mirrorSlug(`sessions?meeting_key=${key}`)))) {
+      console.log(`  R${r.round}: frozen (meeting ${key})`);
+      continue;
+    }
+    const sessions = await mirror(`sessions?meeting_key=${key}`);
+    await mirror(`drivers?meeting_key=${key}`);
+    for (const s of Array.isArray(sessions) ? sessions : []) {
+      const sk = s.session_key;
+      await mirror(`session_result?session_key=${sk}`);
+      await mirror(`stints?session_key=${sk}`);
+    }
+    console.log(`  R${r.round}: meeting ${key}, ${(sessions ?? []).length} sessions`);
+  }
+  console.log("Done.");
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
