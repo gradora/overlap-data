@@ -38,10 +38,18 @@ function readJSON<T>(path: string): T | null {
   }
 }
 
-// Пишем только если содержимое изменилось (для git-чистоты).
+// Пишем только если ИЗМЕНИЛИСЬ ДАННЫЕ (generatedAt игнорируем — иначе файл
+// дёргался бы каждый прогон из-за таймстампа и плодил бы пустые коммиты).
+// Итог: generatedAt = «когда данные реально обновились», не «когда бегал джоб».
+const withoutTimestamp = (s: string): string =>
+  s.replace(/"generatedAt": "[^"]*"/g, '"generatedAt": ""');
+
 function writeIfChanged(path: string, obj: unknown): boolean {
   const next = JSON.stringify(obj, null, 1) + "\n";
-  if (existsSync(path) && readFileSync(path, "utf8") === next) return false;
+  if (existsSync(path)) {
+    const prev = readFileSync(path, "utf8");
+    if (withoutTimestamp(prev) === withoutTimestamp(next)) return false;
+  }
   writeFileSync(path, next);
   return true;
 }
