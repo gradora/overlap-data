@@ -115,6 +115,13 @@ async function main() {
   // Каркас: сезон (slugs), индекс результатов (raceId), зачёт производителей.
   const season = await mirror(`/en/season/${YEAR}`);
   const index = await mirror(`/en/page/resultats-1`);
+  // Оба каркасных запроса null → полный отказ fiawec: валим прогон (exit 1),
+  // иначе продьюсер завершится «success» при пустом зеркале и алерт-гейт
+  // промолчит при реальном аутэйдже.
+  if (!season && !index) {
+    console.error("fiawec season+index недоступны — весь прогон бесполезен");
+    process.exit(1);
+  }
   await mirror(`/en/page/manufacturers-classification`);
 
   const slugs = season ? raceSlugs(season) : [];
