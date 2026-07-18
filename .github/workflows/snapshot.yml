@@ -50,6 +50,11 @@ jobs:
         continue-on-error: true
         run: npm run wec
 
+      - name: Решения стюардов FIA (штрафы)
+        id: fia
+        continue-on-error: true
+        run: npm run fia
+
       # Пишет data/health.json (дневной heartbeat — держит крон живым в
       # межсезонье + сигнал устаревания приложению). Реальные результаты
       # продьюсеров приходят через steps.<id>.outcome. Только пишет файл.
@@ -60,6 +65,7 @@ jobs:
           F1_OUTCOME: ${{ steps.f1.outcome }}
           OPENF1_OUTCOME: ${{ steps.openf1.outcome }}
           WEC_OUTCOME: ${{ steps.wec.outcome }}
+          FIA_OUTCOME: ${{ steps.fia.outcome }}
         run: npm run health
 
       - name: Закоммитить изменения
@@ -84,7 +90,8 @@ jobs:
         run: |
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
-                   "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}"; do
+                   "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
+                   "fia=${{ steps.fia.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done
