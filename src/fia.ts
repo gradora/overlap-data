@@ -15,11 +15,15 @@ import { writeIfChanged } from "./mirror.js";
 import { isFrozen } from "./freeze.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
-// Сезонная страница документов F1. Node-id сезона (season-2026-2072) меняется
-// раз в год → СЕЗОННОЕ ОБСЛУЖИВАНИЕ (как курируемое расписание в schedule.ts).
-const SEASON_URL =
-  "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072";
 const FIA_ORIGIN = "https://www.fia.com";
+// Стабильный узел чемпионата F1 («-14» год-инвариантен, в отличие от season-node).
+// Страница сезона содержит Drupal node-id (season-2026-2072), который меняется раз
+// в год — раньше правился вручную; теперь авто-обнаруживается (resolveSeasonUrl).
+const CHAMPIONSHIP_URL =
+  `${FIA_ORIGIN}/documents/championships/fia-formula-one-world-championship-14`;
+// Fallback, если авто-дискавери провалился (структура страницы изменилась) —
+// прежняя ручная константа; правится теперь ТОЛЬКО по warning из логов.
+const SEASON_URL_FALLBACK = `${CHAMPIONSHIP_URL}/season/season-2026-2072`;
 const OUT_DIR = join(process.cwd(), "data", "f1", "fia");
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const NOW = Date.now();
@@ -117,6 +121,19 @@ export function parseDocList(html: string): DocRef[] {
 export function eventSlugFromUrl(url: string): string | null {
   const m = url.match(/decision-document\/\d{4}_([a-z0-9_]+?)_-_/i);
   return m ? m[1].toLowerCase() : null;
+}
+
+// На странице чемпионата — селектор сезонов со ссылками
+// «…/fia-formula-one-world-championship-14/season/season-<year>-<nodeid>».
+// Возвращаем URL сезона за `year` (node-id выводится из ЖИВОЙ страницы, не
+// хардкод). Regex ЗАЯКОРЕН на путь чемпионата-14: иначе `season-2025-2026`
+// (двухлетний сезон Formula E в общей навигации FIA) ложно совпал бы с
+// шаблоном season-<year>-<nodeid> и увёл бы на чужой чемпионат.
+export function findSeasonUrl(championshipHtml: string, year: number): string | null {
+  const m = championshipHtml.match(
+    new RegExp(`fia-formula-one-world-championship-14/season/(season-${year}-\\d+)`, "i"),
+  );
+  return m ? `${CHAMPIONSHIP_URL}/season/${m[1]}` : null;
 }
 
 // Штрафной документ по одной машине: тип-решение + «Car N» в заголовке.
@@ -316,9 +333,23 @@ async function fetchPdfText(url: string): Promise<string | null> {
 
 // ---- Продьюсер ----
 
+// Авто-дискавери URL сезона: со стабильной страницы чемпионата выуживаем
+// node-id за YEAR; провал (структура изменилась / не server-rendered) →
+// прежняя хардкод-константа + warning как сигнал протухания. В худшем случае
+// поведение идентично прежнему, но громкое.
+async function resolveSeasonUrl(): Promise<string> {
+  const champHtml = await fetchHtml(CHAMPIONSHIP_URL);
+  const url = champHtml ? findSeasonUrl(champHtml, YEAR) : null;
+  if (url) return url;
+  console.warn(
+    `FIA: season-${YEAR} не найден на странице чемпионата — fallback ${SEASON_URL_FALLBACK} (проверь node-id вручную)`,
+  );
+  return SEASON_URL_FALLBACK;
+}
+
 async function main() {
   console.log(`FIA decisions, season ${YEAR}`);
-  const html = await fetchHtml(SEASON_URL);
+  const html = await fetchHtml(await resolveSeasonUrl());
   if (!html) {
     console.warn("FIA страница недоступна — пропускаем прогон (толерантно)");
     return;

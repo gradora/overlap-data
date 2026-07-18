@@ -12,6 +12,7 @@ import {
   parseStartingGridDoc,
   matchRound,
   normalizePublished,
+  findSeasonUrl,
 } from "./fia.js";
 
 const ref = (over: Partial<{ doc: number; title: string; url: string; publishedAt: string }> = {}) => ({
@@ -167,4 +168,24 @@ test("matchRound: event-slug → round из расписания Jolpica", () =>
 
 test("normalizePublished: DD.MM.YY HH:MM → сортируемая строка", () => {
   assert.equal(normalizePublished("17.07.26 16:53"), "2026-07-17 16:53 CET");
+});
+
+test("findSeasonUrl: node-id из селектора, не путая с Formula E (path-scoped)", () => {
+  // В общей навигации FIA двухлетний сезон Formula E даёт токен
+  // «season-2026-2027» РАНЬШЕ F1-опции — незаякоренный regex увёл бы туда.
+  const html = `
+    <a href="/events/abb-fia-formula-e-world-championship/season-2026-2027/x">Formula E</a>
+    <select>
+      <option value="/documents/championships/fia-formula-one-world-championship-14/season/season-2025-2071">2025</option>
+      <option value="/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072">2026</option>
+    </select>`;
+  assert.equal(
+    findSeasonUrl(html, 2026),
+    "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072",
+  );
+  assert.equal(
+    findSeasonUrl(html, 2025),
+    "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2025-2071",
+  );
+  assert.equal(findSeasonUrl(html, 2099), null);
 });

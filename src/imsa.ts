@@ -232,6 +232,12 @@ async function main() {
   const indexEvents: IndexEvent[] = [];
   const trackNames = allRounds.map((r) => r.track);
   let wrote = 0;
+  // Staleness-guard курируемого расписания: этап, чей endDate прошёл (+grace),
+  // но так и не сматчился/не скрейпнулся (остался upcoming) — самая опасная тихая
+  // поломка (venue-переименование → matchTrack промахнулся → результаты зависли
+  // в upcoming навсегда). Собираем и печатаем ::warning:: (не валим прогон).
+  const SCHEDULE_GRACE_MS = 48 * 3600 * 1000;
+  const scheduleDrift: string[] = [];
 
   for (const entry of schedule) {
     const fname = fileNameFor(entry);
@@ -272,6 +278,13 @@ async function main() {
       // Будущий раунд (Al Kamel ещё не создал папку) — только в индекс, даты из
       // расписания, без файла результатов.
       console.log(`  upcoming R${entry.round} ${slugify(entry.venue)}`);
+      // Drift: endDate прошёл (+grace), а результатов так и нет → этап навсегда
+      // завис в upcoming. Причина обычно — рассинхрон venue↔track (matchTrack).
+      if (Date.parse(`${entry.endDate}T23:59:59Z`) + SCHEDULE_GRACE_MS < NOW) {
+        scheduleDrift.push(
+          `R${entry.round} «${entry.venue}» (${entry.endDate}) прошёл, но не сматчился с Al Kamel — результаты зависли в upcoming (проверь venue↔track в src/schedule.ts)`,
+        );
+      }
       indexEvents.push({
         round: entry.round, slug: slugify(entry.venue), name: entry.name, venue: entry.venue,
         status: "upcoming",
@@ -281,6 +294,9 @@ async function main() {
       });
     }
   }
+
+  // Сигнал протухания курируемого расписания (не валит прогон — только лог).
+  for (const d of scheduleDrift) console.warn(`::warning::IMSA schedule drift: ${d}`);
 
   // POINTS DATA (последний сыгранный раунд).
   const latestFirst = [...allRounds].sort((a, b) => b.ordinal - a.ordinal);
