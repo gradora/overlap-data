@@ -226,11 +226,14 @@ export function parseStartingGridDoc(text: string, ref: DocRef): FiaStartingGrid
   const gridRegion = penIdx >= 0 ? text.slice(0, penIdx) : text;
   const penRegion = penIdx >= 0 ? text.slice(penIdx) : "";
 
-  // Каждый слот решётки: «<поз> <№> Имя ФАМИЛИЯ [*] Команда <лаптайм>».
-  // Лаптайм-хвост делимитит слоты; из слота берём позицию и номер машины
+  // Каждый слот решётки: «<поз> <№> Имя ФАМИЛИЯ [*] Команда [<лаптайм>]».
+  // Якорь — НАЧАЛО слота «<поз> <№> Имя» (номер+номер+заглавная-строчная имени),
+  // НЕ хвост-лаптайм: у машин без времени (штраф/старт с конца, напр. «21 6
+  // Isack HADJAR *» без лаптайма) хвостовой якорь «проглатывал» следующий слот
+  // (терялся, скажем, Ферстаппен на P2). Из слота берём позицию и номер машины
   // (пилот/команда джойнятся приложением по номеру).
   const entries: FiaGridEntry[] = [];
-  const eRe = /(\d{1,2})\s+(\d{1,2})\s+.+?\s+\d:\d{2}\.\d{3}/g;
+  const eRe = /(\d{1,2})\s+(\d{1,2})\s+[A-Z][a-zà-ÿ]/g;
   let em: RegExpExecArray | null;
   while ((em = eRe.exec(gridRegion))) {
     entries.push({ position: Number(em[1]), car: Number(em[2]) });
