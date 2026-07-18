@@ -92,6 +92,25 @@ test("parseStartingGridDoc: Provisional распознаётся по Title", ()
   assert.equal(g!.kind, "provisional");
 });
 
+test("parseStartingGridDoc: запись БЕЗ лаптайма не теряет следующий слот", () => {
+  // Реальный кейс Spa: у P21 (Hadjar, штраф) нет лаптайма — хвост-якорь
+  // проглатывал бы P2 (Верстаппен). Якорь на начало слота это чинит.
+  const text =
+    "Title Provisional Starting Grid Gerd Ennser " +
+    "1 12 Kimi ANTONELLI Mercedes 1:44.361 " +
+    "21 6 Isack HADJAR * Oracle Red Bull Racing " +   // без лаптайма
+    "2 3 Max VERSTAPPEN Oracle Red Bull Racing 1:44.678 " +
+    "4 16 Charles LECLERC Ferrari 1:44.893 " +
+    "* PENALTIES Car 6 - 30 place grid penalty - x - Stewards' document no. 44";
+  const g = parseStartingGridDoc(text, ref({ doc: 50 }));
+  const byPos = Object.fromEntries(g!.entries.map((e) => [e.position, e.car]));
+  assert.equal(g!.entries.length, 4);
+  assert.equal(byPos[2], 3);    // Верстаппен на P2 НЕ потерян
+  assert.equal(byPos[21], 6);   // Hadjar на P21 есть (без лаптайма)
+  assert.equal(byPos[1], 12);
+  assert.equal(byPos[4], 16);
+});
+
 test("parseDocList + eventSlugFromUrl: обе HTML-структуры (плоская + вложенная)", () => {
   // Структура A (плоская, свежие доки) + структура B (Drupal field-обёртки,
   // старые доки) — FIA рендерит и так, и так; парсер должен ловить обе.
