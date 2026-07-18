@@ -9,8 +9,10 @@
     "f1": "tsx src/f1.ts",
     "openf1": "tsx src/openf1.ts",
     "wec": "tsx src/wec.ts",
+    "fia": "tsx src/fia.ts",
     "health": "tsx src/health.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/*.test.ts"
   },
   "engines": {
     "node": ">=20"
@@ -19,5 +21,8 @@
     "@types/node": "^22.9.0",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "unpdf": "^1.6.2"
   }
 }

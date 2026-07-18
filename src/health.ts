@@ -61,6 +61,7 @@ function main() {
     f1: outcome("F1_OUTCOME"),
     openf1: outcome("OPENF1_OUTCOME"),
     wec: outcome("WEC_OUTCOME"),
+    fia: outcome("FIA_OUTCOME"),
   };
 
   const health = {
@@ -72,6 +73,7 @@ function main() {
       imsa: countFiles("imsa"),
       f1Jolpica: countFiles("f1/jolpica"),
       f1OpenF1: countFiles("f1/openf1"),
+      f1Fia: countFiles("f1/fia"),
       wec: countFiles("wec"),
     },
   };
