@@ -49,8 +49,14 @@ async function mirrorPaginated(pathBase: string): Promise<void> {
 async function main() {
   console.log(`F1 mirror, season ${YEAR}`);
 
-  // Расписание — источник списка раундов.
+  // Расписание — источник списка раундов. null → полный отказ Jolpica: валим
+  // прогон (exit 1), иначе продьюсер завершится «success» при пустом зеркале и
+  // алерт-гейт/health.json промолчат при реальном аутэйдже.
   const schedule = await mirror("current.json");
+  if (!schedule) {
+    console.error("Jolpica current.json недоступен — весь прогон бесполезен");
+    process.exit(1);
+  }
   await mirror("current/next.json");
   await mirror("current/last/results.json");
   await mirror("current/driverStandings.json");
