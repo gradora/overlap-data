@@ -75,8 +75,14 @@ async function main() {
   console.log(`OpenF1 mirror, season ${YEAR}`);
   const meetings = await mirror(`meetings?year=${YEAR}`);
   if (!Array.isArray(meetings)) {
-    console.error("meetings unavailable");
-    process.exit(1);
+    // OpenF1 гейтит анонимный доступ во время ЛАЙВ F1-сессии (401 «Live F1
+    // session in progress… restricted to authenticated users»): ожидаемо и
+    // временно, вернётся после сессии. OpenF1 — вспомогательный (детали
+    // протокола: грид/шины), ядро F1 берётся из Jolpica. Поэтому НЕ валим
+    // прогон (exit 0) и не шлём алерт: зеркало остаётся прежним, пропускаем
+    // этот прогон. exit(1) здесь спамил бы письмами каждый F1-уик-энд.
+    console.warn("OpenF1 meetings недоступны (401 live-gate / сеть) — пропускаем прогон, зеркало без изменений");
+    return;
   }
   const rounds = completedRounds();
   console.log(`  ${rounds.length} completed rounds, ${meetings.length} meetings`);
