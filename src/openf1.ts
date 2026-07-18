@@ -45,13 +45,21 @@ async function mirror(relative: string): Promise<any | null> {
   return null;
 }
 
-// Завершённые раунды сезона из уже снятого Jolpica-расписания (f1.ts до нас).
-function completedRounds(): { round: string; date: string }[] {
+// Раунды, чьи сессии стоит зеркалить: завершённые гонки + ТЕКУЩИЙ уже
+// стартовавший уик-энд. У текущего раунда гонка впереди, но его ранее
+// завершившиеся сессии (FP1..FP3, квала) уже надо снять — иначе они попадут в
+// зеркало только ПОСЛЕ гонки, и приложение до конца гонки не увидит, скажем,
+// FP3 (свалившись на 401/429-хрупкий прямой OpenF1). Уик-энд F1 стартует ~3 дня
+// до гонки (FP1 в пятницу); условие `raceEnd - LEAD < NOW` покрывает и прошедшие
+// гонки (raceEnd < NOW), и текущий уик-энд, а будущие раунды дальше 3 дней —
+// отсекает (следующий подхватится за ~3 дня до своей гонки).
+const WEEKEND_LEAD_MS = 3 * 24 * 3600 * 1000;
+function activeRounds(): { round: string; date: string }[] {
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
     const races = d?.MRData?.RaceTable?.Races ?? [];
     return races
-      .filter((r: any) => r.date && Date.parse(`${r.date}T23:59:59Z`) < NOW)
+      .filter((r: any) => r.date && Date.parse(`${r.date}T23:59:59Z`) - WEEKEND_LEAD_MS < NOW)
       .map((r: any) => ({ round: String(r.round), date: String(r.date) }));
   } catch {
     return [];
@@ -84,8 +92,8 @@ async function main() {
     console.warn("OpenF1 meetings недоступны (401 live-gate / сеть) — пропускаем прогон, зеркало без изменений");
     return;
   }
-  const rounds = completedRounds();
-  console.log(`  ${rounds.length} completed rounds, ${meetings.length} meetings`);
+  const rounds = activeRounds();
+  console.log(`  ${rounds.length} active rounds, ${meetings.length} meetings`);
 
   for (const r of rounds) {
     const m = matchMeeting(meetings, r.date);
@@ -94,20 +102,31 @@ async function main() {
       continue;
     }
     const key = m.meeting_key;
+    const raceEnd = Date.parse(`${r.date}T23:59:59Z`);
     // Freeze по возрасту дня гонки (7д): в окне оседания результата ещё тянем
     // (штраф/апелляция могут поменять классификацию), после — не рескрейпим.
-    if (isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW)) {
+    if (isFrozen(raceEnd, NOW)) {
       console.log(`  R${r.round}: frozen (meeting ${key})`);
       continue;
     }
+    // Гонка ещё впереди → это текущий идущий уик-энд: снимаем ТОЛЬКО уже
+    // завершившиеся сессии (по date_end), чтобы не дёргать пустой session_result
+    // ещё не прошедшей/идущей сессии. (Во время самой ЛАЙВ-сессии OpenF1 401-ит
+    // весь API — до сюда прогон не доходит, main() вышел на meetings.) Для
+    // завершённого раунда (raceEnd < NOW) — все сессии, как раньше.
+    const weekendInProgress = raceEnd >= NOW;
     const sessions = await mirror(`sessions?meeting_key=${key}`);
     await mirror(`drivers?meeting_key=${key}`);
     for (const s of Array.isArray(sessions) ? sessions : []) {
+      if (weekendInProgress) {
+        const end = Date.parse(s.date_end ?? s.date_start ?? "");
+        if (Number.isNaN(end) || end >= NOW) continue;   // сессия ещё не завершилась
+      }
       const sk = s.session_key;
       await mirror(`session_result?session_key=${sk}`);
       await mirror(`stints?session_key=${sk}`);
     }
-    console.log(`  R${r.round}: meeting ${key}, ${(sessions ?? []).length} sessions`);
+    console.log(`  R${r.round}: meeting ${key}, ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
   }
   console.log("Done.");
 }
