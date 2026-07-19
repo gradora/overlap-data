@@ -55,6 +55,33 @@ test("parsePenaltyDoc: грид-дроп извлекается из поля De
   assert.equal(p!.fact, "The following Power Unit element has been used: 4th Control Electronics Unit (PU-CE)");
 });
 
+// --- Реальный текст Doc 63 (штраф Ferrari, unsafe release, Спа-2026): слово
+// «Competitor» живёт ВНУТРИ текста Decision — метки-ранние поля резать его
+// не должны (регрессия: решение обрывалось на «…on condition that the»). ---
+const DOC63 =
+  "2026 BELGIAN GRAND PRIX 17 - 19 July 2026 The Stewards, having received a report " +
+  "from the Race Director, summoned and heard from the team representative and determine the following: " +
+  "No / Driver 44 - Lewis Hamilton Competitor Scuderia Ferrari HP Time 15:45 Session Race " +
+  "Fact Unsafe release of car 44 from a pit stop. " +
+  "Infringement Breach of Article B1.6.2a of the FIA F1 Regulations. " +
+  "Decision The competitor (Scuderia Ferrari HP) is fined €30,000 of which €10,000 is suspended " +
+  "for 12 months on condition that the Competitor does not commit a similar infringement in the " +
+  "meantime and on the further condition that within 14 days the Competitor submits a report to " +
+  "the FIA regarding the incident and protocols introduced to mitigate the risk of such an " +
+  "incident occurring in the future. " +
+  "Reason The Stewards heard from the team representative and reviewed video evidence.";
+
+test("parsePenaltyDoc: «Competitor» внутри Decision не обрезает текст", () => {
+  const p = parsePenaltyDoc(DOC63, ref({ doc: 63, title: "Infringement - Ferrari - Unsafe release of car 44" }));
+  assert.ok(p);
+  assert.equal(p!.car, 44);
+  assert.equal(p!.type, "fine");
+  // Полный текст: оба mid-text «Competitor» пережиты, конец — перед Reason.
+  assert.match(p!.decision, /on condition that the Competitor does not commit/);
+  assert.match(p!.decision, /occurring in the future\.$/);
+  assert.doesNotMatch(p!.decision, /Reason The Stewards/);
+});
+
 test("parsePenaltyDoc: «No further action» → type none, тот же шаблон", () => {
   const p = parsePenaltyDoc(DOC43, ref({ doc: 43, title: "Decision - Car 55 - Alleged failure to slow" }));
   assert.ok(p);
