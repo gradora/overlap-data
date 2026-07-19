@@ -13,6 +13,9 @@ import {
   matchRound,
   normalizePublished,
   findSeasonUrl,
+  raceStartWall,
+  markNextRace,
+  carryOver,
 } from "./fia.js";
 
 const ref = (over: Partial<{ doc: number; title: string; url: string; publishedAt: string }> = {}) => ({
@@ -159,10 +162,12 @@ test("isPenaltyDoc: фильтр штрафных доков", () => {
 test("matchRound: event-slug → round из расписания Jolpica", () => {
   const races = [
     { round: "9", date: "2026-07-05", raceName: "British Grand Prix" },
-    { round: "10", date: "2026-07-19", raceName: "Belgian Grand Prix" },
+    { round: "10", date: "2026-07-19", time: "13:00:00Z", raceName: "Belgian Grand Prix" },
   ];
-  assert.deepEqual(matchRound("belgian_grand_prix", races), { round: 10, raceDate: "2026-07-19" });
-  assert.deepEqual(matchRound("british_grand_prix", races), { round: 9, raceDate: "2026-07-05" });
+  assert.deepEqual(matchRound("belgian_grand_prix", races),
+    { round: 10, raceDate: "2026-07-19", raceTime: "13:00:00Z" });
+  assert.deepEqual(matchRound("british_grand_prix", races),
+    { round: 9, raceDate: "2026-07-05", raceTime: undefined });
   assert.equal(matchRound("hungarian_grand_prix", races), null);
 });
 
@@ -188,4 +193,54 @@ test("findSeasonUrl: node-id из селектора, не путая с Formula
     "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2025-2071",
   );
   assert.equal(findSeasonUrl(html, 2099), null);
+});
+
+test("raceStartWall: UTC-старт Jolpica → парижский wall-clock", () => {
+  // Спа: 13:00 UTC = 15:00 в Париже (лето, CEST) — CET/CEST-метка FIA не важна,
+  // сравнение идёт wall-clock с wall-clock.
+  assert.equal(raceStartWall("2026-07-19", "13:00:00Z"), "2026-07-19 15:00");
+  // Зимний пример: Лас-Вегас 04:00 UTC = 05:00 в Париже (CET).
+  assert.equal(raceStartWall("2026-11-22", "04:00:00Z"), "2026-11-22 05:00");
+  assert.equal(raceStartWall("2026-07-19", undefined), null);
+  assert.equal(raceStartWall("2026-07-19", "garbage"), null);
+});
+
+test("markNextRace: пост-гоночный грид-штраф → next_race, догоночный — race", () => {
+  const wall = raceStartWall("2026-07-19", "13:00:00Z")!; // 15:00 Paris
+  const base = {
+    car: 55, driver: "Carlos Sainz", session: "Qualifying",
+    appliesTo: "race", corrected: false, decision: "d", url: "u",
+  };
+  const pens = [
+    { ...base, doc: 54, type: "grid" as const, gridDrop: 10, publishedAt: "2026-07-19 12:22 CET" },
+    { ...base, doc: 60, type: "grid" as const, gridDrop: 5, publishedAt: "2026-07-19 18:41 CET" },
+    { ...base, doc: 61, type: "time" as const, seconds: 5, publishedAt: "2026-07-19 18:50 CET" },
+    { ...base, doc: 62, type: "grid" as const, gridDrop: 3 }, // без publishedAt — не трогаем
+  ];
+  const out = markNextRace(pens, wall);
+  assert.equal(out[0].appliesTo, "race");       // 12:22 < 15:00 — применён к этой гонке (Сайнц)
+  assert.equal(out[1].appliesTo, "next_race");  // 18:41 > 15:00 — на следующую
+  assert.equal(out[2].appliesTo, "race");       // тайм-штраф — не грид, не трогаем
+  assert.equal(out[3].appliesTo, "race");       // нет даты — толерантно
+  // Без времени гонки — всё как было.
+  assert.equal(markNextRace(pens, null)[1].appliesTo, "race");
+});
+
+test("carryOver: next_race-штрафы предыдущего раунда → race текущего с carriedFrom", () => {
+  const prev = {
+    season: 2026, round: 10, event: "belgian_grand_prix",
+    penalties: [
+      { doc: 60, car: 55, driver: "Carlos Sainz", session: "Race", type: "grid" as const,
+        gridDrop: 5, appliesTo: "next_race", corrected: false, decision: "d", url: "u",
+        publishedAt: "2026-07-19 18:41 CET" },
+      { doc: 61, car: 1, driver: "Lando Norris", session: "Race", type: "time" as const,
+        seconds: 5, appliesTo: "race", corrected: false, decision: "d", url: "u" },
+    ],
+  };
+  const carried = carryOver(prev, 11);
+  assert.equal(carried.length, 1);              // только next_race-грид
+  assert.equal(carried[0].appliesTo, "race");   // в новом раунде — обычный race-штраф
+  assert.equal(carried[0].carriedFrom, 10);
+  assert.equal(carried[0].gridDrop, 5);
+  assert.deepEqual(carryOver(null, 11), []);
 });
