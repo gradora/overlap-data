@@ -60,6 +60,11 @@ jobs:
         continue-on-error: true
         run: npm run winners
 
+      - name: Хайлайты уик-энда (деривация из зеркала)
+        id: highlights
+        continue-on-error: true
+        run: npm run highlights
+
       # Пишет data/health.json (дневной heartbeat — держит крон живым в
       # межсезонье + сигнал устаревания приложению). Реальные результаты
       # продьюсеров приходят через steps.<id>.outcome. Только пишет файл.
@@ -109,7 +114,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "winners=${{ steps.winners.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done
