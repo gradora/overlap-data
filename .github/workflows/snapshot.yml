@@ -76,11 +76,24 @@ jobs:
           git add data
           if git diff --cached --quiet; then
             echo "нет изменений"
-          else
-            git commit -m "snapshot $(date -u +%FT%TZ)"
-            git pull --rebase --autostash origin main || true
-            git push
+            exit 0
           fi
+          git commit -m "snapshot $(date -u +%FT%TZ)"
+          # Устойчивый push: транзиентный сетевой/GitHub-блип или гонка с чужим
+          # коммитом не должны валить job (иначе владельцу летит ложное письмо).
+          # До 5 попыток: подчистить недоделанный rebase от прошлой итерации →
+          # заново rebase на свежий main → push. Выходим по первому успеху.
+          for attempt in 1 2 3 4 5; do
+            git rebase --abort 2>/dev/null || true
+            if git pull --rebase --autostash origin main && git push; then
+              echo "push ок с попытки $attempt"
+              exit 0
+            fi
+            echo "::warning::push не удался (попытка $attempt/5), повтор через 10с"
+            sleep 10
+          done
+          echo "::error::push не удался после 5 попыток"
+          exit 1
 
       # Гейт алерта: любой продьюсер с outcome=failure валит job → GitHub шлёт
       # владельцу письмо. Данные/heartbeat уже закоммичены выше (это отдельный
