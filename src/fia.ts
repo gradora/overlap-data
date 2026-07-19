@@ -329,7 +329,7 @@ export function markNextRace(penalties: FiaPenalty[], wall: string | null): FiaP
 // обычными race-штрафами текущего, с пометкой carriedFrom (по ней приложение
 // не считает их «поздними» — doc-номера разных уик-эндов несравнимы, а FIA
 // заведомо учтёт перенос при составлении решётки нового этапа).
-export function carryOver(prev: FiaEvent | null, intoRound: number): FiaPenalty[] {
+export function carryOver(prev: FiaEvent | null): FiaPenalty[] {
   if (!prev) return [];
   return prev.penalties
     .filter((p) => p.type === "grid" && p.appliesTo === "next_race")
@@ -439,7 +439,7 @@ async function main() {
   } catch {
     /* первого раунда/файла нет — переносить нечего */
   }
-  const carried = carryOver(prev, round);
+  const carried = carryOver(prev);
   if (carried.length) {
     console.log(`  перенос из R${round - 1}: ${carried.length} грид-штраф(а)`);
     penalties.push(...carried);
