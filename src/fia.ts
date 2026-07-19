@@ -8,11 +8,12 @@
 // FIA-PDF чистый (не сканы). Продьюсер ТОЛЕРАНТЕН (как openf1): недоступность
 // fia.com / сбой парсинга одного PDF не валит крон.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
 import { writeIfChanged } from "./mirror.js";
 import { isFrozen } from "./freeze.js";
+import { scheduleSeasonMismatch } from "./season.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const FIA_ORIGIN = "https://www.fia.com";
@@ -306,13 +307,36 @@ export function matchRound(
   return null;
 }
 
-function jolpicaRaces(): { round: string; date: string; time?: string; raceName: string }[] {
+function jolpicaSchedule(): {
+  season: string | null;
+  races: { round: string; date: string; time?: string; raceName: string }[];
+} {
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
-    return d?.MRData?.RaceTable?.Races ?? [];
+    const table = d?.MRData?.RaceTable;
+    return { season: table?.season ?? null, races: table?.Races ?? [] };
   } catch {
-    return [];
+    return { season: null, races: [] };
   }
+}
+
+// Год из сезонного URL FIA («…/season/season-2026-2072» → 2026) — для guard'а
+// протухшего фолбэка.
+export function seasonUrlYear(url: string): number | null {
+  const m = url.match(/season-(\d{4})-\d+/);
+  return m ? Number(m[1]) : null;
+}
+
+// Финальный раунд сезона по существующим файлам «<season>_<round>.json» —
+// источник кросс-сезонного carryOver для R1 (перенос «на следующую гонку»
+// через межсезонье).
+export function finalRoundFile(files: string[], season: number): string | null {
+  let best: number | null = null;
+  for (const f of files) {
+    const m = f.match(new RegExp(`^${season}_(\\d+)\\.json$`));
+    if (m) best = Math.max(best ?? 0, Number(m[1]));
+  }
+  return best != null ? `${season}_${best}.json` : null;
 }
 
 // ---- «Эта гонка vs следующая»: классификация по времени публикации ----
@@ -391,10 +415,19 @@ async function fetchPdfText(url: string): Promise<string | null> {
 // node-id за YEAR; провал (структура изменилась / не server-rendered) →
 // прежняя хардкод-константа + warning как сигнал протухания. В худшем случае
 // поведение идентично прежнему, но громкое.
-async function resolveSeasonUrl(): Promise<string> {
+async function resolveSeasonUrl(): Promise<string | null> {
   const champHtml = await fetchHtml(CHAMPIONSHIP_URL);
   const url = champHtml ? findSeasonUrl(champHtml, YEAR) : null;
   if (url) return url;
+  // Фолбэк за другой год — скрейпить ЧУЖОЙ сезон (январское окно, пока FIA не
+  // создала season-ноду нового года): события 2026 писались бы в файлы 2027_N.
+  // Лучше честный пропуск прогона, чем страница не того сезона.
+  if (seasonUrlYear(SEASON_URL_FALLBACK) !== YEAR) {
+    console.warn(
+      `FIA: season-${YEAR} не найден, а fallback за ${seasonUrlYear(SEASON_URL_FALLBACK)} — пропускаем прогон (обнови SEASON_URL_FALLBACK по появлении ноды сезона)`,
+    );
+    return null;
+  }
   console.warn(
     `FIA: season-${YEAR} не найден на странице чемпионата — fallback ${SEASON_URL_FALLBACK} (проверь node-id вручную)`,
   );
@@ -403,12 +436,23 @@ async function resolveSeasonUrl(): Promise<string> {
 
 async function main() {
   console.log(`FIA decisions, season ${YEAR}`);
-  const seasonHtml = await fetchHtml(await resolveSeasonUrl());
+  const { season: scheduleSeason, races } = jolpicaSchedule();
+  // Гонка флипов: YEAR уже новый, а зеркало Jolpica ещё за прошлый сезон (или
+  // наоборот). Матчить события к чужому календарю — писать прошлогодние штрафы
+  // в файлы нового сезона (backfill за ~12ч отравил бы все раунды).
+  if (scheduleSeasonMismatch(scheduleSeason, YEAR)) {
+    console.warn(
+      `FIA: зеркало расписания за сезон ${scheduleSeason}, YEAR=${YEAR} — переходное окно, пропускаем прогон`,
+    );
+    return;
+  }
+  const seasonUrl = await resolveSeasonUrl();
+  if (!seasonUrl) return;
+  const seasonHtml = await fetchHtml(seasonUrl);
   if (!seasonHtml) {
     console.warn("FIA страница недоступна — пропускаем прогон (толерантно)");
     return;
   }
-  const races = jolpicaRaces();
   const events = parseEventOptions(seasonHtml)
     .map((e) => ({ ...e, m: matchRound(slugifyRace(e.name), races) }))
     .sort((a, b) => (a.m?.round ?? 99) - (b.m?.round ?? 99));
@@ -484,16 +528,29 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   // Пост-гоночные грид-штрафы → «на следующую гонку» (по времени публикации).
   penalties = markNextRace(penalties, raceStartWall(raceDate, raceTime));
 
-  // Перенос next_race-штрафов из предыдущего раунда в текущий.
+  // Перенос next_race-штрафов из предыдущего раунда в текущий. Для R1
+  // «предыдущий» — финал ПРОШЛОГО сезона: грид-штраф, выданный после старта
+  // финала, по спортрегламенту переносится через межсезонье на первую гонку
+  // пилота нового года. Финал ищем по максимальному существующему файлу.
+  let prevFile: string | null = `${YEAR}_${round - 1}.json`;
+  if (round === 1) {
+    let files: string[] = [];
+    try {
+      files = readdirSync(OUT_DIR);
+    } catch {
+      /* директории ещё нет — переносить нечего */
+    }
+    prevFile = finalRoundFile(files, YEAR - 1);
+  }
   let prev: FiaEvent | null = null;
   try {
-    prev = JSON.parse(readFileSync(join(OUT_DIR, `${YEAR}_${round - 1}.json`), "utf8"));
+    if (prevFile) prev = JSON.parse(readFileSync(join(OUT_DIR, prevFile), "utf8"));
   } catch {
     /* первого раунда/файла нет — переносить нечего */
   }
   const carried = carryOver(prev);
   if (carried.length) {
-    console.log(`  перенос из R${round - 1}: ${carried.length} грид-штраф(а)`);
+    console.log(`  перенос из ${prevFile}: ${carried.length} грид-штраф(а)`);
     penalties.push(...carried);
   }
 

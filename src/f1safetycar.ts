@@ -43,7 +43,13 @@ export function raceHadSafetyCar(events: any[]): boolean {
 async function cached(relative: string): Promise<any | null> {
   const path = join(OPENF1_DIR, mirrorSlug(relative));
   if (existsSync(path)) {
-    try { return JSON.parse(readFileSync(path, "utf8")); } catch { return null; }
+    try {
+      const parsed = JSON.parse(readFileSync(path, "utf8"));
+      // Пустой массив — не «вечная история», а слепок пустого пред-сезона
+      // (meetings?year=2027 в январе): перечитываем. Иначе файл никогда бы не
+      // ожил, перестань openf1.ts (шаг раньше в snapshot.yml) его перезаписывать.
+      if (!Array.isArray(parsed) || parsed.length > 0) return parsed;
+    } catch { return null; }
   }
   // 429 (гоночные вечера) — backoff-ретраи как у openf1.ts; недобранное
   // доедет следующими прогонами крона (кэш накапливается).
