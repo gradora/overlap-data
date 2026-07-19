@@ -1,0 +1,361 @@
+{
+  "season": 2026,
+  "round": 9,
+  "event": "british_grand_prix",
+  "updated": "2026-07-05 20:57 CET",
+  "penalties": [
+    {
+      "doc": 28,
+      "car": 41,
+      "driver": "Arvid Lindblad",
+      "session": "Sprint Qualifying",
+      "type": "other",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "fact": "Car 41 exceeded the time limit between the Safety Car lines.",
+      "decision": "Driver: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_41_-_failing_to_follow_race_directors_instructions_sc2-sc1.pdf",
+      "publishedAt": "2026-07-03 20:47 CET"
+    },
+    {
+      "doc": 29,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Sprint Qualifying",
+      "type": "other",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "fact": "Car 23 exceeded the time limit between the Saftey Car lines.",
+      "decision": "Driver: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_23_-_failing_to_follow_race_directors_instructions_sc2-sc1.pdf",
+      "publishedAt": "2026-07-03 20:47 CET"
+    },
+    {
+      "doc": 35,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Sprint Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "The setup of the suspension has been changed while under parc fermé.",
+      "decision": "Required to start the Sprint from the pit lane.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_23_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2026-07-04 11:55 CET"
+    },
+    {
+      "doc": 42,
+      "car": 11,
+      "driver": "Sergio Perez",
+      "session": "Sprint",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "Car 11 collided with Car 14 at Turn 3 on Lap 2.",
+      "decision": "10 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_11_-_causing_a_collision_with_car_14.pdf",
+      "publishedAt": "2026-07-04 14:45 CET"
+    },
+    {
+      "doc": 45,
+      "car": 30,
+      "driver": "Liam Lawson",
+      "session": "Sprint",
+      "type": "other",
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "Abnormal change of direction by Car 30 at Turn 15 (change of direction after the deceleration phase had commenced).",
+      "decision": "Driver: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_30_-_abnormal_change_of_direction.pdf",
+      "publishedAt": "2026-07-04 15:47 CET"
+    },
+    {
+      "doc": 46,
+      "car": 27,
+      "driver": "Nico Hulkenberg",
+      "session": "Sprint",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "Car 27 left the track at Turn 9 at 12:04, without a justifiable reason, and gained a lasting advantage.",
+      "decision": "5 second time penalty imposed after the Sprint.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_27_-_leaving_the_track_and_gaining_an_advantage.pdf",
+      "publishedAt": "2026-07-04 15:53 CET"
+    },
+    {
+      "doc": 58,
+      "car": 31,
+      "driver": "Esteban Ocon",
+      "session": "Qualifying",
+      "type": "none",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "fact": "Car 31 was alleged to have failed to reduce speed under a single waved yellow flag in Turn 13 during Lap 9.",
+      "decision": "No further action.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_decision_-_car_31_-_alleged_yellow_flag_infringement.pdf",
+      "publishedAt": "2026-07-04 19:42 CET"
+    },
+    {
+      "doc": 60,
+      "car": 10,
+      "driver": "Pierre Gasly",
+      "session": "Qualifying",
+      "type": "grid",
+      "gridDrop": 3,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 10 unnecessarily impeded Car 18 at Turn 15 at 16:09.",
+      "decision": "Drop of 3 grid positions for the next Race in which the driver participates.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_10_-_impeding_of_car_18.pdf",
+      "publishedAt": "2026-07-04 20:01 CET"
+    },
+    {
+      "doc": 62,
+      "car": 41,
+      "driver": "Arvid Lindblad",
+      "session": "Qualifying",
+      "type": "fine",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "fact": "Unsafe Release by Car 41 at 17:04.",
+      "decision": "The competitor (Visa Cash App Racing Bulls F1 Team) is fined €5,000.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_41_-_unsafe_release.pdf",
+      "publishedAt": "2026-07-04 20:13 CET"
+    },
+    {
+      "doc": 68,
+      "car": 18,
+      "driver": "Lance Stroll",
+      "session": "Qualifying",
+      "type": "grid",
+      "gridDrop": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "The following Power Unit elements have been used: 5th Energy Store (ES) 5th Control Electronics Unit (PU-CE)",
+      "decision": "Drop of 10 grid positions for the next Race in which the driver participates.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_18_-_pu_elements_changed.pdf",
+      "publishedAt": "2026-07-05 13:48 CET"
+    },
+    {
+      "doc": 71,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Race",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 23 caused a collision with Car 87 at Turn 6.",
+      "decision": "10 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_23_-_causing_a_collision_with_car_87.pdf",
+      "publishedAt": "2026-07-05 17:20 CET"
+    },
+    {
+      "doc": 72,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 44 moved before the start signal was given.",
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_44_-_false_start_-_moving_before_start_signal.pdf",
+      "publishedAt": "2026-07-05 17:20 CET"
+    },
+    {
+      "doc": 75,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "reprimand",
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 44 failed to slow for a single yellow flag at Turn 9 on Lap 38.",
+      "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_44_-_yellow_flags_-_failing_to_slow.pdf",
+      "publishedAt": "2026-07-05 19:37 CET"
+    },
+    {
+      "doc": 77,
+      "car": 12,
+      "driver": "Kimi Antonelli",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 12 left the track at Turn 6 on Lap 44 without a justifiable reason.",
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_12_-_leaving_the_track_multiple_times.pdf",
+      "publishedAt": "2026-07-05 19:49 CET"
+    },
+    {
+      "doc": 78,
+      "car": 18,
+      "driver": "Lance Stroll",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 18 left the track at Turn 18 in Lap 33 without a justifiable reason.",
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_18_-_leaving_the_track_multiple_times.pdf",
+      "publishedAt": "2026-07-05 19:58 CET"
+    },
+    {
+      "doc": 79,
+      "car": 18,
+      "driver": "Lance Stroll",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 18 left the track at Turn 9 in Lap 35 without a justifiable reason.",
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_18_-_leaving_the_track_multiple_times_0.pdf",
+      "publishedAt": "2026-07-05 19:58 CET"
+    },
+    {
+      "doc": 81,
+      "car": 18,
+      "driver": "Lance Stroll",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 18 left the track at Turn 15 in Lap 42 without a justifiable reason.",
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_18_-_leaving_the_track_multiple_times_1.pdf",
+      "publishedAt": "2026-07-05 19:59 CET"
+    },
+    {
+      "doc": 83,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Race",
+      "type": "other",
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 55 overtook the Safety Car after the \"LAPPED CARS MAY NOW OVERTAKE\" message had been displayed, despite not being entitled to do so under Article B5.13.4c of the FIA F1 Regulations.",
+      "decision": "1 Penalty Lap.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_55_-_overtaking_the_safety_car.pdf",
+      "publishedAt": "2026-07-05 20:57 CET"
+    }
+  ],
+  "startingGrid": {
+    "kind": "final",
+    "doc": 70,
+    "entries": [
+      {
+        "position": 1,
+        "car": 12
+      },
+      {
+        "position": 2,
+        "car": 16
+      },
+      {
+        "position": 3,
+        "car": 44
+      },
+      {
+        "position": 4,
+        "car": 63
+      },
+      {
+        "position": 5,
+        "car": 6
+      },
+      {
+        "position": 6,
+        "car": 1
+      },
+      {
+        "position": 7,
+        "car": 3
+      },
+      {
+        "position": 8,
+        "car": 81
+      },
+      {
+        "position": 9,
+        "car": 41
+      },
+      {
+        "position": 10,
+        "car": 30
+      },
+      {
+        "position": 11,
+        "car": 5
+      },
+      {
+        "position": 12,
+        "car": 27
+      },
+      {
+        "position": 13,
+        "car": 87
+      },
+      {
+        "position": 14,
+        "car": 55
+      },
+      {
+        "position": 15,
+        "car": 10
+      },
+      {
+        "position": 16,
+        "car": 23
+      },
+      {
+        "position": 17,
+        "car": 31
+      },
+      {
+        "position": 18,
+        "car": 77
+      },
+      {
+        "position": 19,
+        "car": 43
+      },
+      {
+        "position": 20,
+        "car": 11
+      },
+      {
+        "position": 21,
+        "car": 14
+      },
+      {
+        "position": 22,
+        "car": 18
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 10,
+        "text": "3 place grid penalty - Impeding another driver",
+        "doc": 60
+      },
+      {
+        "car": 18,
+        "text": "10 place grid penalty - Additional power unit elements have been used",
+        "doc": 68
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2026-07-05 15:01 CET"
+  }
+}
