@@ -44,8 +44,9 @@ export interface FiaPenalty {
   seconds?: number;            // type=time: секунд к результату
   pitlane?: boolean;           // type=grid: старт с питлейна
   backOfGrid?: boolean;        // type=grid: старт с конца решётки
-  appliesTo: string;           // «race» | «qualifying» | …: к чему применить
+  appliesTo: string;           // «race» | «next_race» | «qualifying» | …: к чему применить
   corrected: boolean;          // документ «Corrected Infringement» — заменяет ранний
+  carriedFrom?: number;        // перенесён из раунда N (грид-штраф «на следующую гонку»)
   fact?: string;
   decision: string;
   url: string;
@@ -277,25 +278,62 @@ function slugifyRace(name: string): string {
 
 export function matchRound(
   eventSlug: string,
-  races: { round: string; date: string; raceName: string }[],
-): { round: number; raceDate: string } | null {
+  races: { round: string; date: string; time?: string; raceName: string }[],
+): { round: number; raceDate: string; raceTime?: string } | null {
   const country = eventSlug.split("_")[0];
   for (const r of races) {
     const slug = slugifyRace(r.raceName);
     if (slug === eventSlug || slug.startsWith(country + "_") || slug === country) {
-      return { round: Number(r.round), raceDate: r.date };
+      return { round: Number(r.round), raceDate: r.date, raceTime: r.time };
     }
   }
   return null;
 }
 
-function jolpicaRaces(): { round: string; date: string; raceName: string }[] {
+function jolpicaRaces(): { round: string; date: string; time?: string; raceName: string }[] {
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
     return d?.MRData?.RaceTable?.Races ?? [];
   } catch {
     return [];
   }
+}
+
+// ---- «Эта гонка vs следующая»: классификация по времени публикации ----
+
+// Старт гонки (UTC из Jolpica) → парижский wall-clock «YYYY-MM-DD HH:mm».
+// publishedAt у FIA — женевские/парижские часы с меткой «CET» круглый год
+// (лейбл неточен летом), поэтому сравниваем ИМЕННО wall-clock с wall-clock
+// лексикографически — смещение CET/CEST выпадает из уравнения.
+export function raceStartWall(raceDate: string, raceTime?: string): string | null {
+  if (!raceTime) return null;
+  const d = new Date(`${raceDate}T${raceTime}`);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleString("sv-SE", { timeZone: "Europe/Paris" }).slice(0, 16);
+}
+
+// Грид-штраф, опубликованный ПОСЛЕ старта гонки, к этой гонке физически
+// неприменим (решётка отработана) — это перенос «на следующую гонку, в которой
+// пилот участвует». Помечаем appliesTo=next_race: приложение не применяет его
+// к решётке текущего этапа, а продьюсер следующего раунда заберёт (carryOver).
+// Без publishedAt / без времени гонки — не трогаем (толерантно, как раньше).
+export function markNextRace(penalties: FiaPenalty[], wall: string | null): FiaPenalty[] {
+  if (!wall) return penalties;
+  return penalties.map((p) => {
+    if (p.type !== "grid" || !p.publishedAt) return p;
+    return p.publishedAt.slice(0, 16) >= wall ? { ...p, appliesTo: "next_race" } : p;
+  });
+}
+
+// Перенос из предыдущего раунда: его next_race-грид-штрафы становятся
+// обычными race-штрафами текущего, с пометкой carriedFrom (по ней приложение
+// не считает их «поздними» — doc-номера разных уик-эндов несравнимы, а FIA
+// заведомо учтёт перенос при составлении решётки нового этапа).
+export function carryOver(prev: FiaEvent | null, intoRound: number): FiaPenalty[] {
+  if (!prev) return [];
+  return prev.penalties
+    .filter((p) => p.type === "grid" && p.appliesTo === "next_race")
+    .map((p) => ({ ...p, appliesTo: "race", carriedFrom: prev.round }));
 }
 
 // ---- Сеть ----
@@ -369,7 +407,7 @@ async function main() {
     console.warn(`FIA: не сматчил round для ${eventSlug} (нет в расписании Jolpica) — пропускаем`);
     return;
   }
-  const { round, raceDate } = matched;
+  const { round, raceDate, raceTime } = matched;
   // Замораживаем этап через окно оседания после гонки (штрафы могут корректировать
   // до ~7д). Позже — не рескрейпим PDF (вежливо к fia.com; файл остаётся).
   if (isFrozen(Date.parse(`${raceDate}T23:59:59Z`), NOW)) {
@@ -379,7 +417,7 @@ async function main() {
   console.log(`  ${eventSlug} → R${round}, ${docs.length} документов`);
 
   // Штрафы.
-  const penalties: FiaPenalty[] = [];
+  let penalties: FiaPenalty[] = [];
   for (const d of docs.filter((x) => isPenaltyDoc(x.title))) {
     const text = await fetchPdfText(d.url);
     if (!text) {
@@ -390,6 +428,22 @@ async function main() {
     if (p) penalties.push(p);
   }
   penalties.sort((a, b) => a.doc - b.doc);
+
+  // Пост-гоночные грид-штрафы → «на следующую гонку» (по времени публикации).
+  penalties = markNextRace(penalties, raceStartWall(raceDate, raceTime));
+
+  // Перенос next_race-штрафов из предыдущего раунда в текущий.
+  let prev: FiaEvent | null = null;
+  try {
+    prev = JSON.parse(readFileSync(join(OUT_DIR, `${YEAR}_${round - 1}.json`), "utf8"));
+  } catch {
+    /* первого раунда/файла нет — переносить нечего */
+  }
+  const carried = carryOver(prev, round);
+  if (carried.length) {
+    console.log(`  перенос из R${round - 1}: ${carried.length} грид-штраф(а)`);
+    penalties.push(...carried);
+  }
 
   // Официальная стартовая решётка (Final приоритетнее Provisional).
   const gridDocs = docs.filter((d) => /starting grid/i.test(d.title));
