@@ -237,10 +237,10 @@ test("carryOver: next_race-штрафы предыдущего раунда → 
         seconds: 5, appliesTo: "race", corrected: false, decision: "d", url: "u" },
     ],
   };
-  const carried = carryOver(prev, 11);
+  const carried = carryOver(prev);
   assert.equal(carried.length, 1);              // только next_race-грид
   assert.equal(carried[0].appliesTo, "race");   // в новом раунде — обычный race-штраф
   assert.equal(carried[0].carriedFrom, 10);
   assert.equal(carried[0].gridDrop, 5);
-  assert.deepEqual(carryOver(null, 11), []);
+  assert.deepEqual(carryOver(null), []);
 });
