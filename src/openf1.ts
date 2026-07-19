@@ -130,6 +130,9 @@ async function main() {
       // Питстопы (stop_duration = стационарное время) — только гонки/спринты:
       // в практиках остановки гаражные, соревновательного смысла нет.
       if (isRaceLike(s.session_name)) await mirror(`pit?session_key=${sk}`);
+      // Лента рейс-контрола (флаги/SC/инциденты) — по всем сессиям: recap
+      // и в практиках/квалах содержателен.
+      await mirror(`race_control?session_key=${sk}`);
     }
     console.log(`  R${r.round}: meeting ${key}, ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
   }
@@ -143,8 +146,9 @@ function isRaceLike(name: unknown): boolean {
   return n.includes("race") || n.includes("sprint");
 }
 
-// Разовый добор pit-файлов для замороженных раундов: сессии читаем из УЖЕ
-// зеркалированного листинга (без сети), тянем только отсутствующие файлы.
+// Разовый добор файлов для замороженных раундов (ручки, добавленные позже
+// основного зеркала: pit, race_control): сессии читаем из УЖЕ зеркалированного
+// листинга (без сети), тянем только отсутствующие файлы.
 async function backfillPit(meetingKey: number) {
   let sessions: any[];
   try {
@@ -155,11 +159,15 @@ async function backfillPit(meetingKey: number) {
     return;   // листинга нет — раунд не зеркалился вовсе
   }
   for (const s of Array.isArray(sessions) ? sessions : []) {
-    if (!isRaceLike(s.session_name)) continue;
-    const rel = `pit?session_key=${s.session_key}`;
-    if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
-    console.log(`  backfill pit: meeting ${meetingKey}, session ${s.session_key}`);
-    await mirror(rel);
+    const wanted = [
+      ...(isRaceLike(s.session_name) ? [`pit?session_key=${s.session_key}`] : []),
+      `race_control?session_key=${s.session_key}`,
+    ]
+    for (const rel of wanted) {
+      if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
+      console.log(`  backfill ${rel.split("?")[0]}: meeting ${meetingKey}, session ${s.session_key}`);
+      await mirror(rel);
+    }
   }
 }
 
