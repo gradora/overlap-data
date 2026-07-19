@@ -7,7 +7,7 @@
 // приложении). Завершённые раунды ЗАМОРАЖИВАЕМ (их сессии неизменны) — иначе
 // каждый прогон долбил бы OpenF1 по всему сезону.
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
@@ -105,8 +105,10 @@ async function main() {
     const raceEnd = Date.parse(`${r.date}T23:59:59Z`);
     // Freeze по возрасту дня гонки (7д): в окне оседания результата ещё тянем
     // (штраф/апелляция могут поменять классификацию), после — не рескрейпим.
+    // Исключение — разовый добор pit-файлов гонок (ручку /pit добавили позже
+    // основного зеркала): существующие файлы не перетягиваем.
     if (isFrozen(raceEnd, NOW)) {
-      console.log(`  R${r.round}: frozen (meeting ${key})`);
+      await backfillPit(key);
       continue;
     }
     // Гонка ещё впереди → это текущий идущий уик-энд: снимаем ТОЛЬКО уже
@@ -125,10 +127,40 @@ async function main() {
       const sk = s.session_key;
       await mirror(`session_result?session_key=${sk}`);
       await mirror(`stints?session_key=${sk}`);
+      // Питстопы (stop_duration = стационарное время) — только гонки/спринты:
+      // в практиках остановки гаражные, соревновательного смысла нет.
+      if (isRaceLike(s.session_name)) await mirror(`pit?session_key=${sk}`);
     }
     console.log(`  R${r.round}: meeting ${key}, ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
   }
   console.log("Done.");
+}
+
+// «Race»/«Sprint» (но не Sprint Qualifying/Shootout).
+function isRaceLike(name: unknown): boolean {
+  const n = String(name ?? "").toLowerCase();
+  if (n.includes("qual") || n.includes("shootout")) return false;
+  return n.includes("race") || n.includes("sprint");
+}
+
+// Разовый добор pit-файлов для замороженных раундов: сессии читаем из УЖЕ
+// зеркалированного листинга (без сети), тянем только отсутствующие файлы.
+async function backfillPit(meetingKey: number) {
+  let sessions: any[];
+  try {
+    sessions = JSON.parse(
+      readFileSync(join(OUT_DIR, mirrorSlug(`sessions?meeting_key=${meetingKey}`)), "utf8"),
+    );
+  } catch {
+    return;   // листинга нет — раунд не зеркалился вовсе
+  }
+  for (const s of Array.isArray(sessions) ? sessions : []) {
+    if (!isRaceLike(s.session_name)) continue;
+    const rel = `pit?session_key=${s.session_key}`;
+    if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
+    console.log(`  backfill pit: meeting ${meetingKey}, session ${s.session_key}`);
+    await mirror(rel);
+  }
 }
 
 main().catch((e) => {
