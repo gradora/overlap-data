@@ -16,6 +16,8 @@ import {
   raceStartWall,
   markNextRace,
   carryOver,
+  parseEventOptions,
+  slugifyRace,
 } from "./fia.js";
 
 const ref = (over: Partial<{ doc: number; title: string; url: string; publishedAt: string }> = {}) => ({
@@ -243,4 +245,43 @@ test("carryOver: next_race-штрафы предыдущего раунда → 
   assert.equal(carried[0].carriedFrom, 10);
   assert.equal(carried[0].gridDrop, 5);
   assert.deepEqual(carryOver(null), []);
+});
+
+test("parseEventOptions: селектор этапов со страницы сезона", () => {
+  const html = `
+    <option value="0">Event</option>
+    <option value="/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072/event/Chinese%20Grand%20Prix">Chinese Grand Prix</option>
+    <option value="/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072/event/British%20Grand%20Prix">British Grand Prix</option>
+    <option value="/documents/season/season-2026-2072/championships/formula-2-championship-44">Formula 2 Championship</option>`;
+  const evs = parseEventOptions(html);
+  assert.equal(evs.length, 2);   // F2 и служебные option не попали
+  assert.equal(evs[0].name, "Chinese Grand Prix");
+  assert.ok(evs[0].url.startsWith("https://www.fia.com/documents/championships/"));
+  assert.ok(evs[0].url.endsWith("/event/Chinese%20Grand%20Prix"));
+  // Имя из селектора матчится с расписанием Jolpica через slugifyRace.
+  assert.equal(slugifyRace(evs[0].name), "chinese_grand_prix");
+});
+
+test("classifyDecision: питлейн со вставкой сессии + appliesTo спринта", () => {
+  // Китай-2026 doc 68 (Албон): вставка «the Race» между start и from.
+  assert.deepEqual(
+    classifyDecision("Required to start the Race from the pit lane under Article B3.5.3 b)."),
+    { type: "grid", pitlane: true },
+  );
+  // Сильверстоун-2026 doc 35 (Албон): питлейн СПРИНТА.
+  assert.deepEqual(
+    classifyDecision("Required to start the Sprint from the pit lane."),
+    { type: "grid", pitlane: true },
+  );
+  // appliesTo различает: спринт-решение не должно трогать решётку гонки.
+  const sprint = parsePenaltyDoc(
+    DOC23.replace("Drop of 10 grid positions for the next Race in which the driver participates.",
+                  "Required to start the Sprint from the pit lane."),
+    ref());
+  assert.equal(sprint!.appliesTo, "sprint");
+  const race = parsePenaltyDoc(
+    DOC23.replace("Drop of 10 grid positions for the next Race in which the driver participates.",
+                  "Required to start the Race from the pit lane."),
+    ref());
+  assert.equal(race!.appliesTo, "race");
 });

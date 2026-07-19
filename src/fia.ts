@@ -8,7 +8,7 @@
 // FIA-PDF чистый (не сканы). Продьюсер ТОЛЕРАНТЕН (как openf1): недоступность
 // fia.com / сбой парсинга одного PDF не валит крон.
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
 import { writeIfChanged } from "./mirror.js";
@@ -119,8 +119,9 @@ export function parseDocList(html: string): DocRef[] {
 }
 
 // «…/decision-document/2026_belgian_grand_prix_-_infringement…» → «belgian_grand_prix».
+// Дефис в классе символов — ради слагов вида «barcelona-catalunya_grand_prix».
 export function eventSlugFromUrl(url: string): string | null {
-  const m = url.match(/decision-document\/\d{4}_([a-z0-9_]+?)_-_/i);
+  const m = url.match(/decision-document\/\d{4}_([a-z0-9_-]+?)_-_/i);
   return m ? m[1].toLowerCase() : null;
 }
 
@@ -179,7 +180,9 @@ export function classifyDecision(decision: string): {
   let m: RegExpMatchArray | null;
   if ((m = d.match(/drop of (\d+) grid position/))) return { type: "grid", gridDrop: Number(m[1]) };
   if ((m = d.match(/(\d+) grid (?:place|position)s? penalty/))) return { type: "grid", gridDrop: Number(m[1]) };
-  if (/start(?:ing)? from the pit ?lane|pit ?lane start/.test(d)) return { type: "grid", pitlane: true };
+  // «start from the pit lane» и вариант со вставкой сессии: «required to start
+  // the Race/Sprint from the pit lane» (Китай-2026, Албон doc 68).
+  if (/start(?:ing)?(?: the \w+)? from the pit ?lane|pit ?lane start/.test(d)) return { type: "grid", pitlane: true };
   if (/back of the (?:starting )?grid/.test(d)) return { type: "grid", backOfGrid: true };
   if ((m = d.match(/(\d+)\s*second(?:s)? time penalty/))) return { type: "time", seconds: Number(m[1]) };
   if (/disqualif|excluded from/.test(d)) return { type: "dsq" };
@@ -190,6 +193,9 @@ export function classifyDecision(decision: string): {
 }
 
 function appliesTo(decision: string, session: string): string {
+  // Спринт — раньше race-паттернов: «start the Sprint from the pit lane»
+  // относится к решётке СПРИНТА, не гонки (Сильверстоун-2026, Албон doc 35).
+  if (/the sprint\b|sprint in which/i.test(decision)) return "sprint";
   if (/next race|the race\b|race in which/i.test(decision)) return "race";
   const s = session.toLowerCase();
   if (/qualif/.test(s)) return "qualifying";
@@ -272,8 +278,18 @@ export function parseStartingGridDoc(text: string, ref: DocRef): FiaStartingGrid
 
 // ---- Маппинг этап-slug → round (из зеркала расписания Jolpica) ----
 
-function slugifyRace(name: string): string {
+export function slugifyRace(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
+// Селектор этапов на странице сезона: option-ссылки «…/season/…/event/<Name>».
+// Даёт per-event страницы документов — основа бэкфилла прошлых этапов.
+export function parseEventOptions(html: string): { name: string; url: string }[] {
+  const out: { name: string; url: string }[] = [];
+  const re = /<option value="(\/documents\/championships\/fia-formula-one-world-championship-14\/season\/[^"]+\/event\/[^"]+)"[^>]*>([^<]+)<\/option>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html))) out.push({ url: FIA_ORIGIN + m[1], name: m[2].trim() });
+  return out;
 }
 
 export function matchRound(
@@ -387,31 +403,67 @@ async function resolveSeasonUrl(): Promise<string> {
 
 async function main() {
   console.log(`FIA decisions, season ${YEAR}`);
-  const html = await fetchHtml(await resolveSeasonUrl());
-  if (!html) {
+  const seasonHtml = await fetchHtml(await resolveSeasonUrl());
+  if (!seasonHtml) {
     console.warn("FIA страница недоступна — пропускаем прогон (толерантно)");
     return;
   }
-  const docs = parseDocList(html);
-  if (!docs.length) {
-    console.warn("FIA: документы не распарсились — пропускаем");
+  const races = jolpicaRaces();
+  const events = parseEventOptions(seasonHtml)
+    .map((e) => ({ ...e, m: matchRound(slugifyRace(e.name), races) }))
+    .sort((a, b) => (a.m?.round ?? 99) - (b.m?.round ?? 99));
+  if (!events.length) {
+    console.warn("FIA: селектор этапов не распарсился — пропускаем");
     return;
   }
+
+  // Бюджет бэкфилла прошлых этапов за прогон (вежливость к fia.com): недостающие
+  // файлы добираются постепенно, по возрастанию раунда (carryOver читает R-1).
+  // Активный уик-энд (с четверга до заморозки) обрабатывается всегда.
+  let backfill = Number(process.env.FIA_BACKFILL ?? 2);
+  const ACTIVE_LEAD_MS = 4 * 24 * 3600 * 1000;
+
+  for (const ev of events) {
+    if (!ev.m) {
+      console.warn(`  «${ev.name}»: нет в расписании Jolpica — пропускаем`);
+      continue;
+    }
+    const { round, raceDate, raceTime } = ev.m;
+    const raceStartMs = Date.parse(`${raceDate}T00:00:00Z`);
+    // Замораживаем этап через окно оседания после гонки (штрафы могут
+    // корректировать до ~7д). Позже — не рескрейпим (вежливо; файл остаётся).
+    const frozen = isFrozen(Date.parse(`${raceDate}T23:59:59Z`), NOW);
+    const isActive = !frozen && NOW >= raceStartMs - ACTIVE_LEAD_MS;
+    // FIA_FORCE=1 — разовая локальная пересборка существующих файлов
+    // (например, после фикса классификатора).
+    const needsBackfill =
+      (process.env.FIA_FORCE === "1" || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
+      raceStartMs < NOW;
+    if (!isActive && !needsBackfill) continue;
+    if (!isActive) {
+      if (backfill <= 0) continue;
+      backfill--;
+      console.log(`  backfill R${round} (${ev.name})`);
+    }
+    const html = await fetchHtml(ev.url);
+    if (!html) {
+      console.warn(`  R${round}: страница события недоступна`);
+      continue;
+    }
+    const docs = parseDocList(html);
+    if (!docs.length) {
+      console.log(`  R${round}: документов нет`);
+      continue;
+    }
+    await produceEvent(docs, round, raceDate, raceTime);
+  }
+  console.log("Done.");
+}
+
+async function produceEvent(docs: DocRef[], round: number, raceDate: string, raceTime?: string) {
   const eventSlug = docs.map((d) => eventSlugFromUrl(d.url)).find((s): s is string => !!s);
   if (!eventSlug) {
-    console.warn("FIA: не извлёк event-slug — пропускаем");
-    return;
-  }
-  const matched = matchRound(eventSlug, jolpicaRaces());
-  if (!matched) {
-    console.warn(`FIA: не сматчил round для ${eventSlug} (нет в расписании Jolpica) — пропускаем`);
-    return;
-  }
-  const { round, raceDate, raceTime } = matched;
-  // Замораживаем этап через окно оседания после гонки (штрафы могут корректировать
-  // до ~7д). Позже — не рескрейпим PDF (вежливо к fia.com; файл остаётся).
-  if (isFrozen(Date.parse(`${raceDate}T23:59:59Z`), NOW)) {
-    console.log(`  ${eventSlug} (R${round}): frozen`);
+    console.warn(`  R${round}: не извлёк event-slug — пропускаем`);
     return;
   }
   console.log(`  ${eventSlug} → R${round}, ${docs.length} документов`);
@@ -473,7 +525,6 @@ async function main() {
   console.log(
     `  ${penalties.length} штрафов, грид: ${startingGrid ? startingGrid.kind : "нет"} → ${changed ? "записано" : "без изменений"}`,
   );
-  console.log("Done.");
 }
 
 // Запуск только как продьюсер (не при импорте из теста).
