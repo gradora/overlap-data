@@ -10,6 +10,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
 import { writeIfChanged } from "./mirror.js";
+import { scheduleSeasonMismatch } from "./season.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
@@ -61,14 +62,42 @@ async function fetchJSON(url: string): Promise<any | null> {
 async function main() {
   console.log(`F1 milestones, season ${YEAR}`);
   let races: { round: string; date: string }[] = [];
+  let scheduleSeason: string | null = null;
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
-    races = d?.MRData?.RaceTable?.Races ?? [];
+    const table = d?.MRData?.RaceTable;
+    races = table?.Races ?? [];
+    scheduleSeason = table?.season ?? null;
   } catch {
     console.warn("milestones: нет зеркала расписания — пропускаем");
     return;
   }
+  // Гонка флипов: расписание чужого сезона даёт бессмысленный completedRounds
+  // (все даты нового сезона «в будущем») — startsAtRound перезаписал бы
+  // корректный архив прошлого года мусором. Пропускаем до синхронизации.
+  if (scheduleSeasonMismatch(scheduleSeason, YEAR)) {
+    console.warn(
+      `milestones: зеркало расписания за сезон ${scheduleSeason}, YEAR=${YEAR} — переходное окно, пропускаем`,
+    );
+    return;
+  }
   const completedRounds = races.filter((r) => Date.parse(`${r.date}T23:59:59Z`) < NOW).length;
+
+  // Сезон целиком отстоялся (все раунды заморожены и файлы на месте) — юбилеи
+  // уже история, сетевой фазе (список пилотов + ~20 карьерных totals) делать
+  // нечего. Без раннего выхода декабрьские прогоны жгли бы ~20 тыс. пустых
+  // запросов к Jolpica за межсезонье.
+  const settled =
+    races.length > 0 &&
+    races.every(
+      (r) =>
+        isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW) &&
+        existsSync(join(OUT_DIR, `${YEAR}_${Number(r.round)}.json`)),
+    );
+  if (settled) {
+    console.log("milestones: сезон отстоялся — без сетевой фазы");
+    return;
+  }
 
   const driversResp = await fetchJSON(`${JOLPICA}/${YEAR}/drivers.json?limit=40`);
   const drivers = driversResp?.MRData?.DriverTable?.Drivers ?? [];

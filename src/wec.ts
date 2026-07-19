@@ -109,6 +109,20 @@ const isClass = (s: string) => ["HYPERCAR", "LMGT3", "LMP2"].includes(s.toUpperC
 const raceOptions = (html: string) => options(html).filter((o) => !isYear(o.label) && !isSession(o.label) && !isClass(o.label));
 const sessionOptions = (html: string) => options(html).filter((o) => isSession(o.label));
 
+// Сезон YEAR уже «начался» (первый этап в пределах недельного окна)? Пока
+// нет — дропдаун resultats-1 ещё указывает на raceId ПРОШЛОГО сезона: freeze
+// по endMs текущего сезона для них не работает (все даты будущие), и без
+// guard'а E5/E6 всех прошлогодних этапов рескрейпились бы каждый час всю зиму.
+// Пустая карта endMs (страница сезона недоступна и зеркала нет) — тоже «не
+// начался»: решить о заморозке нечем, скрейпить вслепую не надо.
+export function seasonStarted(
+  ends: number[],
+  now: number,
+  leadMs = 7 * 24 * 3600 * 1000,
+): boolean {
+  return ends.length > 0 && Math.min(...ends) <= now + leadMs;
+}
+
 async function main() {
   console.log(`WEC mirror, season ${YEAR}`);
 
@@ -145,6 +159,12 @@ async function main() {
   // E5/E6 не трогаем. E6 fiawec рендерит только для сыгранных сессий (будущие —
   // пустой HTML): храним только с <table.
   const raceOpts = index ? raceOptions(index) : [];
+  if (!seasonStarted(Object.values(endByCountry), NOW)) {
+    console.log(
+      `Done. ${slugs.length} events (${frozenEvents} frozen E3); сезон ${YEAR} не начался — E5/E6 пропущены`,
+    );
+    return;
+  }
   let e6 = 0;
   let frozenRaces = 0;
   for (const o of raceOpts) {
@@ -168,7 +188,10 @@ async function main() {
   console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${raceOpts.length} raceIds (${frozenRaces} frozen), ${e6} session results updated.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Запуск только как продьюсер (не при импорте из теста).
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

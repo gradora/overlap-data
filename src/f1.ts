@@ -16,8 +16,32 @@ const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const OUT_DIR = join(process.cwd(), "data", "f1", "jolpica");
 
+// Год-именованный эквивалент «current»-алиаса: тот же ответ доступен у Jolpica
+// и по явному сезонному пути (current.json ≡ 2026.json, current/driverStandings
+// ≡ 2026/driverStandings и т.д.). Сезон — из САМОГО ответа, не из часов.
+// null — у пути нет годового эквивалента (current/next.json) или сезона нет.
+export function yearEquivalent(relative: string, json: any): string | null {
+  const mr = json?.MRData;
+  const season = mr?.RaceTable?.season ?? mr?.StandingsTable?.season;
+  if (!season) return null;
+  if (relative === "current.json") return `${season}.json`;
+  if (relative === "current/next.json") return null; // «next» относителен, не сезонен
+  if (relative === "current/last/results.json") {
+    const round = mr?.RaceTable?.Races?.[0]?.round;
+    return round ? `${season}/${round}/results.json` : null;
+  }
+  if (relative.startsWith("current/")) return `${season}/${relative.slice("current/".length)}`;
+  return null;
+}
+
 // Тянем Jolpica-относительный путь и кладём под f1/jolpica/<slug>. Возвращает
 // распарсенный JSON (для перечисления раундов/пагинации) или null.
+//
+// Тот же контент дублируем под слаг годового эквивалента пути: при флипе
+// «current» на новый сезон алиасы молча заменяются пустым пред-сезоном, и
+// финал прошлого года (стендинги, последняя гонка, полные results) исчезал бы
+// из зеркала. Год-именованные копии — это слаги НАСТОЯЩИХ Jolpica-эндпоинтов,
+// так что приложение может читать историю mirror-first с живым фолбэком.
 async function mirror(relative: string): Promise<any | null> {
   const res = await fetchText(`${JOLPICA}/${relative}`);
   if (!res || res.status !== 200) {
@@ -26,11 +50,15 @@ async function mirror(relative: string): Promise<any | null> {
   }
   const changed = writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), res.text);
   console.log(`  ${changed ? "write" : "same "} ${relative}`);
+  let json: any = null;
   try {
-    return JSON.parse(res.text);
+    json = JSON.parse(res.text);
   } catch {
     return null;
   }
+  const yearly = yearEquivalent(relative, json);
+  if (yearly) writeIfChanged(join(OUT_DIR, mirrorSlug(yearly)), res.text);
+  return json;
 }
 
 // Пагинация results/sprint: offset += 100, пока offset+100 < total. Каждая
@@ -84,7 +112,10 @@ async function main() {
   console.log(`Done. ${races.length} rounds.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Запуск только как продьюсер (не при импорте из теста).
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

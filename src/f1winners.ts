@@ -8,6 +8,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { writeIfChanged } from "./mirror.js";
+import { scheduleSeasonMismatch } from "./season.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
@@ -101,11 +102,23 @@ async function circuitWinners(circuitId: string): Promise<WinnerRow[] | null> {
 async function main() {
   console.log(`F1 past winners, season ${YEAR}`);
   let races: { round: string; raceName: string; Circuit?: { circuitId?: string } }[] = [];
+  let scheduleSeason: string | null = null;
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
-    races = d?.MRData?.RaceTable?.Races ?? [];
+    const table = d?.MRData?.RaceTable;
+    races = table?.Races ?? [];
+    scheduleSeason = table?.season ?? null;
   } catch {
     console.warn("winners: нет зеркала расписания — пропускаем");
+    return;
+  }
+  // Гонка флипов + write-once: файлы `${YEAR}_R` по календарю ЧУЖОГО сезона
+  // никогда бы не пересобрались (existsSync-скип) — маппинг раунд→трасса
+  // остался бы прошлогодним на весь сезон. Пропускаем до синхронизации.
+  if (scheduleSeasonMismatch(scheduleSeason, YEAR)) {
+    console.warn(
+      `winners: зеркало расписания за сезон ${scheduleSeason}, YEAR=${YEAR} — переходное окно, пропускаем`,
+    );
     return;
   }
   for (const r of races) {

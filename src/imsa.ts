@@ -8,7 +8,7 @@
 //   5) POINTS DATA последнего сыгранного раунда → points.json.
 // Пишем только изменившиеся файлы — git лёгкий, финалы вечны.
 
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import {
   fetchHTML, fetchJSON, files, lastHourFolder, mergeGTD, parsePointsTable,
@@ -213,21 +213,45 @@ async function assemblePoints(
 
 // MARK: main
 
+// Снапшоты раундов сезона уже существуют (NN_*.json)? Отличает пред-сезонье
+// (папки сезона на Al Kamel ещё нет — штатно, индекс собираем из расписания)
+// от аутэйджа источника посреди сезона (валимся, чтобы не деградировать
+// живые данные в upcoming).
+export function hasSeasonSnapshots(fileNames: string[]): boolean {
+  return fileNames.some((f) => /^\d{2}_.+\.json$/.test(f));
+}
+
 async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
-  const seasonDir = `${YEAR % 100}_${YEAR}`;
-  const seasonHTML = await fetchHTML([seasonDir]);
-  if (!seasonHTML) {
-    console.error(`Season index unavailable: ${seasonDir}`);
-    process.exit(1);
-  }
-  const allRounds = rounds(seasonHTML);
   const schedule = SCHEDULE[YEAR] ?? [];
-  console.log(`Season ${YEAR}: ${schedule.length} scheduled rounds, ${allRounds.length} Al Kamel rounds`);
   if (schedule.length === 0) {
     console.error(`No curated schedule for ${YEAR} — add it to src/schedule.ts`);
     process.exit(1);
   }
+  const seasonDir = `${YEAR % 100}_${YEAR}`;
+  const seasonHTML = await fetchHTML([seasonDir]);
+  let allRounds: Round[] = [];
+  if (seasonHTML) {
+    allRounds = rounds(seasonHTML);
+  } else {
+    // Папку сезона Al Kamel создаёт ближе к первому этапу (Дайтона — конец
+    // января). Пока снапшотов сезона нет — это пред-сезонье: календарь в
+    // приложении нужен уже 1 января, поэтому пишем индекс из курируемого
+    // расписания (все upcoming), результаты подтянутся с появлением папки.
+    // А вот при живых снапшотах отсутствие индекса — аутэйдж: fail-loud.
+    let existing: string[] = [];
+    try {
+      existing = readdirSync(OUT_DIR);
+    } catch {
+      /* директории нет — снапшотов точно нет */
+    }
+    if (hasSeasonSnapshots(existing)) {
+      console.error(`Season index unavailable: ${seasonDir}`);
+      process.exit(1);
+    }
+    console.warn(`Season index unavailable: ${seasonDir} — пред-сезонье, индекс из курируемого расписания`);
+  }
+  console.log(`Season ${YEAR}: ${schedule.length} scheduled rounds, ${allRounds.length} Al Kamel rounds`);
 
   const indexEvents: IndexEvent[] = [];
   const trackNames = allRounds.map((r) => r.track);
@@ -321,7 +345,10 @@ async function main() {
   console.log(`Done. ${indexEvents.length} events, ${wrote} files changed.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Запуск только как продьюсер (не при импорте из теста).
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
