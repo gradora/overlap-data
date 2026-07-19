@@ -158,14 +158,17 @@ const FIELD_LABELS = [
   "Offence", "Infringement", "Decision", "Reason",
 ];
 
-// Значение поля `label` = текст до ближайшей следующей метки.
+// Значение поля `label` = текст до ближайшей ПОЗДНЕЙ метки шаблона. Ранние
+// метки значение резать не должны: они уже встретились ДО этого поля, а их
+// слова живут и внутри текстов — «…on condition that the Competitor…» в
+// Decision обрезался на слове Competitor (штраф Хэмилтона, Спа-2026 doc 63),
+// «Lap Time» в Fact — на слове Time.
 function field(body: string, label: string): string | null {
   const start = body.indexOf(label + " ");
   if (start < 0) return null;
   const from = start + label.length + 1;
   let end = body.length;
-  for (const nl of FIELD_LABELS) {
-    if (nl === label) continue;
+  for (const nl of FIELD_LABELS.slice(FIELD_LABELS.indexOf(label) + 1)) {
     const i = body.indexOf(" " + nl + " ", from);
     if (i >= 0 && i < end) end = i;
   }
