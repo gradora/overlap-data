@@ -1,7 +1,7 @@
 // Тесты деривации хайлайтов уик-энда из зеркала OpenF1.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bestSeconds, computeFastestLap, formatLap, sessionTag, shortDriver } from "./f1highlights.js";
+import { bestSeconds, computeFastestLap, computeFastestPitStop, formatLap, raceTag, sessionTag, shortDriver } from "./f1highlights.js";
 
 test("sessionTag: круговые сессии, гонки — нет", () => {
   assert.equal(sessionTag("Practice 1"), "FP1");
@@ -50,4 +50,36 @@ test("computeFastestLap: минимум по круговым сессиям, и
 test("shortDriver: инициал + фамилия, фолбэк broadcast", () => {
   assert.equal(shortDriver("Kimi", "Antonelli"), "K. Antonelli");
   assert.equal(shortDriver(undefined, undefined, "M VERSTAPPEN"), "M VERSTAPPEN");
+});
+
+test("computeFastestPitStop: минимум stop_duration по гонкам, практика — мимо", () => {
+  const sessions = [
+    { session_key: 1, session_name: "Practice 1" },
+    { session_key: 2, session_name: "Sprint" },
+    { session_key: 3, session_name: "Race" },
+    { session_key: 4, session_name: "Sprint Qualifying" },
+  ];
+  const pits = new Map<number, any[]>([
+    [1, [{ driver_number: 4, stop_duration: 1.0 }]],          // практика — игнор
+    [2, [{ driver_number: 4, stop_duration: 2.6 }]],
+    [3, [{ driver_number: 16, stop_duration: 2.3 }, { driver_number: 4, stop_duration: null }]],
+    [4, [{ driver_number: 4, stop_duration: 0.5 }]],          // спринт-квала — игнор
+  ]);
+  const drivers = [
+    { driver_number: 4, first_name: "Lando", last_name: "Norris" },
+    { driver_number: 16, first_name: "Charles", last_name: "Leclerc" },
+  ];
+  const stop = computeFastestPitStop(sessions, pits, drivers)!;
+  assert.equal(stop.seconds, 2.3);
+  assert.equal(stop.driver, "C. Leclerc");
+  assert.equal(stop.tag, "R");
+  assert.equal(computeFastestPitStop(sessions, new Map(), drivers), null);
+});
+
+test("raceTag: гонки да, квалы нет", () => {
+  assert.equal(raceTag("Race"), "R");
+  assert.equal(raceTag("Sprint"), "SPR");
+  assert.equal(raceTag("Sprint Qualifying"), null);
+  assert.equal(raceTag("Qualifying"), null);
+  assert.equal(raceTag("Practice 1"), null);
 });

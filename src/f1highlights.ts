@@ -5,9 +5,8 @@
 // 401-гейтится во время лайв-сессий и туго дышит в гоночный день).
 // Замороженные раунды с существующим файлом не пересчитываем.
 
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeIfChanged } from "./mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -23,10 +22,18 @@ export interface FastestLap {
   tag: string;       // «FP1..FP3» | «Q» | «SQ»
 }
 
+export interface FastestPitStop {
+  time: string;      // «2.3» (stop_duration OpenF1 — стационарное время)
+  seconds: number;
+  driver: string;    // «C. Leclerc»
+  tag: string;       // «R» | «SPR»
+}
+
 export interface RoundHighlights {
   season: number;
   round: number;
   fastestLap?: FastestLap;
+  fastestPitStop?: FastestPitStop;
 }
 
 function readMirror(relative: string): any | null {
@@ -67,6 +74,42 @@ export function formatLap(seconds: number): string {
 export function shortDriver(first?: string, last?: string, fallback?: string): string {
   if (first && last) return `${first[0]}. ${last}`;
   return fallback ?? "";
+}
+
+// «Race» → R, «Sprint» → SPR; квалы/прочее — null (питстопы значимы в гонках).
+export function raceTag(name: string): string | null {
+  const n = name.toLowerCase();
+  if (n.includes("qual") || n.includes("shootout")) return null;
+  if (n.includes("sprint")) return "SPR";
+  if (n.includes("race")) return "R";
+  return null;
+}
+
+// Быстрейший питстоп уик-энда: минимум stop_duration (стационарное время
+// OpenF1) по гоночным сессиям.
+export function computeFastestPitStop(
+  sessions: { session_key: number; session_name: string }[],
+  pitBySession: Map<number, any[]>,
+  drivers: any[],
+): FastestPitStop | null {
+  const byNumber = new Map<number, any>(drivers.map((d) => [d.driver_number, d]));
+  let best: FastestPitStop | null = null;
+  for (const s of sessions) {
+    const tag = raceTag(s.session_name);
+    if (!tag) continue;
+    for (const row of pitBySession.get(s.session_key) ?? []) {
+      const sec = row.stop_duration;
+      if (typeof sec !== "number" || sec <= 0 || (best && sec >= best.seconds)) continue;
+      const d = byNumber.get(row.driver_number);
+      best = {
+        time: String(sec),
+        seconds: sec,
+        driver: shortDriver(d?.first_name, d?.last_name, d?.broadcast_name),
+        tag,
+      };
+    }
+  }
+  return best;
 }
 
 export function computeFastestLap(
@@ -122,10 +165,12 @@ async function main() {
     console.warn("highlights: нет зеркала meetings — пропускаем");
     return;
   }
+  // Деривация чисто офлайн (сеть не трогаем) → пересчитываем ВСЕ прошедшие
+  // раунды каждый прогон: writeIfChanged держит git чистым, а обновление
+  // формата/зеркала само доезжает до старых файлов.
   for (const r of races) {
     const round = Number(r.round);
     const path = join(OUT_DIR, `${YEAR}_${round}.json`);
-    if (isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW) && existsSync(path)) continue;
     const meeting = matchMeeting(meetings, r.date);
     if (!meeting) continue;
     const sessions = readMirror(`sessions?meeting_key=${meeting.meeting_key}`);
@@ -135,14 +180,26 @@ async function main() {
       continue;
     }
     const results = new Map<number, any[]>();
+    const pits = new Map<number, any[]>();
     for (const s of sessions) {
       const rows = readMirror(`session_result?session_key=${s.session_key}`);
       if (Array.isArray(rows)) results.set(s.session_key, rows);
+      const pit = readMirror(`pit?session_key=${s.session_key}`);
+      if (Array.isArray(pit)) pits.set(s.session_key, pit);
     }
     const lap = computeFastestLap(sessions, results, drivers);
-    const out: RoundHighlights = { season: YEAR, round, ...(lap ? { fastestLap: lap } : {}) };
+    const stop = computeFastestPitStop(sessions, pits, drivers);
+    const out: RoundHighlights = {
+      season: YEAR,
+      round,
+      ...(lap ? { fastestLap: lap } : {}),
+      ...(stop ? { fastestPitStop: stop } : {}),
+    };
     const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
-    console.log(`  R${round}: ${lap ? `${lap.time} ${lap.driver} (${lap.tag})` : "нет круга"} → ${changed ? "записано" : "без изменений"}`);
+    console.log(
+      `  R${round}: ${lap ? `${lap.time} ${lap.driver} (${lap.tag})` : "нет круга"}` +
+      `${stop ? `, пит ${stop.time} ${stop.driver}` : ""} → ${changed ? "записано" : "без изменений"}`,
+    );
   }
   console.log("Done.");
 }
