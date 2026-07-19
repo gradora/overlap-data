@@ -14,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx --test src/*.test.ts",
     "winners": "tsx src/f1winners.ts",
-    "highlights": "tsx src/f1highlights.ts"
+    "highlights": "tsx src/f1highlights.ts",
+    "milestones": "tsx src/f1milestones.ts",
+    "safetycar": "tsx src/f1safetycar.ts"
   },
   "engines": {
     "node": ">=20"
