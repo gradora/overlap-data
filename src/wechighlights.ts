@@ -13,6 +13,7 @@ import {
   fetchAkText, parseAkCsv, pickRaceCsv,
 } from "./alkamelwec.js";
 import { eventInfo } from "./wec.js";
+import { crewSurnames } from "./wecwinners.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "highlights");
@@ -43,6 +44,16 @@ export interface WecRoundHighlights {
   /// Нейтрализации гонки: периоды FCY/SF по флагу на финишной линии
   /// референс-машины (максимум кругов) + суммарное время под жёлтыми.
   cautions?: { fcy: number; seconds: number };
+  /// Победители классов гонки — из финальной Classification (fiawec-страница
+  /// отдаёт только головной класс, полная таблица живёт в архиве Al Kamel).
+  classWinners?: WecClassWinner[];
+}
+
+export interface WecClassWinner {
+  class: string;   // «HYPERCAR» / «LMGT3»
+  car: string;
+  team: string;
+  crew: string;    // фамилии через « / »
 }
 
 /// «Kevin MAGNUSSEN» → «K. MAGNUSSEN» (фамилия у Al Kamel капсом).
@@ -147,6 +158,27 @@ export function raceCautions(
   return { fcy: periods, seconds: Math.round(seconds) };
 }
 
+/// Победители классов из строк финальной Classification: минимальная сквозная
+/// POSITION в каждом CLASS.
+export function classWinnersFromClassification(rows: Record<string, string>[]): WecClassWinner[] {
+  const best = new Map<string, Record<string, string>>();
+  for (const r of rows) {
+    const cls = (r.CLASS ?? "").trim();
+    const pos = Number((r.POSITION ?? "").trim());
+    if (!cls || !Number.isFinite(pos) || pos <= 0) continue;
+    const prev = best.get(cls);
+    if (!prev || pos < Number(prev.POSITION)) best.set(cls, r);
+  }
+  return [...best.entries()]
+    .sort((a, b) => Number(a[1].POSITION) - Number(b[1].POSITION))
+    .map(([cls, r]) => ({
+      class: cls,
+      car: (r.NUMBER ?? "").trim(),
+      team: (r.TEAM ?? "").trim(),
+      crew: crewSurnames(r),
+    }));
+}
+
 function raceMirror(slug: string): string | null {
   const key = `en_race_${slug.replace(/[^a-z0-9.]+/gi, "_")}`;
   try {
@@ -181,6 +213,10 @@ async function main() {
       continue;
     }
     const out = raceHighlights(parseAkCsv(csv), YEAR, ev.round);
+    const clsHref = pickRaceCsv(hrefs, "Classification");
+    const clsCsv = clsHref ? await fetchAkText(`${ALKAMEL_WEC}/${clsHref}`, 60000) : null;
+    const classWinners = clsCsv ? classWinnersFromClassification(parseAkCsv(clsCsv)) : [];
+    if (classWinners.length > 1) out.classWinners = classWinners;
     const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
     console.log(
       `  R${ev.round} (${ev.label}): круг ${out.fastestLap?.time ?? "—"} ${out.fastestLap?.driver ?? ""}, ` +
