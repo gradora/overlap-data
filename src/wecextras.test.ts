@@ -79,6 +79,12 @@ test("winners: экипаж, победитель, кумулятив, спан-
   };
   assert.equal(crewSurnames(row), "MAGNUSSEN / MARCIELLO / VANTHOOR");
   assert.equal(crewSurnames({ DRIVER_1: "Alessandro PIER GUIDI" }), "PIER GUIDI");
+  // Старый макет CSV (Спа-2024): DRIVERn_FIRSTNAME/SECONDNAME вместо DRIVER_n.
+  assert.equal(crewSurnames({
+    DRIVER1_FIRSTNAME: "Will", DRIVER1_SECONDNAME: "STEVENS",
+    DRIVER2_FIRSTNAME: "Callum", DRIVER2_SECONDNAME: "ILOTT",
+    DRIVER3_FIRSTNAME: "", DRIVER3_SECONDNAME: "",
+  }), "STEVENS / ILOTT");
   assert.equal(overallWinner([{ POSITION: "2" }, row])!.TEAM, "BMW M Team WRT");
 
   const winners = buildWecWinners([
