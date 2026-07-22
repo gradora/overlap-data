@@ -55,6 +55,21 @@ jobs:
         continue-on-error: true
         run: npm run wecfia
 
+      - name: Хайлайты гонок WEC (Al Kamel)
+        id: wechighlights
+        continue-on-error: true
+        run: npm run wechighlights
+
+      - name: Победители трасс WEC (Al Kamel)
+        id: wecwinners
+        continue-on-error: true
+        run: npm run wecwinners
+
+      - name: SC/FCY-статистика WEC (Al Kamel)
+        id: wecsafetycar
+        continue-on-error: true
+        run: npm run wecsafetycar
+
       - name: Решения стюардов FIA (штрафы)
         id: fia
         continue-on-error: true
@@ -129,7 +144,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done
