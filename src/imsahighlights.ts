@@ -86,6 +86,41 @@ export function imsaDriveThroughCounts(csv: string): Map<string, number> {
   return out;
 }
 
+/// Медиана честных пит-проездов гонки (после drive-through-фильтра и порога).
+/// «78.4» → «1:18.4»: медиана эндуранс-пита бывает за минуту.
+function medianLabel(seconds: number): string {
+  if (seconds < 60) return seconds.toFixed(1);
+  const m = Math.floor(seconds / 60);
+  const s = seconds - m * 60;
+  return `${m}:${s.toFixed(1).padStart(4, "0")}`;
+}
+
+export function imsaMedianPitStop(
+  json: unknown,
+  driveThroughs: Map<string, number> = new Map(),
+): { time: string; seconds: number } | null {
+  const cars = (json as PitStopsJson)?.pit_stop_analysis;
+  if (!Array.isArray(cars)) return null;
+  const secs: number[] = [];
+  for (const car of cars) {
+    const stops = (car.pit_stops ?? [])
+      .map((stop) => imsaTimeSeconds((stop.pit_time ?? "").trim() || "-"))
+      .filter((x): x is number => x != null)
+      .sort((a, b) => a - b);
+    const skip = driveThroughs.get(carKey(String(car.number ?? ""))) ?? 0;
+    for (const sec of stops.slice(skip)) {
+      if (sec >= MIN_PIT_SECONDS) secs.push(sec);
+    }
+  }
+  if (!secs.length) return null;
+  secs.sort((a, b) => a - b);
+  const mid = secs.length % 2
+    ? secs[(secs.length - 1) / 2]
+    : (secs[secs.length / 2 - 1] + secs[secs.length / 2]) / 2;
+  const rounded = Math.round(mid * 10) / 10;
+  return { time: medianLabel(rounded), seconds: rounded };
+}
+
 /// Минимальный pit_time по всем машинам. У машин с drive-through отбрасываем
 /// столько их кратчайших проездов, сколько наказаний выписано; порог —
 /// страховка от совсем коротких артефактов.
@@ -158,10 +193,10 @@ async function main(): Promise<void> {
     const resultsJson = resultsFile ? await fetchJSON([...best.stage.segments, resultsFile]) : null;
     const pitsJson = pitsFile ? await fetchJSON([...best.stage.segments, pitsFile]) : null;
     const rcCsv = rcFile ? await fetchHTML([...best.stage.segments, rcFile]) : null;
+    const driveThroughs = rcCsv ? imsaDriveThroughCounts(rcCsv) : new Map<string, number>();
     const fastestLap = resultsJson ? imsaFastestLap(resultsJson) : null;
-    const fastestPitStop = pitsJson
-      ? imsaFastestPitStop(pitsJson, rcCsv ? imsaDriveThroughCounts(rcCsv) : new Map())
-      : null;
+    const fastestPitStop = pitsJson ? imsaFastestPitStop(pitsJson, driveThroughs) : null;
+    const medianPitStop = pitsJson ? imsaMedianPitStop(pitsJson, driveThroughs) : null;
     if (!fastestLap && !fastestPitStop) {
       console.log(`  R${entry.round}: данных нет — скип`);
       continue;
@@ -171,6 +206,7 @@ async function main(): Promise<void> {
       round: entry.round,
       ...(fastestLap ? { fastestLap } : {}),
       ...(fastestPitStop ? { fastestPitStop } : {}),
+      ...(medianPitStop ? { medianPitStop } : {}),
     };
     writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
     console.log(`  R${entry.round} (${entry.venue}): FL ${fastestLap?.time ?? "—"} ${fastestLap?.driver ?? ""}, пит ${fastestPitStop?.time ?? "—"}`);

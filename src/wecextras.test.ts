@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import { akTimeSeconds, matchAkRound, pickRaceCsv } from "./alkamelwec.js";
 import { raceHighlights, shortDriver } from "./wechighlights.js";
 import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./wecwinners.js";
+import { raceCautions } from "./wechighlights.js";
 import { raceFlags, summarize } from "./wecsafetycar.js";
 
 const SLUGS_2026 = [
@@ -116,4 +117,17 @@ test("safetycar: флаги гонки и сводка по годам", () => {
   assert.equal(s.races, 3);
   assert.equal(s.withSafetyCar, 1);
   assert.equal(s.withFCY, 2);
+});
+
+test("raceCautions: периоды FCY/SF референс-машины и время под жёлтыми", () => {
+  const lap = (flag: string, t = "2:00.000") => ({ NUMBER: "7", LAP_TIME: t, FLAG_AT_FL: flag });
+  const rows = [
+    lap("GF"), lap("FCY"), lap("FCY"), lap("GF"), lap("SF"), lap("GF"), lap("FF"),
+    // короткая машина — не референс
+    { NUMBER: "99", LAP_TIME: "2:00.000", FLAG_AT_FL: "FCY" },
+  ];
+  const c = raceCautions(rows)!;
+  assert.equal(c.fcy, 2);          // FCY-период + SF-период
+  assert.equal(c.seconds, 360);    // 3 жёлтых круга по 120с
+  assert.equal(raceCautions([lap("GF"), lap("GF")]), null);
 });
