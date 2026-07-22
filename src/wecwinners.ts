@@ -41,11 +41,17 @@ export interface WecRoundWinners {
 /// («Alessandro PIER GUIDI» → «PIER GUIDI»); DRIVER_1..5, пустые — мимо.
 export function crewSurnames(row: Record<string, string>): string {
   const names: string[] = [];
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const full = (row[`DRIVER_${i}`] ?? "").trim();
-    if (!full) continue;
-    const caps = full.split(/\s+/).filter((w) => w.length > 1 && w === w.toUpperCase());
-    names.push(caps.length ? caps.join(" ") : full.split(/\s+/).pop()!);
+    if (full) {
+      const caps = full.split(/\s+/).filter((w) => w.length > 1 && w === w.toUpperCase());
+      names.push(caps.length ? caps.join(" ") : full.split(/\s+/).pop()!);
+      continue;
+    }
+    // Старый макет CSV (встречается в архиве, напр. Спа-2024): колонки
+    // DRIVER1_FIRSTNAME / DRIVER1_SECONDNAME — фамилия уже отдельно и капсом.
+    const surname = (row[`DRIVER${i}_SECONDNAME`] ?? "").trim();
+    if (surname) names.push(surname);
   }
   return names.join(" / ");
 }
