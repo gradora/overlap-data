@@ -70,6 +70,26 @@ jobs:
         continue-on-error: true
         run: npm run wecsafetycar
 
+      - name: Решения IMSA (Notice Board)
+        id: imsafia
+        continue-on-error: true
+        run: npm run imsafia
+
+      - name: Хайлайты гонок IMSA (Al Kamel)
+        id: imsahighlights
+        continue-on-error: true
+        run: npm run imsahighlights
+
+      - name: Победители трасс IMSA (Al Kamel)
+        id: imsawinners
+        continue-on-error: true
+        run: npm run imsawinners
+
+      - name: SC-статистика IMSA (Al Kamel)
+        id: imsasafetycar
+        continue-on-error: true
+        run: npm run imsasafetycar
+
       - name: Решения стюардов FIA (штрафы)
         id: fia
         continue-on-error: true
@@ -144,7 +164,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "imsasafetycar=${{ steps.imsasafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done
