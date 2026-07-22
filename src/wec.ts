@@ -37,18 +37,26 @@ function readMirror(path: string): string | null {
   }
 }
 
-// endDate (мс) + ISO-2 страны из JSON-LD SportsEvent страницы /en/race/<slug>.
-function eventInfo(html: string): { endMs: number | null; iso2: string | null } {
+// start/endDate (мс) + ISO-2 страны из JSON-LD SportsEvent страницы
+// /en/race/<slug>. Экспортирован: wecfia.ts читает те же зеркальные страницы
+// для freeze-окон своих этапов.
+export function eventInfo(html: string): {
+  startMs: number | null;
+  endMs: number | null;
+  iso2: string | null;
+} {
   const blocks = html.match(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) ?? [];
   for (const block of blocks) {
     const body = block.replace(/<script[^>]*>/i, "").replace(/<\/script>/i, "");
     if (!body.includes("SportsEvent")) continue;
     try {
       const j = JSON.parse(body);
+      const startMs = j.startDate ? Date.parse(j.startDate) : NaN;
       const endMs = j.endDate ? Date.parse(j.endDate) : NaN;
       const addr = typeof j.location?.address === "string" ? j.location.address : "";
       const iso3 = (addr.split(",").pop() ?? "").trim().toUpperCase();
       return {
+        startMs: Number.isNaN(startMs) ? null : startMs,
         endMs: Number.isNaN(endMs) ? null : endMs,
         iso2: iso3.length === 3 ? ISO3_TO_2[iso3] ?? null : null,
       };
@@ -56,7 +64,7 @@ function eventInfo(html: string): { endMs: number | null; iso2: string | null } 
       /* следующий блок */
     }
   }
-  return { endMs: null, iso2: null };
+  return { startMs: null, endMs: null, iso2: null };
 }
 
 // Тянем fiawec-относительный путь, кладём под wec/fiawec/<slug(path)>. HTML или null.
@@ -73,12 +81,15 @@ async function mirror(path: string): Promise<string | null> {
 
 // MARK: перечисление (порт WECSeasonParser / WECResultsIndexParser)
 
-function raceSlugs(html: string): string[] {
+// Слаги гонок сезона В ПОРЯДКЕ страницы (порядок = раунды этапов; так же
+// строит календарь приложение). Экспортирован: wecfia.ts матчит события
+// Notice Board к раундам по этому списку.
+export function raceSlugs(html: string, year: number): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
   for (const m of html.matchAll(/\/en\/race\/([a-z0-9-]+)/g)) {
     const slug = m[1];
-    if (slug.endsWith(`-${YEAR}`) && !slug.includes("prologue") && !slug.includes("test") && !seen.has(slug)) {
+    if (slug.endsWith(`-${year}`) && !slug.includes("prologue") && !slug.includes("test") && !seen.has(slug)) {
       seen.add(slug);
       out.push(slug);
     }
@@ -138,7 +149,7 @@ async function main() {
   }
   await mirror(`/en/page/manufacturers-classification`);
 
-  const slugs = season ? raceSlugs(season) : [];
+  const slugs = season ? raceSlugs(season, YEAR) : [];
   // E3 (race-страница, JSON-LD): событие с endDate+7д в прошлом ЗАМОРОЖЕНО —
   // не рескрейпим, читаем из зеркала; собираем карту страна(ISO2) → endMs.
   const endByCountry: Record<string, number> = {};
