@@ -30,11 +30,17 @@ export interface FastestPitStop {
   tag: string;       // «R» | «SPR»
 }
 
+export interface MedianPitStop {
+  time: string;      // «2.4» — медиана стационарных стопов гонки
+  seconds: number;
+}
+
 export interface RoundHighlights {
   season: number;
   round: number;
   fastestLap?: FastestLap;
   fastestPitStop?: FastestPitStop;
+  medianPitStop?: MedianPitStop;
 }
 
 function readMirror(relative: string): any | null {
@@ -111,6 +117,26 @@ export function computeFastestPitStop(
     }
   }
   return best;
+}
+
+/// Медиана всех стационарных стопов ГЛАВНОЙ гонки (не спринта): один
+/// быстрый стоп бывает удачей, медиана — качество работы бригад уик-энда.
+export function computeMedianPitStop(
+  sessions: { session_key: number; session_name: string }[],
+  pitBySession: Map<number, any[]>,
+): MedianPitStop | null {
+  const race = sessions.find((s) => raceTag(s.session_name) === "R");
+  if (!race) return null;
+  const secs = (pitBySession.get(race.session_key) ?? [])
+    .map((r) => r.stop_duration)
+    .filter((x): x is number => typeof x === "number" && x > 0)
+    .sort((a, b) => a - b);
+  if (!secs.length) return null;
+  const mid = secs.length % 2
+    ? secs[(secs.length - 1) / 2]
+    : (secs[secs.length / 2 - 1] + secs[secs.length / 2]) / 2;
+  const rounded = Math.round(mid * 10) / 10;
+  return { time: rounded.toFixed(1), seconds: rounded };
 }
 
 export function computeFastestLap(
@@ -190,11 +216,13 @@ async function main() {
     }
     const lap = computeFastestLap(sessions, results, drivers);
     const stop = computeFastestPitStop(sessions, pits, drivers);
+    const median = computeMedianPitStop(sessions, pits);
     const out: RoundHighlights = {
       season: YEAR,
       round,
       ...(lap ? { fastestLap: lap } : {}),
       ...(stop ? { fastestPitStop: stop } : {}),
+      ...(median ? { medianPitStop: median } : {}),
     };
     const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
     console.log(

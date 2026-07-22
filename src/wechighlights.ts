@@ -38,6 +38,11 @@ export interface WecRoundHighlights {
   round: number;
   fastestLap?: WecHighlight;
   fastestPitStop?: WecHighlight;
+  /// Медиана пит-проездов гонки (без drive-through — порог MIN_PIT_SECONDS).
+  medianPitStop?: { time: string; seconds: number };
+  /// Нейтрализации гонки: периоды FCY/SF по флагу на финишной линии
+  /// референс-машины (максимум кругов) + суммарное время под жёлтыми.
+  cautions?: { fcy: number; seconds: number };
 }
 
 /// «Kevin MAGNUSSEN» → «K. MAGNUSSEN» (фамилия у Al Kamel капсом).
@@ -75,11 +80,71 @@ export function raceHighlights(
       };
     }
   }
+  const pitSecs = rows
+    .map((r) => akTimeSeconds(r.PIT_TIME ?? ""))
+    .filter((x): x is number => x != null && x >= MIN_PIT_SECONDS)
+    .sort((a, b) => a - b);
+  let median: { time: string; seconds: number } | undefined;
+  if (pitSecs.length) {
+    const mid = pitSecs.length % 2
+      ? pitSecs[(pitSecs.length - 1) / 2]
+      : (pitSecs[pitSecs.length / 2 - 1] + pitSecs[pitSecs.length / 2]) / 2;
+    const rounded = Math.round(mid * 10) / 10;
+    median = { time: medianLabel(rounded), seconds: rounded };
+  }
+
+  const cautions = raceCautions(rows);
+
   return {
     season, round,
     ...(lap ? { fastestLap: lap } : {}),
     ...(pit ? { fastestPitStop: pit } : {}),
+    ...(median ? { medianPitStop: median } : {}),
+    ...(cautions ? { cautions } : {}),
   };
+}
+
+/// Периоды нейтрализации из полап-ового Analysis: круги референс-машины
+/// (у неё больше всех кругов — лидер) с FLAG_AT_FL ∈ {FCY, SF}; подряд идущие
+/// жёлтые круги = один период, время — сумма их LAP_TIME.
+/// «78.4» → «1:18.4»: медиана эндуранс-пита бывает за минуту.
+function medianLabel(seconds: number): string {
+  if (seconds < 60) return seconds.toFixed(1);
+  const m = Math.floor(seconds / 60);
+  const s = seconds - m * 60;
+  return `${m}:${s.toFixed(1).padStart(4, "0")}`;
+}
+
+export function raceCautions(
+  rows: Record<string, string>[],
+): { fcy: number; seconds: number } | null {
+  const byCar = new Map<string, Record<string, string>[]>();
+  for (const r of rows) {
+    const n = (r.NUMBER ?? "").trim();
+    if (!n) continue;
+    const list = byCar.get(n) ?? [];
+    list.push(r);
+    byCar.set(n, list);
+  }
+  let ref: Record<string, string>[] | null = null;
+  for (const list of byCar.values()) {
+    if (!ref || list.length > ref.length) ref = list;
+  }
+  if (!ref) return null;
+  let periods = 0;
+  let seconds = 0;
+  let inYellow = false;
+  for (const r of ref) {
+    const flag = (r.FLAG_AT_FL ?? "").trim().toUpperCase();
+    const yellow = flag === "FCY" || flag === "SF";
+    if (yellow) {
+      if (!inYellow) periods++;
+      seconds += akTimeSeconds(r.LAP_TIME ?? "") ?? 0;
+    }
+    inYellow = yellow;
+  }
+  if (!periods) return null;
+  return { fcy: periods, seconds: Math.round(seconds) };
 }
 
 function raceMirror(slug: string): string | null {
