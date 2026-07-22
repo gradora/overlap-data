@@ -162,17 +162,22 @@ const FIELD_LABELS = [
 // метки значение резать не должны: они уже встретились ДО этого поля, а их
 // слова живут и внутри текстов — «…on condition that the Competitor…» в
 // Decision обрезался на слове Competitor (штраф Хэмилтона, Спа-2026 doc 63),
-// «Lap Time» в Fact — на слове Time.
-function field(body: string, label: string): string | null {
+// «Lap Time» в Fact — на слове Time. Обобщено под список меток: тем же
+// механизмом парсится шаблон стюардов WEC (wecfia.ts, метки с двоеточиями).
+export function fieldValue(body: string, label: string, labels: string[]): string | null {
   const start = body.indexOf(label + " ");
   if (start < 0) return null;
   const from = start + label.length + 1;
   let end = body.length;
-  for (const nl of FIELD_LABELS.slice(FIELD_LABELS.indexOf(label) + 1)) {
+  for (const nl of labels.slice(labels.indexOf(label) + 1)) {
     const i = body.indexOf(" " + nl + " ", from);
     if (i >= 0 && i < end) end = i;
   }
   return body.slice(from, end).trim();
+}
+
+function field(body: string, label: string): string | null {
+  return fieldValue(body, label, FIELD_LABELS);
 }
 
 // Классифицируем поле Decision генерически (от причины не зависит).
@@ -189,6 +194,8 @@ export function classifyDecision(decision: string): {
   if (/start(?:ing)?(?: the \w+)? from the pit ?lane|pit ?lane start/.test(d)) return { type: "grid", pitlane: true };
   if (/back of the (?:starting )?grid/.test(d)) return { type: "grid", backOfGrid: true };
   if ((m = d.match(/(\d+)\s*second(?:s)? time penalty/))) return { type: "time", seconds: Number(m[1]) };
+  // WEC: «10 seconds added at the next pit stop» — время к следующему питу.
+  if ((m = d.match(/(\d+)\s*second(?:s)? added/))) return { type: "time", seconds: Number(m[1]) };
   if (/disqualif|excluded from/.test(d)) return { type: "dsq" };
   if (/reprimand/.test(d)) return { type: "reprimand" };
   if (/fine of|fined/.test(d)) return { type: "fine" };
@@ -196,7 +203,7 @@ export function classifyDecision(decision: string): {
   return { type: "other" };
 }
 
-function appliesTo(decision: string, session: string): string {
+export function appliesTo(decision: string, session: string): string {
   // Спринт — раньше race-паттернов: «start the Sprint from the pit lane»
   // относится к решётке СПРИНТА, не гонки (Сильверстоун-2026, Албон doc 35).
   if (/the sprint\b|sprint in which/i.test(decision)) return "sprint";
