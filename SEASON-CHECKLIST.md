@@ -12,7 +12,9 @@
   августе (после Road America). Это единственный жёсткий блокер: без него
   продьюсер imsa падает с 1 января ежечасно (fail-loud задуман, но письма
   каждый час). Round/name/venue/даты; venue должен матчиться с будущими
-  папками Al Kamel (`matchTrack`).
+  папками Al Kamel (`matchTrack`), а для карточных продьюсеров
+  (imsafia/imsahighlights/imsawinners/imsasafetycar) — с `matchImsaTrack`
+  (`src/alkamelimsa.ts`): новая трасса или переименование = новый алиас.
 - [ ] Проверить, что fiawec опубликовал `/en/season/N+1` (обычно к осени уже
   есть; в 2026 страница 2027 была live уже в июле) — тогда WEC-межсезонье
   пройдёт гладко само.
