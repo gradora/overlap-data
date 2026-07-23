@@ -79,6 +79,18 @@ async function mirror(path: string): Promise<string | null> {
   return res.text;
 }
 
+// Каркасный запрос с ретраем: разовый блип fiawec (сеть/502) не должен слать
+// ложный алерт-письмо через exit(1) — валим прогон только при устойчивом
+// отказе (все попытки впустую).
+async function mirrorFramework(path: string, attempts = 3): Promise<string | null> {
+  for (let i = 0; i < attempts; i++) {
+    const html = await mirror(path);
+    if (html) return html;
+    if (i < attempts - 1) await new Promise((r) => setTimeout(r, 5000));
+  }
+  return null;
+}
+
 // MARK: перечисление (порт WECSeasonParser / WECResultsIndexParser)
 
 // Слаги гонок сезона В ПОРЯДКЕ страницы (порядок = раунды этапов; так же
@@ -138,8 +150,9 @@ async function main() {
   console.log(`WEC mirror, season ${YEAR}`);
 
   // Каркас: сезон (slugs), индекс результатов (raceId), зачёт производителей.
-  const season = await mirror(`/en/season/${YEAR}`);
-  const index = await mirror(`/en/page/resultats-1`);
+  // С ретраем — от гейта exit(1) зависит алерт владельцу, разовый блип не в счёт.
+  const season = await mirrorFramework(`/en/season/${YEAR}`);
+  const index = await mirrorFramework(`/en/page/resultats-1`);
   // Оба каркасных запроса null → полный отказ fiawec: валим прогон (exit 1),
   // иначе продьюсер завершится «success» при пустом зеркале и алерт-гейт
   // промолчит при реальном аутэйдже.
