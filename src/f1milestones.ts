@@ -22,6 +22,7 @@ const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15
 export interface Achievement {
   driver: string;   // «F. Alonso»
   count: number;    // 350
+  team?: string;    // «Williams» — юбилей стартов ЗА КОМАНДУ (нет — карьерный)
 }
 
 export interface RoundMilestones {
@@ -106,15 +107,40 @@ async function main() {
     return;
   }
 
-  // Карьерные totals — по одному дешёвому запросу на пилота (limit=1).
+  // Текущая команда пилота — из зеркала driverStandings (без сети).
+  const teamOf = new Map<string, { id: string; name: string }>();
+  try {
+    const st = JSON.parse(readFileSync(join(JOLPICA_DIR, "current_driverStandings.json"), "utf8"));
+    const rows = st?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? [];
+    for (const row of rows) {
+      const c = row?.Constructors?.[0];
+      if (row?.Driver?.driverId && c?.constructorId) {
+        teamOf.set(row.Driver.driverId, { id: c.constructorId, name: c.name });
+      }
+    }
+  } catch { /* нет зеркала стендингов — командные юбилеи пропустим */ }
+
+  // Карьерные totals + старты за текущую команду — по дешёвому запросу
+  // (limit=1, читаем MRData.total) на пилота.
   const totals = new Map<string, number>();
+  const teamTotals = new Map<string, { starts: number; team: string }>();
   for (const d of drivers) {
     const resp = await fetchJSON(`${JOLPICA}/drivers/${d.driverId}/results.json?limit=1`);
     const total = Number(resp?.MRData?.total ?? NaN);
     if (!Number.isNaN(total)) totals.set(d.driverId, total);
     await new Promise((res) => setTimeout(res, 300));   // вежливая пауза
+
+    const team = teamOf.get(d.driverId);
+    if (team) {
+      const tResp = await fetchJSON(
+        `${JOLPICA}/drivers/${d.driverId}/constructors/${team.id}/results.json?limit=1`,
+      );
+      const tTotal = Number(tResp?.MRData?.total ?? NaN);
+      if (!Number.isNaN(tTotal)) teamTotals.set(d.driverId, { starts: tTotal, team: team.name });
+      await new Promise((res) => setTimeout(res, 300));
+    }
   }
-  console.log(`  totals: ${totals.size}/${drivers.length} пилотов, прошедших раундов: ${completedRounds}`);
+  console.log(`  totals: ${totals.size}/${drivers.length} пилотов (команда: ${teamTotals.size}), прошедших раундов: ${completedRounds}`);
 
   for (const r of races) {
     const round = Number(r.round);
@@ -129,6 +155,16 @@ async function main() {
       const starts = startsAtRound(total, completedRounds, round);
       const count = milestoneCount(starts);
       if (count != null) achievements.push({ driver: shortName(d.givenName, d.familyName), count });
+
+      // Командный юбилей: кратный 50 старт за текущую команду.
+      const t = teamTotals.get(d.driverId);
+      if (t) {
+        const teamStarts = startsAtRound(t.starts, completedRounds, round);
+        const teamCount = milestoneCount(teamStarts);
+        if (teamCount != null) {
+          achievements.push({ driver: shortName(d.givenName, d.familyName), count: teamCount, team: t.team });
+        }
+      }
     }
     const out: RoundMilestones = { season: YEAR, round, achievements };
     const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
