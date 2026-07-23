@@ -110,6 +110,11 @@ jobs:
         continue-on-error: true
         run: npm run milestones
 
+      - name: Day in history — индекс гонок по дням (Jolpica)
+        id: f1history
+        continue-on-error: true
+        run: npm run f1history
+
       - name: Статистика сейфти-каров (OpenF1)
         id: safetycar
         continue-on-error: true
@@ -164,7 +169,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "imsasafetycar=${{ steps.imsasafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "imsasafetycar=${{ steps.imsasafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}" "f1history=${{ steps.f1history.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done
