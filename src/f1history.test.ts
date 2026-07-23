@@ -14,7 +14,7 @@ const race = (round: number, date: string, name = "GP") => ({
 
 test("mergeSeason раскладывает гонки по MM-DD и подтягивает победителей", () => {
   const index: HistoryIndex = { seasons: [], days: {} };
-  const winners = new Map([[1, { winner: "Farina", team: "Alfa Romeo" }]]);
+  const winners = new Map([[1, { winner: "Farina", given: "Nino", team: "Alfa Romeo" }]]);
   mergeSeason(index, 1950, [race(1, "1950-05-13", "British Grand Prix")], winners);
 
   assert.deepEqual(index.seasons, [1950]);
@@ -22,6 +22,7 @@ test("mergeSeason раскладывает гонки по MM-DD и подтяг
   assert.equal(day.length, 1);
   assert.equal(day[0].name, "British Grand Prix");
   assert.equal(day[0].winner, "Farina");
+  assert.equal(day[0].given, "Nino");
   assert.equal(day[0].team, "Alfa Romeo");
 });
 
@@ -44,9 +45,9 @@ test("високосный день 02-29 валиден, мусорная да�
 
 test("winnersMap строит карту раунд → победитель", () => {
   const map = winnersMap([
-    { round: "3", Results: [{ Driver: { familyName: "Senna" }, Constructor: { name: "McLaren" } }] },
+    { round: "3", Results: [{ Driver: { familyName: "Senna", givenName: "Ayrton" }, Constructor: { name: "McLaren" } }] },
     { round: "4", Results: [] },   // без результата — не попадает
   ]);
-  assert.deepEqual(map.get(3), { winner: "Senna", team: "McLaren" });
+  assert.deepEqual(map.get(3), { winner: "Senna", given: "Ayrton", team: "McLaren" });
   assert.equal(map.has(4), false);
 });
