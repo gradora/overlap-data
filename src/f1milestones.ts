@@ -57,11 +57,34 @@ export function isStart(status: string, positionText: string): boolean {
   return !/^(did not start|withdr|did not qualify|did not prequalify|excluded)/i.test(status);
 }
 
-async function fetchJSON(url: string): Promise<any | null> {
+/// Фактические юбилеи прошедших этапов сезона: k-й старт хронологии (k кратен
+/// 50), выпавший на сезон year → раунд → count. В отличие от прогнозной
+/// startsAtRound не ломается пропусками пилота ВНУТРИ сезона (DNS Албона в
+/// Китае-26 сдвигает его юбилей, прогнозная формула этого не видит назад).
+export function seasonMilestones(
+  log: { season: number; round: number }[],
+  year: number,
+): Map<number, number> {
+  const map = new Map<number, number>();
+  log.forEach((start, i) => {
+    const count = milestoneCount(i + 1);
+    if (count != null && start.season === year) map.set(start.round, count);
+  });
+  return map;
+}
+
+async function fetchJSON(url: string, attempt = 0): Promise<any | null> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 20000);
   try {
     const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
+    // Rate limit на длинных выгрузках: пауза и повтор, иначе гвард полноты
+    // (completeLogs) отменяет пересчёт прошедших раундов целыми прогонами.
+    if (res.status === 429 && attempt < 3) {
+      clearTimeout(t);
+      await new Promise((r) => setTimeout(r, 30000 * (attempt + 1)));
+      return fetchJSON(url, attempt + 1);
+    }
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -131,12 +154,14 @@ async function main() {
     }
   } catch { /* нет зеркала стендингов — командные юбилеи пропустим */ }
 
-  // Реальные СТАРТЫ (карьерные и за текущую команду) — полная выгрузка
-  // результатов с фильтром DNS/DNQ/W: MRData.total считает и невыезды.
+  // Хронология реальных СТАРТОВ (карьерная и за текущую команду) — полная
+  // выгрузка результатов с фильтром DNS/DNQ/W: MRData.total считает и
+  // невыезды. Длина хронологии — прогноз будущих юбилеев; сама хронология —
+  // фактические юбилеи прошедших раундов сезона (обратная сторона карусели).
   const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-  async function countStarts(pathBase: string): Promise<number | null> {
-    let starts = 0;
+  async function startLog(pathBase: string): Promise<{ season: number; round: number }[] | null> {
+    const log: { season: number; round: number }[] = [];
     let offset = 0;
     while (true) {
       const resp = await fetchJSON(`${JOLPICA}/${pathBase}.json?limit=100&offset=${offset}`);
@@ -144,51 +169,74 @@ async function main() {
       if (!Array.isArray(races)) return null;   // сеть/лимит — не портим цифру
       for (const r of races) {
         const res = r?.Results?.[0];
-        if (isStart(String(res?.status ?? ""), String(res?.positionText ?? ""))) starts++;
+        if (isStart(String(res?.status ?? ""), String(res?.positionText ?? ""))) {
+          log.push({ season: Number(r.season), round: Number(r.round) });
+        }
       }
       const total = Number(resp?.MRData?.total ?? 0);
       offset += 100;
-      if (offset >= total) return starts;
+      if (offset >= total) return log;
       await sleep(400);
     }
   }
 
-  const totals = new Map<string, number>();
-  const teamTotals = new Map<string, { starts: number; team: string }>();
+  const careerLogs = new Map<string, { season: number; round: number }[]>();
+  const teamLogs = new Map<string, { log: { season: number; round: number }[]; team: string }>();
   for (const d of drivers) {
-    const career = await countStarts(`drivers/${d.driverId}/results`);
-    if (career != null) totals.set(d.driverId, career);
+    const career = await startLog(`drivers/${d.driverId}/results`);
+    if (career != null) careerLogs.set(d.driverId, career);
     await sleep(400);
 
     const team = teamOf.get(d.driverId);
     if (team) {
-      const forTeam = await countStarts(`drivers/${d.driverId}/constructors/${team.id}/results`);
-      if (forTeam != null) teamTotals.set(d.driverId, { starts: forTeam, team: team.name });
+      const forTeam = await startLog(`drivers/${d.driverId}/constructors/${team.id}/results`);
+      if (forTeam != null) teamLogs.set(d.driverId, { log: forTeam, team: team.name });
       await sleep(400);
     }
   }
-  console.log(`  starts: ${totals.size}/${drivers.length} пилотов (команда: ${teamTotals.size}), прошедших раундов: ${completedRounds}`);
+  console.log(`  starts: ${careerLogs.size}/${drivers.length} пилотов (команда: ${teamLogs.size}), прошедших раундов: ${completedRounds}`);
+
+  // Прошедшие раунды переписываем только при полном сборе хронологий: сетевой
+  // пропуск пилота иначе стёр бы его уже записанный фактический юбилей.
+  const completeLogs = careerLogs.size === drivers.length;
 
   for (const r of races) {
     const round = Number(r.round);
     const path = join(OUT_DIR, `${YEAR}_${round}.json`);
-    // Историю юбилеев прошедших этапов не переписываем.
-    if (isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW) && existsSync(path)) continue;
+    const done = Date.parse(`${r.date}T23:59:59Z`) < NOW;
+    if (done && !completeLogs) continue;
 
     const achievements: Achievement[] = [];
     for (const d of drivers) {
-      const total = totals.get(d.driverId);
-      if (total == null) continue;
-      const starts = startsAtRound(total, completedRounds, round);
+      const career = careerLogs.get(d.driverId);
+      if (career == null) continue;
+      const t = teamLogs.get(d.driverId);
+
+      if (done) {
+        // Фактические юбилеи из хронологии — что реально случилось в раунде.
+        const count = seasonMilestones(career, YEAR).get(round);
+        if (count != null) {
+          achievements.push({ driver: shortName(d.givenName, d.familyName), given: d.givenName, count });
+        }
+        const teamCount = t ? seasonMilestones(t.log, YEAR).get(round) : undefined;
+        if (teamCount != null) {
+          achievements.push({
+            driver: shortName(d.givenName, d.familyName), given: d.givenName,
+            count: teamCount, team: t!.team,
+          });
+        }
+        continue;
+      }
+
+      const starts = startsAtRound(career.length, completedRounds, round);
       const count = milestoneCount(starts);
       if (count != null) {
         achievements.push({ driver: shortName(d.givenName, d.familyName), given: d.givenName, count });
       }
 
       // Командный юбилей: кратный 50 старт за текущую команду.
-      const t = teamTotals.get(d.driverId);
       if (t) {
-        const teamStarts = startsAtRound(t.starts, completedRounds, round);
+        const teamStarts = startsAtRound(t.log.length, completedRounds, round);
         const teamCount = milestoneCount(teamStarts);
         if (teamCount != null) {
           achievements.push({
