@@ -23,6 +23,7 @@ export interface HistoryRace {
   circuit: string;     // circuitName
   country: string;
   winner?: string;     // фамилия победителя; нет данных — поля нет
+  given?: string;      // имя победителя — для подписи без дубля фамилии
   team?: string;       // конструктор победителя
 }
 
@@ -37,7 +38,7 @@ export function mergeSeason(
   index: HistoryIndex,
   year: number,
   races: any[],
-  winnersByRound: Map<number, { winner: string; team: string }>,
+  winnersByRound: Map<number, { winner: string; given: string; team: string }>,
 ): void {
   for (const race of races) {
     const date = String(race?.date ?? "");
@@ -52,7 +53,7 @@ export function mergeSeason(
       name: String(race.raceName ?? ""),
       circuit: String(race.Circuit?.circuitName ?? ""),
       country: String(race.Circuit?.Location?.country ?? ""),
-      ...(win ? { winner: win.winner, team: win.team } : {}),
+      ...(win ? { winner: win.winner, ...(win.given ? { given: win.given } : {}), team: win.team } : {}),
     };
     const list = index.days[day] ?? [];
     list.push(entry);
@@ -64,14 +65,15 @@ export function mergeSeason(
 }
 
 /// P1-результаты сезона → карта раунд → {winner, team}.
-export function winnersMap(races: any[]): Map<number, { winner: string; team: string }> {
-  const map = new Map<number, { winner: string; team: string }>();
+export function winnersMap(races: any[]): Map<number, { winner: string; given: string; team: string }> {
+  const map = new Map<number, { winner: string; given: string; team: string }>();
   for (const race of races) {
     const result = race?.Results?.[0];
     const family = result?.Driver?.familyName;
     if (!family) continue;
     map.set(Number(race.round), {
       winner: String(family),
+      given: String(result?.Driver?.givenName ?? ""),
       team: String(result?.Constructor?.name ?? ""),
     });
   }
@@ -123,7 +125,12 @@ export function evictWinnerlessSeasons(index: HistoryIndex): number[] {
       if (r.winner) withWinner.add(r.year);
     }
   }
-  const broken = [...raced].filter((y) => !withWinner.has(y));
+  // Сезоны без имён победителей (миграция given) тоже перекачиваем.
+  const withGiven = new Set<number>();
+  for (const races of Object.values(index.days)) {
+    for (const r of races) if (r.given) withGiven.add(r.year);
+  }
+  const broken = [...raced].filter((y) => !withWinner.has(y) || !withGiven.has(y));
   if (!broken.length) return [];
   const brokenSet = new Set(broken);
   for (const [day, races] of Object.entries(index.days)) {
