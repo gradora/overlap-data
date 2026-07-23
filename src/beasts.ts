@@ -200,7 +200,9 @@ async function main() {
     if (!pit || typeof pit.seconds !== "number") continue;
     const info = drivers.get(familyKey(String(pit.driver ?? "")));
     pits.push({
-      value: String(pit.time ?? pit.seconds),
+      // Формат до тысячных как в макете; stop_duration OpenF1 приходит до
+      // десятых — недостающие разряды добиваются нулями.
+      value: Number(pit.seconds).toFixed(3),
       event: roundName.get(round) ?? "",
       code: info?.code ?? familyKey(String(pit.driver ?? "")).slice(0, 3).toUpperCase(),
       team: info?.team ?? "",
