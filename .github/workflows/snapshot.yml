@@ -120,6 +120,11 @@ jobs:
         continue-on-error: true
         run: npm run beasts
 
+      - name: Sport milestones — all-time рекорды F1 (Jolpica)
+        id: records
+        continue-on-error: true
+        run: npm run records
+
       - name: Статистика сейфти-каров (OpenF1)
         id: safetycar
         continue-on-error: true
