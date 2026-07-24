@@ -59,12 +59,13 @@ export interface Subject {
 export interface RecordCard {
   id: string;
   header: string;       // «MILESTONE» | «RECORD» | «CHASING»
+  driver: string;       // «#14 F. Alonso» — в правый угол шапки
   title: string;        // «438 GRANDS PRIX»
   note: string;         // сабтайтл
   progress: number;     // заполнение полоски 0…1
   teamId: string;       // цвет полоски
-  barLeft: string;      // «#14 F. Alonso» | «WINS»
-  barRight: string;     // «438/450» | «106»
+  barLeft: string;      // подпись у левого края полоски («438» | «WINS»)
+  barRight: string;     // подпись у правого края («450» | «106»)
 }
 
 export interface SeasonRecords {
@@ -84,21 +85,22 @@ function heldCard(
   const value = V[`${h.holder}:${h.metric}`];
   if (!info || value == null || value <= 0) return null;
   const title = UP(`${value} ${h.stat}`);
+  const driver = `#${info.number ?? "?"} ${info.driver}`;
 
   switch (h.hook.kind) {
     case "milestone": {
       const target = Math.ceil((value + 1) / h.hook.step) * h.hook.step;
       const gap = target - value;
       return {
-        id: `held-${h.stat}`, header: "MILESTONE", title,
+        id: `held-${h.stat}`, header: "MILESTONE", driver, title,
         note: `${gap} more for a landmark ${target} — extending his own all-time record.`,
         progress: value / target, teamId: info.teamId,
-        barLeft: `#${info.number ?? "?"} ${info.driver}`, barRight: `${value}/${target}`,
+        barLeft: `${value}`, barRight: `${target}`,
       };
     }
     case "firstPast":
       return {
-        id: `held-${h.stat}`, header: "RECORD", title,
+        id: `held-${h.stat}`, header: "RECORD", driver, title,
         note: `The only driver in F1 history to pass ${h.hook.threshold} ${h.stat}.`,
         progress: 1, teamId: info.teamId, barLeft: UP(h.stat), barRight: `${value}`,
       };
@@ -110,7 +112,7 @@ function heldCard(
         ? `On the podium in more than half of his ${races} Grands Prix.`
         : `A ${noun} roughly every ${(1 / ratio).toFixed(1)} races.`;
       return {
-        id: `held-${h.stat}`, header: "RECORD", title, note,
+        id: `held-${h.stat}`, header: "RECORD", driver, title, note,
         progress: ratio, teamId: info.teamId, barLeft: UP(h.stat),
         barRight: races > 0 ? `${value}/${races}` : `${value}`,
       };
@@ -129,10 +131,11 @@ function chaseCard(
   if (!info || value == null || value <= 0 || value >= c.record) return null;
   const gap = c.record - value;
   return {
-    id: `chase-${c.stat}`, header: "CHASING", title: UP(`${value} ${c.stat}`),
+    id: `chase-${c.stat}`, header: "CHASING", driver: `#${info.number ?? "?"} ${info.driver}`,
+    title: UP(`${value} ${c.stat}`),
     note: `${gap} ${c.stat} from passing ${c.holder}’s ${c.record}.`,
     progress: value / c.record, teamId: info.teamId,
-    barLeft: `#${info.number ?? "?"} ${info.driver}`, barRight: `${value}/${c.record}`,
+    barLeft: `${value}`, barRight: `${c.record}`,
   };
 }
 

@@ -26,16 +26,19 @@ test("вау-углы держателей + погони", () => {
   const cards = buildCards(V, S);
   const by = (id: string) => cards.find((c) => c.id === id)!;
 
-  // milestone — к красивой круглой цифре (438 → 450, 12 к цели).
+  // milestone — цифры по углам (438 слева, 450 справа), имя в шапке.
   const gp = by("held-Grands Prix");
   assert.equal(gp.header, "MILESTONE");
+  assert.equal(gp.driver, "#14 A. ALO");
   assert.equal(gp.title, "438 GRANDS PRIX");
   assert.match(gp.note, /12 more for a landmark 450/);
-  assert.equal(gp.barRight, "438/450");
+  assert.equal(gp.barLeft, "438");
+  assert.equal(gp.barRight, "450");
 
-  // firstPast — единственный за порогом.
+  // firstPast — единственный за порогом, имя в шапке.
   const wins = by("held-wins");
   assert.equal(wins.header, "RECORD");
+  assert.equal(wins.driver, "#44 H. HAM"); // sub строит «H. HAM» из кода
   assert.match(wins.note, /only driver.*pass 100 wins/i);
 
   // rate — доля подиумных гонок > половины.
@@ -44,11 +47,13 @@ test("вау-углы держателей + погони", () => {
   assert.equal(pod.barRight, "207/390");
   assert.ok(pod.progress > 0.5 && pod.progress < 0.6);
 
-  // chase — погоня за зафиксированной цифрой (71 → 91, 20 не хватает).
+  // chase — цифры по углам (71 → 91), имя в шапке.
   const chase = by("chase-wins");
   assert.equal(chase.header, "CHASING");
+  assert.equal(chase.driver, "#3 V. VER");
   assert.match(chase.note, /20 wins from passing Michael Schumacher’s 91/);
-  assert.equal(chase.barRight, "71/91");
+  assert.equal(chase.barLeft, "71");
+  assert.equal(chase.barRight, "91");
 });
 
 test("погоня достигнута/пройдена — карточки нет", () => {
