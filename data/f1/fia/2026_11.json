@@ -2,5 +2,40 @@
   "season": 2026,
   "round": 11,
   "event": "hungarian_grand_prix",
-  "penalties": []
+  "updated": "2026-07-24 16:06 CET",
+  "penalties": [
+    {
+      "doc": 13,
+      "car": 6,
+      "driver": "Isack Hadjar",
+      "session": "Free Practice 1",
+      "type": "fine",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_6_-_pit_lane_speeding_.pdf",
+      "publishedAt": "2026-07-24 14:11 CET"
+    },
+    {
+      "doc": 19,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Free Practice 1",
+      "type": "other",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_erratic_driving_in_turn_12_0.pdf",
+      "publishedAt": "2026-07-24 16:06 CET"
+    },
+    {
+      "doc": 20,
+      "car": 3,
+      "driver": "Max Verstappen",
+      "session": "Free Practice 1",
+      "type": "none",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_3_-_alleged_erratic_driving_in_turn_12.pdf",
+      "publishedAt": "2026-07-24 16:06 CET"
+    }
+  ]
 }
