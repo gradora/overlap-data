@@ -1,7 +1,7 @@
 // Продьюсер «BEASTS OF THE SEASON» — сезонные лидерборды F1 для полки поиска:
 //  • biggest comeback — прирост позиций (grid − финиш) по всем гонкам и
-//    спринтам сезона, топ-3;
-//  • fastest pit stop — минимум стационарного пита по data/f1/highlights, топ-3.
+//    спринтам сезона, топ-10 (полка показывает топ-3, категория — весь список);
+//  • fastest pit stop — минимум стационарного пита по data/f1/highlights, топ-10.
 // Comeback тянет результаты по раундам из Jolpica (grid лежит прямо в Results),
 // pit берёт из уже-зеркалированных highlights и доклеивает команду/код по
 // фамилии из тех же результатов. Пишет data/f1/beasts/<season>.json.
@@ -216,13 +216,16 @@ async function main() {
       ? { value: r.value, detail: r.detail, event: r.event, code: r.code, team: r.team, teamId: r.teamId }
       : { value: r.value, event: r.event, code: r.code, team: r.team, teamId: r.teamId };
 
+  // Полка поиска показывает топ-3 «по соку», полноэкранная категория Beasts —
+  // весь лидерборд: отдаём глубже (топ-10), приложение само режет полку.
+  const TOP = 10;
   const topComebacks = comebacks
     .sort((a, b) => b.gain - a.gain || a.event.localeCompare(b.event))
-    .slice(0, 3)
+    .slice(0, TOP)
     .map(strip);
   const topPits = pits
     .sort((a, b) => a.seconds - b.seconds || a.event.localeCompare(b.event))
-    .slice(0, 3)
+    .slice(0, TOP)
     .map(strip);
 
   const payload: SeasonBeasts = { season: YEAR, comebacks: topComebacks, pits: topPits };
