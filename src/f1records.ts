@@ -33,11 +33,15 @@ export const HELD: { stat: string; holder: string; holderName: string; metric: M
 
 /// Погони за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды → «to beat». record — реальный
 /// факт (курируется, меняется редко), прогресс пилота считаем живым.
+// ВАЖНО: метрики — только results-based (GP-only, без спринтов). qualifying/1 у
+// Jolpica завышает поулы (лумпит sprint-shootout: Hamilton 118 vs реальных 104)
+// — поулы не берём. Погоня активного (со спринтами) за GP-цифрой легенды по
+// wins/podiums почти консистентна (у results спринтов нет).
 export const CHASES: {
   stat: string; metric: Metric; record: number; holder: string; chaser: string;
 }[] = [
-  { stat: "wins",  metric: "wins",  record: 91, holder: "Michael Schumacher", chaser: "max_verstappen" },
-  { stat: "poles", metric: "poles", record: 68, holder: "Michael Schumacher", chaser: "max_verstappen" },
+  { stat: "wins",    metric: "wins",    record: 91,  holder: "Michael Schumacher", chaser: "max_verstappen" },
+  { stat: "podiums", metric: "podiums", record: 155, holder: "Michael Schumacher", chaser: "max_verstappen" },
 ];
 
 export interface Subject {
