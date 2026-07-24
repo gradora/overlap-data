@@ -1,16 +1,20 @@
 // Продьюсер «SPORT MILESTONES» — вехи и рекорды F1 для одноимённого блока
 // поиска. Источник — карьерная статистика из Jolpica (дешёвые MRData.total).
-// Два типа карточек:
-//   • «new record» — активный держатель all-time рекорда, который он продолжает
-//     двигать (Alonso — Grands Prix; Hamilton — wins/podiums). Цифра живая.
-//   • «to beat» — активный пилот догоняет ЗАФИКСИРОВАННУЮ цифру ушедшей легенды
-//     (держатель больше не гоняет → рекорд стоит → погоня осмысленна). Сейчас:
-//     Verstappen → 91 победа Шумахера, → 68 поулов Шумахера. Цель курируется
-//     (реальный факт), прогресс пилота — живой из Jolpica.
-// НЕ гоняем «активный за активным» по накопительной метрике — рекорд движется у
-// обоих, догнать нельзя, график бессмыслен.
-// Юбилейные «legacy»-вехи (350 GP for Alonso) в блоке — из data/f1/milestones
-// (продьюсер f1milestones.ts), приложение их доклеивает.
+// Карточки собираются С ГОТОВЫМ ТЕКСТОМ (header/title/note/подписи полоски) —
+// формулировки и «вау-углы» живут в бэкенде, приложение только рисует.
+//
+// Углы (не просто «держит рекорд», а горячая динамика):
+//  • milestone — держатель идёт к красивой круглой цифре: «12 more for a
+//    landmark 450» (Alonso, Grands Prix). Полоска — прогресс к цели.
+//  • firstPast — уникальность: «The only driver ever past 100 wins» (Hamilton).
+//  • rate — частота: «On the podium in more than half his races» (Hamilton,
+//    207 подиумов из 390 — полоска = доля подиумных гонок).
+//  • chase — погоня за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды (держатель больше
+//    не гоняет → цель стоит → догнать реально): Verstappen → 91 победа / 155
+//    подиумов Шумахера. Полоска — прогресс к цели.
+//
+// Только results-based метрики (GP, без спринтов); qualifying/1 у Jolpica
+// завышает поулы (лумпит sprint-shootout) — поулы не берём.
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -22,21 +26,21 @@ const STANDINGS = join(process.cwd(), "data", "f1", "jolpica", "current_driverSt
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
-type Metric = "entries" | "wins" | "podiums" | "poles";
+type Metric = "entries" | "wins" | "podiums";
 
-/// Активные держатели all-time рекордов (продолжают двигать) → «new record».
-export const HELD: { stat: string; holder: string; holderName: string; metric: Metric }[] = [
-  { stat: "Grands Prix", holder: "alonso",   holderName: "Fernando Alonso", metric: "entries" },
-  { stat: "wins",        holder: "hamilton", holderName: "Lewis Hamilton",  metric: "wins" },
-  { stat: "podiums",     holder: "hamilton", holderName: "Lewis Hamilton",  metric: "podiums" },
+type Hook =
+  | { kind: "milestone"; step: number }        // к следующей круглой цифре
+  | { kind: "firstPast"; threshold: number }   // единственный за порогом
+  | { kind: "rate"; over: Metric };            // доля (подиумов от гонок)
+
+/// Активные держатели all-time рекордов + «вау-угол».
+export const HELD: { stat: string; holder: string; metric: Metric; hook: Hook }[] = [
+  { stat: "Grands Prix", holder: "alonso",   metric: "entries", hook: { kind: "milestone", step: 50 } },
+  { stat: "wins",        holder: "hamilton", metric: "wins",    hook: { kind: "firstPast", threshold: 100 } },
+  { stat: "podiums",     holder: "hamilton", metric: "podiums", hook: { kind: "rate", over: "entries" } },
 ];
 
-/// Погони за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды → «to beat». record — реальный
-/// факт (курируется, меняется редко), прогресс пилота считаем живым.
-// ВАЖНО: метрики — только results-based (GP-only, без спринтов). qualifying/1 у
-// Jolpica завышает поулы (лумпит sprint-shootout: Hamilton 118 vs реальных 104)
-// — поулы не берём. Погоня активного (со спринтами) за GP-цифрой легенды по
-// wins/podiums почти консистентна (у results спринтов нет).
+/// Погони за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды. record — реальный факт.
 export const CHASES: {
   stat: string; metric: Metric; record: number; holder: string; chaser: string;
 }[] = [
@@ -51,17 +55,16 @@ export interface Subject {
   teamId: string;       // «red_bull» — цвет полоски
 }
 
+/// Готовая карточка блока — приложение рисует как есть.
 export interface RecordCard {
-  kind: "new record" | "to beat";
-  stat: string;
-  value: number;        // крупная цифра карточки (живой тотал субъекта)
-  record: number;       // цель/рекорд
-  driver: string;
-  code: string;
-  number: string | null;
-  teamId: string;
-  holder: string;       // имя держателя рекорда (для сабтайтла)
-  progress: number;     // value/record (0…1)
+  id: string;
+  header: string;       // «MILESTONE» | «RECORD» | «CHASING»
+  title: string;        // «438 GRANDS PRIX»
+  note: string;         // сабтайтл
+  progress: number;     // заполнение полоски 0…1
+  teamId: string;       // цвет полоски
+  barLeft: string;      // «#14 F. Alonso» | «WINS»
+  barRight: string;     // «438/450» | «106»
 }
 
 export interface SeasonRecords {
@@ -69,30 +72,78 @@ export interface SeasonRecords {
   records: RecordCard[];
 }
 
-/// Чистая сборка: held → «new record» (субъект = держатель), chases → «to beat»
-/// (субъект = преследователь, если ещё не догнал). value/info резолвит вызывающий.
+const UP = (s: string) => s.toUpperCase();
+
+/// Карточка держателя рекорда по «вау-углу».
+function heldCard(
+  h: (typeof HELD)[number],
+  V: Record<string, number | null>,
+  S: Record<string, Subject | null>,
+): RecordCard | null {
+  const info = S[h.holder];
+  const value = V[`${h.holder}:${h.metric}`];
+  if (!info || value == null || value <= 0) return null;
+  const title = UP(`${value} ${h.stat}`);
+
+  switch (h.hook.kind) {
+    case "milestone": {
+      const target = Math.ceil((value + 1) / h.hook.step) * h.hook.step;
+      const gap = target - value;
+      return {
+        id: `held-${h.stat}`, header: "MILESTONE", title,
+        note: `${gap} more for a landmark ${target} — extending his own all-time record.`,
+        progress: value / target, teamId: info.teamId,
+        barLeft: `#${info.number ?? "?"} ${info.driver}`, barRight: `${value}/${target}`,
+      };
+    }
+    case "firstPast":
+      return {
+        id: `held-${h.stat}`, header: "RECORD", title,
+        note: `The only driver in F1 history to pass ${h.hook.threshold} ${h.stat}.`,
+        progress: 1, teamId: info.teamId, barLeft: UP(h.stat), barRight: `${value}`,
+      };
+    case "rate": {
+      const races = V[`${h.holder}:${h.hook.over}`] ?? 0;
+      const ratio = races > 0 ? value / races : 1;
+      const noun = h.stat.replace(/s$/, "");
+      const note = ratio >= 0.5
+        ? `On the podium in more than half of his ${races} Grands Prix.`
+        : `A ${noun} roughly every ${(1 / ratio).toFixed(1)} races.`;
+      return {
+        id: `held-${h.stat}`, header: "RECORD", title, note,
+        progress: ratio, teamId: info.teamId, barLeft: UP(h.stat),
+        barRight: races > 0 ? `${value}/${races}` : `${value}`,
+      };
+    }
+  }
+}
+
+/// Карточка погони за зафиксированной цифрой легенды.
+function chaseCard(
+  c: (typeof CHASES)[number],
+  V: Record<string, number | null>,
+  S: Record<string, Subject | null>,
+): RecordCard | null {
+  const info = S[c.chaser];
+  const value = V[`${c.chaser}:${c.metric}`];
+  if (!info || value == null || value <= 0 || value >= c.record) return null;
+  const gap = c.record - value;
+  return {
+    id: `chase-${c.stat}`, header: "CHASING", title: UP(`${value} ${c.stat}`),
+    note: `${gap} ${c.stat} from passing ${c.holder}’s ${c.record}.`,
+    progress: value / c.record, teamId: info.teamId,
+    barLeft: `#${info.number ?? "?"} ${info.driver}`, barRight: `${value}/${c.record}`,
+  };
+}
+
+/// Чистая сборка блока — держатели (вау-углы) + погони.
 export function buildCards(
-  held: { stat: string; holderName: string; value: number | null; info: Subject | null }[],
-  chases: { stat: string; record: number; holder: string; value: number | null; info: Subject | null }[],
+  V: Record<string, number | null>,
+  S: Record<string, Subject | null>,
 ): RecordCard[] {
   const cards: RecordCard[] = [];
-  for (const h of held) {
-    if (h.value == null || h.value <= 0 || !h.info) continue;
-    cards.push({
-      kind: "new record", stat: h.stat, value: h.value, record: h.value,
-      driver: h.info.driver, code: h.info.code, number: h.info.number,
-      teamId: h.info.teamId, holder: h.holderName, progress: 1,
-    });
-  }
-  for (const c of chases) {
-    // Показываем, только пока цифра НЕ достигнута (иначе это уже не погоня).
-    if (c.value == null || c.value <= 0 || c.value >= c.record || !c.info) continue;
-    cards.push({
-      kind: "to beat", stat: c.stat, value: c.value, record: c.record,
-      driver: c.info.driver, code: c.info.code, number: c.info.number,
-      teamId: c.info.teamId, holder: c.holder, progress: c.value / c.record,
-    });
-  }
+  for (const h of HELD) { const c = heldCard(h, V, S); if (c) cards.push(c); }
+  for (const c of CHASES) { const card = chaseCard(c, V, S); if (card) cards.push(card); }
   return cards;
 }
 
@@ -125,21 +176,6 @@ async function total(path: string): Promise<number | null> {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/// Карьерный тотал метрики: podiums = P1+P2+P3 (три ручки), остальное — одна.
-async function metricTotal(id: string, metric: Metric): Promise<number | null> {
-  switch (metric) {
-    case "entries": return total(`drivers/${id}/results`);
-    case "wins":    return total(`drivers/${id}/results/1`);
-    case "poles":   return total(`drivers/${id}/qualifying/1`);
-    case "podiums": {
-      const w = await total(`drivers/${id}/results/1`); await sleep(500);
-      const p2 = await total(`drivers/${id}/results/2`); await sleep(500);
-      const p3 = await total(`drivers/${id}/results/3`);
-      return w != null && p2 != null && p3 != null ? w + p2 + p3 : null;
-    }
-  }
-}
-
 async function main() {
   console.log(`F1 records, season ${YEAR}`);
 
@@ -150,7 +186,6 @@ async function main() {
     return;
   }
 
-  // Команда пилота — из зеркала driverStandings (для цвета полоски).
   const teamOf = new Map<string, string>();
   try {
     const st = JSON.parse(readFileSync(STANDINGS, "utf8"));
@@ -159,11 +194,12 @@ async function main() {
       const id = row?.Driver?.driverId, tid = row?.Constructors?.[0]?.constructorId;
       if (id && tid) teamOf.set(id, tid);
     }
-  } catch { /* нет зеркала — teamId пустой, цвет фолбэкнется в приложении */ }
+  } catch { /* нет зеркала — цвет фолбэкнется в приложении */ }
 
-  const info = (id: string): Subject | null => {
+  const S: Record<string, Subject | null> = {};
+  const subjectOf = (id: string): Subject | null => {
     const d = drivers.find((x: any) => x.driverId === id);
-    if (!d) return null; // субъект не в этом сезоне (ушёл) — карточку пропустим
+    if (!d) return null;
     return {
       code: d.code ?? d.familyName.slice(0, 3).toUpperCase(),
       driver: `${d.givenName[0]}. ${d.familyName}`,
@@ -172,37 +208,32 @@ async function main() {
     };
   };
 
-  // Резолвим только нужных субъектов (держатели + преследователи) — 3-4 пилота.
-  const subjects = new Map<string, Subject | null>();
-  const metrics = new Map<string, Metric[]>();
-  for (const h of HELD) {
-    subjects.set(h.holder, info(h.holder));
-    metrics.set(h.holder, [...(metrics.get(h.holder) ?? []), h.metric]);
-  }
-  for (const c of CHASES) {
-    subjects.set(c.chaser, info(c.chaser));
-    metrics.set(c.chaser, [...(metrics.get(c.chaser) ?? []), c.metric]);
-  }
+  // Кто и что нужно (держатели + преследователи, 3-4 пилота).
+  const need = new Map<string, Set<Metric>>();
+  const add = (id: string, m: Metric) => need.set(id, (need.get(id) ?? new Set()).add(m));
+  for (const h of HELD) { add(h.holder, h.metric); if (h.hook.kind === "rate") add(h.holder, h.hook.over); }
+  for (const c of CHASES) add(c.chaser, c.metric);
 
-  const value = new Map<string, number | null>();
-  for (const [id, ms] of metrics) {
-    if (!subjects.get(id)) continue; // ушедший субъект — не тратим запросы
-    for (const m of [...new Set(ms)]) {
-      value.set(`${id}:${m}`, await metricTotal(id, m));
-      await sleep(500);
+  const V: Record<string, number | null> = {};
+  for (const [id, metrics] of need) {
+    S[id] = subjectOf(id);
+    if (!S[id]) continue; // субъект не в сезоне (ушёл) — карточку пропустим
+    // podiums и wins делят results/1 — считаем P1/P2/P3 один раз при надобности.
+    const wantPodiums = metrics.has("podiums");
+    const wantWins = metrics.has("wins");
+    if (metrics.has("entries")) { V[`${id}:entries`] = await total(`drivers/${id}/results`); await sleep(500); }
+    if (wantWins || wantPodiums) {
+      const p1 = await total(`drivers/${id}/results/1`); await sleep(500);
+      if (wantWins) V[`${id}:wins`] = p1;
+      if (wantPodiums) {
+        const p2 = await total(`drivers/${id}/results/2`); await sleep(500);
+        const p3 = await total(`drivers/${id}/results/3`); await sleep(500);
+        V[`${id}:podiums`] = p1 != null && p2 != null && p3 != null ? p1 + p2 + p3 : null;
+      }
     }
   }
 
-  const held = HELD.map((h) => ({
-    stat: h.stat, holderName: h.holderName,
-    value: value.get(`${h.holder}:${h.metric}`) ?? null, info: subjects.get(h.holder) ?? null,
-  }));
-  const chases = CHASES.map((c) => ({
-    stat: c.stat, record: c.record, holder: c.holder,
-    value: value.get(`${c.chaser}:${c.metric}`) ?? null, info: subjects.get(c.chaser) ?? null,
-  }));
-
-  const records = buildCards(held, chases);
+  const records = buildCards(V, S);
   if (!records.length) {
     console.warn("records: нет карточек (данные недоступны) — пропускаем");
     return;
@@ -210,7 +241,7 @@ async function main() {
   const payload: SeasonRecords = { season: YEAR, records };
   const changed = writeIfChanged(OUT, JSON.stringify(payload, null, 2) + "\n");
   console.log(
-    `  ${records.length} карточек: ${records.map((r) => `${r.kind === "to beat" ? "→" : "★"}${r.value}/${r.record} ${r.stat} (${r.code})`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
+    `  ${records.length} карточек: ${records.map((r) => `${r.header[0]}:${r.title}`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
   );
   console.log("Done.");
 }

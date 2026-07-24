@@ -2,64 +2,54 @@
   "season": 2026,
   "records": [
     {
-      "kind": "new record",
-      "stat": "Grands Prix",
-      "value": 438,
-      "record": 438,
-      "driver": "F. Alonso",
-      "code": "ALO",
-      "number": "14",
+      "id": "held-Grands Prix",
+      "header": "MILESTONE",
+      "title": "438 GRANDS PRIX",
+      "note": "12 more for a landmark 450 — extending his own all-time record.",
+      "progress": 0.9733333333333334,
       "teamId": "aston_martin",
-      "holder": "Fernando Alonso",
-      "progress": 1
+      "barLeft": "#14 F. Alonso",
+      "barRight": "438/450"
     },
     {
-      "kind": "new record",
-      "stat": "wins",
-      "value": 106,
-      "record": 106,
-      "driver": "L. Hamilton",
-      "code": "HAM",
-      "number": "44",
+      "id": "held-wins",
+      "header": "RECORD",
+      "title": "106 WINS",
+      "note": "The only driver in F1 history to pass 100 wins.",
+      "progress": 1,
       "teamId": "ferrari",
-      "holder": "Lewis Hamilton",
-      "progress": 1
+      "barLeft": "WINS",
+      "barRight": "106"
     },
     {
-      "kind": "new record",
-      "stat": "podiums",
-      "value": 207,
-      "record": 207,
-      "driver": "L. Hamilton",
-      "code": "HAM",
-      "number": "44",
+      "id": "held-podiums",
+      "header": "RECORD",
+      "title": "207 PODIUMS",
+      "note": "On the podium in more than half of his 390 Grands Prix.",
+      "progress": 0.5307692307692308,
       "teamId": "ferrari",
-      "holder": "Lewis Hamilton",
-      "progress": 1
+      "barLeft": "PODIUMS",
+      "barRight": "207/390"
     },
     {
-      "kind": "to beat",
-      "stat": "wins",
-      "value": 71,
-      "record": 91,
-      "driver": "M. Verstappen",
-      "code": "VER",
-      "number": "3",
+      "id": "chase-wins",
+      "header": "CHASING",
+      "title": "71 WINS",
+      "note": "20 wins from passing Michael Schumacher’s 91.",
+      "progress": 0.7802197802197802,
       "teamId": "red_bull",
-      "holder": "Michael Schumacher",
-      "progress": 0.7802197802197802
+      "barLeft": "#3 M. Verstappen",
+      "barRight": "71/91"
     },
     {
-      "kind": "to beat",
-      "stat": "podiums",
-      "value": 130,
-      "record": 155,
-      "driver": "M. Verstappen",
-      "code": "VER",
-      "number": "3",
+      "id": "chase-podiums",
+      "header": "CHASING",
+      "title": "130 PODIUMS",
+      "note": "25 podiums from passing Michael Schumacher’s 155.",
+      "progress": 0.8387096774193549,
       "teamId": "red_bull",
-      "holder": "Michael Schumacher",
-      "progress": 0.8387096774193549
+      "barLeft": "#3 M. Verstappen",
+      "barRight": "130/155"
     }
   ]
 }
