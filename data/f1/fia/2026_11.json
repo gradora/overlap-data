@@ -2,5 +2,46 @@
   "season": 2026,
   "round": 11,
   "event": "hungarian_grand_prix",
-  "penalties": []
+  "updated": "2026-07-24 16:06 CET",
+  "penalties": [
+    {
+      "doc": 13,
+      "car": 6,
+      "driver": "Isack Hadjar",
+      "session": "Free Practice 1",
+      "type": "fine",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fact": "Pit lane speeding – 83.8 km/h",
+      "decision": "The competitor (Oracle Red Bull Racing) is fined €400.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_6_-_pit_lane_speeding_.pdf",
+      "publishedAt": "2026-07-24 14:11 CET"
+    },
+    {
+      "doc": 19,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Free Practice 1",
+      "type": "other",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fact": "The driver of Car 55 was preparing his brakes when on the racing line between turns 11 and 12 and hindered Car 3 which was on a push lap.",
+      "decision": "Driver: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_erratic_driving_in_turn_12_0.pdf",
+      "publishedAt": "2026-07-24 16:06 CET"
+    },
+    {
+      "doc": 20,
+      "car": 3,
+      "driver": "Max Verstappen",
+      "session": "Free Practice 1",
+      "type": "none",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fact": "The driver of Car 3 slowed significantly in turn 12",
+      "decision": "No further action.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_3_-_alleged_erratic_driving_in_turn_12.pdf",
+      "publishedAt": "2026-07-24 16:06 CET"
+    }
+  ]
 }
