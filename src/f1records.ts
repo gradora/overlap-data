@@ -1,14 +1,16 @@
-// Продьюсер «SPORT MILESTONES» — all-time рекорды F1 для одноимённого блока
-// поиска. Источник — карьерная статистика активных пилотов из Jolpica (дешёвые
-// MRData.total, без пагинации): старты (Grands Prix), победы, подиумы
-// (P1+P2+P3), поулы. Держатели all-time рекордов курируются (реальные факты,
-// меняются редко); их значение берём ЖИВЫМ из Jolpica (Alonso/Hamilton активны
-// и держат рекорды — цифра всегда точная, совпадает с макетом: Hamilton
-// podiums = 207). Карточки: «new record» (держатель) и «to beat» (ближайший
-// активный преследователь с прогрессом). Пишет data/f1/records/<season>.json.
-//
-// Юбилейные «legacy»-вехи (350 GP for Alonso) в блоке — из уже существующего
-// data/f1/milestones (продьюсер f1milestones.ts), приложение их доклеивает.
+// Продьюсер «SPORT MILESTONES» — вехи и рекорды F1 для одноимённого блока
+// поиска. Источник — карьерная статистика из Jolpica (дешёвые MRData.total).
+// Два типа карточек:
+//   • «new record» — активный держатель all-time рекорда, который он продолжает
+//     двигать (Alonso — Grands Prix; Hamilton — wins/podiums). Цифра живая.
+//   • «to beat» — активный пилот догоняет ЗАФИКСИРОВАННУЮ цифру ушедшей легенды
+//     (держатель больше не гоняет → рекорд стоит → погоня осмысленна). Сейчас:
+//     Verstappen → 91 победа Шумахера, → 68 поулов Шумахера. Цель курируется
+//     (реальный факт), прогресс пилота — живой из Jolpica.
+// НЕ гоняем «активный за активным» по накопительной метрике — рекорд движется у
+// обоих, догнать нельзя, график бессмыслен.
+// Юбилейные «legacy»-вехи (350 GP for Alonso) в блоке — из data/f1/milestones
+// (продьюсер f1milestones.ts), приложение их доклеивает.
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -20,43 +22,42 @@ const STANDINGS = join(process.cwd(), "data", "f1", "jolpica", "current_driverSt
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
-/// Отслеживаемые all-time рекорды: держатель курируется (driverId Jolpica),
-/// значение рекорда — его живой тотал (держатели активны). Порядок — приоритет
-/// показа.
-export const TRACKED: { stat: string; holder: string; holderName: string }[] = [
-  { stat: "Grands Prix", holder: "alonso",   holderName: "Fernando Alonso" },
-  { stat: "wins",        holder: "hamilton", holderName: "Lewis Hamilton" },
-  { stat: "podiums",     holder: "hamilton", holderName: "Lewis Hamilton" },
-  { stat: "poles",       holder: "hamilton", holderName: "Lewis Hamilton" },
+type Metric = "entries" | "wins" | "podiums" | "poles";
+
+/// Активные держатели all-time рекордов (продолжают двигать) → «new record».
+export const HELD: { stat: string; holder: string; holderName: string; metric: Metric }[] = [
+  { stat: "Grands Prix", holder: "alonso",   holderName: "Fernando Alonso", metric: "entries" },
+  { stat: "wins",        holder: "hamilton", holderName: "Lewis Hamilton",  metric: "wins" },
+  { stat: "podiums",     holder: "hamilton", holderName: "Lewis Hamilton",  metric: "podiums" },
 ];
 
-/// «to beat» показываем только у реального преследования — прогресс ≥ порога
-/// (иначе «11 из 106» рядом с рекордом выглядит бессмысленно).
-export const CHASE_MIN_PROGRESS = 0.5;
+/// Погони за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды → «to beat». record — реальный
+/// факт (курируется, меняется редко), прогресс пилота считаем живым.
+export const CHASES: {
+  stat: string; metric: Metric; record: number; holder: string; chaser: string;
+}[] = [
+  { stat: "wins",  metric: "wins",  record: 91, holder: "Michael Schumacher", chaser: "max_verstappen" },
+  { stat: "poles", metric: "poles", record: 68, holder: "Michael Schumacher", chaser: "max_verstappen" },
+];
 
-export interface DriverTotals {
-  driverId: string;
-  code: string;        // «HAM»
-  driver: string;      // «L. Hamilton»
+export interface Subject {
+  code: string;         // «VER»
+  driver: string;       // «M. Verstappen»
   number: string | null;
-  teamId: string;      // «mercedes» — цвет полоски
-  "Grands Prix": number;
-  wins: number;
-  podiums: number;
-  poles: number;
+  teamId: string;       // «red_bull» — цвет полоски
 }
 
 export interface RecordCard {
   kind: "new record" | "to beat";
   stat: string;
-  value: number;       // крупная цифра карточки
-  record: number;      // значение all-time рекорда
-  driver: string;      // «L. Hamilton»
-  code: string;        // «HAM»
+  value: number;        // крупная цифра карточки (живой тотал субъекта)
+  record: number;       // цель/рекорд
+  driver: string;
+  code: string;
   number: string | null;
   teamId: string;
-  holder: string;      // имя держателя рекорда (для сабтайтла)
-  progress: number;    // value/record (0..1)
+  holder: string;       // имя держателя рекорда (для сабтайтла)
+  progress: number;     // value/record (0…1)
 }
 
 export interface SeasonRecords {
@@ -64,41 +65,29 @@ export interface SeasonRecords {
   records: RecordCard[];
 }
 
-/// Чистая сборка карточек: для каждого рекорда — держатель (new record) и
-/// ближайший активный преследователь (to beat, если прогресс ≥ порога).
+/// Чистая сборка: held → «new record» (субъект = держатель), chases → «to beat»
+/// (субъект = преследователь, если ещё не догнал). value/info резолвит вызывающий.
 export function buildCards(
-  totals: DriverTotals[],
-  tracked = TRACKED,
-  minProgress = CHASE_MIN_PROGRESS,
+  held: { stat: string; holderName: string; value: number | null; info: Subject | null }[],
+  chases: { stat: string; record: number; holder: string; value: number | null; info: Subject | null }[],
 ): RecordCard[] {
-  const byId = new Map(totals.map((t) => [t.driverId, t]));
   const cards: RecordCard[] = [];
-  for (const rec of tracked) {
-    const key = rec.stat as "Grands Prix" | "wins" | "podiums" | "poles";
-    const holder = byId.get(rec.holder);
-    if (!holder || holder[key] <= 0) continue; // держатель не активен — пропуск
-    const record = holder[key];
-
+  for (const h of held) {
+    if (h.value == null || h.value <= 0 || !h.info) continue;
     cards.push({
-      kind: "new record", stat: rec.stat, value: record, record,
-      driver: holder.driver, code: holder.code, number: holder.number,
-      teamId: holder.teamId, holder: rec.holderName, progress: 1,
+      kind: "new record", stat: h.stat, value: h.value, record: h.value,
+      driver: h.info.driver, code: h.info.code, number: h.info.number,
+      teamId: h.info.teamId, holder: h.holderName, progress: 1,
     });
-
-    // Ближайший активный преследователь (не держатель) с максимумом по метрике.
-    const chaser = totals
-      .filter((t) => t.driverId !== rec.holder)
-      .sort((a, b) => b[key] - a[key])[0];
-    if (chaser && chaser[key] > 0) {
-      const progress = chaser[key] / record;
-      if (progress >= minProgress) {
-        cards.push({
-          kind: "to beat", stat: rec.stat, value: chaser[key], record,
-          driver: chaser.driver, code: chaser.code, number: chaser.number,
-          teamId: chaser.teamId, holder: rec.holderName, progress,
-        });
-      }
-    }
+  }
+  for (const c of chases) {
+    // Показываем, только пока цифра НЕ достигнута (иначе это уже не погоня).
+    if (c.value == null || c.value <= 0 || c.value >= c.record || !c.info) continue;
+    cards.push({
+      kind: "to beat", stat: c.stat, value: c.value, record: c.record,
+      driver: c.info.driver, code: c.info.code, number: c.info.number,
+      teamId: c.info.teamId, holder: c.holder, progress: c.value / c.record,
+    });
   }
   return cards;
 }
@@ -124,7 +113,6 @@ async function fetchJSON(url: string, attempt = 0): Promise<any | null> {
   }
 }
 
-/// MRData.total ручки-агрегата (limit=1) — карьерный счётчик без пагинации.
 async function total(path: string): Promise<number | null> {
   const d = await fetchJSON(`${JOLPICA}/${path}.json?limit=1`);
   const n = Number(d?.MRData?.total);
@@ -132,6 +120,21 @@ async function total(path: string): Promise<number | null> {
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/// Карьерный тотал метрики: podiums = P1+P2+P3 (три ручки), остальное — одна.
+async function metricTotal(id: string, metric: Metric): Promise<number | null> {
+  switch (metric) {
+    case "entries": return total(`drivers/${id}/results`);
+    case "wins":    return total(`drivers/${id}/results/1`);
+    case "poles":   return total(`drivers/${id}/qualifying/1`);
+    case "podiums": {
+      const w = await total(`drivers/${id}/results/1`); await sleep(500);
+      const p2 = await total(`drivers/${id}/results/2`); await sleep(500);
+      const p3 = await total(`drivers/${id}/results/3`);
+      return w != null && p2 != null && p3 != null ? w + p2 + p3 : null;
+    }
+  }
+}
 
 async function main() {
   console.log(`F1 records, season ${YEAR}`);
@@ -154,41 +157,56 @@ async function main() {
     }
   } catch { /* нет зеркала — teamId пустой, цвет фолбэкнется в приложении */ }
 
-  const totals: DriverTotals[] = [];
-  for (const d of drivers) {
-    const id = d.driverId;
-    // Последовательно с паузой — Jolpica жёстко rate-лимитит параллельные залпы.
-    const entries = await total(`drivers/${id}/results`); await sleep(500);
-    const wins = await total(`drivers/${id}/results/1`); await sleep(500);
-    const p2 = await total(`drivers/${id}/results/2`); await sleep(500);
-    const p3 = await total(`drivers/${id}/results/3`); await sleep(500);
-    const poles = await total(`drivers/${id}/qualifying/1`); await sleep(500);
-    // Сетевой пропуск любой метрики — пилота не учитываем (не портим сравнение).
-    if ([entries, wins, p2, p3, poles].some((x) => x == null)) {
-      console.warn(`  ${id}: неполные данные — пропуск`);
-      continue;
-    }
-    const code = d.code ?? d.familyName.slice(0, 3).toUpperCase();
-    totals.push({
-      driverId: id, code,
+  const info = (id: string): Subject | null => {
+    const d = drivers.find((x: any) => x.driverId === id);
+    if (!d) return null; // субъект не в этом сезоне (ушёл) — карточку пропустим
+    return {
+      code: d.code ?? d.familyName.slice(0, 3).toUpperCase(),
       driver: `${d.givenName[0]}. ${d.familyName}`,
       number: d.permanentNumber ?? null,
       teamId: teamOf.get(id) ?? "",
-      "Grands Prix": entries!, wins: wins!, podiums: wins! + p2! + p3!, poles: poles!,
-    });
-    await sleep(300);
+    };
+  };
+
+  // Резолвим только нужных субъектов (держатели + преследователи) — 3-4 пилота.
+  const subjects = new Map<string, Subject | null>();
+  const metrics = new Map<string, Metric[]>();
+  for (const h of HELD) {
+    subjects.set(h.holder, info(h.holder));
+    metrics.set(h.holder, [...(metrics.get(h.holder) ?? []), h.metric]);
+  }
+  for (const c of CHASES) {
+    subjects.set(c.chaser, info(c.chaser));
+    metrics.set(c.chaser, [...(metrics.get(c.chaser) ?? []), c.metric]);
   }
 
-  if (!totals.length) {
-    console.warn("records: карьерные тоталы недоступны — пропускаем");
+  const value = new Map<string, number | null>();
+  for (const [id, ms] of metrics) {
+    if (!subjects.get(id)) continue; // ушедший субъект — не тратим запросы
+    for (const m of [...new Set(ms)]) {
+      value.set(`${id}:${m}`, await metricTotal(id, m));
+      await sleep(500);
+    }
+  }
+
+  const held = HELD.map((h) => ({
+    stat: h.stat, holderName: h.holderName,
+    value: value.get(`${h.holder}:${h.metric}`) ?? null, info: subjects.get(h.holder) ?? null,
+  }));
+  const chases = CHASES.map((c) => ({
+    stat: c.stat, record: c.record, holder: c.holder,
+    value: value.get(`${c.chaser}:${c.metric}`) ?? null, info: subjects.get(c.chaser) ?? null,
+  }));
+
+  const records = buildCards(held, chases);
+  if (!records.length) {
+    console.warn("records: нет карточек (данные недоступны) — пропускаем");
     return;
   }
-
-  const records = buildCards(totals);
   const payload: SeasonRecords = { season: YEAR, records };
   const changed = writeIfChanged(OUT, JSON.stringify(payload, null, 2) + "\n");
   console.log(
-    `  ${records.length} карточек: ${records.map((r) => `${r.kind === "to beat" ? "→" : "★"}${r.value} ${r.stat} (${r.code})`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
+    `  ${records.length} карточек: ${records.map((r) => `${r.kind === "to beat" ? "→" : "★"}${r.value}/${r.record} ${r.stat} (${r.code})`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
   );
   console.log("Done.");
 }
