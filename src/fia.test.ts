@@ -100,6 +100,7 @@ test("classifyDecision: все типы штрафов генерически", 
   assert.equal(classifyDecision("Car 44 is disqualified from the race classification.").type, "dsq");
   assert.equal(classifyDecision("The driver is excluded from the Qualifying classification.").type, "dsq");
   assert.equal(classifyDecision("Reprimand (driving).").type, "reprimand");
+  assert.equal(classifyDecision("Driver: Warning.").type, "warning");
   assert.equal(classifyDecision("Fine of €25,000.").type, "fine");
   assert.equal(classifyDecision("No further action.").type, "none");
   assert.equal(classifyDecision("The matter is referred to the Stewards.").type, "other");
