@@ -33,7 +33,7 @@ const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15
 // ---- Типы вывода (зеркалят модель приложения FIAPenalties) ----
 
 export type PenaltyType =
-  | "grid" | "time" | "dsq" | "reprimand" | "fine" | "deleted_laps" | "none" | "other";
+  | "grid" | "time" | "dsq" | "reprimand" | "warning" | "fine" | "deleted_laps" | "none" | "other";
 
 export interface FiaPenalty {
   doc: number;                 // номер документа стюардов
@@ -198,6 +198,9 @@ export function classifyDecision(decision: string): {
   if ((m = d.match(/(\d+)\s*second(?:s)? added/))) return { type: "time", seconds: Number(m[1]) };
   if (/disqualif|excluded from/.test(d)) return { type: "dsq" };
   if (/reprimand/.test(d)) return { type: "reprimand" };
+  // «Driver: Warning.» — стюардовское предупреждение (напр. за дельту SC2-SC1);
+  // на результат не влияет, но должно доходить до приложения, а не в "other".
+  if (/\bwarning\b/.test(d)) return { type: "warning" };
   if (/fine of|fined/.test(d)) return { type: "fine" };
   if (/lap ?time.*delet|deletion of.*lap|deleted lap/.test(d)) return { type: "deleted_laps" };
   return { type: "other" };
