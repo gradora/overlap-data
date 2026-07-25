@@ -2,7 +2,7 @@
   "season": 2026,
   "round": 11,
   "event": "hungarian_grand_prix",
-  "updated": "2026-07-25 18:40 CET",
+  "updated": "2026-07-25 20:00 CET",
   "penalties": [
     {
       "doc": 13,
@@ -20,7 +20,7 @@
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Free Practice 1",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_erratic_driving_in_turn_12_0.pdf",
@@ -59,6 +59,137 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_44_-_unnecessarily_impeding_of_car_81.pdf",
       "publishedAt": "2026-07-25 18:40 CET"
+    },
+    {
+      "doc": 41,
+      "car": 12,
+      "driver": "Kimi Antonelli",
+      "session": "Qualifying",
+      "type": "grid",
+      "gridDrop": 3,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_12_-_yellow_flag_infringement.pdf",
+      "publishedAt": "2026-07-25 19:31 CET"
+    },
+    {
+      "doc": 43,
+      "car": 12,
+      "driver": "Kimi Antonelli",
+      "session": "Qualifying",
+      "type": "warning",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_12_-_alleged_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
+      "publishedAt": "2026-07-25 19:39 CET"
     }
-  ]
+  ],
+  "startingGrid": {
+    "kind": "provisional",
+    "doc": 46,
+    "entries": [
+      {
+        "position": 1,
+        "car": 1
+      },
+      {
+        "position": 2,
+        "car": 16
+      },
+      {
+        "position": 3,
+        "car": 81
+      },
+      {
+        "position": 4,
+        "car": 3
+      },
+      {
+        "position": 5,
+        "car": 44
+      },
+      {
+        "position": 6,
+        "car": 63
+      },
+      {
+        "position": 7,
+        "car": 12
+      },
+      {
+        "position": 8,
+        "car": 6
+      },
+      {
+        "position": 9,
+        "car": 41
+      },
+      {
+        "position": 10,
+        "car": 27
+      },
+      {
+        "position": 11,
+        "car": 30
+      },
+      {
+        "position": 12,
+        "car": 10
+      },
+      {
+        "position": 13,
+        "car": 43
+      },
+      {
+        "position": 14,
+        "car": 5
+      },
+      {
+        "position": 15,
+        "car": 31
+      },
+      {
+        "position": 16,
+        "car": 14
+      },
+      {
+        "position": 17,
+        "car": 87
+      },
+      {
+        "position": 18,
+        "car": 55
+      },
+      {
+        "position": 19,
+        "car": 23
+      },
+      {
+        "position": 20,
+        "car": 18
+      },
+      {
+        "position": 21,
+        "car": 77
+      },
+      {
+        "position": 22,
+        "car": 11
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 44,
+        "text": "3 place grid penalty - Impeding another driver",
+        "doc": 36
+      },
+      {
+        "car": 12,
+        "text": "3 place grid penalty - Failing to slow for yellow flags",
+        "doc": 41
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_provisional_starting_grid.pdf",
+    "publishedAt": "2026-07-25 20:00 CET"
+  }
 }
