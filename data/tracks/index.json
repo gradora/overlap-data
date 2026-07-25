@@ -87,6 +87,7 @@
         "year": 2022
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2024,
@@ -388,6 +389,10 @@
         "year": 2009
       }
     },
+    "longestRace": {
+      "hours": 8,
+      "name": "8 Hours of Bahrain"
+    },
     "notable": [
       {
         "year": 2024,
@@ -459,6 +464,7 @@
         "year": 2019
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2017,
@@ -814,6 +820,10 @@
         "event": "2025 Barcelona TCR Europe round",
         "year": 2025
       }
+    },
+    "longestRace": {
+      "hours": 4,
+      "name": "4 Hours of Barcelona"
     },
     "notable": [
       {
@@ -1366,6 +1376,10 @@
         "year": 2024
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Circuit"
+    },
     "notable": [
       {
         "year": 2025,
@@ -1476,6 +1490,10 @@
         "event": "2024 Hard Rock Bet 200",
         "year": 2024
       }
+    },
+    "longestRace": {
+      "hours": 24,
+      "name": "24 Hours of Daytona"
     },
     "notable": [
       {
@@ -1633,6 +1651,7 @@
         "year": 2026
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2023,
@@ -1964,6 +1983,10 @@
         "year": 2018
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Fuji"
+    },
     "notable": [
       {
         "year": 2022,
@@ -2215,6 +2238,7 @@
         "year": 2010
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2009,
@@ -2746,6 +2770,10 @@
         "year": 2016
       }
     },
+    "longestRace": {
+      "hours": 3,
+      "name": "3 Hours of Hungaroring"
+    },
     "notable": [
       {
         "year": 2032,
@@ -3177,6 +3205,10 @@
         "year": 2021
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Imola"
+    },
     "notable": [
       {
         "year": 2026,
@@ -3297,6 +3329,10 @@
         "event": "2018 Brickyard 400",
         "year": 2018
       }
+    },
+    "longestRace": {
+      "hours": 8,
+      "name": "8 Hours of Indianapolis"
     },
     "notable": [
       {
@@ -3699,6 +3735,10 @@
         "year": 2019
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of São Paulo"
+    },
     "notable": [
       {
         "year": 2011,
@@ -3835,6 +3875,10 @@
         "year": 2022
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Jeddah"
+    },
     "notable": [
       {
         "year": 2025,
@@ -3946,6 +3990,7 @@
         "year": 2012
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2014,
@@ -4042,6 +4087,7 @@
         "year": 2024
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2024,
@@ -4058,170 +4104,214 @@
   "le-mans": {
     "wikiTitle": "Circuit de la Sarthe",
     "wikiURL": "https://en.wikipedia.org/wiki/Circuit_de_la_Sarthe",
-    "layout": null,
+    "layout": "Circuit de la Sarthe (2018–present): 13.626",
     "records": [
       {
-        "category": "1923–1928",
-        "bucket": "other",
-        "time": "111.219",
-        "seconds": 111.219,
-        "driver": "8:07 (127.604)in 1928",
-        "vehicle": "H.BirkinBentley 4½ Litre",
-        "event": "1928",
-        "year": 1928
+        "category": "LMP1",
+        "bucket": "endurance",
+        "time": "3:17.297",
+        "seconds": 197.297,
+        "driver": "Mike Conway",
+        "vehicle": "Toyota TS050 Hybrid",
+        "event": "2019 24 Hours of Le Mans",
+        "year": 2019
       },
       {
-        "category": "1929–1931",
-        "bucket": "other",
-        "time": "125.735",
-        "seconds": 125.735,
-        "driver": "6:48 (144.362)in 1930",
-        "vehicle": "H.BirkinBentley Blower",
-        "event": "1931",
-        "year": 1931
+        "category": "LMH",
+        "bucket": "endurance",
+        "time": "3:25.041",
+        "seconds": 205.041,
+        "driver": "Ryo Hirakawa",
+        "vehicle": "Toyota TR010 Hybrid",
+        "event": "2026 24 Hours of Le Mans",
+        "year": 2026
       },
       {
-        "category": "1932–1955",
-        "bucket": "other",
-        "time": "172.308",
-        "seconds": 172.308,
-        "driver": "4:06.6 (196.963)in 1955",
-        "vehicle": "M.HawthornJaguar D",
-        "event": "1955",
-        "year": 1955
+        "category": "LMDh",
+        "bucket": "endurance",
+        "time": "3:25.369",
+        "seconds": 205.369,
+        "driver": "Will Stevens",
+        "vehicle": "Cadillac V-Series.R",
+        "event": "2026 24 Hours of Le Mans",
+        "year": 2026
       },
       {
-        "category": "1986",
-        "bucket": "other",
-        "time": "207.197",
-        "seconds": 207.197,
-        "driver": "3:23.3 (239.551)in 1986",
-        "vehicle": "K.LudwigPorsche 956",
-        "event": "1986",
-        "year": 1986
-      },
-      {
-        "category": "1997–2001",
-        "bucket": "other",
-        "time": "208.666",
-        "seconds": 208.666,
-        "driver": "3:35.032 (227.771)in 1999",
-        "vehicle": "U.KatayamaToyota GT-One",
-        "event": "2000",
-        "year": 2000
-      },
-      {
-        "category": "1972–1978",
-        "bucket": "other",
-        "time": "210.189",
-        "seconds": 210.189,
-        "driver": "3:34.2 (229.244)in 1978",
-        "vehicle": "J.P.JabouilleAlpine-Renault A443",
-        "event": "1978",
-        "year": 1978
-      },
-      {
-        "category": "1979–1985",
-        "bucket": "other",
-        "time": "212.021",
-        "seconds": 212.021,
-        "driver": "3:25.1 (239.169)in 1985",
-        "vehicle": "J.MassPorsche 962",
-        "event": "1985",
-        "year": 1985
-      },
-      {
-        "category": "1990–1996",
-        "bucket": "other",
-        "time": "213.358",
-        "seconds": 213.358,
-        "driver": "3:27.47 (235.986)in 1993",
-        "vehicle": "E.IrvineToyota TS010",
-        "event": "1993",
-        "year": 1993
-      },
-      {
-        "category": "2006",
-        "bucket": "other",
-        "time": "215.409",
-        "seconds": 215.409,
-        "driver": "3:31.211 (232.658)in 2006",
-        "vehicle": "T.KristensenAudi R10 TDI",
-        "event": "2006",
-        "year": 2006
-      },
-      {
-        "category": "2002–2005",
-        "bucket": "other",
-        "time": "215.415",
-        "seconds": 215.415,
-        "driver": "3:33.483 (230.182)in 2002",
-        "vehicle": "T.KristensenAudi R8",
-        "event": "2004",
-        "year": 2004
-      },
-      {
-        "category": "1956–1967",
-        "bucket": "other",
-        "time": "218.038",
-        "seconds": 218.038,
-        "driver": "3:23.6 (238.014)in 1967",
-        "vehicle": "M.Andretti & D.HulmeFord Mk IV",
-        "event": "1967",
-        "year": 1967
-      },
-      {
-        "category": "Since 2018",
-        "bucket": "other",
-        "time": "220.015",
-        "seconds": 220.015,
-        "driver": "3:17.297 (248.6)in 2019",
-        "vehicle": "M. ConwayToyota TS050 Hybrid",
-        "event": "Since 2018",
+        "category": "LMP2",
+        "bucket": "endurance",
+        "time": "3:27.200",
+        "seconds": 207.2,
+        "driver": "Nathanaël Berthon",
+        "vehicle": "Oreca 07",
+        "event": "2018 24 Hours of Le Mans",
         "year": 2018
       },
       {
-        "category": "1987–1989",
+        "category": "Garage 56",
         "bucket": "other",
-        "time": "221.665",
-        "seconds": 221.665,
-        "driver": "3:21.27 (242.093)in 1989",
-        "vehicle": "A.FertéJaguar XJR9",
-        "event": "1988",
-        "year": 1988
+        "time": "3:37.066",
+        "seconds": 217.066,
+        "driver": "Matthieu Lahaye",
+        "vehicle": "Association SRT41",
+        "event": "2021 24 Hours of Le Mans",
+        "year": 2021
       },
       {
-        "category": "1968–1971",
-        "bucket": "other",
-        "time": "222.304",
-        "seconds": 222.304,
-        "driver": "3:18.4 (244.397)in 1971",
-        "vehicle": "J.OliverPorsche 917",
-        "event": "1971",
-        "year": 1971
+        "category": "LMP3",
+        "bucket": "endurance",
+        "time": "3:46.374",
+        "seconds": 226.374,
+        "driver": "Laurents Hörr",
+        "vehicle": "Duqueine M30 D-08",
+        "event": "2021 Road to Le Mans",
+        "year": 2021
       },
       {
-        "category": "2007–2017",
+        "category": "LM GTE",
+        "bucket": "gt",
+        "time": "3:47.501",
+        "seconds": 227.501,
+        "driver": "Alexander Sims",
+        "vehicle": "Chevrolet Corvette C8.R",
+        "event": "2021 24 Hours of Le Mans",
+        "year": 2021
+      },
+      {
+        "category": "Ferrari Challenge",
         "bucket": "other",
-        "time": "225.228",
-        "seconds": 225.228,
-        "driver": "3:17.475 (248.459)in 2015",
-        "vehicle": "A.LottererAudi R18 e-tron quattro",
-        "event": "2010",
-        "year": 2010
+        "time": "3:53.703",
+        "seconds": 233.703,
+        "driver": "Michael Verhagen",
+        "vehicle": "Ferrari 296 Challenge",
+        "event": "2026 Le Mans Ferrari Challenge Europe round",
+        "year": 2026
+      },
+      {
+        "category": "GT3",
+        "bucket": "gt",
+        "time": "3:53.802",
+        "seconds": 233.802,
+        "driver": "Hadrien David",
+        "vehicle": "Lexus RC F GT3",
+        "event": "2026 24 Hours of Le Mans",
+        "year": 2026
+      },
+      {
+        "category": "Lamborghini Super Trofeo",
+        "bucket": "other",
+        "time": "3:56.694",
+        "seconds": 236.69400000000002,
+        "driver": "Amaury Bonduel",
+        "vehicle": "Lamborghini Huracán Super Trofeo Evo 2",
+        "event": "2024 Le Mans Lamborghini Super Trofeo Europe round",
+        "year": 2024
+      },
+      {
+        "category": "NASCAR",
+        "bucket": "touring",
+        "time": "3:59.773",
+        "seconds": 239.773,
+        "driver": "Andrew Jordan",
+        "vehicle": "Toyota Camry",
+        "event": "2026 Le Mans Classic",
+        "year": 2026
+      },
+      {
+        "category": "Porsche Carrera Cup",
+        "bucket": "other",
+        "time": "4:00.181",
+        "seconds": 240.181,
+        "driver": "Alessandro Ghiretti",
+        "vehicle": "Porsche 911 (992 I) GT3 Cup",
+        "event": "2023 Le Mans Porsche Carrera Cup France round",
+        "year": 2023
+      },
+      {
+        "category": "JS P4",
+        "bucket": "other",
+        "time": "4:05.688",
+        "seconds": 245.688,
+        "driver": "Gillian Henrion",
+        "vehicle": "Ligier JS P4",
+        "event": "2022 Le Mans Ligier European Series round",
+        "year": 2022
+      },
+      {
+        "category": "GT4",
+        "bucket": "gt",
+        "time": "4:09.985",
+        "seconds": 249.985,
+        "driver": "Porsche 718 Cayman GT4 Clubsport",
+        "vehicle": "2025 1st Le Mans Porsche Sprint Challenge France round",
+        "event": "2025 1st Le Mans Porsche Sprint Challenge France round",
+        "year": 2025
+      },
+      {
+        "category": "JS2 R",
+        "bucket": "other",
+        "time": "4:18.803",
+        "seconds": 258.803,
+        "driver": "Hugo Rosati",
+        "vehicle": "Ligier JS2 R",
+        "event": "2022 Le Mans Ligier European Series round",
+        "year": 2022
+      },
+      {
+        "category": "Mustang Challenge",
+        "bucket": "other",
+        "time": "4:19.559",
+        "seconds": 259.559,
+        "driver": "Robert Noaker",
+        "vehicle": "Ford Mustang Dark Horse R",
+        "event": "2025 Mustang Challenge Le Mans Invitational",
+        "year": 2025
       }
     ],
     "fastest": {
+      "endurance": {
+        "category": "LMP1",
+        "bucket": "endurance",
+        "time": "3:17.297",
+        "seconds": 197.297,
+        "driver": "Mike Conway",
+        "vehicle": "Toyota TS050 Hybrid",
+        "event": "2019 24 Hours of Le Mans",
+        "year": 2019
+      },
       "other": {
-        "category": "1923–1928",
+        "category": "Garage 56",
         "bucket": "other",
-        "time": "111.219",
-        "seconds": 111.219,
-        "driver": "8:07 (127.604)in 1928",
-        "vehicle": "H.BirkinBentley 4½ Litre",
-        "event": "1928",
-        "year": 1928
+        "time": "3:37.066",
+        "seconds": 217.066,
+        "driver": "Matthieu Lahaye",
+        "vehicle": "Association SRT41",
+        "event": "2021 24 Hours of Le Mans",
+        "year": 2021
+      },
+      "gt": {
+        "category": "LM GTE",
+        "bucket": "gt",
+        "time": "3:47.501",
+        "seconds": 227.501,
+        "driver": "Alexander Sims",
+        "vehicle": "Chevrolet Corvette C8.R",
+        "event": "2021 24 Hours of Le Mans",
+        "year": 2021
+      },
+      "touring": {
+        "category": "NASCAR",
+        "bucket": "touring",
+        "time": "3:59.773",
+        "seconds": 239.773,
+        "driver": "Andrew Jordan",
+        "vehicle": "Toyota Camry",
+        "event": "2026 Le Mans Classic",
+        "year": 2026
       }
+    },
+    "longestRace": {
+      "hours": 24,
+      "name": "24 Hours of Le Mans"
     },
     "notable": [
       {
@@ -4574,6 +4664,7 @@
         "year": 2019
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2022,
@@ -4810,6 +4901,7 @@
         "year": 2024
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2021,
@@ -4881,6 +4973,7 @@
         "year": 2025
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2024,
@@ -5037,6 +5130,10 @@
         "year": 2025
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Mexico"
+    },
     "notable": [
       {
         "year": 2002,
@@ -5143,6 +5240,7 @@
         "year": 2023
       }
     },
+    "longestRace": null,
     "notable": []
   },
   "monaco": {
@@ -5683,6 +5781,7 @@
         "year": 2021
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2026,
@@ -6354,6 +6453,10 @@
         "year": 2000
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Monza"
+    },
     "notable": [
       {
         "year": 1973,
@@ -7000,6 +7103,7 @@
         "year": 2019
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2013,
@@ -7265,6 +7369,10 @@
         "event": "2025 Spielberg TCR Eastern Europe round",
         "year": 2025
       }
+    },
+    "longestRace": {
+      "hours": 4,
+      "name": "4 Hours of Red Bull Ring"
     },
     "notable": [
       {
@@ -7697,6 +7805,10 @@
         "year": 2026
       }
     },
+    "longestRace": {
+      "hours": 12,
+      "name": "12 Hours of Sebring"
+    },
     "notable": [
       {
         "year": 2024,
@@ -8072,6 +8184,10 @@
         "event": "18 April 2026",
         "year": 2026
       }
+    },
+    "longestRace": {
+      "hours": 4,
+      "name": "4 Hours of Shanghai"
     },
     "notable": []
   },
@@ -8492,6 +8608,10 @@
         "event": "2023 1st Silverstone British Endurance Championship round",
         "year": 2023
       }
+    },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Silverstone"
     },
     "notable": [
       {
@@ -9054,6 +9174,10 @@
         "year": 2021
       }
     },
+    "longestRace": {
+      "hours": 24,
+      "name": "24 Hours of Spa"
+    },
     "notable": [
       {
         "year": 2019,
@@ -9335,6 +9459,7 @@
         "year": 2020
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2014,
@@ -9801,6 +9926,7 @@
         "year": 2024
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2008,
@@ -10312,6 +10438,10 @@
         "year": 2023
       }
     },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of The Glen"
+    },
     "notable": [
       {
         "year": 2005,
@@ -10572,6 +10702,10 @@
         "event": "2023 1st Abu Dhabi Gulf ProCar round",
         "year": 2023
       }
+    },
+    "longestRace": {
+      "hours": 6,
+      "name": "6 Hours of Abu Dhabi"
     },
     "notable": [
       {
@@ -10859,6 +10993,7 @@
         "year": 2021
       }
     },
+    "longestRace": null,
     "notable": [
       {
         "year": 2026,

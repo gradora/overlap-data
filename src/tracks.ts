@@ -78,12 +78,19 @@ export interface NotableMoment {
   bucket: TrackBucket;
 }
 
+/// Самая длинная гонка трассы (по длительности): «24 Hours of Le Mans».
+export interface LongestRace {
+  hours: number;
+  name: string;   // «24 Hours of Le Mans»
+}
+
 export interface TrackWiki {
   wikiTitle: string;
   wikiURL: string;
   layout: string | null;                 // подпись текущего лейаута рекордов
   records: LapRecord[];                   // все распарсенные, быстрые первыми
   fastest: Partial<Record<TrackBucket, LapRecord>>; // самый быстрый в группе
+  longestRace: LongestRace | null;        // самая длинная гонка (по длительности)
   notable: NotableMoment[];               // заметные события, свежие первыми
 }
 
@@ -237,6 +244,13 @@ function parseRecordTable(table: string): { layout: string | null; records: LapR
     const catIdx = cells.findIndex((c, i) => i < timeIdx && CATEGORY_HINT.test(c));
     const category = cells[catIdx >= 0 ? catIdx : 0];
     if (!category || CATEGORY_HINT.test(time)) continue;
+    // Отбрасываем мусор нестандартных таблиц (Le Mans: колонки Years|Distance|
+    // AvgSpeed…): категория-«год-диапазон», измерение или пусто — не гоночный
+    // класс, а «время» на деле распарсенная средняя скорость.
+    if (/^\d{4}(\s*[-–—]\s*(?:\d{2,4}|present))?$/i.test(category)
+        || /^(since|from|before|until|c\.|circa)\b/i.test(category)
+        || /\b(km|mi|mph|km\/h|kmh)\b/i.test(category)
+        || category.length < 2) continue;
     const driver = cells[timeIdx + 1] ?? "";
     const vehicle = cells[timeIdx + 2] ?? "";
     // Событие — ячейка с одиночным годом, НЕ диапазон-конфиг лейаута
@@ -316,17 +330,63 @@ export function extractNotable(plain: string, limit = 8): NotableMoment[] {
   return out.slice(0, limit);
 }
 
+// MARK: - Longest race (из прозы: «24 Hours of Le Mans», «12 Hours of Sebring»)
+
+// Правдоподобные длительности эндуранс-гонок (часы) — отсекает опечатки вроде
+// «25 Hours» из прозы.
+const ENDURO_HOURS = new Set([1, 2, 3, 4, 5, 6, 8, 10, 12, 24]);
+
+/// Самая длинная по длительности гонка в тексте: «24 Hours of Le Mans». Топоним
+/// — только последовательность слов с заглавной (обрезает хвост «… automobile
+/// race»). Скан event'ов рекордов даёт гонки ИМЕННО этой трассы; проза — фолбэк
+/// (ловит Le Mans/Daytona 24h, чью таблицу не распарсить), но может подхватить
+/// чужую гонку из текста, потому вторична.
+export function parseLongestRace(text: string): LongestRace | null {
+  const re = /\b(\d{1,2})\s*(?:-|–|—)?\s*Hours?\s+of\s+([A-ZÀ-Þ][A-Za-zÀ-ÿ'’.\-]*(?:[ -][A-ZÀ-Þ][A-Za-zÀ-ÿ'’.\-]*)*)/g;
+  let m: RegExpExecArray | null;
+  let best: LongestRace | null = null;
+  while ((m = re.exec(text))) {
+    const hours = Number(m[1]);
+    if (!ENDURO_HOURS.has(hours)) continue;
+    if (!best || hours > best.hours) best = { hours, name: `${hours} Hours of ${m[2].trim()}` };
+  }
+  return best;
+}
+
+// Ключевые слова-топонимы трассы из slug/title — чтобы проза-фолбэк не подхватил
+// чужую гонку («24 Hours of Daytona» в статье Laguna Seca).
+const PLACE_STOP = new Set(["circuit", "international", "raceway", "speedway",
+  "motor", "park", "street", "strip", "city", "autodromo", "autódromo",
+  "grand", "prix", "the", "and", "sports", "car", "complex"]);
+
+export function placeKeywords(slug: string, title: string): string[] {
+  const words = [...slug.split("-"), ...title.toLowerCase().split(/[^a-zà-ÿ]+/)]
+    .map((w) => w.trim())
+    .filter((w) => w.length >= 3 && !PLACE_STOP.has(w));
+  return [...new Set(words)];
+}
+
 // MARK: - Сборка записи из уже загруженного контента (без сети — тестируемо)
 
-export function buildTrack(title: string, wt: string): TrackWiki {
+export function buildTrack(slug: string, title: string, wt: string): TrackWiki {
   const { layout, records } = parseLapRecords(wt);
-  const notable = extractNotable(wikitextToPlain(wt));
+  const plain = wikitextToPlain(wt);
+  const notable = extractNotable(plain);
+  // Длиннейшая гонка: приоритет — event'ы рекордов (гонки ИМЕННО этой трассы,
+  // без фильтра). Фолбэк — проза (для Le Mans/Daytona, чьи таблицы особые), но
+  // только если топоним совпадает с трассой (иначе подхватит чужую гонку).
+  let longestRace = parseLongestRace(records.map((r) => r.event ?? "").join(" \n "));
+  if (!longestRace) {
+    const p = parseLongestRace(plain);
+    const kw = placeKeywords(slug, title);
+    if (p && kw.some((k) => p.name.toLowerCase().includes(k))) longestRace = p;
+  }
   const fastest: Partial<Record<TrackBucket, LapRecord>> = {};
   for (const r of records) if (!fastest[r.bucket]) fastest[r.bucket] = r; // records отсортированы
   return {
     wikiTitle: title,
     wikiURL: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`,
-    layout, records, fastest, notable,
+    layout, records, fastest, longestRace, notable,
   };
 }
 
@@ -383,7 +443,7 @@ async function main() {
       const resolved = resolveTitle(title, j);
       const page = byTitle.get(resolved) ?? byTitle.get(title);
       if (!page || !page.wt) { console.warn(`  ✗ ${slug} (${title}) — не загрузилась`); failed++; continue; }
-      const t = buildTrack(page.title, page.wt);
+      const t = buildTrack(slug, page.title, page.wt);
       index[slug] = t;
       const nf = Object.keys(t.fastest).length;
       console.log(`  ✓ ${slug}: ${t.records.length} рекордов (${nf} групп), ${t.notable.length} moments`);
