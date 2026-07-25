@@ -10,6 +10,7 @@ import {
   parseLapRecords,
   wikitextToPlain,
   extractNotable,
+  parseLongestRace,
   buildTrack,
 } from "./tracks.js";
 
@@ -76,7 +77,7 @@ test("parseLapRecords берёт только текущий лейаут", () =
 });
 
 test("buildTrack: самый быстрый в группе + notable из прозы", () => {
-  const t = buildTrack("Circuit de Spa-Francorchamps", SPA_WT);
+  const t = buildTrack("spa-francorchamps", "Circuit de Spa-Francorchamps", SPA_WT);
   assert.equal(t.fastest.formula?.category, "Formula One");
   assert.equal(t.fastest.endurance?.category, "LMP1");
   // Records отсортированы по времени (быстрые первыми).
@@ -100,4 +101,24 @@ test("extractNotable отбрасывает предложения про рек
   );
   assert.equal(moments.length, 1);
   assert.equal(moments[0].year, 1960);
+});
+
+test("parseLongestRace берёт максимум по часам", () => {
+  const plain = "The circuit hosts the 6 Hours of Spa and the famous 24 Hours of Spa. Also a 4 Hours of Spa club event.";
+  const lr = parseLongestRace(plain);
+  assert.equal(lr?.hours, 24);
+  assert.match(lr?.name ?? "", /24 Hours of Spa/);
+  assert.equal(parseLongestRace("No endurance racing here, only sprints."), null);
+});
+
+test("parseRecordTable отбрасывает мусор нестандартной таблицы (год-диапазон/скорость)", () => {
+  // Строка в стиле Le Mans: Years | RecordYear | Distance | AvgSpeed(km/h) | …
+  const wt = `==Lap records==
+{| class=wikitable
+! Years !! Record year !! Distance !! Average race speed
+|-
+| 1923–1928 || 1928 || 2,669.272 km || 111.219 km/h
+|}`;
+  const { records } = parseLapRecords(wt);
+  assert.equal(records.length, 0, "мусорная строка не должна стать рекордом");
 });
