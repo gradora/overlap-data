@@ -2,7 +2,7 @@
   "season": 2026,
   "round": 11,
   "event": "hungarian_grand_prix",
-  "updated": "2026-07-26 12:38 CET",
+  "updated": "2026-07-26 14:00 CET",
   "penalties": [
     {
       "doc": 13,
@@ -113,8 +113,8 @@
     }
   ],
   "startingGrid": {
-    "kind": "provisional",
-    "doc": 46,
+    "kind": "final",
+    "doc": 52,
     "entries": [
       {
         "position": 1,
@@ -199,10 +199,6 @@
       {
         "position": 21,
         "car": 77
-      },
-      {
-        "position": 22,
-        "car": 11
       }
     ],
     "penaltySummary": [
@@ -215,9 +211,14 @@
         "car": 12,
         "text": "3 place grid penalty - Failing to slow for yellow flags",
         "doc": 41
+      },
+      {
+        "car": 11,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+        "doc": 50
       }
     ],
-    "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_provisional_starting_grid.pdf",
-    "publishedAt": "2026-07-25 20:00 CET"
+    "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2026-07-26 14:00 CET"
   }
 }
