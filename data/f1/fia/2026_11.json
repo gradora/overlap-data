@@ -2,7 +2,7 @@
   "season": 2026,
   "round": 11,
   "event": "hungarian_grand_prix",
-  "updated": "2026-07-26 17:03 CET",
+  "updated": "2026-07-26 16:55 CET",
   "penalties": [
     {
       "doc": 54,
@@ -15,17 +15,115 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_collision_with_car_81.pdf",
       "publishedAt": "2026-07-26 16:55 CET"
-    },
-    {
-      "doc": 56,
-      "car": 16,
-      "driver": "Charles Leclerc",
-      "session": "Race",
-      "type": "none",
-      "appliesTo": "race",
-      "corrected": false,
-      "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_16_-_alleged_failure_to_slow_for_yellow_flags.pdf",
-      "publishedAt": "2026-07-26 17:03 CET"
     }
-  ]
+  ],
+  "startingGrid": {
+    "kind": "final",
+    "doc": 52,
+    "entries": [
+      {
+        "position": 1,
+        "car": 1
+      },
+      {
+        "position": 2,
+        "car": 16
+      },
+      {
+        "position": 3,
+        "car": 81
+      },
+      {
+        "position": 4,
+        "car": 3
+      },
+      {
+        "position": 5,
+        "car": 44
+      },
+      {
+        "position": 6,
+        "car": 63
+      },
+      {
+        "position": 7,
+        "car": 12
+      },
+      {
+        "position": 8,
+        "car": 6
+      },
+      {
+        "position": 9,
+        "car": 41
+      },
+      {
+        "position": 10,
+        "car": 27
+      },
+      {
+        "position": 11,
+        "car": 30
+      },
+      {
+        "position": 12,
+        "car": 10
+      },
+      {
+        "position": 13,
+        "car": 43
+      },
+      {
+        "position": 14,
+        "car": 5
+      },
+      {
+        "position": 15,
+        "car": 31
+      },
+      {
+        "position": 16,
+        "car": 14
+      },
+      {
+        "position": 17,
+        "car": 87
+      },
+      {
+        "position": 18,
+        "car": 55
+      },
+      {
+        "position": 19,
+        "car": 23
+      },
+      {
+        "position": 20,
+        "car": 18
+      },
+      {
+        "position": 21,
+        "car": 77
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 44,
+        "text": "3 place grid penalty - Impeding another driver",
+        "doc": 36
+      },
+      {
+        "car": 12,
+        "text": "3 place grid penalty - Failing to slow for yellow flags",
+        "doc": 41
+      },
+      {
+        "car": 11,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+        "doc": 50
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2026-07-26 14:00 CET"
+  }
 }
