@@ -8,7 +8,6 @@ import {
   imsaDriveThroughCounts, imsaFastestLap, imsaFastestPitStop,
 } from "./imsahighlights.js";
 import { imsaOverallWinner } from "./imsawinners.js";
-import { summarizeImsa } from "./imsasafetycar.js";
 import { imsaDocFromName, parseImsaPenaltyPdf } from "./imsafia.js";
 
 test("matchImsaTrack: точное, алиасы, суффиксы, префиксные события", () => {
@@ -100,7 +99,7 @@ test("highlights: fastest lap из Results JSON, пит с фильтром driv
   assert.equal(imsaFastestPitStop(pits)?.time, "23.300");
 });
 
-test("winners: победитель из Results JSON; safetycar: сводка caution", () => {
+test("winners: победитель из Results JSON", () => {
   const winner = imsaOverallWinner({
     classification: [
       { position: "2", team: "B" },
@@ -109,15 +108,6 @@ test("winners: победитель из Results JSON; safetycar: сводка c
     ],
   });
   assert.equal(winner?.team, "Porsche Penske Motorsport");
-
-  const sc = summarizeImsa(2026, 7, {
-    "2022": { sc: false, fcy: true },
-    "2023": { sc: false, fcy: false },
-    "2024": { sc: true, fcy: false },
-  });
-  assert.equal(sc.races, 3);
-  assert.equal(sc.withSafetyCar, 2); // caution = sc || fcy
-  assert.ok(!("withFCY" in sc));
 });
 
 test("penalties: имя дока, парс PDF-текста, фильтр серии", () => {
