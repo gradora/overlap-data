@@ -65,11 +65,6 @@ jobs:
         continue-on-error: true
         run: npm run wecwinners
 
-      - name: SC/FCY-статистика WEC (Al Kamel)
-        id: wecsafetycar
-        continue-on-error: true
-        run: npm run wecsafetycar
-
       - name: Решения IMSA (Notice Board)
         id: imsafia
         continue-on-error: true
@@ -84,11 +79,6 @@ jobs:
         id: imsawinners
         continue-on-error: true
         run: npm run imsawinners
-
-      - name: SC-статистика IMSA (Al Kamel)
-        id: imsasafetycar
-        continue-on-error: true
-        run: npm run imsasafetycar
 
       - name: Решения стюардов FIA (штрафы)
         id: fia
@@ -124,11 +114,6 @@ jobs:
         id: records
         continue-on-error: true
         run: npm run records
-
-      - name: Статистика сейфти-каров (OpenF1)
-        id: safetycar
-        continue-on-error: true
-        run: npm run safetycar
 
       # Пишет data/health.json (дневной heartbeat — держит крон живым в
       # межсезонье + сигнал устаревания приложению). Реальные результаты
@@ -179,7 +164,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "wecsafetycar=${{ steps.wecsafetycar.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "imsasafetycar=${{ steps.imsasafetycar.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "safetycar=${{ steps.safetycar.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done

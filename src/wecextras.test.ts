@@ -6,7 +6,6 @@ import { akTimeSeconds, matchAkRound, pickRaceCsv } from "./alkamelwec.js";
 import { raceHighlights, shortDriver } from "./wechighlights.js";
 import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./wecwinners.js";
 import { raceCautions } from "./wechighlights.js";
-import { raceFlags, summarize } from "./wecsafetycar.js";
 
 const SLUGS_2026 = [
   "6-hours-of-imola-2026",
@@ -104,19 +103,6 @@ test("winners: экипаж, победитель, кумулятив, спан-
     { value: "15_2026", label: "2026" },
   ]);
   assert.deepEqual(seasons.map((s) => s.year), [2021, 2026]);
-});
-
-test("safetycar: флаги гонки и сводка по годам", () => {
-  assert.deepEqual(raceFlags([{ FLAG_AT_FL: "GF" }, { FLAG_AT_FL: "FCY" }]), { sc: false, fcy: true });
-  assert.deepEqual(raceFlags([{ FLAG_AT_FL: "SF" }]), { sc: true, fcy: false });
-  const s = summarize(2026, 4, {
-    "2022": { sc: true, fcy: true },
-    "2023": { sc: false, fcy: true },
-    "2024": { sc: false, fcy: false },
-  });
-  assert.equal(s.races, 3);
-  assert.equal(s.withSafetyCar, 1);
-  assert.equal(s.withFCY, 2);
 });
 
 test("raceCautions: периоды FCY/SF референс-машины и время под жёлтыми", () => {
