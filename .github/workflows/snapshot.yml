@@ -126,6 +126,18 @@ jobs:
           OPENF1_OUTCOME: ${{ steps.openf1.outcome }}
           WEC_OUTCOME: ${{ steps.wec.outcome }}
           FIA_OUTCOME: ${{ steps.fia.outcome }}
+          WECFIA_OUTCOME: ${{ steps.wecfia.outcome }}
+          WECHIGHLIGHTS_OUTCOME: ${{ steps.wechighlights.outcome }}
+          WECWINNERS_OUTCOME: ${{ steps.wecwinners.outcome }}
+          IMSAFIA_OUTCOME: ${{ steps.imsafia.outcome }}
+          IMSAHIGHLIGHTS_OUTCOME: ${{ steps.imsahighlights.outcome }}
+          IMSAWINNERS_OUTCOME: ${{ steps.imsawinners.outcome }}
+          WINNERS_OUTCOME: ${{ steps.winners.outcome }}
+          HIGHLIGHTS_OUTCOME: ${{ steps.highlights.outcome }}
+          MILESTONES_OUTCOME: ${{ steps.milestones.outcome }}
+          F1HISTORY_OUTCOME: ${{ steps.f1history.outcome }}
+          BEASTS_OUTCOME: ${{ steps.beasts.outcome }}
+          RECORDS_OUTCOME: ${{ steps.records.outcome }}
         run: npm run health
 
       - name: Закоммитить изменения
@@ -164,7 +176,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done

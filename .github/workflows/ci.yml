@@ -1,0 +1,38 @@
+name: ci
+
+# Проверка кода на push/PR: до этого 13 тест-файлов и tsc --noEmit никогда
+# не запускались в GitHub — сломанный продьюсер всплывал только алерт-письмом
+# крона, а тип-ошибка — если tsx спотыкался в рантайме.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/**"
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test

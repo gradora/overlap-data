@@ -2,8 +2,7 @@
 // приложение, и кладёт JSON-ответы как есть под mirror-путь f1/jolpica/<slug>.
 // Приложение (SnapshotMirror.jolpicaPath) читает их первым, при промахе — прямой
 // Jolpica. «current» — алиас Jolpica для активного сезона; храним под ним же,
-// чтобы ключи совпали без знания года. OpenF1 (детали протокола) — TODO, пока
-// приложение падает на прямой OpenF1.
+// чтобы ключи совпали без знания года. Детали протокола — src/openf1.ts.
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";

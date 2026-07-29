@@ -4,7 +4,7 @@
 // fiawec. Перечисление URL повторяет парсеры приложения: slugs из /en/season,
 // raceId из /en/page/resultats-1, sessionId из resultats-1?raceId=.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
@@ -37,6 +37,22 @@ function readMirror(path: string): string | null {
   }
 }
 
+// fiawec серверно рендерит live-отсчёт (data-countdown) в каждую страницу:
+// цифры меняются каждый запрос, и writeIfChanged видел «изменение» в каждом
+// часовом прогоне — 78–94% строк коммита были чистым шумом, репо пухло.
+// Вырезаем ЦИФРЫ отсчёта до сравнения/записи; данные (JSON-LD, таблицы,
+// дропдауны) не трогаем — парсеры приложения отсчёт не читают.
+export function stripCountdown(html: string): string {
+  return html.replace(/(data-countdown="[^"]*"[^>]*>)\s*\d+/g, "$1");
+}
+
+// Ожидаемые mirror-файлы race-страниц сезона — для GC осиротевших: fiawec
+// умеет перекраивать сезон задним числом (Qatar/Bahrain-2026 уехали в 2027),
+// и файлы выбывших этапов иначе замерзают в репо навечно.
+export function expectedRaceMirrors(slugs: string[]): Set<string> {
+  return new Set(slugs.map((s) => mirrorSlug(`/en/race/${s}`)));
+}
+
 // start/endDate (мс) + ISO-2 страны из JSON-LD SportsEvent страницы
 // /en/race/<slug>. Экспортирован: wecfia.ts читает те же зеркальные страницы
 // для freeze-окон своих этапов.
@@ -67,16 +83,18 @@ export function eventInfo(html: string): {
   return { startMs: null, endMs: null, iso2: null };
 }
 
-// Тянем fiawec-относительный путь, кладём под wec/fiawec/<slug(path)>. HTML или null.
+// Тянем fiawec-относительный путь, кладём под wec/fiawec/<slug(path)>
+// (нормализовав отсчёт). HTML или null.
 async function mirror(path: string): Promise<string | null> {
   const res = await fetchText(`${FIAWEC}${path}`);
   if (!res || res.status !== 200 || !res.text) {
     console.log(`  MISS  ${path} (${res?.status ?? "net"})`);
     return null;
   }
-  const changed = writeIfChanged(join(OUT_DIR, mirrorSlug(path)), res.text);
+  const text = stripCountdown(res.text);
+  const changed = writeIfChanged(join(OUT_DIR, mirrorSlug(path)), text);
   console.log(`  ${changed ? "write" : "same "} ${path}`);
-  return res.text;
+  return text;
 }
 
 // Каркасный запрос с ретраем: разовый блип fiawec (сеть/502) не должен слать
@@ -163,6 +181,20 @@ async function main() {
   await mirror(`/en/page/manufacturers-classification`);
 
   const slugs = season ? raceSlugs(season, YEAR) : [];
+
+  // GC осиротевших race-зеркал ТЕКУЩЕГО сезона: этап выпал из страницы сезона
+  // (перенос в другой год) → его файл больше никто не обновит и не прочитает.
+  // Только при живой странице сезона: без неё истинный состав неизвестен.
+  if (season && slugs.length > 0) {
+    const expected = expectedRaceMirrors(slugs);
+    for (const f of readdirSync(OUT_DIR)) {
+      if (f.startsWith("en_race_") && f.endsWith(`_${YEAR}`) && !expected.has(f)) {
+        rmSync(join(OUT_DIR, f));
+        console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
+      }
+    }
+  }
+
   // E3 (race-страница, JSON-LD): событие с endDate+7д в прошлом ЗАМОРОЖЕНО —
   // не рескрейпим, читаем из зеркала; собираем карту страна(ISO2) → endMs.
   const endByCountry: Record<string, number> = {};
@@ -204,7 +236,7 @@ async function main() {
       const path = `/en/page/resultats-1?raceId=${o.id}&sessionId=${sessionId}`;
       const res = await fetchText(`${FIAWEC}${path}`);
       if (res?.status === 200 && res.text.includes("<table")) {
-        if (writeIfChanged(join(OUT_DIR, mirrorSlug(path)), res.text)) e6++;
+        if (writeIfChanged(join(OUT_DIR, mirrorSlug(path)), stripCountdown(res.text))) e6++;
       }
     }
   }
