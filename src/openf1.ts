@@ -145,9 +145,50 @@ export function meetingsToSnapshot(
   return [...byKey.values()];
 }
 
+// Историческая загрузка (SEASON=прошлый год): обычный путь не работает для
+// прошлых сезонов — activeRounds() читает jolpica-расписание ТЕКУЩЕГО сезона,
+// матчей с прошлогодними митингами нет, и снимались только тесты/отмены
+// (так и возник полу-бэкфилл 2023–25). Здесь весь сезон завершён — снимаем ВСЕ
+// митинги целиком, resume-safe: существующие файлы не перекачиваем. Разовый
+// ручной прогон: SEASON=2023 npm run openf1 (и т.д.); крон трогает только
+// текущий сезон.
+const HISTORIC = YEAR < new Date().getUTCFullYear();
+
+// Как mirror(), но при уже существующем файле читает его с диска без сети.
+async function mirrorIfMissing(relative: string): Promise<any | null> {
+  const f = join(OUT_DIR, mirrorSlug(relative));
+  if (existsSync(f)) {
+    try {
+      return JSON.parse(readFileSync(f, "utf8"));
+    } catch {
+      return null;
+    }
+  }
+  return mirror(relative);
+}
+
+async function historicBackfill(meetings: any[]) {
+  for (const m of meetings) {
+    const key = m.meeting_key;
+    const sessions = await mirrorIfMissing(`sessions?meeting_key=${key}`);
+    await mirrorIfMissing(`drivers?meeting_key=${key}`);
+    for (const s of Array.isArray(sessions) ? sessions : []) {
+      const sk = s.session_key;
+      await mirrorIfMissing(`session_result?session_key=${sk}`);
+      await mirrorIfMissing(`stints?session_key=${sk}`);
+      if (isRaceLike(s.session_name)) await mirrorIfMissing(`pit?session_key=${sk}`);
+      await mirrorIfMissing(`race_control?session_key=${sk}`);
+    }
+    console.log(`  historic meeting ${key} (${m.meeting_name ?? "?"}): ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
+  }
+  console.log("Done (historic backfill).");
+}
+
 async function main() {
-  console.log(`OpenF1 mirror, season ${YEAR}`);
-  const meetings = await mirror(`meetings?year=${YEAR}`);
+  console.log(`OpenF1 mirror, season ${YEAR}${HISTORIC ? " (historic backfill)" : ""}`);
+  const meetings = HISTORIC
+    ? await mirrorIfMissing(`meetings?year=${YEAR}`)
+    : await mirror(`meetings?year=${YEAR}`);
   if (!Array.isArray(meetings)) {
     // OpenF1 гейтит анонимный доступ во время ЛАЙВ F1-сессии (401 «Live F1
     // session in progress… restricted to authenticated users»): ожидаемо и
@@ -156,6 +197,10 @@ async function main() {
     // прогон (exit 0) и не шлём алерт: зеркало остаётся прежним, пропускаем
     // этот прогон. exit(1) здесь спамил бы письмами каждый F1-уик-энд.
     console.warn("OpenF1 meetings недоступны (401 live-gate / сеть) — пропускаем прогон, зеркало без изменений");
+    return;
+  }
+  if (HISTORIC) {
+    await historicBackfill(meetings);
     return;
   }
   const roundDates = activeRounds();
