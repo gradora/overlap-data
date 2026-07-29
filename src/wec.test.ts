@@ -2,7 +2,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { stripCountdown, expectedRaceMirrors } from "./wec.js";
+import { stripCountdown, expectedRaceMirrors } from "./lib/fiawecsite.js";
 
 test("stripCountdown: цифры отсчёта вырезаются, разметка и данные остаются", () => {
   const html = `

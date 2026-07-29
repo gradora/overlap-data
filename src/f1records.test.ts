@@ -3,7 +3,7 @@
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
-import { buildCards, type Subject } from "./f1records.js";
+import { buildCards, type Subject } from "./producers/f1records.js";
 
 const sub = (code: string, teamId: string, number = "1"): Subject => ({
   code, driver: `${code[0]}. ${code}`, number, teamId,

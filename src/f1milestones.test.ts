@@ -2,7 +2,7 @@
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
-import { isStart, milestoneCount, seasonMilestones, startsAtRound } from "./f1milestones.js";
+import { isStart, milestoneCount, seasonMilestones, startsAtRound } from "./producers/f1milestones.js";
 
 test("isStart: DNS/DNQ/Withdrew/Excluded — не старты, всё остальное — старты", () => {
   assert.equal(isStart("Finished", "10"), true);

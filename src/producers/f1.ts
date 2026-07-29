@@ -6,10 +6,10 @@
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { isFrozen } from "./freeze.js";
-import { mirrorSlug, writeIfChanged } from "./mirror.js";
-import { fetchTextRetry } from "./http.js";
-import { JOLPICA } from "./sources.js";
+import { isFrozen } from "../lib/freeze.js";
+import { mirrorSlug, writeIfChanged } from "../lib/mirror.js";
+import { fetchTextRetry } from "../lib/http.js";
+import { JOLPICA } from "../lib/sources.js";
 
 const NOW = Date.now();
 

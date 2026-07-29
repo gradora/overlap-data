@@ -7,15 +7,15 @@
 
 import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { fetchHTML, fetchJSON, folders } from "./alkamel.js";
+import { fetchHTML, fetchJSON, folders } from "../lib/alkamel.js";
 import {
   imsaShortDriver, imsaTimeSeconds, pickImsaFile, trackCandidates,
-} from "./alkamelimsa.js";
-import { isFrozen } from "./freeze.js";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { SCHEDULE } from "./schedule.js";
+} from "../lib/alkamelimsa.js";
+import { isFrozen } from "../lib/freeze.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { SCHEDULE } from "../lib/schedule.js";
 import { bestTrackStage } from "./imsawinners.js";
-import { envFlag } from "./env.js";
+import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "highlights");

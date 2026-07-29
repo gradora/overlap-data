@@ -1,7 +1,7 @@
 // Тесты деривации хайлайтов уик-энда из зеркала OpenF1.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bestSeconds, computeFastestLap, computeFastestPitStop, formatLap, raceTag, sessionTag, shortDriver } from "./f1highlights.js";
+import { bestSeconds, computeFastestLap, computeFastestPitStop, formatLap, raceTag, sessionTag, shortDriver } from "./producers/f1highlights.js";
 
 test("sessionTag: круговые сессии, гонки — нет", () => {
   assert.equal(sessionTag("Practice 1"), "FP1");

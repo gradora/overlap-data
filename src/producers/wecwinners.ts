@@ -12,12 +12,12 @@
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import {writeJSONWithEnvelope } from "./mirror.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
 import {
   akEventHrefs, akSeasonContext, akSeasonPage, ALKAMEL_WEC, fetchAkText,
   parseAkCsv, parseAkOptions, pickRaceCsv, slugifyAkEvent, type AkOption,
-} from "./alkamelwec.js";
-import { envNumber } from "./env.js";
+} from "../lib/alkamelwec.js";
+import { envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "winners");

@@ -3,12 +3,12 @@ import { test } from "node:test";
 import {
   finalHourFolder, hourCount, imsaCrewSurnames, imsaShortDriver,
   imsaTimeSeconds, matchImsaTrack, pickImsaFile, wtFolderName,
-} from "./alkamelimsa.js";
+} from "./lib/alkamelimsa.js";
 import {
   imsaDriveThroughCounts, imsaFastestLap, imsaFastestPitStop,
-} from "./imsahighlights.js";
-import { imsaOverallWinner } from "./imsawinners.js";
-import { imsaDocFromName, parseImsaPenaltyPdf } from "./imsafia.js";
+} from "./producers/imsahighlights.js";
+import { imsaOverallWinner } from "./producers/imsawinners.js";
+import { imsaDocFromName, parseImsaPenaltyPdf } from "./producers/imsafia.js";
 
 test("matchImsaTrack: точное, алиасы, суффиксы, префиксные события", () => {
   assert.ok(matchImsaTrack("12_Watkins Glen International", "Watkins Glen International"));

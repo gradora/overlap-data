@@ -9,7 +9,7 @@ import {
   matchMeeting,
   activeRoundsFrom,
   isRaceLike,
-} from "./openf1.js";
+} from "./producers/openf1.js";
 
 const DAY = 24 * 3600 * 1000;
 const NOW = Date.parse("2026-03-15T12:00:00Z");

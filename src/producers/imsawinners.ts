@@ -12,16 +12,16 @@
 
 import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { fetchHTML, fetchJSON, folders } from "./alkamel.js";
+import { fetchHTML, fetchJSON, folders } from "../lib/alkamel.js";
 import {
   imsaCrewSurnames, imsaRaceStage, pickImsaFile, trackCandidates,
   IMSA_SEASONS_FIRST, type ImsaDriverRef,
-} from "./alkamelimsa.js";
-import { parseAkCsv } from "./alkamelwec.js";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { SCHEDULE } from "./schedule.js";
+} from "../lib/alkamelimsa.js";
+import { parseAkCsv } from "../lib/alkamelwec.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { SCHEDULE } from "../lib/schedule.js";
 import { buildWecWinners, crewSurnames, overallWinner } from "./wecwinners.js";
-import { envNumber } from "./env.js";
+import { envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "winners");

@@ -16,7 +16,7 @@
 
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged } from "./mirror.js";
+import { writeIfChanged } from "../lib/mirror.js";
 
 const DATA_DIR = join(process.cwd(), "data");
 

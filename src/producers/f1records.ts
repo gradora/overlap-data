@@ -18,9 +18,9 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { fetchJSON as httpJSON } from "./http.js";
-import { JOLPICA } from "./sources.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { fetchJSON as httpJSON } from "../lib/http.js";
+import { JOLPICA } from "../lib/sources.js";
 
 const fetchJSON = (url: string) => httpJSON(url, { backoffMs: 8000 });
 

@@ -18,7 +18,7 @@ import {
   carryOver,
   parseEventOptions,
   slugifyRace,
-} from "./fia.js";
+} from "./producers/fia.js";
 
 const ref = (over: Partial<{ doc: number; title: string; url: string; publishedAt: string }> = {}) => ({
   doc: 23,

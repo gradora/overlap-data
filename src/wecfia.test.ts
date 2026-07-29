@@ -3,9 +3,9 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { matchAkRound, parseAkCsv, parseAkOptions, parseFileHrefs, slugifyAkEvent } from "./alkamelwec.js";
-import { carFromTitle, docFromHref, isWecPenaltyDoc, parseWecPenaltyDoc, WEC_FIELD_LABELS } from "./wecfia.js";
-import { fieldValue } from "./fia.js";
+import { matchAkRound, parseAkCsv, parseAkOptions, parseFileHrefs, slugifyAkEvent } from "./lib/alkamelwec.js";
+import { carFromTitle, docFromHref, isWecPenaltyDoc, parseWecPenaltyDoc, WEC_FIELD_LABELS } from "./producers/wecfia.js";
+import { fieldValue } from "./producers/fia.js";
 
 // --- Реальные фрагменты HTML Notice Board (июль 2026) ---
 

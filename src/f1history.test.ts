@@ -3,7 +3,7 @@
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
-import { mergeSeason, winnersMap, type HistoryIndex } from "./f1history.js";
+import { mergeSeason, winnersMap, type HistoryIndex } from "./producers/f1history.js";
 
 const race = (round: number, date: string, name = "GP") => ({
   round: String(round),

@@ -1,7 +1,7 @@
 // Тесты продьюсера «победители прошлых лет».
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildWinners } from "./f1winners.js";
+import { buildWinners } from "./producers/f1winners.js";
 
 test("buildWinners: последние 5 до сезона, кумулятивные победы, свежие первыми", () => {
   const rows = [

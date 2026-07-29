@@ -7,10 +7,10 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { scheduleSeasonMismatch } from "./season.js";
-import { fetchJSON } from "./http.js";
-import { JOLPICA } from "./sources.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { scheduleSeasonMismatch } from "../lib/season.js";
+import { fetchJSON } from "../lib/http.js";
+import { JOLPICA } from "../lib/sources.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");

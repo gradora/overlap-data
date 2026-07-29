@@ -8,7 +8,7 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
+import { mirrorSlug, writeJSONWithEnvelope } from "../lib/mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1_DIR = join(process.cwd(), "data", "f1", "openf1");
