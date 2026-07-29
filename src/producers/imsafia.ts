@@ -9,7 +9,7 @@
 import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import { classifyDecision, type FiaEvent, type FiaPenalty } from "./fia.js";
+import { classifyDecision, type FiaEvent, type FiaPenalty } from "../lib/fiadocs.js";
 import { matchImsaTrack } from "../lib/alkamelimsa.js";
 import { isFrozen } from "../lib/freeze.js";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";

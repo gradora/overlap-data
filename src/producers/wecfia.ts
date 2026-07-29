@@ -20,7 +20,7 @@ import { isFrozen } from "../lib/freeze.js";
 import {
   appliesTo, classifyDecision, fieldValue,
   type FiaEvent, type FiaPenalty,
-} from "./fia.js";
+} from "../lib/fiadocs.js";
 import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "../lib/alkamelwec.js";
 import { eventInfo, raceSlugs } from "../lib/fiawecsite.js";
 import { UA } from "../lib/http.js";
