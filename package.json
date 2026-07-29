@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Планировщик снапшотов результатов автогонок для приложения Overlap (старт — IMSA / Al Kamel).",
+  "description": "Снапшот-бэкенд данных приложения Overlap: зеркала источников (Jolpica/OpenF1/fiawec/Al Kamel/fia.com) и derived-карточки для F1/WEC/IMSA.",
   "scripts": {
     "imsa": "tsx src/imsa.ts",
     "f1": "tsx src/f1.ts",
@@ -13,9 +13,6 @@
     "health": "tsx src/health.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test src/*.test.ts",
-    "winners": "tsx src/f1winners.ts",
-    "highlights": "tsx src/f1highlights.ts",
-    "milestones": "tsx src/f1milestones.ts",
     "wecfia": "tsx src/wecfia.ts",
     "wechighlights": "tsx src/wechighlights.ts",
     "wecwinners": "tsx src/wecwinners.ts",
@@ -23,9 +20,12 @@
     "imsahighlights": "tsx src/imsahighlights.ts",
     "imsawinners": "tsx src/imsawinners.ts",
     "f1history": "tsx src/f1history.ts",
-    "beasts": "tsx src/beasts.ts",
-    "records": "tsx src/f1records.ts",
-    "tracks": "tsx src/tracks.ts"
+    "tracks": "tsx src/tracks.ts",
+    "f1winners": "tsx src/f1winners.ts",
+    "f1highlights": "tsx src/f1highlights.ts",
+    "f1milestones": "tsx src/f1milestones.ts",
+    "f1records": "tsx src/f1records.ts",
+    "f1beasts": "tsx src/beasts.ts"
   },
   "engines": {
     "node": ">=20"

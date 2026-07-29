@@ -7,14 +7,14 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { scheduleSeasonMismatch } from "./season.js";
+import { fetchJSON } from "./http.js";
+import { JOLPICA } from "./sources.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
-const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const OUT_DIR = join(process.cwd(), "data", "f1", "winners");
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 export interface PastWinner {
   year: number;
@@ -59,19 +59,6 @@ export function buildWinners(rows: WinnerRow[], beforeYear: number): PastWinner[
   return all.filter((w) => w.year < beforeYear).slice(-5).reverse();
 }
 
-async function fetchJSON(url: string): Promise<any | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
-}
 
 // Вся история побед на трассе (пагинация limit=100 — у самых старых трасс
 // ~75 гонок, но на всякий случай докручиваем offset до total).
@@ -138,7 +125,7 @@ async function main() {
       circuitId,
       winners: buildWinners(rows, YEAR),
     };
-    writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    writeJSONWithEnvelope(path, out);
     console.log(`  R${round} (${circuitId}): ${out.winners.length} победителей`);
     await new Promise((res) => setTimeout(res, 300));   // вежливая пауза
   }

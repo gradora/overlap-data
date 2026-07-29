@@ -8,7 +8,7 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { mirrorSlug, writeIfChanged } from "./mirror.js";
+import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1_DIR = join(process.cwd(), "data", "f1", "openf1");
@@ -224,7 +224,7 @@ async function main() {
       ...(stop ? { fastestPitStop: stop } : {}),
       ...(median ? { medianPitStop: median } : {}),
     };
-    const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    const changed = writeJSONWithEnvelope(path, out);
     console.log(
       `  R${round}: ${lap ? `${lap.time} ${lap.driver} (${lap.tag})` : "нет круга"}` +
       `${stop ? `, пит ${stop.time} ${stop.driver}` : ""} → ${changed ? "записано" : "без изменений"}`,

@@ -9,32 +9,33 @@ import { dirname } from "node:path";
 export const mirrorSlug = (relative: string): string =>
   relative.replace(/[^A-Za-z0-9.]+/g, "_").replace(/^_+|_+$/g, "");
 
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
-
-export interface Fetched {
-  status: number;
-  text: string;
-}
-
-export async function fetchText(url: string): Promise<Fetched | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    const text = await res.text();
-    return { status: res.status, text };
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
-}
+// HTTP-слой переехал в http.ts; реэкспорт — чтобы импорты продьюсеров не
+// менялись до полного сплита src/.
+export { fetchText, UA, type Fetched } from "./http.js";
 
 // Пишем только при изменении (git-чистота). Возвращает true, если записали.
 export function writeIfChanged(path: string, content: string): boolean {
   if (existsSync(path) && readFileSync(path, "utf8") === content) return false;
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, content);
+  return true;
+}
+
+// Запись derived-JSON с конвертом {schemaVersion, generatedAt, ...payload}.
+// Сравнение — БЕЗ generatedAt: метка обновляется только когда данные реально
+// изменились (иначе каждый прогон дёргал бы все файлы и душил writeIfChanged).
+// Раньше конверт был только у imsa-семейства: смена шейпа остальных 12 семейств
+// была тихой поломкой клиента без возможности версионирования.
+export function writeJSONWithEnvelope(path: string, payload: object, schemaVersion = 1): boolean {
+  const body: any = { schemaVersion, ...payload };
+  try {
+    const existing = JSON.parse(readFileSync(path, "utf8"));
+    const a: any = { ...existing };
+    delete a.generatedAt;
+    if (JSON.stringify(a) === JSON.stringify(body)) return false;
+  } catch { /* нет файла или не JSON — пишем */ }
+  mkdirSync(dirname(path), { recursive: true });
+  const out = { schemaVersion, generatedAt: new Date().toISOString(), ...payload };
+  writeFileSync(path, JSON.stringify(out, null, 2) + "\n");
   return true;
 }

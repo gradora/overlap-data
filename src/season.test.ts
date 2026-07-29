@@ -45,7 +45,9 @@ test("yearEquivalent: годовые пути current-алиасов из сез
   );
 
   const last = { MRData: { RaceTable: { season: "2026", Races: [{ round: "10" }] } } };
-  assert.equal(yearEquivalent("current/last/results.json", last), "2026/10/results.json");
+  // last/results теперь всегда null: годовой ключ пишут пер-раундовые слайсы
+  // (writeRoundResultSlices), двойной владелец дёргал бы файл каждый прогон.
+  assert.equal(yearEquivalent("current/last/results.json", last), null);
   // Пустой сезон без гонок — у last-results года-эквивалента нет.
   assert.equal(yearEquivalent("current/last/results.json", schedule), null);
 

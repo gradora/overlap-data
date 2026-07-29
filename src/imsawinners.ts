@@ -18,9 +18,10 @@ import {
   IMSA_SEASONS_FIRST, type ImsaDriverRef,
 } from "./alkamelimsa.js";
 import { parseAkCsv } from "./alkamelwec.js";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { SCHEDULE } from "./schedule.js";
 import { buildWecWinners, crewSurnames, overallWinner } from "./wecwinners.js";
+import { envNumber } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "winners");
@@ -80,7 +81,7 @@ async function main(): Promise<void> {
     return list;
   }
 
-  let backfill = Number(process.env.IMSA_WINNERS_BACKFILL ?? 1);
+  let backfill = envNumber("IMSA_WINNERS_BACKFILL", 1);
 
   for (const entry of schedule) {
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
@@ -127,7 +128,7 @@ async function main(): Promise<void> {
       circuit: entry.venue,
       winners: buildWecWinners(rows, YEAR),
     };
-    writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    writeJSONWithEnvelope(path, out);
     console.log(`  R${entry.round} (${entry.venue}): ${out.winners.length} победителей (${rows.length} сезонов)`);
   }
   console.log("Done.");

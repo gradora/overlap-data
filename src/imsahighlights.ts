@@ -12,9 +12,10 @@ import {
   imsaShortDriver, imsaTimeSeconds, pickImsaFile, trackCandidates,
 } from "./alkamelimsa.js";
 import { isFrozen } from "./freeze.js";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { SCHEDULE } from "./schedule.js";
 import { bestTrackStage } from "./imsawinners.js";
+import { envFlag } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "highlights");
@@ -179,7 +180,7 @@ async function main(): Promise<void> {
     const endMs = Date.parse(`${entry.endDate}T23:59:59Z`);
     if (!(endMs < NOW)) continue; // хайлайты — только по прошедшим гонкам
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
-    if (existsSync(path) && isFrozen(endMs, NOW) && !process.env.IMSA_HL_FORCE) continue;
+    if (existsSync(path) && isFrozen(endMs, NOW) && !envFlag("IMSA_HL_FORCE")) continue;   // было truthy: «=0» форсировал
 
     const candidates = trackCandidates(seasonFolders, entry.venue);
     const best = candidates.length ? await bestTrackStage(season, candidates) : null;
@@ -208,7 +209,7 @@ async function main(): Promise<void> {
       ...(fastestPitStop ? { fastestPitStop } : {}),
       ...(medianPitStop ? { medianPitStop } : {}),
     };
-    writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    writeJSONWithEnvelope(path, out);
     console.log(`  R${entry.round} (${entry.venue}): FL ${fastestLap?.time ?? "—"} ${fastestLap?.driver ?? ""}, пит ${fastestPitStop?.time ?? "—"}`);
   }
   console.log("Done.");

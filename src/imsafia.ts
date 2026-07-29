@@ -12,17 +12,16 @@ import { extractText, getDocumentProxy } from "unpdf";
 import { classifyDecision, type FiaEvent, type FiaPenalty } from "./fia.js";
 import { matchImsaTrack } from "./alkamelimsa.js";
 import { isFrozen } from "./freeze.js";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { SCHEDULE } from "./schedule.js";
+import { slugify } from "./slug.js";
+import { UA } from "./http.js";
+import { envFlag, envNumber } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "fia");
 const NB_BASE = "https://imsa.results.alkamelcloud.com/Results_NoticeBoard";
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 const NOW = Date.now();
-
-const slugify = (s: string): string =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 // MARK: HTTP (Notice Board живёт вне /Results — свой фетч)
 
@@ -171,7 +170,7 @@ async function main(): Promise<void> {
   }
   const roundDirs = nbHrefs(seasonHTML).filter((h) => h.endsWith("/")).map((h) => h.slice(0, -1));
 
-  let backfill = Number(process.env.IMSA_FIA_BACKFILL ?? 1);
+  let backfill = envNumber("IMSA_FIA_BACKFILL", 1);
 
   for (const entry of schedule) {
     const endMs = Date.parse(`${entry.endDate}T23:59:59Z`);
@@ -179,7 +178,7 @@ async function main(): Promise<void> {
     if (!started) continue;
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
     const exists = existsSync(path);
-    if (exists && isFrozen(endMs, NOW) && !process.env.IMSA_FIA_FORCE) continue;
+    if (exists && isFrozen(endMs, NOW) && !envFlag("IMSA_FIA_FORCE")) continue;   // было truthy: «=0» форсировал
     if (!exists && endMs < NOW) {
       if (backfill <= 0) continue;
       backfill--;
@@ -215,7 +214,7 @@ async function main(): Promise<void> {
       ...(updated ? { updated } : {}),
       penalties,
     };
-    writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    writeJSONWithEnvelope(path, out);
     console.log(`  R${entry.round} (${entry.venue}): ${penalties.length} решений (папок: ${matched.length})`);
   }
   console.log("Done.");

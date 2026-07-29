@@ -8,9 +8,12 @@
 
 import { mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchText, writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
+import { fetchJSON as httpJSON } from "./http.js";
+import { JOLPICA } from "./sources.js";
 
-const JOLPICA = "https://api.jolpi.ca/ergast/f1";
+const fetchJSON = (relative: string) => httpJSON(`${JOLPICA}/${relative}`, { backoffMs: 60000 });
+
 const OUT_PATH = join(process.cwd(), "data", "f1", "history", "index.json");
 const FIRST_SEASON = 1950;
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -91,27 +94,6 @@ function readIndex(): HistoryIndex {
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /// 429 (rate limit Jolpica) — ждём минуту и пробуем ещё, до трёх раз.
-async function fetchJSON(relative: string): Promise<any | null> {
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const res = await fetchText(`${JOLPICA}/${relative}`);
-    if (res?.status === 429) {
-      console.log(`  429 ${relative} — пауза 60с (попытка ${attempt + 1}/3)`);
-      await sleep(60_000);
-      continue;
-    }
-    if (!res || res.status !== 200) {
-      console.log(`  MISS ${relative} (${res?.status ?? "net"})`);
-      return null;
-    }
-    try {
-      return JSON.parse(res.text);
-    } catch {
-      return null;
-    }
-  }
-  console.log(`  MISS ${relative} (429 после ретраев)`);
-  return null;
-}
 
 /// Санация после прогона, упёршегося в rate limit: сезоны, попавшие в индекс
 /// без единого победителя, выкидываем целиком (write-once иначе не даст их
@@ -183,7 +165,7 @@ async function main(): Promise<void> {
   }
 
   if (added) {
-    writeIfChanged(OUT_PATH, JSON.stringify(index, null, 1) + "\n");
+    writeJSONWithEnvelope(OUT_PATH, index);
     console.log(`Done: +${added} сезонов, дней в индексе ${Object.keys(index.days).length}`);
   } else {
     console.log("Done: ничего не добавлено");

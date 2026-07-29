@@ -8,6 +8,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { raceSlugs } from "./wec.js";
+import { UA } from "./http.js";
 
 export const ALKAMEL_WEC = "https://fiawec.alkamelsystems.com";
 
@@ -144,7 +145,6 @@ export function akTimeSeconds(raw: string): number | null {
 
 // ---- Сеть (общая для продьюсеров WEC-архива) ----
 
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 export async function fetchAkText(url: string, timeoutMs = 30000): Promise<string | null> {
   const ctrl = new AbortController();

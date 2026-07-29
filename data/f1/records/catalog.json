@@ -1,0 +1,48 @@
+{
+  "_comment": "Курируемые all-time рекорды F1 (редактируется руками, продьюсер f1records читает отсюда). held: активные держатели; chases: погони за цифрой ушедшей легенды. Пилоты — driverId Jolpica.",
+  "held": [
+    {
+      "stat": "Grands Prix",
+      "holder": "alonso",
+      "metric": "entries",
+      "hook": {
+        "kind": "milestone",
+        "step": 50
+      }
+    },
+    {
+      "stat": "wins",
+      "holder": "hamilton",
+      "metric": "wins",
+      "hook": {
+        "kind": "firstPast",
+        "threshold": 100
+      }
+    },
+    {
+      "stat": "podiums",
+      "holder": "hamilton",
+      "metric": "podiums",
+      "hook": {
+        "kind": "rate",
+        "over": "entries"
+      }
+    }
+  ],
+  "chases": [
+    {
+      "stat": "wins",
+      "metric": "wins",
+      "record": 91,
+      "holder": "Michael Schumacher",
+      "chaser": "max_verstappen"
+    },
+    {
+      "stat": "podiums",
+      "metric": "podiums",
+      "record": 155,
+      "holder": "Michael Schumacher",
+      "chaser": "max_verstappen"
+    }
+  ]
+}

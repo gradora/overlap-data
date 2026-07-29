@@ -5,10 +5,9 @@
 //   лучший 03_Results_*.JSON → классификация по классам; плюс POINTS DATA.
 
 import type { Driver, PointsEntry, RaceClass, ResultRow } from "./types.js";
+import { UA } from "./http.js";
 
 const BASE = "https://imsa.results.alkamelcloud.com/Results";
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 // MARK: HTTP
 
