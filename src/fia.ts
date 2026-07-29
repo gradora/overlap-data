@@ -11,9 +11,11 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { isFrozen } from "./freeze.js";
 import { scheduleSeasonMismatch } from "./season.js";
+import { UA } from "./http.js";
+import { envFlag, envNumber } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const FIA_ORIGIN = "https://www.fia.com";
@@ -28,7 +30,6 @@ const SEASON_URL_FALLBACK = `${CHAMPIONSHIP_URL}/season/season-2026-2072`;
 const OUT_DIR = join(process.cwd(), "data", "f1", "fia");
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const NOW = Date.now();
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 // ---- Типы вывода (зеркалят модель приложения FIAPenalties) ----
 
@@ -477,7 +478,7 @@ async function main() {
   // Бюджет бэкфилла прошлых этапов за прогон (вежливость к fia.com): недостающие
   // файлы добираются постепенно, по возрастанию раунда (carryOver читает R-1).
   // Активный уик-энд (с четверга до заморозки) обрабатывается всегда.
-  let backfill = Number(process.env.FIA_BACKFILL ?? 2);
+  let backfill = envNumber("FIA_BACKFILL", 2);
   const ACTIVE_LEAD_MS = 4 * 24 * 3600 * 1000;
 
   for (const ev of events) {
@@ -494,7 +495,7 @@ async function main() {
     // FIA_FORCE=1 — разовая локальная пересборка существующих файлов
     // (например, после фикса классификатора).
     const needsBackfill =
-      (process.env.FIA_FORCE === "1" || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
+      (envFlag("FIA_FORCE") || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
       raceStartMs < NOW;
     if (!isActive && !needsBackfill) continue;
     if (!isActive) {
@@ -591,7 +592,7 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
     ...(startingGrid ? { startingGrid } : {}),
   };
   const path = join(OUT_DIR, `${YEAR}_${round}.json`);
-  const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+  const changed = writeJSONWithEnvelope(path, out);
   console.log(
     `  ${penalties.length} штрафов, грид: ${startingGrid ? startingGrid.kind : "нет"} → ${changed ? "записано" : "без изменений"}`,
   );

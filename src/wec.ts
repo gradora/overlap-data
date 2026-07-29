@@ -201,16 +201,16 @@ async function main() {
   // E3 (race-страница, JSON-LD): событие с endDate+7д в прошлом ЗАМОРОЖЕНО —
   // не рескрейпим, читаем из зеркала; собираем карту страна(ISO2) → endMs.
   const endByCountry: Record<string, number> = {};
+  const endByOrdinal: (number | null)[] = [];   // endMs в ПОРЯДКЕ slugs (== порядок раундов)
   let frozenEvents = 0;
   for (const slug of slugs) {
     const existing = readMirror(`/en/race/${slug}`);
     const frozen = existing ? isFrozen(eventInfo(existing).endMs, NOW) : false;
     if (frozen) frozenEvents++;
     const html = frozen ? existing! : (await mirror(`/en/race/${slug}`)) ?? existing;
-    if (html) {
-      const info = eventInfo(html);
-      if (info.iso2 && info.endMs !== null) endByCountry[info.iso2] = info.endMs;
-    }
+    const info = html ? eventInfo(html) : { startMs: null, endMs: null, iso2: null };
+    endByOrdinal.push(info.endMs);
+    if (info.iso2 && info.endMs !== null) endByCountry[info.iso2] = info.endMs;
   }
 
   // Per-race результаты (E5 дропдаун сессий) + per-session (E6). Freeze по
@@ -226,9 +226,20 @@ async function main() {
   }
   let e6 = 0;
   let frozenRaces = 0;
-  for (const o of raceOpts) {
+  let skipped = 0;
+  for (const [i, o] of raceOpts.entries()) {
+    // endMs: страна E2-лейбла → карта ISO2; фолбэк — ординал (дропдаун и
+    // страница сезона идут в одном порядке раундов). Раньше raceId без
+    // country-матча (чужой сезон, страна вне карты) НИКОГДА не замерзал и
+    // перескрейпливался каждый час вечно (~144 холостых запроса в день).
     const iso2 = COUNTRY_NAME_TO_ISO2[o.label.toUpperCase()] ?? null;
-    const endMs = iso2 ? endByCountry[iso2] ?? null : null;
+    const endMs = (iso2 ? endByCountry[iso2] : null) ?? (i < endByOrdinal.length ? endByOrdinal[i] : null);
+    if (endMs === null && i >= slugs.length) {
+      // Хвост дропдауна за пределами списка сезона (raceId прошлых/будущих
+      // сезонов) — не скрейпим: сессий у них нет, а холостые E5 копились.
+      skipped++;
+      continue;
+    }
     if (isFrozen(endMs, NOW)) {
       frozenRaces++;
       continue;
@@ -244,7 +255,7 @@ async function main() {
     }
   }
 
-  console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${raceOpts.length} raceIds (${frozenRaces} frozen), ${e6} session results updated.`);
+  console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${raceOpts.length} raceIds (${frozenRaces} frozen, ${skipped} off-season skipped), ${e6} session results updated.`);
 }
 
 // Запуск только как продьюсер (не при импорте из теста).

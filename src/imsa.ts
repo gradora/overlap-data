@@ -21,15 +21,13 @@ import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
   RaceClass, SCHEMA_VERSION, SeasonIndex, Session,
 } from "./types.js";
+import { slugify } from "./slug.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const DATA_ROOT = join(process.cwd(), "data");
 const OUT_DIR = join(DATA_ROOT, "imsa", String(YEAR));
 const NOW = Date.now();
 const FINISH_AFTER_MS = 30 * 3600 * 1000; // окно «уикенд ещё live», потом freeze
-
-const slugify = (s: string): string =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 const fileNameFor = (entry: ScheduleEntry): string =>
   `${String(entry.round).padStart(2, "0")}_${slugify(entry.venue)}.json`;

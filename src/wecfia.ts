@@ -15,7 +15,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { isFrozen } from "./freeze.js";
 import {
   appliesTo, classifyDecision, fieldValue,
@@ -23,13 +23,14 @@ import {
 } from "./fia.js";
 import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "./alkamelwec.js";
 import { eventInfo, raceSlugs } from "./wec.js";
+import { UA } from "./http.js";
+import { envFlag, envNumber } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const NB = `${ALKAMEL_WEC}/noticeBoard.php`;
 const OUT_DIR = join(process.cwd(), "data", "wec", "fia");
 const MIRROR_DIR = join(process.cwd(), "data", "wec", "fiawec");
 const NOW = Date.now();
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 // Метки шаблона стюардов WEC — в порядке появления, с двоеточиями (в отличие
 // от F1). Механика «значение до ближайшей ПОЗДНЕЙ метки» — общая (fieldValue).
@@ -195,7 +196,7 @@ async function main() {
   }
 
   // Бюджет бэкфилла (вежливость: у события до ~50 штрафных PDF).
-  let backfill = Number(process.env.WEC_FIA_BACKFILL ?? 1);
+  let backfill = envNumber("WEC_FIA_BACKFILL", 1);
   const ACTIVE_LEAD_MS = 4 * 24 * 3600 * 1000;
 
   for (const ev of events) {
@@ -211,8 +212,8 @@ async function main() {
     const started = dates.startMs != null && dates.startMs < NOW;
     const isActive = !frozen && dates.startMs != null &&
       NOW >= dates.startMs - ACTIVE_LEAD_MS && started;
-    const needsBackfill = (process.env.WEC_FIA_FORCE === "1" || !exists) && started;
-    if (frozen && exists && process.env.WEC_FIA_FORCE !== "1") continue;
+    const needsBackfill = (envFlag("WEC_FIA_FORCE") || !exists) && started;
+    if (frozen && exists && !envFlag("WEC_FIA_FORCE")) continue;
     if (!isActive && !needsBackfill) continue;
     if (!isActive) {
       if (backfill <= 0) continue;
@@ -275,7 +276,7 @@ async function produceEvent(refs: WecDocRef[], round: number, label: string, slu
     penalties,
   };
   const path = join(OUT_DIR, `${YEAR}_${round}.json`);
-  const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+  const changed = writeJSONWithEnvelope(path, out);
   console.log(`  ${penalties.length} штрафов → ${changed ? "записано" : "без изменений"}`);
 }
 

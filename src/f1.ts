@@ -7,12 +7,13 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
-import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
+import { mirrorSlug, writeIfChanged } from "./mirror.js";
+import { fetchTextRetry } from "./http.js";
+import { JOLPICA } from "./sources.js";
 
 const NOW = Date.now();
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
-const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const OUT_DIR = join(process.cwd(), "data", "f1", "jolpica");
 
 // Год-именованный эквивалент «current»-алиаса: тот же ответ доступен у Jolpica
@@ -25,10 +26,10 @@ export function yearEquivalent(relative: string, json: any): string | null {
   if (!season) return null;
   if (relative === "current.json") return `${season}.json`;
   if (relative === "current/next.json") return null; // «next» относителен, не сезонен
-  if (relative === "current/last/results.json") {
-    const round = mr?.RaceTable?.Races?.[0]?.round;
-    return round ? `${season}/${round}/results.json` : null;
-  }
+  // current/last/results: год-именованный ключ теперь пишут пер-раундовые
+  // слайсы (writeRoundResultSlices) — они кроют ВСЕ раунды, включая последний;
+  // двойной владелец одного ключа дёргал бы файл каждый прогон.
+  if (relative === "current/last/results.json") return null;
   if (relative.startsWith("current/")) return `${season}/${relative.slice("current/".length)}`;
   return null;
 }
@@ -42,7 +43,9 @@ export function yearEquivalent(relative: string, json: any): string | null {
 // из зеркала. Год-именованные копии — это слаги НАСТОЯЩИХ Jolpica-эндпоинтов,
 // так что приложение может читать историю mirror-first с живым фолбэком.
 async function mirror(relative: string): Promise<any | null> {
-  const res = await fetchText(`${JOLPICA}/${relative}`);
+  // Ретрай на 429/5xx: разовый блип Jolpica не должен ронять прогон
+  // (exit 1 на current.json шлёт владельцу алерт-письмо).
+  const res = await fetchTextRetry(`${JOLPICA}/${relative}`, { attempts: 3, backoffMs: 5000 });
   if (!res || res.status !== 200) {
     console.log(`  MISS  ${relative} (${res?.status ?? "net"})`);
     return null;
@@ -62,15 +65,55 @@ async function mirror(relative: string): Promise<any | null> {
 
 // Пагинация results/sprint: offset += 100, пока offset+100 < total. Каждая
 // страница — отдельный mirror-файл (приложение запрашивает те же offset'ы).
-async function mirrorPaginated(pathBase: string): Promise<void> {
+// Возвращает СКЛЕЕННЫЙ список гонок всех страниц (для пер-раундовых слайсов).
+async function mirrorPaginated(pathBase: string): Promise<any[]> {
   let offset = 0;
+  const all: any[] = [];
   while (true) {
     const json = await mirror(`${pathBase}?limit=100&offset=${offset}`);
     const total = Number(json?.MRData?.total ?? 0);
     const races = json?.MRData?.RaceTable?.Races ?? [];
+    all.push(...races);
     if (!json || races.length === 0 || offset + 100 >= total) break;
     offset += 100;
   }
+  return all;
+}
+
+// Пер-раундовые файлы <season>/<round>/results.json из уже скачанной
+// пагинации (ноль лишних запросов). Раньше год-именованная копия была только
+// у current/last/results — mirror-первый лукап результатов раундов 1..N-1
+// всегда промахивался и уходил в live Jolpica. Строки одного раунда могут
+// быть разнесены по страницам (лимит режет посреди гонки) — поэтому клеим по
+// round из полного списка. Конверт — как у настоящего эндпоинта Jolpica.
+function writeRoundResultSlices(allRaces: any[]): number {
+  const byRound = new Map<string, any[]>();
+  for (const race of allRaces) {
+    const round = String(race?.round ?? "");
+    if (!round) continue;
+    const bucket = byRound.get(round) ?? [];
+    // одна запись раунда на страницу; клеим Results
+    if (bucket.length > 0) {
+      bucket[0].Results = [...(bucket[0].Results ?? []), ...(race.Results ?? [])];
+    } else {
+      bucket.push(JSON.parse(JSON.stringify(race)));
+    }
+    byRound.set(round, bucket);
+  }
+  let written = 0;
+  for (const [round, races] of byRound) {
+    const season = String(races[0]?.season ?? YEAR);
+    const payload = {
+      MRData: {
+        total: String(races[0]?.Results?.length ?? 0),
+        RaceTable: { season, round, Races: races },
+      },
+    };
+    const rel = `${season}/${round}/results.json`;
+    if (writeIfChanged(join(OUT_DIR, mirrorSlug(rel)), JSON.stringify(payload)))
+      written++;
+  }
+  return written;
 }
 
 async function main() {
@@ -89,8 +132,10 @@ async function main() {
   await mirror("current/driverStandings.json");
   await mirror("current/constructorStandings.json");
 
-  // Все результаты гонок и спринтов сезона (пагинация).
-  await mirrorPaginated("current/results.json");
+  // Все результаты гонок и спринтов сезона (пагинация) + пер-раундовые слайсы.
+  const allResults = await mirrorPaginated("current/results.json");
+  const slices = writeRoundResultSlices(allResults);
+  if (slices > 0) console.log(`  round slices updated: ${slices}`);
   await mirrorPaginated("current/sprint.json");
 
   // Времена сессий по каждому раунду. Агрегаты выше (results/standings) тянем

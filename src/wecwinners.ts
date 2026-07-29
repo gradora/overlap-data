@@ -12,11 +12,12 @@
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import {
   akEventHrefs, akSeasonContext, akSeasonPage, ALKAMEL_WEC, fetchAkText,
   parseAkCsv, parseAkOptions, pickRaceCsv, slugifyAkEvent, type AkOption,
 } from "./alkamelwec.js";
+import { envNumber } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "winners");
@@ -98,7 +99,7 @@ async function main() {
   const pastSeasons = singleYearSeasons(ctx.seasonOptions)
     .filter((s) => s.year >= FIRST_SEASON && s.year < YEAR);
 
-  let backfill = Number(process.env.WEC_WINNERS_BACKFILL ?? 1);
+  let backfill = envNumber("WEC_WINNERS_BACKFILL", 1);
 
   for (const ev of ctx.events) {
     const path = join(OUT_DIR, `${YEAR}_${ev.round}.json`);
@@ -138,7 +139,7 @@ async function main() {
       circuit: ev.label,
       winners: buildWecWinners(rows, YEAR),
     };
-    writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    writeJSONWithEnvelope(path, out);
     console.log(`  R${ev.round} (${ev.label}): ${out.winners.length} победителей (${rows.length} сезонов)`);
   }
   console.log("Done.");

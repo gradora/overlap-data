@@ -11,16 +11,18 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { scheduleSeasonMismatch } from "./season.js";
+import { fetchJSON as httpJSON } from "./http.js";
+import { JOLPICA } from "./sources.js";
+
+const fetchJSON = (url: string) => httpJSON(url, { backoffMs: 30000 });
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
-const JOLPICA = "https://api.jolpi.ca/ergast/f1";
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const HIGHLIGHTS_DIR = join(process.cwd(), "data", "f1", "highlights");
 const OUT_DIR = join(process.cwd(), "data", "f1", "beasts");
 const NOW = Date.now();
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 export interface BeastRow {
   value: string;    // «P21 → P6» | «2.3»
@@ -93,24 +95,6 @@ export function familyKey(shortName: string): string {
   return (parts[parts.length - 1] ?? "").toLowerCase();
 }
 
-async function fetchJSON(url: string, attempt = 0): Promise<any | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (res.status === 429 && attempt < 3) {
-      clearTimeout(t);
-      await new Promise((r) => setTimeout(r, 30000 * (attempt + 1)));
-      return fetchJSON(url, attempt + 1);
-    }
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
-}
 
 function readHighlights(round: number): any | null {
   try {
@@ -226,7 +210,7 @@ async function main() {
     .map(strip);
 
   const payload: SeasonBeasts = { season: YEAR, comebacks: topComebacks, pits: topPits };
-  const changed = writeIfChanged(out, JSON.stringify(payload, null, 2) + "\n");
+  const changed = writeJSONWithEnvelope(out, payload);
   console.log(
     `  comeback: ${topComebacks.map((c) => `${c.code} ${c.value}`).join(", ") || "нет"}`,
   );

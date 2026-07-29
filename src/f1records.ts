@@ -18,13 +18,15 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
+import { fetchJSON as httpJSON } from "./http.js";
+import { JOLPICA } from "./sources.js";
+
+const fetchJSON = (url: string) => httpJSON(url, { backoffMs: 8000 });
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT = join(process.cwd(), "data", "f1", "records", `${YEAR}.json`);
 const STANDINGS = join(process.cwd(), "data", "f1", "jolpica", "current_driverStandings.json");
-const JOLPICA = "https://api.jolpi.ca/ergast/f1";
-const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
 
 type Metric = "entries" | "wins" | "podiums";
 
@@ -33,20 +35,31 @@ type Hook =
   | { kind: "firstPast"; threshold: number }   // единственный за порогом
   | { kind: "rate"; over: Metric };            // доля (подиумов от гонок)
 
-/// Активные держатели all-time рекордов + «вау-угол».
-export const HELD: { stat: string; holder: string; metric: Metric; hook: Hook }[] = [
+/// Курируемые рекорды — в data/f1/records/catalog.json (правится руками без
+/// кода); встроенные значения — фолбэк на случай битого/отсутствующего файла.
+export interface HeldSpec { stat: string; holder: string; metric: Metric; hook: Hook }
+export interface ChaseSpec { stat: string; metric: Metric; record: number; holder: string; chaser: string }
+
+const BUILTIN_HELD: HeldSpec[] = [
   { stat: "Grands Prix", holder: "alonso",   metric: "entries", hook: { kind: "milestone", step: 50 } },
   { stat: "wins",        holder: "hamilton", metric: "wins",    hook: { kind: "firstPast", threshold: 100 } },
   { stat: "podiums",     holder: "hamilton", metric: "podiums", hook: { kind: "rate", over: "entries" } },
 ];
-
-/// Погони за ЗАФИКСИРОВАННОЙ цифрой ушедшей легенды. record — реальный факт.
-export const CHASES: {
-  stat: string; metric: Metric; record: number; holder: string; chaser: string;
-}[] = [
+const BUILTIN_CHASES: ChaseSpec[] = [
   { stat: "wins",    metric: "wins",    record: 91,  holder: "Michael Schumacher", chaser: "max_verstappen" },
   { stat: "podiums", metric: "podiums", record: 155, holder: "Michael Schumacher", chaser: "max_verstappen" },
 ];
+
+export function loadCatalog(): { held: HeldSpec[]; chases: ChaseSpec[] } {
+  try {
+    const raw = JSON.parse(readFileSync(join(process.cwd(), "data", "f1", "records", "catalog.json"), "utf8"));
+    if (Array.isArray(raw?.held) && Array.isArray(raw?.chases)) {
+      return { held: raw.held, chases: raw.chases };
+    }
+  } catch { /* fallthrough */ }
+  console.log("::warning::records/catalog.json не прочитался — использую встроенный каталог");
+  return { held: BUILTIN_HELD, chases: BUILTIN_CHASES };
+}
 
 export interface Subject {
   code: string;         // «VER»
@@ -77,7 +90,7 @@ const UP = (s: string) => s.toUpperCase();
 
 /// Карточка держателя рекорда по «вау-углу».
 function heldCard(
-  h: (typeof HELD)[number],
+  h: HeldSpec,
   V: Record<string, number | null>,
   S: Record<string, Subject | null>,
 ): RecordCard | null {
@@ -122,7 +135,7 @@ function heldCard(
 
 /// Карточка погони за зафиксированной цифрой легенды.
 function chaseCard(
-  c: (typeof CHASES)[number],
+  c: ChaseSpec,
   V: Record<string, number | null>,
   S: Record<string, Subject | null>,
 ): RecordCard | null {
@@ -145,31 +158,24 @@ export function buildCards(
   S: Record<string, Subject | null>,
 ): RecordCard[] {
   const cards: RecordCard[] = [];
-  for (const h of HELD) { const c = heldCard(h, V, S); if (c) cards.push(c); }
-  for (const c of CHASES) { const card = chaseCard(c, V, S); if (card) cards.push(card); }
+  const catalog = loadCatalog();
+  for (const h of catalog.held) {
+    const c = heldCard(h, V, S);
+    if (c) cards.push(c);
+    // Тихое исчезновение карточки — сигнал курировать каталог (держатель ушёл
+    // из зачёта / погоня добита), а не норма.
+    else console.log(`::warning::records: held-карточка «${h.stat}» (${h.holder}) не построилась — обнови catalog.json`);
+  }
+  for (const c of catalog.chases) {
+    const card = chaseCard(c, V, S);
+    if (card) cards.push(card);
+    else console.log(`::warning::records: chase-карточка «${c.stat}» (${c.chaser} → ${c.holder}) не построилась — обнови catalog.json`);
+  }
   return cards;
 }
 
 // ── Сеть ────────────────────────────────────────────────────────────────────
 
-async function fetchJSON(url: string, attempt = 0): Promise<any | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (res.status === 429 && attempt < 3) {
-      clearTimeout(t);
-      await new Promise((r) => setTimeout(r, 8000 * (attempt + 1)));
-      return fetchJSON(url, attempt + 1);
-    }
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
-}
 
 async function total(path: string): Promise<number | null> {
   const d = await fetchJSON(`${JOLPICA}/${path}.json?limit=1`);
@@ -212,10 +218,11 @@ async function main() {
   };
 
   // Кто и что нужно (держатели + преследователи, 3-4 пилота).
+  const catalog = loadCatalog();
   const need = new Map<string, Set<Metric>>();
   const add = (id: string, m: Metric) => need.set(id, (need.get(id) ?? new Set()).add(m));
-  for (const h of HELD) { add(h.holder, h.metric); if (h.hook.kind === "rate") add(h.holder, h.hook.over); }
-  for (const c of CHASES) add(c.chaser, c.metric);
+  for (const h of catalog.held) { add(h.holder, h.metric); if (h.hook.kind === "rate") add(h.holder, h.hook.over); }
+  for (const c of catalog.chases) add(c.chaser, c.metric);
 
   const V: Record<string, number | null> = {};
   for (const [id, metrics] of need) {
@@ -242,7 +249,7 @@ async function main() {
     return;
   }
   const payload: SeasonRecords = { season: YEAR, records };
-  const changed = writeIfChanged(OUT, JSON.stringify(payload, null, 2) + "\n");
+  const changed = writeJSONWithEnvelope(OUT, payload);
   console.log(
     `  ${records.length} карточек: ${records.map((r) => `${r.header[0]}:${r.title}`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
   );

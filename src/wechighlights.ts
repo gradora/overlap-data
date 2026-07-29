@@ -6,7 +6,7 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged } from "./mirror.js";
+import {writeJSONWithEnvelope } from "./mirror.js";
 import { isFrozen } from "./freeze.js";
 import {
   akEventHrefs, akSeasonContext, akTimeSeconds, ALKAMEL_WEC,
@@ -14,6 +14,7 @@ import {
 } from "./alkamelwec.js";
 import { eventInfo } from "./wec.js";
 import { crewSurnames } from "./wecwinners.js";
+import { envFlag } from "./env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "highlights");
@@ -199,7 +200,7 @@ async function main() {
     const dates = page ? eventInfo(page) : { startMs: null, endMs: null, iso2: null };
     const raced = dates.endMs != null && dates.endMs < NOW;
     if (!raced) continue; // гонки ещё не было — хайлайтить нечего
-    if (existsSync(path) && isFrozen(dates.endMs, NOW) && process.env.WEC_HL_FORCE !== "1") continue;
+    if (existsSync(path) && isFrozen(dates.endMs, NOW) && !envFlag("WEC_HL_FORCE")) continue;
 
     const hrefs = await akEventHrefs(ctx.seasonValue, ev.value);
     const csvHref = pickRaceCsv(hrefs, "Analysis");
@@ -217,7 +218,7 @@ async function main() {
     const clsCsv = clsHref ? await fetchAkText(`${ALKAMEL_WEC}/${clsHref}`, 60000) : null;
     const classWinners = clsCsv ? classWinnersFromClassification(parseAkCsv(clsCsv)) : [];
     if (classWinners.length > 1) out.classWinners = classWinners;
-    const changed = writeIfChanged(path, JSON.stringify(out, null, 2) + "\n");
+    const changed = writeJSONWithEnvelope(path, out);
     console.log(
       `  R${ev.round} (${ev.label}): круг ${out.fastestLap?.time ?? "—"} ${out.fastestLap?.driver ?? ""}, ` +
       `пит ${out.fastestPitStop?.time ?? "—"} → ${changed ? "записано" : "без изменений"}`,
