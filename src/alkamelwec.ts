@@ -1,6 +1,6 @@
 // Общий слой Al Kamel WEC (fiawec.alkamelsystems.com) — один хост держит
 // Notice Board (официальные документы стюардов, wecfia.ts) и Results-архив
-// (CSV сессий 2011+, продьюсеры highlights/winners/safetycar). Навигация
+// (CSV сессий 2011+, продьюсеры highlights/winners). Навигация
 // одинаковая: GET ?season=<val>&evvent=<val>, значения — из <option
 // Value="..."> (атрибут с большой буквы V — обычный регекс по value его
 // пропускает), файлы — прямыми href (листинг директорий закрыт, 403).
@@ -252,7 +252,7 @@ export async function akSeasonContext(year: number): Promise<AkSeasonContext | n
 /// целыми сезонами. Защита: берём только href под папкой запрошенного
 /// события; чужая страница → до 4 повторов с растущей паузой, потом пусто
 /// (вызывающий пропустит, доберёт следующий крон). Кэш в пределах прогона —
-/// winners/safetycar ходят по одним деревьям для разных текущих этапов.
+/// winners ходят по одним деревьям для разных текущих этапов.
 const treeCache = new Map<string, string[]>();
 
 export async function akEventHrefs(seasonValue: string, evventValue: string): Promise<string[]> {

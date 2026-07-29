@@ -1,5 +1,5 @@
-// Общий слой продьюсеров IMSA-карточек (winners / highlights / safetycar /
-// penalties) поверх Apache-дерева imsa.results.alkamelcloud.com.
+// Общий слой продьюсеров IMSA-карточек (winners / highlights / penalties)
+// поверх Apache-дерева imsa.results.alkamelcloud.com.
 // Особенности дерева (разведка 22.07.2026):
 //  - NN-префиксы раундов НЕ уникальны в сезоне (2024: три папки «19_…») —
 //    матчить только по имени трассы;

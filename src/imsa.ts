@@ -222,12 +222,14 @@ export function hasSeasonSnapshots(fileNames: string[]): boolean {
 }
 
 async function main() {
-  mkdirSync(OUT_DIR, { recursive: true });
   const schedule = SCHEDULE[YEAR] ?? [];
   if (schedule.length === 0) {
+    // mkdir — ПОСЛЕ guard'а: иначе каждый январский прогон до заполнения
+    // SCHEDULE[YEAR] создавал пустую data/imsa/<year>/.
     console.error(`No curated schedule for ${YEAR} — add it to src/schedule.ts`);
     process.exit(1);
   }
+  mkdirSync(OUT_DIR, { recursive: true });
   const seasonDir = `${YEAR % 100}_${YEAR}`;
   const seasonHTML = await fetchHTML([seasonDir]);
   let allRounds: Round[] = [];

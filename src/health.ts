@@ -56,12 +56,27 @@ function utcDate(): string {
 }
 
 function main() {
+  // ВСЕ продьюсеры snapshot.yml (приложение декодит словарём — ключи свободные).
+  // Список обязан совпадать с гейтом «Проверка продьюсеров» в snapshot.yml:
+  // продьюсер без записи здесь и в гейте может падать вечно молча (кейс records).
   const producers = {
     imsa: outcome("IMSA_OUTCOME"),
     f1: outcome("F1_OUTCOME"),
     openf1: outcome("OPENF1_OUTCOME"),
     wec: outcome("WEC_OUTCOME"),
     fia: outcome("FIA_OUTCOME"),
+    wecfia: outcome("WECFIA_OUTCOME"),
+    wechighlights: outcome("WECHIGHLIGHTS_OUTCOME"),
+    wecwinners: outcome("WECWINNERS_OUTCOME"),
+    imsafia: outcome("IMSAFIA_OUTCOME"),
+    imsahighlights: outcome("IMSAHIGHLIGHTS_OUTCOME"),
+    imsawinners: outcome("IMSAWINNERS_OUTCOME"),
+    winners: outcome("WINNERS_OUTCOME"),
+    highlights: outcome("HIGHLIGHTS_OUTCOME"),
+    milestones: outcome("MILESTONES_OUTCOME"),
+    f1history: outcome("F1HISTORY_OUTCOME"),
+    beasts: outcome("BEASTS_OUTCOME"),
+    records: outcome("RECORDS_OUTCOME"),
   };
 
   const health = {
@@ -74,7 +89,15 @@ function main() {
       f1Jolpica: countFiles("f1/jolpica"),
       f1OpenF1: countFiles("f1/openf1"),
       f1Fia: countFiles("f1/fia"),
+      f1Winners: countFiles("f1/winners"),
+      f1Highlights: countFiles("f1/highlights"),
+      f1Milestones: countFiles("f1/milestones"),
+      f1History: countFiles("f1/history"),
+      f1Beasts: countFiles("f1/beasts"),
+      f1Records: countFiles("f1/records"),
+      f1Overrides: countFiles("f1/overrides"),
       wec: countFiles("wec"),
+      tracks: countFiles("tracks"),
     },
   };
 
