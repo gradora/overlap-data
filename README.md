@@ -22,9 +22,9 @@ enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот
 - `src/lib/` — общий код: `mirror` (slug-контракт со Swift! см. data/README),
   `http` (UA+retry), `sources`, `slug`, `env`, `freeze` (окно оседания 7д),
   `season`, `schedule` (курируемый календарь IMSA), `alkamel*`, `fiawecsite`.
-- `src/producers/` — 19 продьюсеров-entrypoint'ов (по одному npm-скрипту).
-  Известный долг: часть продьюсеров импортирует соседей (fia→wecfia/imsafia,
-  wecwinners→imsawinners) — общие функции постепенно уезжают в lib.
+- `src/producers/` — 19 продьюсеров-entrypoint'ов (по одному npm-скрипту),
+  друг друга не импортируют: общий код — только через lib (`fiadocs` — парс-ядро
+  документов стюардов, `winnersbuild` — сборщики прошлых победителей).
 - `data/f1/overrides/calendar.json` — РУЧНАЯ ручка: завод события до появления
   в источниках (кейс Sepang), приложение показывает с бейджем TBC и само
   дедуплицирует после публикации. Никакой продьюсер его не пишет.

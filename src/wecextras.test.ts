@@ -4,7 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { akTimeSeconds, matchAkRound, pickRaceCsv } from "./lib/alkamelwec.js";
 import { raceHighlights, shortDriver } from "./producers/wechighlights.js";
-import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./producers/wecwinners.js";
+import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./lib/winnersbuild.js";
 import { raceCautions } from "./producers/wechighlights.js";
 
 const SLUGS_2026 = [

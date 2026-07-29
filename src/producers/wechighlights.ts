@@ -13,7 +13,7 @@ import {
   fetchAkText, parseAkCsv, pickRaceCsv,
 } from "../lib/alkamelwec.js";
 import { eventInfo } from "../lib/fiawecsite.js";
-import { crewSurnames } from "./wecwinners.js";
+import { crewSurnames } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());

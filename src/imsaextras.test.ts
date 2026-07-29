@@ -7,7 +7,7 @@ import {
 import {
   imsaDriveThroughCounts, imsaFastestLap, imsaFastestPitStop,
 } from "./producers/imsahighlights.js";
-import { imsaOverallWinner } from "./producers/imsawinners.js";
+import { imsaOverallWinner } from "./lib/winnersbuild.js";
 import { imsaDocFromName, parseImsaPenaltyPdf } from "./producers/imsafia.js";
 
 test("matchImsaTrack: точное, алиасы, суффиксы, префиксные события", () => {

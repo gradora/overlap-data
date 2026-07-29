@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { scheduleSeasonMismatch } from "./lib/season.js";
-import { finalRoundFile, seasonUrlYear } from "./producers/fia.js";
+import { finalRoundFile, seasonUrlYear } from "./lib/fiadocs.js";
 import { yearEquivalent } from "./producers/f1.js";
 import { seasonStarted } from "./lib/fiawecsite.js";
 import { hasSeasonSnapshots } from "./producers/imsa.js";

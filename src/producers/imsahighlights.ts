@@ -14,7 +14,7 @@ import {
 import { isFrozen } from "../lib/freeze.js";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";
 import { SCHEDULE } from "../lib/schedule.js";
-import { bestTrackStage } from "./imsawinners.js";
+import { bestTrackStage } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());

@@ -14,51 +14,21 @@ import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { fetchHTML, fetchJSON, folders } from "../lib/alkamel.js";
 import {
-  imsaCrewSurnames, imsaRaceStage, pickImsaFile, trackCandidates,
-  IMSA_SEASONS_FIRST, type ImsaDriverRef,
+  imsaCrewSurnames, pickImsaFile, trackCandidates,
+  IMSA_SEASONS_FIRST,
 } from "../lib/alkamelimsa.js";
 import { parseAkCsv } from "../lib/alkamelwec.js";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";
 import { SCHEDULE } from "../lib/schedule.js";
-import { buildWecWinners, crewSurnames, overallWinner } from "./wecwinners.js";
+import {
+  bestTrackStage, buildWecWinners, crewSurnames, imsaOverallWinner, overallWinner,
+} from "../lib/winnersbuild.js";
 import { envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "winners");
 
 const seasonDir = (year: number): string => `${year % 100}_${year}`;
-
-interface ResultsClassificationRow {
-  position?: number | string;
-  team?: string;
-  vehicle?: string;
-  drivers?: ImsaDriverRef[];
-}
-
-/// Победитель гонки из финального Results JSON: position 1 общей таблицы
-/// (классы отсортированы сквозь — топ-класс сверху).
-export function imsaOverallWinner(json: unknown): ResultsClassificationRow | null {
-  const rows = (json as { classification?: ResultsClassificationRow[] })?.classification;
-  if (!Array.isArray(rows)) return null;
-  return rows.find((r) => String(r.position ?? "").trim() === "1") ?? null;
-}
-
-/// Лучшее из событий-кандидатов трассы за сезон: max Hour-папок, затем позднее.
-export async function bestTrackStage(
-  season: string,
-  candidates: string[],
-): Promise<{ stage: Awaited<ReturnType<typeof imsaRaceStage>>; round: string } | null> {
-  let best: { stage: NonNullable<Awaited<ReturnType<typeof imsaRaceStage>>>; round: string } | null = null;
-  for (const round of candidates) {
-    const stage = await imsaRaceStage(season, round);
-    if (!stage) continue;
-    if (!best || stage.hours > best.stage.hours ||
-        (stage.hours === best.stage.hours && stage.stamp > best.stage.stamp)) {
-      best = { stage, round };
-    }
-  }
-  return best;
-}
 
 async function main(): Promise<void> {
   console.log(`IMSA past winners, season ${YEAR}`);
