@@ -5,7 +5,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
+import { mirrorSlug, writeJSONWithEnvelope } from "./lib/mirror.js";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";

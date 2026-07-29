@@ -15,16 +15,16 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { isFrozen } from "./freeze.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { isFrozen } from "../lib/freeze.js";
 import {
   appliesTo, classifyDecision, fieldValue,
   type FiaEvent, type FiaPenalty,
 } from "./fia.js";
-import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "./alkamelwec.js";
-import { eventInfo, raceSlugs } from "./wec.js";
-import { UA } from "./http.js";
-import { envFlag, envNumber } from "./env.js";
+import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "../lib/alkamelwec.js";
+import { eventInfo, raceSlugs } from "../lib/fiawecsite.js";
+import { UA } from "../lib/http.js";
+import { envFlag, envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const NB = `${ALKAMEL_WEC}/noticeBoard.php`;

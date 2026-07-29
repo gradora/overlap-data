@@ -2,10 +2,10 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { akTimeSeconds, matchAkRound, pickRaceCsv } from "./alkamelwec.js";
-import { raceHighlights, shortDriver } from "./wechighlights.js";
-import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./wecwinners.js";
-import { raceCautions } from "./wechighlights.js";
+import { akTimeSeconds, matchAkRound, pickRaceCsv } from "./lib/alkamelwec.js";
+import { raceHighlights, shortDriver } from "./producers/wechighlights.js";
+import { buildWecWinners, crewSurnames, overallWinner, singleYearSeasons } from "./producers/wecwinners.js";
+import { raceCautions } from "./producers/wechighlights.js";
 
 const SLUGS_2026 = [
   "6-hours-of-imola-2026",

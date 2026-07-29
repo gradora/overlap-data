@@ -11,11 +11,11 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { isFrozen } from "./freeze.js";
-import { scheduleSeasonMismatch } from "./season.js";
-import { UA } from "./http.js";
-import { envFlag, envNumber } from "./env.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { isFrozen } from "../lib/freeze.js";
+import { scheduleSeasonMismatch } from "../lib/season.js";
+import { UA } from "../lib/http.js";
+import { envFlag, envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const FIA_ORIGIN = "https://www.fia.com";

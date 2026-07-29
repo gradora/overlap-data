@@ -7,7 +7,7 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { raceSlugs } from "./wec.js";
+import { raceSlugs } from "./fiawecsite.js";
 import { UA } from "./http.js";
 
 export const ALKAMEL_WEC = "https://fiawec.alkamelsystems.com";

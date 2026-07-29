@@ -14,14 +14,14 @@ import {
   fetchHTML, fetchJSON, files, lastHourFolder, mergeGTD, parsePointsTable,
   parseSession, pointsDataFolder, pointsFile, resultsFile, Round, rounds,
   sessionInstant, sessions, wallClockISO, weatherTechFolder,
-} from "./alkamel.js";
-import { isFrozen } from "./freeze.js";
-import { matchTrack, SCHEDULE, ScheduleEntry } from "./schedule.js";
+} from "../lib/alkamel.js";
+import { isFrozen } from "../lib/freeze.js";
+import { matchTrack, SCHEDULE, ScheduleEntry } from "../lib/schedule.js";
 import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
   RaceClass, SCHEMA_VERSION, SeasonIndex, Session,
-} from "./types.js";
-import { slugify } from "./slug.js";
+} from "../lib/types.js";
+import { slugify } from "../lib/slug.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const DATA_ROOT = join(process.cwd(), "data");

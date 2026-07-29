@@ -3,7 +3,7 @@
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
-import { comebackRow, driverCode, driverMap, familyKey } from "./beasts.js";
+import { comebackRow, driverCode, driverMap, familyKey } from "./producers/f1beasts.js";
 
 const result = (grid: string, position: string, code: string, family: string, team = "Red Bull", teamId = "red_bull") => ({
   grid,

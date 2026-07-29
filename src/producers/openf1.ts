@@ -9,8 +9,8 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { isFrozen } from "./freeze.js";
-import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
+import { isFrozen } from "../lib/freeze.js";
+import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1 = "https://api.openf1.org/v1";

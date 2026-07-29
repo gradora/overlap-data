@@ -12,7 +12,7 @@
 
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { fetchText, writeIfChanged } from "./mirror.js";
+import { fetchText, writeIfChanged } from "../lib/mirror.js";
 
 const OUT_PATH = join(process.cwd(), "data", "tracks", "index.json");
 const API = "https://en.wikipedia.org/w/api.php";

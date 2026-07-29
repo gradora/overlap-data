@@ -6,15 +6,15 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import {writeJSONWithEnvelope } from "./mirror.js";
-import { isFrozen } from "./freeze.js";
+import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { isFrozen } from "../lib/freeze.js";
 import {
   akEventHrefs, akSeasonContext, akTimeSeconds, ALKAMEL_WEC,
   fetchAkText, parseAkCsv, pickRaceCsv,
-} from "./alkamelwec.js";
-import { eventInfo } from "./wec.js";
+} from "../lib/alkamelwec.js";
+import { eventInfo } from "../lib/fiawecsite.js";
 import { crewSurnames } from "./wecwinners.js";
-import { envFlag } from "./env.js";
+import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "highlights");

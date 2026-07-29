@@ -2,11 +2,11 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { scheduleSeasonMismatch } from "./season.js";
-import { finalRoundFile, seasonUrlYear } from "./fia.js";
-import { yearEquivalent } from "./f1.js";
-import { seasonStarted } from "./wec.js";
-import { hasSeasonSnapshots } from "./imsa.js";
+import { scheduleSeasonMismatch } from "./lib/season.js";
+import { finalRoundFile, seasonUrlYear } from "./producers/fia.js";
+import { yearEquivalent } from "./producers/f1.js";
+import { seasonStarted } from "./lib/fiawecsite.js";
+import { hasSeasonSnapshots } from "./producers/imsa.js";
 
 test("scheduleSeasonMismatch: рассинхрон только при явном чужом сезоне", () => {
   assert.equal(scheduleSeasonMismatch("2026", 2027), true);   // январское окно

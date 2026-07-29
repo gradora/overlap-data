@@ -1,57 +1,64 @@
 # overlap-data
 
-Планировщик снапшотов результатов автогонок для приложения **Overlap**.
-GitHub Actions по расписанию скрейпит и парсит источники, кладёт нормализованный
-JSON в `data/`, приложение читает его через `raw.githubusercontent.com` — так
-результаты прошедших этапов доступны **независимо от того, открывал ли ты
-приложение** и что идёт прямо сейчас.
+Снапшот-бэкенд данных приложения **Overlap** (F1 / WEC / IMSA): GitHub Actions
+по расписанию тянет источники, кладёт ответы и derived-карточки в `data/`,
+приложение читает их mirror-first с `raw.githubusercontent.com` (фолбэк —
+живой источник). Зачем: прошедшие результаты доступны независимо от состояния
+источников и того, открывал ли пользователь приложение; источники разгружены.
 
-Старт — только **IMSA** (официальный тайминг Al Kamel). WEC/F1 добавятся по тому
-же шаблону.
-
-## Как работает
+## Архитектура
 
 ```
-Al Kamel portal ──► GitHub Actions (cron, раз в час) ──► data/*.json ──► git commit
-                                                                              │
-                                                       raw.githubusercontent ─┘ ──► приложение
+Jolpica ─┐                       ┌─ data/f1/jolpica/   (зеркало, + пер-раундовые слайсы)
+OpenF1 ──┤                       ├─ data/f1/openf1/    (зеркало, история 2023+)
+fiawec ──┤  src/producers/* ────►├─ data/wec/fiawec/   (зеркало HTML, нормализовано)
+Al Kamel ┤  (cron, см. ниже)     ├─ data/{f1,wec,imsa}/{fia,winners,highlights}/
+fia.com ─┤                       ├─ data/f1/{milestones,beasts,records,history}/
+enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот этапов)
+                                 ├─ data/tracks/index.json
+                                 └─ data/health.json   (heartbeat + статусы)
 ```
 
-1. Сезон-индекс → раунды (только с WeatherTech-папкой).
-2. Для раунда: сессии из таймстампов папок → лучший `03_Results_*.JSON` →
-   классификация по классам (эндуранс — из часовой подпапки).
-3. Статус этапа: `upcoming` → `live` → `finished`. **finished замораживается**:
-   в следующие прогоны файл не рескрейпится и не перезаписывается.
-4. POINTS DATA последнего сыгранного раунда → `points.json`.
-5. Пишутся только изменившиеся файлы (git остаётся лёгким).
+- `src/lib/` — общий код: `mirror` (slug-контракт со Swift! см. data/README),
+  `http` (UA+retry), `sources`, `slug`, `env`, `freeze` (окно оседания 7д),
+  `season`, `schedule` (курируемый календарь IMSA), `alkamel*`, `fiawecsite`.
+- `src/producers/` — 19 продьюсеров-entrypoint'ов (по одному npm-скрипту).
+  Известный долг: часть продьюсеров импортирует соседей (fia→wecfia/imsafia,
+  wecwinners→imsawinners) — общие функции постепенно уезжают в lib.
+- `data/f1/overrides/calendar.json` — РУЧНАЯ ручка: завод события до появления
+  в источниках (кейс Sepang), приложение показывает с бейджем TBC и само
+  дедуплицирует после публикации. Никакой продьюсер его не пишет.
+- `data/f1/records/catalog.json` — РУЧНОЙ каталог all-time рекордов
+  (held/chases) для продьюсера f1records.
 
-## Структура данных
+## Workflows
 
-```
-data/imsa/2026/
-  index.json                     # список этапов: round, venue, status, start/end, resultsPath
-  08_road-america.json           # снапшот этапа: сессии + классификации по классам
-  points.json                    # официальные очки последнего раунда (по классам)
-```
+| Workflow | Расписание | Что | Гейт |
+|---|---|---|---|
+| `snapshot.yml` | каждый час (`17 * * * *`) | 17 продьюсеров + health | все шаги (workflows.test.ts следит) |
+| `fia.yml` | `*/15` Пт–Вс | только штрафы FIA (своя concurrency-group — не дропается за snapshot) | exit-code |
+| `tracks.yml` | Пн 04:00 | справочник трасс из англ-вики | exit-code |
+| `ci.yml` | push/PR | typecheck + tests | — |
 
-Схема — в [`src/types.ts`](src/types.ts). Поля повторяют модели приложения
-(`IMSAResultRow` и т.п.), чтобы клиент декодил JSON, а не парсил сырьё.
+Коммит/пуш — общий composite action `.github/actions/commit-push` (5 попыток
+с rebase). Алерт: любой упавший продьюсер валит job → письмо владельцу;
+исключения-толерантности: OpenF1 401 в лайв-сессию, records при пустом сезоне.
 
-## Локальный прогон
+## Операторские ручки (env)
 
-```bash
-npm ci
-npm run imsa            # SEASON=2026 по умолчанию (текущий год)
-SEASON=2025 npm run imsa
-npm run typecheck
-```
+Семантика едина (`src/lib/env.ts`): флаг включён ⇔ значение ровно `1`.
 
-## Расписание
+| Ручка | Дефолт | Что |
+|---|---|---|
+| `SEASON` | текущий год | сезон прогона; прошлый год у openf1 = historic-бэкфилл |
+| `FIA_BACKFILL` / `WEC_FIA_BACKFILL` / `IMSA_FIA_BACKFILL` | 2 / 1 / 1 | сколько прошлых этапов доскрейпить |
+| `FIA_FORCE` / `WEC_FIA_FORCE` / `IMSA_FIA_FORCE` | — | пересобрать даже замороженные |
+| `WEC_HL_FORCE` / `IMSA_HL_FORCE` | — | то же для хайлайтов |
+| `WEC_WINNERS_BACKFILL` / `IMSA_WINNERS_BACKFILL` | 1 | глубина бэкфилла победителей |
+| `TRACKS_ONLY=slug,slug` | — | ТОЛЬКО отладка: пишет index из перечисленных — коммитить нельзя |
 
-`.github/workflows/snapshot.yml` — cron `17 * * * *` (раз в час) + ручной запуск
-(`workflow_dispatch`). Частить не нужно: финалы заморожены, а свежесть текущего
-live приложение может добирать напрямую. Правки парсера подхватываются следующим
-прогоном — **без релиза приложения**.
+## Данные
 
-Грабли: cron может задержаться; воркфлоу отключается после 60 дней без коммитов
-(в глухое межсезонье — keep-alive-тик).
+Конвенции имён файлов и slug-контракт — `data/README.md`. Derived-семейства
+несут конверт `{schemaVersion, generatedAt}` (метка меняется только с данными).
+Сезонное обслуживание — `SEASON-CHECKLIST.md`.

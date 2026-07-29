@@ -12,7 +12,7 @@ import {
   extractNotable,
   parseLongestRace,
   buildTrack,
-} from "./tracks.js";
+} from "./producers/tracks.js";
 
 // --- Фрагмент реального wikitext Spa: секция Lap records + два лейаута ---
 const SPA_WT = `Some intro text about the circuit.
