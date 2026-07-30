@@ -55,9 +55,9 @@ const ALL = [testing, cancelled, roundMatched, farFuture, nearFutureNew];
 const roundDates = ["2026-02-01"];   // Jolpica знает только Бахрейн
 
 // key → reason для отобранных митингов.
-function selected(meetings: any[], dates: string[], now = NOW) {
+function selected(meetings: any[], dates: string[], now = NOW, allDates: string[] = []) {
   const map = new Map<number, string>();
-  for (const t of meetingsToSnapshot(meetings, dates, now)) {
+  for (const t of meetingsToSnapshot(meetings, dates, now, allDates)) {
     map.set(t.meeting.meeting_key, t.reason);
   }
   return map;
@@ -75,8 +75,17 @@ test("meetingsToSnapshot: сматченный на раунд Jolpica отби�
   assert.equal(selected(ALL, roundDates).get(3), "round");
 });
 
-test("meetingsToSnapshot: обычный далёкий этап не в Jolpica НЕ отбирается", () => {
+test("meetingsToSnapshot: далёкий этап не в Jolpica без полного расписания НЕ отбирается (январский гард)", () => {
   assert.equal(selected(ALL, roundDates).has(4), false);
+});
+
+test("meetingsToSnapshot: этап не в Jolpica при полном расписании отбирается (категория overlay, кейс Sepang)", () => {
+  // Jolpica знает Бахрейн, но не «Japanese GP» (key 4) — это оверлей-этап:
+  // листинг сессий нужен клиенту круглый год, окна ±14д не ждём.
+  const res = selected(ALL, roundDates, NOW, ["2026-02-01"]);
+  assert.equal(res.get(4), "overlay");
+  // Сматченный с расписанием Бахрейн оверлеем НЕ становится (взят раундом).
+  assert.equal(res.get(3), "round");
 });
 
 test("meetingsToSnapshot: этап в окне ±14д, но не в Jolpica отбирается (категория new)", () => {
