@@ -76,6 +76,22 @@ function activeRounds(): string[] {
   }
 }
 
+// ВСЕ даты гонок сезона из расписания Jolpica — для оверлей-критерия (e):
+// митинг, не сматченный ни с одной, в Jolpica отсутствует вовсе.
+export function allRoundDatesFrom(schedule: any): string[] {
+  const races = schedule?.MRData?.RaceTable?.Races ?? [];
+  return races.filter((r: any) => r.date).map((r: any) => String(r.date));
+}
+
+function seasonRoundDates(): string[] {
+  try {
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    return allRoundDatesFrom(d);
+  } catch {
+    return [];
+  }
+}
+
 // Митинг, чей интервал [date_start, date_end] пересекает день гонки (порт
 // OpenF1Service.matchMeeting — Лас-Вегас гонится в ночь между датами).
 export function matchMeeting(meetings: any[], raceDate: string): any | undefined {
@@ -100,18 +116,20 @@ export interface SnapshotTarget {
   // Инстант «финиша» для freeze/weekend-гейта: у раунда — конец дня гонки из
   // Jolpica, у прочих категорий — date_end (или date_start) самого митинга.
   finishMs: number;
-  reason: "round" | "testing" | "cancelled" | "new";
+  reason: "round" | "testing" | "cancelled" | "overlay" | "new";
 }
 
 // Чистый селектор: какие митинги зеркалить. Объединение (dedup по meeting_key,
 // первая причина побеждает): (a) сматченные на активный раунд Jolpica; (b) тесты
 // (в имени «Testing», регистр неважен); (c) отменённые (is_cancelled === true);
-// (d) ещё не в Jolpica, но со стартом в окне ±14 дней. Приоритет причин:
-// round > testing > cancelled > new.
+// (e) оверлей-этапы — не сматченные НИ С ОДНИМ раундом Jolpica (перенос/новый
+// этап, кейс Sepang-2026); (d) ещё не в Jolpica, но со стартом в окне ±14 дней.
+// Приоритет причин: round > testing > cancelled > overlay > new.
 export function meetingsToSnapshot(
   meetings: any[],
   activeRoundDates: string[],
   now: number,
+  allRoundDates: string[] = [],
 ): SnapshotTarget[] {
   const byKey = new Map<any, SnapshotTarget>();
   const add = (meeting: any, finishMs: number, reason: SnapshotTarget["reason"]) => {
@@ -135,6 +153,15 @@ export function meetingsToSnapshot(
     }
     if (m?.is_cancelled === true) {
       add(m, finishMs, "cancelled");   // (c)
+      continue;
+    }
+    // (e) оверлей-этап: в OpenF1 есть, в Jolpica нет ВООБЩЕ. Клиент показывает
+    // такой митинг оверлей-итемом и читает листинг его сессий задолго до
+    // уик-энда — зеркалим сразу, не дожидаясь окна (d): живой OpenF1 401-ится
+    // в каждый чужой гоночный уик-энд. Гард на пустое расписание (январь до
+    // публикации Jolpica): иначе «не в Jolpica» — весь календарь разом.
+    if (allRoundDates.length > 0 && !allRoundDates.some((d) => matchMeeting([m], d))) {
+      add(m, finishMs, "overlay");
       continue;
     }
     const start = Date.parse(m?.date_start ?? "");
@@ -204,7 +231,7 @@ async function main() {
     return;
   }
   const roundDates = activeRounds();
-  const targets = meetingsToSnapshot(meetings, roundDates, NOW);
+  const targets = meetingsToSnapshot(meetings, roundDates, NOW, seasonRoundDates());
   console.log(`  ${roundDates.length} active rounds, ${meetings.length} meetings, ${targets.length} to snapshot`);
 
   for (const t of targets) {
