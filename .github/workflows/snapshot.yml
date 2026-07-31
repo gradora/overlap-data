@@ -115,6 +115,12 @@ jobs:
         continue-on-error: true
         run: npm run f1records
 
+      # После зеркала f1: правило «переехало» читает свежий current.json.
+      - name: GC override-календаря F1 (отжившие ручные записи)
+        id: f1overrides
+        continue-on-error: true
+        run: npm run f1overrides
+
       # Пишет data/health.json (дневной heartbeat — держит крон живым в
       # межсезонье + сигнал устаревания приложению). Реальные результаты
       # продьюсеров приходят через steps.<id>.outcome. Только пишет файл.
@@ -138,6 +144,7 @@ jobs:
           F1HISTORY_OUTCOME: ${{ steps.f1history.outcome }}
           BEASTS_OUTCOME: ${{ steps.beasts.outcome }}
           RECORDS_OUTCOME: ${{ steps.records.outcome }}
+          F1OVERRIDES_OUTCOME: ${{ steps.f1overrides.outcome }}
         run: npm run health
 
       - name: Закоммитить изменения
@@ -156,7 +163,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done

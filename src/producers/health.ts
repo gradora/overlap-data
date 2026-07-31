@@ -77,6 +77,7 @@ function main() {
     f1history: outcome("F1HISTORY_OUTCOME"),
     beasts: outcome("BEASTS_OUTCOME"),
     records: outcome("RECORDS_OUTCOME"),
+    f1overrides: outcome("F1OVERRIDES_OUTCOME"),
   };
 
   const health = {
