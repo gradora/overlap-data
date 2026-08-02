@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T15:42:58.067Z",
+  "season": 2025,
+  "round": 10,
+  "event": "indianapolis-motor-speedway",
+  "updated": "2025-09-20T23:48:45.000Z",
+  "penalties": [
+    {
+      "doc": 25,
+      "car": 75,
+      "driver": "75 Express",
+      "session": "Technical",
+      "type": "deleted_laps",
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "During post-Qualifying Technical Inspection, GTD-PRO Car #75 was found to have a ground clearance less than the minimum per GTD-PRO TR 7.4.5.",
+      "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
+      "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/19_Indianapolis%20Motor%20Speedway/18_Penalties/TP%2025-25.pdf",
+      "publishedAt": "2025-09-20T22:44:26.000Z"
+    },
+    {
+      "doc": 26,
+      "car": 60,
+      "driver": "Acura Meyer Shank Racing w/Curb Agajanian",
+      "session": "Technical",
+      "type": "other",
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "GTP car #60 failed to comply with the bodywork tolerances as defined in LMDh technical regulation 3.11.2.",
+      "decision": "Car #60 lap times will be invalidated and moved to the back of the class.",
+      "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/19_Indianapolis%20Motor%20Speedway/18_Penalties/TP%2025-26.pdf",
+      "publishedAt": "2025-09-20T23:48:45.000Z"
+    }
+  ]
+}
