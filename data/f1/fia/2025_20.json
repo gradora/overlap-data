@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T12:27:54.589Z",
+  "season": 2025,
+  "round": 20,
+  "event": "mexico_city_grand_prix",
+  "updated": "2025-10-26 23:26 CET",
+  "penalties": [
+    {
+      "doc": 14,
+      "car": 36,
+      "driver": "Arvid Lindblad",
+      "session": "Practice 1",
+      "type": "warning",
+      "appliesTo": "Practice 1",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_36_-_impeding_car_89_in_turn_9.pdf",
+      "publishedAt": "2025-10-24 23:27 CET"
+    },
+    {
+      "doc": 33,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_55_-_pit_lane_speeding.pdf",
+      "publishedAt": "2025-10-26 22:49 CET"
+    },
+    {
+      "doc": 34,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Race",
+      "type": "other",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_55_-_pit_lane_speeding_2nd.pdf",
+      "publishedAt": "2025-10-26 22:50 CET"
+    },
+    {
+      "doc": 36,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_44_-_leaving_the_track_and_gaining_an_advantage.pdf",
+      "publishedAt": "2025-10-26 23:23 CET"
+    },
+    {
+      "doc": 37,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_decision_-_car_44_-_alleged_failing_to_follow_race_directors_instructions.pdf",
+      "publishedAt": "2025-10-26 23:24 CET"
+    },
+    {
+      "doc": 38,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_decision_-_car_44_-_alleged_causing_a_collision.pdf",
+      "publishedAt": "2025-10-26 23:26 CET"
+    },
+    {
+      "doc": 58,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Race",
+      "type": "grid",
+      "gridDrop": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_united_states_grand_prix_-_infringement_-_car_55_-_causing_a_collision_with_car_12_in_turn_15.pdf",
+      "publishedAt": "2025-10-20 01:02 CET",
+      "carriedFrom": 19
+    }
+  ],
+  "startingGrid": {
+    "kind": "final",
+    "doc": 32,
+    "entries": [
+      {
+        "position": 1,
+        "car": 4
+      },
+      {
+        "position": 2,
+        "car": 16
+      },
+      {
+        "position": 3,
+        "car": 44
+      },
+      {
+        "position": 4,
+        "car": 63
+      },
+      {
+        "position": 5,
+        "car": 1
+      },
+      {
+        "position": 6,
+        "car": 12
+      },
+      {
+        "position": 7,
+        "car": 81
+      },
+      {
+        "position": 8,
+        "car": 6
+      },
+      {
+        "position": 9,
+        "car": 87
+      },
+      {
+        "position": 10,
+        "car": 22
+      },
+      {
+        "position": 11,
+        "car": 31
+      },
+      {
+        "position": 12,
+        "car": 55
+      },
+      {
+        "position": 13,
+        "car": 27
+      },
+      {
+        "position": 14,
+        "car": 14
+      },
+      {
+        "position": 15,
+        "car": 30
+      },
+      {
+        "position": 16,
+        "car": 5
+      },
+      {
+        "position": 17,
+        "car": 23
+      },
+      {
+        "position": 18,
+        "car": 10
+      },
+      {
+        "position": 19,
+        "car": 18
+      },
+      {
+        "position": 20,
+        "car": 43
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 55,
+        "text": "5 place grid penalty - Causing a collision",
+        "doc": 58
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2025-10-26 20:01 CET"
+  }
+}

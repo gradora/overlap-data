@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T12:26:15.528Z",
+  "season": 2025,
+  "round": 1,
+  "event": "australian_grand_prix",
+  "updated": "2025-03-16 08:23 CET",
+  "penalties": [
+    {
+      "doc": 31,
+      "car": 87,
+      "driver": "Oliver Bearman",
+      "session": "Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_87_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2025-03-16 01:55 CET"
+    },
+    {
+      "doc": 35,
+      "car": 30,
+      "driver": "Liam Lawson",
+      "session": "Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_30_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2025-03-16 04:43 CET"
+    },
+    {
+      "doc": 36,
+      "car": 14,
+      "driver": "Fernando Alonso",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_14_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+      "publishedAt": "2025-03-16 06:16 CET"
+    },
+    {
+      "doc": 37,
+      "car": 44,
+      "driver": "Lewis Hamilton",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_44_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+      "publishedAt": "2025-03-16 06:20 CET"
+    },
+    {
+      "doc": 38,
+      "car": 22,
+      "driver": "Yuki Tsunoda",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_22_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+      "publishedAt": "2025-03-16 06:23 CET"
+    },
+    {
+      "doc": 39,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_23_-_failing_to_maintain_distance_behind_the_safety_car_0.pdf",
+      "publishedAt": "2025-03-16 06:25 CET"
+    },
+    {
+      "doc": 40,
+      "car": 5,
+      "driver": "Gabriel Bortoleto",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_5_-_unsafe_release.pdf",
+      "publishedAt": "2025-03-16 06:54 CET"
+    },
+    {
+      "doc": 43,
+      "car": 12,
+      "driver": "Andrea Kimi Antonelli",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_12_-_unsafe_release.pdf",
+      "publishedAt": "2025-03-16 08:23 CET"
+    }
+  ],
+  "startingGrid": {
+    "kind": "final",
+    "doc": 33,
+    "entries": [
+      {
+        "position": 1,
+        "car": 4
+      },
+      {
+        "position": 2,
+        "car": 81
+      },
+      {
+        "position": 3,
+        "car": 1
+      },
+      {
+        "position": 4,
+        "car": 63
+      },
+      {
+        "position": 5,
+        "car": 22
+      },
+      {
+        "position": 6,
+        "car": 23
+      },
+      {
+        "position": 7,
+        "car": 16
+      },
+      {
+        "position": 8,
+        "car": 44
+      },
+      {
+        "position": 9,
+        "car": 10
+      },
+      {
+        "position": 10,
+        "car": 55
+      },
+      {
+        "position": 11,
+        "car": 6
+      },
+      {
+        "position": 12,
+        "car": 14
+      },
+      {
+        "position": 13,
+        "car": 18
+      },
+      {
+        "position": 14,
+        "car": 7
+      },
+      {
+        "position": 15,
+        "car": 5
+      },
+      {
+        "position": 16,
+        "car": 12
+      },
+      {
+        "position": 17,
+        "car": 27
+      },
+      {
+        "position": 18,
+        "car": 30
+      },
+      {
+        "position": 19,
+        "car": 31
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 87,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+        "doc": 31
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2025-03-16 04:01 CET"
+  }
+}
