@@ -268,7 +268,15 @@ async function main() {
     const outPath = join(OUT_DIR, fname);
     const existing = readJSON<EventSnapshot>(outPath);
     const matchedTrack = matchTrack(entry.venue, trackNames);
-    const matched = matchedTrack ? allRounds.find((r) => r.track === matchedTrack) : undefined;
+    // Кандидатов может быть НЕСКОЛЬКО: одна трасса принимает за сезон и наш
+    // этап, и уикенд другой серии (2025: «03_Watkins Glen» + «14_Watkins Glen»,
+    // «03_VIRginia» + «17_VIRginia»). Прежний find() брал первый по листингу и
+    // промахивался мимо WeatherTech — этап навсегда зависал в upcoming.
+    // Перебираем всех кандидатов; берём того, у кого реально есть сессии
+    // WeatherTech (fetchWeekendSessions сам гейтит по weatherTechFolder).
+    const candidates = matchedTrack
+      ? allRounds.filter((r) => r.track === matchedTrack).sort((a, b) => a.ordinal - b.ordinal)
+      : [];
 
     let snap: EventSnapshot | null = null;
     // Freeze по возрасту финиша (7д), а НЕ сразу при status=finished: результат
@@ -279,9 +287,10 @@ async function main() {
     if (frozen) {
       snap = existing!; // оседание завершилось — не рескрейпим
       console.log(`  frozen  R${entry.round} ${fname}`);
-    } else if (matched) {
-      const weekend = await fetchWeekendSessions(seasonDir, matched);
-      if (weekend && weekend.sessions.length > 0) {
+    } else if (candidates.length > 0) {
+      for (const candidate of candidates) {
+        const weekend = await fetchWeekendSessions(seasonDir, candidate);
+        if (!weekend || weekend.sessions.length === 0) continue;   // не наш уикенд — следующий кандидат
         snap = buildSnapshot(entry, weekend.sessions, weekend.meta);
         if (writeIfChanged(outPath, snap)) {
           wrote++;
@@ -289,6 +298,7 @@ async function main() {
         } else {
           console.log(`  same    R${entry.round} ${fname}`);
         }
+        break;
       }
     }
 

@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { matchTrack, SCHEDULE } from "./lib/schedule.js";
+import { rounds } from "./lib/alkamel.js";
 import {
   finalHourFolder, hourCount, imsaCrewSurnames, imsaShortDriver,
   imsaTimeSeconds, matchImsaTrack, pickImsaFile, wtFolderName,
@@ -135,4 +137,36 @@ test("penalties: имя дока, парс PDF-текста, фильтр сер
   const p2 = parseImsaPenaltyPdf(noDriver, "Sporting", 9, "u");
   assert.equal(p2?.driver, "Manthey 1St Phorm");
   assert.equal(p2?.type, "deleted_laps");
+});
+
+// Регрессия бэкфилла-2025: одна трасса за сезон может принимать И наш этап,
+// И уикенд другой серии («03_Watkins Glen» + «14_Watkins Glen»). rounds()
+// отдаёт обоих кандидатов — продьюсер обязан перебрать их, а не брать первого
+// по листингу (иначе этап навсегда завис бы в upcoming).
+test("rounds: оба уикенда одной трассы остаются кандидатами", () => {
+  const html = `
+    <a href="03_Watkins%20Glen%20International/">03_Watkins Glen International/</a>
+    <a href="14_Watkins%20Glen%20International/">14_Watkins Glen International/</a>
+    <a href="17_VIRginia%20International%20Raceway/">17_VIRginia International Raceway/</a>
+    <a href="18_Martinsville%20Speedway%20-%20Test/">18_Martinsville Speedway - Test/</a>
+  `;
+  const rs = rounds(html);
+  const glen = rs.filter((r) => r.track.includes("Watkins Glen"));
+  assert.equal(glen.length, 2, "оба уикенда Уоткинс-Глена должны быть кандидатами");
+  assert.deepEqual(glen.map((r) => r.ordinal), [3, 14]);
+  assert.ok(!rs.some((r) => r.track.includes("Test")), "тестовые уикенды отфильтрованы");
+});
+
+test("SCHEDULE: 2025 и 2026 покрыты полностью (11 раундов)", () => {
+  for (const year of [2025, 2026]) {
+    const s = SCHEDULE[year];
+    assert.ok(s, `нет расписания IMSA за ${year}`);
+    assert.equal(s.length, 11, `${year}: ожидалось 11 раундов`);
+    assert.deepEqual(s.map((e) => e.round), [1,2,3,4,5,6,7,8,9,10,11]);
+    for (const e of s) {
+      assert.ok(Date.parse(e.startDate) <= Date.parse(e.endDate),
+        `${year} R${e.round}: startDate позже endDate`);
+      assert.ok(matchTrack(e.venue, [e.venue]), `${year} R${e.round}: venue не матчится сам с собой`);
+    }
+  }
 });
