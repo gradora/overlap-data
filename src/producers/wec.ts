@@ -10,7 +10,7 @@ import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
   eventInfo, expectedRaceMirrors, isRaceMirrorOfSeason, raceIdOf,
-  raceSlugs, seasonStarted, sessionOptions, stripCountdown,
+  raceSlugs, seasonStarted, sessionOptions, stripCountdown, testSlugs,
 } from "../lib/fiawecsite.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -73,12 +73,17 @@ async function main() {
   await mirror(`/en/page/manufacturers-classification`);
 
   const slugs = season ? raceSlugs(season, YEAR) : [];
+  // Прологи — отдельный список: в нумерацию раундов они не входят, но их
+  // страницы приложение читает так же, через зеркало.
+  const tests = season ? testSlugs(season, YEAR) : [];
 
   // GC осиротевших race-зеркал ТЕКУЩЕГО сезона: этап выпал из страницы сезона
   // (перенос в другой год) → его файл больше никто не обновит и не прочитает.
   // Только при живой странице сезона: без неё истинный состав неизвестен.
   if (season && slugs.length > 0) {
-    const expected = expectedRaceMirrors(slugs);
+    // Прологи тоже en_race_*_<год> — без них в ожидаемом наборе GC сносил бы
+    // их страницу на каждом прогоне.
+    const expected = expectedRaceMirrors([...slugs, ...tests]);
     for (const f of readdirSync(OUT_DIR)) {
       if (isRaceMirrorOfSeason(f, YEAR) && !expected.has(f)) {
         rmSync(join(OUT_DIR, f));
@@ -102,6 +107,13 @@ async function main() {
     endBySlug[slug] = info.endMs;
     const raceId = html ? raceIdOf(html) : null;
     if (raceId !== null) raceIdBySlug[slug] = raceId;
+  }
+
+  // Страницы прологов: только JSON-LD расписания (протоколов у теста нет).
+  for (const slug of tests) {
+    const existing = readMirror(`/en/race/${slug}`);
+    const frozen = existing ? isFrozen(eventInfo(existing).endMs, NOW) : false;
+    if (!frozen) await mirror(`/en/race/${slug}`);
   }
 
   // Per-race результаты (E5 дропдаун сессий) + per-session (E6). Freeze по
@@ -145,7 +157,7 @@ async function main() {
     }
   }
 
-  console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${Object.keys(raceIdBySlug).length} raceIds (${frozenRaces} frozen, ${skipped} without page), ${e6} session results updated.`);
+  console.log(`Done. ${slugs.length} events, ${tests.length} tests (${frozenEvents} frozen E3), ${Object.keys(raceIdBySlug).length} raceIds (${frozenRaces} frozen, ${skipped} without page), ${e6} session results updated.`);
 }
 
 // Запуск только как продьюсер (не при импорте из теста).
