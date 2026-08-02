@@ -9,7 +9,7 @@ import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
-  COUNTRY_NAME_TO_ISO2, eventInfo, expectedRaceMirrors, raceOptions,
+  eventInfo, expectedRaceMirrors, isRaceMirrorOfSeason, raceIdOf,
   raceSlugs, seasonStarted, sessionOptions, stripCountdown,
 } from "../lib/fiawecsite.js";
 
@@ -57,7 +57,9 @@ async function mirrorFramework(path: string, attempts = 3): Promise<string | nul
 async function main() {
   console.log(`WEC mirror, season ${YEAR}`);
 
-  // Каркас: сезон (slugs), индекс результатов (raceId), зачёт производителей.
+  // Каркас: сезон (slugs), индекс результатов (его читает приложение при
+  // промахе зеркала), зачёт производителей. raceId с индекса больше не берём —
+  // он всегда отдаёт ТЕКУЩИЙ сезон, id лежат на страницах самих гонок.
   // С ретраем — от гейта exit(1) зависит алерт владельцу, разовый блип не в счёт.
   const season = await mirrorFramework(`/en/season/${YEAR}`);
   const index = await mirrorFramework(`/en/page/resultats-1`);
@@ -78,7 +80,7 @@ async function main() {
   if (season && slugs.length > 0) {
     const expected = expectedRaceMirrors(slugs);
     for (const f of readdirSync(OUT_DIR)) {
-      if (f.startsWith("en_race_") && f.endsWith(`_${YEAR}`) && !expected.has(f)) {
+      if (isRaceMirrorOfSeason(f, YEAR) && !expected.has(f)) {
         rmSync(join(OUT_DIR, f));
         console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
       }
@@ -86,9 +88,10 @@ async function main() {
   }
 
   // E3 (race-страница, JSON-LD): событие с endDate+7д в прошлом ЗАМОРОЖЕНО —
-  // не рескрейпим, читаем из зеркала; собираем карту страна(ISO2) → endMs.
-  const endByCountry: Record<string, number> = {};
-  const endByOrdinal: (number | null)[] = [];   // endMs в ПОРЯДКЕ slugs (== порядок раундов)
+  // не рескрейпим, читаем из зеркала; попутно снимаем raceId и endMs САМОГО
+  // события — дальше всё считается по слагу, без матчинга по стране.
+  const raceIdBySlug: Record<string, number> = {};
+  const endBySlug: Record<string, number | null> = {};
   let frozenEvents = 0;
   for (const slug of slugs) {
     const existing = readMirror(`/en/race/${slug}`);
@@ -96,16 +99,17 @@ async function main() {
     if (frozen) frozenEvents++;
     const html = frozen ? existing! : (await mirror(`/en/race/${slug}`)) ?? existing;
     const info = html ? eventInfo(html) : { startMs: null, endMs: null, iso2: null };
-    endByOrdinal.push(info.endMs);
-    if (info.iso2 && info.endMs !== null) endByCountry[info.iso2] = info.endMs;
+    endBySlug[slug] = info.endMs;
+    const raceId = html ? raceIdOf(html) : null;
+    if (raceId !== null) raceIdBySlug[slug] = raceId;
   }
 
   // Per-race результаты (E5 дропдаун сессий) + per-session (E6). Freeze по
   // endDate события (страна E2-лейбла → endMs). Сыгранное окно уже отстоялось →
   // E5/E6 не трогаем. E6 fiawec рендерит только для сыгранных сессий (будущие —
   // пустой HTML): храним только с <table.
-  const raceOpts = index ? raceOptions(index) : [];
-  if (!seasonStarted(Object.values(endByCountry), NOW)) {
+  const started = Object.values(endBySlug).filter((v): v is number => v !== null);
+  if (!seasonStarted(started, NOW)) {
     console.log(
       `Done. ${slugs.length} events (${frozenEvents} frozen E3); сезон ${YEAR} не начался — E5/E6 пропущены`,
     );
@@ -114,27 +118,26 @@ async function main() {
   let e6 = 0;
   let frozenRaces = 0;
   let skipped = 0;
-  for (const [i, o] of raceOpts.entries()) {
-    // endMs: страна E2-лейбла → карта ISO2; фолбэк — ординал (дропдаун и
-    // страница сезона идут в одном порядке раундов). Раньше raceId без
-    // country-матча (чужой сезон, страна вне карты) НИКОГДА не замерзал и
-    // перескрейпливался каждый час вечно (~144 холостых запроса в день).
-    const iso2 = COUNTRY_NAME_TO_ISO2[o.label.toUpperCase()] ?? null;
-    const endMs = (iso2 ? endByCountry[iso2] : null) ?? (i < endByOrdinal.length ? endByOrdinal[i] : null);
-    if (endMs === null && i >= slugs.length) {
-      // Хвост дропдауна за пределами списка сезона (raceId прошлых/будущих
-      // сезонов) — не скрейпим: сессий у них нет, а холостые E5 копились.
-      skipped++;
+  for (const slug of slugs) {
+    // Всё по слагу: id гонки — со страницы события, endMs — оттуда же. Умерли
+    // три подпорки под матчинг по стране: карта ISO2, ординальный фолбэк и
+    // отсечка хвоста дропдауна (в нём лежали raceId чужих сезонов).
+    const raceId = raceIdBySlug[slug];
+    if (raceId === undefined) {
+      skipped++;                       // страница события недоступна — нечего звать
       continue;
     }
-    if (isFrozen(endMs, NOW)) {
+    const endMs = endBySlug[slug] ?? null;
+    // Заморозка = «сыграно И уже снято»: одного возраста мало, иначе архивный
+    // сезон, зеркала которого ещё не снимали, никогда бы не догрузился.
+    if (isFrozen(endMs, NOW) && existsSync(join(OUT_DIR, mirrorSlug(`/en/page/resultats-1?raceId=${raceId}`)))) {
       frozenRaces++;
       continue;
     }
-    const e5 = await mirror(`/en/page/resultats-1?raceId=${o.id}`);
+    const e5 = await mirror(`/en/page/resultats-1?raceId=${raceId}`);
     const sessionIds = e5 ? sessionOptions(e5).map((s) => s.id) : [];
     for (const sessionId of sessionIds) {
-      const path = `/en/page/resultats-1?raceId=${o.id}&sessionId=${sessionId}`;
+      const path = `/en/page/resultats-1?raceId=${raceId}&sessionId=${sessionId}`;
       const res = await fetchText(`${FIAWEC}${path}`);
       if (res?.status === 200 && res.text.includes("<table")) {
         if (writeIfChanged(join(OUT_DIR, mirrorSlug(path)), stripCountdown(res.text))) e6++;
@@ -142,7 +145,7 @@ async function main() {
     }
   }
 
-  console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${raceOpts.length} raceIds (${frozenRaces} frozen, ${skipped} off-season skipped), ${e6} session results updated.`);
+  console.log(`Done. ${slugs.length} events (${frozenEvents} frozen E3), ${Object.keys(raceIdBySlug).length} raceIds (${frozenRaces} frozen, ${skipped} without page), ${e6} session results updated.`);
 }
 
 // Запуск только как продьюсер (не при импорте из теста).

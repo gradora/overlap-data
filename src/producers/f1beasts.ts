@@ -109,7 +109,11 @@ async function main() {
   let races: { round: string; date: string; raceName: string; hasSprint: boolean }[] = [];
   let scheduleSeason: string | null = null;
   try {
-    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    // Исторический сезон лежит под своим именем: current.json — алиас ТЕКУЩЕГО
+    // (у f1.ts та же развилка, historicSeason). Без неё SEASON=<прошлый год>
+    // читал расписание текущего и глох на scheduleSeasonMismatch.
+    const scheduleFile = YEAR < new Date().getUTCFullYear() ? `${YEAR}.json` : "current.json";
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, scheduleFile), "utf8"));
     const table = d?.MRData?.RaceTable;
     scheduleSeason = table?.season ?? null;
     races = (table?.Races ?? []).map((r: any) => ({

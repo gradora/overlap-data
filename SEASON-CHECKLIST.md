@@ -23,7 +23,23 @@ SEASON=N npm run wec         # /en/season/<N> + страницы этапов
 SEASON=N npm run imsa        # ТРЕБУЕТ SCHEDULE[N] в src/lib/schedule.ts
 SEASON=N npm run f1winners && SEASON=N npm run f1milestones && SEASON=N npm run f1highlights
 SEASON=N FIA_BACKFILL=24 npm run fia   # штрафы стюардов по всем раундам
+SEASON=N npm run f1beasts              # лидерборды сезона (читает highlights выше)
+
+# derived WEC и IMSA — их в рецепте не было, поэтому за 2025 не существовало
+# НИ ОДНОГО файла: карточки штрафов, победителей и хайлайтов были пусты.
+# Бюджеты бэкфилла по умолчанию 1 — без них добьётся только один раунд.
+SEASON=N WEC_FIA_BACKFILL=8 npm run wecfia
+SEASON=N npm run wechighlights
+SEASON=N WEC_WINNERS_BACKFILL=8 npm run wecwinners
+SEASON=N IMSA_FIA_BACKFILL=11 npm run imsafia
+SEASON=N npm run imsahighlights
+SEASON=N IMSA_WINNERS_BACKFILL=11 npm run imsawinners
 ```
+
+`f1records` за исторический сезон НЕ гоняем: продьюсер строит карточки из
+карьерных all-time тоталов Jolpica, а те ручки не принимают отсечку по сезону —
+прогон записал бы сегодняшние цифры под меткой прошлого года. Ложь хуже
+пустоты; честный бэкфилл требует посезонного суммирования и отдельной работы.
 
 Грабли, уже пойманные:
 - `f1` без historic-режима молча зеркалил ТЕКУЩИЙ сезон под именем N —
@@ -35,6 +51,11 @@ SEASON=N FIA_BACKFILL=24 npm run fia   # штрафы стюардов по вс
   кандидатов, а не берёт первого по листингу.
 - `FIA_BACKFILL` по умолчанию 2 — для полного сезона нужно 24, иначе добьются
   только первые раунды.
+- `f1beasts` читал расписание из `current.json` мимо развилки — на историческом
+  сезоне глох о `scheduleSeasonMismatch` (починено там же, где у `f1`).
+- Заморозка WEC значила «событие старое — не трогаем», из-за чего архивные
+  протоколы не скачивались НИКОГДА (все даты прошлого сезона старше окна).
+  Теперь заморозка = «старое И уже снято».
 
 ## Август–сентябрь (публикация календарей)
 

@@ -2,7 +2,9 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { stripCountdown, expectedRaceMirrors } from "./lib/fiawecsite.js";
+import {
+  stripCountdown, expectedRaceMirrors, raceSlugs, raceIdOf, isRaceMirrorOfSeason,
+} from "./lib/fiawecsite.js";
 
 test("stripCountdown: цифры отсчёта вырезаются, разметка и данные остаются", () => {
   const html = `
@@ -31,4 +33,44 @@ test("expectedRaceMirrors: ключи совпадают со slug-конвен�
   assert.ok(set.has("en_race_lone_star_le_mans_2026"));
   assert.ok(set.has("en_race_6_hours_of_fuji_2026"));
   assert.equal(set.size, 2);
+});
+
+// ПАРНЫЙ тест с приложением: OverlapTests/WECParsersTests.swift,
+// WECSeasonParserTests — та же фикстура, тот же ожидаемый список. Менять только
+// вместе: продюсер зеркалит ровно те страницы, которые назовёт этот фильтр,
+// а приложение по ним же строит календарь и нумерует раунды.
+test("raceSlugs: контракт с приложением (числовой хвост, прологи, чужие годы)", () => {
+  const html = `
+    <a href="/en/race/official-prologue-imola-2026">Prologue</a>
+    <a href="/en/race/6-hours-of-imola-2026">Imola</a>
+    <a href="/en/race/24-hours-of-le-mans-2026-1">Le Mans (numbered tail)</a>
+    <a href="/en/race/6-hours-of-imola-2026">Imola dup</a>
+    <a href="/en/race/6-hours-of-fuji-2027">Next season</a>
+    <a href="/en/race/6-hours-of-imola-2026-2027">Double year</a>
+    <a href="/en/race/official-prologue-imola-2026-1">Prologue with tail</a>`;
+  assert.deepEqual(raceSlugs(html, 2026), ["6-hours-of-imola-2026", "24-hours-of-le-mans-2026-1"]);
+  // Ле-Ман-2025 виден только своему сезону.
+  assert.deepEqual(raceSlugs('<a href="/en/race/24-hours-of-le-mans-2025-1">LM</a>', 2025),
+    ["24-hours-of-le-mans-2025-1"]);
+  assert.deepEqual(raceSlugs('<a href="/en/race/24-hours-of-le-mans-2025-1">LM</a>', 2026), []);
+});
+
+// ПАРНЫЙ тест с приложением: OverlapTests/WECParsersTests.swift,
+// WECRacePageRaceIdTests — те же входные строки. raceId берётся со страницы
+// события, потому что индекс /en/page/resultats-1 всегда отдаёт текущий сезон.
+test("raceIdOf: id гонки со страницы события", () => {
+  assert.equal(raceIdOf('<div data-live-props-value="{&quot;raceId&quot;:4933,&quot;x&quot;:1}"></div>'), 4933);
+  assert.equal(raceIdOf('<div data-live-props-value="{&quot;raceIds&quot;:[4936]}"></div>'), 4936);
+  assert.equal(raceIdOf("<html><body>no live props</body></html>"), null);
+});
+
+// GC удаляет файлы, поэтому предикат сезона у зеркала обязан совпадать с
+// предикатом слага: иначе файл Ле-Мана либо не чистится никогда, либо сносится
+// при живом этапе.
+test("isRaceMirrorOfSeason: числовой хвост принадлежит своему сезону", () => {
+  assert.equal(isRaceMirrorOfSeason("en_race_24_hours_of_le_mans_2025_1", 2025), true);
+  assert.equal(isRaceMirrorOfSeason("en_race_24_hours_of_le_mans_2025_1", 2026), false);
+  assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_fuji_2025", 2025), true);
+  assert.equal(isRaceMirrorOfSeason("en_season_2025", 2025), false, "не race-файл");
+  assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_imola_2025_2026", 2025), false);
 });

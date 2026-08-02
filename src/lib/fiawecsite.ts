@@ -72,12 +72,35 @@ export function eventInfo(html: string): {
 // Слаги гонок сезона В ПОРЯДКЕ страницы (порядок = раунды этапов; так же
 // строит календарь приложение). Экспортирован: wecfia.ts матчит события
 // Notice Board к раундам по этому списку.
+// Id гонки в системе результатов — лежит на самой странице события в атрибуте
+// live-компонента (разметка экранирована: `raceId&quot;:4933`). ПАРНО с
+// WECRacePageParser.raceId в приложении — менять только вместе.
+// Раньше id матчились к событиям по СТРАНЕ из индекса /en/page/resultats-1, а
+// индекс всегда отдаёт текущий сезон: архивные этапы получали чужой id, а две
+// гонки в одной стране (Имола и Монца) перетирали друг друга.
+export function raceIdOf(html: string): number | null {
+  const m = /raceIds?&quot;:\[?(\d+)/.exec(html) ?? /"raceIds?":\[?(\d+)/.exec(html);
+  return m ? Number(m[1]) : null;
+}
+
+// Файл зеркала гонки принадлежит сезону: «en_race_<...>_<год>» с необязательным
+// коротким числовым хвостом (Ле-Ман-2025 → en_race_24_hours_of_le_mans_2025_1).
+// Зеркальное отражение предиката raceSlugs — держать рядом.
+export function isRaceMirrorOfSeason(file: string, year: number): boolean {
+  return file.startsWith("en_race_") && new RegExp(`_${year}(_\\d{1,2})?$`).test(file);
+}
+
 export function raceSlugs(html: string, year: number): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
+  // Хвост «-<год>» с необязательным коротким числовым индексом: Ле-Ман-2025
+  // опубликован как «24-hours-of-le-mans-2025-1» (бесхвостая форма редиректит
+  // на него). Две цифры, а не \d+ — иначе «-2025-2026» попал бы в оба сезона.
+  // ПАРНО с WECSeasonParser.matchesSeason в приложении — менять только вместе.
+  const seasonTail = new RegExp(`-${year}(-\\d{1,2})?$`);
   for (const m of html.matchAll(/\/en\/race\/([a-z0-9-]+)/g)) {
     const slug = m[1];
-    if (slug.endsWith(`-${year}`) && !slug.includes("prologue") && !slug.includes("test") && !seen.has(slug)) {
+    if (seasonTail.test(slug) && !slug.includes("prologue") && !slug.includes("test") && !seen.has(slug)) {
       seen.add(slug);
       out.push(slug);
     }
