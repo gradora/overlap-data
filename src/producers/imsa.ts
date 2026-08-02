@@ -13,7 +13,7 @@ import { join } from "node:path";
 import {
   fetchHTML, fetchJSON, files, lastHourFolder, mergeGTD, parsePointsTable,
   parseSession, pointsDataFolder, pointsFile, resultsFile, Round, rounds,
-  sessionInstant, sessions, wallClockISO, weatherTechFolder,
+  sessionInstant, sessions, wallClockISO, weatherTechFolder, testRounds,
 } from "../lib/alkamel.js";
 import { isFrozen } from "../lib/freeze.js";
 import { matchTrack, SCHEDULE, ScheduleEntry } from "../lib/schedule.js";
@@ -341,6 +341,48 @@ async function main() {
       wrote++;
       console.log("  points.json updated");
     }
+  }
+
+  // ТЕСТОВЫЕ УИК-ЭНДЫ («00_Daytona Test», «01_ROAR Before the 24»).
+  // Отдельный файл и отдельный индекс: index.json именует события по номеру
+  // раунда, а у теста раунда нет — попав туда, он сдвинул бы зачёт и календарь.
+  const testEvents: IndexEvent[] = [];
+  for (const r of seasonHTML ? testRounds(seasonHTML) : []) {
+    const weekend = await fetchWeekendSessions(seasonDir, r);
+    if (!weekend || weekend.sessions.length === 0) continue;
+    // Слаг — по имени тестового уик-энда из листинга («Daytona Test»,
+    // «ROAR Before the 24»): оно уже содержит test/roar (иначе папка не попала
+    // бы в testRounds), поэтому со слагом гонки не совпадёт, а два теста на
+    // одной трассе останутся различимы.
+    const slug = slugify(r.track);
+    const fname = `test_${slug}.json`;
+    // Площадка — из данных сессии Al Kamel («Daytona International Speedway»),
+    // а не из имени папки: по venue строятся ключ ассета, погода и карточка
+    // трассы, и «Daytona Test» увёл бы их в несуществующее пространство имён.
+    const venue = weekend.meta.circuitName || r.track;
+    const snap: EventSnapshot = {
+      schemaVersion: SCHEMA_VERSION, series: "imsa", season: YEAR,
+      round: 0, slug, name: weekend.meta.eventName || r.track, venue,
+      circuitName: weekend.meta.circuitName, circuitLengthM: weekend.meta.circuitLengthM,
+      status: computeStatus(weekend.sessions),
+      start: weekend.sessions[0]?.start ?? null,
+      end: weekend.sessions[weekend.sessions.length - 1]?.start ?? null,
+      sessions: weekend.sessions,
+      generatedAt: new Date(NOW).toISOString(),
+    };
+    if (writeIfChanged(join(OUT_DIR, fname), snap)) wrote++;
+    testEvents.push({
+      round: 0, slug, name: snap.name, venue, status: snap.status,
+      start: snap.start, end: snap.end, resultsPath: `imsa/${YEAR}/${fname}`,
+    });
+    console.log(`  test ${slug}: ${weekend.sessions.length} сессий`);
+  }
+  if (testEvents.length > 0) {
+    const tests: SeasonIndex = {
+      schemaVersion: SCHEMA_VERSION, series: "imsa", season: YEAR,
+      generatedAt: new Date(NOW).toISOString(), events: testEvents,
+    };
+    if (writeIfChanged(join(OUT_DIR, "tests.json"), tests)) wrote++;
   }
 
   const index: SeasonIndex = {

@@ -99,6 +99,18 @@ export interface Round {
 }
 
 export function rounds(seasonHTML: string): Round[] {
+  return seasonFolders(seasonHTML, false);
+}
+
+// Тестовые уик-энды сезона: «00_Daytona Test», «01_ROAR Before the 24».
+// ОТДЕЛЬНО от rounds: индекс сезона и derived-файлы именуются по номеру
+// раунда, а у теста раунда нет — попав в общий список, он сдвинул бы всё.
+// Саппорт-серии отсекаются тем же предикатом, что и у гонок.
+export function testRounds(seasonHTML: string): Round[] {
+  return seasonFolders(seasonHTML, true);
+}
+
+function seasonFolders(seasonHTML: string, wantTests: boolean): Round[] {
   return folders(seasonHTML).flatMap((folder) => {
     const us = folder.indexOf("_");
     if (us < 0) return [];
@@ -110,7 +122,7 @@ export function rounds(seasonHTML: string): Round[] {
       lower.includes(x),
     );
     const isNonRace = lower.includes("test") || lower.includes("roar");
-    if (isSupport || isNonRace) return [];
+    if (isSupport || isNonRace !== wantTests) return [];
     return [{ folder, track, ordinal }];
   });
 }
