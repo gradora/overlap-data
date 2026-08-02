@@ -13,6 +13,23 @@ export interface ScheduleEntry {
 }
 
 export const SCHEDULE: Record<number, ScheduleEntry[]> = {
+  // 2025 — закрытый сезон (бэкфилл под переключатель сезонов в приложении).
+  // Даты уикендов сняты с таймстампов папок Al Kamel (Results/25_2025/…),
+  // имена этапов — по вики сезона. У Дайтоны endDate — день ФИНИША 24-часовой
+  // гонки (старт 25-го), как и в 2026.
+  2025: [
+    { round: 1, name: "Rolex 24 At Daytona", venue: "Daytona International Speedway", startDate: "2025-01-23", endDate: "2025-01-26" },
+    { round: 2, name: "Mobil 1 Twelve Hours of Sebring", venue: "Sebring International Raceway", startDate: "2025-03-13", endDate: "2025-03-15" },
+    { round: 3, name: "Acura Grand Prix of Long Beach", venue: "Streets of Long Beach", startDate: "2025-04-11", endDate: "2025-04-12" },
+    { round: 4, name: "TireRack.com Monterey SportsCar Championship", venue: "WeatherTech Raceway Laguna Seca", startDate: "2025-05-09", endDate: "2025-05-11" },
+    { round: 5, name: "Chevrolet Detroit Sports Car Classic", venue: "Detroit Street Circuit", startDate: "2025-05-30", endDate: "2025-05-31" },
+    { round: 6, name: "Sahlen's Six Hours of The Glen", venue: "Watkins Glen International", startDate: "2025-06-20", endDate: "2025-06-22" },
+    { round: 7, name: "Chevrolet Grand Prix", venue: "Canadian Tire Motorsport Park", startDate: "2025-07-11", endDate: "2025-07-13" },
+    { round: 8, name: "Motul SportsCar Grand Prix", venue: "Road America", startDate: "2025-08-01", endDate: "2025-08-03" },
+    { round: 9, name: "Michelin GT Challenge at VIR", venue: "VIRginia International Raceway", startDate: "2025-08-22", endDate: "2025-08-24" },
+    { round: 10, name: "TireRack.com Battle on the Bricks", venue: "Indianapolis Motor Speedway", startDate: "2025-09-19", endDate: "2025-09-21" },
+    { round: 11, name: "Motul Petit Le Mans", venue: "Michelin Raceway Road Atlanta", startDate: "2025-10-09", endDate: "2025-10-11" },
+  ],
   2026: [
     { round: 1, name: "Rolex 24 At Daytona", venue: "Daytona International Speedway", startDate: "2026-01-21", endDate: "2026-01-25" },
     { round: 2, name: "Mobil 1 Twelve Hours of Sebring", venue: "Sebring International Raceway", startDate: "2026-03-18", endDate: "2026-03-21" },

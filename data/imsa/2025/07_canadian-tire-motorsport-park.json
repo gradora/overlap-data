@@ -1,0 +1,3273 @@
+{
+ "schemaVersion": 1,
+ "series": "imsa",
+ "season": 2025,
+ "round": 7,
+ "slug": "canadian-tire-motorsport-park",
+ "name": "Chevrolet Grand Prix",
+ "venue": "Canadian Tire Motorsport Park",
+ "circuitName": "Canadian Tire Motorsport Park",
+ "circuitLengthM": 3957.3769,
+ "status": "finished",
+ "start": "2025-07-11T17:55:00.000Z",
+ "end": "2025-07-13T18:05:00.000Z",
+ "sessions": [
+  {
+   "name": "Practice 1",
+   "type": "Free Practice",
+   "start": "2025-07-11T17:55:00.000Z",
+   "wallClock": "2025-07-11T13:55:00.000Z",
+   "hasResults": true,
+   "rows": [
+    {
+     "position": 1,
+     "classPosition": 1,
+     "carNumber": "8",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Tower Motorsports",
+     "drivers": [
+      {
+       "name": "J. Farano",
+       "nationality": "CAN"
+      },
+      {
+       "name": "R. van der Zande",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 47,
+     "leaderTime": "1:08.402",
+     "totalTime": "1:08.402",
+     "interval": "-",
+     "pitstops": 9
+    },
+    {
+     "position": 2,
+     "classPosition": 2,
+     "carNumber": "2",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "P. Fayer",
+       "nationality": "CAN"
+      },
+      {
+       "name": "B. Hanley",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 51,
+     "leaderTime": "+0.104",
+     "totalTime": "1:08.506",
+     "interval": "+0.104",
+     "pitstops": 7
+    },
+    {
+     "position": 3,
+     "classPosition": 3,
+     "carNumber": "99",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "P. Hyett",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Cameron",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 52,
+     "leaderTime": "+0.300",
+     "totalTime": "1:08.702",
+     "interval": "+0.196",
+     "pitstops": 5
+    },
+    {
+     "position": 4,
+     "classPosition": 4,
+     "carNumber": "22",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "D. Goldburg",
+       "nationality": "USA"
+      },
+      {
+       "name": "T. Blomqvist",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 52,
+     "leaderTime": "+0.451",
+     "totalTime": "1:08.853",
+     "interval": "+0.151",
+     "pitstops": 4
+    },
+    {
+     "position": 5,
+     "classPosition": 5,
+     "carNumber": "43",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Inter Europol Competition",
+     "drivers": [
+      {
+       "name": "T. Dillmann",
+       "nationality": "FRA"
+      },
+      {
+       "name": "J. Clarke",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 62,
+     "leaderTime": "+0.466",
+     "totalTime": "1:08.868",
+     "interval": "+0.015",
+     "pitstops": 3
+    },
+    {
+     "position": 6,
+     "classPosition": 6,
+     "carNumber": "74",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Riley",
+     "drivers": [
+      {
+       "name": "G. Robinson",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Fraga",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+0.482",
+     "totalTime": "1:08.884",
+     "interval": "+0.016",
+     "pitstops": 5
+    },
+    {
+     "position": 7,
+     "classPosition": 7,
+     "carNumber": "04",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Crowdstrike Racing by APR",
+     "drivers": [
+      {
+       "name": "G. Kurtz",
+       "nationality": "USA"
+      },
+      {
+       "name": "A. Quinn",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 54,
+     "leaderTime": "+0.784",
+     "totalTime": "1:09.186",
+     "interval": "+0.302",
+     "pitstops": 5
+    },
+    {
+     "position": 8,
+     "classPosition": 8,
+     "carNumber": "79",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "JDC-Miller MotorSports",
+     "drivers": [
+      {
+       "name": "G. Kraut",
+       "nationality": "USA"
+      },
+      {
+       "name": "S. Andrews",
+       "nationality": "AUS"
+      }
+     ],
+     "laps": 38,
+     "leaderTime": "+0.891",
+     "totalTime": "1:09.293",
+     "interval": "+0.107",
+     "pitstops": 6
+    },
+    {
+     "position": 9,
+     "classPosition": 9,
+     "carNumber": "18",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Era Motorsport",
+     "drivers": [
+      {
+       "name": "R. Dalziel",
+       "nationality": "GBR"
+      },
+      {
+       "name": "T. Hill",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 55,
+     "leaderTime": "+1.260",
+     "totalTime": "1:09.662",
+     "interval": "+0.369",
+     "pitstops": 5
+    },
+    {
+     "position": 10,
+     "classPosition": 10,
+     "carNumber": "73",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "P. Fittipaldi",
+       "nationality": "BRA"
+      },
+      {
+       "name": "C. Cumming",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 41,
+     "leaderTime": "+1.304",
+     "totalTime": "1:09.706",
+     "interval": "+0.044",
+     "pitstops": 6
+    },
+    {
+     "position": 11,
+     "classPosition": 11,
+     "carNumber": "52",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "PR1 Mathiasen Motorsports",
+     "drivers": [
+      {
+       "name": "B. Pedersen",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Boulle",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 54,
+     "leaderTime": "+1.610",
+     "totalTime": "1:10.012",
+     "interval": "+0.306",
+     "pitstops": 6
+    },
+    {
+     "position": 12,
+     "classPosition": 1,
+     "carNumber": "9",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Pfaff Motorsports",
+     "drivers": [
+      {
+       "name": "A. Caldarelli",
+       "nationality": "ITA"
+      },
+      {
+       "name": "M. Mapelli",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 48,
+     "leaderTime": "1:15.580",
+     "totalTime": "1:15.580",
+     "interval": "+5.568",
+     "pitstops": 6
+    },
+    {
+     "position": 13,
+     "classPosition": 2,
+     "carNumber": "4",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "T. Milner",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Catsburg",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+7.638",
+     "totalTime": "1:16.040",
+     "interval": "+0.460",
+     "pitstops": 7
+    },
+    {
+     "position": 14,
+     "classPosition": 3,
+     "carNumber": "12",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "J. Hawksworth",
+       "nationality": "GBR"
+      },
+      {
+       "name": "P. Thompson",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 41,
+     "leaderTime": "+7.921",
+     "totalTime": "1:16.323",
+     "interval": "+0.283",
+     "pitstops": 6
+    },
+    {
+     "position": 15,
+     "classPosition": 4,
+     "carNumber": "14",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "B. Barnicoat",
+       "nationality": "GBR"
+      },
+      {
+       "name": "A. Telitz",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 40,
+     "leaderTime": "+7.926",
+     "totalTime": "1:16.328",
+     "interval": "+0.005",
+     "pitstops": 7
+    },
+    {
+     "position": 16,
+     "classPosition": 5,
+     "carNumber": "57",
+     "chassis": "Mercedes-AMG GT3",
+     "raceClass": "GTD",
+     "team": "Winward Racing",
+     "drivers": [
+      {
+       "name": "R. Ward",
+       "nationality": "USA"
+      },
+      {
+       "name": "P. Ellis",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+8.010",
+     "totalTime": "1:16.412",
+     "interval": "+0.084",
+     "pitstops": 6
+    },
+    {
+     "position": 17,
+     "classPosition": 6,
+     "carNumber": "64",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "M. Rockenfeller",
+       "nationality": "DEU"
+      },
+      {
+       "name": "S. Priaulx",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 41,
+     "leaderTime": "+8.093",
+     "totalTime": "1:16.495",
+     "interval": "+0.083",
+     "pitstops": 6
+    },
+    {
+     "position": 18,
+     "classPosition": 7,
+     "carNumber": "70",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Inception Racing",
+     "drivers": [
+      {
+       "name": "B. Iribe",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Schandorff",
+       "nationality": "DNK"
+      }
+     ],
+     "laps": 47,
+     "leaderTime": "+8.184",
+     "totalTime": "1:16.586",
+     "interval": "+0.091",
+     "pitstops": 8
+    },
+    {
+     "position": 19,
+     "classPosition": 8,
+     "carNumber": "1",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Snow",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Verhagen",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 52,
+     "leaderTime": "+8.238",
+     "totalTime": "1:16.640",
+     "interval": "+0.054",
+     "pitstops": 5
+    },
+    {
+     "position": 20,
+     "classPosition": 9,
+     "carNumber": "77",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "L. Heinrich",
+       "nationality": "DEU"
+      },
+      {
+       "name": "K. Bachler",
+       "nationality": "AUT"
+      }
+     ],
+     "laps": 50,
+     "leaderTime": "+8.264",
+     "totalTime": "1:16.666",
+     "interval": "+0.026",
+     "pitstops": 7
+    },
+    {
+     "position": 21,
+     "classPosition": 10,
+     "carNumber": "27",
+     "chassis": "Aston Martin Vantage GT3 Evo",
+     "raceClass": "GTD",
+     "team": "Heart of Racing Team",
+     "drivers": [
+      {
+       "name": "R. De Angelis",
+       "nationality": "CAN"
+      },
+      {
+       "name": "C. Stevenson",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+8.292",
+     "totalTime": "1:16.694",
+     "interval": "+0.028",
+     "pitstops": 8
+    },
+    {
+     "position": 22,
+     "classPosition": 11,
+     "carNumber": "81",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "DragonSpeed",
+     "drivers": [
+      {
+       "name": "A. Costa",
+       "nationality": "ESP"
+      },
+      {
+       "name": "G. Altoè",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 47,
+     "leaderTime": "+8.339",
+     "totalTime": "1:16.741",
+     "interval": "+0.047",
+     "pitstops": 7
+    },
+    {
+     "position": 23,
+     "classPosition": 12,
+     "carNumber": "3",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "A. Garcia",
+       "nationality": "ESP"
+      },
+      {
+       "name": "A. Sims",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+8.369",
+     "totalTime": "1:16.771",
+     "interval": "+0.030",
+     "pitstops": 5
+    },
+    {
+     "position": 24,
+     "classPosition": 13,
+     "carNumber": "45",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Wayne Taylor Racing",
+     "drivers": [
+      {
+       "name": "D. Formal",
+       "nationality": "CRI"
+      },
+      {
+       "name": "T. Hindman",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 47,
+     "leaderTime": "+8.438",
+     "totalTime": "1:16.840",
+     "interval": "+0.069",
+     "pitstops": 7
+    },
+    {
+     "position": 25,
+     "classPosition": 14,
+     "carNumber": "13",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "AWA",
+     "drivers": [
+      {
+       "name": "O. Fidani",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Bell",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+8.718",
+     "totalTime": "1:17.120",
+     "interval": "+0.280",
+     "pitstops": 5
+    },
+    {
+     "position": 26,
+     "classPosition": 15,
+     "carNumber": "48",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Hesse",
+       "nationality": "DEU"
+      },
+      {
+       "name": "D. Harper",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 48,
+     "leaderTime": "+8.767",
+     "totalTime": "1:17.169",
+     "interval": "+0.049",
+     "pitstops": 5
+    },
+    {
+     "position": 27,
+     "classPosition": 16,
+     "carNumber": "96",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Turner Motorsport",
+     "drivers": [
+      {
+       "name": "P. Gallagher",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Foley",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+8.788",
+     "totalTime": "1:17.190",
+     "interval": "+0.021",
+     "pitstops": 9
+    },
+    {
+     "position": 28,
+     "classPosition": 17,
+     "carNumber": "34",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Conquest Racing",
+     "drivers": [
+      {
+       "name": "M. Franco",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Serra",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+8.812",
+     "totalTime": "1:17.214",
+     "interval": "+0.024",
+     "pitstops": 5
+    },
+    {
+     "position": 29,
+     "classPosition": 18,
+     "carNumber": "65",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "C. Mies",
+       "nationality": "DEU"
+      },
+      {
+       "name": "F. Vervisch",
+       "nationality": "BEL"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+8.825",
+     "totalTime": "1:17.227",
+     "interval": "+0.013",
+     "pitstops": 6
+    },
+    {
+     "position": 30,
+     "classPosition": 19,
+     "carNumber": "021",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Triarsi Competizione",
+     "drivers": [
+      {
+       "name": "O. Triarsi",
+       "nationality": "USA"
+      },
+      {
+       "name": "K. Koch",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+8.898",
+     "totalTime": "1:17.300",
+     "interval": "+0.073",
+     "pitstops": 8
+    },
+    {
+     "position": 31,
+     "classPosition": 20,
+     "carNumber": "36",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "DXDT Racing",
+     "drivers": [
+      {
+       "name": "R. Wickens",
+       "nationality": "CAN"
+      },
+      {
+       "name": "A. Udell",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 43,
+     "leaderTime": "+8.913",
+     "totalTime": "1:17.315",
+     "interval": "+0.015",
+     "pitstops": 6
+    },
+    {
+     "position": 32,
+     "classPosition": 21,
+     "carNumber": "78",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Forte Racing",
+     "drivers": [
+      {
+       "name": "M. Goikhberg",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Farnbacher",
+       "nationality": "DEU"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+9.035",
+     "totalTime": "1:17.437",
+     "interval": "+0.122",
+     "pitstops": 5
+    },
+    {
+     "position": 33,
+     "classPosition": 22,
+     "carNumber": "120",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "Wright Motorsports",
+     "drivers": [
+      {
+       "name": "A. Adelson",
+       "nationality": "USA"
+      },
+      {
+       "name": "E. Skeer",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+9.059",
+     "totalTime": "1:17.461",
+     "interval": "+0.024",
+     "pitstops": 8
+    },
+    {
+     "position": 34,
+     "classPosition": 23,
+     "carNumber": "66",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Gradient Racing",
+     "drivers": [
+      {
+       "name": "J. Altzman",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Megennis",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+9.175",
+     "totalTime": "1:17.577",
+     "interval": "+0.116",
+     "pitstops": 10
+    },
+    {
+     "position": 35,
+     "classPosition": 12,
+     "carNumber": "11",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "TDS RACING",
+     "drivers": [
+      {
+       "name": "S. Thomas",
+       "nationality": "USA"
+      },
+      {
+       "name": "H. McElrea",
+       "nationality": "NZL"
+      }
+     ],
+     "laps": 2,
+     "leaderTime": "+9.577",
+     "totalTime": "1:17.979",
+     "interval": "+0.402",
+     "pitstops": 0
+    }
+   ]
+  },
+  {
+   "name": "Practice 2",
+   "type": "Free Practice",
+   "start": "2025-07-12T14:35:00.000Z",
+   "wallClock": "2025-07-12T10:35:00.000Z",
+   "hasResults": true,
+   "rows": [
+    {
+     "position": 1,
+     "classPosition": 1,
+     "carNumber": "8",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Tower Motorsports",
+     "drivers": [
+      {
+       "name": "J. Farano",
+       "nationality": "CAN"
+      },
+      {
+       "name": "R. van der Zande",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 54,
+     "leaderTime": "1:08.175",
+     "totalTime": "1:08.175",
+     "interval": "-",
+     "pitstops": 7
+    },
+    {
+     "position": 2,
+     "classPosition": 2,
+     "carNumber": "22",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "D. Goldburg",
+       "nationality": "USA"
+      },
+      {
+       "name": "T. Blomqvist",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 64,
+     "leaderTime": "+0.325",
+     "totalTime": "1:08.500",
+     "interval": "+0.325",
+     "pitstops": 2
+    },
+    {
+     "position": 3,
+     "classPosition": 3,
+     "carNumber": "74",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Riley",
+     "drivers": [
+      {
+       "name": "G. Robinson",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Fraga",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 45,
+     "leaderTime": "+0.337",
+     "totalTime": "1:08.512",
+     "interval": "+0.012",
+     "pitstops": 7
+    },
+    {
+     "position": 4,
+     "classPosition": 4,
+     "carNumber": "43",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Inter Europol Competition",
+     "drivers": [
+      {
+       "name": "T. Dillmann",
+       "nationality": "FRA"
+      },
+      {
+       "name": "J. Clarke",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 53,
+     "leaderTime": "+0.585",
+     "totalTime": "1:08.760",
+     "interval": "+0.248",
+     "pitstops": 9
+    },
+    {
+     "position": 5,
+     "classPosition": 5,
+     "carNumber": "99",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "P. Hyett",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Cameron",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 56,
+     "leaderTime": "+0.698",
+     "totalTime": "1:08.873",
+     "interval": "+0.113",
+     "pitstops": 5
+    },
+    {
+     "position": 6,
+     "classPosition": 6,
+     "carNumber": "11",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "TDS RACING",
+     "drivers": [
+      {
+       "name": "S. Thomas",
+       "nationality": "USA"
+      },
+      {
+       "name": "H. McElrea",
+       "nationality": "NZL"
+      }
+     ],
+     "laps": 56,
+     "leaderTime": "+0.702",
+     "totalTime": "1:08.877",
+     "interval": "+0.004",
+     "pitstops": 7
+    },
+    {
+     "position": 7,
+     "classPosition": 7,
+     "carNumber": "52",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "PR1 Mathiasen Motorsports",
+     "drivers": [
+      {
+       "name": "B. Pedersen",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Boulle",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 54,
+     "leaderTime": "+0.767",
+     "totalTime": "1:08.942",
+     "interval": "+0.065",
+     "pitstops": 6
+    },
+    {
+     "position": 8,
+     "classPosition": 8,
+     "carNumber": "04",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Crowdstrike Racing by APR",
+     "drivers": [
+      {
+       "name": "G. Kurtz",
+       "nationality": "USA"
+      },
+      {
+       "name": "A. Quinn",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 59,
+     "leaderTime": "+0.876",
+     "totalTime": "1:09.051",
+     "interval": "+0.109",
+     "pitstops": 5
+    },
+    {
+     "position": 9,
+     "classPosition": 9,
+     "carNumber": "2",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "P. Fayer",
+       "nationality": "CAN"
+      },
+      {
+       "name": "B. Hanley",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+1.374",
+     "totalTime": "1:09.549",
+     "interval": "+0.498",
+     "pitstops": 6
+    },
+    {
+     "position": 10,
+     "classPosition": 10,
+     "carNumber": "18",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Era Motorsport",
+     "drivers": [
+      {
+       "name": "R. Dalziel",
+       "nationality": "GBR"
+      },
+      {
+       "name": "T. Hill",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+1.926",
+     "totalTime": "1:10.101",
+     "interval": "+0.552",
+     "pitstops": 7
+    },
+    {
+     "position": 11,
+     "classPosition": 11,
+     "carNumber": "73",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "P. Fittipaldi",
+       "nationality": "BRA"
+      },
+      {
+       "name": "C. Cumming",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+2.310",
+     "totalTime": "1:10.485",
+     "interval": "+0.384",
+     "pitstops": 7
+    },
+    {
+     "position": 12,
+     "classPosition": 12,
+     "carNumber": "79",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "JDC-Miller MotorSports",
+     "drivers": [
+      {
+       "name": "G. Kraut",
+       "nationality": "USA"
+      },
+      {
+       "name": "S. Andrews",
+       "nationality": "AUS"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+2.576",
+     "totalTime": "1:10.751",
+     "interval": "+0.266",
+     "pitstops": 1
+    },
+    {
+     "position": 13,
+     "classPosition": 1,
+     "carNumber": "14",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "B. Barnicoat",
+       "nationality": "GBR"
+      },
+      {
+       "name": "A. Telitz",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 35,
+     "leaderTime": "1:15.270",
+     "totalTime": "1:15.270",
+     "interval": "+4.519",
+     "pitstops": 6
+    },
+    {
+     "position": 14,
+     "classPosition": 2,
+     "carNumber": "3",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "A. Garcia",
+       "nationality": "ESP"
+      },
+      {
+       "name": "A. Sims",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 50,
+     "leaderTime": "+7.328",
+     "totalTime": "1:15.503",
+     "interval": "+0.233",
+     "pitstops": 5
+    },
+    {
+     "position": 15,
+     "classPosition": 3,
+     "carNumber": "12",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "J. Hawksworth",
+       "nationality": "GBR"
+      },
+      {
+       "name": "P. Thompson",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 38,
+     "leaderTime": "+7.422",
+     "totalTime": "1:15.597",
+     "interval": "+0.094",
+     "pitstops": 7
+    },
+    {
+     "position": 16,
+     "classPosition": 4,
+     "carNumber": "4",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "T. Milner",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Catsburg",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 51,
+     "leaderTime": "+7.744",
+     "totalTime": "1:15.919",
+     "interval": "+0.322",
+     "pitstops": 9
+    },
+    {
+     "position": 17,
+     "classPosition": 5,
+     "carNumber": "36",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "DXDT Racing",
+     "drivers": [
+      {
+       "name": "R. Wickens",
+       "nationality": "CAN"
+      },
+      {
+       "name": "A. Udell",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+7.810",
+     "totalTime": "1:15.985",
+     "interval": "+0.066",
+     "pitstops": 5
+    },
+    {
+     "position": 18,
+     "classPosition": 6,
+     "carNumber": "13",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "AWA",
+     "drivers": [
+      {
+       "name": "O. Fidani",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Bell",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+7.883",
+     "totalTime": "1:16.058",
+     "interval": "+0.073",
+     "pitstops": 4
+    },
+    {
+     "position": 19,
+     "classPosition": 7,
+     "carNumber": "57",
+     "chassis": "Mercedes-AMG GT3",
+     "raceClass": "GTD",
+     "team": "Winward Racing",
+     "drivers": [
+      {
+       "name": "R. Ward",
+       "nationality": "USA"
+      },
+      {
+       "name": "P. Ellis",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+7.923",
+     "totalTime": "1:16.098",
+     "interval": "+0.040",
+     "pitstops": 6
+    },
+    {
+     "position": 20,
+     "classPosition": 8,
+     "carNumber": "96",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Turner Motorsport",
+     "drivers": [
+      {
+       "name": "P. Gallagher",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Foley",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 49,
+     "leaderTime": "+8.033",
+     "totalTime": "1:16.208",
+     "interval": "+0.110",
+     "pitstops": 7
+    },
+    {
+     "position": 21,
+     "classPosition": 9,
+     "carNumber": "9",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Pfaff Motorsports",
+     "drivers": [
+      {
+       "name": "A. Caldarelli",
+       "nationality": "ITA"
+      },
+      {
+       "name": "M. Mapelli",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 55,
+     "leaderTime": "+8.051",
+     "totalTime": "1:16.226",
+     "interval": "+0.018",
+     "pitstops": 4
+    },
+    {
+     "position": 22,
+     "classPosition": 10,
+     "carNumber": "1",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Snow",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Verhagen",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 55,
+     "leaderTime": "+8.095",
+     "totalTime": "1:16.270",
+     "interval": "+0.044",
+     "pitstops": 7
+    },
+    {
+     "position": 23,
+     "classPosition": 11,
+     "carNumber": "27",
+     "chassis": "Aston Martin Vantage GT3 Evo",
+     "raceClass": "GTD",
+     "team": "Heart of Racing Team",
+     "drivers": [
+      {
+       "name": "R. De Angelis",
+       "nationality": "CAN"
+      },
+      {
+       "name": "C. Stevenson",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 26,
+     "leaderTime": "+8.172",
+     "totalTime": "1:16.347",
+     "interval": "+0.077",
+     "pitstops": 4
+    },
+    {
+     "position": 24,
+     "classPosition": 12,
+     "carNumber": "48",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Hesse",
+       "nationality": "DEU"
+      },
+      {
+       "name": "D. Harper",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 48,
+     "leaderTime": "+8.188",
+     "totalTime": "1:16.363",
+     "interval": "+0.016",
+     "pitstops": 8
+    },
+    {
+     "position": 25,
+     "classPosition": 13,
+     "carNumber": "64",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "M. Rockenfeller",
+       "nationality": "DEU"
+      },
+      {
+       "name": "S. Priaulx",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 42,
+     "leaderTime": "+8.192",
+     "totalTime": "1:16.367",
+     "interval": "+0.004",
+     "pitstops": 7
+    },
+    {
+     "position": 26,
+     "classPosition": 14,
+     "carNumber": "021",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Triarsi Competizione",
+     "drivers": [
+      {
+       "name": "O. Triarsi",
+       "nationality": "USA"
+      },
+      {
+       "name": "K. Koch",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+8.293",
+     "totalTime": "1:16.468",
+     "interval": "+0.101",
+     "pitstops": 10
+    },
+    {
+     "position": 27,
+     "classPosition": 15,
+     "carNumber": "77",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "L. Heinrich",
+       "nationality": "DEU"
+      },
+      {
+       "name": "K. Bachler",
+       "nationality": "AUT"
+      }
+     ],
+     "laps": 52,
+     "leaderTime": "+8.388",
+     "totalTime": "1:16.563",
+     "interval": "+0.095",
+     "pitstops": 5
+    },
+    {
+     "position": 28,
+     "classPosition": 16,
+     "carNumber": "45",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Wayne Taylor Racing",
+     "drivers": [
+      {
+       "name": "D. Formal",
+       "nationality": "CRI"
+      },
+      {
+       "name": "T. Hindman",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 42,
+     "leaderTime": "+8.419",
+     "totalTime": "1:16.594",
+     "interval": "+0.031",
+     "pitstops": 7
+    },
+    {
+     "position": 29,
+     "classPosition": 17,
+     "carNumber": "65",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "C. Mies",
+       "nationality": "DEU"
+      },
+      {
+       "name": "F. Vervisch",
+       "nationality": "BEL"
+      }
+     ],
+     "laps": 48,
+     "leaderTime": "+8.425",
+     "totalTime": "1:16.600",
+     "interval": "+0.006",
+     "pitstops": 6
+    },
+    {
+     "position": 30,
+     "classPosition": 18,
+     "carNumber": "81",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "DragonSpeed",
+     "drivers": [
+      {
+       "name": "A. Costa",
+       "nationality": "ESP"
+      },
+      {
+       "name": "G. Altoè",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+8.545",
+     "totalTime": "1:16.720",
+     "interval": "+0.120",
+     "pitstops": 9
+    },
+    {
+     "position": 31,
+     "classPosition": 19,
+     "carNumber": "120",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "Wright Motorsports",
+     "drivers": [
+      {
+       "name": "A. Adelson",
+       "nationality": "USA"
+      },
+      {
+       "name": "E. Skeer",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 44,
+     "leaderTime": "+8.587",
+     "totalTime": "1:16.762",
+     "interval": "+0.042",
+     "pitstops": 8
+    },
+    {
+     "position": 32,
+     "classPosition": 20,
+     "carNumber": "70",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Inception Racing",
+     "drivers": [
+      {
+       "name": "B. Iribe",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Schandorff",
+       "nationality": "DNK"
+      }
+     ],
+     "laps": 48,
+     "leaderTime": "+8.626",
+     "totalTime": "1:16.801",
+     "interval": "+0.039",
+     "pitstops": 7
+    },
+    {
+     "position": 33,
+     "classPosition": 21,
+     "carNumber": "78",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Forte Racing",
+     "drivers": [
+      {
+       "name": "M. Goikhberg",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Farnbacher",
+       "nationality": "DEU"
+      }
+     ],
+     "laps": 52,
+     "leaderTime": "+8.801",
+     "totalTime": "1:16.976",
+     "interval": "+0.175",
+     "pitstops": 5
+    },
+    {
+     "position": 34,
+     "classPosition": 22,
+     "carNumber": "34",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Conquest Racing",
+     "drivers": [
+      {
+       "name": "M. Franco",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Serra",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 46,
+     "leaderTime": "+8.903",
+     "totalTime": "1:17.078",
+     "interval": "+0.102",
+     "pitstops": 7
+    },
+    {
+     "position": 35,
+     "classPosition": 23,
+     "carNumber": "66",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Gradient Racing",
+     "drivers": [
+      {
+       "name": "J. Altzman",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Megennis",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 29,
+     "leaderTime": "+9.287",
+     "totalTime": "1:17.462",
+     "interval": "+0.384",
+     "pitstops": 6
+    }
+   ]
+  },
+  {
+   "name": "Qualifying",
+   "type": "Qualifying Practice by Best Lap",
+   "start": "2025-07-12T20:00:00.000Z",
+   "wallClock": "2025-07-12T16:00:00.000Z",
+   "hasResults": true,
+   "rows": [
+    {
+     "position": 1,
+     "classPosition": 1,
+     "carNumber": "99",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "P. Hyett",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Cameron",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "1:08.888",
+     "totalTime": "1:08.888",
+     "interval": "-",
+     "pitstops": 1
+    },
+    {
+     "position": 2,
+     "classPosition": 2,
+     "carNumber": "22",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "D. Goldburg",
+       "nationality": "USA"
+      },
+      {
+       "name": "T. Blomqvist",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+0.098",
+     "totalTime": "1:08.986",
+     "interval": "+0.098",
+     "pitstops": 2
+    },
+    {
+     "position": 3,
+     "classPosition": 3,
+     "carNumber": "11",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "TDS RACING",
+     "drivers": [
+      {
+       "name": "S. Thomas",
+       "nationality": "USA"
+      },
+      {
+       "name": "H. McElrea",
+       "nationality": "NZL"
+      }
+     ],
+     "laps": 13,
+     "leaderTime": "+0.291",
+     "totalTime": "1:09.179",
+     "interval": "+0.193",
+     "pitstops": 1
+    },
+    {
+     "position": 4,
+     "classPosition": 4,
+     "carNumber": "43",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Inter Europol Competition",
+     "drivers": [
+      {
+       "name": "T. Dillmann",
+       "nationality": "FRA"
+      },
+      {
+       "name": "J. Clarke",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 8,
+     "leaderTime": "+0.459",
+     "totalTime": "1:09.347",
+     "interval": "+0.168",
+     "pitstops": 1
+    },
+    {
+     "position": 5,
+     "classPosition": 5,
+     "carNumber": "04",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Crowdstrike Racing by APR",
+     "drivers": [
+      {
+       "name": "G. Kurtz",
+       "nationality": "USA"
+      },
+      {
+       "name": "A. Quinn",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 13,
+     "leaderTime": "+0.785",
+     "totalTime": "1:09.673",
+     "interval": "+0.326",
+     "pitstops": 0
+    },
+    {
+     "position": 6,
+     "classPosition": 6,
+     "carNumber": "73",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "P. Fittipaldi",
+       "nationality": "BRA"
+      },
+      {
+       "name": "C. Cumming",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+0.845",
+     "totalTime": "1:09.733",
+     "interval": "+0.060",
+     "pitstops": 1
+    },
+    {
+     "position": 7,
+     "classPosition": 7,
+     "carNumber": "2",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "P. Fayer",
+       "nationality": "CAN"
+      },
+      {
+       "name": "B. Hanley",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+1.022",
+     "totalTime": "1:09.910",
+     "interval": "+0.177",
+     "pitstops": 1
+    },
+    {
+     "position": 8,
+     "classPosition": 8,
+     "carNumber": "52",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "PR1 Mathiasen Motorsports",
+     "drivers": [
+      {
+       "name": "B. Pedersen",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Boulle",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+1.106",
+     "totalTime": "1:09.994",
+     "interval": "+0.084",
+     "pitstops": 1
+    },
+    {
+     "position": 9,
+     "classPosition": 9,
+     "carNumber": "74",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Riley",
+     "drivers": [
+      {
+       "name": "G. Robinson",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Fraga",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 13,
+     "leaderTime": "+1.398",
+     "totalTime": "1:10.286",
+     "interval": "+0.292",
+     "pitstops": 1
+    },
+    {
+     "position": 10,
+     "classPosition": 10,
+     "carNumber": "18",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Era Motorsport",
+     "drivers": [
+      {
+       "name": "R. Dalziel",
+       "nationality": "GBR"
+      },
+      {
+       "name": "T. Hill",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+1.890",
+     "totalTime": "1:10.778",
+     "interval": "+0.492",
+     "pitstops": 1
+    },
+    {
+     "position": 11,
+     "classPosition": 11,
+     "carNumber": "8",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Tower Motorsports",
+     "drivers": [
+      {
+       "name": "J. Farano",
+       "nationality": "CAN"
+      },
+      {
+       "name": "R. van der Zande",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+3.473",
+     "totalTime": "1:12.361",
+     "interval": "+1.583",
+     "pitstops": 1
+    },
+    {
+     "position": 12,
+     "classPosition": 12,
+     "carNumber": "79",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "JDC-Miller MotorSports",
+     "drivers": [
+      {
+       "name": "G. Kraut",
+       "nationality": "USA"
+      },
+      {
+       "name": "S. Andrews",
+       "nationality": "AUS"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+4.949",
+     "totalTime": "1:13.837",
+     "interval": "+1.476",
+     "pitstops": 0
+    },
+    {
+     "position": 13,
+     "classPosition": 1,
+     "carNumber": "1",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Snow",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Verhagen",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 8,
+     "leaderTime": "1:15.046",
+     "totalTime": "1:15.046",
+     "interval": "+1.209",
+     "pitstops": 2
+    },
+    {
+     "position": 14,
+     "classPosition": 2,
+     "carNumber": "12",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "J. Hawksworth",
+       "nationality": "GBR"
+      },
+      {
+       "name": "P. Thompson",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+6.213",
+     "totalTime": "1:15.101",
+     "interval": "+0.055",
+     "pitstops": 2
+    },
+    {
+     "position": 15,
+     "classPosition": 3,
+     "carNumber": "14",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "B. Barnicoat",
+       "nationality": "GBR"
+      },
+      {
+       "name": "A. Telitz",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+6.421",
+     "totalTime": "1:15.309",
+     "interval": "+0.208",
+     "pitstops": 2
+    },
+    {
+     "position": 16,
+     "classPosition": 4,
+     "carNumber": "57",
+     "chassis": "Mercedes-AMG GT3",
+     "raceClass": "GTD",
+     "team": "Winward Racing",
+     "drivers": [
+      {
+       "name": "R. Ward",
+       "nationality": "USA"
+      },
+      {
+       "name": "P. Ellis",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.431",
+     "totalTime": "1:15.319",
+     "interval": "+0.010",
+     "pitstops": 2
+    },
+    {
+     "position": 17,
+     "classPosition": 5,
+     "carNumber": "3",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "A. Garcia",
+       "nationality": "ESP"
+      },
+      {
+       "name": "A. Sims",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+6.446",
+     "totalTime": "1:15.334",
+     "interval": "+0.015",
+     "pitstops": 1
+    },
+    {
+     "position": 18,
+     "classPosition": 6,
+     "carNumber": "4",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "T. Milner",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Catsburg",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.576",
+     "totalTime": "1:15.464",
+     "interval": "+0.130",
+     "pitstops": 1
+    },
+    {
+     "position": 19,
+     "classPosition": 7,
+     "carNumber": "48",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Hesse",
+       "nationality": "DEU"
+      },
+      {
+       "name": "D. Harper",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.590",
+     "totalTime": "1:15.478",
+     "interval": "+0.014",
+     "pitstops": 2
+    },
+    {
+     "position": 20,
+     "classPosition": 8,
+     "carNumber": "9",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Pfaff Motorsports",
+     "drivers": [
+      {
+       "name": "A. Caldarelli",
+       "nationality": "ITA"
+      },
+      {
+       "name": "M. Mapelli",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+6.700",
+     "totalTime": "1:15.588",
+     "interval": "+0.110",
+     "pitstops": 1
+    },
+    {
+     "position": 21,
+     "classPosition": 9,
+     "carNumber": "64",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "M. Rockenfeller",
+       "nationality": "DEU"
+      },
+      {
+       "name": "S. Priaulx",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.799",
+     "totalTime": "1:15.687",
+     "interval": "+0.099",
+     "pitstops": 2
+    },
+    {
+     "position": 22,
+     "classPosition": 10,
+     "carNumber": "77",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "L. Heinrich",
+       "nationality": "DEU"
+      },
+      {
+       "name": "K. Bachler",
+       "nationality": "AUT"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.859",
+     "totalTime": "1:15.747",
+     "interval": "+0.060",
+     "pitstops": 2
+    },
+    {
+     "position": 23,
+     "classPosition": 11,
+     "carNumber": "65",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "C. Mies",
+       "nationality": "DEU"
+      },
+      {
+       "name": "F. Vervisch",
+       "nationality": "BEL"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+6.912",
+     "totalTime": "1:15.800",
+     "interval": "+0.053",
+     "pitstops": 2
+    },
+    {
+     "position": 24,
+     "classPosition": 12,
+     "carNumber": "36",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "DXDT Racing",
+     "drivers": [
+      {
+       "name": "R. Wickens",
+       "nationality": "CAN"
+      },
+      {
+       "name": "A. Udell",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 10,
+     "leaderTime": "+6.988",
+     "totalTime": "1:15.876",
+     "interval": "+0.076",
+     "pitstops": 1
+    },
+    {
+     "position": 25,
+     "classPosition": 13,
+     "carNumber": "81",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "DragonSpeed",
+     "drivers": [
+      {
+       "name": "A. Costa",
+       "nationality": "ESP"
+      },
+      {
+       "name": "G. Altoè",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+7.112",
+     "totalTime": "1:16.000",
+     "interval": "+0.124",
+     "pitstops": 1
+    },
+    {
+     "position": 26,
+     "classPosition": 14,
+     "carNumber": "27",
+     "chassis": "Aston Martin Vantage GT3 Evo",
+     "raceClass": "GTD",
+     "team": "Heart of Racing Team",
+     "drivers": [
+      {
+       "name": "R. De Angelis",
+       "nationality": "CAN"
+      },
+      {
+       "name": "C. Stevenson",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 9,
+     "leaderTime": "+7.173",
+     "totalTime": "1:16.061",
+     "interval": "+0.061",
+     "pitstops": 1
+    },
+    {
+     "position": 27,
+     "classPosition": 15,
+     "carNumber": "45",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Wayne Taylor Racing",
+     "drivers": [
+      {
+       "name": "D. Formal",
+       "nationality": "CRI"
+      },
+      {
+       "name": "T. Hindman",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 10,
+     "leaderTime": "+7.311",
+     "totalTime": "1:16.199",
+     "interval": "+0.138",
+     "pitstops": 1
+    },
+    {
+     "position": 28,
+     "classPosition": 16,
+     "carNumber": "96",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Turner Motorsport",
+     "drivers": [
+      {
+       "name": "P. Gallagher",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Foley",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 10,
+     "leaderTime": "+7.382",
+     "totalTime": "1:16.270",
+     "interval": "+0.071",
+     "pitstops": 1
+    },
+    {
+     "position": 29,
+     "classPosition": 17,
+     "carNumber": "120",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "Wright Motorsports",
+     "drivers": [
+      {
+       "name": "A. Adelson",
+       "nationality": "USA"
+      },
+      {
+       "name": "E. Skeer",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 10,
+     "leaderTime": "+7.504",
+     "totalTime": "1:16.392",
+     "interval": "+0.122",
+     "pitstops": 1
+    },
+    {
+     "position": 30,
+     "classPosition": 18,
+     "carNumber": "021",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Triarsi Competizione",
+     "drivers": [
+      {
+       "name": "O. Triarsi",
+       "nationality": "USA"
+      },
+      {
+       "name": "K. Koch",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+7.539",
+     "totalTime": "1:16.427",
+     "interval": "+0.035",
+     "pitstops": 1
+    },
+    {
+     "position": 31,
+     "classPosition": 19,
+     "carNumber": "34",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Conquest Racing",
+     "drivers": [
+      {
+       "name": "M. Franco",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Serra",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 10,
+     "leaderTime": "+7.738",
+     "totalTime": "1:16.626",
+     "interval": "+0.199",
+     "pitstops": 1
+    },
+    {
+     "position": 32,
+     "classPosition": 20,
+     "carNumber": "78",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Forte Racing",
+     "drivers": [
+      {
+       "name": "M. Goikhberg",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Farnbacher",
+       "nationality": "DEU"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+7.799",
+     "totalTime": "1:16.687",
+     "interval": "+0.061",
+     "pitstops": 1
+    },
+    {
+     "position": 33,
+     "classPosition": 21,
+     "carNumber": "70",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Inception Racing",
+     "drivers": [
+      {
+       "name": "B. Iribe",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Schandorff",
+       "nationality": "DNK"
+      }
+     ],
+     "laps": 11,
+     "leaderTime": "+7.930",
+     "totalTime": "1:16.818",
+     "interval": "+0.131",
+     "pitstops": 1
+    },
+    {
+     "position": 34,
+     "classPosition": 22,
+     "carNumber": "66",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Gradient Racing",
+     "drivers": [
+      {
+       "name": "J. Altzman",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Megennis",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 12,
+     "leaderTime": "+8.051",
+     "totalTime": "1:16.939",
+     "interval": "+0.121",
+     "pitstops": 1
+    },
+    {
+     "position": 35,
+     "classPosition": 23,
+     "carNumber": "13",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "AWA",
+     "drivers": [
+      {
+       "name": "O. Fidani",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Bell",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 13,
+     "leaderTime": "+9.026",
+     "totalTime": "1:17.914",
+     "interval": "+0.975",
+     "pitstops": 1
+    }
+   ]
+  },
+  {
+   "name": "Race",
+   "type": "Race",
+   "start": "2025-07-13T18:05:00.000Z",
+   "wallClock": "2025-07-13T14:05:00.000Z",
+   "hasResults": true,
+   "rows": [
+    {
+     "position": 1,
+     "classPosition": 1,
+     "carNumber": "99",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "P. Hyett",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Cameron",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "2:40:43.681",
+     "totalTime": "2:40:43.681",
+     "interval": "-",
+     "pitstops": 3
+    },
+    {
+     "position": 2,
+     "classPosition": 2,
+     "carNumber": "22",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "D. Goldburg",
+       "nationality": "USA"
+      },
+      {
+       "name": "T. Blomqvist",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+1.087",
+     "totalTime": "2:40:44.768",
+     "interval": "+1.087",
+     "pitstops": 3
+    },
+    {
+     "position": 3,
+     "classPosition": 3,
+     "carNumber": "74",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Riley",
+     "drivers": [
+      {
+       "name": "G. Robinson",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Fraga",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+3.169",
+     "totalTime": "2:40:46.850",
+     "interval": "+2.082",
+     "pitstops": 3
+    },
+    {
+     "position": 4,
+     "classPosition": 4,
+     "carNumber": "2",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "United Autosports USA",
+     "drivers": [
+      {
+       "name": "P. Fayer",
+       "nationality": "CAN"
+      },
+      {
+       "name": "B. Hanley",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+4.149",
+     "totalTime": "2:40:47.830",
+     "interval": "+0.980",
+     "pitstops": 3
+    },
+    {
+     "position": 5,
+     "classPosition": 5,
+     "carNumber": "52",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "PR1 Mathiasen Motorsports",
+     "drivers": [
+      {
+       "name": "B. Pedersen",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Boulle",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+4.380",
+     "totalTime": "2:40:48.061",
+     "interval": "+0.231",
+     "pitstops": 4
+    },
+    {
+     "position": 6,
+     "classPosition": 6,
+     "carNumber": "73",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "P. Fittipaldi",
+       "nationality": "BRA"
+      },
+      {
+       "name": "C. Cumming",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+4.584",
+     "totalTime": "2:40:48.265",
+     "interval": "+0.204",
+     "pitstops": 4
+    },
+    {
+     "position": 7,
+     "classPosition": 7,
+     "carNumber": "18",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Era Motorsport",
+     "drivers": [
+      {
+       "name": "R. Dalziel",
+       "nationality": "GBR"
+      },
+      {
+       "name": "T. Hill",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+5.125",
+     "totalTime": "2:40:48.806",
+     "interval": "+0.541",
+     "pitstops": 4
+    },
+    {
+     "position": 8,
+     "classPosition": 8,
+     "carNumber": "11",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "TDS RACING",
+     "drivers": [
+      {
+       "name": "S. Thomas",
+       "nationality": "USA"
+      },
+      {
+       "name": "H. McElrea",
+       "nationality": "NZL"
+      }
+     ],
+     "laps": 113,
+     "leaderTime": "+30.297",
+     "totalTime": "2:41:13.978",
+     "interval": "+25.172",
+     "pitstops": 3
+    },
+    {
+     "position": 9,
+     "classPosition": 9,
+     "carNumber": "8",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Tower Motorsports",
+     "drivers": [
+      {
+       "name": "J. Farano",
+       "nationality": "CAN"
+      },
+      {
+       "name": "R. van der Zande",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 110,
+     "leaderTime": "3 Laps",
+     "totalTime": "2:40:50.377",
+     "interval": "3 Laps",
+     "pitstops": 4
+    },
+    {
+     "position": 10,
+     "classPosition": 1,
+     "carNumber": "81",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "DragonSpeed",
+     "drivers": [
+      {
+       "name": "A. Costa",
+       "nationality": "ESP"
+      },
+      {
+       "name": "G. Altoè",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "2:40:52.322",
+     "totalTime": "2:40:52.322",
+     "interval": "2 Laps",
+     "pitstops": 2
+    },
+    {
+     "position": 11,
+     "classPosition": 2,
+     "carNumber": "4",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "T. Milner",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Catsburg",
+       "nationality": "NLD"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:40:55.695",
+     "interval": "+3.373",
+     "pitstops": 3
+    },
+    {
+     "position": 12,
+     "classPosition": 3,
+     "carNumber": "77",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "AO Racing",
+     "drivers": [
+      {
+       "name": "L. Heinrich",
+       "nationality": "DEU"
+      },
+      {
+       "name": "K. Bachler",
+       "nationality": "AUT"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:40:56.284",
+     "interval": "+0.589",
+     "pitstops": 3
+    },
+    {
+     "position": 13,
+     "classPosition": 4,
+     "carNumber": "3",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "Corvette Racing by Pratt Miller Motorsports",
+     "drivers": [
+      {
+       "name": "A. Garcia",
+       "nationality": "ESP"
+      },
+      {
+       "name": "A. Sims",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:40:57.372",
+     "interval": "+1.088",
+     "pitstops": 3
+    },
+    {
+     "position": 14,
+     "classPosition": 5,
+     "carNumber": "9",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Pfaff Motorsports",
+     "drivers": [
+      {
+       "name": "A. Caldarelli",
+       "nationality": "ITA"
+      },
+      {
+       "name": "M. Mapelli",
+       "nationality": "ITA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:00.076",
+     "interval": "+2.704",
+     "pitstops": 3
+    },
+    {
+     "position": 15,
+     "classPosition": 6,
+     "carNumber": "1",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Snow",
+       "nationality": "USA"
+      },
+      {
+       "name": "N. Verhagen",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:00.298",
+     "interval": "+0.222",
+     "pitstops": 3
+    },
+    {
+     "position": 16,
+     "classPosition": 7,
+     "carNumber": "65",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "C. Mies",
+       "nationality": "DEU"
+      },
+      {
+       "name": "F. Vervisch",
+       "nationality": "BEL"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:00.535",
+     "interval": "+0.237",
+     "pitstops": 4
+    },
+    {
+     "position": 17,
+     "classPosition": 8,
+     "carNumber": "14",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "B. Barnicoat",
+       "nationality": "GBR"
+      },
+      {
+       "name": "A. Telitz",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:03.623",
+     "interval": "+3.088",
+     "pitstops": 4
+    },
+    {
+     "position": 18,
+     "classPosition": 9,
+     "carNumber": "48",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Paul Miller Racing",
+     "drivers": [
+      {
+       "name": "M. Hesse",
+       "nationality": "DEU"
+      },
+      {
+       "name": "D. Harper",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:04.111",
+     "interval": "+0.488",
+     "pitstops": 3
+    },
+    {
+     "position": 19,
+     "classPosition": 10,
+     "carNumber": "64",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Ford Multimatic Motorsports",
+     "drivers": [
+      {
+       "name": "M. Rockenfeller",
+       "nationality": "DEU"
+      },
+      {
+       "name": "S. Priaulx",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:05.159",
+     "interval": "+1.048",
+     "pitstops": 6
+    },
+    {
+     "position": 20,
+     "classPosition": 11,
+     "carNumber": "45",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Wayne Taylor Racing",
+     "drivers": [
+      {
+       "name": "D. Formal",
+       "nationality": "CRI"
+      },
+      {
+       "name": "T. Hindman",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:05.732",
+     "interval": "+0.573",
+     "pitstops": 3
+    },
+    {
+     "position": 21,
+     "classPosition": 12,
+     "carNumber": "57",
+     "chassis": "Mercedes-AMG GT3",
+     "raceClass": "GTD",
+     "team": "Winward Racing",
+     "drivers": [
+      {
+       "name": "R. Ward",
+       "nationality": "USA"
+      },
+      {
+       "name": "P. Ellis",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:11.280",
+     "interval": "+5.548",
+     "pitstops": 2
+    },
+    {
+     "position": 22,
+     "classPosition": 13,
+     "carNumber": "12",
+     "chassis": "Lexus RC F GT3",
+     "raceClass": "GTD",
+     "team": "Vasser Sullivan Racing",
+     "drivers": [
+      {
+       "name": "J. Hawksworth",
+       "nationality": "GBR"
+      },
+      {
+       "name": "P. Thompson",
+       "nationality": "CAN"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:12.828",
+     "interval": "+1.548",
+     "pitstops": 3
+    },
+    {
+     "position": 23,
+     "classPosition": 14,
+     "carNumber": "36",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "DXDT Racing",
+     "drivers": [
+      {
+       "name": "R. Wickens",
+       "nationality": "CAN"
+      },
+      {
+       "name": "A. Udell",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:13.552",
+     "interval": "+0.724",
+     "pitstops": 3
+    },
+    {
+     "position": 24,
+     "classPosition": 15,
+     "carNumber": "27",
+     "chassis": "Aston Martin Vantage GT3 Evo",
+     "raceClass": "GTD",
+     "team": "Heart of Racing Team",
+     "drivers": [
+      {
+       "name": "R. De Angelis",
+       "nationality": "CAN"
+      },
+      {
+       "name": "C. Stevenson",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:13.959",
+     "interval": "+0.407",
+     "pitstops": 3
+    },
+    {
+     "position": 25,
+     "classPosition": 16,
+     "carNumber": "70",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Inception Racing",
+     "drivers": [
+      {
+       "name": "B. Iribe",
+       "nationality": "USA"
+      },
+      {
+       "name": "F. Schandorff",
+       "nationality": "DNK"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:14.450",
+     "interval": "+0.491",
+     "pitstops": 3
+    },
+    {
+     "position": 26,
+     "classPosition": 17,
+     "carNumber": "021",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Triarsi Competizione",
+     "drivers": [
+      {
+       "name": "O. Triarsi",
+       "nationality": "USA"
+      },
+      {
+       "name": "K. Koch",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:15.892",
+     "interval": "+1.442",
+     "pitstops": 4
+    },
+    {
+     "position": 27,
+     "classPosition": 18,
+     "carNumber": "96",
+     "chassis": "BMW M4 GT3 EVO",
+     "raceClass": "GTD",
+     "team": "Turner Motorsport",
+     "drivers": [
+      {
+       "name": "P. Gallagher",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Foley",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:17.817",
+     "interval": "+1.925",
+     "pitstops": 2
+    },
+    {
+     "position": 28,
+     "classPosition": 19,
+     "carNumber": "13",
+     "chassis": "Chevrolet Corvette Z06 GT3.R",
+     "raceClass": "GTD",
+     "team": "AWA",
+     "drivers": [
+      {
+       "name": "O. Fidani",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Bell",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:19.070",
+     "interval": "+1.253",
+     "pitstops": 3
+    },
+    {
+     "position": 29,
+     "classPosition": 20,
+     "carNumber": "120",
+     "chassis": "Porsche 911 GT3 R (992)",
+     "raceClass": "GTD",
+     "team": "Wright Motorsports",
+     "drivers": [
+      {
+       "name": "A. Adelson",
+       "nationality": "USA"
+      },
+      {
+       "name": "E. Skeer",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:19.639",
+     "interval": "+0.569",
+     "pitstops": 4
+    },
+    {
+     "position": 30,
+     "classPosition": 21,
+     "carNumber": "34",
+     "chassis": "Ferrari 296 GT3",
+     "raceClass": "GTD",
+     "team": "Conquest Racing",
+     "drivers": [
+      {
+       "name": "M. Franco",
+       "nationality": "USA"
+      },
+      {
+       "name": "D. Serra",
+       "nationality": "BRA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:20.527",
+     "interval": "+0.888",
+     "pitstops": 3
+    },
+    {
+     "position": 31,
+     "classPosition": 22,
+     "carNumber": "66",
+     "chassis": "Ford Mustang GT3",
+     "raceClass": "GTD",
+     "team": "Gradient Racing",
+     "drivers": [
+      {
+       "name": "J. Altzman",
+       "nationality": "USA"
+      },
+      {
+       "name": "R. Megennis",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 108,
+     "leaderTime": "5 Laps",
+     "totalTime": "2:41:22.089",
+     "interval": "+1.562",
+     "pitstops": 4
+    },
+    {
+     "position": 32,
+     "classPosition": 10,
+     "carNumber": "43",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Inter Europol Competition",
+     "drivers": [
+      {
+       "name": "T. Dillmann",
+       "nationality": "FRA"
+      },
+      {
+       "name": "J. Clarke",
+       "nationality": "USA"
+      }
+     ],
+     "laps": 106,
+     "leaderTime": "DNF",
+     "totalTime": "DNF",
+     "interval": "2 Laps",
+     "pitstops": 3
+    },
+    {
+     "position": 33,
+     "classPosition": 23,
+     "carNumber": "78",
+     "chassis": "Lamborghini Huracan GT3 EVO2",
+     "raceClass": "GTD",
+     "team": "Forte Racing",
+     "drivers": [
+      {
+       "name": "M. Goikhberg",
+       "nationality": "CAN"
+      },
+      {
+       "name": "M. Farnbacher",
+       "nationality": "DEU"
+      }
+     ],
+     "laps": 105,
+     "leaderTime": "8 Laps",
+     "totalTime": "2:41:59.712",
+     "interval": "1 Lap",
+     "pitstops": 5
+    },
+    {
+     "position": 34,
+     "classPosition": 11,
+     "carNumber": "04",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "Crowdstrike Racing by APR",
+     "drivers": [
+      {
+       "name": "G. Kurtz",
+       "nationality": "USA"
+      },
+      {
+       "name": "A. Quinn",
+       "nationality": "GBR"
+      }
+     ],
+     "laps": 53,
+     "leaderTime": "DNF",
+     "totalTime": "DNF",
+     "interval": "52 Laps",
+     "pitstops": 1
+    },
+    {
+     "position": 35,
+     "classPosition": 12,
+     "carNumber": "79",
+     "chassis": "ORECA LMP2 07",
+     "raceClass": "LMP2",
+     "team": "JDC-Miller MotorSports",
+     "drivers": [
+      {
+       "name": "G. Kraut",
+       "nationality": "USA"
+      },
+      {
+       "name": "S. Andrews",
+       "nationality": "AUS"
+      }
+     ],
+     "laps": 0,
+     "leaderTime": "",
+     "totalTime": "",
+     "interval": "",
+     "pitstops": 0
+    }
+   ]
+  }
+ ],
+ "generatedAt": "2026-08-02T12:33:34.465Z"
+}
