@@ -116,7 +116,39 @@ function writeRoundResultSlices(allRaces: any[]): number {
   return written;
 }
 
+/// Исторический сезон (SEASON < текущего): «current»-алиасов у него нет,
+/// поэтому зеркалим явные year-пути — ровно те, что запрашивает приложение
+/// при выборе прошлого сезона в календаре. Прогон разовый: сезон закрыт,
+/// результаты и зачёты уже не меняются, поэтому существующие файлы не
+/// перекачиваем (write-once).
+async function historicSeason(): Promise<void> {
+  console.log(`F1 mirror, season ${YEAR} (historic backfill)`);
+  const schedule = await mirror(`${YEAR}.json`);
+  if (!schedule) {
+    console.error(`Jolpica ${YEAR}.json недоступен — весь прогон бесполезен`);
+    process.exit(1);
+  }
+  await mirror(`${YEAR}/driverStandings.json`);
+  await mirror(`${YEAR}/constructorStandings.json`);
+  const allResults = await mirrorPaginated(`${YEAR}/results.json`);
+  const slices = writeRoundResultSlices(allResults);
+  if (slices > 0) console.log(`  round slices updated: ${slices}`);
+  await mirrorPaginated(`${YEAR}/sprint.json`);
+
+  const races = schedule?.MRData?.RaceTable?.Races ?? [];
+  for (const race of races) {
+    const round = String(race.round ?? "");
+    if (!round) continue;
+    const rel = `${YEAR}/${round}.json`;
+    if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;   // сезон закрыт — не перекачиваем
+    await mirror(rel);
+  }
+  console.log(`Done (historic). ${races.length} rounds.`);
+}
+
 async function main() {
+  if (YEAR < new Date().getUTCFullYear()) return historicSeason();
+
   console.log(`F1 mirror, season ${YEAR}`);
 
   // Расписание — источник списка раундов. null → полный отказ Jolpica: валим

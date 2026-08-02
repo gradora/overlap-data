@@ -39,3 +39,9 @@ export function writeJSONWithEnvelope(path: string, payload: object, schemaVersi
   writeFileSync(path, JSON.stringify(out, null, 2) + "\n");
   return true;
 }
+
+/// Файл зеркала с расписанием сезона: у текущего это «current»-алиас, у
+/// исторического — явный year-путь (его пишет f1.ts в historic-режиме).
+export function scheduleMirrorFile(year: number, now: Date = new Date()): string {
+  return year < now.getUTCFullYear() ? mirrorSlug(`${year}.json`) : mirrorSlug("current.json");
+}

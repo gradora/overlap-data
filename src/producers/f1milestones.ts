@@ -9,7 +9,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
-import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
@@ -81,7 +81,7 @@ async function main() {
   let races: { round: string; date: string }[] = [];
   let scheduleSeason: string | null = null;
   try {
-    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, scheduleMirrorFile(YEAR)), "utf8"));
     const table = d?.MRData?.RaceTable;
     races = table?.Races ?? [];
     scheduleSeason = table?.season ?? null;

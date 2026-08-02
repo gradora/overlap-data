@@ -11,7 +11,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
-import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { isFrozen } from "../lib/freeze.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { UA } from "../lib/http.js";
@@ -39,7 +39,7 @@ function jolpicaSchedule(): {
   races: { round: string; date: string; time?: string; raceName: string }[];
 } {
   try {
-    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, scheduleMirrorFile(YEAR)), "utf8"));
     const table = d?.MRData?.RaceTable;
     return { season: table?.season ?? null, races: table?.Races ?? [] };
   } catch {

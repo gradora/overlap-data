@@ -8,7 +8,7 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { mirrorSlug, writeJSONWithEnvelope } from "../lib/mirror.js";
+import { mirrorSlug, scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1_DIR = join(process.cwd(), "data", "f1", "openf1");
@@ -180,7 +180,7 @@ async function main() {
   console.log(`F1 highlights, season ${YEAR}`);
   let races: { round: string; date: string }[] = [];
   try {
-    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
+    const d = JSON.parse(readFileSync(join(JOLPICA_DIR, scheduleMirrorFile(YEAR)), "utf8"));
     races = (d?.MRData?.RaceTable?.Races ?? [])
       .filter((r: any) => r.date && Date.parse(r.date) < NOW);
   } catch {

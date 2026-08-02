@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T12:27:29.040Z",
+  "season": 2025,
+  "round": 14,
+  "event": "hungarian_grand_prix",
+  "updated": "2025-08-03 18:38 CET",
+  "penalties": [
+    {
+      "doc": 15,
+      "car": 1,
+      "driver": "Max Verstappen",
+      "session": "Practice 2",
+      "type": "warning",
+      "appliesTo": "Practice 2",
+      "corrected": false,
+      "decision": "Competitor: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_decision_-_car_1_-_alleged_unsafe_release.pdf",
+      "publishedAt": "2025-08-01 19:01 CET"
+    },
+    {
+      "doc": 31,
+      "car": 22,
+      "driver": "Yuki Tsunoda",
+      "session": "Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "The following Power Unit elements have been used: 5th Internal Combustion Engine (ICE) 5th Turbo Charger (TC) 5th Motor Generator Unit - Heat (MGU-H) 5th Motor Generator Unit - Kinetic (MGU-K) Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme. Also changes have been made to the brake cooling configuration of Car 22 while Car 22 was during Parc Ferme without the approval of the Technical Delegate.",
+      "decision": "Required to start the Race from the pit lane.",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2025-08-03 13:02 CET"
+    },
+    {
+      "doc": 34,
+      "car": 27,
+      "driver": "Nico Hulkenberg",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "decision": "5 second time penalty.",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_27_-_false_start.pdf",
+      "publishedAt": "2025-08-03 15:42 CET"
+    },
+    {
+      "doc": 38,
+      "car": 22,
+      "driver": "Yuki Tsunoda",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Alleged forcing another driver off of the track.",
+      "decision": "No further action.",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_decision_-_car_22_-_alleged_forcing_another_driver_off_of_the_track.pdf",
+      "publishedAt": "2025-08-03 18:09 CET"
+    },
+    {
+      "doc": 40,
+      "car": 10,
+      "driver": "Pierre Gasly",
+      "session": "Race",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 10 collided with Car 55 in Turn 4",
+      "decision": "10 second time penalty. 2 penalty points (total of 2 for the 12 month period)",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_10_-_colliding_with_car_55.pdf",
+      "publishedAt": "2025-08-03 18:10 CET"
+    },
+    {
+      "doc": 41,
+      "car": 16,
+      "driver": "Charles Leclerc",
+      "session": "Race",
+      "type": "time",
+      "seconds": 5,
+      "appliesTo": "race",
+      "corrected": false,
+      "fact": "Car 16 moved twice towards Car 63 when defending its position on the main straight",
+      "decision": "5 seconds time penalty (5 seconds added to elapsed Race time). 1 penalty point (total of 1 for the 12 month period)",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_16_-_erratic_driving.pdf",
+      "publishedAt": "2025-08-03 18:11 CET"
+    },
+    {
+      "doc": 42,
+      "car": 1,
+      "driver": "Max Verstappen",
+      "session": "Race",
+      "type": "none",
+      "appliesTo": "race",
+      "corrected": false,
+      "decision": "No further action.",
+      "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_decision_-_car_1_-_alleged_forcing_another_driver_off_of_the_track.pdf",
+      "publishedAt": "2025-08-03 18:38 CET"
+    }
+  ],
+  "startingGrid": {
+    "kind": "final",
+    "doc": 33,
+    "entries": [
+      {
+        "position": 1,
+        "car": 16
+      },
+      {
+        "position": 2,
+        "car": 81
+      },
+      {
+        "position": 3,
+        "car": 4
+      },
+      {
+        "position": 4,
+        "car": 63
+      },
+      {
+        "position": 5,
+        "car": 14
+      },
+      {
+        "position": 6,
+        "car": 18
+      },
+      {
+        "position": 7,
+        "car": 5
+      },
+      {
+        "position": 8,
+        "car": 1
+      },
+      {
+        "position": 9,
+        "car": 30
+      },
+      {
+        "position": 10,
+        "car": 6
+      },
+      {
+        "position": 11,
+        "car": 87
+      },
+      {
+        "position": 12,
+        "car": 44
+      },
+      {
+        "position": 13,
+        "car": 55
+      },
+      {
+        "position": 14,
+        "car": 43
+      },
+      {
+        "position": 15,
+        "car": 12
+      },
+      {
+        "position": 16,
+        "car": 10
+      },
+      {
+        "position": 17,
+        "car": 31
+      },
+      {
+        "position": 18,
+        "car": 27
+      },
+      {
+        "position": 19,
+        "car": 23
+      }
+    ],
+    "penaltySummary": [
+      {
+        "car": 22,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions and additional power unit elements have been used",
+        "doc": 31
+      }
+    ],
+    "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2025-08-03 14:00 CET"
+  }
+}
