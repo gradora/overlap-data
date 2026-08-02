@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  stripCountdown, expectedRaceMirrors, raceSlugs, raceIdOf, isRaceMirrorOfSeason,
+  stripCountdown, expectedRaceMirrors, raceSlugs, raceIdOf, isRaceMirrorOfSeason, testSlugs,
 } from "./lib/fiawecsite.js";
 
 test("stripCountdown: цифры отсчёта вырезаются, разметка и данные остаются", () => {
@@ -73,4 +73,16 @@ test("isRaceMirrorOfSeason: числовой хвост принадлежит �
   assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_fuji_2025", 2025), true);
   assert.equal(isRaceMirrorOfSeason("en_season_2025", 2025), false, "не race-файл");
   assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_imola_2025_2026", 2025), false);
+});
+
+// ПАРНЫЙ тест с приложением (WECSeasonParser.testSlugs). Пролог обязан жить в
+// СВОЁМ списке: raceSlugs задаёт нумерацию раундов и имена derived-файлов.
+test("testSlugs: прологи отдельно от зачётных этапов", () => {
+  const html = `
+    <a href="/en/race/official-prologue-imola-2026">Prologue</a>
+    <a href="/en/race/6-hours-of-imola-2026">Imola</a>
+    <a href="/en/race/official-prologue-qatar-2025">Prologue 2025</a>`;
+  assert.deepEqual(raceSlugs(html, 2026), ["6-hours-of-imola-2026"]);
+  assert.deepEqual(testSlugs(html, 2026), ["official-prologue-imola-2026"]);
+  assert.deepEqual(testSlugs(html, 2025), ["official-prologue-qatar-2025"]);
 });
