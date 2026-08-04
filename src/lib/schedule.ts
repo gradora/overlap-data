@@ -43,6 +43,24 @@ export const SCHEDULE: Record<number, ScheduleEntry[]> = {
     { round: 10, name: "Battle on the Bricks", venue: "Indianapolis Motor Speedway", startDate: "2026-09-18", endDate: "2026-09-20" },
     { round: 11, name: "Motul Petit Le Mans", venue: "Michelin Raceway Road Atlanta", startDate: "2026-10-01", endDate: "2026-10-03" },
   ],
+  // 2027 — сверено с imsa.com/weathertech/2027-schedule (снято 02.08.2026).
+  // ROAR Before the Rolex 24 (22–24 янв) в SCHEDULE не входит: тестовые
+  // уик-энды идут отдельным каналом discovery (testRounds → tests.json).
+  // У Laguna Seca imsa.com пока не назвал событие (тайтл = площадка) — имя
+  // перекроется eventName из Al Kamel при первом скрейпе.
+  2027: [
+    { round: 1, name: "Rolex 24 At Daytona", venue: "Daytona International Speedway", startDate: "2027-01-28", endDate: "2027-01-31" },
+    { round: 2, name: "Mobil 1 Twelve Hours of Sebring", venue: "Sebring International Raceway", startDate: "2027-03-17", endDate: "2027-03-20" },
+    { round: 3, name: "Acura Grand Prix of Long Beach", venue: "Streets of Long Beach", startDate: "2027-04-16", endDate: "2027-04-17" },
+    { round: 4, name: "WeatherTech Raceway Laguna Seca", venue: "WeatherTech Raceway Laguna Seca", startDate: "2027-04-30", endDate: "2027-05-02" },
+    { round: 5, name: "Chevrolet Detroit Grand Prix", venue: "Detroit Street Circuit", startDate: "2027-06-04", endDate: "2027-06-05" },
+    { round: 6, name: "Sahlen's Six Hours of The Glen", venue: "Watkins Glen International", startDate: "2027-06-24", endDate: "2027-06-27" },
+    { round: 7, name: "Chevrolet Grand Prix", venue: "Canadian Tire Motorsport Park", startDate: "2027-07-09", endDate: "2027-07-11" },
+    { round: 8, name: "Motul SportsCar Endurance Grand Prix", venue: "Road America", startDate: "2027-07-29", endDate: "2027-08-01" },
+    { round: 9, name: "Michelin GT Challenge at VIR", venue: "VIRginia International Raceway", startDate: "2027-08-20", endDate: "2027-08-22" },
+    { round: 10, name: "TireRack.com Battle on the Bricks", venue: "Indianapolis Motor Speedway", startDate: "2027-09-17", endDate: "2027-09-19" },
+    { round: 11, name: "Motul Petit Le Mans", venue: "Michelin Raceway Road Atlanta", startDate: "2027-10-06", endDate: "2027-10-09" },
+  ],
 };
 
 // Токен-матч трассы расписания ↔ скрейпа Al Kamel (дженерик-слова не считаются,
