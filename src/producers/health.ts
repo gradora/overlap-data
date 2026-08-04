@@ -78,6 +78,10 @@ function main() {
     beasts: outcome("BEASTS_OUTCOME"),
     records: outcome("RECORDS_OUTCOME"),
     f1overrides: outcome("F1OVERRIDES_OUTCOME"),
+    // Суточный шаг (второй cron): на ежечасных прогонах штатно skipped —
+    // это не сбой, приводим к success, чтобы дебаг-меню не мигало каждый час.
+    nextseason: outcome("NEXTSEASON_OUTCOME") === "skipped"
+      ? "success" as const : outcome("NEXTSEASON_OUTCOME"),
   };
 
   const health = {

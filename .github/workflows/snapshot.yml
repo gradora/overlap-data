@@ -4,7 +4,15 @@ on:
   schedule:
     # раз в час; частить не нужно — финалы этапов замораживаются
     - cron: "17 * * * *"
-  workflow_dispatch: {}
+    # раз в сутки — проход сезона N+1 (шаг «Сезон N+1» ниже различает
+    # расписания по github.event.schedule)
+    - cron: "37 3 * * *"
+  workflow_dispatch:
+    inputs:
+      next_season:
+        description: "Прогнать также сезон N+1"
+        type: boolean
+        default: false
 
 # не запускать параллельные прогоны (перезапись data/)
 concurrency:
@@ -115,6 +123,25 @@ jobs:
         continue-on-error: true
         run: npm run f1records
 
+      # Сезон N+1 — раз в сутки. Это авто-открытие следующего года в
+      # приложении: f1 пишет <N+1>.json ТОЛЬКО когда jolpica опубликовал
+      # календарь, и mirror-first проба переключателя сезонов видит его; wec
+      # подхватывает дозаполнение времён сессий (страницы будущих этапов не
+      # замораживаются); imsa обновляет index/tests из SCHEDULE[N+1] и папки
+      # Al Kamel — ноябрьский тест сезона N+1 живёт в календарном году N и
+      # нужен ленте уже осенью. До публикации источников все три выходят тихо.
+      - name: Сезон N+1 (ежесуточно)
+        id: nextseason
+        if: github.event.schedule == '37 3 * * *' || inputs.next_season
+        continue-on-error: true
+        run: |
+          NEXT=$(( $(date -u +%Y) + 1 ))
+          FAIL=0
+          SEASON=$NEXT npm run f1   || FAIL=1
+          SEASON=$NEXT npm run wec  || FAIL=1
+          SEASON=$NEXT npm run imsa || FAIL=1
+          exit $FAIL
+
       # После зеркала f1: правило «переехало» читает свежий current.json.
       - name: GC override-календаря F1 (отжившие ручные записи)
         id: f1overrides
@@ -145,6 +172,7 @@ jobs:
           BEASTS_OUTCOME: ${{ steps.beasts.outcome }}
           RECORDS_OUTCOME: ${{ steps.records.outcome }}
           F1OVERRIDES_OUTCOME: ${{ steps.f1overrides.outcome }}
+          NEXTSEASON_OUTCOME: ${{ steps.nextseason.outcome }}
         run: npm run health
 
       - name: Закоммитить изменения
@@ -163,7 +191,8 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}"; do
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}" \
+                   "nextseason=${{ steps.nextseason.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi
           done

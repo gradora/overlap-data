@@ -222,6 +222,12 @@ export function hasSeasonSnapshots(fileNames: string[]): boolean {
 async function main() {
   const schedule = SCHEDULE[YEAR] ?? [];
   if (schedule.length === 0) {
+    // Будущий сезон (ежесуточный N+1-проход): SCHEDULE[N+1] ещё не заведён —
+    // штатное межсезонье, не сбой. Fail-loud остаётся только за текущим годом.
+    if (YEAR > new Date().getUTCFullYear()) {
+      console.warn(`No curated schedule for ${YEAR} yet — future season, skip`);
+      return;
+    }
     // mkdir — ПОСЛЕ guard'а: иначе каждый январский прогон до заполнения
     // SCHEDULE[YEAR] создавал пустую data/imsa/<year>/.
     console.error(`No curated schedule for ${YEAR} — add it to src/schedule.ts`);
