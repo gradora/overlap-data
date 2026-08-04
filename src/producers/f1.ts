@@ -146,8 +146,34 @@ async function historicSeason(): Promise<void> {
   console.log(`Done (historic). ${races.length} rounds.`);
 }
 
+// Будущий сезон (ежесуточный N+1-проход крона): зеркалим ТОЛЬКО опубликованный
+// календарь. Непустой <N+1>.json в зеркале — рычаг открытия года в приложении
+// (mirror-first проба переключателя сезонов). Пустой ответ сознательно НЕ
+// пишем: пустышка в зеркале перехватывала бы mirror-first и прятала живую
+// публикацию jolpica до следующего суточного прогона.
+async function futureSeason(): Promise<void> {
+  console.log(`F1 mirror, season ${YEAR} (future)`);
+  const res = await fetchTextRetry(`${JOLPICA}/${YEAR}.json`, { attempts: 3, backoffMs: 5000 });
+  if (!res || res.status !== 200) {
+    console.log(`  MISS  ${YEAR}.json (${res?.status ?? "net"})`);
+    return;
+  }
+  let races = 0;
+  try {
+    races = Number(JSON.parse(res.text)?.MRData?.total ?? 0);
+  } catch { /* не-JSON — считаем неопубликованным */ }
+  if (races === 0) {
+    console.log(`  ${YEAR}.json пуст — календарь ещё не опубликован`);
+    return;
+  }
+  const changed = writeIfChanged(join(OUT_DIR, mirrorSlug(`${YEAR}.json`)), res.text);
+  console.log(`  ${changed ? "write" : "same "} ${YEAR}.json — сезон опубликован (${races} гонок)`);
+}
+
 async function main() {
-  if (YEAR < new Date().getUTCFullYear()) return historicSeason();
+  const current = new Date().getUTCFullYear();
+  if (YEAR < current) return historicSeason();
+  if (YEAR > current) return futureSeason();
 
   console.log(`F1 mirror, season ${YEAR}`);
 
