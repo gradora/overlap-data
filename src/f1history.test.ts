@@ -126,3 +126,19 @@ test("applyMoments: строгий матч, промах и длина — в �
   assert.equal(index.days["08-02"][0].fact, "Lewis Hamilton wins on three wheels");
   assert.equal(misses.length, 2);
 });
+
+test("applyMoments: спец-событие создаёт запись дня и не дублируется", () => {
+  const index: HistoryIndex = { seasons: [], days: {} };
+  const moments = [{
+    day: "06-11", year: 1966, special: true, title: "24 Hours of Le Mans",
+    tag: "FORD 1-2-3", fact: "Ford swept Le Mans 1-2-3 to end Ferrari's reign",
+  }];
+  applyMoments(index, moments);
+  applyMoments(index, moments);   // повторный прогон — без дублей
+  const day = index.days["06-11"];
+  assert.equal(day.length, 1);
+  assert.equal(day[0].round, -1);
+  assert.equal(day[0].tag, "FORD 1-2-3");
+  assert.equal(day[0].name, "24 Hours of Le Mans");
+  assert.equal(day[0].winner, undefined);
+});

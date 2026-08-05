@@ -207,10 +207,16 @@ export function computeFacts(index: HistoryIndex): void {
 export interface Moment {
   day: string;    // «MM-DD»
   year: number;
-  race: string;   // точное raceName — защита от попадания не в ту гонку
+  race?: string;  // точное raceName — защита от попадания не в ту гонку
   tag: string;
   fact: string;
   sourceUrl?: string;
+  /// Спец-событие БЕЗ гонки F1 в этот день: легендарные моменты WEC/IMSA
+  /// (Ле-Ман, Дайтона, Себринг), вехи и трипл-крауны. Создаёт собственную
+  /// запись дня, а не накладывается на существующую. title — подпись-имя
+  /// события (фолбэк заголовка, если tag почему-то пуст).
+  special?: boolean;
+  title?: string;
 }
 
 /// Накладывает курируемые факты ПОВЕРХ вычисленных. Матч строгий — по дню,
@@ -218,13 +224,34 @@ export interface Moment {
 /// попадает в отчёт (опечатка в moments.json не должна молча пропасть).
 export function applyMoments(index: HistoryIndex, moments: Moment[]): string[] {
   const misses: string[] = [];
+  // Спец-записи прошлых прогонов вычищаются перед наложением: их источник
+  // истины — moments.json, повторный прогон не должен дублировать.
+  for (const [day, races] of Object.entries(index.days)) {
+    const kept = races.filter((r) => r.round >= 0);
+    if (kept.length) index.days[day] = kept;
+    else delete index.days[day];
+  }
   for (const m of moments) {
+    if (m.fact.length > 112 || m.tag.length > 18) {
+      misses.push(`${m.day} ${m.year} «${m.race ?? m.title ?? m.tag}» (длина fact/tag)`);
+      continue;
+    }
+    if (m.special) {
+      // Отрицательный round: уникальный id внутри дня (year-round) и признак
+      // «не гонка F1» — фильтр выше чистит именно по нему.
+      const list = index.days[m.day] ?? [];
+      const ordinal = -(list.filter((r) => r.round < 0).length + 1);
+      list.push({
+        year: m.year, round: ordinal, name: m.title ?? m.tag,
+        circuit: "", country: "", fact: m.fact, tag: m.tag,
+      });
+      list.sort((a, b) => b.year - a.year);
+      index.days[m.day] = list;
+      continue;
+    }
     const races = index.days[m.day] ?? [];
     const race = races.find((r) => r.year === m.year && r.name === m.race);
     if (!race) { misses.push(`${m.day} ${m.year} «${m.race}»`); continue; }
-    if (m.fact.length > 112 || m.tag.length > 18) {
-      misses.push(`${m.day} ${m.year} «${m.race}» (длина fact/tag)`); continue;
-    }
     race.fact = m.fact;
     race.tag = m.tag;
   }
