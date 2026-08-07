@@ -69,9 +69,6 @@ const NOW = Date.now();
 const EVENT_WINDOW_DAYS = 14;
 /// Потолок карточек в выдаче: полка показывает первые, категория — все.
 const MAX_CARDS = 10;
-/// Датирующих запросов за прогон (у каждого результат кэшируется навсегда —
-/// дата 200-й победы больше не изменится).
-const MAX_PROBES = 12;
 type Hook =
   | { kind: "milestone"; step: number; flavour?: string } // к следующей круглой цифре
   | { kind: "firstPast"; threshold: number }              // единственный за порогом
@@ -152,7 +149,17 @@ export interface Subject {
   number: string | null; // у команд null
   teamId: string;       // «red_bull» — цвет полоски
   family?: string;      // «Verstappen» — для притяжательных в тексте
+  given?: string;       // «Charles» — подпись зовёт пилота полным именем
   team?: boolean;       // субъект-команда
+}
+
+/// Темп метрики: сколько набрано в этом сезоне и когда был первый и последний.
+/// Считается из той же хронологии, по которой берётся счётчик, — своих
+/// запросов не стоит.
+export interface Tempo {
+  thisSeason: number;
+  firstSeason: number | null;
+  lastSeason: number | null;
 }
 
 /// Взятый рубеж с точной датой и гонкой — считается из хронологии (offset),
@@ -196,6 +203,11 @@ export interface BuildOpts {
   schedule?: { completedRounds: number; races: { round: number; raceName: string }[] };
   now?: number;
   maxCards?: number;
+  /// «leclerc:poles» → темп метрики. Нет ключа — подпись уйдёт на запасной
+  /// угол (место на решётке).
+  tempo?: Record<string, Tempo>;
+  /// Сезон, который считается «этим» (для темпа). По умолчанию — из YEAR.
+  season?: number;
 }
 
 const UP = (s: string) => s.toUpperCase();
@@ -210,6 +222,12 @@ function label(info: Subject): string {
 /// Имя для притяжательных оборотов: фамилия пилота либо название команды.
 function ownerName(info: Subject): string {
   return info.family ?? info.driver;
+}
+
+/// Имя для подписи: пилота зовём полным («Charles Leclerc»), команду — как
+/// есть. Подпись говорит человеческим языком, а не инициалом из шапки.
+function fullName(info: Subject): string {
+  return info.given && info.family ? `${info.given} ${info.family}` : info.driver;
 }
 
 /// Набор метрик автоскана для субъекта — у команд он свой (см. BUILTIN_SCAN).
@@ -254,21 +272,110 @@ function eventCard(e: RecordEvent, S: Record<string, Subject | null>): RecordCar
   };
 }
 
+/// Место субъекта по метрике среди тех, кто выступает сегодня.
+interface GridRank { place: number; ahead: { name: string; value: number }[] }
+
+/// Числительное словом до десяти — с цифры предложение начинать некрасиво,
+/// а в середине фразы слово читается мягче.
+const WORDS = ["zero", "one", "two", "three", "four", "five",
+               "six", "seven", "eight", "nine", "ten"];
+function numberWord(n: number, capital = false): string {
+  if (n < 1 || n > 10) return `${n}`;
+  const w = WORDS[n];
+  return capital ? w[0].toUpperCase() + w.slice(1) : w;
+}
+
+/// Рейтинг по метрике внутри своей категории (пилоты и команды считаются
+/// отдельно — сравнивать их между собой бессмысленно). Впереди — только те,
+/// у кого СТРОГО больше: с равным счётом никто никого не догоняет.
+function gridRanks(
+  V: Record<string, number | null>, S: Record<string, Subject | null>,
+  metric: Metric, isTeam: boolean,
+): Record<string, GridRank> {
+  const rows: { key: string; name: string; value: number }[] = [];
+  for (const key of Object.keys(S)) {
+    const info = S[key];
+    if (!info || (info.team === true) !== isTeam) continue;
+    const value = val(V, key, metric);
+    if (value == null || value <= 0) continue;
+    rows.push({ key, name: fullName(info), value });
+  }
+  rows.sort((a, b) => b.value - a.value);
+  const out: Record<string, GridRank> = {};
+  for (const row of rows) {
+    const ahead = rows.filter((x) => x.value > row.value).map((x) => ({ name: x.name, value: x.value }));
+    out[row.key] = { place: ahead.length + 1, ahead };
+  }
+  return out;
+}
+
+/// Сколько сезонов без нового результата считается засухой. Год назад — это
+/// прошлый сезон, а не ожидание: подавать его как драму нечестно.
+const DROUGHT_SEASONS = 2;
+
+/// Подпись карточки автоскана. Рубеж и разрыв уже нарисованы заголовком и
+/// полоской, поэтому строка НЕ пересказывает их, а добавляет то, чего в
+/// цифрах не видно, — и всегда о ТОЙ ЖЕ метрике, иначе теряется, о чём
+/// карточка вообще.
+///
+/// Порядок углов: темп (набирает сейчас / давно стоит) — он и объясняет,
+/// близок ли рубеж на самом деле; если темпа нет (подиумы склеены из трёх
+/// выборок, единой хронологии у них не существует) — место на решётке.
+function nearNote(
+  info: Subject, value: number, target: number, stat: string,
+  tempo: Tempo | undefined, rank: GridRank | undefined, season: number,
+): string {
+  const name = fullName(info);
+  const noun = singular(stat);
+  const grid = info.team ? "among the teams on the grid" : "on the current grid";
+  const unit = (n: number) => (n === 1 ? noun : stat);
+
+  if (tempo && tempo.thisSeason > 0) {
+    const n = tempo.thisSeason;
+    const first = tempo.firstSeason != null && tempo.firstSeason < season
+      ? ` — the first of them back in ${tempo.firstSeason}`
+      : "";
+    return `${numberWord(n, true)} of ${possessive(name)} ${numberWord(value)} ${stat} `
+      + `${n === 1 ? "came" : "have come"} this season${first}.`;
+  }
+  if (tempo?.lastSeason != null && season - tempo.lastSeason >= DROUGHT_SEASONS) {
+    const years = season - tempo.lastSeason;
+    return `${name} has gone ${numberWord(years)} seasons without one — `
+      + `number ${target} has been waiting since ${tempo.lastSeason}.`;
+  }
+  if (rank) {
+    if (rank.place === 1) {
+      return `${name} has more ${stat} than anyone else ${grid}: ${value} and counting.`;
+    }
+    if (rank.place === 2) {
+      return `Only ${rank.ahead[0].name} has more ${stat} ${grid}: ${rank.ahead[0].value} against ${value}.`;
+    }
+    if (rank.place === 3) {
+      return `Only ${rank.ahead[0].name} and ${rank.ahead[1].name} have more ${stat} ${grid}: `
+        + `${rank.ahead[0].value} and ${rank.ahead[1].value} against ${value}.`;
+    }
+    const nearest = rank.ahead[rank.ahead.length - 1];
+    const diff = nearest.value - value;
+    return `${name} sits ${ordinal(rank.place)} ${grid} for ${stat}, `
+      + `${numberWord(diff)} ${unit(diff)} behind ${nearest.name}.`;
+  }
+  const gap = target - value;
+  return `${numberWord(gap, true)} more ${unit(gap)} for ${name} to reach ${target}.`;
+}
+
 /// Карточка автоскана «вот-вот возьмёт круглую цифру».
 function nearCard(
-  subject: string, metric: Metric, value: number, info: Subject,
+  subject: string, metric: Metric, value: number, info: Subject, opts: BuildOpts,
+  rank: GridRank | undefined,
 ): RecordCard {
   const target = nextLandmark(metric, value);
-  const gap = target - value;
   const stat = metric === "starts" ? "Grands Prix" : metric;
-  const noun = singular(stat);
-  const note = gap === 1
-    ? `One ${noun} from ${target}${target === 10 ? " — double figures" : ""}.`
-    : `${gap} ${stat} from a landmark ${target}.`;
+  const season = opts.season ?? new Date().getUTCFullYear();
   return {
     id: `near-${subject}-${metric}`,
     header: "CLOSING IN", driver: label(info),
-    title: UP(`${value} ${stat}`), note,
+    title: UP(`${value} ${stat}`),
+    note: nearNote(info, value, target, stat, opts.tempo?.[`${subject}:${metric}`], rank, season),
     progress: value / target, teamId: info.teamId,
     barLeft: `${value}`, barRight: `${target}`,
   };
@@ -443,6 +550,13 @@ export function buildCards(
   // 3. Автоскан — кто подошёл вплотную. Держим под квотой: в горячую неделю
   // «вот-вот» набирается десяток, и блок из одних только них теряет глубину.
   const near: Ranked[] = [];
+  // Рейтинги считаем один раз на метрику и категорию, а не в каждой карточке.
+  const ranks = new Map<string, Record<string, GridRank>>();
+  const rankOf = (metric: Metric, isTeam: boolean, subject: string): GridRank | undefined => {
+    const key = `${metric}:${isTeam}`;
+    if (!ranks.has(key)) ranks.set(key, gridRanks(V, S, metric, isTeam));
+    return ranks.get(key)![subject];
+  };
   for (const subject of Object.keys(S).sort()) {
     const info = S[subject];
     if (!info) continue;
@@ -457,7 +571,11 @@ export function buildCards(
       const gap = target - value;
       if (gap > (scan.near?.[metric] ?? NEAR[metric])) continue;
       covered.add(`${subject}:${metric}`);
-      near.push({ card: nearCard(subject, metric, value, info), tier: TIER.near, gap });
+      near.push({
+        card: nearCard(subject, metric, value, info, opts,
+                       rankOf(metric, info.team === true, subject)),
+        tier: TIER.near, gap,
+      });
     }
   }
   near.sort((a, b) => a.gap - b.gap || b.card.progress - a.card.progress || a.card.id.localeCompare(b.card.id));
@@ -476,7 +594,7 @@ export function buildCards(
 /// Версия семантики кэша. Меняется, когда метрика начинает считаться иначе
 /// (поулы переехали с grid/1 на фильтрованный qualifying/1) — старые цифры и
 /// датировки в этом случае не «устарели», а неверны, и должны быть выброшены.
-const STATE_VERSION = 2;
+const STATE_VERSION = 3;
 
 interface ProbeHit { date: string; race: string; season: number; round: number; by?: string }
 interface State {
@@ -484,6 +602,7 @@ interface State {
   season: number;
   fingerprint: string;
   raw: Record<string, number>;      // «leclerc:p1» → 9
+  tempo: Record<string, Tempo>;     // «leclerc:poles» → темп для подписи
   probes: Record<string, ProbeHit>; // «leclerc:poles:25» → когда и где взял
   groups?: Record<string, string[]>; // «mclaren» → ["mclaren","mclaren-ford",…]
 }
@@ -494,11 +613,11 @@ function loadState(): State {
     if (s?.season === YEAR && s?.raw && s?.version === STATE_VERSION) {
       return {
         version: STATE_VERSION, season: YEAR, fingerprint: String(s.fingerprint ?? ""),
-        raw: s.raw, probes: s.probes ?? {}, groups: s.groups,
+        raw: s.raw, tempo: s.tempo ?? {}, probes: s.probes ?? {}, groups: s.groups,
       };
     }
   } catch { /* нет файла — соберём с нуля */ }
-  return { version: STATE_VERSION, season: YEAR, fingerprint: "", raw: {}, probes: {} };
+  return { version: STATE_VERSION, season: YEAR, fingerprint: "", raw: {}, tempo: {}, probes: {} };
 }
 
 /// Короткий отпечаток строки (FNV-1a) — чтобы вектор очков не раздувал файл.
@@ -515,16 +634,6 @@ async function total(path: string): Promise<number | null> {
   const d = await fetchJSON(`${JOLPICA}/${path}.json?limit=1`);
   const n = Number(d?.MRData?.total);
   return Number.isFinite(n) ? n : null;
-}
-
-/// N-я запись хронологии (offset N−1) — гонка и дата, на которых был взят
-/// рубеж. Дешёвый путь: годится там, где выборка однородна и не склеена из
-/// нескольких id (победы одиночного субъекта).
-async function probe(path: string, n: number): Promise<ProbeHit | null> {
-  const d = await fetchJSON(`${JOLPICA}/${path}.json?limit=1&offset=${n - 1}`);
-  const r = d?.MRData?.RaceTable?.Races?.[0];
-  if (!r?.date || !r?.raceName) return null;
-  return hitOf(r, r?.Results?.[0]?.Driver);
 }
 
 function hitOf(r: any, drv: any): ProbeHit {
@@ -585,10 +694,11 @@ const keepPole = (r: any) => {
 /// Победа — выборка results/1 однородна, фильтровать нечего.
 const keepWin = (r: any) => r?.Results?.[0]?.Driver ?? null;
 
-/// Метрики, которые считаются ПОСТРОЧНО: счётчику total по ним верить нельзя
-/// (старты включают невыезды, поулы — чужие строки). Побочный плюс — дата
-/// N-го события достаётся из той же выкачки бесплатно.
-const COUNTED: Metric[] = ["starts", "poles"];
+// Старты, поулы и победы считаются ПОСТРОЧНО. У стартов и поулов счётчику
+// total верить нельзя (старты включают невыезды, поулы — чужие строки), а
+// победы выкачиваем ради ТЕМПА: подпись карточки говорит, сколько их пришло в
+// этом сезоне и когда была первая, — это видно только из хронологии. Побочно
+// оттуда же бесплатно берётся дата взятого рубежа, без отдельных запросов.
 /// Метрики, у которых рубеж можно датировать. Подиумы — сумма трёх выборок,
 /// единой хронологии у них нет. Старты не датируем намеренно: «N-й Гран-при» —
 /// это канал юбилеев f1milestones, вторая карточка про то же была бы дублем.
@@ -714,6 +824,7 @@ async function main() {
       number: d.permanentNumber ?? null,
       teamId: teamOf.get(d.driverId) ?? "",
       family: d.familyName,
+      given: d.givenName,
     };
   }
   for (const c of constructors) {
@@ -798,19 +909,27 @@ async function main() {
       }
       return sum;
     });
-  /// Хронология метрики с кэшем в памяти прогона.
+  /// Хронология метрики с кэшем в памяти прогона. Попутно считает темп —
+  /// подпись карточки живёт именно на нём, а второй раз выкачивать не за чем.
+  const tempo: Record<string, Tempo> = fresh ? { ...state.tempo } : {};
   const chronoOf = async (subject: string, metric: Metric): Promise<ProbeHit[] | null> => {
     const key = `${subject}:${metric}`;
     if (chrono.has(key)) return chrono.get(key)!;
     const leaf = metric === "starts" ? "results" : metric === "poles" ? "qualifying/1" : "results/1";
     const keep = metric === "starts" ? keepStart : metric === "poles" ? keepPole : keepWin;
     const rows = await chronology(basesOf(subject).map((b) => `${b}/${leaf}`), keep);
-    if (rows) chrono.set(key, rows);
+    if (rows) {
+      chrono.set(key, rows);
+      tempo[key] = {
+        thisSeason: rows.filter((r) => r.season === YEAR).length,
+        firstSeason: rows[0]?.season ?? null,
+        lastSeason: rows[rows.length - 1]?.season ?? null,
+      };
+    }
     return rows;
   };
 
   for (const [subject, metrics] of need) {
-    const bases = basesOf(subject);
     const isTeam = S[subject]?.team === true;
     // Старты у команды — это записи ВСЕХ её машин, а не гонки: как «Grands
     // Prix» такую цифру показывать нельзя.
@@ -820,14 +939,12 @@ async function main() {
     if (metrics.has("poles")) {
       await cached(subject, "poles", async () => (await chronoOf(subject, "poles"))?.length ?? null);
     }
-    if (metrics.has("wins") || metrics.has("podiums")) {
-      // У склеенной команды победы считаем построчно — заодно получаем дату
-      // рубежа, которую offset по одному id дал бы неверно.
-      if (bases.length > 1 && metrics.has("wins")) {
-        await cached(subject, "p1", async () => (await chronoOf(subject, "wins"))?.length ?? null);
-      } else {
-        await rawSum(subject, "p1", "results/1");
-      }
+    if (metrics.has("wins")) {
+      // Победы — построчно: даёт темп для подписи, дату взятого рубежа и
+      // правильную склейку исторических id команды одним махом.
+      await cached(subject, "p1", async () => (await chronoOf(subject, "wins"))?.length ?? null);
+    } else if (metrics.has("podiums")) {
+      await rawSum(subject, "p1", "results/1");
     }
     if (metrics.has("podiums")) {
       await rawSum(subject, "p2", "results/2");
@@ -887,22 +1004,14 @@ async function main() {
   wanted.sort((a, b) => a.slack - b.slack);
 
   const events: RecordEvent[] = [];
-  let probes = 0;
   for (const w of wanted) {
     const key = `${w.subject}:${w.metric}:${w.probeN}`;
     let hit = state.probes[key];
     if (!hit) {
-      // Построчные метрики уже выкачаны — дата достаётся без запроса; для
-      // остальных берём дешёвый offset по единственному пути.
-      const rows = COUNTED.includes(w.metric) || basesOf(w.subject).length > 1
-        ? await chronoOf(w.subject, w.metric) : null;
-      let got = rows ? rows[w.probeN - 1] ?? null : null;
-      if (!got && !rows) {
-        if (probes >= MAX_PROBES) continue;
-        probes++;
-        got = await probe(`${basesOf(w.subject)[0]}/results/1`, w.probeN);
-        await sleep(500);
-      }
+      // Обе датируемые метрики построчные — гонка и дата берутся из уже
+      // выкачанной хронологии, отдельного запроса рубеж не стоит.
+      const rows = await chronoOf(w.subject, w.metric);
+      const got = rows?.[w.probeN - 1];
       if (!got) continue;
       hit = got;
       state.probes[key] = got;
@@ -922,14 +1031,15 @@ async function main() {
   const stamped = failed === 0 ? fingerprint : state.fingerprint;
   const kept = Object.fromEntries(Object.entries(raw).filter(([k]) => live.has(k)));
   writeIfChanged(STATE, JSON.stringify(
-    { version: STATE_VERSION, season: YEAR, fingerprint: stamped, raw: kept, probes: state.probes, groups },
+    { version: STATE_VERSION, season: YEAR, fingerprint: stamped, raw: kept, tempo,
+      probes: state.probes, groups },
     null, 2) + "\n");
   if (failed) {
     console.log(`::warning::records: ${failed} запросов не ответили — часть карточек может не построиться`);
   }
 
   const records = buildCards(V, S, {
-    catalog, events, now: NOW,
+    catalog, events, now: NOW, tempo, season: YEAR,
     schedule: races.length ? { completedRounds, races } : undefined,
   });
   if (!records.length) {
@@ -938,7 +1048,7 @@ async function main() {
   }
   const changed = writeJSONWithEnvelope(OUT, { season: YEAR, records } satisfies SeasonRecords);
   console.log(
-    `  запросов: ${fetched} счётчиков + ${probes} датирующих (кэш ${fresh ? "свежий" : "сброшен"}${failed ? `, отказов ${failed}` : ""}), субъектов: ${need.size}`,
+    `  запросов: ${fetched} счётчиков (кэш ${fresh ? "свежий" : "сброшен"}${failed ? `, отказов ${failed}` : ""}), субъектов: ${need.size}`,
   );
   console.log(
     `  ${records.length} карточек: ${records.map((r) => `${r.header[0]}:${r.title}`).join(", ")} → ${changed ? "записано" : "без изменений"}`,
