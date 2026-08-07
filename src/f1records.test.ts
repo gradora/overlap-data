@@ -7,8 +7,9 @@ import { strict as assert } from "node:assert";
 import { test } from "node:test";
 import { buildCards, groupById, type RecordEvent, type Subject } from "./producers/f1records.js";
 
-const sub = (code: string, teamId: string, number: string | null = "1", family?: string): Subject => ({
-  code, driver: `${code[0]}. ${code}`, number, teamId, family,
+const sub = (code: string, teamId: string, number: string | null = "1",
+             family?: string, given?: string): Subject => ({
+  code, driver: `${code[0]}. ${code}`, number, teamId, family, given,
 });
 const team = (id: string, name: string): Subject => ({
   code: id, driver: name, number: null, teamId: id, family: name, team: true,
@@ -92,16 +93,64 @@ test("наследник: рекорд пал — включается пого�
   assert.equal(chase.barRight, "106");
 });
 
-test("автоскан: одна победа до двузначных", () => {
-  const S = { leclerc: sub("LEC", "ferrari", "16", "Leclerc") };
+test("автоскан: цифры на полоске, смысл в подписи", () => {
+  // Заголовок и полоска уже говорят «9 из 10» — подпись обязана добавлять
+  // то, чего в них нет, и оставаться про ТУ ЖЕ метрику.
+  const S = { leclerc: sub("LEC", "ferrari", "16", "Leclerc", "Charles") };
   const V = { "leclerc:wins": 9 };
-  const card = buildCards(V, S, opts()).find((c) => c.id === "near-leclerc-wins")!;
+  const card = buildCards(V, S, opts({
+    season: 2026,
+    tempo: { "leclerc:wins": { thisSeason: 1, firstSeason: 2019, lastSeason: 2026 } },
+  })).find((c) => c.id === "near-leclerc-wins")!;
   assert.equal(card.header, "CLOSING IN");
   assert.equal(card.title, "9 WINS");
-  assert.equal(card.note, "One win from 10 — double figures.");
   assert.equal(card.barLeft, "9");
   assert.equal(card.barRight, "10");
   assert.ok(Math.abs(card.progress - 0.9) < 1e-9);
+  assert.equal(card.note,
+    "One of Charles Leclerc’s nine wins came this season — the first of them back in 2019.");
+  assert.ok(!card.note.includes("10"), "разрыв до рубежа уже нарисован полоской");
+});
+
+test("подпись: засуха считается только от двух сезонов", () => {
+  const S = { alonso: sub("ALO", "aston_martin", "14", "Alonso", "Fernando") };
+  const V = { "alonso:poles": 23 };
+  const dry = buildCards(V, S, opts({
+    season: 2026,
+    tempo: { "alonso:poles": { thisSeason: 0, firstSeason: 2003, lastSeason: 2012 } },
+  }))[0];
+  assert.equal(dry.note,
+    "Fernando Alonso has gone 14 seasons without one — number 25 has been waiting since 2012.");
+
+  // Прошлый сезон — это не ожидание: подавать его драмой нечестно, уходим
+  // на запасной угол (место на решётке; конкурентов нет → он первый).
+  const fresh = buildCards(V, S, opts({
+    season: 2026,
+    tempo: { "alonso:poles": { thisSeason: 0, firstSeason: 2003, lastSeason: 2025 } },
+  }))[0];
+  assert.ok(!fresh.note.includes("without one"));
+  assert.match(fresh.note, /more poles than anyone else on the current grid/);
+});
+
+test("подпись: место на решётке считается по строго большим", () => {
+  const S: Record<string, Subject | null> = {
+    hamilton: sub("HAM", "ferrari", "44", "Hamilton", "Lewis"),
+    max_verstappen: sub("VER", "red_bull", "3", "Verstappen", "Max"),
+    leclerc: sub("LEC", "ferrari", "16", "Leclerc", "Charles"),
+    piastri: sub("PIA", "mclaren", "81", "Piastri", "Oscar"),
+  };
+  // У Пиастри столько же поулов, сколько у Леклера: равный счёт «впереди» не
+  // ставит — иначе вышло бы «отстаёт на 0 поулов».
+  const V = {
+    "hamilton:poles": 107, "max_verstappen:poles": 51,
+    "leclerc:poles": 24, "piastri:poles": 24,
+  };
+  const cards = buildCards(V, S, opts({ season: 2026 }));
+  const lec = cards.find((c) => c.id === "near-leclerc-poles")!;
+  assert.equal(lec.note,
+    "Only Lewis Hamilton and Max Verstappen have more poles on the current grid: 107 and 51 against 24.");
+  const pia = cards.find((c) => c.id === "near-piastri-poles")!;
+  assert.ok(!pia.note.includes("behind"), "равный счёт — не отставание");
 });
 
 test("автоскан молчит, пока цель далеко", () => {
@@ -114,12 +163,17 @@ test("автоскан молчит, пока цель далеко", () => {
 });
 
 test("автоскан видит команды", () => {
-  const S = { "team:mclaren": team("mclaren", "McLaren") };
-  const V = { "team:mclaren:wins": 199 };
-  const card = buildCards(V, S, opts()).find((c) => c.id === "near-team:mclaren-wins")!;
+  const S = {
+    "team:mclaren": team("mclaren", "McLaren"),
+    "team:ferrari": team("ferrari", "Ferrari"),
+  };
+  const V = { "team:mclaren:wins": 199, "team:ferrari:wins": 251 };
+  const card = buildCards(V, S, opts({ season: 2026 })).find((c) => c.id === "near-team:mclaren-wins")!;
   assert.equal(card.driver, "McLaren");     // у команды нет номера — без «#»
   assert.equal(card.title, "199 WINS");
-  assert.match(card.note, /One win from 200\./);
+  // У команды свой оборот: «на решётке» — про команды, не про пилотов.
+  assert.equal(card.note,
+    "Only Ferrari has more wins among the teams on the grid: 251 against 199.");
 });
 
 test("взятый рубеж живёт 14 дней и вытесняет карточку погони за той же целью", () => {
