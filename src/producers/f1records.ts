@@ -197,7 +197,11 @@ export interface RecordCard {
 
 export interface SeasonRecords {
   season: number;
+  /// Блок поиска: верхушка по горячести, с потолком.
   records: RecordCard[];
+  /// По карточке на субъект БЕЗ потолка — экран команды показывает рекорды
+  /// своих пилотов, даже если в общий блок они не попали. Ключ — subject.
+  bySubject: Record<string, RecordCard>;
 }
 
 export interface BuildOpts {
@@ -206,6 +210,13 @@ export interface BuildOpts {
   schedule?: { completedRounds: number; races: { round: number; raceName: string }[] };
   now?: number;
   maxCards?: number;
+  /// Квота автоскана. Обычно берётся из каталога; экран команды просит без
+  /// лимита — ему нужна карточка на каждого пилота, а не верхушка блока.
+  maxNear?: number;
+  /// Игнорировать пороги близости и значимости. Блок поиска показывает только
+  /// то, что вот-вот случится; экрану команды нужна карточка на КАЖДОГО
+  /// пилота, даже если до круглой цифры ему далеко.
+  includeAll?: boolean;
   /// «leclerc:poles» → темп метрики. Нет ключа — подпись уйдёт на запасной
   /// угол (место на решётке).
   tempo?: Record<string, Tempo>;
@@ -325,7 +336,7 @@ const DROUGHT_SEASONS = 2;
 /// близок ли рубеж на самом деле; если темпа нет (подиумы склеены из трёх
 /// выборок, единой хронологии у них не существует) — место на решётке.
 function nearNote(
-  info: Subject, value: number, target: number, stat: string,
+  info: Subject, value: number, target: number, stat: string, metric: Metric,
   tempo: Tempo | undefined, rank: GridRank | undefined, season: number,
 ): string {
   const name = fullName(info);
@@ -335,6 +346,11 @@ function nearNote(
 
   if (tempo && tempo.thisSeason > 0) {
     const n = tempo.thisSeason;
+    // Все набраны в этом сезоне — «шесть из шести» звучит канцелярски, а
+    // «все шесть» и есть сама новость (обычно это дебютант).
+    if (n === value) {
+      return `All ${numberWord(value)} of ${possessive(name)} ${stat} have come this season.`;
+    }
     const first = tempo.firstSeason != null && tempo.firstSeason < season
       ? ` — the first of them back in ${tempo.firstSeason}`
       : "";
@@ -343,8 +359,12 @@ function nearNote(
   }
   if (tempo?.lastSeason != null && season - tempo.lastSeason >= DROUGHT_SEASONS) {
     const years = season - tempo.lastSeason;
-    return `${name} has gone ${numberWord(years)} seasons without one — `
-      + `number ${target} has been waiting since ${tempo.lastSeason}.`;
+    // Круглую цифру называем, только когда до неё рукой подать: «номер 150
+    // ждёт с 2023-го» при разрыве в сорок штук звучит выдумкой.
+    const tail = target - value <= NEAR[metric]
+      ? `number ${target} has been waiting since ${tempo.lastSeason}`
+      : `the last one came in ${tempo.lastSeason}`;
+    return `${name} has gone ${numberWord(years)} seasons without one — ${tail}.`;
   }
   if (rank) {
     // Своё число не повторяем — оно уже стоит на полоске.
@@ -379,7 +399,8 @@ function nearCard(
     id: `near-${subject}-${metric}`, subject,
     header: "CLOSING IN", driver: label(info),
     title: UP(`${value} ${stat}`),
-    note: nearNote(info, value, target, stat, opts.tempo?.[`${subject}:${metric}`], rank, season),
+    note: nearNote(info, value, target, stat, metric,
+                   opts.tempo?.[`${subject}:${metric}`], rank, season),
     progress: value / target, teamId: info.teamId,
     barLeft: `${value}`, barRight: `${target}`,
   };
@@ -570,10 +591,12 @@ export function buildCards(
       const value = val(V, subject, metric);
       if (value == null || value <= 0) continue;
       const target = nextLandmark(metric, value);
-      const floor = floorFor(scan, metric, info.team === true);
-      if (floor != null && target < floor) continue;
       const gap = target - value;
-      if (gap > (scan.near?.[metric] ?? NEAR[metric])) continue;
+      if (!opts.includeAll) {
+        const floor = floorFor(scan, metric, info.team === true);
+        if (floor != null && target < floor) continue;
+        if (gap > (scan.near?.[metric] ?? NEAR[metric])) continue;
+      }
       covered.add(`${subject}:${metric}`);
       near.push({
         card: nearCard(subject, metric, value, info, opts,
@@ -583,7 +606,7 @@ export function buildCards(
     }
   }
   near.sort((a, b) => a.gap - b.gap || b.card.progress - a.card.progress || a.card.id.localeCompare(b.card.id));
-  ranked.push(...near.slice(0, scan.maxNear ?? BUILTIN_SCAN.maxNear));
+  ranked.push(...near.slice(0, opts.maxNear ?? scan.maxNear ?? BUILTIN_SCAN.maxNear));
 
   ranked.sort((a, b) =>
     a.tier - b.tier ||
@@ -1042,15 +1065,26 @@ async function main() {
     console.log(`::warning::records: ${failed} запросов не ответили — часть карточек может не построиться`);
   }
 
-  const records = buildCards(V, S, {
+  const buildOpts = {
     catalog, events, now: NOW, tempo, season: YEAR,
     schedule: races.length ? { completedRounds, races } : undefined,
-  });
+  };
+  const records = buildCards(V, S, buildOpts);
+  // Тот же прогон без потолков: сильнейшая карточка каждого субъекта.
+  // Порядок внутри сохраняет сортировку по горячести, поэтому первая
+  // встреченная и есть лучшая.
+  const bySubject: Record<string, RecordCard> = {};
+  for (const card of buildCards(V, S, {
+    ...buildOpts, maxCards: Infinity, maxNear: Infinity, includeAll: true,
+  })) {
+    const key = card.subject;
+    if (key && !bySubject[key]) bySubject[key] = card;
+  }
   if (!records.length) {
     console.warn("records: нет карточек (данные недоступны) — пропускаем");
     return;
   }
-  const changed = writeJSONWithEnvelope(OUT, { season: YEAR, records } satisfies SeasonRecords);
+  const changed = writeJSONWithEnvelope(OUT, { season: YEAR, records, bySubject } satisfies SeasonRecords);
   console.log(
     `  запросов: ${fetched} счётчиков (кэш ${fresh ? "свежий" : "сброшен"}${failed ? `, отказов ${failed}` : ""}), субъектов: ${need.size}`,
   );
