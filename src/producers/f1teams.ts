@@ -70,6 +70,16 @@ export interface TeamDriverForm {
   qualiWins: number;
 }
 
+/// Лучшее достижение пилота за сезон — строка карточек камбэка и пит-стопа.
+export interface TeamBeast {
+  driverId: string;
+  code: string;
+  name: string;
+  value: string;      // «P19 → P7» | «2.006»
+  detail?: string;    // «12» — прирост позиций (только камбэк)
+  event: string;      // «Silverstone Grand Prix»
+}
+
 export interface TeamPage {
   constructorId: string;
   name: string;
@@ -89,6 +99,9 @@ export interface TeamPage {
   allTime: { wins: number; titles: number };
   /// Рекорды нынешних пилотов В ЭТОЙ команде — вторая половина блока RECORDS.
   driverRecords: { driverId: string; name: string; wins: number }[];
+  /// Лучший камбэк и лучший пит каждого пилота — карточки секции дуэли.
+  comebacks: TeamBeast[];
+  pits: TeamBeast[];
 }
 
 /// Раунд календаря с трёхбуквенным кодом — подпись пустой ячейки полоски
@@ -218,6 +231,60 @@ export function applyQualiDuel(form: TeamDriverForm[], quali: any[]): void {
     const f = byId.get(best.id);
     if (f) f.qualiWins += 1;
   }
+}
+
+/// Лучший камбэк каждого пилота: максимальный прирост позиций старт→финиш.
+/// Считается из тех же результатов сезона — стартовая позиция там есть.
+export function buildComebacks(form: TeamDriverForm[], races: any[]): TeamBeast[] {
+  const best = new Map<string, TeamBeast & { gain: number }>();
+  for (const race of races) {
+    for (const row of race?.Results ?? []) {
+      const id = row?.Driver?.driverId;
+      const grid = Number(row?.grid);
+      const pos = Number(row?.position);
+      // Старт с пит-лейна (grid 0) и сходы прирост не считают.
+      if (!id || !Number.isFinite(grid) || !Number.isFinite(pos) || grid <= 0 || pos <= 0) continue;
+      const gain = grid - pos;
+      if (gain <= 0) continue;
+      const prev = best.get(id);
+      if (prev && prev.gain >= gain) continue;
+      const f = form.find((x) => x.driverId === id);
+      best.set(id, {
+        driverId: id, code: f?.code ?? "", name: f?.name ?? "",
+        value: `P${grid} → P${pos}`, detail: `${gain}`,
+        event: String(race?.raceName ?? ""), gain,
+      });
+    }
+  }
+  return form.map((f) => best.get(f.driverId)).filter((x): x is TeamBeast & { gain: number } => !!x)
+    .map(({ gain: _gain, ...rest }) => rest);
+}
+
+/// Лучший пит-стоп пилота: highlights хранят самый быстрый пит КАЖДОГО этапа
+/// (одна строка на гонку), поэтому берём те этапы, где он достался нашему
+/// пилоту, и оставляем лучший. Файлы уже в зеркале — сети не требуется.
+export function buildPits(form: TeamDriverForm[], rounds: SeasonRound[], year: number): TeamBeast[] {
+  const best = new Map<string, TeamBeast & { seconds: number }>();
+  for (const r of rounds) {
+    let data: any;
+    try {
+      data = JSON.parse(readFileSync(join(DATA, "highlights", `${year}_${r.round}.json`), "utf8"));
+    } catch { continue; }
+    const pit = data?.fastestPitStop;
+    const seconds = Number(pit?.seconds);
+    if (!pit?.driver || !Number.isFinite(seconds)) continue;
+    // В highlights пилот записан как «C. Leclerc» — тем же видом, что в форме.
+    const f = form.find((x) => x.name === String(pit.driver).trim());
+    if (!f) continue;
+    const prev = best.get(f.driverId);
+    if (prev && prev.seconds <= seconds) continue;
+    best.set(f.driverId, {
+      driverId: f.driverId, code: f.code, name: f.name,
+      value: seconds.toFixed(3), event: r.race, seconds,
+    });
+  }
+  return form.map((f) => best.get(f.driverId)).filter((x): x is TeamBeast & { seconds: number } => !!x)
+    .map(({ seconds: _s, ...rest }) => rest);
 }
 
 // ── Сеть ────────────────────────────────────────────────────────────────────
@@ -455,6 +522,8 @@ async function main() {
       form,
       home,
       alsoIn: facts?.alsoIn ?? [],
+      comebacks: buildComebacks(form, seasonRaces ?? []),
+      pits: buildPits(form, rounds, YEAR),
       firstSeason: firstSeason || null,
       allTime: { wins: allWins, titles },
       driverRecords,

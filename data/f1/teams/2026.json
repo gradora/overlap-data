@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T17:49:11.688Z",
+  "generatedAt": "2026-08-07T18:10:08.386Z",
   "season": 2026,
   "rounds": [
     {
@@ -306,6 +306,25 @@
         "poles": 12
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "russell",
+          "code": "RUS",
+          "name": "G. Russell",
+          "value": "P4 → P2",
+          "detail": "2",
+          "event": "British Grand Prix"
+        },
+        {
+          "driverId": "antonelli",
+          "code": "ANT",
+          "name": "A. Antonelli",
+          "value": "P7 → P3",
+          "detail": "4",
+          "event": "Hungarian Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 1954,
       "allTime": {
         "wins": 139,
@@ -512,6 +531,40 @@
       "alsoIn": [
         "wec",
         "imsa"
+      ],
+      "comebacks": [
+        {
+          "driverId": "leclerc",
+          "code": "LEC",
+          "name": "C. Leclerc",
+          "value": "P8 → P4",
+          "detail": "4",
+          "event": "Canadian Grand Prix"
+        },
+        {
+          "driverId": "hamilton",
+          "code": "HAM",
+          "name": "L. Hamilton",
+          "value": "P7 → P4",
+          "detail": "3",
+          "event": "Australian Grand Prix"
+        }
+      ],
+      "pits": [
+        {
+          "driverId": "leclerc",
+          "code": "LEC",
+          "name": "C. Leclerc",
+          "value": "2.200",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "hamilton",
+          "code": "HAM",
+          "name": "L. Hamilton",
+          "value": "2.000",
+          "event": "Japanese Grand Prix"
+        }
       ],
       "firstSeason": 1950,
       "allTime": {
@@ -720,6 +773,33 @@
         "formulae",
         "indycar"
       ],
+      "comebacks": [
+        {
+          "driverId": "norris",
+          "code": "NOR",
+          "name": "L. Norris",
+          "value": "P13 → P7",
+          "detail": "6",
+          "event": "Belgian Grand Prix"
+        },
+        {
+          "driverId": "piastri",
+          "code": "PIA",
+          "name": "O. Piastri",
+          "value": "P7 → P3",
+          "detail": "4",
+          "event": "Miami Grand Prix"
+        }
+      ],
+      "pits": [
+        {
+          "driverId": "norris",
+          "code": "NOR",
+          "name": "L. Norris",
+          "value": "2.400",
+          "event": "Chinese Grand Prix"
+        }
+      ],
       "firstSeason": 1968,
       "allTime": {
         "wins": 204,
@@ -924,6 +1004,25 @@
         "poles": 5
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "max_verstappen",
+          "code": "VER",
+          "name": "M. Verstappen",
+          "value": "P20 → P6",
+          "detail": "14",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "hadjar",
+          "code": "HAD",
+          "name": "I. Hadjar",
+          "value": "P21 → P6",
+          "detail": "15",
+          "event": "Belgian Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2005,
       "allTime": {
         "wins": 130,
@@ -1128,6 +1227,25 @@
         "poles": 0
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "arvid_lindblad",
+          "code": "LIN",
+          "name": "A. Lindblad",
+          "value": "P15 → P7",
+          "detail": "8",
+          "event": "Monaco Grand Prix"
+        },
+        {
+          "driverId": "lawson",
+          "code": "LAW",
+          "name": "L. Lawson",
+          "value": "P14 → P7",
+          "detail": "7",
+          "event": "Chinese Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2024,
       "allTime": {
         "wins": 0,
@@ -1334,6 +1452,25 @@
       "alsoIn": [
         "wec"
       ],
+      "comebacks": [
+        {
+          "driverId": "gasly",
+          "code": "GAS",
+          "name": "P. Gasly",
+          "value": "P14 → P7",
+          "detail": "7",
+          "event": "Barcelona Grand Prix"
+        },
+        {
+          "driverId": "colapinto",
+          "code": "COL",
+          "name": "F. Colapinto",
+          "value": "P19 → P9",
+          "detail": "10",
+          "event": "British Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2021,
       "allTime": {
         "wins": 1,
@@ -1538,6 +1675,25 @@
         "poles": 0
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "bearman",
+          "code": "BEA",
+          "name": "O. Bearman",
+          "value": "P16 → P10",
+          "detail": "6",
+          "event": "Canadian Grand Prix"
+        },
+        {
+          "driverId": "ocon",
+          "code": "OCO",
+          "name": "E. Ocon",
+          "value": "P17 → P9",
+          "detail": "8",
+          "event": "Monaco Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2016,
       "allTime": {
         "wins": 0,
@@ -1742,6 +1898,25 @@
         "poles": 0
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "bortoleto",
+          "code": "BOR",
+          "name": "G. Bortoleto",
+          "value": "P21 → P12",
+          "detail": "9",
+          "event": "Miami Grand Prix"
+        },
+        {
+          "driverId": "hulkenberg",
+          "code": "HUL",
+          "name": "N. Hülkenberg",
+          "value": "P13 → P11",
+          "detail": "2",
+          "event": "Japanese Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2026,
       "allTime": {
         "wins": 0,
@@ -1946,6 +2121,33 @@
         "poles": 3
       },
       "alsoIn": [],
+      "comebacks": [
+        {
+          "driverId": "albon",
+          "code": "ALB",
+          "name": "A. Albon",
+          "value": "P15 → P10",
+          "detail": "5",
+          "event": "Miami Grand Prix"
+        },
+        {
+          "driverId": "sainz",
+          "code": "SAI",
+          "name": "C. Sainz",
+          "value": "P17 → P9",
+          "detail": "8",
+          "event": "Chinese Grand Prix"
+        }
+      ],
+      "pits": [
+        {
+          "driverId": "albon",
+          "code": "ALB",
+          "name": "A. Albon",
+          "value": "2.100",
+          "event": "Barcelona Grand Prix"
+        }
+      ],
       "firstSeason": 1975,
       "allTime": {
         "wins": 114,
@@ -2152,6 +2354,25 @@
       "alsoIn": [
         "wec"
       ],
+      "comebacks": [
+        {
+          "driverId": "stroll",
+          "code": "STR",
+          "name": "L. Stroll",
+          "value": "P22 → P15",
+          "detail": "7",
+          "event": "Canadian Grand Prix"
+        },
+        {
+          "driverId": "alonso",
+          "code": "ALO",
+          "name": "F. Alonso",
+          "value": "P21 → P10",
+          "detail": "11",
+          "event": "Monaco Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 1959,
       "allTime": {
         "wins": 0,
@@ -2359,6 +2580,25 @@
         "wec",
         "imsa"
       ],
+      "comebacks": [
+        {
+          "driverId": "perez",
+          "code": "PER",
+          "name": "S. Pérez",
+          "value": "P21 → P15",
+          "detail": "6",
+          "event": "Chinese Grand Prix"
+        },
+        {
+          "driverId": "bottas",
+          "code": "BOT",
+          "name": "V. Bottas",
+          "value": "P19 → P13",
+          "detail": "6",
+          "event": "Chinese Grand Prix"
+        }
+      ],
+      "pits": [],
       "firstSeason": 2026,
       "allTime": {
         "wins": 0,
