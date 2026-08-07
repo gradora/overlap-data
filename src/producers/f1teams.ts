@@ -63,6 +63,11 @@ export interface TeamDriverForm {
   number: string | null;
   name: string;        // «C. Leclerc»
   results: FormResult[];
+  /// Победы в спринтах и число квалификаций, выигранных у напарника, — строки
+  /// расширенной карточки дуэли. Считаются из тех же выборок, что и всё
+  /// остальное, своих запросов не стоят.
+  sprintWins: number;
+  qualiWins: number;
 }
 
 export interface TeamPage {
@@ -77,6 +82,8 @@ export interface TeamPage {
   form: TeamDriverForm[];
   /// Домашняя трасса и всевременные итоги команды НА НЕЙ.
   home?: { circuitId: string; name: string; wins: number; poles: number };
+  /// Другие серии бренда: наши (wec, imsa) и внешние (formulae, indycar).
+  alsoIn: string[];
   /// Первый сезон команды в чемпионате — подпись «From 1950» в рекордах.
   firstSeason: number | null;
   allTime: { wins: number; titles: number };
@@ -166,6 +173,8 @@ export function buildForm(races: any[]): TeamDriverForm[] {
           number: d.permanentNumber ?? null,
           name: `${String(d.givenName ?? "").slice(0, 1)}. ${d.familyName ?? ""}`.trim(),
           results: [],
+          sprintWins: 0,
+          qualiWins: 0,
         });
       }
       const pos = Number(row?.position);
@@ -180,6 +189,35 @@ export function buildForm(races: any[]): TeamDriverForm[] {
   for (const form of byDriver.values()) form.results.sort((a, b) => a.round - b.round);
   // Порядок пилотов — по числу этапов: основной состав раньше подменных.
   return [...byDriver.values()].sort((a, b) => b.results.length - a.results.length);
+}
+
+/// Победы в спринтах — по тем же строкам, что и свод спринтов.
+export function applySprintWins(form: TeamDriverForm[], sprints: any[]): void {
+  const byId = new Map(form.map((f) => [f.driverId, f]));
+  for (const race of sprints) {
+    for (const row of race?.SprintResults ?? []) {
+      if (Number(row?.position) === 1) {
+        const f = byId.get(row?.Driver?.driverId);
+        if (f) f.sprintWins += 1;
+      }
+    }
+  }
+}
+
+/// Квали-дуэль: на каждом этапе сравниваем позиции напарников и засчитываем
+/// победу тому, кто впереди. Этапы, где выехал только один, не считаем — это
+/// не дуэль, а отсутствие соперника.
+export function applyQualiDuel(form: TeamDriverForm[], quali: any[]): void {
+  const byId = new Map(form.map((f) => [f.driverId, f]));
+  for (const race of quali) {
+    const rows = (race?.QualifyingResults ?? [])
+      .map((r: any) => ({ id: r?.Driver?.driverId, pos: Number(r?.position) }))
+      .filter((r: any) => r.id && Number.isFinite(r.pos));
+    if (rows.length < 2) continue;
+    const best = rows.reduce((a: any, b: any) => (b.pos < a.pos ? b : a));
+    const f = byId.get(best.id);
+    if (f) f.qualiWins += 1;
+  }
 }
 
 // ── Сеть ────────────────────────────────────────────────────────────────────
@@ -204,7 +242,11 @@ async function total(path: string): Promise<number | null> {
 }
 
 interface Catalog {
-  teams: Record<string, { base?: { country: string; city: string }; home?: string }>;
+  teams: Record<string, {
+    base?: { country: string; city: string };
+    home?: string;
+    alsoIn?: string[];
+  }>;
 }
 
 function loadCatalog(): Catalog {
@@ -391,6 +433,8 @@ async function main() {
     });
 
     const form = buildForm(seasonRaces ?? []);
+    applySprintWins(form, sprints ?? []);
+    applyQualiDuel(form, quali ?? []);
     const driverRecords: TeamPage["driverRecords"] = [];
     for (const d of form) {
       const wins = await cached(`${id}:driver:${d.driverId}:wins`, async () => {
@@ -410,6 +454,7 @@ async function main() {
       gp, sprint,
       form,
       home,
+      alsoIn: facts?.alsoIn ?? [],
       firstSeason: firstSeason || null,
       allTime: { wins: allWins, titles },
       driverRecords,
