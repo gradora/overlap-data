@@ -1,19 +1,27 @@
 {
-  "_comment": "Курируемые факты команд F1 (правится руками, продьюсер f1teams читает отсюда). base — страна и город фабрики для подписи героя; home — домашняя трасса (circuitId Jolpica), по ней считаются победы и поулы в секции HISTORY. Выбираем трассу, которая ЕСТЬ в текущем календаре: у Альпин и Racing Bulls «родные» Поль-Рикар и Имола из него выпали, а показывать статистику трассы, куда команда больше не приезжает, бессмысленно — взяты Сильверстоун (фабрика в Энстоне) и Монца (фабрика в Фаэнце). Ключ — constructorId Jolpica. Базы проверены веб-ресёрчем со скептиком; спорный только Кадиллак — взят Base из профиля команды на formula1.com.",
+  "_comment": "Курируемые факты команд F1 (правится руками, продьюсер f1teams читает отсюда). base — страна и город фабрики для подписи героя; home — домашняя трасса (circuitId Jolpica), по ней считаются победы и поулы в секции HISTORY. Выбираем трассу, которая ЕСТЬ в текущем календаре: у Альпин и Racing Bulls «родные» Поль-Рикар и Имола из него выпали, а показывать статистику трассы, куда команда больше не приезжает, бессмысленно — взяты Сильверстоун (фабрика в Энстоне) и Монца (фабрика в Фаэнце). Ключ — constructorId Jolpica. Базы проверены веб-ресёрчем со скептиком; спорный только Кадиллак — взят Base из профиля команды на formula1.com. alsoIn — другие серии, где выступает бренд: наши (wec, imsa) открываются кнопкой, внешние (formulae, indycar) показываются строкой без перехода. Список курируемый: составы серий меняются каждый год.",
   "teams": {
     "ferrari": {
       "base": {
         "country": "Italy",
         "city": "Maranello"
       },
-      "home": "monza"
+      "home": "monza",
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
     },
     "mclaren": {
       "base": {
         "country": "United Kingdom",
         "city": "Woking"
       },
-      "home": "silverstone"
+      "home": "silverstone",
+      "alsoIn": [
+        "formulae",
+        "indycar"
+      ]
     },
     "mercedes": {
       "base": {
@@ -41,14 +49,20 @@
         "country": "United Kingdom",
         "city": "Silverstone"
       },
-      "home": "silverstone"
+      "home": "silverstone",
+      "alsoIn": [
+        "wec"
+      ]
     },
     "alpine": {
       "base": {
         "country": "United Kingdom",
         "city": "Enstone"
       },
-      "home": "silverstone"
+      "home": "silverstone",
+      "alsoIn": [
+        "wec"
+      ]
     },
     "haas": {
       "base": {
@@ -83,7 +97,11 @@
         "country": "United Kingdom",
         "city": "Silverstone"
       },
-      "home": "americas"
+      "home": "americas",
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
     }
   }
 }

@@ -190,6 +190,9 @@ export interface RecordCard {
   barLeft: string;      // подпись у левого края полоски («438» | «WINS»)
   barRight: string;     // подпись у правого края («450» | «106»)
   dedupKey?: string;    // «gp-450-alonso» — чтобы клиент не дублировал юбилей
+  /// Ключ субъекта («leclerc» / «team:mclaren») — по нему экран команды
+  /// отбирает карточки своих пилотов и свои собственные.
+  subject?: string;
 }
 
 export interface SeasonRecords {
@@ -254,7 +257,7 @@ function eventCard(e: RecordEvent, S: Record<string, Subject | null>): RecordCar
   if (e.kind === "chase") {
     const verb = e.matched ? "matched" : "passed";
     return {
-      id: `event-broken-${e.subject}-${e.metric}-${e.n}`,
+      id: `event-broken-${e.subject}-${e.metric}-${e.n}`, subject: e.subject,
       header: "RECORD BROKEN", driver: label(info),
       title: UP(`${e.value} ${e.stat}`),
       note: `${who} ${verb} ${possessive(e.holder ?? "the record")} ${e.n} at the ${e.race}.`,
@@ -265,7 +268,7 @@ function eventCard(e: RecordEvent, S: Record<string, Subject | null>): RecordCar
     ? `${possessive(who)} ${ordinal(e.n)} ${noun} came from ${e.by} at the ${e.race}.`
     : `${possessive(who)} ${ordinal(e.n)} ${noun} came at the ${e.race}.`;
   return {
-    id: `event-landmark-${e.subject}-${e.metric}-${e.n}`,
+    id: `event-landmark-${e.subject}-${e.metric}-${e.n}`, subject: e.subject,
     header: "LANDMARK", driver: label(info),
     title: UP(`${e.n} ${e.stat}`), note,
     progress: 1, teamId: info.teamId, barLeft: UP(e.stat), barRight: `${e.value}`,
@@ -373,7 +376,7 @@ function nearCard(
   const stat = metric === "starts" ? "Grands Prix" : metric;
   const season = opts.season ?? new Date().getUTCFullYear();
   return {
-    id: `near-${subject}-${metric}`,
+    id: `near-${subject}-${metric}`, subject,
     header: "CLOSING IN", driver: label(info),
     title: UP(`${value} ${stat}`),
     note: nearNote(info, value, target, stat, opts.tempo?.[`${subject}:${metric}`], rank, season),
@@ -406,7 +409,7 @@ function heldCard(
         ? `, due at the ${venue}.`
         : h.hook.flavour ? ` — ${h.hook.flavour}.` : ".";
       return {
-        id: `held-${h.holder}-${h.stat}`, header: "MILESTONE", driver, title,
+        id: `held-${h.holder}-${h.stat}`, subject: h.holder, header: "MILESTONE", driver, title,
         note: `${gap} more for a landmark ${target}${tail}`,
         progress: value / target, teamId: info.teamId,
         barLeft: `${value}`, barRight: `${target}`,
@@ -416,7 +419,7 @@ function heldCard(
     }
     case "firstPast":
       return {
-        id: `held-${h.holder}-${h.stat}`, header: "RECORD", driver, title,
+        id: `held-${h.holder}-${h.stat}`, subject: h.holder, header: "RECORD", driver, title,
         note: `The only driver in F1 history to pass ${h.hook.threshold} ${h.stat}.`,
         progress: 1, teamId: info.teamId, barLeft: UP(h.stat), barRight: `${value}`,
       };
@@ -431,7 +434,7 @@ function heldCard(
         ? `On the podium in more than half of his ${races} Grands Prix.`
         : `A ${noun} roughly every ${(1 / ratio).toFixed(1)} races.`;
       return {
-        id: `held-${h.holder}-${h.stat}`, header: "RECORD", driver, title, note,
+        id: `held-${h.holder}-${h.stat}`, subject: h.holder, header: "RECORD", driver, title, note,
         progress: ratio, teamId: info.teamId, barLeft: UP(h.stat),
         barRight: `${value}/${races}`,
       };
@@ -461,7 +464,7 @@ function chaseCard(
   if (target == null || value >= target) return null;   // догнал — карточка уходит
   const gap = target - value;
   return {
-    id: `chase-${c.chaser}-${c.stat}`, header: "CHASING", driver: label(info),
+    id: `chase-${c.chaser}-${c.stat}`, subject: c.chaser, header: "CHASING", driver: label(info),
     title: UP(`${value} ${c.stat}`),
     note: live != null
       ? `${gap} ${c.stat} behind ${c.holder} — and the target keeps moving.`
