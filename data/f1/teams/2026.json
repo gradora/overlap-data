@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T18:10:08.386Z",
+  "generatedAt": "2026-08-07T18:23:45.090Z",
   "season": 2026,
   "rounds": [
     {
@@ -324,7 +324,22 @@
           "event": "Hungarian Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "russell",
+          "code": "RUS",
+          "name": "G. Russell",
+          "value": "2.300",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "antonelli",
+          "code": "ANT",
+          "name": "A. Antonelli",
+          "value": "2.200",
+          "event": "Miami Grand Prix"
+        }
+      ],
       "firstSeason": 1954,
       "allTime": {
         "wins": 139,
@@ -555,8 +570,8 @@
           "driverId": "leclerc",
           "code": "LEC",
           "name": "C. Leclerc",
-          "value": "2.200",
-          "event": "Australian Grand Prix"
+          "value": "2.100",
+          "event": "Japanese Grand Prix"
         },
         {
           "driverId": "hamilton",
@@ -798,6 +813,13 @@
           "name": "L. Norris",
           "value": "2.400",
           "event": "Chinese Grand Prix"
+        },
+        {
+          "driverId": "piastri",
+          "code": "PIA",
+          "name": "O. Piastri",
+          "value": "2.200",
+          "event": "Barcelona Grand Prix"
         }
       ],
       "firstSeason": 1968,
@@ -1022,7 +1044,22 @@
           "event": "Belgian Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "max_verstappen",
+          "code": "VER",
+          "name": "M. Verstappen",
+          "value": "2.400",
+          "event": "Miami Grand Prix"
+        },
+        {
+          "driverId": "hadjar",
+          "code": "HAD",
+          "name": "I. Hadjar",
+          "value": "2.300",
+          "event": "Barcelona Grand Prix"
+        }
+      ],
       "firstSeason": 2005,
       "allTime": {
         "wins": 130,
@@ -1245,7 +1282,22 @@
           "event": "Chinese Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "arvid_lindblad",
+          "code": "LIN",
+          "name": "A. Lindblad",
+          "value": "2.400",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "lawson",
+          "code": "LAW",
+          "name": "L. Lawson",
+          "value": "2.500",
+          "event": "Chinese Grand Prix"
+        }
+      ],
       "firstSeason": 2024,
       "allTime": {
         "wins": 0,
@@ -1470,7 +1522,22 @@
           "event": "British Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "gasly",
+          "code": "GAS",
+          "name": "P. Gasly",
+          "value": "2.800",
+          "event": "Chinese Grand Prix"
+        },
+        {
+          "driverId": "colapinto",
+          "code": "COL",
+          "name": "F. Colapinto",
+          "value": "2.600",
+          "event": "Chinese Grand Prix"
+        }
+      ],
       "firstSeason": 2021,
       "allTime": {
         "wins": 1,
@@ -1693,7 +1760,22 @@
           "event": "Monaco Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "bearman",
+          "code": "BEA",
+          "name": "O. Bearman",
+          "value": "3.300",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "ocon",
+          "code": "OCO",
+          "name": "E. Ocon",
+          "value": "3.400",
+          "event": "Japanese Grand Prix"
+        }
+      ],
       "firstSeason": 2016,
       "allTime": {
         "wins": 0,
@@ -1916,7 +1998,22 @@
           "event": "Japanese Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "bortoleto",
+          "code": "BOR",
+          "name": "G. Bortoleto",
+          "value": "2.100",
+          "event": "Barcelona Grand Prix"
+        },
+        {
+          "driverId": "hulkenberg",
+          "code": "HUL",
+          "name": "N. Hülkenberg",
+          "value": "2.600",
+          "event": "Barcelona Grand Prix"
+        }
+      ],
       "firstSeason": 2026,
       "allTime": {
         "wins": 0,
@@ -2146,6 +2243,13 @@
           "name": "A. Albon",
           "value": "2.100",
           "event": "Barcelona Grand Prix"
+        },
+        {
+          "driverId": "sainz",
+          "code": "SAI",
+          "name": "C. Sainz",
+          "value": "3.100",
+          "event": "Chinese Grand Prix"
         }
       ],
       "firstSeason": 1975,
@@ -2372,7 +2476,22 @@
           "event": "Monaco Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "stroll",
+          "code": "STR",
+          "name": "L. Stroll",
+          "value": "2.600",
+          "event": "Japanese Grand Prix"
+        },
+        {
+          "driverId": "alonso",
+          "code": "ALO",
+          "name": "F. Alonso",
+          "value": "2.400",
+          "event": "Barcelona Grand Prix"
+        }
+      ],
       "firstSeason": 1959,
       "allTime": {
         "wins": 0,
@@ -2598,7 +2717,22 @@
           "event": "Chinese Grand Prix"
         }
       ],
-      "pits": [],
+      "pits": [
+        {
+          "driverId": "perez",
+          "code": "PER",
+          "name": "S. Pérez",
+          "value": "3.200",
+          "event": "Australian Grand Prix"
+        },
+        {
+          "driverId": "bottas",
+          "code": "BOT",
+          "name": "V. Bottas",
+          "value": "2.900",
+          "event": "Barcelona Grand Prix"
+        }
+      ],
       "firstSeason": 2026,
       "allTime": {
         "wins": 0,

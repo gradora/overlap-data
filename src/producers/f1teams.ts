@@ -17,7 +17,7 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { writeIfChanged, writeJSONWithEnvelope } from "../lib/mirror.js";
+import { mirrorSlug, writeIfChanged, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
@@ -260,31 +260,70 @@ export function buildComebacks(form: TeamDriverForm[], races: any[]): TeamBeast[
     .map(({ gain: _gain, ...rest }) => rest);
 }
 
-/// Лучший пит-стоп пилота: highlights хранят самый быстрый пит КАЖДОГО этапа
-/// (одна строка на гонку), поэтому берём те этапы, где он достался нашему
-/// пилоту, и оставляем лучший. Файлы уже в зеркале — сети не требуется.
-export function buildPits(form: TeamDriverForm[], rounds: SeasonRound[], year: number): TeamBeast[] {
+/// Лучший пит-стоп КАЖДОГО пилота. highlights хранят только самый быстрый пит
+/// этапа — одну строку на гонку, поэтому команда, чей пилот ни разу не был
+/// лучшим, оставалась без карточки. Берём исходник: зеркало OpenF1 держит все
+/// питы гонки со `stop_duration` — стационарным временем, той же метрикой, что
+/// показывают highlights (у Jolpica в `pitstops` лежит полное время в
+/// пит-лейне, 18–27 секунд, — это про другое).
+export function buildPits(
+  form: TeamDriverForm[], rounds: SeasonRound[], year: number,
+  raceDates: Map<number, string>,
+): TeamBeast[] {
+  const meetings = readOpenF1(`meetings?year=${year}`);
+  if (!Array.isArray(meetings)) return [];
+  const byNumber = new Map(form.filter((f) => f.number).map((f) => [Number(f.number), f]));
   const best = new Map<string, TeamBeast & { seconds: number }>();
+
   for (const r of rounds) {
-    let data: any;
-    try {
-      data = JSON.parse(readFileSync(join(DATA, "highlights", `${year}_${r.round}.json`), "utf8"));
-    } catch { continue; }
-    const pit = data?.fastestPitStop;
-    const seconds = Number(pit?.seconds);
-    if (!pit?.driver || !Number.isFinite(seconds)) continue;
-    // В highlights пилот записан как «C. Leclerc» — тем же видом, что в форме.
-    const f = form.find((x) => x.name === String(pit.driver).trim());
-    if (!f) continue;
-    const prev = best.get(f.driverId);
-    if (prev && prev.seconds <= seconds) continue;
-    best.set(f.driverId, {
-      driverId: f.driverId, code: f.code, name: f.name,
-      value: seconds.toFixed(3), event: r.race, seconds,
-    });
+    const date = raceDates.get(r.round);
+    if (!date) continue;
+    const meeting = matchMeeting(meetings, date);
+    if (!meeting) continue;
+    const sessions = readOpenF1(`sessions?meeting_key=${meeting.meeting_key}`);
+    if (!Array.isArray(sessions)) continue;
+    for (const session of sessions) {
+      // Только гоночные сессии: в свободных заездах пит-стоп ничего не значит.
+      if (!/race|sprint/i.test(String(session.session_name ?? ""))) continue;
+      const pits = readOpenF1(`pit?session_key=${session.session_key}`);
+      if (!Array.isArray(pits)) continue;
+      for (const row of pits) {
+        const seconds = row?.stop_duration;
+        if (typeof seconds !== "number" || seconds <= 0) continue;
+        const f = byNumber.get(Number(row?.driver_number));
+        if (!f) continue;
+        const prev = best.get(f.driverId);
+        if (prev && prev.seconds <= seconds) continue;
+        best.set(f.driverId, {
+          driverId: f.driverId, code: f.code, name: f.name,
+          value: seconds.toFixed(3), event: r.race, seconds,
+        });
+      }
+    }
   }
   return form.map((f) => best.get(f.driverId)).filter((x): x is TeamBeast & { seconds: number } => !!x)
     .map(({ seconds: _s, ...rest }) => rest);
+}
+
+/// Зеркало OpenF1 лежит по слагу запроса — тем же, что пишет продьюсер openf1.
+function readOpenF1(relative: string): any | null {
+  try {
+    return JSON.parse(readFileSync(join(DATA, "openf1", mirrorSlug(relative)), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+/// Митинг OpenF1, накрывающий день гонки (та же логика, что в highlights).
+function matchMeeting(meetings: any[], raceDate: string): any | undefined {
+  const dayStart = Date.parse(`${raceDate}T00:00:00Z`);
+  const dayEnd = dayStart + 86_400_000;
+  return meetings.find((m) => {
+    const s = Date.parse(m.date_start);
+    if (Number.isNaN(s)) return String(m.date_start ?? "").startsWith(raceDate);
+    const e = Date.parse(m.date_end ?? m.date_start);
+    return s < dayEnd && (Number.isNaN(e) ? s : e) > dayStart;
+  });
 }
 
 // ── Сеть ────────────────────────────────────────────────────────────────────
@@ -366,6 +405,7 @@ async function main() {
   // команды её просто нет.
   const circuitNames = new Map<string, string>();
   const rounds: SeasonRound[] = [];
+  const raceDates = new Map<number, string>();
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
     const table = d?.MRData?.RaceTable;
@@ -380,6 +420,7 @@ async function main() {
       const round = Number(race?.round);
       if (c?.circuitId && Number.isFinite(round)) {
         rounds.push({ round, code: roundCode(String(c.circuitId)), race: String(race?.raceName ?? "") });
+        if (race?.date) raceDates.set(round, String(race.date));
       }
     }
     rounds.sort((a, b) => a.round - b.round);
@@ -523,7 +564,7 @@ async function main() {
       home,
       alsoIn: facts?.alsoIn ?? [],
       comebacks: buildComebacks(form, seasonRaces ?? []),
-      pits: buildPits(form, rounds, YEAR),
+      pits: buildPits(form, rounds, YEAR, raceDates),
       firstSeason: firstSeason || null,
       allTime: { wins: allWins, titles },
       driverRecords,
