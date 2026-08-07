@@ -302,3 +302,37 @@ test("исторические id команды склеиваются по п�
   assert.ok(!("ferrari" in g), "одиночный id группой не становится");
   assert.ok(!("mclaren-ford" in g), "id-с-мотором сам группу не образует");
 });
+
+test("подпись влезает в две строки узкой карточки", () => {
+  // Карточка полки — 349pt, за вычетом полей 317pt: строка держит ~46 знаков,
+  // то есть потолок двух строк ≈ 92. Всё, что длиннее, обрежется многоточием.
+  const LIMIT = 92;
+  const S: Record<string, Subject | null> = {
+    hamilton: sub("HAM", "ferrari", "44", "Hamilton", "Lewis"),
+    max_verstappen: sub("VER", "red_bull", "3", "Verstappen", "Max"),
+    leclerc: sub("LEC", "ferrari", "16", "Leclerc", "Charles"),
+    norris: sub("NOR", "mclaren", "4", "Norris", "Lando"),
+    alonso: sub("ALO", "aston_martin", "14", "Alonso", "Fernando"),
+    "team:mclaren": team("mclaren", "McLaren"),
+    "team:ferrari": team("ferrari", "Ferrari"),
+  };
+  const V: Record<string, number | null> = {
+    "hamilton:poles": 107, "max_verstappen:poles": 51, "leclerc:poles": 24, "alonso:poles": 23,
+    "hamilton:wins": 106, "leclerc:wins": 9, "norris:wins": 12,
+    "norris:podiums": 47, "leclerc:podiums": 54, "hamilton:podiums": 207,
+    "team:mclaren:wins": 199, "team:ferrari:wins": 251,
+  };
+  // Все три угла подписи разом: темп, засуха и место на решётке.
+  const cards = buildCards(V, S, opts({
+    season: 2026,
+    tempo: {
+      "leclerc:wins": { thisSeason: 1, firstSeason: 2019, lastSeason: 2026 },
+      "alonso:poles": { thisSeason: 0, firstSeason: 2003, lastSeason: 2012 },
+    },
+    maxCards: 30,
+  }));
+  assert.ok(cards.length >= 4, "фикстура должна дать несколько карточек");
+  for (const c of cards) {
+    assert.ok(c.note.length <= LIMIT, `«${c.note}» — ${c.note.length} знаков, потолок ${LIMIT}`);
+  }
+});
