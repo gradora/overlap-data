@@ -344,20 +344,21 @@ function nearNote(
       + `number ${target} has been waiting since ${tempo.lastSeason}.`;
   }
   if (rank) {
+    // Своё число не повторяем — оно уже стоит на полоске.
     if (rank.place === 1) {
-      return `${name} has more ${stat} than anyone else ${grid}: ${value} and counting.`;
+      return `${name} has more ${stat} than anyone else ${grid}, and the tally is still growing.`;
     }
     if (rank.place === 2) {
-      return `Only ${rank.ahead[0].name} has more ${stat} ${grid}: ${rank.ahead[0].value} against ${value}.`;
+      return `Only ${rank.ahead[0].name} has more ${stat} ${grid}, with ${rank.ahead[0].value}.`;
     }
     if (rank.place === 3) {
       return `Only ${rank.ahead[0].name} and ${rank.ahead[1].name} have more ${stat} ${grid}: `
-        + `${rank.ahead[0].value} and ${rank.ahead[1].value} against ${value}.`;
+        + `${rank.ahead[0].value} and ${rank.ahead[1].value}.`;
     }
     const nearest = rank.ahead[rank.ahead.length - 1];
     const diff = nearest.value - value;
-    return `${name} sits ${ordinal(rank.place)} ${grid} for ${stat}, `
-      + `${numberWord(diff)} ${unit(diff)} behind ${nearest.name}.`;
+    return `${name} sits ${ordinal(rank.place)} for ${stat} ${grid}, `
+      + `${numberWord(diff)} behind ${nearest.name}.`;
   }
   const gap = target - value;
   return `${numberWord(gap, true)} more ${unit(gap)} for ${name} to reach ${target}.`;

@@ -148,7 +148,7 @@ test("подпись: место на решётке считается по с�
   const cards = buildCards(V, S, opts({ season: 2026 }));
   const lec = cards.find((c) => c.id === "near-leclerc-poles")!;
   assert.equal(lec.note,
-    "Only Lewis Hamilton and Max Verstappen have more poles on the current grid: 107 and 51 against 24.");
+    "Only Lewis Hamilton and Max Verstappen have more poles on the current grid: 107 and 51.");
   const pia = cards.find((c) => c.id === "near-piastri-poles")!;
   assert.ok(!pia.note.includes("behind"), "равный счёт — не отставание");
 });
@@ -173,7 +173,7 @@ test("автоскан видит команды", () => {
   assert.equal(card.title, "199 WINS");
   // У команды свой оборот: «на решётке» — про команды, не про пилотов.
   assert.equal(card.note,
-    "Only Ferrari has more wins among the teams on the grid: 251 against 199.");
+    "Only Ferrari has more wins among the teams on the grid, with 251.");
 });
 
 test("взятый рубеж живёт 14 дней и вытесняет карточку погони за той же целью", () => {
