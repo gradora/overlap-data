@@ -1,13 +1,44 @@
 {
-  "_comment": "Курируемые all-time рекорды F1 (редактируется руками, продьюсер f1records читает отсюда). held: активные держатели; chases: погони за цифрой ушедшей легенды. Пилоты — driverId Jolpica.",
+  "_comment": "Курируемые all-time рекорды F1 (редактируется руками, продьюсер f1records читает отсюда). held: активные держатели; chases: погони — record задаёт зафиксированную цифру ушедшей легенды, holderId живого держателя (цель считается по нему и растёт). Погони одного преследователя по одной метрике идут по очереди: пока жива первая в списке, следующие ждут — наследник включается сам в день, когда предыдущий рекорд падёт. Пилоты — driverId Jolpica.",
+  "scan": {
+    "_comment": "Автоскан всей решётки и команд (у команд свой набор метрик teamMetrics — поулы там не считаем, квалификации в базе есть только с 1994 года): карточка появляется, когда до круглой цифры осталось не больше near по метрике, а сама цифра не ниже minTarget (у команд — teamMinTarget: Jolpica режет историю по constructorId, поэтому мелкие командные рубежи читаются как неправда). Старты (starts) намеренно не сканируем — юбилеи GP ведёт f1milestones. maxNear — квота карточек автоскана, maxCards — потолок всего блока.",
+    "metrics": [
+      "wins",
+      "podiums",
+      "poles"
+    ],
+    "teamMetrics": [
+      "wins",
+      "podiums"
+    ],
+    "teams": true,
+    "near": {
+      "wins": 2,
+      "podiums": 3,
+      "poles": 2
+    },
+    "minTarget": {
+      "wins": 10,
+      "podiums": 25,
+      "poles": 10
+    },
+    "teamMinTarget": {
+      "wins": 50,
+      "podiums": 100,
+      "poles": 50
+    },
+    "maxNear": 5,
+    "maxCards": 10
+  },
   "held": [
     {
       "stat": "Grands Prix",
       "holder": "alonso",
-      "metric": "entries",
+      "metric": "starts",
       "hook": {
         "kind": "milestone",
-        "step": 50
+        "step": 50,
+        "flavour": "extending his own all-time record"
       }
     },
     {
@@ -25,7 +56,7 @@
       "metric": "podiums",
       "hook": {
         "kind": "rate",
-        "over": "entries"
+        "over": "starts"
       }
     }
   ],
@@ -42,6 +73,13 @@
       "metric": "podiums",
       "record": 155,
       "holder": "Michael Schumacher",
+      "chaser": "max_verstappen"
+    },
+    {
+      "stat": "wins",
+      "metric": "wins",
+      "holderId": "hamilton",
+      "holder": "Lewis Hamilton",
       "chaser": "max_verstappen"
     }
   ]

@@ -1,43 +1,77 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-29T12:46:56.790Z",
+  "generatedAt": "2026-08-07T13:18:23.998Z",
   "season": 2026,
   "records": [
     {
-      "id": "held-Grands Prix",
+      "id": "near-leclerc-poles",
+      "header": "CLOSING IN",
+      "driver": "#16 C. Leclerc",
+      "title": "24 POLES",
+      "note": "One pole from 25.",
+      "progress": 0.96,
+      "teamId": "ferrari",
+      "barLeft": "24",
+      "barRight": "25"
+    },
+    {
+      "id": "near-leclerc-wins",
+      "header": "CLOSING IN",
+      "driver": "#16 C. Leclerc",
+      "title": "9 WINS",
+      "note": "One win from 10 — double figures.",
+      "progress": 0.9,
+      "teamId": "ferrari",
+      "barLeft": "9",
+      "barRight": "10"
+    },
+    {
+      "id": "near-piastri-wins",
+      "header": "CLOSING IN",
+      "driver": "#81 O. Piastri",
+      "title": "9 WINS",
+      "note": "One win from 10 — double figures.",
+      "progress": 0.9,
+      "teamId": "mclaren",
+      "barLeft": "9",
+      "barRight": "10"
+    },
+    {
+      "id": "near-alonso-poles",
+      "header": "CLOSING IN",
+      "driver": "#14 F. Alonso",
+      "title": "23 POLES",
+      "note": "2 poles from a landmark 25.",
+      "progress": 0.92,
+      "teamId": "aston_martin",
+      "barLeft": "23",
+      "barRight": "25"
+    },
+    {
+      "id": "near-norris-podiums",
+      "header": "CLOSING IN",
+      "driver": "#1 L. Norris",
+      "title": "47 PODIUMS",
+      "note": "3 podiums from a landmark 50.",
+      "progress": 0.94,
+      "teamId": "mclaren",
+      "barLeft": "47",
+      "barRight": "50"
+    },
+    {
+      "id": "held-alonso-Grands Prix",
       "header": "MILESTONE",
       "driver": "#14 F. Alonso",
-      "title": "439 GRANDS PRIX",
-      "note": "11 more for a landmark 450 — extending his own all-time record.",
-      "progress": 0.9755555555555555,
+      "title": "436 GRANDS PRIX",
+      "note": "14 more for a landmark 450 — extending his own all-time record.",
+      "progress": 0.9688888888888889,
       "teamId": "aston_martin",
-      "barLeft": "439",
-      "barRight": "450"
+      "barLeft": "436",
+      "barRight": "450",
+      "dedupKey": "gp-450-alonso"
     },
     {
-      "id": "held-wins",
-      "header": "RECORD",
-      "driver": "#44 L. Hamilton",
-      "title": "106 WINS",
-      "note": "The only driver in F1 history to pass 100 wins.",
-      "progress": 1,
-      "teamId": "ferrari",
-      "barLeft": "WINS",
-      "barRight": "106"
-    },
-    {
-      "id": "held-podiums",
-      "header": "RECORD",
-      "driver": "#44 L. Hamilton",
-      "title": "207 PODIUMS",
-      "note": "On the podium in more than half of his 391 Grands Prix.",
-      "progress": 0.5294117647058824,
-      "teamId": "ferrari",
-      "barLeft": "PODIUMS",
-      "barRight": "207/391"
-    },
-    {
-      "id": "chase-wins",
+      "id": "chase-max_verstappen-wins",
       "header": "CHASING",
       "driver": "#3 M. Verstappen",
       "title": "71 WINS",
@@ -48,7 +82,7 @@
       "barRight": "91"
     },
     {
-      "id": "chase-podiums",
+      "id": "chase-max_verstappen-podiums",
       "header": "CHASING",
       "driver": "#3 M. Verstappen",
       "title": "131 PODIUMS",
@@ -57,6 +91,28 @@
       "teamId": "red_bull",
       "barLeft": "131",
       "barRight": "155"
+    },
+    {
+      "id": "held-hamilton-wins",
+      "header": "RECORD",
+      "driver": "#44 L. Hamilton",
+      "title": "106 WINS",
+      "note": "The only driver in F1 history to pass 100 wins.",
+      "progress": 1,
+      "teamId": "ferrari",
+      "barLeft": "WINS",
+      "barRight": "106"
+    },
+    {
+      "id": "held-hamilton-podiums",
+      "header": "RECORD",
+      "driver": "#44 L. Hamilton",
+      "title": "207 PODIUMS",
+      "note": "On the podium in more than half of his 391 Grands Prix.",
+      "progress": 0.5294117647058824,
+      "teamId": "ferrari",
+      "barLeft": "PODIUMS",
+      "barRight": "207/391"
     }
   ]
 }
