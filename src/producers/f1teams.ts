@@ -77,7 +77,11 @@ export interface TeamPage {
   form: TeamDriverForm[];
   /// Домашняя трасса и всевременные итоги команды НА НЕЙ.
   home?: { circuitId: string; name: string; wins: number; poles: number };
+  /// Первый сезон команды в чемпионате — подпись «From 1950» в рекордах.
+  firstSeason: number | null;
   allTime: { wins: number; titles: number };
+  /// Рекорды нынешних пилотов В ЭТОЙ команде — вторая половина блока RECORDS.
+  driverRecords: { driverId: string; name: string; wins: number }[];
 }
 
 export interface SeasonTeams {
@@ -347,6 +351,25 @@ async function main() {
       home = { circuitId: circuit, name: String(name ?? circuit), wins, poles };
     }
 
+    // Первый сезон — вечный факт, спрашиваем один раз.
+    const firstSeason = await cached(`${id}:firstSeason`, async () => {
+      const d = await fetchJSON(`${JOLPICA}/constructors/${id}/seasons.json?limit=1`);
+      await sleep(400);
+      const y = Number(d?.MRData?.SeasonTable?.Seasons?.[0]?.season);
+      return Number.isFinite(y) ? y : null;
+    });
+
+    const form = buildForm(seasonRaces ?? []);
+    const driverRecords: TeamPage["driverRecords"] = [];
+    for (const d of form) {
+      const wins = await cached(`${id}:driver:${d.driverId}:wins`, async () => {
+        const n = await total(`drivers/${d.driverId}/constructors/${id}/results/1`);
+        await sleep(400);
+        return n;
+      });
+      driverRecords.push({ driverId: d.driverId, name: d.name, wins });
+    }
+
     teams.push({
       constructorId: id,
       name: String(c?.name ?? id),
@@ -354,9 +377,11 @@ async function main() {
       position: Number(row?.position) || null,
       points: Number(row?.points ?? 0),
       gp, sprint,
-      form: buildForm(seasonRaces ?? []),
+      form,
       home,
+      firstSeason: firstSeason || null,
       allTime: { wins: allWins, titles },
+      driverRecords,
     });
   }
 
