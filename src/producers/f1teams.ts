@@ -84,10 +84,35 @@ export interface TeamPage {
   driverRecords: { driverId: string; name: string; wins: number }[];
 }
 
+/// Раунд календаря с трёхбуквенным кодом — подпись пустой ячейки полоски
+/// формы («ABU», «QAT»). Своего кода Jolpica не отдаёт, ведём картой.
+export interface SeasonRound {
+  round: number;
+  code: string;
+  race: string;
+}
+
 export interface SeasonTeams {
   season: number;
+  rounds: SeasonRound[];
   teams: TeamPage[];
 }
+
+/// Коды этапов — по конвенции самой Формулы-1 (венесуэльский «ABU» — город,
+/// «QAT» — страна). Незнакомая трасса деградирует в первые три буквы слага.
+const ROUND_CODES: Record<string, string> = {
+  albert_park: "AUS", shanghai: "CHN", suzuka: "JPN", miami: "MIA",
+  villeneuve: "CAN", monaco: "MON", catalunya: "ESP", red_bull_ring: "AUT",
+  silverstone: "GBR", spa: "BEL", hungaroring: "HUN", zandvoort: "NED",
+  monza: "ITA", madring: "MAD", baku: "AZE", sepang: "MAL", marina_bay: "SIN",
+  americas: "USA", rodriguez: "MEX", interlagos: "SAO", vegas: "LVG",
+  losail: "QAT", yas_marina: "ABU", imola: "EMI", jeddah: "SAU", bahrain: "BHR",
+  ricard: "FRA", portimao: "POR", istanbul: "TUR", nurburgring: "NUR",
+  mugello: "MUG", sochi: "RUS",
+};
+
+const roundCode = (circuitId: string): string =>
+  ROUND_CODES[circuitId] ?? circuitId.replace(/[^a-z]/g, "").slice(0, 3).toUpperCase();
 
 const emptyTally = (): TeamTally =>
   ({ starts: 0, wins: 0, podiums: 0, poles: 0, fastestLaps: 0, points: 0 });
@@ -231,6 +256,7 @@ async function main() {
   // трасс: у домашней трассы этап может быть ещё не проехан, и в результатах
   // команды её просто нет.
   const circuitNames = new Map<string, string>();
+  const rounds: SeasonRound[] = [];
   try {
     const d = JSON.parse(readFileSync(join(JOLPICA_DIR, "current.json"), "utf8"));
     const table = d?.MRData?.RaceTable;
@@ -242,7 +268,12 @@ async function main() {
     for (const race of table?.Races ?? []) {
       const c = race?.Circuit;
       if (c?.circuitId && c?.circuitName) circuitNames.set(String(c.circuitId), String(c.circuitName));
+      const round = Number(race?.round);
+      if (c?.circuitId && Number.isFinite(round)) {
+        rounds.push({ round, code: roundCode(String(c.circuitId)), race: String(race?.raceName ?? "") });
+      }
     }
+    rounds.sort((a, b) => a.round - b.round);
   } catch { /* нет зеркала — идём дальше, гард не обязателен */ }
 
   // Зачёт конструкторов даёт и состав, и место с очками, и отпечаток для кэша.
@@ -397,7 +428,7 @@ async function main() {
     null, 2) + "\n");
   if (failed) console.log(`::warning::teams: ${failed} запросов не ответили — часть цифр могла остаться прошлой`);
 
-  const changed = writeJSONWithEnvelope(OUT, { season: YEAR, teams } satisfies SeasonTeams);
+  const changed = writeJSONWithEnvelope(OUT, { season: YEAR, rounds, teams } satisfies SeasonTeams);
   console.log(
     `  ${teams.length} команд, запросов ${fetched} (кэш ${fresh ? "свежий" : "сброшен"}), титулов в базе ${Object.keys(state.champions).length} → ${changed ? "записано" : "без изменений"}`,
   );
