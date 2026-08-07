@@ -12,6 +12,7 @@ import { isFrozen } from "../lib/freeze.js";
 import { scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
+import { isStart } from "../lib/starts.js";
 import { JOLPICA } from "../lib/sources.js";
 
 const fetchJSON = (url: string) => httpJSON(url, { backoffMs: 30000 });
@@ -51,13 +52,9 @@ export function startsAtRound(totalNow: number, completedRounds: number, round: 
   return totalNow - completedRounds + round;
 }
 
-/// Запись результатов считается СТАРТОМ (юбилеи и спецшлемы считают старты):
-/// DNS/DNQ/Withdrew/Excluded — участие без старта, не в счёт. Пример: у
-/// Албона за Williams 101 запись, но 99 стартов (DNS Сан-Паулу-24, Китай-26).
-export function isStart(status: string, positionText: string): boolean {
-  if (positionText === "W") return false;
-  return !/^(did not start|withdr|did not qualify|did not prequalify|excluded)/i.test(status);
-}
+/// Что считается стартом — общее правило для юбилеев и рекордов (они делят
+/// один блок в приложении и обязаны считать одинаково).
+export { isStart };
 
 /// Фактические юбилеи прошедших этапов сезона: k-й старт хронологии (k кратен
 /// 50), выпавший на сезон year → раунд → count. В отличие от прогнозной
