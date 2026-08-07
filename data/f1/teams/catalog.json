@@ -1,0 +1,89 @@
+{
+  "_comment": "Курируемые факты команд F1 (правится руками, продьюсер f1teams читает отсюда). base — страна и город фабрики для подписи героя; home — домашняя трасса (circuitId Jolpica), по ней считаются победы и поулы в секции HISTORY. Выбираем трассу, которая ЕСТЬ в текущем календаре: у Альпин и Racing Bulls «родные» Поль-Рикар и Имола из него выпали, а показывать статистику трассы, куда команда больше не приезжает, бессмысленно — взяты Сильверстоун (фабрика в Энстоне) и Монца (фабрика в Фаэнце). Ключ — constructorId Jolpica. Базы проверены веб-ресёрчем со скептиком; спорный только Кадиллак — взят Base из профиля команды на formula1.com.",
+  "teams": {
+    "ferrari": {
+      "base": {
+        "country": "Italy",
+        "city": "Maranello"
+      },
+      "home": "monza"
+    },
+    "mclaren": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Woking"
+      },
+      "home": "silverstone"
+    },
+    "mercedes": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Brackley"
+      },
+      "home": "silverstone"
+    },
+    "red_bull": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Milton Keynes"
+      },
+      "home": "red_bull_ring"
+    },
+    "williams": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Grove"
+      },
+      "home": "silverstone"
+    },
+    "aston_martin": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Silverstone"
+      },
+      "home": "silverstone"
+    },
+    "alpine": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Enstone"
+      },
+      "home": "silverstone"
+    },
+    "haas": {
+      "base": {
+        "country": "United States",
+        "city": "Kannapolis"
+      },
+      "home": "americas"
+    },
+    "rb": {
+      "base": {
+        "country": "Italy",
+        "city": "Faenza"
+      },
+      "home": "monza"
+    },
+    "audi": {
+      "base": {
+        "country": "Switzerland",
+        "city": "Hinwil"
+      },
+      "home": "hungaroring"
+    },
+    "sauber": {
+      "base": {
+        "country": "Switzerland",
+        "city": "Hinwil"
+      },
+      "home": "hungaroring"
+    },
+    "cadillac": {
+      "base": {
+        "country": "United Kingdom",
+        "city": "Silverstone"
+      },
+      "home": "americas"
+    }
+  }
+}
