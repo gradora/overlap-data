@@ -207,7 +207,7 @@
             "@type": "SportsEvent",
             "@id": "https://www.fiawec.com/en/race/6-hours-of-monza-2026#Race",
             "name": "Race - 6 Hours of Monza",
-            "startDate": "2026-11-08T11:30:00+01:00",
+            "startDate": "2026-11-08T11:00:00+01:00",
             "eventStatus": "https://schema.org/EventScheduled",
             "performers": "WEC Drivers",
             "eventAttendanceMode": "MixedEventAttendanceMode",
@@ -1335,7 +1335,11 @@
                                                                                                                                                                     <div class="d-flex flex-column align-items-start gap-1">
                                             <div class="fw-bold lh-sm">Race</div>
                                                                                         <div class="text-primary fst-italic">
-                                                                                                    <em class="text-danger">TBC</em>
+                                                                                                    <span
+                                                            data-local="11:00 AM"
+                                                            data-timestamp="1794132000">
+                                                        11:00 AM
+                                                    </span>
                                                                                             </div>
                                                                                                                                                                                                                                         <a href="https://plus.fiawec.com" target="_blank"
                                                     class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center gap-2 w-100">
