@@ -95,7 +95,7 @@
             "@type": "SportsEvent",
             "@id": "https://www.fiawec.com/en/race/24-hours-of-le-mans-2027#Race",
             "name": "Race - 24 Hours of Le Mans",
-            "startDate": "2027-06-12T12:00:00+02:00",
+            "startDate": "2027-06-12T16:00:00+02:00",
             "eventStatus": "https://schema.org/EventScheduled",
             "performers": "WEC Drivers",
             "eventAttendanceMode": "MixedEventAttendanceMode",
@@ -1448,7 +1448,7 @@
                                 <div class="ff-normal text-uppercase fw-extrabold fs-5 mb-6 mb-lg-8 text-primary">June 12<sup>th</sup></div>                                <div class="d-flex flex-column gap-4">
                                                                                                                     
                                                                                                                                                                     <div class="d-flex flex-column align-items-start gap-1">
-                                            <div class="fw-bold lh-sm">Race</div>
+                                            <div class="fw-bold lh-sm">Warm-up</div>
                                                                                         <div class="text-primary fst-italic">
                                                                                                     <em class="text-danger">TBC</em>
                                                                                             </div>
@@ -1464,9 +1464,13 @@
                                                                                                                                     </div>
                                                                                                                     
                                                                                                                                                                     <div class="d-flex flex-column align-items-start gap-1">
-                                            <div class="fw-bold lh-sm">Warm-up</div>
+                                            <div class="fw-bold lh-sm">Race</div>
                                                                                         <div class="text-primary fst-italic">
-                                                                                                    <em class="text-danger">TBC</em>
+                                                                                                    <span
+                                                            data-local="04:00 PM"
+                                                            data-timestamp="1812808800">
+                                                        04:00 PM
+                                                    </span>
                                                                                             </div>
                                                                                                                                                                                                                                         <a href="https://plus.fiawec.com" target="_blank"
                                                     class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center gap-2 w-100">

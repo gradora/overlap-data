@@ -207,7 +207,7 @@
             "@type": "SportsEvent",
             "@id": "https://www.fiawec.com/en/race/totalenergies-6-hours-of-spa-francorchamps-2027#Race",
             "name": "Race - TotalEnergies 6 Hours of Spa-Francorchamps",
-            "startDate": "2027-05-15T12:00:00+02:00",
+            "startDate": "2027-05-15T14:00:00+02:00",
             "eventStatus": "https://schema.org/EventScheduled",
             "performers": "WEC Drivers",
             "eventAttendanceMode": "MixedEventAttendanceMode",
@@ -1335,7 +1335,11 @@
                                                                                                                                                                     <div class="d-flex flex-column align-items-start gap-1">
                                             <div class="fw-bold lh-sm">Race</div>
                                                                                         <div class="text-primary fst-italic">
-                                                                                                    <em class="text-danger">TBC</em>
+                                                                                                    <span
+                                                            data-local="02:00 PM"
+                                                            data-timestamp="1810382400">
+                                                        02:00 PM
+                                                    </span>
                                                                                             </div>
                                                                                                                                                                                                                                         <a href="https://plus.fiawec.com" target="_blank"
                                                     class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center gap-2 w-100">
