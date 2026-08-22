@@ -1,8 +1,120 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-22T05:35:55.566Z",
+  "generatedAt": "2026-08-22T05:46:18.075Z",
   "season": 2026,
   "round": 12,
   "event": "dutch_grand_prix",
-  "penalties": []
+  "updated": "2026-08-21 20:01 CET",
+  "penalties": [
+    {
+      "doc": 22,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Sprint Qualifying",
+      "type": "warning",
+      "appliesTo": "qualifying",
+      "corrected": false,
+      "fact": "Car 55 driving unnecessarily slowly during Sprint Qualifying",
+      "decision": "Driver: Warning.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement-_car_55_-_driving_unnecessarily_slowly_during_sprint_qualifying.pdf",
+      "publishedAt": "2026-08-21 19:13 CET"
+    }
+  ],
+  "startingGrid": {
+    "kind": "provisional",
+    "doc": 25,
+    "entries": [
+      {
+        "position": 1,
+        "car": 63
+      },
+      {
+        "position": 2,
+        "car": 1
+      },
+      {
+        "position": 3,
+        "car": 16
+      },
+      {
+        "position": 4,
+        "car": 81
+      },
+      {
+        "position": 5,
+        "car": 12
+      },
+      {
+        "position": 6,
+        "car": 3
+      },
+      {
+        "position": 7,
+        "car": 44
+      },
+      {
+        "position": 8,
+        "car": 10
+      },
+      {
+        "position": 9,
+        "car": 5
+      },
+      {
+        "position": 10,
+        "car": 41
+      },
+      {
+        "position": 11,
+        "car": 30
+      },
+      {
+        "position": 12,
+        "car": 22
+      },
+      {
+        "position": 13,
+        "car": 43
+      },
+      {
+        "position": 14,
+        "car": 27
+      },
+      {
+        "position": 15,
+        "car": 31
+      },
+      {
+        "position": 16,
+        "car": 23
+      },
+      {
+        "position": 17,
+        "car": 87
+      },
+      {
+        "position": 18,
+        "car": 55
+      },
+      {
+        "position": 19,
+        "car": 18
+      },
+      {
+        "position": 20,
+        "car": 77
+      },
+      {
+        "position": 21,
+        "car": 11
+      },
+      {
+        "position": 22,
+        "car": 14
+      }
+    ],
+    "penaltySummary": [],
+    "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_provisional_sprint_starting_grid.pdf",
+    "publishedAt": "2026-08-21 20:01 CET"
+  }
 }
