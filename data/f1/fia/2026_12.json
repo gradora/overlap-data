@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-22T07:38:41.309Z",
+  "generatedAt": "2026-08-22T08:48:10.596Z",
   "season": 2026,
   "round": 12,
   "event": "dutch_grand_prix",
-  "updated": "2026-08-21 20:01 CET",
+  "updated": "2026-08-22 10:45 CET",
   "penalties": [
     {
       "doc": 22,
@@ -18,6 +18,34 @@
       "decision": "Driver: Warning.",
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement-_car_55_-_driving_unnecessarily_slowly_during_sprint_qualifying.pdf",
       "publishedAt": "2026-08-21 19:13 CET"
+    },
+    {
+      "doc": 29,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Sprint Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "The setup of the suspension has been changed while under parc fermé.",
+      "decision": "Required to start the Sprint from the pit lane.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_55_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2026-08-22 10:44 CET"
+    },
+    {
+      "doc": 30,
+      "car": 14,
+      "driver": "Fernando Alonso",
+      "session": "Sprint Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "sprint",
+      "corrected": false,
+      "fact": "The setup of the suspension has been changed while under parc fermé.",
+      "decision": "Required to start the Sprint from the pit lane.",
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_14_-_changes_made_during_parc_ferme.pdf",
+      "publishedAt": "2026-08-22 10:45 CET"
     }
   ],
   "startingGrid": {
