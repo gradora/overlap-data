@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T15:37:11.430Z",
+  "generatedAt": "2026-08-23T15:41:48.565Z",
   "season": 2026,
   "round": 12,
   "event": "dutch_grand_prix",
-  "updated": "2026-08-23 17:14 CET",
+  "updated": "2026-08-23 17:37 CET",
   "penalties": [
     {
       "doc": 22,
@@ -162,6 +162,30 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_43_-_overtaking_under_yellow_flags.pdf",
       "publishedAt": "2026-08-23 16:48 CET"
+    },
+    {
+      "doc": 65,
+      "car": 43,
+      "driver": "Franco Colapinto",
+      "session": "Race",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_43_-_failure_to_slow_for_yellow_flags.pdf",
+      "publishedAt": "2026-08-23 17:36 CET"
+    },
+    {
+      "doc": 66,
+      "car": 30,
+      "driver": "Liam Lawson",
+      "session": "Race",
+      "type": "time",
+      "seconds": 10,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_30_-_failure_to_follow_for_yellow_flags.pdf",
+      "publishedAt": "2026-08-23 17:37 CET"
     }
   ],
   "startingGrid": {
