@@ -1,8 +1,32 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-22T23:49:38.234Z",
+  "generatedAt": "2026-08-23T01:26:54.089Z",
   "season": 2026,
   "round": 12,
   "event": "dutch_grand_prix",
-  "penalties": []
+  "updated": "2026-08-22 13:28 CET",
+  "penalties": [
+    {
+      "doc": 33,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Sprint",
+      "type": "warning",
+      "appliesTo": "sprint",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_55_-_starting_procedure_infringement.pdf",
+      "publishedAt": "2026-08-22 12:39 CET"
+    },
+    {
+      "doc": 37,
+      "car": 77,
+      "driver": "Valtteri Bottas",
+      "session": "Sprint",
+      "type": "none",
+      "appliesTo": "sprint",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_77_-_failure_to_follow_race_directors_instructions_reaching_the_grid.pdf",
+      "publishedAt": "2026-08-22 13:28 CET"
+    }
+  ]
 }
