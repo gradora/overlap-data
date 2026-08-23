@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T18:42:50.634Z",
+  "generatedAt": "2026-08-23T16:58:29.306Z",
   "season": 2026,
   "records": [
     {
@@ -40,6 +40,18 @@
       "barRight": "10"
     },
     {
+      "id": "near-norris-podiums",
+      "subject": "norris",
+      "header": "CLOSING IN",
+      "driver": "#1 L. Norris",
+      "title": "48 PODIUMS",
+      "note": "Lando Norris sits 6th for podiums on the current grid, six behind Charles Leclerc.",
+      "progress": 0.96,
+      "teamId": "mclaren",
+      "barLeft": "48",
+      "barRight": "50"
+    },
+    {
       "id": "near-alonso-poles",
       "subject": "alonso",
       "header": "CLOSING IN",
@@ -52,27 +64,15 @@
       "barRight": "25"
     },
     {
-      "id": "near-norris-podiums",
-      "subject": "norris",
-      "header": "CLOSING IN",
-      "driver": "#1 L. Norris",
-      "title": "47 PODIUMS",
-      "note": "Lando Norris sits 6th for podiums on the current grid, seven behind Charles Leclerc.",
-      "progress": 0.94,
-      "teamId": "mclaren",
-      "barLeft": "47",
-      "barRight": "50"
-    },
-    {
       "id": "held-alonso-Grands Prix",
       "subject": "alonso",
       "header": "MILESTONE",
       "driver": "#14 F. Alonso",
-      "title": "436 GRANDS PRIX",
-      "note": "14 more for a landmark 450 — extending his own all-time record.",
-      "progress": 0.9688888888888889,
+      "title": "437 GRANDS PRIX",
+      "note": "13 more for a landmark 450 — extending his own all-time record.",
+      "progress": 0.9711111111111111,
       "teamId": "aston_martin",
-      "barLeft": "436",
+      "barLeft": "437",
       "barRight": "450",
       "dedupKey": "gp-450-alonso"
     },
@@ -118,11 +118,11 @@
       "header": "RECORD",
       "driver": "#44 L. Hamilton",
       "title": "207 PODIUMS",
-      "note": "On the podium in more than half of his 391 Grands Prix.",
-      "progress": 0.5294117647058824,
+      "note": "On the podium in more than half of his 392 Grands Prix.",
+      "progress": 0.5280612244897959,
       "teamId": "ferrari",
       "barLeft": "PODIUMS",
-      "barRight": "207/391"
+      "barRight": "207/392"
     }
   ],
   "bySubject": {
@@ -162,6 +162,18 @@
       "barLeft": "9",
       "barRight": "10"
     },
+    "norris": {
+      "id": "near-norris-podiums",
+      "subject": "norris",
+      "header": "CLOSING IN",
+      "driver": "#1 L. Norris",
+      "title": "48 PODIUMS",
+      "note": "Lando Norris sits 6th for podiums on the current grid, six behind Charles Leclerc.",
+      "progress": 0.96,
+      "teamId": "mclaren",
+      "barLeft": "48",
+      "barRight": "50"
+    },
     "alonso": {
       "id": "near-alonso-poles",
       "subject": "alonso",
@@ -173,18 +185,6 @@
       "teamId": "aston_martin",
       "barLeft": "23",
       "barRight": "25"
-    },
-    "norris": {
-      "id": "near-norris-podiums",
-      "subject": "norris",
-      "header": "CLOSING IN",
-      "driver": "#1 L. Norris",
-      "title": "47 PODIUMS",
-      "note": "Lando Norris sits 6th for podiums on the current grid, seven behind Charles Leclerc.",
-      "progress": 0.94,
-      "teamId": "mclaren",
-      "barLeft": "47",
-      "barRight": "50"
     },
     "russell": {
       "id": "near-russell-wins",
@@ -228,7 +228,7 @@
       "header": "CLOSING IN",
       "driver": "#10 P. Gasly",
       "title": "6 PODIUMS",
-      "note": "Pierre Gasly sits 12th for podiums on the current grid, six behind Andrea Kimi Antonelli.",
+      "note": "Pierre Gasly sits 12th for podiums on the current grid, seven behind Andrea Kimi Antonelli.",
       "progress": 0.6,
       "teamId": "alpine",
       "barLeft": "6",
@@ -384,7 +384,7 @@
       "header": "CLOSING IN",
       "driver": "Williams",
       "title": "316 PODIUMS",
-      "note": "Williams sits 4th for podiums among the teams on the grid, eight behind Mercedes.",
+      "note": "Williams sits 4th for podiums among the teams on the grid, ten behind Mercedes.",
       "progress": 0.9028571428571428,
       "teamId": "williams",
       "barLeft": "316",
@@ -395,11 +395,11 @@
       "subject": "team:mclaren",
       "header": "CLOSING IN",
       "driver": "McLaren",
-      "title": "563 PODIUMS",
+      "title": "564 PODIUMS",
       "note": "Only Ferrari has more podiums among the teams on the grid, with 856.",
-      "progress": 0.9383333333333334,
+      "progress": 0.94,
       "teamId": "mclaren",
-      "barLeft": "563",
+      "barLeft": "564",
       "barRight": "600"
     },
     "hamilton": {
