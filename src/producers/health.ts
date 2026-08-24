@@ -14,7 +14,7 @@
 // Отдельный YAML-гейт после коммита валит job (→ письмо GitHub) на любой
 // `failure` — этот скрипт только ПИШЕТ health.json, решение об алерте не его.
 
-import { readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { writeIfChanged } from "../lib/mirror.js";
 
@@ -39,6 +39,23 @@ function countFiles(rel: string): number {
   };
   walk(root);
   return n;
+}
+
+// Экран команды — единственный fail-closed продьюсер: при непокрытом отказе он
+// НЕ переписывает data/f1/teams/<год>.json и выходит нулём. Шаг зелёный,
+// outcome=success, алерт-гейт молчит — и устойчивый отказ по одной команде
+// (файл заморожен для всех одиннадцати) виден только строкой в логе прогона.
+// Продьюсер оставляет след в своём же состоянии — читаем оттуда число
+// заблокированных команд. Смотрим ТОЛЬКО текущий сезон: состояние сезона N+1
+// в межсезонье законно неполное, и его блокировки — не инцидент.
+function blockedTeams(): number {
+  const year = new Date().getUTCFullYear();
+  try {
+    const s = JSON.parse(readFileSync(join(DATA_DIR, "f1", "teams", `_state_${year}.json`), "utf8"));
+    return Array.isArray(s?.blocked) ? s.blocked.length : 0;
+  } catch {
+    return 0; // нет состояния (первый прогон сезона) — не о чем сообщать
+  }
 }
 
 // Нормализуем env-статус шага GitHub (success|failure|cancelled|skipped) —
@@ -77,6 +94,7 @@ function main() {
     f1history: outcome("F1HISTORY_OUTCOME"),
     beasts: outcome("BEASTS_OUTCOME"),
     records: outcome("RECORDS_OUTCOME"),
+    f1teams: outcome("F1TEAMS_OUTCOME"),
     f1overrides: outcome("F1OVERRIDES_OUTCOME"),
     // Суточный шаг (второй cron): на ежечасных прогонах штатно skipped —
     // это не сбой, приводим к success, чтобы дебаг-меню не мигало каждый час.
@@ -101,8 +119,15 @@ function main() {
       f1Beasts: countFiles("f1/beasts"),
       f1Records: countFiles("f1/records"),
       f1Overrides: countFiles("f1/overrides"),
+      f1Teams: countFiles("f1/teams"),
       wec: countFiles("wec"),
       tracks: countFiles("tracks"),
+    },
+    // Продьюсеры, которые отработали без исключения, но данные НЕ обновили
+    // (fail-closed). Ноль — штатное состояние; ненулевое держится, пока
+    // источник не отдаст поле, и не сбрасывается сменой суток.
+    blocked: {
+      f1teams: blockedTeams(),
     },
   };
 
