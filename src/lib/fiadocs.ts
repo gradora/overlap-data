@@ -156,7 +156,10 @@ export function isPenaltyDoc(title: string): boolean {
 // Бамп снимает пропуск только там, где раунд вообще перечитывается, то есть
 // внутри окна оседания. Замороженную историю пересобирают руками:
 //   FIA_FORCE=1 FIA_BACKFILL=99 npm run fia
-export const PENALTY_PARSER_VERSION = 1;
+// v2 — деньги подняты выше выговора и предупреждения в classifyDecision:
+// решение с формальным предупреждением И штрафом писалось как «warning», и
+// сумма терялась (4 случая в корпусе, включая €10 000 Red Bull).
+export const PENALTY_PARSER_VERSION = 2;
 
 const BODY_ANCHOR = "determine the following:";
 // Метки полей в порядке появления (Offence — синоним Infringement у части доков).
@@ -188,6 +191,26 @@ function field(body: string, label: string): string | null {
 }
 
 // Классифицируем поле Decision генерически (от причины не зависит).
+//
+// Каскад — «первое совпадение выигрывает», а решение может нести НЕСКОЛЬКО
+// санкций сразу (в корпусе таких 9 из 442). Значит порядок веток — это не
+// стиль, а правило: выше должна стоять более МАТЕРИАЛЬНАЯ санкция, иначе
+// младшая молча съедает старшую и та не доезжает до приложения.
+//
+// Порядок по убыванию материальности:
+//   none            — явный отказ от санкции, всегда первым (это отрицание)
+//   grid / time     — меняют результат гонки
+//   dsq             — снимает результат
+//   fine            — деньги: материальная санкция
+//   reprimand       — накапливается (три выговора = грид-дроп)
+//   warning         — формальность, последствий не несёт
+//   deleted_laps    — служит уточнением к квале
+//
+// Ровно на границе fine/warning каскад и ломался: ветку warning завели в июле
+// ВЫШЕ денег, и «Competitor: Formal warning A fine of €5,000 is also imposed»
+// (Монако-2026 doc 60, Албон) стал предупреждением — штраф исчезал и из
+// карточки RACE CONTROL, где деньги отбираются по type == "fine", и отовсюду.
+// В корпусе такая пара встречается 4 раза.
 export function classifyDecision(decision: string): {
   type: PenaltyType; gridDrop?: number; seconds?: number; pitlane?: boolean; backOfGrid?: boolean;
 } {
@@ -204,11 +227,13 @@ export function classifyDecision(decision: string): {
   // WEC: «10 seconds added at the next pit stop» — время к следующему питу.
   if ((m = d.match(/(\d+)\s*second(?:s)? added/))) return { type: "time", seconds: Number(m[1]) };
   if (/disqualif|excluded from/.test(d)) return { type: "dsq" };
+  // Деньги — ВЫШЕ выговора и предупреждения: решение часто несёт формальное
+  // предупреждение вместе со штрафом, и материальна тут именно сумма.
+  if (/fine of|fined/.test(d)) return { type: "fine" };
   if (/reprimand/.test(d)) return { type: "reprimand" };
   // «Driver: Warning.» — стюардовское предупреждение (напр. за дельту SC2-SC1);
   // на результат не влияет, но должно доходить до приложения, а не в "other".
   if (/\bwarning\b/.test(d)) return { type: "warning" };
-  if (/fine of|fined/.test(d)) return { type: "fine" };
   if (/lap ?time.*delet|deletion of.*lap|deleted lap/.test(d)) return { type: "deleted_laps" };
   return { type: "other" };
 }
@@ -317,10 +342,19 @@ export function parseEventOptions(html: string): { name: string; url: string }[]
   return out;
 }
 
+// Тестовые уик-энды FIA держит на той же сезонной странице, что и этапы
+// («Bahrain Tests Season 2025»), а сопоставление идёт по ПРЕФИКСУ СТРАНЫ —
+// иначе не сойдутся имена FIA и Jolpica («Barcelona-Catalunya» против
+// «Spanish»). В паре это било насмерть: тест в Бахрейне матчился на R4, guard
+// чужого этапа сбрасывал накопленное, а штрафных документов у теста нет — и
+// поверх двенадцати решений Гран-при Бахрейна-2025 ложился пустой файл.
+const TESTING_SLUG = /(^|_)tests?(_|$)|(^|_)testing(_|$)/;
+
 export function matchRound(
   eventSlug: string,
   races: { round: string; date: string; time?: string; raceName: string }[],
 ): { round: number; raceDate: string; raceTime?: string } | null {
+  if (TESTING_SLUG.test(eventSlug)) return null;   // тест — не этап чемпионата
   const country = eventSlug.split("_")[0];
   for (const r of races) {
     const slug = slugifyRace(r.raceName);

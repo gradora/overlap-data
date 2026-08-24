@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:38:28.655Z",
   "season": 2026,
   "round": 8,
   "event": "austrian_grand_prix",
@@ -6,10 +8,11 @@
   "penalties": [
     {
       "doc": 32,
+      "parser": 2,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Qualifying",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_austrian_grand_prix_-_infringement_-_car_6_-_failing_to_follow_race_directors_instructions_sc2-sc1.pdf",
@@ -17,6 +20,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -29,6 +33,7 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -40,6 +45,7 @@
     },
     {
       "doc": 47,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -51,6 +57,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Reconnaissance Laps",
@@ -62,6 +69,7 @@
     },
     {
       "doc": 50,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -73,6 +81,7 @@
     },
     {
       "doc": 51,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -84,6 +93,7 @@
     },
     {
       "doc": 55,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
@@ -97,6 +107,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 41,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

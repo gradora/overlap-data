@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:44.048Z",
+  "generatedAt": "2026-08-24T15:36:08.074Z",
   "season": 2025,
   "round": 17,
   "event": "azerbaijan_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 18,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 2",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 24,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Practice 3",
@@ -30,6 +32,7 @@
     },
     {
       "doc": 25,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Qualifying",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 31,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Qualifying",
@@ -52,6 +56,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
@@ -64,6 +69,7 @@
     },
     {
       "doc": 43,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -76,6 +82,7 @@
     },
     {
       "doc": 44,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -90,6 +97,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 41,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

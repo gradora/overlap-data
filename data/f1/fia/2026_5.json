@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:37:56.835Z",
   "season": 2026,
   "round": 5,
   "event": "canadian_grand_prix",
@@ -6,6 +8,7 @@
   "penalties": [
     {
       "doc": 18,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 1",
@@ -17,6 +20,7 @@
     },
     {
       "doc": 22,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Free Practice 1",
@@ -28,6 +32,7 @@
     },
     {
       "doc": 26,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Free Practice 1",
@@ -39,10 +44,11 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Sprint Qualifying",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_12_-_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
@@ -50,6 +56,7 @@
     },
     {
       "doc": 46,
+      "parser": 2,
       "car": 77,
       "driver": "Valtteri Bottas",
       "session": "Sprint Qualifying",
@@ -62,6 +69,7 @@
     },
     {
       "doc": 47,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint Qualifying",
@@ -74,6 +82,7 @@
     },
     {
       "doc": 48,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Sprint Qualifying",
@@ -86,6 +95,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Sprint Qualifying",
@@ -98,6 +108,7 @@
     },
     {
       "doc": 54,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint",
@@ -109,6 +120,7 @@
     },
     {
       "doc": 55,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Sprint",
@@ -121,6 +133,7 @@
     },
     {
       "doc": 56,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Sprint",
@@ -133,6 +146,7 @@
     },
     {
       "doc": 57,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Sprint",
@@ -144,6 +158,7 @@
     },
     {
       "doc": 64,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Sprint",
@@ -155,6 +170,7 @@
     },
     {
       "doc": 76,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Qualifying",
@@ -166,6 +182,7 @@
     },
     {
       "doc": 77,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
@@ -177,6 +194,7 @@
     },
     {
       "doc": 80,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Qualifying",
@@ -188,6 +206,7 @@
     },
     {
       "doc": 81,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Qualifying",
@@ -199,6 +218,7 @@
     },
     {
       "doc": 82,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
@@ -210,6 +230,7 @@
     },
     {
       "doc": 89,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -222,6 +243,7 @@
     },
     {
       "doc": 96,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -234,6 +256,7 @@
     },
     {
       "doc": 97,
+      "parser": 2,
       "car": 77,
       "driver": "Valtteri Bottas",
       "session": "Race",
@@ -246,6 +269,7 @@
     },
     {
       "doc": 98,
+      "parser": 2,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
@@ -258,6 +282,7 @@
     },
     {
       "doc": 99,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -269,6 +294,7 @@
     },
     {
       "doc": 100,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
@@ -281,6 +307,7 @@
     },
     {
       "doc": 101,
+      "parser": 2,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -293,6 +320,7 @@
     },
     {
       "doc": 102,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
@@ -304,6 +332,7 @@
     },
     {
       "doc": 103,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -315,6 +344,7 @@
     },
     {
       "doc": 104,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
@@ -326,6 +356,7 @@
     },
     {
       "doc": 106,
+      "parser": 2,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -339,6 +370,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 91,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

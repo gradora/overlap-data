@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:37:24.921Z",
   "season": 2026,
   "round": 3,
   "event": "japanese_grand_prix",
@@ -6,6 +8,7 @@
   "penalties": [
     {
       "doc": 23,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Free Practice 1",
@@ -17,6 +20,7 @@
     },
     {
       "doc": 25,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Free Practice 1",
@@ -28,6 +32,7 @@
     },
     {
       "doc": 26,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Free Practice 1",
@@ -39,10 +44,11 @@
     },
     {
       "doc": 33,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Free Practice 2",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 2",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_japanese_grand_prix_-_infringement_-_car_43_-_impeding_of_car_3.pdf",
@@ -50,10 +56,11 @@
     },
     {
       "doc": 44,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Free Practice 3",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 3",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_japanese_grand_prix_-_infringement_-_car_81_-_impeding_of_car_27.pdf",
@@ -63,6 +70,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 55,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

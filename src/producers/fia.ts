@@ -275,6 +275,7 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   // Дальше этот раунд идёт как «первый сбор» (existing = null) — и попадает под
   // тот же предохранитель неполного сбора; slug помним только ради честного лога.
   let replacedEvent: string | null = null;
+  const onDiskPenalties = existing?.penalties?.length ?? 0;
   if (existing && existing.event && existing.event !== eventSlug) {
     console.warn(`  R${round}: в файле был этап «${existing.event}», теперь «${eventSlug}» — пересобираем с нуля`);
     replacedEvent = existing.event;
@@ -285,6 +286,17 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   // не перекачиваем (см. докач в fiadocs.ts): файл только накапливается, и
   // пропуск ничем не рискует — он лишь откладывает обновление записи.
   const penaltyDocs = docs.filter((x) => isPenaltyDoc(x.title));
+  // Пустой результат НИКОГДА не ложится поверх непустого файла. Одного guard'а
+  // по слагу мало: он лишь обнуляет existing, а дальше «ноль документов, ноль
+  // осечек» проходит как честный чистый сбор и публикуется. Так двенадцать
+  // решений Бахрейна-2025 заменились пустышкой от тестового уик-энда.
+  if (!penaltyDocs.length && onDiskPenalties) {
+    console.warn(
+      `::warning::R${round}: «${eventSlug}» не несёт штрафных документов, а в файле ` +
+        `${onDiskPenalties} решени(й) этапа «${replacedEvent ?? eventSlug}» — файл не трогаем`,
+    );
+    return;
+  }
   const plan = planPenaltyFetches(existing, penaltyDocs, FORCE);
   if (existing && penaltyDocs.length) {
     if (FORCE) {

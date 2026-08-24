@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:38:23.100Z",
   "season": 2026,
   "round": 7,
   "event": "barcelona-catalunya_grand_prix",
@@ -6,10 +8,11 @@
   "penalties": [
     {
       "doc": 19,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 2",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 2",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_14_-_pit_exit_incident.pdf",
@@ -17,6 +20,7 @@
     },
     {
       "doc": 20,
+      "parser": 2,
       "car": 77,
       "driver": "Valtteri Bottas",
       "session": "Free Practice 2",
@@ -28,6 +32,7 @@
     },
     {
       "doc": 21,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Free Practice 2",
@@ -39,6 +44,7 @@
     },
     {
       "doc": 33,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Free Practice 3",
@@ -50,6 +56,7 @@
     },
     {
       "doc": 39,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Free Practice 3",
@@ -61,10 +68,11 @@
     },
     {
       "doc": 40,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 3",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 3",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_16_-_impeding_of_car_27.pdf",
@@ -72,6 +80,7 @@
     },
     {
       "doc": 52,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Qualifying",
@@ -84,6 +93,7 @@
     },
     {
       "doc": 57,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -95,6 +105,7 @@
     },
     {
       "doc": 58,
+      "parser": 2,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Race",
@@ -106,6 +117,7 @@
     },
     {
       "doc": 62,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -118,6 +130,7 @@
     },
     {
       "doc": 63,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -129,6 +142,7 @@
     },
     {
       "doc": 64,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -140,6 +154,7 @@
     },
     {
       "doc": 67,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -154,6 +169,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 54,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

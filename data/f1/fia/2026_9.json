@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:38:39.683Z",
   "season": 2026,
   "round": 9,
   "event": "british_grand_prix",
@@ -6,10 +8,11 @@
   "penalties": [
     {
       "doc": 28,
+      "parser": 2,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Sprint Qualifying",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_41_-_failing_to_follow_race_directors_instructions_sc2-sc1.pdf",
@@ -17,10 +20,11 @@
     },
     {
       "doc": 29,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Sprint Qualifying",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_23_-_failing_to_follow_race_directors_instructions_sc2-sc1.pdf",
@@ -28,6 +32,7 @@
     },
     {
       "doc": 35,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Sprint Qualifying",
@@ -40,6 +45,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Sprint",
@@ -52,10 +58,11 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Sprint",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_infringement_-_car_30_-_abnormal_change_of_direction.pdf",
@@ -63,6 +70,7 @@
     },
     {
       "doc": 46,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Sprint",
@@ -75,6 +83,7 @@
     },
     {
       "doc": 58,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Qualifying",
@@ -86,6 +95,7 @@
     },
     {
       "doc": 60,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
@@ -98,6 +108,7 @@
     },
     {
       "doc": 62,
+      "parser": 2,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Qualifying",
@@ -109,6 +120,7 @@
     },
     {
       "doc": 68,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
@@ -121,6 +133,7 @@
     },
     {
       "doc": 71,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -133,6 +146,7 @@
     },
     {
       "doc": 72,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -145,6 +159,7 @@
     },
     {
       "doc": 75,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -156,6 +171,7 @@
     },
     {
       "doc": 77,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -168,6 +184,7 @@
     },
     {
       "doc": 78,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -180,6 +197,7 @@
     },
     {
       "doc": 79,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -192,6 +210,7 @@
     },
     {
       "doc": 81,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -204,6 +223,7 @@
     },
     {
       "doc": 83,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -217,6 +237,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 70,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:28:20.762Z",
+  "generatedAt": "2026-08-24T15:37:01.902Z",
   "season": 2025,
   "round": 24,
   "event": "abu_dhabi_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 21,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 22,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "",
@@ -30,10 +32,11 @@
     },
     {
       "doc": 30,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Practice 3",
-      "type": "warning",
+      "type": "fine",
       "appliesTo": "Practice 3",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_22_-_impeding_of_car_4_.pdf",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 31,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Practice 3",
@@ -52,6 +56,7 @@
     },
     {
       "doc": 32,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Practice 3",
@@ -63,6 +68,7 @@
     },
     {
       "doc": 43,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -74,6 +80,7 @@
     },
     {
       "doc": 44,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -85,6 +92,7 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -97,6 +105,7 @@
     },
     {
       "doc": 46,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -109,6 +118,7 @@
     },
     {
       "doc": 47,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -121,6 +131,7 @@
     },
     {
       "doc": 48,
+      "parser": 2,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Race",
@@ -132,6 +143,7 @@
     },
     {
       "doc": 50,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -144,6 +156,7 @@
     },
     {
       "doc": 51,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
@@ -156,6 +169,7 @@
     },
     {
       "doc": 52,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -170,6 +184,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 42,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:26:15.528Z",
+  "generatedAt": "2026-08-24T15:34:11.150Z",
   "season": 2025,
   "round": 1,
   "event": "australian_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 31,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Qualifying",
@@ -20,6 +21,7 @@
     },
     {
       "doc": 35,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Qualifying",
@@ -32,6 +34,7 @@
     },
     {
       "doc": 36,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -43,6 +46,7 @@
     },
     {
       "doc": 37,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -54,6 +58,7 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -65,6 +70,7 @@
     },
     {
       "doc": 39,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -76,6 +82,7 @@
     },
     {
       "doc": 40,
+      "parser": 2,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
@@ -88,6 +95,7 @@
     },
     {
       "doc": 43,
+      "parser": 2,
       "car": 12,
       "driver": "Andrea Kimi Antonelli",
       "session": "Race",
@@ -102,6 +110,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 33,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:20.384Z",
+  "generatedAt": "2026-08-24T15:35:36.531Z",
   "season": 2025,
   "round": 12,
   "event": "british_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 16,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 2",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 25,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Practice 3",
@@ -31,6 +33,7 @@
     },
     {
       "doc": 36,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Qualifying",
@@ -43,6 +46,7 @@
     },
     {
       "doc": 39,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
@@ -55,6 +59,7 @@
     },
     {
       "doc": 40,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -67,6 +72,7 @@
     },
     {
       "doc": 47,
+      "parser": 2,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -78,6 +84,7 @@
     },
     {
       "doc": 48,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -89,6 +96,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
@@ -100,6 +108,7 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -115,6 +124,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 38,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

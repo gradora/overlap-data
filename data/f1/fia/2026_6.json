@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T15:38:13.814Z",
   "season": 2026,
   "round": 6,
   "event": "monaco_grand_prix",
@@ -6,6 +8,7 @@
   "penalties": [
     {
       "doc": 17,
+      "parser": 2,
       "car": 1,
       "driver": "Lando Norris",
       "session": "Thursday Press Conference",
@@ -17,6 +20,7 @@
     },
     {
       "doc": 18,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Thursday Press Conference",
@@ -28,6 +32,7 @@
     },
     {
       "doc": 27,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Free Practice 1",
@@ -39,10 +44,11 @@
     },
     {
       "doc": 29,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 1",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_16_-_impeding_of_car_30.pdf",
@@ -50,10 +56,11 @@
     },
     {
       "doc": 30,
+      "parser": 2,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Free Practice 1",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "Free Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_41_-_impeding_of_car_81.pdf",
@@ -61,6 +68,7 @@
     },
     {
       "doc": 32,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Free Practice 1",
@@ -72,6 +80,7 @@
     },
     {
       "doc": 34,
+      "parser": 2,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 2",
@@ -83,6 +92,7 @@
     },
     {
       "doc": 36,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Free Practice 2",
@@ -94,6 +104,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 1,
       "driver": "Lando Norris",
       "session": "Free Practice 2",
@@ -105,6 +116,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Free Practice 3",
@@ -116,6 +128,7 @@
     },
     {
       "doc": 50,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Free Practice 3",
@@ -127,6 +140,7 @@
     },
     {
       "doc": 60,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Qualifying",
@@ -138,10 +152,11 @@
     },
     {
       "doc": 61,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Qualifying",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_27_-_failure_to_follow_race_directors_instructions_-_tunnel.pdf",
@@ -149,6 +164,7 @@
     },
     {
       "doc": 69,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
@@ -160,6 +176,7 @@
     },
     {
       "doc": 70,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -172,6 +189,7 @@
     },
     {
       "doc": 71,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
@@ -184,6 +202,7 @@
     },
     {
       "doc": 72,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -196,6 +215,7 @@
     },
     {
       "doc": 73,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -208,6 +228,7 @@
     },
     {
       "doc": 74,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
@@ -220,6 +241,7 @@
     },
     {
       "doc": 75,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -232,6 +254,7 @@
     },
     {
       "doc": 77,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -244,6 +267,7 @@
     },
     {
       "doc": 82,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
@@ -256,6 +280,7 @@
     },
     {
       "doc": 84,
+      "parser": 2,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -267,6 +292,7 @@
     },
     {
       "doc": 85,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -278,6 +304,7 @@
     },
     {
       "doc": 86,
+      "parser": 2,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Reconnaissance Laps",
@@ -289,6 +316,7 @@
     },
     {
       "doc": 89,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -301,6 +329,7 @@
     },
     {
       "doc": 90,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -314,6 +343,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 68,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

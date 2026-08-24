@@ -774,3 +774,63 @@ test("skipFirstWrite: при существующем файле пишем вс
 test("skipFirstWrite: чистый первый сбор публикуется", () => {
   assert.equal(skipFirstWrite(false, 0), false);
 });
+
+// ---- Каскад classifyDecision: приоритет при НЕСКОЛЬКИХ санкциях ----
+// Решение стюардов может нести сразу две санкции (в корпусе таких 9 из 442), а
+// каскад отдаёт первое совпадение. Значит порядок веток — правило, а не стиль:
+// младшая санкция не должна съедать старшую. Тексты ниже — настоящие.
+
+test("classifyDecision: предупреждение + штраф → штраф (деньги материальнее)", () => {
+  // Монако-2026 doc 60, Албон. Ветку warning когда-то завели ВЫШЕ денег, и
+  // €5 000 исчезали: в карточке RACE CONTROL деньги отбираются по type=fine.
+  const d = "Competitor: Formal warning A fine of €5,000 is also imposed on the Competitor " +
+    "for a breach of Article 12.2.1.h of the FIA International Sporting Code.";
+  assert.equal(classifyDecision(d).type, "fine");
+});
+
+test("classifyDecision: штраф раньше предупреждения в тексте — тоже штраф", () => {
+  // Порядок слов в решении роли не играет: обе формулировки встречаются.
+  const first = "The competitor (Oracle Red Bull Racing) is fined €10,000 A formal warning is issued to the driver.";
+  const second = "Warning to the driver. The competitor (MoneyGram Haas F1 Team) is fined €7.500.";
+  assert.equal(classifyDecision(first).type, "fine");
+  assert.equal(classifyDecision(second).type, "fine");
+});
+
+test("classifyDecision: одно предупреждение остаётся предупреждением", () => {
+  // Обратная ошибка: подъём денег не должен утащить сюда обычные warning'и.
+  assert.equal(classifyDecision("Driver: Warning.").type, "warning");
+  assert.equal(classifyDecision("Competitor: Formal warning.").type, "warning");
+  assert.equal(classifyDecision("Driver: Warning. Competitor: Warning.").type, "warning");
+});
+
+test("classifyDecision: выговор + предупреждение → выговор", () => {
+  // Выговоры накапливаются (три = грид-дроп), предупреждение последствий не несёт.
+  assert.equal(classifyDecision("Reprimand to the competitor. Warning to the driver.").type, "reprimand");
+});
+
+test("classifyDecision: «N second time penalty» и «N seconds added» — один штраф", () => {
+  // Две формулировки одной санкции; берём время из первой, дублей быть не должно.
+  const c = classifyDecision("10 second time penalty. (10 seconds added to elapsed Race time)");
+  assert.equal(c.type, "time");
+  assert.equal(c.seconds, 10);
+});
+
+test("classifyDecision: грид и время важнее денег", () => {
+  // Материальность: то, что меняет результат, стоит выше суммы.
+  assert.equal(classifyDecision("Drop of 10 grid positions. The competitor is fined €5,000.").type, "grid");
+  assert.equal(classifyDecision("5 second time penalty. The competitor is fined €5,000.").type, "time");
+});
+
+// ---- Тестовые уик-энды не занимают номер раунда ----
+
+test("matchRound: тестовый уик-энд FIA — не этап чемпионата", () => {
+  // FIA держит тесты на той же сезонной странице, а сопоставление идёт по
+  // префиксу страны — «Bahrain Tests Season 2025» матчился на R4 и пустым
+  // файлом затирал двенадцать решений Гран-при Бахрейна.
+  const races = [{ round: "4", date: "2025-04-13", raceName: "Bahrain Grand Prix" }];
+  assert.equal(matchRound("bahrain_tests_season_2025", races), null);
+  assert.equal(matchRound("pre_season_testing", races), null);
+  assert.equal(matchRound("test", races), null);
+  // Настоящий этап по-прежнему матчится, в том числе по префиксу страны.
+  assert.deepEqual(matchRound("bahrain_grand_prix", races), { round: 4, raceDate: "2025-04-13", raceTime: undefined });
+});

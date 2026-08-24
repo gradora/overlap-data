@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:26:51.430Z",
+  "generatedAt": "2026-08-24T15:34:51.074Z",
   "season": 2025,
   "round": 6,
   "event": "miami_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 14,
+      "parser": 2,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Practice 1",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 19,
+      "parser": 2,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Practice 1",
@@ -30,10 +32,11 @@
     },
     {
       "doc": 20,
+      "parser": 2,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Practice 1",
-      "type": "warning",
+      "type": "fine",
       "appliesTo": "Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_31_-_impeding_car_4.pdf",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 26,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Sprint Qualifying",
@@ -52,6 +56,7 @@
     },
     {
       "doc": 36,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint Qualifying",
@@ -64,6 +69,7 @@
     },
     {
       "doc": 48,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Sprint",
@@ -76,6 +82,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint",
@@ -88,6 +95,7 @@
     },
     {
       "doc": 50,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Sprint",
@@ -100,6 +108,7 @@
     },
     {
       "doc": 51,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Reconnaissance Laps",
@@ -111,6 +120,7 @@
     },
     {
       "doc": 52,
+      "parser": 2,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Sprint",
@@ -123,6 +133,7 @@
     },
     {
       "doc": 59,
+      "parser": 2,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Qualifying",
@@ -134,6 +145,7 @@
     },
     {
       "doc": 68,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
@@ -146,6 +158,7 @@
     },
     {
       "doc": 72,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -158,6 +171,7 @@
     },
     {
       "doc": 77,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -169,6 +183,7 @@
     },
     {
       "doc": 78,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -180,6 +195,7 @@
     },
     {
       "doc": 82,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -191,6 +207,7 @@
     },
     {
       "doc": 83,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -204,6 +221,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 71,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

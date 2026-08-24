@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:16.972Z",
+  "generatedAt": "2026-08-24T15:35:30.641Z",
   "season": 2025,
   "round": 11,
   "event": "austrian_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 15,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Practice 2",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 18,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Practice 2",
@@ -30,6 +32,7 @@
     },
     {
       "doc": 28,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Qualifying",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -52,6 +56,7 @@
     },
     {
       "doc": 40,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -64,6 +69,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -76,6 +82,7 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -88,6 +95,7 @@
     },
     {
       "doc": 46,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -101,6 +109,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 37,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

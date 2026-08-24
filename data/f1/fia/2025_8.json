@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:26:58.811Z",
+  "generatedAt": "2026-08-24T15:35:03.414Z",
   "season": 2025,
   "round": 8,
   "event": "monaco_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 17,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "",
@@ -20,6 +21,7 @@
     },
     {
       "doc": 22,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Practice 2",
@@ -32,6 +34,7 @@
     },
     {
       "doc": 23,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Practice 2",
@@ -43,6 +46,7 @@
     },
     {
       "doc": 28,
+      "parser": 2,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Practice 3",
@@ -54,6 +58,7 @@
     },
     {
       "doc": 29,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 2",
@@ -65,6 +70,7 @@
     },
     {
       "doc": 37,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
@@ -77,6 +83,7 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Qualifying",
@@ -89,6 +96,7 @@
     },
     {
       "doc": 47,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
@@ -100,6 +108,7 @@
     },
     {
       "doc": 54,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Reconnaissance Laps",
@@ -111,6 +120,7 @@
     },
     {
       "doc": 56,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -124,6 +134,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 46,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

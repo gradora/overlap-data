@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:52.015Z",
+  "generatedAt": "2026-08-24T15:36:21.418Z",
   "season": 2025,
   "round": 19,
   "event": "united_states_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 32,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint",
@@ -20,6 +21,7 @@
     },
     {
       "doc": 34,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint",
@@ -32,6 +34,7 @@
     },
     {
       "doc": 43,
+      "parser": 2,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Qualifying",
@@ -43,6 +46,7 @@
     },
     {
       "doc": 58,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -57,6 +61,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 51,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

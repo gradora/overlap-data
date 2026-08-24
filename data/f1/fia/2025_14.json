@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:29.040Z",
+  "generatedAt": "2026-08-24T15:35:47.771Z",
   "season": 2025,
   "round": 14,
   "event": "hungarian_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 15,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Practice 2",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 31,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Qualifying",
@@ -31,6 +33,7 @@
     },
     {
       "doc": 34,
+      "parser": 2,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -43,6 +46,7 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -54,6 +58,7 @@
     },
     {
       "doc": 40,
+      "parser": 2,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -66,6 +71,7 @@
     },
     {
       "doc": 41,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -78,6 +84,7 @@
     },
     {
       "doc": 42,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",
@@ -91,6 +98,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 33,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

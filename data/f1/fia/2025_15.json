@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:27:33.654Z",
+  "generatedAt": "2026-08-24T15:35:55.421Z",
   "season": 2025,
   "round": 15,
   "event": "dutch_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 17,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 2",
@@ -19,10 +20,11 @@
     },
     {
       "doc": 27,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 3",
-      "type": "warning",
+      "type": "fine",
       "appliesTo": "Practice 3",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_63_-_pit_lane_incident.pdf",
@@ -30,6 +32,7 @@
     },
     {
       "doc": 32,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Qualifying",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 41,
+      "parser": 2,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Qualifying",
@@ -53,6 +57,7 @@
     },
     {
       "doc": 45,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -65,6 +70,7 @@
     },
     {
       "doc": 52,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -77,6 +83,7 @@
     },
     {
       "doc": 53,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -89,6 +96,7 @@
     },
     {
       "doc": 55,
+      "parser": 2,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -100,6 +108,7 @@
     },
     {
       "doc": 57,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -112,6 +121,7 @@
     },
     {
       "doc": 58,
+      "parser": 2,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
@@ -123,6 +133,7 @@
     },
     {
       "doc": 59,
+      "parser": 2,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
@@ -136,6 +147,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 43,
+    "parser": 2,
     "entries": [
       {
         "position": 1,

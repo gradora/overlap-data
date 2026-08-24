@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T12:26:35.029Z",
+  "generatedAt": "2026-08-24T15:34:26.081Z",
   "season": 2025,
   "round": 3,
   "event": "japanese_grand_prix",
@@ -8,6 +8,7 @@
   "penalties": [
     {
       "doc": 12,
+      "parser": 2,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Practice 1",
@@ -19,6 +20,7 @@
     },
     {
       "doc": 19,
+      "parser": 2,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Practice 2",
@@ -30,6 +32,7 @@
     },
     {
       "doc": 20,
+      "parser": 2,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Practice 2",
@@ -41,6 +44,7 @@
     },
     {
       "doc": 28,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 3",
@@ -52,6 +56,7 @@
     },
     {
       "doc": 30,
+      "parser": 2,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 3",
@@ -63,6 +68,7 @@
     },
     {
       "doc": 31,
+      "parser": 2,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Practice 3",
@@ -74,6 +80,7 @@
     },
     {
       "doc": 38,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Qualifying",
@@ -86,6 +93,7 @@
     },
     {
       "doc": 49,
+      "parser": 2,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Pre-race",
@@ -99,6 +107,7 @@
   "startingGrid": {
     "kind": "final",
     "doc": 45,
+    "parser": 2,
     "entries": [
       {
         "position": 1,
