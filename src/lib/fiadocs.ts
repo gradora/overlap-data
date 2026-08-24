@@ -16,6 +16,7 @@ export type PenaltyType =
 
 export interface FiaPenalty {
   doc: number;                 // номер документа стюардов
+  parser?: number;             // версия парсера, которой разобрана ЭТА запись
   car: number;
   driver: string;
   session: string;             // где случилось нарушение (напр. «Free Practice 1»)
@@ -41,6 +42,7 @@ export interface FiaGridEntry {
 export interface FiaStartingGrid {
   kind: "provisional" | "final";
   doc: number;
+  parser?: number;             // версия парсера, которой разобрана эта решётка
   entries: FiaGridEntry[];
   penaltySummary: { car: number; text: string; doc: number }[];
   url: string;
@@ -130,6 +132,32 @@ export function isPenaltyDoc(title: string): boolean {
 
 // ---- Парсинг штрафного/Decision PDF (шаблон стюардов) ----
 
+// ВЕРСИЯ ПАРСЕРОВ — БАМПАТЬ ПРИ ЛЮБОЙ СМЫСЛОВОЙ ПРАВКЕ разбора PDF:
+// parsePenaltyDoc / classifyDecision / appliesTo / fieldValue / isPenaltyDoc /
+// parseStartingGridDoc. Продьюсер fia.ts перестал перекачивать документы,
+// которые уже разобраны в файле раунда, — и без бампа правка парсера НЕ ДОЙДЁТ
+// до старых решений: они так и останутся с прежней классификацией.
+//
+// В истории репозитория такое требовалось минимум трижды и каждый раз было
+// правильным: «other → fine» (2026_1 doc 41/42), «other → warning» (2026_11
+// doc 19), «слот решётки без лаптайма» (2026_10 startingGrid, 21 → 22 записи).
+//
+// Версия ставится КАЖДОЙ записи (penalty.parser, startingGrid.parser), а не
+// файлу целиком. Файловая метка была «всё или ничего»: одна неудачная закачка
+// документа, который уже лежит в файле, не давала пометить файл, и следующий
+// прогон снова качал ВСЕ полсотни PDF. По истории data/f1/fia/2026_12.json из
+// 40 ревизий 13 — прогоны с массовыми отказами, то есть именно на уик-энде
+// докач мог не включиться часами; тем же ломался рецепт
+// FIA_FORCE=1 FIA_BACKFILL=99 (форсированный прогон с одной осечкой не
+// фиксировал прогресс ни по одному документу). Пометка на записи — это правда
+// о самой записи: она переживает слияние без бухгалтерии на стороне файла,
+// и прогресс идёт подокументно. Цена — по строке «parser» на запись.
+//
+// Бамп снимает пропуск только там, где раунд вообще перечитывается, то есть
+// внутри окна оседания. Замороженную историю пересобирают руками:
+//   FIA_FORCE=1 FIA_BACKFILL=99 npm run fia
+export const PENALTY_PARSER_VERSION = 1;
+
 const BODY_ANCHOR = "determine the following:";
 // Метки полей в порядке появления (Offence — синоним Infringement у части доков).
 const FIELD_LABELS = [
@@ -215,6 +243,7 @@ export function parsePenaltyDoc(text: string, ref: DocRef): FiaPenalty | null {
 
   return {
     doc: ref.doc,
+    parser: PENALTY_PARSER_VERSION,
     car,
     driver,
     session,
@@ -266,7 +295,10 @@ export function parseStartingGridDoc(text: string, ref: DocRef): FiaStartingGrid
   }
 
   if (!entries.length) return null;
-  return { kind, doc: ref.doc, entries, penaltySummary, url: ref.url, publishedAt: ref.publishedAt };
+  return {
+    kind, doc: ref.doc, parser: PENALTY_PARSER_VERSION,
+    entries, penaltySummary, url: ref.url, publishedAt: ref.publishedAt,
+  };
 }
 
 // ---- Маппинг этап-slug → round (из зеркала расписания Jolpica) ----
@@ -336,12 +368,126 @@ export function raceStartWall(raceDate: string, raceTime?: string): string | nul
 // пилот участвует». Помечаем appliesTo=next_race: приложение не применяет его
 // к решётке текущего этапа, а продьюсер следующего раунда заберёт (carryOver).
 // Без publishedAt / без времени гонки — не трогаем (толерантно, как раньше).
+//
+// Применяется к ИТОГУ слияния, а не к разобранному за прогон: с докачом решения
+// из файла больше не перечитываются, и разовая классификация «на момент первого
+// разбора» зафиксировалась бы навсегда. Типичный сбой: у Jolpica ещё нет
+// raceTime → raceStartWall = null → функция no-op → грид-штраф остался «race» и
+// не переехал в следующий раунд.
+//
+// Метка ставится В ОБЕ СТОРОНЫ — иначе «самолечение» одностороннее. Пока PDF
+// перепарсивался каждый прогон, ошибочный next_race сам исчезал при следующем
+// разборе; с докачом функция работает по записи ИЗ ФАЙЛА, и раннее (или
+// плейсхолдерное) время старта у Jolpica заклинивало бы пометку навсегда:
+// время потом исправляли, а штраф так и уезжал carryOver'ом в следующий раунд.
+// Двусторонний пересчёт от wall делает результат функцией только входа —
+// идемпотентно и с откатом.
+//
+/// Публиковать ли ПЕРВЫЙ сбор раунда, или лучше не создавать файл вовсе.
+///
+/// Слияние спасает только то, что уже лежит в файле. Когда файла нет, осечка
+/// закачки — это дыра, которую запись увековечивает: бэкфилл смотрит ровно на
+/// существование файла, поэтому у ЗАМОРОЖЕННОГО раунда второго шанса не будет
+/// никогда (R11 Hungarian 2026: 5 из 13 PDF отдали 503 → в файл легли 8
+/// решений, доки 19, 21, 36, 54, 57 потеряны насовсем).
+///
+/// Но блокировать можно ТОЛЬКО по возвратным осечкам. Документ, чей шаблон
+/// парсер не знает, не дастся никогда — по таким раунд не собрался бы вовсе
+/// (в 2026 их 14 на шести раундах), а рецепт «удали файл и прогони заново»
+/// стал бы разрушительным. Их лечит бамп PENALTY_PARSER_VERSION, а не повтор.
+export function skipFirstWrite(hasExisting: boolean, retriableFailures: number): boolean {
+  return !hasExisting && retriableFailures > 0;
+}
+
+// Трогаем ТОЛЬКО appliesTo ∈ {race, next_race}: это одно и то же «к какой гонке
+// применить», и переключать между ними безопасно. Всё остальное — чужие
+// пространства решений; в первую очередь «sprint» (в истории 18 записей —
+// грид-штрафы решётки СПРИНТА), который иначе затёрся бы в next_race.
+//
+// Переносы (carriedFrom) исключены: carryOver уже перевёл их в appliesTo=race
+// для ТЕКУЩЕГО раунда, и щелчок обратно в next_race гнал бы их дальше вечно.
 export function markNextRace(penalties: FiaPenalty[], wall: string | null): FiaPenalty[] {
   if (!wall) return penalties;
   return penalties.map((p) => {
-    if (p.type !== "grid" || !p.publishedAt) return p;
-    return p.publishedAt.slice(0, 16) >= wall ? { ...p, appliesTo: "next_race" } : p;
+    if (p.carriedFrom != null || p.type !== "grid" || !p.publishedAt) return p;
+    if (p.appliesTo !== "race" && p.appliesTo !== "next_race") return p;
+    const applies = p.publishedAt.slice(0, 16) >= wall ? "next_race" : "race";
+    return applies === p.appliesTo ? p : { ...p, appliesTo: applies };
   });
+}
+
+// ---- Инкрементальный докач: какие PDF можно не перекачивать ----
+
+// Раньше файл раунда пересобирался заново каждый прогон, поэтому и качать
+// приходилось ВСЁ: 19 штрафных PDF Зандфорта + решётка = ~20 закачек в час,
+// ~80/час на уик-энде. С mergeFiaEvent файл накапливается, и прогон может
+// тянуть только те документы, которых в нём ещё нет.
+//
+// Пропуск безопасен, потому что он ничего не РЕШАЕТ: файл только накапливается,
+// удалений нет вовсе (см. mergeFiaEvent). Пропущенный документ остаётся в файле
+// таким, каким был разобран, и худшее, что делает ошибочный пропуск, — задержку
+// обновления записи до следующей смены отпечатка или бампа версии парсера.
+//
+// Отпечаток документа — бесплатный, целиком из списка: url + publishedAt +
+// «Corrected» в заголовке. По всей истории репозитория ни один уже записанный
+// документ не менял ни url, ни publishedAt — ложных перекачек отпечаток не даёт,
+// но будущую подмену по тому же URL ловит даром.
+//
+// Версия парсера сверяется У КАЖДОЙ ЗАПИСИ (p.parser), а не у файла: см.
+// PENALTY_PARSER_VERSION — файловая метка делала бутстрап «всё или ничего».
+//
+// Фильтр carriedFrom == null — не косметика: перенос R11 doc 60 и собственный
+// doc 60 текущего этапа живут в разных ключевых пространствах (penaltyKey), и
+// без фильтра перенос подавил бы закачку собственного документа с тем же номером.
+
+export interface FetchPlan {
+  fetch: DocRef[];        // качаем и парсим
+  reused: FiaPenalty[];   // не качаем: эквивалент уже лежит в файле
+  restamp: number;        // из fetch: лежат в файле, но разобраны другой версией парсера
+}
+
+const sameDoc = (p: FiaPenalty, d: DocRef): boolean =>
+  p.url === d.url && p.publishedAt === d.publishedAt && p.corrected === /corrected/i.test(d.title);
+
+/// Разложить штрафные документы списка на «качать» и «взять из файла».
+/// force (FIA_FORCE=1) отключает пропуск целиком; смена версии парсера — для
+/// тех записей, которые разобраны прежней версией.
+export function planPenaltyFetches(
+  prev: FiaEvent | null,
+  listed: DocRef[],
+  force: boolean,
+): FetchPlan {
+  const plan: FetchPlan = { fetch: [], reused: [], restamp: 0 };
+  const known = new Map<number, FiaPenalty>();
+  if (prev) for (const p of prev.penalties) if (p.carriedFrom == null) known.set(p.doc, p);
+  for (const d of listed) {
+    const p = known.get(d.doc);
+    if (!force && p && p.parser === PENALTY_PARSER_VERSION && sameDoc(p, d)) {
+      plan.reused.push(p);
+      continue;
+    }
+    if (!force && p && p.parser !== PENALTY_PARSER_VERSION) plan.restamp++;
+    plan.fetch.push(d);
+  }
+  return plan;
+}
+
+// Решётка. «Стало final — больше не качаем» НЕПРАВИЛЬНО: на спринтовых уик-эндах
+// final→final под другим номером — норма (2026_12: provisional 25 спринта →
+// final 32 спринта → final 61 гонки), и такое правило заморозило бы в файле
+// спринтовую решётку. Provisional→Final тоже всегда меняет номер документа,
+// поэтому ключ по номеру покрывает апгрейд, а отпечаток — переиздание.
+//
+// Версия парсера — у самой решётки (g.parser): решётка живёт в файле рядом со
+// штрафами, но качается и стареет отдельно от них.
+export function canReuseGrid(
+  prev: FiaEvent | null,
+  gridDoc: DocRef | null | undefined,
+  force: boolean,
+): boolean {
+  const g = prev?.startingGrid;
+  if (force || !g || !gridDoc || g.parser !== PENALTY_PARSER_VERSION) return false;
+  return g.doc === gridDoc.doc && g.url === gridDoc.url && g.publishedAt === gridDoc.publishedAt;
 }
 
 // ---- Слияние прогона с уже собранным файлом раунда ----
@@ -351,16 +497,18 @@ export interface FiaScrape {
   penalties: FiaPenalty[];        // разобранные в ЭТОМ прогоне решения раунда
   carried: FiaPenalty[];          // перенос из предыдущего раунда (carryOver)
   startingGrid?: FiaStartingGrid; // распарсенная в этом прогоне решётка (если далась)
-  listedDocs: number[];           // номера ВСЕХ штрафных доков в списке FIA сейчас
-  complete: boolean;              // список прочитан целиком, без единой осечки
+  // Номера штрафных доков, которые СЕЙЧАС видны на странице FIA. Ничего не
+  // авторизуют — нужны ровно для того, чтобы заметить и громко залогировать
+  // пропажу документа, который в файле уже есть (см. FiaMerge.missing).
+  listedDocs: number[];
 }
 
 export interface FiaMerge {
   penalties: FiaPenalty[];
   startingGrid?: FiaStartingGrid;
   updated?: string;
-  kept: number;      // решений взято из прежнего файла (в прогоне не дались)
-  dropped: number;   // решений убрано: документ исчез со страницы FIA (отозван)
+  kept: number;        // решений взято из прежнего файла (в прогоне не перечитывались)
+  missing: number[];   // есть в файле, но пропали со страницы FIA — ОСТАВЛЕНЫ, только лог
 }
 
 // Ключ решения. Переносы (carriedFrom) живут в своём пространстве: doc-номера
@@ -380,21 +528,31 @@ const penaltyKey = (p: FiaPenalty): string => `${p.carriedFrom ?? "self"}#${p.do
 //   в файле оба, как и раньше: их схлопывает приложение (FIAPenaltyApplier);
 // * переносы всегда пересобираются свежим carryOver — он читает локальный файл
 //   предыдущего раунда, сеть тут ни при чём, стареть нечему;
-// * удаление доверяем только ЧИСТОМУ прогону (complete): отозванный документ
-//   исчезает со страницы FIA, но отличить отзыв от сетевой осечки можно, лишь
-//   когда прочитано всё;
+// * СВОИ решения не удаляются НИКОГДА — только накапливаются (см. ниже);
 // * решётка не теряется при осечке PDF и НЕ откатывается final → provisional.
+//
+// Почему удаления нет вовсе. Правило «документ пропал со страницы FIA → он
+// отозван, убираем» решало несуществующую задачу: по всей истории репозитория
+// НЕ БЫЛО НИ ОДНОГО настоящего отзыва документа. Все 220 случаев исчезновения
+// решения из файла — следы прежнего бага с перезаписью (18→0, 11→1, 12→0),
+// а не действия FIA. Цена же — катастрофический отказ: страница этапа,
+// отдавшая 3 строки из 19 (деградация fia.com, смена вёрстки, частичный парс),
+// авторизовала бы удаление 16 собранных решений; раньше от этого случайно
+// защищали неудачные закачки PDF, а с докачом качать может быть нечего вообще,
+// и «прогон без осечек» стал выполняться тривиально.
+// Поэтому пропажа теперь только ГРОМКО ЛОГИРУЕТСЯ (missing) — разбирается
+// глазами. Если документ и правда отозван, вычистить его можно ТОЛЬКО удалив
+// файл раунда и прогнав продьюсер заново: FIA_FORCE=1 перекачивает документы,
+// но сюда не доходит вовсе — слияние сохраняет всё из prev.penalties
+// безусловно, и фантомная запись пережила бы любой форсированный прогон.
 export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge {
   const listed = new Set(fresh.listedDocs);
   const byKey = new Map<string, FiaPenalty>();
-  let dropped = 0;
+  const missing: number[] = [];
 
   for (const p of prev?.penalties ?? []) {
     if (p.carriedFrom != null) continue;          // переносы — ниже, из свежего carryOver
-    if (fresh.complete && !listed.has(p.doc)) {   // документ отозван — отпускаем
-      dropped++;
-      continue;
-    }
+    if (!listed.has(p.doc)) missing.push(p.doc);  // пропал со страницы — но остаётся в файле
     byKey.set(penaltyKey(p), p);
   }
   const fromFile = [...byKey.keys()];
@@ -421,7 +579,7 @@ export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge
     ...(startingGrid ? { startingGrid } : {}),
     ...(updated ? { updated } : {}),
     kept,
-    dropped,
+    missing: missing.sort((a, b) => a - b),
   };
 }
 
@@ -429,9 +587,33 @@ export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge
 // обычными race-штрафами текущего, с пометкой carriedFrom (по ней приложение
 // не считает их «поздними» — doc-номера разных уик-эндов несравнимы, а FIA
 // заведомо учтёт перенос при составлении решётки нового этапа).
-export function carryOver(prev: FiaEvent | null): FiaPenalty[] {
-  if (!prev) return [];
-  return prev.penalties
-    .filter((p) => p.type === "grid" && p.appliesTo === "next_race")
-    .map((p) => ({ ...p, appliesTo: "race", carriedFrom: prev.round }));
+//
+// Перенос идёт ТОЛЬКО в раунд, старт которого позже публикации решения.
+// Безусловный перенос был безопасен, пока раунд замерзал через 7 дней: поздний
+// вердикт просто не попадал в файл. Со стюардским окном 14 дней он попадает, и
+// на back-to-back парах (в календаре-2026 их девять) гонка N+1 к этому моменту
+// уже проехана — штраф лёг бы на решётку ВЧЕРАШНЕЙ гонки. Сравнение то же, что
+// у markNextRace: wall-clock с wall-clock (Париж), лексикографически.
+//
+// `late` — то, что не перенеслось: продьюсер логирует его громко, потому что
+// дальше R+2 такой вердикт сам не уедет (carryOver смотрит ровно на один
+// предыдущий файл) — это случай для ручного разбора.
+export interface CarryOverPlan {
+  carried: FiaPenalty[];   // переносим в текущий раунд
+  late: FiaPenalty[];      // вердикт опубликован уже ПОСЛЕ старта текущего раунда
+}
+
+export function carryOver(prev: FiaEvent | null, targetStartWall: string | null): CarryOverPlan {
+  const plan: CarryOverPlan = { carried: [], late: [] };
+  if (!prev) return plan;
+  for (const p of prev.penalties) {
+    if (p.type !== "grid" || p.appliesTo !== "next_race") continue;
+    // Нет времени старта или даты публикации — переносим (толерантно, как
+    // раньше): выдумывать порядок событий по неполным данным хуже.
+    const tooLate = targetStartWall != null && p.publishedAt != null &&
+      p.publishedAt.slice(0, 16) >= targetStartWall;
+    if (tooLate) plan.late.push(p);
+    else plan.carried.push({ ...p, appliesTo: "race", carriedFrom: prev.round });
+  }
+  return plan;
 }

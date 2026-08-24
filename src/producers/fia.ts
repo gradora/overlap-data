@@ -12,17 +12,17 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
 import { scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
-import { isFrozen } from "../lib/freeze.js";
+import { isStewardsFrozen } from "../lib/freeze.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { UA } from "../lib/http.js";
 import { envFlag, envNumber } from "../lib/env.js";
 import {
   type DocRef, type FiaEvent, type FiaPenalty, type FiaStartingGrid,
-  carryOver, eventSlugFromUrl, finalRoundFile, findSeasonUrl, isPenaltyDoc,
+  canReuseGrid, carryOver, eventSlugFromUrl, finalRoundFile, findSeasonUrl, isPenaltyDoc,
   markNextRace, matchRound, mergeFiaEvent, parseDocList,
-  parseEventOptions, parsePenaltyDoc, parseStartingGridDoc, raceStartWall,
-  seasonUrlYear, slugifyRace,
-  CHAMPIONSHIP_URL,
+  parseEventOptions, parsePenaltyDoc, parseStartingGridDoc, planPenaltyFetches, raceStartWall,
+  seasonUrlYear, skipFirstWrite, slugifyRace,
+  CHAMPIONSHIP_URL, PENALTY_PARSER_VERSION,
 } from "../lib/fiadocs.js";
 
 
@@ -33,6 +33,9 @@ const SEASON_URL_FALLBACK = `${CHAMPIONSHIP_URL}/season/season-2026-2072`;
 const OUT_DIR = join(process.cwd(), "data", "f1", "fia");
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const NOW = Date.now();
+// Читаем один раз на модуль: флаг нужен и в отборе раундов, и в produceEvent
+// (там он снимает пропуск уже разобранных документов).
+const FORCE = envFlag("FIA_FORCE");
 
 function jolpicaSchedule(): {
   season: string | null;
@@ -57,6 +60,7 @@ function jolpicaSchedule(): {
 const PAGE_ATTEMPTS = 3;   // страниц немного — можно позволить два повтора
 const PDF_ATTEMPTS = 2;    // документов полсотни: один повтор, чтобы не растянуть прогон
 const RETRY_PAUSE_MS = 1500;
+const POLITE_PAUSE_MS = 200;   // между закачками PDF подряд (как в wecfia.ts)
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const errText = (e: unknown): string => (e instanceof Error ? e.message : String(e));
@@ -67,6 +71,17 @@ export interface FetchOpts {
   attempts: number;   // всего попыток, включая первую
   pauseMs?: number;
 }
+
+/// Почему документ не дался. Разница нужна ровно в одном месте — решении
+/// «публиковать ли неполный ПЕРВЫЙ сбор раунда»:
+/// * `retriable` — сеть, таймаут, 429/5xx, а также 404 на ещё не выложенный
+///   документ: следующий прогон может его добрать, поэтому ждём;
+/// * `permanent` — шаблон стюардов вне разбора или битый текстовый слой.
+///   Такой документ не дастся НИКОГДА, пока не поправят парсер, и блокировать
+///   из-за него сбор раунда нельзя (в сезоне 2026 таких 14 штук на 6 раундов:
+///   «Permission to start», «Failing to set a lap time within 107%» и т.п. —
+///   с блокировкой по ним половина сезона не собралась бы вовсе).
+export type FetchFailure = "retriable" | "permanent";
 
 /// Чтение ответа с ретраем и внятным логом. null — устойчивый отказ.
 export async function fetchWithRetry<T>(
@@ -104,13 +119,21 @@ async function fetchHtml(url: string, label = "страница"): Promise<strin
   return fetchWithRetry(url, (res) => res.text(), { label, timeoutMs: 20000, attempts: PAGE_ATTEMPTS });
 }
 
-async function fetchPdfText(url: string, label: string): Promise<string | null> {
+/// `fail` — необязательный «выхлоп» причины отказа для вызывающего (см.
+/// FetchFailure). Отдельным параметром, а не типом возврата, чтобы не трогать
+/// остальные три места, которым причина не нужна.
+async function fetchPdfText(
+  url: string, label: string, fail?: { kind: FetchFailure },
+): Promise<string | null> {
   const bytes = await fetchWithRetry(
     url,
     async (res) => new Uint8Array(await res.arrayBuffer()),
     { label, timeoutMs: 30000, attempts: PDF_ATTEMPTS },
   );
-  if (!bytes) return null;
+  if (!bytes) {
+    if (fail) fail.kind = "retriable";
+    return null;
+  }
   // Отдельная ветка: сеть отработала, сломался текстовый слой — ретраить нечего,
   // но в логе это должно читаться иначе, чем сетевой отказ.
   try {
@@ -119,6 +142,7 @@ async function fetchPdfText(url: string, label: string): Promise<string | null> 
     return text;
   } catch (e) {
     console.warn(`  ${label}: PDF не распарсился (unpdf: ${errText(e)})`);
+    if (fail) fail.kind = "permanent";
     return null;
   }
 }
@@ -188,14 +212,22 @@ async function main() {
     }
     const { round, raceDate, raceTime } = ev.m;
     const raceStartMs = Date.parse(`${raceDate}T00:00:00Z`);
-    // Замораживаем этап через окно оседания после гонки (штрафы могут
-    // корректировать до ~7д). Позже — не рескрейпим (вежливо; файл остаётся).
-    const frozen = isFrozen(Date.parse(`${raceDate}T23:59:59Z`), NOW);
+    // Замораживаем этап через СТЮАРДСКОЕ окно оседания (14 дней — срок права
+    // FIA на пересмотр: вердикт по протесту выходит на 8–10-й день, в недельное
+    // окно не попадал и терялся навсегда). Длинное окно здесь безопасно и почти
+    // бесплатно: файл раунда накапливается (mergeFiaEvent), а прогон докачивает
+    // только недостающие документы. Позже — не рескрейпим (файл остаётся).
+    const frozen = isStewardsFrozen(Date.parse(`${raceDate}T23:59:59Z`), NOW);
     const isActive = !frozen && NOW >= raceStartMs - ACTIVE_LEAD_MS;
-    // FIA_FORCE=1 — разовая локальная пересборка существующих файлов
-    // (например, после фикса классификатора).
+    // FIA_FORCE=1 — разовая локальная пересборка существующих файлов (например,
+    // после фикса классификатора). Он работает В ДВУХ местах: здесь возвращает
+    // раунд в обработку, а внутри produceEvent снимает пропуск уже разобранных
+    // документов; без второго форс стал бы no-op с приходом докача.
+    // Заморозку форс ОБХОДИТ — прошедший раунд проходит по needsBackfill даже
+    // с существующим файлом, — но упирается в бюджет бэкфилла, поэтому полная
+    // пересборка истории пишется как FIA_FORCE=1 FIA_BACKFILL=99 npm run fia.
     const needsBackfill =
-      (envFlag("FIA_FORCE") || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
+      (FORCE || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
       raceStartMs < NOW;
     if (!isActive && !needsBackfill) continue;
     if (!isActive) {
@@ -227,29 +259,102 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   }
   console.log(`  ${eventSlug} → R${round}, ${docs.length} документов`);
 
-  // Штрафы. Осечки считаем: файл раунда сливается с прежним, и «документ
-  // отозван» можно утверждать только по прогону, прочитавшему список целиком.
+  // Уже собранный файл раунда читаем ДО закачек: он же и план докача. Вместе с
+  // ним поднимается guard чужого этапа — иначе при перенумерации календаря файл
+  // прошлого этапа выдал бы «doc 41 уже есть», и документы нового этапа не
+  // скачались бы никогда.
+  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
+  let existing: FiaEvent | null = null;
+  try {
+    existing = JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    /* файла ещё нет — первый сбор раунда */
+  }
+  // Файл того же номера, но ЧУЖОГО этапа (перенумерация календаря, отмена
+  // гонки) сливать нельзя — это смешало бы решения двух уик-эндов. Перезапись.
+  // Дальше этот раунд идёт как «первый сбор» (existing = null) — и попадает под
+  // тот же предохранитель неполного сбора; slug помним только ради честного лога.
+  let replacedEvent: string | null = null;
+  if (existing && existing.event && existing.event !== eventSlug) {
+    console.warn(`  R${round}: в файле был этап «${existing.event}», теперь «${eventSlug}» — пересобираем с нуля`);
+    replacedEvent = existing.event;
+    existing = null;
+  }
+
+  // Штрафы. Документы, которые уже разобраны в файле ТЕКУЩЕЙ версией парсера,
+  // не перекачиваем (см. докач в fiadocs.ts): файл только накапливается, и
+  // пропуск ничем не рискует — он лишь откладывает обновление записи.
   const penaltyDocs = docs.filter((x) => isPenaltyDoc(x.title));
-  let penalties: FiaPenalty[] = [];
-  let failures = 0;
-  for (const d of penaltyDocs) {
-    const text = await fetchPdfText(d.url, `Doc ${d.doc}`);
-    if (!text) {
-      failures++;
-      continue;
-    }
-    const p = parsePenaltyDoc(text, d);
-    if (p) {
-      penalties.push(p);
-    } else {
-      failures++;
-      console.warn(`  Doc ${d.doc}: шаблон стюардов не распознан (парсер)`);
+  const plan = planPenaltyFetches(existing, penaltyDocs, FORCE);
+  if (existing && penaltyDocs.length) {
+    if (FORCE) {
+      console.log(`  R${round}: FIA_FORCE=1 — перечитываем все документы`);
+    } else if (plan.restamp) {
+      console.log(
+        `  R${round}: ${plan.restamp} документ(ов) разобрано парсером другой версии (сейчас v${PENALTY_PARSER_VERSION}) — перечитываем их`,
+      );
     }
   }
+  const penalties: FiaPenalty[] = [];
+  let failures = 0;          // не прочитано всего — для лога
+  let retriable = 0;         // из них те, что следующий прогон может добрать
+  for (const d of plan.fetch) {
+    const fail = { kind: "retriable" as FetchFailure };
+    const text = await fetchPdfText(d.url, `Doc ${d.doc}`, fail);
+    if (!text) {
+      failures++;
+      if (fail.kind === "retriable") retriable++;
+    } else {
+      const p = parsePenaltyDoc(text, d);
+      if (p) {
+        penalties.push(p);
+      } else {
+        // Шаблон вне разбора — это не осечка прогона, а работа для парсера:
+        // повтор не поможет никогда, поэтому сбор раунда он не блокирует.
+        failures++;
+        console.warn(`  Doc ${d.doc}: шаблон стюардов не распознан (парсер)`);
+      }
+    }
+    // Вежливая пауза между PDF (как в wecfia.ts): полсотни документов подряд
+    // без неё — прямой путь к 429 от fia.com.
+    await sleep(POLITE_PAUSE_MS);
+  }
   penalties.sort((a, b) => a.doc - b.doc);
+  console.log(
+    `  R${round}: штрафных доков ${penaltyDocs.length} — пропущено (уже разобрано) ${plan.reused.length}, ` +
+      `скачано ${penalties.length}, не далось ${failures}`,
+  );
 
-  // Пост-гоночные грид-штрафы → «на следующую гонку» (по времени публикации).
-  penalties = markNextRace(penalties, raceStartWall(raceDate, raceTime));
+  // Неполный ПЕРВЫЙ сбор раунда не публикуем вовсе. Слияние спасает только то,
+  // что уже лежит в файле; когда файла нет, осечка закачки — это дыра, которую
+  // запись увековечивает: needsBackfill смотрит ровно на существование файла,
+  // поэтому у ЗАМОРОЖЕННОГО раунда второго шанса не будет никогда (R11
+  // Hungarian: 5 из 13 PDF отдали 503 → в файл легли 8 решений, доки 19, 21,
+  // 36, 54, 57 потеряны навсегда, и следующие исправные прогоны раунд даже не
+  // трогают). Файла нет — значит следующий прогон честно повторит бэкфилл.
+  // То же правило и по той же причине живёт в f1teams.ts.
+  //
+  // Этим же закрыт guard чужого этапа выше: он сбрасывает existing в null, то
+  // есть дальше идёт ровно «первый сбор». При отказе сети прежний файл теперь
+  // остаётся нетронутым, а не подменяется огрызком нового этапа (было: в файле
+  // belgian, страница отдаёт dutch → 19 штрафов превращались в 10 или в 0).
+  //
+  // Считаем ТОЛЬКО возвратные осечки: документ, чей шаблон парсер не знает, не
+  // дастся и на сотом прогоне, а раунд из-за него не собрался бы никогда. На
+  // реальных данных это не теория — в сезоне 2026 таких документов 14 на шести
+  // раундах, и по ним же документированный рецепт «удали файл и прогони
+  // заново» уничтожил бы 107 решений безвозвратно.
+  if (skipFirstWrite(existing != null, retriable)) {
+    console.warn(
+      `::warning::R${round}: ${retriable} из ${plan.fetch.length} документ(ов) не прочитано по возвратной ` +
+        `причине, а собранного файла этого этапа нет — ` +
+        (replacedEvent
+          ? `файл этапа «${replacedEvent}» НЕ подменяем огрызком нового`
+          : `файл НЕ создаём: неполный первый сбор хуже отсутствия файла`) +
+        ` (следующий прогон повторит сбор раунда)`,
+    );
+    return;
+  }
 
   // Перенос next_race-штрафов из предыдущего раунда в текущий. Для R1
   // «предыдущий» — финал ПРОШЛОГО сезона: грид-штраф, выданный после старта
@@ -273,9 +378,21 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   }
   // Переносы держим ОТДЕЛЬНО от собственных решений раунда: слияние пересобирает
   // их заново каждый прогон (carryOver читает локальный файл, сеть ни при чём).
-  const carried = carryOver(prev);
+  // Перенос ограничен временем: вердикт, опубликованный уже ПОСЛЕ старта этого
+  // раунда (back-to-back + стюардское окно 14 дней), к его решётке неприменим.
+  const raceWall = raceStartWall(raceDate, raceTime);
+  const { carried, late } = carryOver(prev, raceWall);
   if (carried.length) {
     console.log(`  перенос из ${prevFile}: ${carried.length} грид-штраф(а)`);
+  }
+  // ::warning:: — дальше R+2 такой вердикт сам не уедет (carryOver смотрит ровно
+  // на один предыдущий файл), это случай для ручного разбора: в summary он
+  // обязан быть виден.
+  for (const p of late) {
+    console.warn(
+      `::warning::R${round}: перенос из ${prevFile} doc ${p.doc} (car ${p.car}) опубликован ${p.publishedAt} — ` +
+        `уже после старта этого раунда (${raceWall}), НЕ переношу; примени руками к следующей гонке пилота`,
+    );
   }
 
   // Официальная стартовая решётка (Final приоритетнее Provisional).
@@ -283,7 +400,10 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   const gridDoc =
     gridDocs.find((d) => /final/i.test(d.title)) ?? gridDocs.find((d) => /provisional/i.test(d.title));
   let startingGrid: FiaStartingGrid | undefined;
-  if (gridDoc) {
+  const gridReused = canReuseGrid(existing, gridDoc, FORCE);
+  if (gridDoc && gridReused) {
+    console.log(`  Doc ${gridDoc.doc} (грид): пропущен — тот же документ уже разобран`);
+  } else if (gridDoc) {
     const text = await fetchPdfText(gridDoc.url, `Doc ${gridDoc.doc} (грид)`);
     if (text) {
       startingGrid = parseStartingGridDoc(text, gridDoc) ?? undefined;
@@ -291,49 +411,67 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
     }
   }
 
-  // Слияние с уже собранным файлом раунда: прогон ДОПОЛНЯЕТ его, а не заменяет.
-  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
-  let existing: FiaEvent | null = null;
-  try {
-    existing = JSON.parse(readFileSync(path, "utf8"));
-  } catch {
-    /* файла ещё нет — первый сбор раунда */
-  }
-  // Файл того же номера, но ЧУЖОГО этапа (перенумерация календаря, отмена
-  // гонки) сливать нельзя — это смешало бы решения двух уик-эндов. Перезапись.
-  if (existing && existing.event && existing.event !== eventSlug) {
-    console.warn(`  R${round}: в файле был этап «${existing.event}», теперь «${eventSlug}» — пересобираем с нуля`);
-    existing = null;
-  }
-  const complete = failures === 0;
+  // Слияние с уже собранным файлом раунда: прогон ДОПОЛНЯЕТ его, а не заменяет,
+  // и НИКОГДА ничего не удаляет (обоснование — в mergeFiaEvent). listedDocs
+  // нужен только на то, чтобы заметить пропажу и сказать о ней вслух.
   const merged = mergeFiaEvent(existing, {
     penalties,
     carried,
     startingGrid,
     listedDocs: penaltyDocs.map((d) => d.doc),
-    complete,
   });
+  // Досюда доходят два разных случая, и путать их в логе нельзя. С непустым
+  // existing спасать есть что — слияние удержит прежние решения. С пустым сюда
+  // проходят ТОЛЬКО невозвратные отказы (шаблон вне разбора): прежнего файла
+  // нет, спасать нечего, и документ вернётся не повтором, а правкой парсера.
   if (failures) {
     console.warn(
-      `  R${round}: ${failures} документ(ов) не прочитано — прежние решения сохраняем, удалений не делаем`,
+      existing
+        ? `  R${round}: ${failures} документ(ов) не прочитано — прежние решения сохраняем, ` +
+          `остальные документы уже зачтены подокументно`
+        : `::warning::R${round}: ${failures} документ(ов) вне разбора парсера — раунд собран без них ` +
+          `(вернутся после правки парсера и бампа PENALTY_PARSER_VERSION)`,
     );
   }
-  if (merged.dropped) {
-    console.log(`  R${round}: ${merged.dropped} решение(й) исчезло со страницы FIA (отзыв) — убрано`);
+  // ::warning:: — пропажа документа разбирается человеком, а в summary прогона
+  // GH Actions попадают только аннотированные строки (обычные осечки сети
+  // оставлены без аннотации, иначе summary забьётся шумом уик-энда).
+  for (const doc of merged.missing) {
+    console.warn(
+      `::warning::R${round}: doc ${doc} пропал со страницы FIA — оставляю в файле, проверь руками ` +
+        `(если документ и правда отозван — удали data/f1/fia/${YEAR}_${round}.json и прогони заново: ` +
+        `FIA_FORCE только перекачивает документы, а слияние сохраняет прежнюю запись безусловно)`,
+    );
   }
+
+  // Классификацию «эта гонка / следующая» пересчитываем на ИТОГЕ слияния:
+  // решения из файла больше не перечитываются, и разовая пометка застыла бы
+  // навсегда (напр. при запоздавшем raceTime у Jolpica). Идемпотентно.
+  const penaltiesOut = markNextRace(merged.penalties, raceWall);
 
   const out: FiaEvent = {
     season: YEAR,
     round,
     event: eventSlug,
     ...(merged.updated ? { updated: merged.updated } : {}),
-    penalties: merged.penalties,
+    penalties: penaltiesOut,
     ...(merged.startingGrid ? { startingGrid: merged.startingGrid } : {}),
   };
   const changed = writeJSONWithEnvelope(path, out);
+  // merged.kept считает всё, что пришло из файла: и намеренно пропущенное
+  // докачом, и уцелевшее после осечки, и то, что вообще не появилось в
+  // листинге. В логе разводим — иначе «из файла 19» на штатном докаче читается
+  // как «19 раз не скачалось».
+  const rescued = merged.kept - plan.reused.length;
+  // Только ЯРЛЫК для лога (сравнение по ссылке: взяли ли мы разобранную в этом
+  // прогоне решётку). Ни на что не влияет — прежний гейт «свежести файла» с
+  // таким же сравнением как раз и ломал докач, поэтому решения он не принимает.
+  const gridFromFile = merged.startingGrid != null && merged.startingGrid !== startingGrid;
   console.log(
-    `  ${merged.penalties.length} штрафов (в прогоне ${penalties.length}, из файла ${merged.kept}, переносов ${carried.length}), ` +
-      `грид: ${merged.startingGrid ? merged.startingGrid.kind : "нет"} → ${changed ? "записано" : "без изменений"}`,
+    `  R${round}: в файле ${penaltiesOut.length} штрафов (переносов ${carried.length}` +
+      `${rescued > 0 ? `, из файла без перечитки ${rescued}: осечки/пропажи` : ""}), ` +
+      `грид: ${merged.startingGrid ? merged.startingGrid.kind : "нет"}${gridFromFile ? " (из файла)" : ""} → ` +
+      `${changed ? "записано" : "без изменений"}`,
   );
 }
 

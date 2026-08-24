@@ -24,7 +24,8 @@ const FILE = join(process.cwd(), "data", "f1", "overrides", "calendar.json");
 const JOLPICA_CURRENT = join(process.cwd(), "data", "f1", "jolpica", "current.json");
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-/// Грейс после дня гонки — как freeze-окно результатов (апелляции/правки).
+/// Грейс после дня гонки — как freeze-окно РЕЗУЛЬТАТОВ (апелляции/правки).
+/// Именно результатов: у решений стюардов своё окно, вдвое длиннее (lib/freeze).
 export const GRACE_MS = 7 * DAY_MS;
 
 /// Запись ручного файла. Незнакомые поля переживают GC: объекты проходят

@@ -207,6 +207,16 @@ async function main() {
     }
     const pageHtml = raceMirror(slugs[round - 1]);
     const dates = pageHtml ? eventInfo(pageHtml) : { startMs: null, endMs: null, iso2: null };
+    // Окно НАМЕРЕННО обычное (isFrozen, 7 дней), а не стюардское 14, как у
+    // fia.ts. Это не недосмотр: файл раунда здесь ПЕРЕЗАПИСЫВАЕТСЯ тем, что
+    // удалось наскрести за прогон (см. produceEvent ниже — прежний файл даже не
+    // читается, осечки PDF не считаются, ретраев нет). Удлинение окна вдвое
+    // удлинило бы период, в котором один неудачный прогон стирает уже собранное
+    // — при 58–140 штрафных PDF на этап это не гипотеза. 14 дней тут появятся
+    // ТЕМ ЖЕ коммитом, которым сюда приедет mergeFiaEvent: тогда достаточно
+    // заменить isFrozen на isStewardsFrozen в этой строке. Слияние переносить
+    // целиком, вместе с политикой: файл только НАКАПЛИВАЕТСЯ, решения не
+    // удаляются никогда, пропажа документа со страницы — громкий лог.
     const frozen = isFrozen(dates.endMs, NOW);
     const exists = existsSync(join(OUT_DIR, `${YEAR}_${round}.json`));
     const started = dates.startMs != null && dates.startMs < NOW;

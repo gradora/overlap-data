@@ -178,6 +178,17 @@ async function main(): Promise<void> {
     if (!started) continue;
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
     const exists = existsSync(path);
+    // Окно НАМЕРЕННО обычное (isFrozen, 7 дней), а не стюардское 14, как у
+    // fia.ts. Слияния здесь нет: penalties собирается с нуля за прогон и
+    // пишется безусловно (см. writeJSONWithEnvelope ниже) — если папка раунда
+    // на Notice Board не сматчилась или листинг не открылся, поверх хорошего
+    // файла ляжет пустой. Удвоение окна удвоило бы и число таких шансов
+    // (продьюсер крутится ежечасно в snapshot.yml). 14 дней тут появятся ТЕМ ЖЕ
+    // коммитом, которым приедет mergeFiaEvent (ему нужен композитный ключ
+    // ${session}#${doc}: у IMSA нумерация TP и SP сквозная и независимая) —
+    // тогда достаточно заменить isFrozen на isStewardsFrozen в этой строке.
+    // Слияние переносить целиком, вместе с политикой: файл только
+    // НАКАПЛИВАЕТСЯ, решения не удаляются никогда, пропажа — громкий лог.
     if (exists && isFrozen(endMs, NOW) && !envFlag("IMSA_FIA_FORCE")) continue;   // было truthy: «=0» форсировал
     if (!exists && endMs < NOW) {
       if (backfill <= 0) continue;
