@@ -18,7 +18,12 @@ import {
   carryOver,
   parseEventOptions,
   slugifyRace,
+  mergeFiaEvent,
+  type FiaEvent,
+  type FiaPenalty,
+  type FiaStartingGrid,
 } from "./lib/fiadocs.js";
+import { fetchWithRetry } from "./producers/fia.js";
 
 const ref = (over: Partial<{ doc: number; title: string; url: string; publishedAt: string }> = {}) => ({
   doc: 23,
@@ -312,4 +317,203 @@ test("classifyDecision: питлейн со вставкой сессии + appl
                   "Required to start the Race from the pit lane."),
     ref());
   assert.equal(race!.appliesTo, "race");
+});
+
+// --- Слияние прогона с уже собранным файлом раунда (Zandvoort-2026 R12:
+//     файл скакал 11 решений → 1 → 11 → 2, потому что прогон перезаписывал) ---
+
+const pen = (over: Partial<FiaPenalty> & { doc: number }): FiaPenalty => ({
+  car: 55, driver: "Carlos Sainz", session: "Race", type: "time", seconds: 5,
+  appliesTo: "race", corrected: false, decision: "5 second time penalty.",
+  url: `https://www.fia.com/doc${over.doc}.pdf`,
+  publishedAt: `2026-08-23 1${over.doc % 10}:00 CET`,
+  ...over,
+});
+
+const grid = (over: Partial<FiaStartingGrid> = {}): FiaStartingGrid => ({
+  kind: "final", doc: 70, entries: [{ position: 1, car: 1 }], penaltySummary: [],
+  url: "https://www.fia.com/grid.pdf", publishedAt: "2026-08-23 14:00 CET",
+  ...over,
+});
+
+const eventFile = (penalties: FiaPenalty[], startingGrid?: FiaStartingGrid): FiaEvent => ({
+  season: 2026, round: 12, event: "dutch_grand_prix", penalties,
+  ...(startingGrid ? { startingGrid } : {}),
+});
+
+const DOCS_12 = [29, 30, 33, 38, 39, 40, 41, 42, 52, 60, 61];
+const PREV_12 = eventFile(DOCS_12.map((doc) => pen({ doc })), grid());
+
+test("mergeFiaEvent: прогон без единого распарсенного PDF не затирает файл", () => {
+  // Ровно кейс R12: 50 документов, все PDF отвалились → раньше в файл летели 0-2
+  // решения. Теперь неудачный прогон — no-op по данным.
+  const m = mergeFiaEvent(PREV_12, {
+    penalties: [], carried: [], startingGrid: undefined,
+    listedDocs: DOCS_12, complete: false,
+  });
+  assert.equal(m.penalties.length, 11);
+  assert.equal(m.kept, 11);
+  assert.equal(m.dropped, 0);
+  assert.deepEqual(m.penalties.map((p) => p.doc), DOCS_12);
+  assert.equal(m.startingGrid?.kind, "final");   // грид тоже на месте
+});
+
+test("mergeFiaEvent: свежий документ добавляется к прежним", () => {
+  const m = mergeFiaEvent(PREV_12, {
+    penalties: [pen({ doc: 63, type: "dsq", decision: "Disqualified.", publishedAt: "2026-08-23 21:30 CET" })],
+    carried: [], listedDocs: [...DOCS_12, 63], complete: true,
+  });
+  assert.equal(m.penalties.length, 12);
+  assert.equal(m.kept, 11);
+  assert.equal(m.penalties.at(-1)!.doc, 63);
+  assert.equal(m.updated, "2026-08-23 21:30 CET");  // updated пересчитан по итоговому набору
+});
+
+test("mergeFiaEvent: спринт-штрафы прошлого прогона переживают частичный", () => {
+  // Doc 29/30 — питлейн-старт в СПРИНТЕ: разобраны в первом прогоне, во втором
+  // их PDF не дались. Пропасть они не должны (в приложении это отдельная секция).
+  const m = mergeFiaEvent(PREV_12, {
+    penalties: [pen({ doc: 60 })], carried: [],
+    listedDocs: DOCS_12, complete: false,
+  });
+  const sprint = m.penalties.filter((p) => [29, 30].includes(p.doc));
+  assert.equal(sprint.length, 2);
+});
+
+test("mergeFiaEvent: final-грид не откатывается к provisional", () => {
+  const m = mergeFiaEvent(PREV_12, {
+    penalties: [], carried: [], startingGrid: grid({ kind: "provisional", doc: 65 }),
+    listedDocs: DOCS_12, complete: true,
+  });
+  assert.equal(m.startingGrid?.kind, "final");
+  assert.equal(m.startingGrid?.doc, 70);
+  // Обратно — свежий final поверх прежнего provisional — проходит.
+  const up = mergeFiaEvent(eventFile([], grid({ kind: "provisional", doc: 65 })), {
+    penalties: [], carried: [], startingGrid: grid({ kind: "final", doc: 70 }),
+    listedDocs: [], complete: true,
+  });
+  assert.equal(up.startingGrid?.kind, "final");
+  // Грид не распарсился в этом прогоне — остаётся прежний.
+  const keep = mergeFiaEvent(PREV_12, {
+    penalties: [], carried: [], listedDocs: DOCS_12, complete: true,
+  });
+  assert.equal(keep.startingGrid?.doc, 70);
+});
+
+test("mergeFiaEvent: corrected супер­седит original", () => {
+  // Тем же номером (FIA перевыкладывает документ) — свежий разбор побеждает.
+  const before = eventFile([pen({ doc: 25, type: "grid", gridDrop: 5, corrected: false })]);
+  const m = mergeFiaEvent(before, {
+    penalties: [pen({ doc: 25, type: "grid", gridDrop: 10, corrected: true })],
+    carried: [], listedDocs: [25], complete: true,
+  });
+  assert.equal(m.penalties.length, 1);
+  assert.equal(m.penalties[0].corrected, true);
+  assert.equal(m.penalties[0].gridDrop, 10);
+  // Новым номером — в файле живут оба (дедуп делает приложение).
+  const two = mergeFiaEvent(before, {
+    penalties: [pen({ doc: 44, type: "grid", gridDrop: 10, corrected: true })],
+    carried: [], listedDocs: [25, 44], complete: true,
+  });
+  assert.deepEqual(two.penalties.map((p) => p.doc), [25, 44]);
+});
+
+test("mergeFiaEvent: отзыв документа — только по чистому прогону", () => {
+  const listed = DOCS_12.filter((d) => d !== 52);   // doc 52 сняли со страницы
+  const dirty = mergeFiaEvent(PREV_12, {
+    penalties: [], carried: [], listedDocs: listed, complete: false,
+  });
+  assert.equal(dirty.penalties.length, 11);   // прогон с осечками не удаляет
+  assert.equal(dirty.dropped, 0);
+  const clean = mergeFiaEvent(PREV_12, {
+    penalties: listed.map((doc) => pen({ doc })), carried: [],
+    listedDocs: listed, complete: true,
+  });
+  assert.equal(clean.penalties.length, 10);
+  assert.equal(clean.dropped, 1);
+  assert.ok(!clean.penalties.some((p) => p.doc === 52));
+});
+
+test("mergeFiaEvent: переносы пересобираются, а не копятся", () => {
+  // carriedFrom-штраф живёт в своём ключевом пространстве: doc 60 переноса из
+  // R11 не конфликтует с собственным doc 60 этапа.
+  const carried = pen({ doc: 60, type: "grid", gridDrop: 5, carriedFrom: 11 });
+  const first = mergeFiaEvent(PREV_12, {
+    penalties: [pen({ doc: 60 })], carried: [carried],
+    listedDocs: DOCS_12, complete: true,
+  });
+  assert.equal(first.penalties.filter((p) => p.doc === 60).length, 2);
+  assert.equal(first.penalties.at(-1)!.carriedFrom, 11);
+  // Следующий прогон: перенос из R11 отменён — из файла он не воскресает.
+  const second = mergeFiaEvent(eventFile(first.penalties, grid()), {
+    penalties: [], carried: [], listedDocs: DOCS_12, complete: true,
+  });
+  assert.ok(!second.penalties.some((p) => p.carriedFrom != null));
+  assert.equal(second.penalties.length, 11);
+});
+
+// --- Сетевой слой: диагностика и ретраи (fetch подменяем) ---
+
+// Пауза в тестах — 1 мс: проверяем политику повторов, а не часы.
+const NET = { label: "Doc 52", timeoutMs: 50, attempts: 3, pauseMs: 1 };
+
+async function withFetch<T>(
+  handler: (url: string, init: RequestInit) => Promise<Response>,
+  body: () => Promise<T>,
+): Promise<{ result: T; calls: number }> {
+  const real = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = (async (url: any, init: any) => {
+    calls++;
+    return handler(String(url), init);
+  }) as typeof fetch;
+  try {
+    return { result: await body(), calls };
+  } finally {
+    globalThis.fetch = real;
+  }
+}
+
+test("fetchWithRetry: 404 не ретраится (документа на сервере нет)", async () => {
+  const { result, calls } = await withFetch(
+    async () => new Response("nope", { status: 404 }),
+    () => fetchWithRetry("https://fia.test/doc.pdf", (r) => r.text(), NET),
+  );
+  assert.equal(result, null);
+  assert.equal(calls, 1);
+});
+
+test("fetchWithRetry: 503 и 429 ретраятся, успех со второй попытки", async () => {
+  const codes = [503, 429];
+  const { result, calls } = await withFetch(
+    async () => {
+      const code = codes.shift();
+      return code ? new Response("busy", { status: code }) : new Response("ok");
+    },
+    () => fetchWithRetry("https://fia.test/doc.pdf", (r) => r.text(), NET),
+  );
+  assert.equal(result, "ok");
+  assert.equal(calls, 3);   // 503 → 429 → 200, ровно в пределах attempts
+});
+
+test("fetchWithRetry: сетевой отказ ретраится, после attempts — null", async () => {
+  const { result, calls } = await withFetch(
+    async () => { throw new TypeError("fetch failed"); },
+    () => fetchWithRetry("https://fia.test/doc.pdf", (r) => r.text(), NET),
+  );
+  assert.equal(result, null);
+  assert.equal(calls, 3);
+});
+
+test("fetchWithRetry: таймаут обрывает попытку и ретраится", async () => {
+  const { result, calls } = await withFetch(
+    (_url, init) =>
+      new Promise((_resolve, reject) => {
+        // Висящий ответ: обрывается нашим AbortController по timeoutMs.
+        (init as any).signal.addEventListener("abort", () => reject(new Error("aborted")));
+      }),
+    () => fetchWithRetry("https://fia.test/doc.pdf", (r) => r.text(), { ...NET, attempts: 2 }),
+  );
+  assert.equal(result, null);
+  assert.equal(calls, 2);
 });

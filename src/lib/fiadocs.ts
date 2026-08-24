@@ -344,6 +344,87 @@ export function markNextRace(penalties: FiaPenalty[], wall: string | null): FiaP
   });
 }
 
+// ---- Слияние прогона с уже собранным файлом раунда ----
+
+/// Итог ОДНОГО прогона скрейпа раунда — вход слияния.
+export interface FiaScrape {
+  penalties: FiaPenalty[];        // разобранные в ЭТОМ прогоне решения раунда
+  carried: FiaPenalty[];          // перенос из предыдущего раунда (carryOver)
+  startingGrid?: FiaStartingGrid; // распарсенная в этом прогоне решётка (если далась)
+  listedDocs: number[];           // номера ВСЕХ штрафных доков в списке FIA сейчас
+  complete: boolean;              // список прочитан целиком, без единой осечки
+}
+
+export interface FiaMerge {
+  penalties: FiaPenalty[];
+  startingGrid?: FiaStartingGrid;
+  updated?: string;
+  kept: number;      // решений взято из прежнего файла (в прогоне не дались)
+  dropped: number;   // решений убрано: документ исчез со страницы FIA (отозван)
+}
+
+// Ключ решения. Переносы (carriedFrom) живут в своём пространстве: doc-номера
+// разных уик-эндов совпадают запросто, и перенос R11 doc 60 не должен
+// затирать собственный doc 60 текущего этапа.
+const penaltyKey = (p: FiaPenalty): string => `${p.carriedFrom ?? "self"}#${p.doc}`;
+
+// Файл раунда НАКАПЛИВАЕТСЯ, а не перезаписывается итогом последнего прогона:
+// FIA держит на этапе полсотни PDF, и осечка на девяти из них (Zandvoort-2026,
+// R12: 11 решений → 2) стирала уже собранные штрафы прямо во время уик-энда.
+//
+// Правила:
+// * решения свои (не переносы) сливаются по номеру документа — свежий разбор
+//   побеждает для того же doc (так «Corrected …» под тем же номером обновляет
+//   запись), а не прочитанное в этом прогоне остаётся из файла;
+// * дубли «Infringement + Corrected Infringement» под РАЗНЫМИ номерами живут
+//   в файле оба, как и раньше: их схлопывает приложение (FIAPenaltyApplier);
+// * переносы всегда пересобираются свежим carryOver — он читает локальный файл
+//   предыдущего раунда, сеть тут ни при чём, стареть нечему;
+// * удаление доверяем только ЧИСТОМУ прогону (complete): отозванный документ
+//   исчезает со страницы FIA, но отличить отзыв от сетевой осечки можно, лишь
+//   когда прочитано всё;
+// * решётка не теряется при осечке PDF и НЕ откатывается final → provisional.
+export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge {
+  const listed = new Set(fresh.listedDocs);
+  const byKey = new Map<string, FiaPenalty>();
+  let dropped = 0;
+
+  for (const p of prev?.penalties ?? []) {
+    if (p.carriedFrom != null) continue;          // переносы — ниже, из свежего carryOver
+    if (fresh.complete && !listed.has(p.doc)) {   // документ отозван — отпускаем
+      dropped++;
+      continue;
+    }
+    byKey.set(penaltyKey(p), p);
+  }
+  const fromFile = [...byKey.keys()];
+  const freshKeys = new Set(fresh.penalties.map(penaltyKey));
+  for (const p of fresh.penalties) byKey.set(penaltyKey(p), p);
+  const kept = fromFile.filter((k) => !freshKeys.has(k)).length;   // пережили прогон «как были»
+
+  const own = [...byKey.values()].sort((a, b) => a.doc - b.doc);
+  const penalties = [...own, ...fresh.carried];
+
+  // Решётка: свежая берётся, только если это не откат final → provisional
+  // (Final публикуется после Provisional и учитывает штрафы — он финальнее).
+  const prevGrid = prev?.startingGrid;
+  const downgrade = prevGrid?.kind === "final" && fresh.startingGrid?.kind === "provisional";
+  const startingGrid = downgrade ? prevGrid : (fresh.startingGrid ?? prevGrid);
+
+  const updated = [...penalties.map((p) => p.publishedAt), startingGrid?.publishedAt]
+    .filter((x): x is string => !!x)
+    .sort()
+    .pop();
+
+  return {
+    penalties,
+    ...(startingGrid ? { startingGrid } : {}),
+    ...(updated ? { updated } : {}),
+    kept,
+    dropped,
+  };
+}
+
 // Перенос из предыдущего раунда: его next_race-грид-штрафы становятся
 // обычными race-штрафами текущего, с пометкой carriedFrom (по ней приложение
 // не считает их «поздними» — doc-номера разных уик-эндов несравнимы, а FIA

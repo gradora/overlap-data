@@ -19,7 +19,7 @@ import { envFlag, envNumber } from "../lib/env.js";
 import {
   type DocRef, type FiaEvent, type FiaPenalty, type FiaStartingGrid,
   carryOver, eventSlugFromUrl, finalRoundFile, findSeasonUrl, isPenaltyDoc,
-  markNextRace, matchRound, parseDocList,
+  markNextRace, matchRound, mergeFiaEvent, parseDocList,
   parseEventOptions, parsePenaltyDoc, parseStartingGridDoc, raceStartWall,
   seasonUrlYear, slugifyRace,
   CHAMPIONSHIP_URL,
@@ -49,34 +49,77 @@ function jolpicaSchedule(): {
 
 // ---- Сеть ----
 
-async function fetchHtml(url: string): Promise<string | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (!res.ok) return null;
-    return await res.text();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
+// Общий null был слепым: в логе крона «PDF недоступен/не распарсился» одинаково
+// значило и 404 (документ ещё не выложен), и таймаут, и битый текстовый слой —
+// разбирать сбой уик-энда было не по чему. Теперь причина в логе явная, а на
+// то, что имеет шанс пройти со второй попытки (обрыв связи, таймаут, 429/5xx),
+// делаем ретрай с паузой. На 4xx ретрай бессмысленен — на сервере ничего нет.
+const PAGE_ATTEMPTS = 3;   // страниц немного — можно позволить два повтора
+const PDF_ATTEMPTS = 2;    // документов полсотни: один повтор, чтобы не растянуть прогон
+const RETRY_PAUSE_MS = 1500;
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const errText = (e: unknown): string => (e instanceof Error ? e.message : String(e));
+
+export interface FetchOpts {
+  label: string;      // как отказ подписан в логе («Doc 52», «страница сезона 2026»)
+  timeoutMs: number;
+  attempts: number;   // всего попыток, включая первую
+  pauseMs?: number;
 }
 
-async function fetchPdfText(url: string): Promise<string | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 30000);
+/// Чтение ответа с ретраем и внятным логом. null — устойчивый отказ.
+export async function fetchWithRetry<T>(
+  url: string,
+  read: (res: Response) => Promise<T>,
+  opts: FetchOpts,
+): Promise<T | null> {
+  const { label, timeoutMs, attempts, pauseMs = RETRY_PAUSE_MS } = opts;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+    let retriable = false;
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
+      if (res.ok) return await read(res);
+      retriable = res.status === 429 || res.status >= 500;
+      console.warn(`  ${label}: HTTP ${res.status}${retriable ? "" : " — повтор не поможет"}`);
+    } catch (e) {
+      // Сработал наш AbortController → это таймаут, иначе — обрыв связи/DNS.
+      retriable = true;
+      console.warn(
+        `  ${label}: ${ctrl.signal.aborted ? `таймаут ${timeoutMs / 1000}с` : `сеть — ${errText(e)}`}`,
+      );
+    } finally {
+      clearTimeout(t);
+    }
+    if (!retriable || attempt === attempts) return null;
+    console.log(`  ${label}: повтор ${attempt}/${attempts - 1} через ${pauseMs / 1000}с`);
+    await sleep(pauseMs);
+  }
+  return null;
+}
+
+async function fetchHtml(url: string, label = "страница"): Promise<string | null> {
+  return fetchWithRetry(url, (res) => res.text(), { label, timeoutMs: 20000, attempts: PAGE_ATTEMPTS });
+}
+
+async function fetchPdfText(url: string, label: string): Promise<string | null> {
+  const bytes = await fetchWithRetry(
+    url,
+    async (res) => new Uint8Array(await res.arrayBuffer()),
+    { label, timeoutMs: 30000, attempts: PDF_ATTEMPTS },
+  );
+  if (!bytes) return null;
+  // Отдельная ветка: сеть отработала, сломался текстовый слой — ретраить нечего,
+  // но в логе это должно читаться иначе, чем сетевой отказ.
   try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (!res.ok) return null;
-    const buf = new Uint8Array(await res.arrayBuffer());
-    const pdf = await getDocumentProxy(buf);
+    const pdf = await getDocumentProxy(bytes);
     const { text } = await extractText(pdf, { mergePages: true });
     return text;
-  } catch {
+  } catch (e) {
+    console.warn(`  ${label}: PDF не распарсился (unpdf: ${errText(e)})`);
     return null;
-  } finally {
-    clearTimeout(t);
   }
 }
 
@@ -87,7 +130,7 @@ async function fetchPdfText(url: string): Promise<string | null> {
 // прежняя хардкод-константа + warning как сигнал протухания. В худшем случае
 // поведение идентично прежнему, но громкое.
 async function resolveSeasonUrl(): Promise<string | null> {
-  const champHtml = await fetchHtml(CHAMPIONSHIP_URL);
+  const champHtml = await fetchHtml(CHAMPIONSHIP_URL, "страница чемпионата");
   const url = champHtml ? findSeasonUrl(champHtml, YEAR) : null;
   if (url) return url;
   // Фолбэк за другой год — скрейпить ЧУЖОЙ сезон (январское окно, пока FIA не
@@ -119,7 +162,7 @@ async function main() {
   }
   const seasonUrl = await resolveSeasonUrl();
   if (!seasonUrl) return;
-  const seasonHtml = await fetchHtml(seasonUrl);
+  const seasonHtml = await fetchHtml(seasonUrl, `страница сезона ${YEAR}`);
   if (!seasonHtml) {
     console.warn("FIA страница недоступна — пропускаем прогон (толерантно)");
     return;
@@ -160,9 +203,10 @@ async function main() {
       backfill--;
       console.log(`  backfill R${round} (${ev.name})`);
     }
-    const html = await fetchHtml(ev.url);
+    const html = await fetchHtml(ev.url, `R${round}: страница события`);
     if (!html) {
-      console.warn(`  R${round}: страница события недоступна`);
+      // Причина уже в логе (HTTP-код / таймаут); файл раунда не трогаем.
+      console.warn(`  R${round}: страница события недоступна — файл оставляем как есть`);
       continue;
     }
     const docs = parseDocList(html);
@@ -183,16 +227,24 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   }
   console.log(`  ${eventSlug} → R${round}, ${docs.length} документов`);
 
-  // Штрафы.
+  // Штрафы. Осечки считаем: файл раунда сливается с прежним, и «документ
+  // отозван» можно утверждать только по прогону, прочитавшему список целиком.
+  const penaltyDocs = docs.filter((x) => isPenaltyDoc(x.title));
   let penalties: FiaPenalty[] = [];
-  for (const d of docs.filter((x) => isPenaltyDoc(x.title))) {
-    const text = await fetchPdfText(d.url);
+  let failures = 0;
+  for (const d of penaltyDocs) {
+    const text = await fetchPdfText(d.url, `Doc ${d.doc}`);
     if (!text) {
-      console.log(`  Doc ${d.doc}: PDF недоступен/не распарсился`);
+      failures++;
       continue;
     }
     const p = parsePenaltyDoc(text, d);
-    if (p) penalties.push(p);
+    if (p) {
+      penalties.push(p);
+    } else {
+      failures++;
+      console.warn(`  Doc ${d.doc}: шаблон стюардов не распознан (парсер)`);
+    }
   }
   penalties.sort((a, b) => a.doc - b.doc);
 
@@ -219,10 +271,11 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   } catch {
     /* первого раунда/файла нет — переносить нечего */
   }
+  // Переносы держим ОТДЕЛЬНО от собственных решений раунда: слияние пересобирает
+  // их заново каждый прогон (carryOver читает локальный файл, сеть ни при чём).
   const carried = carryOver(prev);
   if (carried.length) {
     console.log(`  перенос из ${prevFile}: ${carried.length} грид-штраф(а)`);
-    penalties.push(...carried);
   }
 
   // Официальная стартовая решётка (Final приоритетнее Provisional).
@@ -231,27 +284,56 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
     gridDocs.find((d) => /final/i.test(d.title)) ?? gridDocs.find((d) => /provisional/i.test(d.title));
   let startingGrid: FiaStartingGrid | undefined;
   if (gridDoc) {
-    const text = await fetchPdfText(gridDoc.url);
-    if (text) startingGrid = parseStartingGridDoc(text, gridDoc) ?? undefined;
+    const text = await fetchPdfText(gridDoc.url, `Doc ${gridDoc.doc} (грид)`);
+    if (text) {
+      startingGrid = parseStartingGridDoc(text, gridDoc) ?? undefined;
+      if (!startingGrid) console.warn(`  Doc ${gridDoc.doc}: решётка не распознана (парсер)`);
+    }
   }
 
-  const updated = [...penalties.map((p) => p.publishedAt), startingGrid?.publishedAt]
-    .filter((x): x is string => !!x)
-    .sort()
-    .pop();
+  // Слияние с уже собранным файлом раунда: прогон ДОПОЛНЯЕТ его, а не заменяет.
+  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
+  let existing: FiaEvent | null = null;
+  try {
+    existing = JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    /* файла ещё нет — первый сбор раунда */
+  }
+  // Файл того же номера, но ЧУЖОГО этапа (перенумерация календаря, отмена
+  // гонки) сливать нельзя — это смешало бы решения двух уик-эндов. Перезапись.
+  if (existing && existing.event && existing.event !== eventSlug) {
+    console.warn(`  R${round}: в файле был этап «${existing.event}», теперь «${eventSlug}» — пересобираем с нуля`);
+    existing = null;
+  }
+  const complete = failures === 0;
+  const merged = mergeFiaEvent(existing, {
+    penalties,
+    carried,
+    startingGrid,
+    listedDocs: penaltyDocs.map((d) => d.doc),
+    complete,
+  });
+  if (failures) {
+    console.warn(
+      `  R${round}: ${failures} документ(ов) не прочитано — прежние решения сохраняем, удалений не делаем`,
+    );
+  }
+  if (merged.dropped) {
+    console.log(`  R${round}: ${merged.dropped} решение(й) исчезло со страницы FIA (отзыв) — убрано`);
+  }
 
   const out: FiaEvent = {
     season: YEAR,
     round,
     event: eventSlug,
-    ...(updated ? { updated } : {}),
-    penalties,
-    ...(startingGrid ? { startingGrid } : {}),
+    ...(merged.updated ? { updated: merged.updated } : {}),
+    penalties: merged.penalties,
+    ...(merged.startingGrid ? { startingGrid: merged.startingGrid } : {}),
   };
-  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
   const changed = writeJSONWithEnvelope(path, out);
   console.log(
-    `  ${penalties.length} штрафов, грид: ${startingGrid ? startingGrid.kind : "нет"} → ${changed ? "записано" : "без изменений"}`,
+    `  ${merged.penalties.length} штрафов (в прогоне ${penalties.length}, из файла ${merged.kept}, переносов ${carried.length}), ` +
+      `грид: ${merged.startingGrid ? merged.startingGrid.kind : "нет"} → ${changed ? "записано" : "без изменений"}`,
   );
 }
 
