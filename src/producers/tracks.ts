@@ -13,10 +13,30 @@
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { fetchText, writeIfChanged } from "../lib/mirror.js";
+import { utcDay } from "../lib/freshness.js";
+import { TRACKS_MARKER } from "../lib/producers.js";
 
 const OUT_PATH = join(process.cwd(), "data", "tracks", "index.json");
+/// Отметка «прогон реально собрал справочник» для реестра свежести — tracks
+/// бежит в отдельном воркфлоу, и иначе health.ts о нём не узнаёт. Путь берём
+/// ИЗ РЕЕСТРА, а не литералом: обе стороны контракта обязаны смотреть в одну
+/// точку. Двумя литералами это разъезжалось бы молча — health читал бы
+/// несуществующий файл, отметка старела, и через две недели прилетала бы
+/// вечная ложная тревога при полностью зелёном CI.
+const MARKER_PATH = join(process.cwd(), "data", TRACKS_MARKER);
 const API = "https://en.wikipedia.org/w/api.php";
 const PAUSE_MS = 1500; // вежливо к вики между статьями (иначе троттлинг)
+/// Доля страниц вики, которые обязаны загрузиться, иначе прогон считается
+/// провальным. 0.75 при 39 трассах = терпим до 9 отвалившихся статей
+/// (переименование, троттлинг по части батча) и валимся на массовом отказе.
+const MIN_LOADED_RATIO = 0.75;
+
+/// Достаточно ли страниц загрузилось, чтобы записать справочник.
+/// Предохранитель против ТИХОГО ЗАТИРАНИЯ: getJSON не бросает, а возвращает
+/// null, поэтому недоступная вики даёт пустой index, `{}` в файле и зелёный
+/// шаг. Бюджет свежести такого не ловит — прогон формально успешен.
+export const enoughLoaded = (loaded: number, total: number): boolean =>
+  total > 0 && loaded >= Math.ceil(total * MIN_LOADED_RATIO);
 
 // slug (== circuit.id приложения) → заголовок статьи в англ-вики. Значения
 // взяты из F1CircuitFactsCatalog.displayNames (они и есть названия статей) плюс
@@ -456,9 +476,48 @@ async function main() {
     if (i + CHUNK < entries.length) await sleep(PAUSE_MS);
   }
 
+  const wrote = publishTracks(index, ok + empty, entries.length, failed, !!only?.length);
+  console.log(`tracks: ${ok} с рекордами, ${empty} без рекордов, ${failed} не загрузились; файл ${wrote ? "обновлён" : "без изменений"}`);
+}
+
+/// Публикация справочника и отметки свежести — ОДНОЙ функцией намеренно.
+///
+/// СТОРОЖ ПРОТИВ ТИХОГО ЗАТИРАНИЯ. getJSON никогда не бросает: пять неудачных
+/// попыток отдают null, страниц нет, index остаётся пустым — и без проверки
+/// writeIfChanged записал бы `{}`, шаг вышел бы нулём, а воркфлоу закоммитил
+/// уничтожение всех 39 трасс. Ни один бюджет свежести такого не поймает:
+/// прогон-то «успешный».
+///
+/// Почему проверка, запись индекса и отметка живут вместе, а не тремя шагами в
+/// main: порознь они разъезжаются молча. Мутационная проверка показала ровно
+/// это — со снятым сторожем прогон writeIfChanged'ил ПУСТОЙ индекс И штамповал
+/// маркер, то есть новый сигнал ручался за уничтоженные данные. Отметка обязана
+/// значить «справочник действительно собран»; здесь она физически недостижима
+/// в обход сторожа.
+export function publishTracks(
+  index: unknown, loaded: number, total: number, failed: number, only: boolean,
+): boolean {
+  if (!enoughLoaded(loaded, total)) {
+    console.error(
+      `tracks: загрузилось ${loaded} из ${total}, не загрузились ${failed} — ` +
+      `файл НЕ переписан, чтобы не затереть справочник`,
+    );
+    process.exit(1);
+  }
+
   mkdirSync(join(process.cwd(), "data", "tracks"), { recursive: true });
   const wrote = writeIfChanged(OUT_PATH, JSON.stringify(index, null, 2) + "\n");
-  console.log(`tracks: ${ok} с рекордами, ${empty} без рекордов, ${failed} не загрузились; файл ${wrote ? "обновлён" : "без изменений"}`);
+
+  // Отметка для реестра свежести: tracks живёт в СВОЁМ воркфлоу, и health.ts
+  // (он бежит в snapshot.yml) не видит его outcome через steps.<id>.outcome.
+  // Маркер лежит под data/tracks — тем же `paths`, что уже коммитит tracks.yml.
+  // Отладочный прогон одной трассы (TRACKS_ONLY) полным успехом не считается.
+  if (only) {
+    console.log("tracks: TRACKS_ONLY — маркер свежести не обновляем");
+  } else {
+    writeIfChanged(MARKER_PATH, JSON.stringify({ lastSuccess: utcDay() }, null, 1) + "\n");
+  }
+  return wrote;
 }
 
 // Запуск только как producer (не при импорте из теста).

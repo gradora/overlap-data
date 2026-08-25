@@ -3,6 +3,10 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, writeFileSync, readFileSync, existsSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import {
   bucketFor,
   timeToSeconds,
@@ -12,6 +16,7 @@ import {
   extractNotable,
   parseLongestRace,
   buildTrack,
+  enoughLoaded,
 } from "./producers/tracks.js";
 
 // --- Фрагмент реального wikitext Spa: секция Lap records + два лейаута ---
@@ -121,4 +126,65 @@ test("parseRecordTable отбрасывает мусор нестандартн�
 |}`;
   const { records } = parseLapRecords(wt);
   assert.equal(records.length, 0, "мусорная строка не должна стать рекордом");
+});
+
+// --- Сторож против тихого затирания справочника ---
+
+test("enoughLoaded: массовый отказ вики не даёт записать пустой index", () => {
+  // getJSON не бросает — пять неудачных попыток отдают null, страниц нет,
+  // index остаётся пустым. Без этого предохранителя writeIfChanged записывал бы
+  // `{}`, шаг выходил бы нулём, а воркфлоу коммитил бы уничтожение всех трасс.
+  // Ни один бюджет свежести этого не поймает: прогон формально успешен.
+  assert.equal(enoughLoaded(0, 39), false, "вики легла целиком");
+  assert.equal(enoughLoaded(10, 39), false, "загрузился один батч из двух");
+  assert.equal(enoughLoaded(29, 39), false, "порог при 39 трассах — 30");
+  assert.equal(enoughLoaded(30, 39), true, "терпим до девяти отвалившихся статей");
+  assert.equal(enoughLoaded(39, 39), true, "штатный прогон");
+  // TRACKS_ONLY сужает выборку — порог обязан считаться от неё, а не от всех.
+  assert.equal(enoughLoaded(1, 1), true);
+  assert.equal(enoughLoaded(0, 1), false);
+  assert.equal(enoughLoaded(0, 0), false, "пустая выборка успехом не считается");
+});
+
+// ---- Сторож против затирания справочника: проверяется ВЫЗОВ, не предикат ----
+// enoughLoaded покрыт восемью ассертами, но мутационная проверка показала, что
+// снятие самого сторожа в publishTracks не ловилось ничем: прогон записывал
+// ПУСТОЙ index.json и вдобавок штамповал маркер свежести — то есть новый сигнал
+// ручался за уничтоженные данные. Гоняем в дочернем процессе, потому что при
+// срабатывании сторож завершает прогон ненулём.
+
+test("publishTracks: при недоборе страниц не пишет ни индекс, ни маркер", () => {
+
+  const cwd = mkdtempSync(join(tmpdir(), "tracks-"));
+  const mod = resolve("src/producers/tracks.ts").replace(/\\/g, "/");
+  const script = `
+    import { publishTracks } from "${mod}";
+    publishTracks({ a: 1 }, 5, 39, 34, false);   // 5 из 39 — далеко ниже порога
+    console.log("НЕ ДОЛЖНО ДОЙТИ");
+  `;
+  writeFileSync(join(cwd, "probe.ts"), script);
+
+  const r = spawnSync("npx", ["tsx", "probe.ts"], { cwd, encoding: "utf8" });
+  assert.equal(r.status, 1, "сторож обязан завершить прогон ненулём");
+  assert.doesNotMatch(r.stdout ?? "", /НЕ ДОЛЖНО ДОЙТИ/);
+  assert.equal(existsSync(join(cwd, "data", "tracks", "index.json")), false,
+    "справочник переписан при недоборе — это и есть тихое затирание");
+  assert.equal(existsSync(join(cwd, "data", "tracks", "_health.json")), false,
+    "маркер свежести поставлен на несобранных данных — сигнал начал врать");
+  rmSync(cwd, { recursive: true, force: true });
+});
+
+test("publishTracks: при полной загрузке пишет и индекс, и маркер", () => {
+
+  const cwd = mkdtempSync(join(tmpdir(), "tracks-"));
+  const mod = resolve("src/producers/tracks.ts").replace(/\\/g, "/");
+  writeFileSync(join(cwd, "probe.ts"),
+    `import { publishTracks } from "${mod}";\npublishTracks({ a: 1 }, 39, 39, 0, false);\n`);
+
+  const r = spawnSync("npx", ["tsx", "probe.ts"], { cwd, encoding: "utf8" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.ok(existsSync(join(cwd, "data", "tracks", "index.json")), "индекс не записан");
+  const marker = JSON.parse(readFileSync(join(cwd, "data", "tracks", "_health.json"), "utf8"));
+  assert.match(marker.lastSuccess, /^\d{4}-\d{2}-\d{2}$/, "маркер обязан нести дату суток");
+  rmSync(cwd, { recursive: true, force: true });
 });

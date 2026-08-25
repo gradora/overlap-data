@@ -8,17 +8,32 @@
 //    ежедневный heartbeat-коммит держит крон живым в межсезонье.
 // 2. Даёт приложению машиночитаемый сигнал устаревания: `date` (бэкенд бежал
 //    в этот день) + `producers` (какой источник сломался).
+// 3. Ведёт СВЕЖЕСТЬ по реестру (src/lib/producers.ts): `lastSuccess` — день
+//    последнего успешного прогона каждого продьюсера, с переносом из прошлого
+//    health.json; `firstSeen` — точка отсчёта для тех, кто не отработал ни
+//    разу; `stale` — кто вышел за свой бюджет. Это ответ на вопрос, на который
+//    `producers` не отвечает: тот показывает исход шага ЭТОГО прогона, а у
+//    продьюсера, которого в воркфлоу вообще нет, шага не существует, и он
+//    молчит вечно (инцидент f1teams: 17 суток простоя заметил владелец, а не
+//    система).
+//
 // Продьюсеры в workflow помечены `continue-on-error: true` + `id`, их реальный
 // результат приходит сюда через env (`steps.<id>.outcome`) и попадает в
 // health.json. Так один сломанный источник не блокирует остальные и коммит.
-// Отдельный YAML-гейт после коммита валит job (→ письмо GitHub) на любой
-// `failure` — этот скрипт только ПИШЕТ health.json, решение об алерте не его.
+// Отдельные YAML-гейты после коммита валят job (→ письмо GitHub) на `failure`
+// и на непустой `stale` — этот скрипт только ПИШЕТ факты, решение об алерте
+// не его.
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { writeIfChanged } from "../lib/mirror.js";
+import { PRODUCERS, envKeyFor } from "../lib/producers.js";
+import {
+  computeFreshness, normalizeOutcome, readStamps, utcDay, type Outcome, type Stamps,
+} from "../lib/freshness.js";
 
 const DATA_DIR = join(process.cwd(), "data");
+const HEALTH_PATH = join(DATA_DIR, "health.json");
 
 // Рекурсивно считаем файлы под поддеревом (пропущенное/несуществующее → 0).
 function countFiles(rel: string): number {
@@ -58,55 +73,113 @@ function blockedTeams(): number {
   }
 }
 
+/// JSON с диска или undefined (нет файла / битый). Свежесть не имеет права
+/// падать из-за испорченного накопленного файла — иначе один кривой байт
+/// заклинивает heartbeat.
+function readJSON(path: string): unknown {
+  try {
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    return undefined;
+  }
+}
+
 // Нормализуем env-статус шага GitHub (success|failure|cancelled|skipped) —
 // незаданное (локальный прогон) → "unknown".
-type Outcome = "success" | "failure" | "cancelled" | "skipped" | "unknown";
 function outcome(envKey: string): Outcome {
   const v = (process.env[envKey] ?? "").toLowerCase();
   if (v === "success" || v === "failure" || v === "cancelled" || v === "skipped") return v;
   return "unknown";
 }
 
-// Дата UTC в формате YYYY-MM-DD — дневной heartbeat.
-function utcDate(): string {
-  return new Date().toISOString().slice(0, 10);
+/// Отметки продьюсеров из ЧУЖИХ воркфлоу: их прогон через env текущего
+/// snapshot-прогона не виден, поэтому они оставляют рядом со своими данными
+/// файл `{"lastSuccess":"YYYY-MM-DD"}`, а мы его читаем. Нет маркера — не
+/// ошибка: значит, чужой воркфлоу ещё не отрабатывал, и рассудит бюджет.
+/// Маркеры продьюсеров из ЧУЖИХ воркфлоу. Экспортирована и параметризована
+/// каталогом РАДИ ТЕСТОВ: в кроне бежит именно этот код, а не его двойник, и
+/// мутация «вернуть пустой объект» иначе проходила мимо всех проверок —
+/// превращая сигнал в вечную ложную тревогу по tracks.
+export function readMarkerStamps(dataDir: string): Stamps {
+  const out: Stamps = {};
+  for (const spec of PRODUCERS) {
+    if (!spec.marker) continue;
+    const raw = readJSON(join(dataDir, spec.marker)) as { lastSuccess?: unknown } | undefined;
+    Object.assign(out, readStamps({ [spec.key]: raw?.lastSuccess }));
+  }
+  return out;
+}
+
+/// Прошлый health.json — источник накопленных отметок. Тоже экспортирована:
+/// мутация «читать undefined» отключает перенос между прогонами, отметки
+/// переставляются на сегодня каждый час, и просрочка не наступает НИКОГДА.
+export function readPrevHealth(dataDir: string): unknown {
+  return readJSON(join(dataDir, "health.json"));
+}
+
+/// Сборка объекта health.json из уже добытых фактов. Чистая — весь ввод-вывод
+/// снаружи. Здесь живут два решения, которые ломались мутациями молча:
+/// продьюсеры с маркером НЕ попадают в `producers` (иначе вечный "unknown", и
+/// приложение красит их в сломанные), и `stale` кладётся вычисленным, а не
+/// пустым (иначе канал алерта мёртв целиком при зелёных тестах).
+export function assembleHealth(input: {
+  today: string;
+  outcomeOf: (envKey: string) => Outcome;
+  prev: unknown;
+  markers: Stamps;
+  counts: Record<string, number>;
+  blocked: Record<string, number>;
+}) {
+  const { today, outcomeOf, prev, markers, counts, blocked } = input;
+
+  // Исход шагов ЭТОГО прогона — только по продьюсерам, у которых шаг в
+  // snapshot.yml реально есть. Продьюсер из чужого воркфлоу (tracks) сюда не
+  // попадает: его outcome был бы вечным "unknown", и приложение красило бы его
+  // в сломанные (SnapshotHealthView.failedProducers фильтрует != "success").
+  const producers: Record<string, Outcome> = {};
+  for (const spec of PRODUCERS) {
+    if (spec.marker) continue;
+    // Суточный шаг под `if:`: на ежечасных прогонах штатно skipped — это не
+    // сбой, приводим к success (см. normalizeOutcome).
+    producers[spec.key] = normalizeOutcome(spec, outcomeOf(envKeyFor(spec.key)));
+  }
+
+  // Свежесть. Накопленное переносим из ПРОШЛОГО health.json — успех мог быть
+  // не в этом прогоне, и отметку нельзя ни потерять, ни подделать.
+  const { lastSuccess, firstSeen, stale } = computeFreshness(
+    prev as { lastSuccess?: unknown; firstSeen?: unknown } | undefined,
+    producers, markers, today,
+  );
+
+  return {
+    schemaVersion: 1,
+    // Дневной heartbeat: меняется раз в сутки → держит крон живым, не спамит.
+    date: today,
+    producers,
+    // День последнего УСПЕШНОГО прогона по каждому продьюсеру реестра. Сутки,
+    // не точнее: файл пишется через writeIfChanged (побайтовое сравнение), и
+    // метка с часами переворачивала бы health.json каждый час × 21 продьюсер.
+    lastSuccess,
+    // Продьюсеры, не отработавшие успешно НИ РАЗУ с момента появления в
+    // реестре, и день, когда их впервые увидели. Пустой объект — норма.
+    firstSeen,
+    // Вышли за свой бюджет молчания. Пустой массив — норма; непустой валит
+    // job гейтом «Проверка свежести данных» в snapshot.yml (после коммита).
+    stale,
+    counts,
+    // Продьюсеры, которые отработали без исключения, но данные НЕ обновили
+    // (fail-closed). Ноль — штатное состояние; ненулевое держится, пока
+    // источник не отдаст поле, и не сбрасывается сменой суток.
+    blocked,
+  };
 }
 
 function main() {
-  // ВСЕ продьюсеры snapshot.yml (приложение декодит словарём — ключи свободные).
-  // Список обязан совпадать с гейтом «Проверка продьюсеров» в snapshot.yml:
-  // продьюсер без записи здесь и в гейте может падать вечно молча (кейс records).
-  const producers = {
-    imsa: outcome("IMSA_OUTCOME"),
-    f1: outcome("F1_OUTCOME"),
-    openf1: outcome("OPENF1_OUTCOME"),
-    wec: outcome("WEC_OUTCOME"),
-    fia: outcome("FIA_OUTCOME"),
-    wecfia: outcome("WECFIA_OUTCOME"),
-    wechighlights: outcome("WECHIGHLIGHTS_OUTCOME"),
-    wecwinners: outcome("WECWINNERS_OUTCOME"),
-    imsafia: outcome("IMSAFIA_OUTCOME"),
-    imsahighlights: outcome("IMSAHIGHLIGHTS_OUTCOME"),
-    imsawinners: outcome("IMSAWINNERS_OUTCOME"),
-    winners: outcome("WINNERS_OUTCOME"),
-    highlights: outcome("HIGHLIGHTS_OUTCOME"),
-    milestones: outcome("MILESTONES_OUTCOME"),
-    f1history: outcome("F1HISTORY_OUTCOME"),
-    beasts: outcome("BEASTS_OUTCOME"),
-    records: outcome("RECORDS_OUTCOME"),
-    f1teams: outcome("F1TEAMS_OUTCOME"),
-    f1overrides: outcome("F1OVERRIDES_OUTCOME"),
-    // Суточный шаг (второй cron): на ежечасных прогонах штатно skipped —
-    // это не сбой, приводим к success, чтобы дебаг-меню не мигало каждый час.
-    nextseason: outcome("NEXTSEASON_OUTCOME") === "skipped"
-      ? "success" as const : outcome("NEXTSEASON_OUTCOME"),
-  };
-
-  const health = {
-    schemaVersion: 1,
-    // Дневной heartbeat: меняется раз в сутки → держит крон живым, не спамит.
-    date: utcDate(),
-    producers,
+  const health = assembleHealth({
+    today: utcDay(),
+    outcomeOf: outcome,
+    prev: readPrevHealth(DATA_DIR),
+    markers: readMarkerStamps(DATA_DIR),
     counts: {
       imsa: countFiles("imsa"),
       f1Jolpica: countFiles("f1/jolpica"),
@@ -123,19 +196,19 @@ function main() {
       wec: countFiles("wec"),
       tracks: countFiles("tracks"),
     },
-    // Продьюсеры, которые отработали без исключения, но данные НЕ обновили
-    // (fail-closed). Ноль — штатное состояние; ненулевое держится, пока
-    // источник не отдаст поле, и не сбрасывается сменой суток.
-    blocked: {
-      f1teams: blockedTeams(),
-    },
-  };
+    blocked: { f1teams: blockedTeams() },
+  });
 
-  const changed = writeIfChanged(
-    join(DATA_DIR, "health.json"),
-    JSON.stringify(health, null, 1) + "\n"
-  );
+  const changed = writeIfChanged(HEALTH_PATH, JSON.stringify(health, null, 1) + "\n");
   console.log(`health.json ${changed ? "written" : "unchanged"}: ${JSON.stringify(health)}`);
+  for (const s of health.stale) {
+    console.warn(`  ⚠ ${s.producer}: молчит ${s.days} сут при бюджете ${s.budgetDays} (${s.workflow})`);
+  }
 }
 
-main();
+// Как у остальных продьюсеров: main только при прямом запуске. Раньше файл
+// никто не импортировал и охраны не имел — а теперь его функции проверяются
+// тестами, и без этой строки прогон тестов переписывал бы боевой health.json.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}

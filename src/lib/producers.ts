@@ -1,0 +1,151 @@
+// РЕЕСТР ПРОДЬЮСЕРОВ — единственный источник правды о том, кто вообще обязан
+// регулярно отрабатывать и как долго ему позволено молчать.
+//
+// Зачем он есть. До реестра «здоровье» отвечало только на вопрос «крон сходил и
+// шаг не упал»: health.json знал ровно тех продьюсеров, которые УЖЕ стоят в
+// snapshot.yml. Продьюсера, которого забыли туда вписать, эта конструкция не
+// видит по построению — так f1teams простоял вне крона 17 дней, и заметил это
+// владелец, а не система.
+//
+// Ключевое свойство: реестр объявляется НЕЗАВИСИМО от проводки в воркфлоу.
+// Запись здесь — это обязательство «продьюсер обязан успешно отрабатывать не
+// реже, чем раз в budgetDays суток». Если шага в воркфлоу нет, отметку
+// lastSuccess никто не обновляет, она стареет и через бюджет гейт валит job.
+// Поэтому НЕ надо «синхронизировать» реестр со snapshot.yml удалением записей:
+// расхождение — это и есть сигнал, ради которого всё затевалось.
+//
+// Что реестр НЕ ловит. Отметка ставится по факту «шаг отработал и вышел нулём»,
+// а не «данные свежие». Продьюсер, который штатно вышел нулём, ничего не
+// записав (fail-open: пустой ответ источника, season-guard, заморозка), будет
+// штамповаться ежечасно. Для этого класса нужен отдельный счётчик продуктивной
+// работы — см. health.blocked.f1teams. Возраст самого файла сигналом быть не
+// может: writeJSONWithEnvelope исключает generatedAt из сравнения, и 188 из 206
+// файлов законно старше недели (замороженные раунды, победители прошлых лет).
+
+/// Как до health.json доезжает факт успеха этого продьюсера.
+///  - "env": шаг snapshot.yml с `id: <key>`; результат приходит в health-шаг
+///    через `steps.<id>.outcome` → переменную `<KEY>_OUTCOME`.
+///  - маркер: продьюсер живёт в ЧУЖОМ воркфлоу, который health.ts не видит, и
+///    сам оставляет файл-отметку `{"lastSuccess":"YYYY-MM-DD"}`; health.ts его
+///    читает. Путь — относительно data/.
+export interface ProducerSpec {
+  /// Ключ в health.json, в алерт-гейте и в `id:` шага snapshot.yml — ОДНО
+  /// пространство имён на все четыре места. У пяти продьюсеров оно намеренно
+  /// не совпадает с именем npm-скрипта (winners ← f1winners и т.п.), поэтому
+  /// реестр ключуется по health-ключу, а скрипт несёт отдельным полем.
+  key: string;
+  /// npm-скрипт (`npm run <script>`). null — составной шаг без своего скрипта.
+  script: string | null;
+  /// Сколько суток допустимо прожить без УСПЕШНОГО прогона. Просрочка —
+  /// строгое «больше»: budgetDays суток молчания ещё норма, budgetDays+1 — нет.
+  budgetDays: number;
+  /// Где продьюсер ДОЛЖЕН вызываться. Только для текста ошибки гейта — на
+  /// вычисление свежести не влияет (иначе пропала бы независимость реестра).
+  workflow: string;
+  /// Путь маркера относительно data/ для продьюсеров из чужих воркфлоу.
+  /// Не задан → отметка приходит из env текущего прогона snapshot.yml.
+  marker?: string;
+  /// Шаг стоит под `if:` и на большинстве прогонов штатно skipped — считать
+  /// такой прогон успехом. Включать ОСОЗНАННО: флаг гасит бюджет как сигнал
+  /// про личное расписание шага (см. nextseason ниже).
+  skippedIsSuccess?: boolean;
+}
+
+/// Путь маркера tracks — ОДНА константа на обе стороны контракта: её пишет
+/// producers/tracks.ts, её же читает producers/health.ts через реестр. Двумя
+/// литералами это разъезжалось бы молча: health искал бы несуществующий файл,
+/// отметка старела, и через две недели прилетала бы вечная ложная тревога при
+/// полностью зелёном CI.
+export const TRACKS_MARKER = "tracks/_health.json";
+
+/// Бюджет ежечасных продьюсеров snapshot.yml.
+///
+/// Расписание — `17 * * * *`, то есть до 24 попыток в сутки. Штатный возраст
+/// отметки — 0 суток (успех был сегодня); 1 сутки — транзиентно, когда первый
+/// прогон после полуночи UTC упал, а следующий прошёл. Замеренная надёжность
+/// доставки крона за 39 суток истории: суток вообще без прогонов — ноль,
+/// максимальная пауза между прогонами — 6 ч 15 мин, максимальный достигнутый
+/// возраст отметки — 0 суток. Бюджет 3 = трое ПОЛНОСТЬЮ потерянных суток
+/// подряд ещё терпим, четвёртые — тревога.
+///
+/// Почему не туже (2): затяжной отказ источника и так орёт ежечасно из
+/// outcome-гейта, второй канал на то же событие — лишний шум. Почему не шире:
+/// 3 суток означает, что неподключённый продьюсер кричит на 4-й день вместо
+/// семнадцатого.
+///
+/// Ложную тревогу «Actions лежал больше бюджета» конструкция исключает: гейт
+/// живёт в том же job, что и health-шаг, и читает health.json, записанный ЭТИМ
+/// прогоном. Нет прогонов — нет и гейта; первый вернувшийся прогон сперва
+/// проставит отметки и только потом дойдёт до проверки.
+const HOURLY = 3;
+
+const SNAPSHOT = ".github/workflows/snapshot.yml";
+
+export const PRODUCERS: ProducerSpec[] = [
+  { key: "imsa", script: "imsa", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "f1", script: "f1", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "openf1", script: "openf1", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "wec", script: "wec", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "fia", script: "fia", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "wecfia", script: "wecfia", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "wechighlights", script: "wechighlights", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "wecwinners", script: "wecwinners", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "imsafia", script: "imsafia", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "imsahighlights", script: "imsahighlights", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "imsawinners", script: "imsawinners", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "winners", script: "f1winners", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "highlights", script: "f1highlights", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "milestones", script: "f1milestones", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "f1history", script: "f1history", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "beasts", script: "f1beasts", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "records", script: "f1records", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "f1teams", script: "f1teams", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "f1overrides", script: "f1overrides", budgetDays: HOURLY, workflow: SNAPSHOT },
+
+  // Составной шаг «Сезон N+1» (SEASON=N+1 для f1/wec/imsa), своего скрипта нет.
+  // На ежечасных прогонах штатно skipped — health.ts приводит skipped→success,
+  // и отметка штампуется ежечасно вместе с остальными.
+  //
+  // Честная оговорка: из-за этого бюджет ловит смерть ВСЕГО snapshot.yml, но не
+  // смерть отдельно суточного крона `37 3 * * *`. Не штамповать на skipped
+  // нельзя — тогда отметка переворачивалась бы в 03:37, тогда как `date`
+  // переворачивается в первом прогоне после полуночи, и health.json получал бы
+  // ГАРАНТИРОВАННЫЙ второй коммит каждые сутки. Дневная гранулярность здесь
+  // дороже: heartbeat-коммит держит scheduled workflow живым (GitHub гасит крон
+  // после 60 дней без активности репозитория), и превращать его в два — регресс
+  // ровно того свойства, ради которого он существует.
+  { key: "nextseason", script: null, budgetDays: HOURLY, workflow: SNAPSHOT, skippedIsSuccess: true },
+
+  // Справочник трасс из англ-вики: ОТДЕЛЬНЫЙ воркфлоу, понедельник 04:00 UTC.
+  // Его прогон health.ts не видит через env, поэтому продьюсер оставляет
+  // файл-отметку рядом со своими данными (её коммитит tracks.yml тем же
+  // `paths: data/tracks`), а health.ts читает её на ближайшем часовом прогоне.
+  //
+  // Бюджет 14 при недельном ритме. Штатный максимум возраста — 7 суток (утро
+  // понедельника до прогона; замеренный джиттер стартов — до 2 ч 57 мин).
+  // Один потерянный понедельник даёт ровно 14 — ещё норма, тревога на 15-е
+  // сутки. Так и задумано: слот недельного крона GitHub может не доставить, а
+  // tracks вдобавок делит concurrency-группу `snapshot` (pending-прогон на
+  // группу один, лишний вытесняется) — единичный пропуск слишком вероятен,
+  // чтобы будить владельца ежечасным письмом. Двух пропусков подряд (21 сутки)
+  // и «продьюсера не зовут совсем» бюджет не прощает.
+  //
+  // Быстрый слой против «забыли подключить» — не бюджет, а тест
+  // src/workflows.test.ts: он валит CI на push за минуты. Бюджет — второй
+  // рубеж на случай мёртвого канала при живом тесте.
+  {
+    key: "tracks",
+    script: "tracks",
+    budgetDays: 14,
+    workflow: ".github/workflows/tracks.yml",
+    marker: TRACKS_MARKER,
+  },
+];
+
+/// Имя переменной окружения, через которую шаг snapshot.yml приносит свой
+/// outcome. Инвариант, который держит src/workflows.test.ts: ключ реестра ==
+/// `id:` шага, а переменная — тот же ключ в верхнем регистре.
+export const envKeyFor = (key: string): string => `${key.toUpperCase()}_OUTCOME`;
+
+export const byKey = (key: string): ProducerSpec | undefined =>
+  PRODUCERS.find((p) => p.key === key);
