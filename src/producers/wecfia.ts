@@ -16,14 +16,15 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { extractText, getDocumentProxy } from "unpdf";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";
-import { isFrozen } from "../lib/freeze.js";
+import { isStewardsFrozen } from "../lib/freeze.js";
 import {
-  appliesTo, classifyDecision, fieldValue,
-  type FiaEvent, type FiaPenalty,
+  appliesTo, classifyDecision, fieldValue, mergeStewardsPenalties,
+  planStewardsFetches, skipFirstWrite,
+  type FiaEvent, type FiaPenalty, type StewardsListedDoc,
 } from "../lib/fiadocs.js";
 import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "../lib/alkamelwec.js";
 import { eventInfo, raceSlugs } from "../lib/fiawecsite.js";
-import { UA } from "../lib/http.js";
+import { fetchWithRetryLog, lastModifiedISO } from "../lib/http.js";
 import { envFlag, envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -31,6 +32,19 @@ const NB = `${ALKAMEL_WEC}/noticeBoard.php`;
 const OUT_DIR = join(process.cwd(), "data", "wec", "fia");
 const MIRROR_DIR = join(process.cwd(), "data", "wec", "fiawec");
 const NOW = Date.now();
+// Читаем один раз на модуль (как FIA_FORCE в fia.ts): флаг нужен и в отборе
+// раундов, и в produceEvent — там он снимает пропуск уже разобранных документов.
+const FORCE = envFlag("WEC_FIA_FORCE");
+
+// ВЕРСИЯ WEC-ПАРСЕРА — БАМПАТЬ ПРИ ЛЮБОЙ СМЫСЛОВОЙ ПРАВКЕ разбора:
+// parseWecPenaltyDoc / isWecPenaltyDoc / carFromTitle / wecRoundFromText
+// (classifyDecision/appliesTo/fieldValue — общие с F1, их правка бампает и
+// эту константу, и PENALTY_PARSER_VERSION). Продьюсер не перекачивает
+// документы, уже разобранные в файле текущей версией, — без бампа правка
+// парсера НЕ ДОЙДЁТ до старых записей. Константа СВОЯ, не F1-шная: парсеры
+// стареют независимо, и бамп F1-классификатора не должен гнать перекачку
+// 140 PDF Ле-Мана (и наоборот). Обходы: WEC_FIA_FORCE=1 или бамп версии.
+export const WEC_PENALTY_PARSER_VERSION = 1;
 
 // Метки шаблона стюардов WEC — в порядке появления, с двоеточиями (в отличие
 // от F1). Механика «значение до ближайшей ПОЗДНЕЙ метки» — общая (fieldValue).
@@ -68,6 +82,19 @@ export function carFromTitle(title: string): number | null {
   return m ? Number(m[1]) : null;
 }
 
+// Раунд из шапки самого PDF («FIA World Endurance Championship Round 4 –
+// 6 Hours of São Paulo 2026») — независимый свидетель, к какому этапу решение
+// относится НА САМОМ ДЕЛЕ. Guard класса Катар/Бахрейн: файл wec/fia/2025_1
+// (Катар) получил 42 бахрейнских решения, потому что при перенумерации
+// календаря событие Notice Board сматчилось не с тем слагом сезона — сверка
+// «round файла ↔ round из документов» ловит именно этот класс. Шапка — первое
+// на странице; ограничение окна поиска отсекает случайные «Round N» в текстах
+// решений. Нет шапки — не судим (толерантно).
+export function wecRoundFromText(text: string): number | null {
+  const m = text.slice(0, 300).match(/World Endurance Championship\s+Round\s+(\d+)/i);
+  return m ? Number(m[1]) : null;
+}
+
 export function parseWecPenaltyDoc(
   text: string,
   ref: WecDocRef,
@@ -90,6 +117,7 @@ export function parseWecPenaltyDoc(
 
   return {
     doc: ref.doc,
+    parser: WEC_PENALTY_PARSER_VERSION,
     car,
     driver,
     session,
@@ -109,39 +137,50 @@ export function parseWecPenaltyDoc(
 
 // ---- Сеть ----
 
-async function fetchHtml(url: string): Promise<string | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (!res.ok) return null;
-    return await res.text();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
+// Ретраи и различимая диагностика — политика fia.ts (общая механика в
+// http.ts): страницам два повтора, PDF один (у этапа их до 140 — Ле-Ман,
+// растягивать прогон нельзя), между PDF вежливая пауза.
+const PAGE_ATTEMPTS = 3;
+const PDF_ATTEMPTS = 2;
+const POLITE_PAUSE_MS = 200;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchHtml(url: string, label: string): Promise<string | null> {
+  return fetchWithRetryLog(url, (res) => res.text(), {
+    label, timeoutMs: 20000, attempts: PAGE_ATTEMPTS,
+  });
 }
 
-/// PDF → текст + Last-Modified (ISO). Ошибки → null (толерантно, как fia.ts).
-async function fetchPdf(url: string): Promise<{ text: string; publishedAt?: string } | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 30000);
-  try {
-    const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
-    if (!res.ok) return null;
-    const lm = res.headers.get("last-modified");
-    const buf = new Uint8Array(await res.arrayBuffer());
-    const pdf = await getDocumentProxy(buf);
-    const { text } = await extractText(pdf, { mergePages: true });
-    const publishedAt = lm && !Number.isNaN(Date.parse(lm))
-      ? new Date(lm).toISOString()
-      : undefined;
-    return { text, ...(publishedAt ? { publishedAt } : {}) };
-  } catch {
+/// Почему документ не дался — различение то же, что у fia.ts, и нужно оно тому
+/// же решению «публиковать ли неполный ПЕРВЫЙ сбор раунда» (skipFirstWrite):
+/// сетевой отказ (включая 404 на ещё не выложенный документ) — возвратный,
+/// битый текстовый слой PDF — нет (его лечит правка парсера, не повтор).
+type WecFetchFailure = "retriable" | "permanent";
+
+/// PDF → текст + Last-Modified (ISO, единая нормализация с imsafia).
+async function fetchPdf(
+  url: string, label: string, fail?: { kind: WecFetchFailure },
+): Promise<{ text: string; publishedAt?: string } | null> {
+  const got = await fetchWithRetryLog(
+    url,
+    async (res) => ({
+      bytes: new Uint8Array(await res.arrayBuffer()),
+      publishedAt: lastModifiedISO(res),
+    }),
+    { label, timeoutMs: 30000, attempts: PDF_ATTEMPTS },
+  );
+  if (!got) {
+    if (fail) fail.kind = "retriable";
     return null;
-  } finally {
-    clearTimeout(t);
+  }
+  try {
+    const pdf = await getDocumentProxy(got.bytes);
+    const { text } = await extractText(pdf, { mergePages: true });
+    return { text, ...(got.publishedAt ? { publishedAt: got.publishedAt } : {}) };
+  } catch (e) {
+    console.warn(`  ${label}: PDF не распарсился (unpdf: ${e instanceof Error ? e.message : e})`);
+    if (fail) fail.kind = "permanent";
+    return null;
   }
 }
 
@@ -177,7 +216,7 @@ async function main() {
   }
 
   // Notice Board: значение сезона из селектора по лейблу-году.
-  const nbHome = await fetchHtml(NB);
+  const nbHome = await fetchHtml(NB, "Notice Board");
   if (!nbHome) {
     console.warn("wecfia: Notice Board недоступен — пропускаем (толерантно)");
     return;
@@ -188,7 +227,9 @@ async function main() {
     console.warn(`wecfia: сезона ${YEAR} нет на Notice Board — переходное окно, пропускаем`);
     return;
   }
-  const seasonPage = await fetchHtml(`${NB}?season=${encodeURIComponent(seasonOpt.value)}`);
+  const seasonPage = await fetchHtml(
+    `${NB}?season=${encodeURIComponent(seasonOpt.value)}`, `страница сезона ${YEAR}`,
+  );
   const events = seasonPage ? parseAkOptions(seasonPage, "evvent") : [];
   if (!events.length) {
     console.warn("wecfia: селектор событий пуст — пропускаем");
@@ -207,23 +248,20 @@ async function main() {
     }
     const pageHtml = raceMirror(slugs[round - 1]);
     const dates = pageHtml ? eventInfo(pageHtml) : { startMs: null, endMs: null, iso2: null };
-    // Окно НАМЕРЕННО обычное (isFrozen, 7 дней), а не стюардское 14, как у
-    // fia.ts. Это не недосмотр: файл раунда здесь ПЕРЕЗАПИСЫВАЕТСЯ тем, что
-    // удалось наскрести за прогон (см. produceEvent ниже — прежний файл даже не
-    // читается, осечки PDF не считаются, ретраев нет). Удлинение окна вдвое
-    // удлинило бы период, в котором один неудачный прогон стирает уже собранное
-    // — при 58–140 штрафных PDF на этап это не гипотеза. 14 дней тут появятся
-    // ТЕМ ЖЕ коммитом, которым сюда приедет mergeFiaEvent: тогда достаточно
-    // заменить isFrozen на isStewardsFrozen в этой строке. Слияние переносить
-    // целиком, вместе с политикой: файл только НАКАПЛИВАЕТСЯ, решения не
-    // удаляются никогда, пропажа документа со страницы — громкий лог.
-    const frozen = isFrozen(dates.endMs, NOW);
+    // Стюардское окно оседания (14 дней — срок права FIA на пересмотр), как у
+    // fia.ts: длинное окно стало безопасным ровно тогда, когда файл раунда
+    // перестал перезаписываться итогом прогона — теперь он НАКАПЛИВАЕТСЯ
+    // (mergeStewardsPenalties в produceEvent), осечка PDF ничего не стирает,
+    // а докач тянет только недостающие документы. Это завершает решение
+    // «14 дней для всех трёх продьюсеров решений стюардов», отложенное именно
+    // из-за отсутствия слияния.
+    const frozen = isStewardsFrozen(dates.endMs, NOW);
     const exists = existsSync(join(OUT_DIR, `${YEAR}_${round}.json`));
     const started = dates.startMs != null && dates.startMs < NOW;
     const isActive = !frozen && dates.startMs != null &&
       NOW >= dates.startMs - ACTIVE_LEAD_MS && started;
-    const needsBackfill = (envFlag("WEC_FIA_FORCE") || !exists) && started;
-    if (frozen && exists && !envFlag("WEC_FIA_FORCE")) continue;
+    const needsBackfill = (FORCE || !exists) && started;
+    if (frozen && exists && !FORCE) continue;
     if (!isActive && !needsBackfill) continue;
     if (!isActive) {
       if (backfill <= 0) continue;
@@ -233,9 +271,11 @@ async function main() {
 
     const docsHtml = await fetchHtml(
       `${NB}?season=${encodeURIComponent(seasonOpt.value)}&evvent=${encodeURIComponent(ev.value)}`,
+      `R${round}: страница документов`,
     );
     if (!docsHtml) {
-      console.warn(`  R${round}: страница документов недоступна`);
+      // Причина уже в логе (HTTP-код / таймаут); файл раунда не трогаем.
+      console.warn(`  R${round}: страница документов недоступна — файл оставляем как есть`);
       continue;
     }
     const refs = parseFileHrefs(docsHtml, "Results_NoticeBoard")
@@ -253,41 +293,165 @@ async function main() {
 async function produceEvent(refs: WecDocRef[], round: number, label: string, slug: string) {
   console.log(`  ${label} → R${round}, ${refs.length} документов`);
 
-  const penalties: FiaPenalty[] = [];
-  for (const ref of refs) {
-    if (!isWecPenaltyDoc(ref.title)) {
-      if (/^Decision no\./i.test(ref.title)) {
-        console.log(`  Doc ${ref.doc}: мульти-решение «${ref.title}» — пропускаем`);
-      }
-      continue;
-    }
-    const pdf = await fetchPdf(ref.url);
-    if (!pdf) {
-      console.log(`  Doc ${ref.doc}: PDF недоступен/не распарсился`);
-      continue;
-    }
-    const p = parseWecPenaltyDoc(pdf.text, ref, pdf.publishedAt);
-    if (p) penalties.push(p);
-    await new Promise((res) => setTimeout(res, 200)); // вежливая пауза
+  // Уже собранный файл раунда читаем ДО закачек: он же и план докача (как в
+  // fia.ts). Вместе с ним поднимается guard чужого этапа.
+  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
+  let existing: FiaEvent | null = null;
+  try {
+    existing = JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    /* файла ещё нет — первый сбор раунда */
   }
-  penalties.sort((a, b) => a.doc - b.doc);
+  // Файл того же номера, но ЧУЖОГО этапа (перенумерация календаря fiawec)
+  // сливать нельзя — это смешало бы решения двух уик-эндов. Дальше раунд идёт
+  // как «первый сбор» (existing = null) и попадает под предохранители ниже:
+  // при осечках прежний файл остаётся нетронутым, а не подменяется огрызком.
+  let replacedEvent: string | null = null;
+  const onDiskPenalties = existing?.penalties?.length ?? 0;
+  if (existing && existing.event && existing.event !== slug) {
+    console.warn(`  R${round}: в файле был этап «${existing.event}», теперь «${slug}» — пересобираем с нуля`);
+    replacedEvent = existing.event;
+    existing = null;
+  }
 
-  const updated = penalties
-    .map((p) => p.publishedAt)
-    .filter((x): x is string => !!x)
-    .sort()
-    .pop();
+  const penaltyRefs: WecDocRef[] = [];
+  for (const ref of refs) {
+    if (isWecPenaltyDoc(ref.title)) {
+      penaltyRefs.push(ref);
+    } else if (/^Decision no\./i.test(ref.title)) {
+      console.log(`  Doc ${ref.doc}: мульти-решение «${ref.title}» — пропускаем`);
+    }
+  }
+  // Пустой результат НИКОГДА не ложится поверх непустого файла (правило
+  // fia.ts, кейс Бахрейн-2025): guard по слагу лишь обнуляет existing, а
+  // «ноль документов, ноль осечек» дальше прошёл бы как честный чистый сбор.
+  if (!penaltyRefs.length && onDiskPenalties) {
+    console.warn(
+      `::warning::R${round}: «${slug}» не несёт штрафных документов, а в файле ` +
+        `${onDiskPenalties} решени(й) этапа «${replacedEvent ?? slug}» — файл не трогаем`,
+    );
+    return;
+  }
+
+  // Подокументный докач: разобранное текущей версией парсера не перекачиваем.
+  // На этапах WEC до 140 штрафных PDF (Ле-Ман) — экономия реальная.
+  const listed = penaltyRefs.map((ref) => ({
+    key: String(ref.doc),
+    url: ref.url,
+    corrected: /AMENDED/i.test(ref.title),
+    ref,
+  } satisfies StewardsListedDoc & { ref: WecDocRef }));
+  const keyOf = (p: FiaPenalty): string => String(p.doc);
+  const plan = planStewardsFetches(existing?.penalties ?? [], listed, keyOf, WEC_PENALTY_PARSER_VERSION, FORCE);
+  if (existing && penaltyRefs.length) {
+    if (FORCE) {
+      console.log(`  R${round}: WEC_FIA_FORCE=1 — перечитываем все документы`);
+    } else if (plan.restamp) {
+      console.log(
+        `  R${round}: ${plan.restamp} документ(ов) разобрано парсером другой версии (сейчас v${WEC_PENALTY_PARSER_VERSION}) — перечитываем их`,
+      );
+    }
+  }
+
+  const penalties: FiaPenalty[] = [];
+  let failures = 0;    // не прочитано всего — для лога
+  let retriable = 0;   // из них те, что следующий прогон может добрать
+  let foreign = 0;     // шапка PDF называет ДРУГОЙ раунд — в файл не пускаем
+  for (const d of plan.fetch) {
+    const fail = { kind: "retriable" as WecFetchFailure };
+    const pdf = await fetchPdf(d.ref.url, `Doc ${d.ref.doc}`, fail);
+    if (!pdf) {
+      failures++;
+      if (fail.kind === "retriable") retriable++;
+    } else {
+      // Guard «round файла ↔ round из документов» (см. wecRoundFromText).
+      const docRound = wecRoundFromText(pdf.text);
+      if (docRound != null && docRound !== round) {
+        foreign++;
+        console.warn(
+          `::warning::R${round}: Doc ${d.ref.doc} в шапке называет себя Round ${docRound} — ` +
+            `чужой этап, в файл не пускаем (проверь матчинг событий Notice Board со слагами сезона)`,
+        );
+      } else {
+        const p = parseWecPenaltyDoc(pdf.text, d.ref, pdf.publishedAt);
+        if (p) {
+          penalties.push(p);
+        } else {
+          // Шаблон вне разбора — не осечка прогона, а работа для парсера:
+          // повтор не поможет никогда, поэтому сбор раунда он не блокирует.
+          failures++;
+          console.warn(`  Doc ${d.ref.doc}: шаблон стюардов не распознан (парсер)`);
+        }
+      }
+    }
+    await sleep(POLITE_PAUSE_MS);
+  }
+  console.log(
+    `  R${round}: штрафных доков ${penaltyRefs.length} — пропущено (уже разобрано) ${plan.reused.length}, ` +
+      `скачано ${penalties.length}, не далось ${failures}`,
+  );
+
+  // Все разобранные документы — чужого раунда, а своего не нашлось ничего:
+  // это и есть класс Катар/Бахрейн (2025_1), файл не трогаем и не создаём.
+  if (foreign && !penalties.length && !plan.reused.length) {
+    console.warn(
+      `::warning::R${round}: все ${foreign} разобранных документа(ов) — чужого раунда, ` +
+        `похоже на перенумерацию календаря; файл НЕ пишем`,
+    );
+    return;
+  }
+
+  // Неполный ПЕРВЫЙ сбор раунда не публикуем вовсе (правило и обоснование —
+  // fia.ts/skipFirstWrite): файла нет — слиянию спасать нечего, а записанный
+  // огрызок закрыл бы раунду дорогу назад (бэкфилл смотрит на существование
+  // файла). Блокируют только ВОЗВРАТНЫЕ осечки — документ вне разбора парсера
+  // не дастся и на сотом прогоне.
+  if (skipFirstWrite(existing != null, retriable)) {
+    console.warn(
+      `::warning::R${round}: ${retriable} из ${plan.fetch.length} документ(ов) не прочитано по возвратной ` +
+        `причине, а собранного файла этого этапа нет — ` +
+        (replacedEvent
+          ? `файл этапа «${replacedEvent}» НЕ подменяем огрызком нового`
+          : `файл НЕ создаём: неполный первый сбор хуже отсутствия файла`) +
+        ` (следующий прогон повторит сбор раунда)`,
+    );
+    return;
+  }
+
+  // Слияние с файлом раунда: прогон ДОПОЛНЯЕТ его и НИКОГДА ничего не удаляет
+  // (политика mergeFiaEvent — обоснование там).
+  const merged = mergeStewardsPenalties(
+    existing?.penalties ?? [], penalties, listed.map((d) => d.key), keyOf,
+  );
+  if (failures && existing) {
+    console.log(
+      `  R${round}: ${failures} документ(ов) не прочитано — прежние решения сохраняем, ` +
+        `остальные документы уже зачтены подокументно`,
+    );
+  }
+  // ::warning:: — пропажа документа разбирается человеком (см. mergeFiaEvent:
+  // вычистить и правда отозванный можно только удалив файл раунда).
+  for (const key of merged.missing) {
+    console.warn(
+      `::warning::R${round}: doc ${key} пропал с Notice Board — оставляю в файле, проверь руками ` +
+        `(если документ и правда отозван — удали data/wec/fia/${YEAR}_${round}.json и прогони заново)`,
+    );
+  }
 
   const out: FiaEvent = {
     season: YEAR,
     round,
     event: slug,
-    ...(updated ? { updated } : {}),
-    penalties,
+    ...(merged.updated ? { updated: merged.updated } : {}),
+    penalties: merged.penalties,
   };
-  const path = join(OUT_DIR, `${YEAR}_${round}.json`);
   const changed = writeJSONWithEnvelope(path, out);
-  console.log(`  ${penalties.length} штрафов → ${changed ? "записано" : "без изменений"}`);
+  const rescued = merged.kept - plan.reused.length;
+  console.log(
+    `  R${round}: в файле ${merged.penalties.length} штрафов` +
+      `${rescued > 0 ? ` (из файла без перечитки ${rescued}: осечки/пропажи)` : ""} → ` +
+      `${changed ? "записано" : "без изменений"}`,
+  );
 }
 
 // Запуск только как продьюсер (не при импорте из теста).

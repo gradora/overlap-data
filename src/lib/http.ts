@@ -56,3 +56,75 @@ export async function fetchJSON(url: string, opts: RetryOpts = {}): Promise<any 
     return null;
   }
 }
+
+// ---- Ретрай с внятной пер-документной диагностикой (политика fia.ts) ----
+
+// Общий null был слепым: в логе крона «PDF недоступен» одинаково значило 404
+// (документа ещё нет), таймаут и обрыв связи — разбирать сбой уик-энда было
+// не по чему. Здесь причина отказа попадает в лог под подписью документа, а
+// повтор делается только там, где имеет шанс пройти со второй попытки (сеть,
+// таймаут, 429/5xx): на 4xx на сервере ничего нет. Механика родилась в
+// producers/fia.ts (fetchWithRetry) — это её общая копия для wecfia/imsafia;
+// сам fia.ts остаётся на своей вместе с её тестами в fia.test.ts (чужая зона
+// фазы 0), унификация — отдельной уборкой.
+
+export interface RetryLogOpts {
+  label: string;      // как отказ подписан в логе («Doc 52», «листинг 18_Penalties»)
+  timeoutMs: number;
+  attempts: number;   // всего попыток, включая первую
+  pauseMs?: number;
+}
+
+/// Выхлоп причины устойчивого отказа для вызывающего: HTTP-код последнего
+/// ответа, если он был (404 у листинга IMSA — штатное «папки нет», а не
+/// осечка); отсутствие status — сеть/таймаут, то есть заведомо возвратное.
+export interface RetryLogFail {
+  status?: number;
+}
+
+const RETRY_LOG_PAUSE_MS = 1500;
+const sleepMs = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const errText = (e: unknown): string => (e instanceof Error ? e.message : String(e));
+
+/// Чтение ответа с ретраем и внятным логом. null — устойчивый отказ.
+export async function fetchWithRetryLog<T>(
+  url: string,
+  read: (res: Response) => Promise<T>,
+  opts: RetryLogOpts,
+  fail?: RetryLogFail,
+): Promise<T | null> {
+  const { label, timeoutMs, attempts, pauseMs = RETRY_LOG_PAUSE_MS } = opts;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+    let retriable = false;
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
+      if (res.ok) return await read(res);
+      if (fail) fail.status = res.status;
+      retriable = res.status === 429 || res.status >= 500;
+      console.warn(`  ${label}: HTTP ${res.status}${retriable ? "" : " — повтор не поможет"}`);
+    } catch (e) {
+      // Сработал наш AbortController → это таймаут, иначе — обрыв связи/DNS.
+      if (fail) delete fail.status;
+      retriable = true;
+      console.warn(
+        `  ${label}: ${ctrl.signal.aborted ? `таймаут ${timeoutMs / 1000}с` : `сеть — ${errText(e)}`}`,
+      );
+    } finally {
+      clearTimeout(t);
+    }
+    if (!retriable || attempt === attempts) return null;
+    console.log(`  ${label}: повтор ${attempt}/${attempts - 1} через ${pauseMs / 1000}с`);
+    await sleepMs(pauseMs);
+  }
+  return null;
+}
+
+/// Last-Modified → ISO-инстант для publishedAt. Единая нормализация для
+/// wecfia/imsafia: раньше один защищался от битой даты, другой — нет (падение
+/// на «Invalid Date»), а суффикс приводили к «.000Z» двумя разными способами.
+export function lastModifiedISO(res: Response): string | undefined {
+  const lm = res.headers.get("last-modified");
+  return lm && !Number.isNaN(Date.parse(lm)) ? new Date(lm).toISOString() : undefined;
+}

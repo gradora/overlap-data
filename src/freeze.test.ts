@@ -16,9 +16,11 @@ const PRODUCERS_DIR = "src/producers";
 
 /// Длинное окно — ТОЛЬКО там, где файл раунда накапливается слиянием и
 /// неудачный прогон ничего не стирает. Добавляя сюда продьюсера, сначала
-/// убедись, что он не перезаписывает файл собранным за прогон (wecfia/imsafia
-/// именно поэтому здесь и нет).
-const STEWARDS_PRODUCERS = new Set(["fia.ts"]);
+/// убедись, что он не перезаписывает файл собранным за прогон: wecfia и
+/// imsafia вошли ровно тем коммитом, которым к ним приехало слияние
+/// (mergeStewardsPenalties) — раньше длинное окно вдвое растягивало бы
+/// период, в котором одна осечка PDF стирает уже собранное.
+const STEWARDS_PRODUCERS = new Set(["fia.ts", "wecfia.ts", "imsafia.ts"]);
 
 test("isFrozen: границы окна оседания результатов (7д)", () => {
   const now = 1_800_000_000_000;
@@ -75,23 +77,21 @@ test("длинное окно — только у продьюсеров реш�
   const short: string[] = [];
   for (const f of files) {
     const src = readFileSync(join(PRODUCERS_DIR, f), "utf8");
-    // Комментарии выкидываем: в wecfia/imsafia имя isStewardsFrozen намеренно
-    // упомянуто в объяснении, почему окно у них пока обычное.
+    // Комментарии выкидываем: имена функций окон упоминаются в объяснениях.
     const code = src.replace(/\/\/[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, "");
     if (/\bisStewardsFrozen\s*\(/.test(code)) long.push(f);
     for (const _ of code.matchAll(/\bisFrozen\s*\(/g)) short.push(f);
   }
   assert.deepEqual(long.sort(), [...STEWARDS_PRODUCERS].sort());
-  // wecfia/imsafia перезаписывают файл раунда — им длинное окно противопоказано,
-  // пока туда не приедет mergeFiaEvent.
-  assert.ok(short.includes("wecfia.ts"), "wecfia остаётся на окне результатов");
-  assert.ok(short.includes("imsafia.ts"), "imsafia остаётся на окне результатов");
-  assert.ok(!short.includes("fia.ts"), "fia.ts перешёл на стюардское окно целиком");
+  // Стюардские продьюсеры перешли на длинное окно ЦЕЛИКОМ — короткого вызова
+  // в них не осталось (смешение двух окон в одном файле было бы ошибкой).
+  for (const f of STEWARDS_PRODUCERS) {
+    assert.ok(!short.includes(f), `${f} перешёл на стюардское окно целиком`);
+  }
   // Результатные вызовы (wec.ts зовёт трижды) — окно у них не менялось.
   // Список поимённый: новый потребитель длинного окна должен появиться здесь
   // осознанно, а не «сам собой» вместе с чужой правкой.
-  const results = short.filter((f) => f !== "wecfia.ts" && f !== "imsafia.ts").sort();
-  assert.deepEqual(results, [
+  assert.deepEqual(short.sort(), [
     "f1.ts", "f1beasts.ts", "f1milestones.ts", "imsa.ts", "imsahighlights.ts",
     "openf1.ts", "wec.ts", "wec.ts", "wec.ts", "wechighlights.ts",
   ]);

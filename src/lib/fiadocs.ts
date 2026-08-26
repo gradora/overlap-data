@@ -651,3 +651,99 @@ export function carryOver(prev: FiaEvent | null, targetStartWall: string | null)
   }
   return plan;
 }
+
+// ---- Докач и слияние для WEC/IMSA (свои ключи решений) ----
+
+// mergeFiaEvent сюда не переиспользуется намеренно: он несёт F1-специфику
+// (переносы carryOver, решётка, ключ приколочен к номеру документа), которой
+// у WEC/IMSA нет, а КЛЮЧ решения у серий разный по фактическому устройству
+// данных: WEC нумерует доки внутри раунда (ключ — doc), у IMSA нумерация TP
+// и SP сквозная по сезону и НЕЗАВИСИМАЯ — «TP 26-11» и «SP 26-11» это разные
+// нотисы одного уик-энда (ключ — session#doc). Поэтому обе функции ниже
+// параметризованы ключом. Политика та же, что у mergeFiaEvent: файл раунда
+// только НАКАПЛИВАЕТСЯ, автоматических удалений нет вовсе, пропажа документа
+// из листинга — громкий лог и ручной разбор (обоснование — у mergeFiaEvent).
+
+/// Документ из листинга Notice Board — вход планировщика докача.
+export interface StewardsListedDoc {
+  key: string;        // ключ решения в пространстве серии (см. выше)
+  url: string;
+  corrected: boolean; // переиздание (AMENDED в имени файла) — часть отпечатка
+}
+
+export interface StewardsFetchPlan<D extends StewardsListedDoc> {
+  fetch: D[];             // качаем и парсим
+  reused: FiaPenalty[];   // не качаем: эквивалент уже лежит в файле
+  restamp: number;        // из fetch: лежат в файле, но разобраны другой версией парсера
+}
+
+/// Разложить документы листинга на «качать» и «взять из файла» — аналог
+/// planPenaltyFetches. Отпечаток здесь без publishedAt: дерево Notice Board,
+/// в отличие от листинга fia.com, дат не отдаёт, но имя файла (а значит и url)
+/// при переиздании меняется, и AMENDED-переиздание приходит отдельным доком —
+/// смена url ловит подмену не хуже. Обходы пропуска те же два, что у fia.ts:
+/// force (env) и бамп версии парсера серии — версия сверяется У КАЖДОЙ записи.
+export function planStewardsFetches<D extends StewardsListedDoc>(
+  prev: FiaPenalty[],
+  listed: D[],
+  keyOf: (p: FiaPenalty) => string,
+  version: number,
+  force: boolean,
+): StewardsFetchPlan<D> {
+  const plan: StewardsFetchPlan<D> = { fetch: [], reused: [], restamp: 0 };
+  const known = new Map(prev.map((p) => [keyOf(p), p]));
+  for (const d of listed) {
+    const p = known.get(d.key);
+    if (!force && p && p.parser === version && p.url === d.url && p.corrected === d.corrected) {
+      plan.reused.push(p);
+      continue;
+    }
+    if (!force && p && p.parser !== version) plan.restamp++;
+    plan.fetch.push(d);
+  }
+  return plan;
+}
+
+export interface StewardsMerge {
+  penalties: FiaPenalty[];
+  updated?: string;    // max(publishedAt) итога — как считали оба продьюсера
+  kept: number;        // решений взято из прежнего файла (в прогоне не перечитывались)
+  missing: string[];   // есть в файле, но пропали из листинга — ОСТАВЛЕНЫ, только лог
+}
+
+/// Слияние прогона с файлом раунда: прогон ДОПОЛНЯЕТ, свежий разбор побеждает
+/// для того же ключа, удалений нет никогда (политика mergeFiaEvent).
+export function mergeStewardsPenalties(
+  prev: FiaPenalty[],
+  fresh: FiaPenalty[],
+  listedKeys: Iterable<string>,
+  keyOf: (p: FiaPenalty) => string,
+): StewardsMerge {
+  const listed = new Set(listedKeys);
+  const byKey = new Map<string, FiaPenalty>();
+  const missing: string[] = [];
+  for (const p of prev) {
+    if (!listed.has(keyOf(p))) missing.push(keyOf(p));
+    byKey.set(keyOf(p), p);
+  }
+  const fromFile = [...byKey.keys()];
+  const freshKeys = new Set(fresh.map(keyOf));
+  for (const p of fresh) byKey.set(keyOf(p), p);
+  const kept = fromFile.filter((k) => !freshKeys.has(k)).length;  // пережили прогон «как были»
+
+  // Порядок прежний (по номеру дока — так лежат все существующие файлы);
+  // ключ — детерминированный тай-брейк для композитных пространств IMSA.
+  const penalties = [...byKey.values()]
+    .sort((a, b) => a.doc - b.doc || keyOf(a).localeCompare(keyOf(b)));
+  const updated = penalties
+    .map((p) => p.publishedAt)
+    .filter((x): x is string => !!x)
+    .sort()
+    .pop();
+  return {
+    penalties,
+    ...(updated ? { updated } : {}),
+    kept,
+    missing: missing.sort(),
+  };
+}
