@@ -4,7 +4,7 @@
 // drive-through и проезды). Выход: data/wec/highlights/<season>_<round>.json.
 // Пересборка до заморозки этапа (7 дней после финиша), потом файл вечен.
 
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";
 import { isFrozen } from "../lib/freeze.js";
@@ -13,7 +13,7 @@ import {
   fetchAkText, parseAkCsv, pickRaceCsv,
 } from "../lib/alkamelwec.js";
 import { eventInfo } from "../lib/fiawecsite.js";
-import { crewSurnames } from "../lib/winnersbuild.js";
+import { crewSurnames, fillMissingFacts, settleAction } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -38,6 +38,8 @@ export interface WecHighlight {
 export interface WecRoundHighlights {
   season: number;
   round: number;
+  /// Запечатан после границы freeze — больше не перекачивается (settleAction).
+  final?: boolean;
   fastestLap?: WecHighlight;
   fastestPitStop?: WecHighlight;
   /// Медиана пит-проездов гонки (без drive-through — порог MIN_PIT_SECONDS).
@@ -189,6 +191,14 @@ function raceMirror(slug: string): string | null {
   }
 }
 
+function readStored(path: string): WecRoundHighlights | null {
+  try {
+    return JSON.parse(readFileSync(path, "utf8")) as WecRoundHighlights;
+  } catch {
+    return null; // файла ещё нет — первый разбор раунда
+  }
+}
+
 async function main() {
   console.log(`WEC highlights, season ${YEAR}`);
   const ctx = await akSeasonContext(YEAR);
@@ -200,7 +210,13 @@ async function main() {
     const dates = page ? eventInfo(page) : { startMs: null, endMs: null, iso2: null };
     const raced = dates.endMs != null && dates.endMs < NOW;
     if (!raced) continue; // гонки ещё не было — хайлайтить нечего
-    if (existsSync(path) && isFrozen(dates.endMs, NOW) && !envFlag("WEC_HL_FORCE")) continue;
+    // Две закачки на этап вместо ежечасной: разбор после финиша и
+    // запечатывание после границы freeze (правила — settleAction).
+    const existing = readStored(path);
+    const action = settleAction(
+      existing != null, existing?.final === true, isFrozen(dates.endMs, NOW), envFlag("WEC_HL_FORCE"),
+    );
+    if (action === "skip") continue;
 
     const hrefs = await akEventHrefs(ctx.seasonValue, ev.value);
     const csvHref = pickRaceCsv(hrefs, "Analysis");
@@ -218,10 +234,15 @@ async function main() {
     const clsCsv = clsHref ? await fetchAkText(`${ALKAMEL_WEC}/${clsHref}`, 60000) : null;
     const classWinners = clsCsv ? classWinnersFromClassification(parseAkCsv(clsCsv)) : [];
     if (classWinners.length > 1) out.classWinners = classWinners;
+    fillMissingFacts(out, existing, [
+      "fastestLap", "fastestPitStop", "medianPitStop", "cautions", "classWinners",
+    ]);
+    if (action === "seal") out.final = true;
     const changed = writeJSONWithEnvelope(path, out);
     console.log(
       `  R${ev.round} (${ev.label}): круг ${out.fastestLap?.time ?? "—"} ${out.fastestLap?.driver ?? ""}, ` +
-      `пит ${out.fastestPitStop?.time ?? "—"} → ${changed ? "записано" : "без изменений"}`,
+      `пит ${out.fastestPitStop?.time ?? "—"} → ${changed ? "записано" : "без изменений"}` +
+      `${action === "seal" ? " (запечатан)" : ""}`,
     );
   }
   console.log("Done.");

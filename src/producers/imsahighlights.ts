@@ -5,7 +5,7 @@
 // Выход: data/imsa/highlights/<season>_<round>.json. Прошедшие этапы
 // замораживаются (freeze 7 дней), потом файл не трогаем.
 
-import { existsSync, mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fetchHTML, fetchJSON, folders } from "../lib/alkamel.js";
 import {
@@ -14,7 +14,7 @@ import {
 import { isFrozen } from "../lib/freeze.js";
 import {writeJSONWithEnvelope } from "../lib/mirror.js";
 import { SCHEDULE } from "../lib/schedule.js";
-import { bestTrackStage } from "../lib/winnersbuild.js";
+import { bestTrackStage, fillMissingFacts, settleAction } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -30,6 +30,22 @@ interface Highlight {
   car?: string;
   team?: string;
   class?: string;
+}
+
+/// Файл раунда на диске (без конверта интересуют только факты и пометка).
+interface StoredHighlights {
+  final?: boolean;
+  fastestLap?: Highlight;
+  fastestPitStop?: Highlight;
+  medianPitStop?: { time: string; seconds: number };
+}
+
+function readStored(path: string): StoredHighlights | null {
+  try {
+    return JSON.parse(readFileSync(path, "utf8")) as StoredHighlights;
+  } catch {
+    return null; // файла ещё нет — первый разбор раунда
+  }
 }
 
 /// fastest_lap из Results JSON + команда/класс по номеру машины из классификации.
@@ -180,7 +196,13 @@ async function main(): Promise<void> {
     const endMs = Date.parse(`${entry.endDate}T23:59:59Z`);
     if (!(endMs < NOW)) continue; // хайлайты — только по прошедшим гонкам
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
-    if (existsSync(path) && isFrozen(endMs, NOW) && !envFlag("IMSA_HL_FORCE")) continue;   // было truthy: «=0» форсировал
+    // Две закачки на этап вместо ежечасной: разбор после финиша и
+    // запечатывание после границы freeze (правила — settleAction).
+    const existing = readStored(path);
+    const action = settleAction(
+      existing != null, existing?.final === true, isFrozen(endMs, NOW), envFlag("IMSA_HL_FORCE"),
+    );
+    if (action === "skip") continue;
 
     const candidates = trackCandidates(seasonFolders, entry.venue);
     const best = candidates.length ? await bestTrackStage(season, candidates) : null;
@@ -199,18 +221,24 @@ async function main(): Promise<void> {
     const fastestPitStop = pitsJson ? imsaFastestPitStop(pitsJson, driveThroughs) : null;
     const medianPitStop = pitsJson ? imsaMedianPitStop(pitsJson, driveThroughs) : null;
     if (!fastestLap && !fastestPitStop) {
+      // Файл не пишем и не запечатываем — следующий прогон попробует снова.
       console.log(`  R${entry.round}: данных нет — скип`);
       continue;
     }
-    const out = {
+    const out: StoredHighlights & { season: number; round: number } = {
       season: YEAR,
       round: entry.round,
+      ...(action === "seal" ? { final: true } : {}),
       ...(fastestLap ? { fastestLap } : {}),
       ...(fastestPitStop ? { fastestPitStop } : {}),
       ...(medianPitStop ? { medianPitStop } : {}),
     };
+    fillMissingFacts(out, existing, ["fastestLap", "fastestPitStop", "medianPitStop"]);
     writeJSONWithEnvelope(path, out);
-    console.log(`  R${entry.round} (${entry.venue}): FL ${fastestLap?.time ?? "—"} ${fastestLap?.driver ?? ""}, пит ${fastestPitStop?.time ?? "—"}`);
+    console.log(
+      `  R${entry.round} (${entry.venue}): FL ${fastestLap?.time ?? "—"} ${fastestLap?.driver ?? ""}, ` +
+      `пит ${fastestPitStop?.time ?? "—"}${action === "seal" ? " (запечатан)" : ""}`,
+    );
   }
   console.log("Done.");
 }

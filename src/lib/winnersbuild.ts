@@ -90,6 +90,46 @@ export function imsaOverallWinner(json: unknown): ResultsClassificationRow | nul
   return rows.find((r) => String(r.position ?? "").trim() === "1") ?? null;
 }
 
+// MARK: Пересборка highlights в окне оседания
+
+/// Что делать с файлом хайлайтов ЗАВЕРШЁННОГО этапа на этом прогоне. Раньше
+/// финальный CSV перекачивался каждый час всё freeze-окно (~168 раз за
+/// неделю на этап). Теперь закачек две: первый успешный разбор после финиша
+/// и одна «запечатывающая» после границы freeze — когда результат осел, она
+/// же подхватывает поздние поправки протокола (штраф/апелляция), ради которых
+/// окно и существует. Файл с пометкой final не трогаем никогда — это тот же
+/// write-once после freeze, что и раньше, только явный.
+export type SettleAction =
+  | "skip"   // не качаем: файл есть и по правилам выше актуален
+  | "fetch"  // качаем и пишем БЕЗ пометки final (окно оседания ещё идёт)
+  | "seal";  // качаем и пишем С пометкой final — файл становится вечным
+
+export function settleAction(
+  hasFile: boolean, isFinal: boolean, frozen: boolean, force: boolean,
+): SettleAction {
+  // Форс — операторская пересборка: перечитываем всегда, пометку — по окну.
+  if (force) return frozen ? "seal" : "fetch";
+  if (isFinal) return "skip";
+  // Граница пройдена, файл не запечатан (или его вовсе нет — поздний
+  // бэкфилл): финальная перекачка.
+  if (frozen) return "seal";
+  // Окно оседания: первый успешный разбор уже лежит в файле — ждём границу.
+  return hasFile ? "skip" : "fetch";
+}
+
+/// Накопление вместо перезаписи для продьюсеров-перезаписывателей: факты,
+/// которых свежий разбор не дал (разовый 404 соседнего CSV), остаются из
+/// файла. Особенно важно на запечатывающем прогоне — после него дыра
+/// осталась бы навсегда.
+export function fillMissingFacts<T extends object>(
+  target: T, source: Partial<T> | null, keys: (keyof T)[],
+): void {
+  if (!source) return;
+  for (const k of keys) {
+    if (target[k] === undefined && source[k] !== undefined) target[k] = source[k]!;
+  }
+}
+
 /// Лучшее из событий-кандидатов трассы за сезон: max Hour-папок, затем позднее.
 export async function bestTrackStage(
   season: string,

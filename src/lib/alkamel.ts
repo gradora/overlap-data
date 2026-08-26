@@ -19,34 +19,78 @@ function buildURL(segments: string[]): string {
   return s;
 }
 
-async function get(segments: string[]): Promise<Response | null> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 15000);
-  try {
-    const res = await fetch(buildURL(segments), {
-      headers: { "User-Agent": UA },
-      signal: ctrl.signal,
-    });
-    return res.ok ? res : null;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
+// Ретраи — по образцу fetchWithRetry из fia.ts: осознанная копия ПОЛИТИКИ в
+// lib, а не импорт (продьюсер из продьюсера не импортируем). Прежний общий
+// null был слепым: в логе «страницы нет» одинаково значило и 404, и таймаут,
+// и обрыв — разбирать сбой прогона было не по чему. Теперь причина в логе
+// явная, а ретраим только то, что имеет шанс пройти со второй попытки (сеть,
+// таймаут, 429/5xx); на 4xx повтор бессмысленен — на сервере этого нет.
+const TIMEOUT_MS = 15000;
+const ATTEMPTS = 3;
+const RETRY_PAUSE_MS = 1500;
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const errText = (e: unknown): string => (e instanceof Error ? e.message : String(e));
+
+/// Ручки политики — только для тестов (не ждать реальные таймауты и паузы).
+export interface AkFetchOpts {
+  timeoutMs?: number;
+  attempts?: number;
+  pauseMs?: number;
+}
+
+async function getText(url: string, opts: AkFetchOpts = {}): Promise<string | null> {
+  const { timeoutMs = TIMEOUT_MS, attempts = ATTEMPTS, pauseMs = RETRY_PAUSE_MS } = opts;
+  const label = url.startsWith(BASE) ? url.slice(BASE.length + 1) : url;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+    let retriable = false;
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": UA }, signal: ctrl.signal });
+      // Тело читаем внутри окна таймаута: обрыв на середине тела — тоже ретрай.
+      if (res.ok) return await res.text();
+      retriable = res.status === 429 || res.status >= 500;
+      console.warn(`  alkamel ${label}: HTTP ${res.status}${retriable ? "" : " — повтор не поможет"}`);
+    } catch (e) {
+      // Сработал наш AbortController → это таймаут, иначе — обрыв связи/DNS.
+      retriable = true;
+      console.warn(
+        `  alkamel ${label}: ${ctrl.signal.aborted ? `таймаут ${timeoutMs / 1000}с` : `сеть — ${errText(e)}`}`,
+      );
+    } finally {
+      clearTimeout(t);
+    }
+    if (!retriable || attempt === attempts) return null;
+    await sleep(pauseMs);
   }
+  return null;
 }
 
-export async function fetchHTML(segments: string[]): Promise<string | null> {
-  const res = await get(segments);
-  return res ? await res.text() : null;
+// Прогонный мемо-кэш листингов: продьюсеры ходят по одним страницам дерева в
+// одном прогоне (fetchPoints после цикла уикендов идёт по тем же раундам,
+// winners перебирают кандидатов трассы). Кэш живёт время процесса, НЕ на
+// диске — листинги живые. Кэшируем только успех: отказ после ретраев не
+// должен отравлять оставшуюся часть прогона.
+const htmlCache = new Map<string, string>();
+
+export async function fetchHTML(segments: string[], opts: AkFetchOpts = {}): Promise<string | null> {
+  const url = buildURL(segments);
+  const cached = htmlCache.get(url);
+  if (cached !== undefined) return cached;
+  const text = await getText(url, opts);
+  if (text !== null) htmlCache.set(url, text);
+  return text;
 }
 
-export async function fetchJSON(segments: string[]): Promise<any | null> {
-  const res = await get(segments);
-  if (!res) return null;
+// JSON-файлы результатов НЕ кэшируем: каждый нужен один раз за прогон, а
+// весят они на порядки больше листингов.
+export async function fetchJSON(segments: string[], opts: AkFetchOpts = {}): Promise<any | null> {
+  const text = await getText(buildURL(segments), opts);
+  if (text === null) return null;
   // JSON с UTF-8 BOM — .text()+strip надёжнее, чем .json()
-  const text = (await res.text()).replace(/^﻿/, "");
   try {
-    return JSON.parse(text);
+    return JSON.parse(text.replace(/^﻿/, ""));
   } catch {
     return null;
   }
