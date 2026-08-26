@@ -12,6 +12,7 @@
 //    «23_Time Cards.JSON») — искать по подстроке, Official предпочтительнее.
 
 import { fetchHTML, files, folders } from "./alkamel.js";
+import { loadRefs, pinFor, trackByAlias, type RefsMap, type RefTrack } from "./refs.js";
 
 export const IMSA_SEASONS_FIRST = 2016; // глубже архива нет (и 2016 обрезан)
 
@@ -48,22 +49,77 @@ const IMSA_TRACK_ALIASES: Record<string, string> = {
   "weathertech-240-wgi": "watkins-glen-international",
 };
 
+// ---- Карта сущностей (фаза 2 DATA-PLAN): подключение потребителя ----
+// Карта — СОВЕТНИК на обкатке: мнение (pins → алиасы) сверяется со встроенной
+// таблицей, расхождение — warning, побеждает ВСТРОЕННАЯ. Карта недоступна —
+// поведение в точности прежнее (fail-open).
+
+let refsLoaded = false;
+let refsOnce: RefsMap | undefined;
+function defaultRefs(): RefsMap | undefined {
+  if (!refsLoaded) {
+    refsLoaded = true;   // один раз на прогон
+    refsOnce = loadRefs();
+  }
+  return refsOnce;
+}
+
+// Дедуп: matchImsaTrack зовётся по ВСЕМ папкам сезона × все venue —
+// одинаковое расхождение печатаем один раз за прогон.
+const warnedKeys = new Set<string>();
+function warnOnce(key: string, msg: string): void {
+  if (warnedKeys.has(key)) return;
+  warnedKeys.add(key);
+  console.warn(msg);
+}
+
+/// Мнение карты об имени (папка архива без NN_ или curated venue): pin →
+/// alkamelImsa-слаг → imsaVenue как есть. undefined = карта имени не знает —
+/// мнения нет (суффиксные варианты «…- AEC» карта сознательно не перечисляет).
+function refTrackByImsaLabel(m: RefsMap, label: string): RefTrack | undefined {
+  const key = slugifyImsaTrack(label);
+  const pin = pinFor(m, "alkamelImsa", key);
+  if (pin?.slug !== undefined) return m.tracks.find((t) => t.slug === pin.slug);
+  return trackByAlias(m, "alkamelImsa", key) ?? trackByAlias(m, "imsaVenue", label);
+}
+
 /// Папка раунда соответствует трассе venue? Сравнение по каноническим слагам
 /// (алиасы применяются к обеим сторонам), плюс вхождение ядра для суффиксных
 /// вариантов нотис-борда («Sebring International Raceway - AEC»).
-export function matchImsaTrack(folderName: string, venue: string): boolean {
+export function matchImsaTrack(folderName: string, venue: string, refs?: RefsMap | null): boolean {
   const clean = folderName.replace(/^\d+_/, "");
   const f = slugifyImsaTrack(clean);
   const v = slugifyImsaTrack(venue);
   const fc = IMSA_TRACK_ALIASES[f] ?? f;
   const vc = IMSA_TRACK_ALIASES[v] ?? v;
-  if (fc === vc) return true;
+  let builtin = false;
+  if (fc === vc) builtin = true;
   // Суффиксные варианты: ядро совпадает, папка длиннее («…-aec», «…-vprc»).
-  if (fc.startsWith(vc + "-") || vc.startsWith(fc + "-")) return true;
+  else if (fc.startsWith(vc + "-") || vc.startsWith(fc + "-")) builtin = true;
   // Префиксные события: «6H - Watkins Glen International», «Rolex 24 - …» —
   // имя трассы в конце. Ложные срабатывания (MX-5 Cup Road America и т.п.)
   // отсеивает признак WeatherTech-папки у вызывающего.
-  return fc.endsWith("-" + vc);
+  else builtin = fc.endsWith("-" + vc);
+
+  // Сверка с картой: только когда карта знает ОБЕ стороны (положительное
+  // мнение); иначе молчим — встроенная таблица работает как раньше.
+  // refs === null — явное «без карты» (тесты); try/catch — битый объект карты
+  // не имеет права ронять матчер (fail-open сквозной).
+  const m = refs === null ? undefined : refs ?? defaultRefs();
+  if (m) {
+    try {
+      const ft = refTrackByImsaLabel(m, clean);
+      const vt = refTrackByImsaLabel(m, venue);
+      if (ft && vt && (ft.slug === vt.slug) !== builtin) {
+        warnOnce(`matchImsaTrack:${folderName}|${venue}`,
+          `  refs: matchImsaTrack(«${folderName}», «${venue}») = ${builtin}, а по карте ` +
+          `${ft.slug} vs ${vt.slug} → ${ft.slug === vt.slug} — побеждает встроенная таблица`);
+      }
+    } catch {
+      // fail-open: мнение карты — только совет
+    }
+  }
+  return builtin;
 }
 
 // MARK: Навигация по дереву

@@ -1,3 +1,5 @@
+import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
+
 export const FIA_ORIGIN = "https://www.fia.com";
 // Стабильный узел чемпионата F1 («-14» год-инвариантен, в отличие от season-node).
 export const CHAMPIONSHIP_URL =
@@ -350,19 +352,85 @@ export function parseEventOptions(html: string): { name: string; url: string }[]
 // поверх двенадцати решений Гран-при Бахрейна-2025 ложился пустой файл.
 const TESTING_SLUG = /(^|_)tests?(_|$)|(^|_)testing(_|$)/;
 
+// ---- Карта сущностей (фаза 2 DATA-PLAN): подключение потребителя ----
+// Карта — СОВЕТНИК на обкатке: мнение (pins → алиасы) сверяется со встроенным
+// матчем, расхождение — warning, побеждает ВСТРОЕННАЯ таблица. Карта
+// недоступна — поведение в точности прежнее (fail-open).
+
+let refsLoaded = false;
+let refsOnce: RefsMap | undefined;
+function defaultRefs(): RefsMap | undefined {
+  if (!refsLoaded) {
+    refsLoaded = true;   // один раз на прогон
+    refsOnce = loadRefs();
+  }
+  return refsOnce;
+}
+
+const warnedKeys = new Set<string>();
+function warnOnce(key: string, msg: string): void {
+  if (warnedKeys.has(key)) return;
+  warnedKeys.add(key);
+  console.warn(msg);
+}
+
 export function matchRound(
   eventSlug: string,
-  races: { round: string; date: string; time?: string; raceName: string }[],
+  // Circuit — опционально: продьюсер fia.ts передаёт сырые Race-объекты
+  // Jolpica (structural typing), и circuitId в них есть — это единственный
+  // честный мост «трасса карты → раунд сезона». Синтетические списки тестов
+  // поля не несут — тогда у алиас-ветки карты просто нет мнения.
+  races: { round: string; date: string; time?: string; raceName: string;
+    Circuit?: { circuitId?: string } }[],
+  refs?: RefsMap | null,
 ): { round: number; raceDate: string; raceTime?: string } | null {
-  if (TESTING_SLUG.test(eventSlug)) return null;   // тест — не этап чемпионата
-  const country = eventSlug.split("_")[0];
-  for (const r of races) {
-    const slug = slugifyRace(r.raceName);
-    if (slug === eventSlug || slug.startsWith(country + "_") || slug === country) {
-      return { round: Number(r.round), raceDate: r.date, raceTime: r.time };
+  let builtin: { round: number; raceDate: string; raceTime?: string } | null = null;
+  if (!TESTING_SLUG.test(eventSlug)) {   // тест — не этап чемпионата
+    const country = eventSlug.split("_")[0];
+    for (const r of races) {
+      const slug = slugifyRace(r.raceName);
+      if (slug === eventSlug || slug.startsWith(country + "_") || slug === country) {
+        builtin = { round: Number(r.round), raceDate: r.date, raceTime: r.time };
+        break;
+      }
     }
   }
-  return null;
+
+  // Мнение карты: pin по полному слагу, затем pin по страна-префиксу
+  // (сезонный «spanish» → Барселона ≤2025), затем fiaDocPrefix-алиас с мостом
+  // через jolpica circuitId. refs === null — явное «без карты» (тесты);
+  // try/catch — битый объект карты не роняет матчер (fail-open сквозной).
+  const m = refs === null ? undefined : refs ?? defaultRefs();
+  if (m) {
+    try {
+      const season = races.length ? Number(races[0].date?.slice(0, 4)) : undefined;
+      const prefix = eventSlug.split("_")[0];
+      const pin = pinFor(m, "fiaDocs", eventSlug, season) ?? pinFor(m, "fiaDocs", prefix, season);
+      // undefined = мнения нет; null = «не матчить» (материализованный TESTING_SLUG)
+      let mapRound: number | null | undefined;
+      if (pin && pin.round !== undefined) {
+        mapRound = pin.round;
+      } else {
+        const track = trackByAlias(m, "fiaDocPrefix", prefix);
+        if (track) {
+          const ids = new Set((track.aliases.jolpica ?? []).map((a) => a.toLowerCase()));
+          const hit = races.find((r) =>
+            r.Circuit?.circuitId && ids.has(r.Circuit.circuitId.toLowerCase()));
+          // Трасса известна, но раунда с её circuitId в сезоне нет (или
+          // вызывающий не прокинул Circuit) — мнения нет, НЕ «no match».
+          if (hit) mapRound = Number(hit.round);
+        }
+      }
+      if (mapRound !== undefined && mapRound !== (builtin?.round ?? null)) {
+        warnOnce(`matchRound:${eventSlug}|${season}`,
+          `  refs: matchRound «${eventSlug}» → ${builtin?.round ?? null}, а карта говорит ` +
+          `${mapRound} — побеждает встроенная таблица`);
+      }
+    } catch {
+      // fail-open: мнение карты — только совет
+    }
+  }
+  return builtin;
 }
 
 // Год из сезонного URL FIA («…/season/season-2026-2072» → 2026) — для guard'а

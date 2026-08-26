@@ -6,6 +6,7 @@
 
 import { type AkOption } from "./alkamelwec.js";
 import { imsaRaceStage, type ImsaDriverRef } from "./alkamelimsa.js";
+import { enduranceTeamKey, loadRefs, type RefsMap } from "./refs.js";
 
 export interface WecPastWinner {
   year: number;
@@ -47,18 +48,49 @@ export function overallWinner(rows: Record<string, string>[]): Record<string, st
   return rows.find((r) => (r.POSITION ?? "").trim() === "1") ?? null;
 }
 
+// ---- Карта сущностей (фаза 2 DATA-PLAN) ----
+// ЕДИНСТВЕННОЕ санкционированное отличие фазы от старого поведения: ключ
+// кумулятива winsHere идёт через identities карты (кейс JOTA — «Hertz Team
+// JOTA» 2024 и «Cadillac Hertz Team JOTA» 2025+ это одна команда, ребренд не
+// должен обнулять счёт). К ДАННЫМ не применяется само по себе: winners-файлы
+// write-once, изменение доедет только при осознанной force-пересборке
+// (решение владельца). Отображаемое имя (constructor) остаётся именем
+// источника как есть — меняется только счётный ключ.
+
+let refsLoaded = false;
+let refsOnce: RefsMap | undefined;
+function defaultRefs(): RefsMap | undefined {
+  if (!refsLoaded) {
+    refsLoaded = true;   // один раз на прогон
+    refsOnce = loadRefs();
+  }
+  return refsOnce;
+}
+
 /// Последние 5 побед до `beforeYear` с кумулятивом по команде (как
-/// buildWinners у F1, но ключ — команда).
+/// buildWinners у F1, но ключ — команда: сквозь ребренды по карте, без карты —
+/// строка команды как есть, т.е. в точности старое поведение; fail-open).
 export function buildWecWinners(
   rows: { year: number; name: string; team: string; vehicle?: string }[],
   beforeYear: number,
+  refs?: RefsMap | null,
 ): WecPastWinner[] {
+  const m = refs === null ? undefined : refs ?? defaultRefs();
+  const keyOf = (team: string, year: number): string => {
+    if (!m) return team;
+    try {
+      return enduranceTeamKey(m, team, year) ?? team;
+    } catch {
+      return team;   // битый объект карты не роняет сборку (fail-open)
+    }
+  };
   const sorted = [...rows].sort((a, b) => a.year - b.year);
   const tally = new Map<string, number>();
   const all: WecPastWinner[] = [];
   for (const r of sorted) {
-    const n = (tally.get(r.team) ?? 0) + 1;
-    tally.set(r.team, n);
+    const key = keyOf(r.team, r.year);
+    const n = (tally.get(key) ?? 0) + 1;
+    tally.set(key, n);
     all.push({
       year: r.year, name: r.name, constructor: r.team,
       ...(r.vehicle ? { vehicle: r.vehicle } : {}),

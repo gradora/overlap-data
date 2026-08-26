@@ -4,6 +4,9 @@
 // Обновляется раз в сезон; сверено по imsa.com + Wikipedia + honda.racing.
 // venue — официальная длинная форма (токен-матч со скрейпом Al Kamel).
 
+import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
+import { slugifyImsaTrack } from "./alkamelimsa.js";
+
 export interface ScheduleEntry {
   round: number; // championship round (1..11)
   name: string;
@@ -80,7 +83,43 @@ function tokens(s: string): Set<string> {
   );
 }
 
-export function matchTrack(scheduleVenue: string, tracks: string[]): string | undefined {
+// ---- Карта сущностей (фаза 2 DATA-PLAN): подключение потребителя ----
+// Карта — СОВЕТНИК на обкатке: её мнение (pins → алиасы) сверяется со
+// встроенным матчем, при расхождении печатается warning и побеждает
+// ВСТРОЕННАЯ таблица (перещёлкивание приоритета — отдельным решением позже).
+// Карта недоступна/бита → мнения нет, поведение в точности прежнее (fail-open).
+
+let refsLoaded = false;
+let refsOnce: RefsMap | undefined;
+function defaultRefs(): RefsMap | undefined {
+  if (!refsLoaded) {
+    refsLoaded = true;   // читаем один раз на прогон (как akSeasonPage-кэш)
+    refsOnce = loadRefs();
+  }
+  return refsOnce;
+}
+
+// Warning на каждый вызов заливал бы лог: матчеры зовутся в циклах по всем
+// раундам сезона. Дедуп по конкретной паре входов — расхождение видно ровно
+// один раз за прогон.
+const warnedKeys = new Set<string>();
+function warnOnce(key: string, msg: string): void {
+  if (warnedKeys.has(key)) return;
+  warnedKeys.add(key);
+  console.warn(msg);
+}
+
+/// Резолв произвольного имени трассы (venue расписания ИЛИ имя папки архива
+/// Al Kamel) в запись карты: alkamelImsa-пространство по слагу, затем
+/// curated-venue как есть (лукапы карты case-insensitive).
+function refTrackByLabel(m: RefsMap, label: string) {
+  return trackByAlias(m, "alkamelImsa", slugifyImsaTrack(label)) ??
+    trackByAlias(m, "imsaVenue", label);
+}
+
+export function matchTrack(
+  scheduleVenue: string, tracks: string[], refs?: RefsMap | null,
+): string | undefined {
   let effective = scheduleVenue;
   const lower = scheduleVenue.toLowerCase();
   for (const [needle, canonical] of ALIASES) if (lower.includes(needle)) effective = canonical;
@@ -92,5 +131,40 @@ export function matchTrack(scheduleVenue: string, tracks: string[]): string | un
     const score = [...tokens(track)].filter((t) => target.has(t)).length;
     if (score >= required && (!best || score > best.score)) best = { track, score };
   }
-  return best?.track;
+  const builtin = best?.track;
+
+  // Мнение карты. refs === null — явное «без карты» (тесты fail-open);
+  // undefined — карта по умолчанию. try/catch — битый ОБЪЕКТ карты (не файл,
+  // это ловит loadRefs) не имеет права ронять матчер: fail-open сквозной.
+  const m = refs === null ? undefined : refs ?? defaultRefs();
+  if (m) {
+    try {
+      const pin = pinFor(m, "schedule", scheduleVenue);
+      const targetTrack = pin?.slug !== undefined
+        ? m.tracks.find((t) => t.slug === pin.slug)
+        : trackByAlias(m, "imsaVenue", scheduleVenue);
+      if (targetTrack) {
+        // Warning ТОЛЬКО на положительное противоречие: имя, которое карта
+        // знает, но относит к другой трассе, либо матч есть ровно у одной
+        // стороны. Кандидат, которого карта не знает вовсе, — молча (обкатка:
+        // карта заведомо покрывает не все суффиксные варианты архива).
+        const builtinTrack = builtin !== undefined ? refTrackByLabel(m, builtin) : undefined;
+        if (builtin !== undefined && builtinTrack && builtinTrack.slug !== targetTrack.slug) {
+          warnOnce(`matchTrack:${scheduleVenue}|${builtin}`,
+            `  refs: matchTrack «${scheduleVenue}» → «${builtin}», а карта считает это трассой ` +
+            `«${builtinTrack.slug}» (venue → «${targetTrack.slug}») — побеждает встроенная таблица`);
+        } else if (builtin === undefined) {
+          const mapPick = tracks.find((cand) => refTrackByLabel(m, cand)?.slug === targetTrack.slug);
+          if (mapPick !== undefined) {
+            warnOnce(`matchTrack:${scheduleVenue}|∅`,
+              `  refs: matchTrack «${scheduleVenue}» не сматчился встроенно, а карта находит ` +
+              `«${mapPick}» (${targetTrack.slug}) — побеждает встроенная таблица (нет матча)`);
+          }
+        }
+      }
+    } catch {
+      // fail-open: мнение карты — только совет
+    }
+  }
+  return builtin;
 }

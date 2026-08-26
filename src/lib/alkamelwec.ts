@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { raceSlugs } from "./fiawecsite.js";
 import { UA } from "./http.js";
+import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
 
 export const ALKAMEL_WEC = "https://fiawec.alkamelsystems.com";
 
@@ -87,28 +88,93 @@ const AK_GENERIC_TOKENS = new Set([
   "of", "the", "hours", "hour",
 ]);
 
+// ---- Карта сущностей (фаза 2 DATA-PLAN): подключение потребителя ----
+// Карта — СОВЕТНИК на обкатке: мнение (pins → алиасы) сверяется со встроенной
+// таблицей, расхождение — warning, побеждает ВСТРОЕННАЯ. Карта недоступна —
+// поведение в точности прежнее (fail-open).
+
+let refsLoaded = false;
+let refsOnce: RefsMap | undefined;
+function defaultRefs(): RefsMap | undefined {
+  if (!refsLoaded) {
+    refsLoaded = true;   // один раз на прогон
+    refsOnce = loadRefs();
+  }
+  return refsOnce;
+}
+
+// Дедуп: одно и то же событие матчится в нескольких продьюсерах за прогон.
+const warnedKeys = new Set<string>();
+function warnOnce(key: string, msg: string): void {
+  if (warnedKeys.has(key)) return;
+  warnedKeys.add(key);
+  console.warn(msg);
+}
+
 /// Раунд события по порядку слагов сезона fiawec (round = индекс + 1; порядок
 /// страницы сезона = порядок этапов — так же строит календарь приложение).
 /// Матч тремя ступенями: вхождение слагифицированной метки в слаг
 /// («6-hours-of-spa» ⊂ «totalenergies-6-hours-of-spa-francorchamps-2026»),
 /// алиас трассы (LOSAIL → qatar), значимые токены («FUJI SPEEDWAY» → fuji).
 /// Числовой префикс архива (05_) раундом НЕ является — бывают дыры.
-export function matchAkRound(label: string, seasonSlugs: string[]): number | null {
+export function matchAkRound(
+  label: string, seasonSlugs: string[], refs?: RefsMap | null,
+): number | null {
   const key = slugifyAkEvent(label);
   if (!key) return null;
+  let builtin: number | null = null;
   let i = seasonSlugs.findIndex((s) => s.includes(key));
-  if (i >= 0) return i + 1;
-  const alias = AK_TRACK_ALIASES[key];
-  if (alias) {
-    i = seasonSlugs.findIndex((s) => s.includes(alias));
-    if (i >= 0) return i + 1;
+  if (i >= 0) builtin = i + 1;
+  if (builtin === null) {
+    const alias = AK_TRACK_ALIASES[key];
+    if (alias) {
+      i = seasonSlugs.findIndex((s) => s.includes(alias));
+      if (i >= 0) builtin = i + 1;
+    }
   }
-  const tokens = key.split("-").filter((t) => t.length > 2 && !AK_GENERIC_TOKENS.has(t));
-  for (const t of tokens) {
-    i = seasonSlugs.findIndex((s) => s.includes(t));
-    if (i >= 0) return i + 1;
+  if (builtin === null) {
+    const tokens = key.split("-").filter((t) => t.length > 2 && !AK_GENERIC_TOKENS.has(t));
+    for (const t of tokens) {
+      i = seasonSlugs.findIndex((s) => s.includes(t));
+      if (i >= 0) {
+        builtin = i + 1;
+        break;
+      }
+    }
   }
-  return null;
+
+  // Мнение карты: pin → alkamelWec-алиас метки → fiawec-токены той же записи
+  // (материализация AK_TRACK_ALIASES: «losail» → токен «qatar»). Карта знает
+  // не все метки (обычные вроде «SPA FRANCORCHAMPS» матчатся дженерик-ступенями
+  // без таблиц) — тогда мнения нет, молчим. refs === null — явное «без карты»
+  // (тесты); try/catch — битый объект карты не роняет матчер (fail-open).
+  const m = refs === null ? undefined : refs ?? defaultRefs();
+  if (m) {
+    try {
+      const pin = pinFor(m, "alkamelWec", key);
+      const track = pin?.slug !== undefined
+        ? m.tracks.find((t) => t.slug === pin.slug)
+        : trackByAlias(m, "alkamelWec", key);
+      if (track) {
+        let mapRound: number | null = null;
+        for (const tok of track.aliases.fiawec ?? []) {
+          const j = seasonSlugs.findIndex((s) => s.includes(tok));
+          if (j >= 0) {
+            mapRound = j + 1;
+            break;
+          }
+        }
+        if (mapRound !== null && mapRound !== builtin) {
+          warnOnce(`matchAkRound:${label}`,
+            `  refs: matchAkRound «${label}» → ${builtin}, а карта (${track.slug}) ведёт к ` +
+            `раунду ${mapRound} — побеждает встроенная таблица`);
+        }
+      }
+    } catch {
+      // fail-open: мнение карты — только совет
+    }
+  }
+  return builtin;
 }
 
 /// Финальный гоночный CSV события: из href-ов дерева берём файлы
