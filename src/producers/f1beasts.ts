@@ -2,16 +2,19 @@
 //  • biggest comeback — прирост позиций (grid − финиш) по всем гонкам и
 //    спринтам сезона, топ-3;
 //  • fastest pit stop — минимум стационарного пита по data/f1/highlights, топ-3.
-// Comeback тянет результаты по раундам из Jolpica (grid лежит прямо в Results),
-// pit берёт из уже-зеркалированных highlights и доклеивает команду/код по
+// Comeback считается из ЗЕРКАЛА Jolpica, которое тем же прогоном пишет f1.ts:
+// пер-раундовые слайсы <y>/<r>/results.json (writeRoundResultSlices) и
+// пагинация <y>/sprint.json (год-именованные копии current-алиасов) — grid
+// лежит прямо в Results. Сеть — только честный фолбэк при дыре в зеркале.
+// Pit берёт из уже-зеркалированных highlights и доклеивает команду/код по
 // фамилии из тех же результатов. Пишет data/f1/beasts/<season>.json.
-// Freeze: сезон отстоялся (все раунды заморожены, файл на месте) — сеть не
-// трогаем; переходное окно сезонов пропускаем.
+// Freeze: сезон отстоялся (все раунды заморожены, файл на месте) — файл не
+// пересобираем; переходное окно сезонов пропускаем.
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
-import {writeJSONWithEnvelope } from "../lib/mirror.js";
+import { mirrorSlug, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
@@ -96,11 +99,53 @@ export function familyKey(shortName: string): string {
 }
 
 
+/// Спринт-результаты по раундам из страниц зеркальной пагинации sprint.
+/// Строки одного раунда могут быть разрезаны лимитом посреди гонки (та же
+/// причина, по которой f1.ts клеит writeRoundResultSlices) — поэтому
+/// SprintResults склеиваются по round, а не берутся с первой попавшейся
+/// страницы.
+export function sprintResultsByRound(pages: any[]): Map<number, any[]> {
+  const byRound = new Map<number, any[]>();
+  for (const page of pages) {
+    for (const race of page?.MRData?.RaceTable?.Races ?? []) {
+      const round = Number(race?.round);
+      if (!Number.isFinite(round)) continue;
+      const bucket = byRound.get(round) ?? [];
+      bucket.push(...(race?.SprintResults ?? []));
+      byRound.set(round, bucket);
+    }
+  }
+  return byRound;
+}
+
 function readHighlights(round: number): any | null {
   try {
     return JSON.parse(readFileSync(join(HIGHLIGHTS_DIR, `${YEAR}_${round}.json`), "utf8"));
   } catch {
     return null;
+  }
+}
+
+/// Файл зеркала Jolpica по относительному пути (тот же слаг, что у f1.ts).
+function readMirror(relative: string): any | null {
+  try {
+    return JSON.parse(readFileSync(join(JOLPICA_DIR, mirrorSlug(relative)), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+/// Все страницы зеркальной пагинации <base>?limit=100&offset=N. null — дыра
+/// в пагинации (нет и нулевой страницы либо оборвана середина): неполный
+/// список молча терял бы камбэки, поэтому вызывающий уходит в сетевой фолбэк.
+function readMirrorPages(base: string): any[] | null {
+  const pages: any[] = [];
+  for (let offset = 0; ; offset += 100) {
+    const page = readMirror(`${base}?limit=100&offset=${offset}`);
+    if (page == null) return null;
+    pages.push(page);
+    const total = Number(page?.MRData?.total ?? 0);
+    if (offset + 100 >= total) return pages;
   }
 }
 
@@ -138,13 +183,13 @@ async function main() {
     return;
   }
   // Сезон отстоялся (все раунды заморожены, файл на месте) — камбэки/питы уже
-  // история, сетевая фаза не нужна.
+  // история, пересборка не нужна.
   const settled =
     races.length > 0 &&
     races.every((r) => isFrozen(Date.parse(`${r.date}T23:59:59Z`), NOW)) &&
     existsSync(out);
   if (settled) {
-    console.log("beasts: сезон отстоялся — без сетевой фазы");
+    console.log("beasts: сезон отстоялся — пересборка не нужна");
     return;
   }
 
@@ -152,9 +197,28 @@ async function main() {
   const comebacks: (BeastRow & { gain: number })[] = [];
   const drivers = new Map<string, DriverInfo>();
 
+  // Спринты сезона — из зеркальной пагинации одним чтением на весь прогон.
+  // Дыра в пагинации = зеркало не писалось (бэкфилл не гонялся) — уходим в
+  // сетевой фолбэк по раундам ниже.
+  const sprintPages = readMirrorPages(`${YEAR}/sprint.json`);
+  const sprintByRound = sprintPages ? sprintResultsByRound(sprintPages) : null;
+  if (!sprintPages) {
+    console.log("::warning::beasts: в зеркале нет пагинации спринтов — живые запросы по раундам");
+  }
+  let liveFetches = 0;
+
   for (const r of done) {
     const round = Number(r.round);
-    const race = await fetchJSON(`${JOLPICA}/${YEAR}/${round}/results.json`);
+    // Пер-раундовый слайс зеркала. Промах — раунд ещё не долетел до зеркала
+    // либо сезон не бэкфилился: честный фолбэк в сеть, чтобы не потерять
+    // камбэки раунда до следующего прогона.
+    let race = readMirror(`${YEAR}/${round}/results.json`);
+    if (race == null) {
+      console.log(`::warning::beasts: в зеркале нет results R${round} — живой запрос`);
+      race = await fetchJSON(`${JOLPICA}/${YEAR}/${round}/results.json`);
+      liveFetches++;
+      await sleep(400);
+    }
     const results = race?.MRData?.RaceTable?.Races?.[0]?.Results;
     if (Array.isArray(results)) {
       for (const [family, info] of driverMap(results)) drivers.set(family, info);
@@ -163,21 +227,27 @@ async function main() {
         if (row) comebacks.push(row);
       }
     }
-    await sleep(400);
 
-    // Спринт — отдельный «тип» гонки: приросты позиций тоже считаем.
+    // Спринт — отдельный «тип» гонки: приросты позиций тоже считаем. Раунда
+    // нет в живой пагинации зеркала = jolpica ещё не опубликовал спринт, живой
+    // запрос отдал бы ту же пустоту — не тратим.
     if (r.hasSprint) {
-      const sprint = await fetchJSON(`${JOLPICA}/${YEAR}/${round}/sprint.json`);
-      const sResults = sprint?.MRData?.RaceTable?.Races?.[0]?.SprintResults;
+      let sResults = sprintByRound?.get(round);
+      if (!sprintByRound) {
+        const sprint = await fetchJSON(`${JOLPICA}/${YEAR}/${round}/sprint.json`);
+        liveFetches++;
+        await sleep(400);
+        sResults = sprint?.MRData?.RaceTable?.Races?.[0]?.SprintResults;
+      }
       if (Array.isArray(sResults)) {
         for (const res of sResults) {
           const row = comebackRow(res, `${r.raceName} Sprint`);
           if (row) comebacks.push(row);
         }
       }
-      await sleep(400);
     }
   }
+  console.log(`  источник: зеркало, живых запросов ${liveFetches}`);
 
   // Питы из локальных highlights, команда/код — по фамилии из результатов.
   const roundName = new Map(races.map((r) => [Number(r.round), r.raceName]));

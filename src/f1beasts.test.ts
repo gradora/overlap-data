@@ -1,9 +1,11 @@
 // Чистые функции beasts: строка камбэка (grid→финиш), код пилота, карта
-// фамилий, ключ для матчинга пита.
+// фамилий, ключ для матчинга пита, склейка спринтов из зеркальной пагинации.
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
-import { comebackRow, driverCode, driverMap, familyKey } from "./producers/f1beasts.js";
+import {
+  comebackRow, driverCode, driverMap, familyKey, sprintResultsByRound,
+} from "./producers/f1beasts.js";
 
 const result = (grid: string, position: string, code: string, family: string, team = "Red Bull", teamId = "red_bull") => ({
   grid,
@@ -47,4 +49,39 @@ test("familyKey: фамилия последним словом из корот�
   assert.equal(familyKey("C. Leclerc"), "leclerc");
   assert.equal(familyKey("K. Antonelli"), "antonelli");
   assert.equal(familyKey("Max Verstappen"), "verstappen");
+});
+
+const sprintPage = (races: { round: string; rows: string[] }[]) => ({
+  MRData: {
+    total: "110",
+    RaceTable: {
+      Races: races.map((r) => ({
+        round: r.round,
+        SprintResults: r.rows.map((code) => ({ Driver: { code } })),
+      })),
+    },
+  },
+});
+
+test("sprintResultsByRound: раунд, разрезанный лимитом посреди гонки, склеивается", () => {
+  // Реальный кейс зеркала: R12 лежит хвостом на offset 0 и головой на offset
+  // 100 (лимит 100 режет посреди спринта) — как у writeRoundResultSlices.
+  const pages = [
+    sprintPage([{ round: "9", rows: ["VER", "NOR"] }, { round: "12", rows: ["PIA"] }]),
+    sprintPage([{ round: "12", rows: ["RUS", "HAM"] }]),
+  ];
+  const byRound = sprintResultsByRound(pages);
+  assert.deepEqual([...byRound.keys()], [9, 12]);
+  assert.equal(byRound.get(9)!.length, 2);
+  // Склейка, а не перезапись: все три строки R12 на месте, в порядке страниц.
+  assert.deepEqual(byRound.get(12)!.map((r: any) => r.Driver.code), ["PIA", "RUS", "HAM"]);
+});
+
+test("sprintResultsByRound: мусорный round и пустые страницы не ломают карту", () => {
+  const byRound = sprintResultsByRound([
+    sprintPage([{ round: "abc", rows: ["VER"] }]),
+    { MRData: { total: "0", RaceTable: { Races: [] } } },
+    null,
+  ]);
+  assert.equal(byRound.size, 0);
 });
