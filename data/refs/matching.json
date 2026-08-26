@@ -1,0 +1,1353 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-26T14:05:10.000Z",
+  "note": "Курируемая карта сущностей (фаза 2 DATA-PLAN). Правится руками; валидатор — src/refs.test.ts. Чтение — fail-open (src/lib/refs.ts): при расхождении со встроенной таблицей побеждает встроенная.",
+  "tracks": [
+    {
+      "slug": "albert-park",
+      "display": "Albert Park Circuit",
+      "country": "Australia",
+      "aliases": {
+        "jolpica": [
+          "albert_park"
+        ],
+        "openf1": [
+          "Melbourne"
+        ],
+        "fiaDocPrefix": [
+          "australian"
+        ],
+        "wiki": [
+          "Albert Park Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "bahrain",
+      "display": "Bahrain International Circuit",
+      "country": "Bahrain",
+      "aliases": {
+        "jolpica": [
+          "bahrain"
+        ],
+        "openf1": [
+          "Sakhir"
+        ],
+        "fiaDocPrefix": [
+          "bahrain"
+        ],
+        "wiki": [
+          "Bahrain International Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "baku",
+      "display": "Baku City Circuit",
+      "country": "Azerbaijan",
+      "aliases": {
+        "jolpica": [
+          "baku"
+        ],
+        "fiaDocPrefix": [
+          "azerbaijan"
+        ],
+        "wiki": [
+          "Baku City Circuit"
+        ],
+        "text": [
+          "Baku City Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "barcelona",
+      "display": "Circuit de Barcelona-Catalunya",
+      "country": "Spain",
+      "aliases": {
+        "jolpica": [
+          "catalunya"
+        ],
+        "openf1": [
+          "Catalunya"
+        ],
+        "fiaDocPrefix": [
+          "barcelona"
+        ],
+        "wiki": [
+          "Circuit de Barcelona-Catalunya"
+        ],
+        "text": [
+          "Circuit de Barcelona-Catalunya"
+        ]
+      }
+    },
+    {
+      "slug": "circuit-of-the-americas",
+      "display": "Circuit of the Americas",
+      "country": "USA",
+      "aliases": {
+        "jolpica": [
+          "americas"
+        ],
+        "openf1": [
+          "Austin"
+        ],
+        "fiaDocPrefix": [
+          "united"
+        ],
+        "alkamelWec": [
+          "circuit-of-the-americas",
+          "cota"
+        ],
+        "fiawec": [
+          "lone-star"
+        ],
+        "wiki": [
+          "Circuit of the Americas"
+        ],
+        "text": [
+          "Circuit des Amériques"
+        ]
+      }
+    },
+    {
+      "slug": "daytona",
+      "display": "Daytona International Speedway",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "rolex-24-at-daytona",
+          "rolex-24-daytona-international-speedway"
+        ],
+        "imsaVenue": [
+          "Daytona International Speedway"
+        ],
+        "wiki": [
+          "Daytona International Speedway"
+        ]
+      }
+    },
+    {
+      "slug": "detroit",
+      "display": "Detroit Street Circuit",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "detroit-street-course"
+        ],
+        "imsaVenue": [
+          "Detroit Street Circuit"
+        ],
+        "wiki": [
+          "Detroit street circuit"
+        ]
+      }
+    },
+    {
+      "slug": "fuji",
+      "display": "Fuji Speedway",
+      "country": "Japan",
+      "aliases": {
+        "wiki": [
+          "Fuji Speedway"
+        ]
+      }
+    },
+    {
+      "slug": "gilles-villeneuve",
+      "display": "Circuit Gilles Villeneuve",
+      "country": "Canada",
+      "aliases": {
+        "jolpica": [
+          "villeneuve"
+        ],
+        "openf1": [
+          "Montreal"
+        ],
+        "fiaDocPrefix": [
+          "canadian"
+        ],
+        "wiki": [
+          "Circuit Gilles Villeneuve"
+        ],
+        "text": [
+          "Circuit Gilles Villeneuve"
+        ]
+      }
+    },
+    {
+      "slug": "hungaroring",
+      "display": "Hungaroring",
+      "country": "Hungary",
+      "aliases": {
+        "jolpica": [
+          "hungaroring"
+        ],
+        "fiaDocPrefix": [
+          "hungarian"
+        ],
+        "wiki": [
+          "Hungaroring"
+        ]
+      }
+    },
+    {
+      "slug": "imola",
+      "display": "Imola Circuit",
+      "country": "Italy",
+      "aliases": {
+        "jolpica": [
+          "imola"
+        ],
+        "fiaDocPrefix": [
+          "emilia"
+        ],
+        "wiki": [
+          "Imola Circuit"
+        ],
+        "text": [
+          "Autodromo Enzo e Dino Ferrari"
+        ]
+      }
+    },
+    {
+      "slug": "indianapolis",
+      "display": "Indianapolis Motor Speedway",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "indianapolis-motor-speedway-rc",
+          "tire-rack-com-battle-on-the-bricks"
+        ],
+        "imsaVenue": [
+          "Indianapolis Motor Speedway"
+        ],
+        "wiki": [
+          "Indianapolis Motor Speedway"
+        ]
+      }
+    },
+    {
+      "slug": "interlagos",
+      "display": "Autódromo José Carlos Pace",
+      "country": "Brazil",
+      "aliases": {
+        "jolpica": [
+          "interlagos"
+        ],
+        "wiki": [
+          "Autódromo José Carlos Pace"
+        ],
+        "text": [
+          "Autódromo José Carlos Pace"
+        ]
+      }
+    },
+    {
+      "slug": "jeddah",
+      "display": "Jeddah Corniche Circuit",
+      "country": "Saudi Arabia",
+      "aliases": {
+        "jolpica": [
+          "jeddah"
+        ],
+        "fiaDocPrefix": [
+          "saudi"
+        ],
+        "wiki": [
+          "Jeddah Corniche Circuit"
+        ],
+        "text": [
+          "Jeddah Corniche Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "laguna-seca",
+      "display": "Laguna Seca Raceway",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "mazda-raceway-laguna-seca"
+        ],
+        "imsaVenue": [
+          "WeatherTech Raceway Laguna Seca"
+        ],
+        "wiki": [
+          "Laguna Seca Raceway"
+        ],
+        "text": [
+          "mazda raceway laguna seca"
+        ]
+      }
+    },
+    {
+      "slug": "las-vegas",
+      "display": "Las Vegas Strip Circuit",
+      "country": "USA",
+      "aliases": {
+        "jolpica": [
+          "vegas"
+        ],
+        "openf1": [
+          "Las Vegas"
+        ],
+        "fiaDocPrefix": [
+          "las"
+        ],
+        "wiki": [
+          "Las Vegas Strip Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "le-mans",
+      "display": "Circuit de la Sarthe",
+      "country": "France",
+      "aliases": {
+        "wiki": [
+          "Circuit de la Sarthe"
+        ],
+        "text": [
+          "24 Heures du Mans"
+        ]
+      }
+    },
+    {
+      "slug": "long-beach",
+      "display": "Long Beach Street Circuit",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "long-beach-street-circuit"
+        ],
+        "imsaVenue": [
+          "Streets of Long Beach"
+        ],
+        "wiki": [
+          "Long Beach street circuit"
+        ]
+      }
+    },
+    {
+      "slug": "losail",
+      "display": "Lusail International Circuit",
+      "country": "Qatar",
+      "aliases": {
+        "jolpica": [
+          "losail"
+        ],
+        "openf1": [
+          "Lusail"
+        ],
+        "fiaDocPrefix": [
+          "qatar"
+        ],
+        "alkamelWec": [
+          "losail"
+        ],
+        "fiawec": [
+          "qatar"
+        ],
+        "wiki": [
+          "Lusail International Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "madrid",
+      "display": "Madring",
+      "country": "Spain",
+      "aliases": {
+        "jolpica": [
+          "madring"
+        ],
+        "fiaDocPrefix": [
+          "spanish"
+        ],
+        "wiki": [
+          "Madring"
+        ]
+      }
+    },
+    {
+      "slug": "marina-bay",
+      "display": "Marina Bay Street Circuit",
+      "country": "Singapore",
+      "aliases": {
+        "jolpica": [
+          "marina_bay"
+        ],
+        "openf1": [
+          "Singapore"
+        ],
+        "fiaDocPrefix": [
+          "singapore"
+        ],
+        "wiki": [
+          "Marina Bay Street Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "mexico-city",
+      "display": "Autódromo Hermanos Rodríguez",
+      "country": "Mexico",
+      "aliases": {
+        "jolpica": [
+          "rodriguez"
+        ],
+        "fiaDocPrefix": [
+          "mexico"
+        ],
+        "wiki": [
+          "Autódromo Hermanos Rodríguez"
+        ],
+        "text": [
+          "Autódromo Hermanos Rodríguez"
+        ]
+      }
+    },
+    {
+      "slug": "miami",
+      "display": "Miami International Autodrome",
+      "country": "USA",
+      "aliases": {
+        "jolpica": [
+          "miami"
+        ],
+        "fiaDocPrefix": [
+          "miami"
+        ],
+        "wiki": [
+          "Miami International Autodrome"
+        ]
+      }
+    },
+    {
+      "slug": "monaco",
+      "display": "Circuit de Monaco",
+      "country": "Monaco",
+      "aliases": {
+        "jolpica": [
+          "monaco"
+        ],
+        "openf1": [
+          "Monte Carlo"
+        ],
+        "fiaDocPrefix": [
+          "monaco"
+        ],
+        "wiki": [
+          "Circuit de Monaco"
+        ]
+      }
+    },
+    {
+      "slug": "monza",
+      "display": "Monza Circuit",
+      "country": "Italy",
+      "aliases": {
+        "jolpica": [
+          "monza"
+        ],
+        "fiaDocPrefix": [
+          "italian"
+        ],
+        "wiki": [
+          "Monza Circuit"
+        ],
+        "text": [
+          "Autodromo Nazionale di Monza"
+        ]
+      }
+    },
+    {
+      "slug": "mosport",
+      "display": "Canadian Tire Motorsport Park",
+      "country": "Canada",
+      "aliases": {
+        "imsaVenue": [
+          "Canadian Tire Motorsport Park"
+        ],
+        "wiki": [
+          "Canadian Tire Motorsport Park"
+        ],
+        "text": [
+          "mosport park"
+        ]
+      }
+    },
+    {
+      "slug": "red-bull-ring",
+      "display": "Red Bull Ring",
+      "country": "Austria",
+      "aliases": {
+        "jolpica": [
+          "red_bull_ring"
+        ],
+        "openf1": [
+          "Spielberg"
+        ],
+        "fiaDocPrefix": [
+          "austrian"
+        ],
+        "wiki": [
+          "Red Bull Ring"
+        ]
+      }
+    },
+    {
+      "slug": "road-america",
+      "display": "Road America",
+      "country": "USA",
+      "aliases": {
+        "imsaVenue": [
+          "Road America"
+        ],
+        "wiki": [
+          "Road America"
+        ]
+      }
+    },
+    {
+      "slug": "road-atlanta",
+      "display": "Michelin Raceway Road Atlanta",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "motul-petit-le-mans",
+          "road-atlanta"
+        ],
+        "imsaVenue": [
+          "Michelin Raceway Road Atlanta"
+        ],
+        "wiki": [
+          "Michelin Raceway Road Atlanta"
+        ]
+      }
+    },
+    {
+      "slug": "sebring",
+      "display": "Sebring International Raceway",
+      "country": "USA",
+      "aliases": {
+        "imsaVenue": [
+          "Sebring International Raceway"
+        ],
+        "wiki": [
+          "Sebring International Raceway"
+        ]
+      }
+    },
+    {
+      "slug": "sepang",
+      "display": "Sepang International Circuit",
+      "country": "Malaysia",
+      "aliases": {
+        "jolpica": [
+          "sepang"
+        ],
+        "wiki": [
+          "Sepang International Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "shanghai",
+      "display": "Shanghai International Circuit",
+      "country": "China",
+      "aliases": {
+        "jolpica": [
+          "shanghai"
+        ],
+        "fiaDocPrefix": [
+          "chinese"
+        ],
+        "wiki": [
+          "Shanghai International Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "silverstone",
+      "display": "Silverstone Circuit",
+      "country": "UK",
+      "aliases": {
+        "jolpica": [
+          "silverstone"
+        ],
+        "fiaDocPrefix": [
+          "british"
+        ],
+        "wiki": [
+          "Silverstone Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "spa-francorchamps",
+      "display": "Circuit de Spa-Francorchamps",
+      "country": "Belgium",
+      "aliases": {
+        "jolpica": [
+          "spa"
+        ],
+        "fiaDocPrefix": [
+          "belgian"
+        ],
+        "wiki": [
+          "Circuit de Spa-Francorchamps"
+        ]
+      }
+    },
+    {
+      "slug": "suzuka",
+      "display": "Suzuka Circuit",
+      "country": "Japan",
+      "aliases": {
+        "jolpica": [
+          "suzuka"
+        ],
+        "fiaDocPrefix": [
+          "japanese"
+        ],
+        "wiki": [
+          "Suzuka Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "virginia",
+      "display": "Virginia International Raceway",
+      "country": "USA",
+      "aliases": {
+        "imsaVenue": [
+          "VIRginia International Raceway"
+        ],
+        "wiki": [
+          "Virginia International Raceway"
+        ]
+      }
+    },
+    {
+      "slug": "watkins-glen",
+      "display": "Watkins Glen International",
+      "country": "USA",
+      "aliases": {
+        "alkamelImsa": [
+          "weathertech-240-wgi"
+        ],
+        "imsaVenue": [
+          "Watkins Glen International"
+        ],
+        "wiki": [
+          "Watkins Glen International"
+        ]
+      }
+    },
+    {
+      "slug": "yas-marina",
+      "display": "Yas Marina Circuit",
+      "country": "UAE",
+      "aliases": {
+        "jolpica": [
+          "yas_marina"
+        ],
+        "fiaDocPrefix": [
+          "abu"
+        ],
+        "wiki": [
+          "Yas Marina Circuit"
+        ]
+      }
+    },
+    {
+      "slug": "zandvoort",
+      "display": "Circuit Zandvoort",
+      "country": "Netherlands",
+      "aliases": {
+        "jolpica": [
+          "zandvoort"
+        ],
+        "fiaDocPrefix": [
+          "dutch"
+        ],
+        "wiki": [
+          "Circuit Zandvoort"
+        ],
+        "text": [
+          "Circuit Park Zandvoort"
+        ]
+      }
+    }
+  ],
+  "pins": [
+    {
+      "source": "jolpica",
+      "kind": "raceName",
+      "match": "Bahrain Grand Prix in Malaysia",
+      "season": 2026,
+      "round": 16,
+      "slug": "sepang",
+      "note": "Перенесённый этап: имя гонки несёт «Bahrain», трасса — Sepang (circuitId sepang). Класс-образец аномалии."
+    },
+    {
+      "source": "openf1",
+      "kind": "meetingName",
+      "match": "Kuala Lumpur",
+      "season": 2026,
+      "slug": "sepang",
+      "note": "OpenF1 circuit_short_name перенесённого этапа — город, не трасса (Swift trackOverrides безусловен — это шире, чем надо)."
+    },
+    {
+      "source": "openf1",
+      "kind": "country",
+      "match": "Bahrain",
+      "season": 2026,
+      "slug": "sepang",
+      "country": "Malaysia",
+      "note": "ПРОТУХШЕЕ у источника: country_name митинга Sepang остался «Bahrain». Не «чиним» данные — фиксируем аномалию (Swift trackCountryOverrides)."
+    },
+    {
+      "source": "fiaDocs",
+      "kind": "prefix",
+      "match": "spanish",
+      "season": 2025,
+      "round": 9,
+      "slug": "barcelona",
+      "note": "До 2025 включительно «spanish» = Барселона; с 2026 «spanish» = Мадрид, Барселона стала «barcelona-catalunya». В aliases префикс отдан Мадриду."
+    },
+    {
+      "source": "fiaDocs",
+      "kind": "testing",
+      "match": "bahrain_tests",
+      "season": 2025,
+      "slug": "bahrain",
+      "round": null,
+      "note": "Тест — не этап: без TESTING_SLUG матчился бы страна-префиксом на R4 и пустой файл затирал 12 решений ГП Бахрейна-2025. Материализация правила из fiadocs.ts."
+    }
+  ],
+  "f1Teams": [
+    {
+      "id": "alpine",
+      "display": "Alpine F1 Team",
+      "openf1Names": [
+        "alpine"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Enstone"
+      },
+      "home": "silverstone",
+      "colors": {
+        "primary": "#FF87BC"
+      },
+      "alsoIn": [
+        "wec"
+      ]
+    },
+    {
+      "id": "aston_martin",
+      "display": "Aston Martin",
+      "openf1Names": [
+        "aston martin"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Silverstone"
+      },
+      "home": "silverstone",
+      "colors": {
+        "primary": "#229971"
+      },
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
+    },
+    {
+      "id": "audi",
+      "display": "Audi",
+      "historicIds": [
+        "sauber"
+      ],
+      "rebrandSeason": 2026,
+      "openf1Names": [
+        "audi",
+        "kick sauber",
+        "sauber"
+      ],
+      "base": {
+        "country": "Switzerland",
+        "city": "Hinwil"
+      },
+      "home": "hungaroring",
+      "colors": {
+        "primary": "#B5002B"
+      }
+    },
+    {
+      "id": "cadillac",
+      "display": "Cadillac F1 Team",
+      "openf1Names": [
+        "cadillac"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Silverstone"
+      },
+      "home": "americas",
+      "colors": {
+        "primary": "#393EFF"
+      },
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
+    },
+    {
+      "id": "ferrari",
+      "display": "Ferrari",
+      "openf1Names": [
+        "ferrari"
+      ],
+      "base": {
+        "country": "Italy",
+        "city": "Maranello"
+      },
+      "home": "monza",
+      "colors": {
+        "primary": "#E8002D"
+      },
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
+    },
+    {
+      "id": "haas",
+      "display": "Haas F1 Team",
+      "openf1Names": [
+        "haas",
+        "haas f1 team"
+      ],
+      "base": {
+        "country": "United States",
+        "city": "Kannapolis"
+      },
+      "home": "americas",
+      "colors": {
+        "primary": "#B6BABD"
+      }
+    },
+    {
+      "id": "mclaren",
+      "display": "McLaren",
+      "historicIds": [
+        "mclaren-brm",
+        "mclaren-ford",
+        "mclaren-seren"
+      ],
+      "openf1Names": [
+        "mclaren"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Woking"
+      },
+      "home": "silverstone",
+      "colors": {
+        "primary": "#FF8000"
+      },
+      "alsoIn": [
+        "wec",
+        "imsa",
+        "indycar"
+      ]
+    },
+    {
+      "id": "mercedes",
+      "display": "Mercedes",
+      "openf1Names": [
+        "mercedes"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Brackley"
+      },
+      "home": "silverstone",
+      "colors": {
+        "primary": "#00D2BE"
+      },
+      "alsoIn": [
+        "wec",
+        "imsa"
+      ]
+    },
+    {
+      "id": "rb",
+      "display": "RB F1 Team",
+      "openf1Names": [
+        "racing bulls",
+        "rb"
+      ],
+      "base": {
+        "country": "Italy",
+        "city": "Faenza"
+      },
+      "home": "monza",
+      "colors": {
+        "primary": "#6692FF"
+      }
+    },
+    {
+      "id": "red_bull",
+      "display": "Red Bull",
+      "openf1Names": [
+        "red bull racing"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Milton Keynes"
+      },
+      "home": "red_bull_ring",
+      "colors": {
+        "primary": "#3671C6"
+      }
+    },
+    {
+      "id": "sauber",
+      "display": "Sauber",
+      "base": {
+        "country": "Switzerland",
+        "city": "Hinwil"
+      },
+      "home": "hungaroring"
+    },
+    {
+      "id": "williams",
+      "display": "Williams",
+      "openf1Names": [
+        "williams"
+      ],
+      "base": {
+        "country": "United Kingdom",
+        "city": "Grove"
+      },
+      "home": "silverstone",
+      "colors": {
+        "primary": "#64C4FF"
+      }
+    }
+  ],
+  "enduranceTeams": [
+    {
+      "key": "jota",
+      "display": "JOTA",
+      "identities": [
+        {
+          "seasons": [
+            2024
+          ],
+          "names": [
+            "Hertz Team JOTA"
+          ],
+          "brand": "porsche",
+          "series": [
+            "wec"
+          ]
+        },
+        {
+          "seasons": [
+            2025
+          ],
+          "names": [
+            "Cadillac Hertz Team JOTA",
+            "CADILLAC HERTZ TEAM JOTA"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "wec"
+          ]
+        },
+        {
+          "seasons": [
+            2026
+          ],
+          "names": [
+            "Cadillac Hertz Team Jota",
+            "CADILLAC HERTZ TEAM JOTA"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "wec"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "porsche-penske",
+      "display": "Porsche Penske Motorsport",
+      "identities": [
+        {
+          "seasons": [
+            2023,
+            2024,
+            2025,
+            2026
+          ],
+          "names": [
+            "Porsche Penske Motorsport",
+            "Porsche Penske Motorsports"
+          ],
+          "brand": "porsche",
+          "series": [
+            "imsa",
+            "wec"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "meyer-shank",
+      "display": "Meyer Shank Racing",
+      "identities": [
+        {
+          "seasons": [
+            2022
+          ],
+          "names": [
+            "Meyer Shank Racing W/Curb-Agajanian"
+          ],
+          "brand": "acura",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2023
+          ],
+          "names": [
+            "Meyer Shank Racing w/ Curb Agajanian"
+          ],
+          "brand": "acura",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2025,
+            2026
+          ],
+          "names": [
+            "Acura Meyer Shank Racing w/Curb Agajanian"
+          ],
+          "brand": "acura",
+          "series": [
+            "imsa"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "action-express",
+      "display": "Action Express Racing",
+      "identities": [
+        {
+          "seasons": [
+            2018,
+            2019,
+            2020,
+            2021,
+            2022
+          ],
+          "names": [
+            "Whelen Engineering Racing"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2023
+          ],
+          "names": [
+            "Whelen Engineering Racing Cadillac"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2024,
+            2025,
+            2026
+          ],
+          "names": [
+            "Cadillac Whelen"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "imsa"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "wayne-taylor",
+      "display": "Wayne Taylor Racing",
+      "identities": [
+        {
+          "seasons": [
+            2020
+          ],
+          "names": [
+            "Konica Minolta Cadillac DPi-V.R"
+          ],
+          "brand": "cadillac",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2021,
+            2022
+          ],
+          "names": [
+            "Konica Minolta Acura ARX-05"
+          ],
+          "brand": "acura",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2024,
+            2025,
+            2026
+          ],
+          "names": [
+            "Wayne Taylor Racing with Andretti"
+          ],
+          "brand": "acura",
+          "series": [
+            "imsa"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "corvette-racing",
+      "display": "Corvette Racing",
+      "identities": [
+        {
+          "seasons": [
+            2020,
+            2021,
+            2022,
+            2023
+          ],
+          "names": [
+            "Corvette Racing"
+          ],
+          "brand": "corvette",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2024,
+            2025,
+            2026
+          ],
+          "names": [
+            "Corvette Racing by Pratt Miller Motorsports"
+          ],
+          "brand": "corvette",
+          "series": [
+            "imsa"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mazda-dpi",
+      "display": "Mazda Motorsports",
+      "identities": [
+        {
+          "seasons": [
+            2019
+          ],
+          "names": [
+            "Mazda Team Joest"
+          ],
+          "brand": "mazda",
+          "series": [
+            "imsa"
+          ]
+        },
+        {
+          "seasons": [
+            2020,
+            2021
+          ],
+          "names": [
+            "Mazda Motorsports"
+          ],
+          "brand": "mazda",
+          "series": [
+            "imsa"
+          ]
+        }
+      ]
+    }
+  ],
+  "driverExceptions": {
+    "particles": [
+      "pier",
+      "van",
+      "der",
+      "den",
+      "di",
+      "de",
+      "la",
+      "le",
+      "von",
+      "da",
+      "dos",
+      "del"
+    ],
+    "suffixes": [
+      "jr",
+      "sr",
+      "ii",
+      "iii",
+      "iv"
+    ],
+    "special": [
+      {
+        "canon": "Marco Sørensen",
+        "surname": "Sørensen",
+        "aliases": [
+          "Marco Sorensen",
+          "SØRENSEN",
+          "SORENSEN",
+          "Sorensen"
+        ],
+        "surnameSlug": "s-rensen",
+        "flag": "dk",
+        "note": "ø — не диакритика: slugified() даёт «s-rensen» (артефакт закреплён в WECStandingRow.driverFlags; ключи обязаны совпадать бит-в-бит). В данных 4 написания."
+      },
+      {
+        "canon": "Mathias Beche",
+        "surname": "Beche",
+        "aliases": [
+          "M. BECHE",
+          "M. Beche"
+        ],
+        "flag": "ch",
+        "note": "Регистр-дрейф Al Kamel IMSA (Daytona-2025 капсом, дальше — тайтл-кейс); официальный points.json — «Mathias Beche». Матч держится на case-insensitive nameKey «m|beche» (кейс фазы 1)."
+      }
+    ]
+  },
+  "countries": {
+    "iso3ToIso2": {
+      "are": "ae",
+      "arg": "ar",
+      "aus": "au",
+      "aut": "at",
+      "bel": "be",
+      "bgr": "bg",
+      "bhr": "bh",
+      "bra": "br",
+      "can": "ca",
+      "che": "ch",
+      "chl": "cl",
+      "chn": "cn",
+      "col": "co",
+      "cri": "cr",
+      "cym": "ky",
+      "cyp": "cy",
+      "cze": "cz",
+      "deu": "de",
+      "dnk": "dk",
+      "esp": "es",
+      "est": "ee",
+      "fin": "fi",
+      "fra": "fr",
+      "gbr": "gb",
+      "grc": "gr",
+      "hkg": "hk",
+      "hrv": "hr",
+      "hun": "hu",
+      "idn": "id",
+      "ind": "in",
+      "irl": "ie",
+      "isl": "is",
+      "isr": "il",
+      "ita": "it",
+      "jpn": "jp",
+      "kor": "kr",
+      "lie": "li",
+      "ltu": "lt",
+      "lux": "lu",
+      "lva": "lv",
+      "mco": "mc",
+      "mex": "mx",
+      "mlt": "mt",
+      "mys": "my",
+      "nld": "nl",
+      "nor": "no",
+      "nzl": "nz",
+      "phl": "ph",
+      "pol": "pl",
+      "prt": "pt",
+      "qat": "qa",
+      "rou": "ro",
+      "rus": "ru",
+      "sau": "sa",
+      "svk": "sk",
+      "svn": "si",
+      "swe": "se",
+      "tha": "th",
+      "tur": "tr",
+      "twn": "tw",
+      "ukr": "ua",
+      "ury": "uy",
+      "usa": "us",
+      "ven": "ve",
+      "vnm": "vn",
+      "zaf": "za",
+      "zwe": "zw"
+    },
+    "nameToIso2": {
+      "BAHRAIN": "bh",
+      "BELGIUM": "be",
+      "BRAZIL": "br",
+      "CHINA": "cn",
+      "FRANCE": "fr",
+      "GERMANY": "de",
+      "GREAT BRITAIN": "gb",
+      "ITALY": "it",
+      "JAPAN": "jp",
+      "PORTUGAL": "pt",
+      "QATAR": "qa",
+      "SAUDI ARABIA": "sa",
+      "SPAIN": "es",
+      "UNITED KINGDOM": "gb",
+      "UNITED STATES": "us",
+      "USA": "us"
+    }
+  }
+}
