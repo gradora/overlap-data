@@ -16,6 +16,7 @@ import {
   sessionInstant, sessions, wallClockISO, weatherTechFolder, testRounds,
 } from "../lib/alkamel.js";
 import { isFrozen } from "../lib/freeze.js";
+import { buildStandings, raceRowsOf, StandingsRound, writeStandings } from "../lib/imsastandings.js";
 import { matchTrack, SCHEDULE, ScheduleEntry } from "../lib/schedule.js";
 import {
   EventSnapshot, EventStatus, IndexEvent, OfficialPoints, PointsEntry,
@@ -348,6 +349,31 @@ async function main() {
       console.log("  points.json updated");
     }
   }
+
+  // ЗАЧЁТ СЕЗОНА (standings.json) — фаза 1 DATA-PLAN: материализация
+  // клиентского IMSAStandingsBuilder тем же прогоном (отдельного шага воркфлоу
+  // и записи в реестре свежести нет — это вьюха над уже собранными файлами).
+  // Входы локальные: раунды — из indexEvents этого прогона (файлы frozen-
+  // раундов не рескрейпились и читаются с диска как есть), официальные тоталы
+  // — из points.json (свежая закачка выше уже на диске; при её сбое остаётся
+  // прежний файл). Сетевой сбой ДОЕЗЖАЕТ сюда одним путём: незамороженный
+  // раунд не соскрейпился → его resultsPath в этом прогоне null → раунд для
+  // билдера «без данных». Ровно на этот случай writeStandings держит
+  // предохранитель: сжатие покрытия раундов не затирает прежний standings.json.
+  // Читаем по resultsPath, а не по файлу на диске напрямую, сознательно —
+  // клиент видит раунды тоже через index, семантика материализуется 1:1.
+  const officialFile = readJSON<{ points: OfficialPoints }>(join(OUT_DIR, "points.json"));
+  const standingsRounds: StandingsRound[] = indexEvents.map((ev) => {
+    const snapFile = ev.resultsPath ? readJSON<EventSnapshot>(join(DATA_ROOT, ev.resultsPath)) : null;
+    return {
+      round: ev.round, slug: ev.slug, end: ev.end,
+      raceRows: snapFile ? raceRowsOf(snapFile.sessions) : null,
+    };
+  });
+  const standings = buildStandings(YEAR, standingsRounds, officialFile?.points ?? null, NOW);
+  const standingsOutcome = writeStandings(join(OUT_DIR, "standings.json"), standings);
+  if (standingsOutcome === "written") wrote++;
+  console.log(`  standings.json: ${standingsOutcome}`);
 
   // ТЕСТОВЫЕ УИК-ЭНДЫ («00_Daytona Test», «01_ROAR Before the 24»).
   // Отдельный файл и отдельный индекс: index.json именует события по номеру
