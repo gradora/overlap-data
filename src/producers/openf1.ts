@@ -181,6 +181,25 @@ export function meetingsToSnapshot(
 // текущий сезон.
 const HISTORIC = YEAR < new Date().getUTCFullYear();
 
+/// Режим прогона по соотношению сезона и календарного года. Выведен ИЗ ГОДА, а
+/// не из отдельного флага: перепутать нечего, и симметрично HISTORIC.
+///
+/// «future» — сезон N+1 в межсезонье. Ради него мы сюда и ходим: тесты и
+/// отмены следующего года есть ТОЛЬКО в OpenF1 (jolpica отдаёт голое
+/// расписание), и без зеркала листинга витрина календаря N+1 собиралась без
+/// них молча. Но снимать сессии будущего сезона нельзя: activeRounds() читает
+/// current.json ТЕКУЩЕГО года, ни одна дата N+1 с ним не матчится, и критерий
+/// «оверлей» записал бы в цель ВЕСЬ календарь следующего года — сотни пустых
+/// запросов за уик-энды, которых ещё не было. Поэтому зеркалим листинг и
+/// выходим.
+export function snapshotMode(year: number, currentYear: number): "historic" | "future" | "current" {
+  if (year < currentYear) return "historic";
+  if (year > currentYear) return "future";
+  return "current";
+}
+
+const FUTURE = snapshotMode(YEAR, new Date().getUTCFullYear()) === "future";
+
 // Как mirror(), но при уже существующем файле читает его с диска без сети.
 async function mirrorIfMissing(relative: string): Promise<any | null> {
   const f = join(OUT_DIR, mirrorSlug(relative));
@@ -212,7 +231,8 @@ async function historicBackfill(meetings: any[]) {
 }
 
 async function main() {
-  console.log(`OpenF1 mirror, season ${YEAR}${HISTORIC ? " (historic backfill)" : ""}`);
+  console.log(`OpenF1 mirror, season ${YEAR}` +
+    `${HISTORIC ? " (historic backfill)" : FUTURE ? " (листинг митингов)" : ""}`);
   const meetings = HISTORIC
     ? await mirrorIfMissing(`meetings?year=${YEAR}`)
     : await mirror(`meetings?year=${YEAR}`);
@@ -228,6 +248,10 @@ async function main() {
   }
   if (HISTORIC) {
     await historicBackfill(meetings);
+    return;
+  }
+  if (FUTURE) {
+    console.log(`  ${meetings.length} митингов сезона ${YEAR} — только листинг, сессии не снимаем`);
     return;
   }
   const roundDates = activeRounds();

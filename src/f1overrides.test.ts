@@ -5,6 +5,10 @@
 
 import { strict as assert } from "node:assert";
 import { test } from "node:test";
+import { execFileSync } from "node:child_process";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { collect, dayMs, GRACE_MS, isPast, isSuperseded } from "./producers/f1overrides.js";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -73,4 +77,49 @@ test("collect: пустое расписание выключает только
   const moved = entry({ raceName: "Переехавший" });
   const { kept } = collect([moved], [], dayMs("2026-10-05")!);
   assert.deepEqual(kept, [moved]);
+});
+
+// MARK: - Битый ручной файл не берёт витрину в заложники
+
+/// Прогон обязан упасть (файл правится руками — молча затирать нельзя), но
+/// упасть ПОСЛЕ сборки. Раньше gc() выходил из процесса до витрины, и одна
+/// лишняя запятая в ручном файле замораживала календарь ВСЕХ сезонов: для
+/// приложения — тихо, для владельца — одно письмо среди прочих.
+///
+/// Проверяем процессом целиком: контракт здесь — код возврата плюс файл на
+/// диске, а не поведение отдельной функции.
+test("продьюсер: битый override валит прогон, но витрину собирает", () => {
+  const root = mkdtempSync(join(tmpdir(), "f1ovr-"));
+  try {
+    const data = join(root, "data");
+    mkdirSync(join(data, "f1", "jolpica"), { recursive: true });
+    mkdirSync(join(data, "f1", "overrides"), { recursive: true });
+    const year = new Date().getUTCFullYear();
+    const schedule = {
+      MRData: { RaceTable: { season: String(year), Races: [{
+        season: String(year), round: "1", raceName: "Australian Grand Prix",
+        Circuit: { circuitId: "albert_park", circuitName: "Albert Park Grand Prix Circuit",
+          Location: { locality: "Melbourne", country: "Australia" } },
+        date: `${year}-03-08`,
+      }] } },
+    };
+    writeFileSync(join(data, "f1", "jolpica", `${year}.json`), JSON.stringify(schedule));
+    writeFileSync(join(data, "f1", "jolpica", "current.json"), JSON.stringify(schedule));
+    writeFileSync(join(data, "f1", "overrides", "calendar.json"), "[{,]");   // битый
+
+    const producer = join(process.cwd(), "src", "produce" + "rs", "f1overrides.ts");
+    let code = 0;
+    try {
+      execFileSync("npx", ["tsx", producer], { cwd: root, stdio: "pipe" });
+    } catch (e: any) {
+      code = e.status;
+    }
+    assert.equal(code, 1, "битый ручной файл обязан валить прогон");
+    const showcase = join(data, "f1", "calendar", `${year}.json`);
+    assert.equal(existsSync(showcase), true, "витрина обязана собраться и без курируемого слоя");
+    const doc = JSON.parse(readFileSync(showcase, "utf8"));
+    assert.deepEqual(doc.events.map((e: any) => e.id), [`f1-${year}-1`]);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });

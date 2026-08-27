@@ -192,6 +192,10 @@ function main() {
       f1Beasts: countFiles("f1/beasts"),
       f1Records: countFiles("f1/records"),
       f1Overrides: countFiles("f1/overrides"),
+      // Витрина календаря собирается прогоном f1overrides (фаза 4 DATA-PLAN);
+      // своего продьюсера у неё нет, но семейство обязано быть видно в health —
+      // иначе пропажу файлов сезона заметит владелец, а не система.
+      f1Calendar: countFiles("f1/calendar"),
       f1Teams: countFiles("f1/teams"),
       wec: countFiles("wec"),
       tracks: countFiles("tracks"),

@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T12:21:29.541Z",
+  "series": "f1",
+  "season": 2025,
+  "frozen": true,
+  "events": [
+    {
+      "id": "f1-meeting-1253",
+      "round": 0,
+      "kind": "testing",
+      "status": "tbc",
+      "name": "Pre-Season Testing",
+      "venue": "Bahrain",
+      "country": "Bahrain",
+      "trackRef": "bahrain",
+      "assetSlug": "bahrain-testing",
+      "dates": {
+        "start": "2025-02-26",
+        "race": "2025-02-28",
+        "raceTime": null
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": null,
+        "openf1": {
+          "meetingKey": 1253
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-1",
+      "round": 1,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Australian Grand Prix",
+      "venue": "Albert Park",
+      "country": "Australia",
+      "trackRef": "albert-park",
+      "assetSlug": "albert-park",
+      "dates": {
+        "start": "2025-03-14",
+        "race": "2025-03-16",
+        "raceTime": "04:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 1
+        },
+        "openf1": {
+          "meetingKey": 1254
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-2",
+      "round": 2,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Chinese Grand Prix",
+      "venue": "Shanghai",
+      "country": "China",
+      "trackRef": "shanghai",
+      "assetSlug": "shanghai",
+      "dates": {
+        "start": "2025-03-21",
+        "race": "2025-03-23",
+        "raceTime": "07:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 2
+        },
+        "openf1": {
+          "meetingKey": 1255
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-3",
+      "round": 3,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Japanese Grand Prix",
+      "venue": "Suzuka",
+      "country": "Japan",
+      "trackRef": "suzuka",
+      "assetSlug": "suzuka",
+      "dates": {
+        "start": "2025-04-04",
+        "race": "2025-04-06",
+        "raceTime": "05:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 3
+        },
+        "openf1": {
+          "meetingKey": 1256
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-4",
+      "round": 4,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Bahrain Grand Prix",
+      "venue": "Bahrain",
+      "country": "Bahrain",
+      "trackRef": "bahrain",
+      "assetSlug": "bahrain",
+      "dates": {
+        "start": "2025-04-11",
+        "race": "2025-04-13",
+        "raceTime": "15:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 4
+        },
+        "openf1": {
+          "meetingKey": 1257
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-5",
+      "round": 5,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Saudi Arabian Grand Prix",
+      "venue": "Jeddah",
+      "country": "Saudi Arabia",
+      "trackRef": "jeddah",
+      "assetSlug": "jeddah",
+      "dates": {
+        "start": "2025-04-18",
+        "race": "2025-04-20",
+        "raceTime": "17:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 5
+        },
+        "openf1": {
+          "meetingKey": 1258
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-6",
+      "round": 6,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Miami Grand Prix",
+      "venue": "Miami",
+      "country": "USA",
+      "trackRef": "miami",
+      "assetSlug": "miami",
+      "dates": {
+        "start": "2025-05-02",
+        "race": "2025-05-04",
+        "raceTime": "20:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 6
+        },
+        "openf1": {
+          "meetingKey": 1259
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-7",
+      "round": 7,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Emilia Romagna Grand Prix",
+      "venue": "Imola",
+      "country": "Italy",
+      "trackRef": "imola",
+      "assetSlug": "imola",
+      "dates": {
+        "start": "2025-05-16",
+        "race": "2025-05-18",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 7
+        },
+        "openf1": {
+          "meetingKey": 1260
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-8",
+      "round": 8,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Monaco Grand Prix",
+      "venue": "Monaco",
+      "country": "Monaco",
+      "trackRef": "monaco",
+      "assetSlug": "monaco",
+      "dates": {
+        "start": "2025-05-23",
+        "race": "2025-05-25",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 8
+        },
+        "openf1": {
+          "meetingKey": 1261
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-9",
+      "round": 9,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Spanish Grand Prix",
+      "venue": "Barcelona",
+      "country": "Spain",
+      "trackRef": "barcelona",
+      "assetSlug": "barcelona",
+      "dates": {
+        "start": "2025-05-30",
+        "race": "2025-06-01",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 9
+        },
+        "openf1": {
+          "meetingKey": 1262
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-10",
+      "round": 10,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Canadian Grand Prix",
+      "venue": "Gilles Villeneuve",
+      "country": "Canada",
+      "trackRef": "gilles-villeneuve",
+      "assetSlug": "gilles-villeneuve",
+      "dates": {
+        "start": "2025-06-13",
+        "race": "2025-06-15",
+        "raceTime": "18:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 10
+        },
+        "openf1": {
+          "meetingKey": 1263
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-11",
+      "round": 11,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Austrian Grand Prix",
+      "venue": "Red Bull Ring",
+      "country": "Austria",
+      "trackRef": "red-bull-ring",
+      "assetSlug": "red-bull-ring",
+      "dates": {
+        "start": "2025-06-27",
+        "race": "2025-06-29",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 11
+        },
+        "openf1": {
+          "meetingKey": 1264
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-12",
+      "round": 12,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "British Grand Prix",
+      "venue": "Silverstone",
+      "country": "UK",
+      "trackRef": "silverstone",
+      "assetSlug": "silverstone",
+      "dates": {
+        "start": "2025-07-04",
+        "race": "2025-07-06",
+        "raceTime": "14:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 12
+        },
+        "openf1": {
+          "meetingKey": 1277
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-13",
+      "round": 13,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Belgian Grand Prix",
+      "venue": "Spa-Francorchamps",
+      "country": "Belgium",
+      "trackRef": "spa-francorchamps",
+      "assetSlug": "spa-francorchamps",
+      "dates": {
+        "start": "2025-07-25",
+        "race": "2025-07-27",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 13
+        },
+        "openf1": {
+          "meetingKey": 1265
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-14",
+      "round": 14,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Hungarian Grand Prix",
+      "venue": "Hungaroring",
+      "country": "Hungary",
+      "trackRef": "hungaroring",
+      "assetSlug": "hungaroring",
+      "dates": {
+        "start": "2025-08-01",
+        "race": "2025-08-03",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 14
+        },
+        "openf1": {
+          "meetingKey": 1266
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-15",
+      "round": 15,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Dutch Grand Prix",
+      "venue": "Zandvoort",
+      "country": "Netherlands",
+      "trackRef": "zandvoort",
+      "assetSlug": "zandvoort",
+      "dates": {
+        "start": "2025-08-29",
+        "race": "2025-08-31",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 15
+        },
+        "openf1": {
+          "meetingKey": 1267
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-16",
+      "round": 16,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Italian Grand Prix",
+      "venue": "Monza",
+      "country": "Italy",
+      "trackRef": "monza",
+      "assetSlug": "monza",
+      "dates": {
+        "start": "2025-09-05",
+        "race": "2025-09-07",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 16
+        },
+        "openf1": {
+          "meetingKey": 1268
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-17",
+      "round": 17,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Azerbaijan Grand Prix",
+      "venue": "Baku",
+      "country": "Azerbaijan",
+      "trackRef": "baku",
+      "assetSlug": "baku",
+      "dates": {
+        "start": "2025-09-19",
+        "race": "2025-09-21",
+        "raceTime": "11:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 17
+        },
+        "openf1": {
+          "meetingKey": 1269
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-18",
+      "round": 18,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Singapore Grand Prix",
+      "venue": "Marina Bay",
+      "country": "Singapore",
+      "trackRef": "marina-bay",
+      "assetSlug": "marina-bay",
+      "dates": {
+        "start": "2025-10-03",
+        "race": "2025-10-05",
+        "raceTime": "12:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 18
+        },
+        "openf1": {
+          "meetingKey": 1270
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-19",
+      "round": 19,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "United States Grand Prix",
+      "venue": "Circuit of the Americas",
+      "country": "USA",
+      "trackRef": "circuit-of-the-americas",
+      "assetSlug": "circuit-of-the-americas",
+      "dates": {
+        "start": "2025-10-17",
+        "race": "2025-10-19",
+        "raceTime": "19:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 19
+        },
+        "openf1": {
+          "meetingKey": 1271
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-20",
+      "round": 20,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Mexico City Grand Prix",
+      "venue": "Mexico City",
+      "country": "Mexico",
+      "trackRef": "mexico-city",
+      "assetSlug": "mexico-city",
+      "dates": {
+        "start": "2025-10-24",
+        "race": "2025-10-26",
+        "raceTime": "20:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 20
+        },
+        "openf1": {
+          "meetingKey": 1272
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-21",
+      "round": 21,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "São Paulo Grand Prix",
+      "venue": "Interlagos",
+      "country": "Brazil",
+      "trackRef": "interlagos",
+      "assetSlug": "interlagos",
+      "dates": {
+        "start": "2025-11-07",
+        "race": "2025-11-09",
+        "raceTime": "17:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 21
+        },
+        "openf1": {
+          "meetingKey": 1273
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-22",
+      "round": 22,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Las Vegas Grand Prix",
+      "venue": "Las Vegas Strip",
+      "country": "USA",
+      "trackRef": "las-vegas",
+      "assetSlug": "las-vegas-strip",
+      "dates": {
+        "start": "2025-11-21",
+        "race": "2025-11-23",
+        "raceTime": "04:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 22
+        },
+        "openf1": {
+          "meetingKey": 1274
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-23",
+      "round": 23,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Qatar Grand Prix",
+      "venue": "Losail",
+      "country": "Qatar",
+      "trackRef": "losail",
+      "assetSlug": "losail",
+      "dates": {
+        "start": "2025-11-28",
+        "race": "2025-11-30",
+        "raceTime": "16:00:00Z"
+      },
+      "sprintWeekend": true,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 23
+        },
+        "openf1": {
+          "meetingKey": 1275
+        },
+        "override": false
+      }
+    },
+    {
+      "id": "f1-2025-24",
+      "round": 24,
+      "kind": "race",
+      "status": "confirmed",
+      "name": "Abu Dhabi Grand Prix",
+      "venue": "Yas Marina",
+      "country": "UAE",
+      "trackRef": "yas-marina",
+      "assetSlug": "yas-marina",
+      "dates": {
+        "start": "2025-12-05",
+        "race": "2025-12-07",
+        "raceTime": "13:00:00Z"
+      },
+      "sprintWeekend": false,
+      "sourceIds": {
+        "jolpica": {
+          "season": 2025,
+          "round": 24
+        },
+        "openf1": {
+          "meetingKey": 1276
+        },
+        "override": false
+      }
+    }
+  ]
+}

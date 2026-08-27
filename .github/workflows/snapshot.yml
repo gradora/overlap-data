@@ -144,7 +144,10 @@ jobs:
       # подхватывает дозаполнение времён сессий (страницы будущих этапов не
       # замораживаются); imsa обновляет index/tests из SCHEDULE[N+1] и папки
       # Al Kamel — ноябрьский тест сезона N+1 живёт в календарном году N и
-      # нужен ленте уже осенью. До публикации источников все три выходят тихо.
+      # нужен ленте уже осенью; openf1 зеркалит ЛИСТИНГ митингов N+1 (и только
+      # его — режим «future»): тесты и отмены следующего года есть только там,
+      # и без этого шага витрина календаря N+1 собиралась без них молча.
+      # До публикации источников все четыре выходят тихо.
       - name: Сезон N+1 (ежесуточно)
         id: nextseason
         if: github.event.schedule == '37 3 * * *' || inputs.next_season
@@ -152,13 +155,19 @@ jobs:
         run: |
           NEXT=$(( $(date -u +%Y) + 1 ))
           FAIL=0
-          SEASON=$NEXT npm run f1   || FAIL=1
-          SEASON=$NEXT npm run wec  || FAIL=1
-          SEASON=$NEXT npm run imsa || FAIL=1
+          SEASON=$NEXT npm run f1     || FAIL=1
+          SEASON=$NEXT npm run openf1 || FAIL=1
+          SEASON=$NEXT npm run wec    || FAIL=1
+          SEASON=$NEXT npm run imsa   || FAIL=1
           exit $FAIL
 
-      # После зеркала f1: правило «переехало» читает свежий current.json.
-      - name: GC override-календаря F1 (отжившие ручные записи)
+      # После зеркал f1 и openf1: правило «переехало» читает свежий current.json,
+      # а витрина календаря (data/f1/calendar/<год>.json, фаза 4 DATA-PLAN) —
+      # ОБА зеркала этого прогона плюс уже почищенную ручку. Своего шага у
+      # витрины нет намеренно: сети в ней нет, только файлы на диске, и она
+      # обязана идти строго после GC (иначе отжившая запись на час въезжает в
+      # календарь). Обоснование выбора продьюсера — шапка f1overrides.ts.
+      - name: GC override-календаря F1 + витрина календаря
         id: f1overrides
         continue-on-error: true
         run: npm run f1overrides

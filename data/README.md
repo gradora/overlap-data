@@ -24,6 +24,7 @@
 | `f1/history/index.json` | f1history | синглтон |
 | `imsa/<год>/` | imsa | `NN_<venue-slug>.json` + `index.json` + `points.json` |
 | `wec/<год>/` | wec (внутри прогона зеркала) | `index.json` + `standings.json` + `NN_<event-slug>.json` / `test_<slug>.json` (сессии события; путь публикует `index.events[].resultsPath`) |
+| `f1/calendar/<год>.json` | f1overrides (внутри прогона GC) | смёрженный календарь сезона: jolpica + оверлей OpenF1 + курируемый слой. `round` 0 — сентинел «раунда в источнике нет» (тест/отмена/фантом), `status` tbc — нумерация провизорна, `sourceIds` — ключи события во всех источниках |
 | `tracks/index.json` | tracks | синглтон, ПЛОСКАЯ карта slug→запись (без конверта) |
 | `f1/overrides/calendar.json` | — РУКАМИ (+GC f1overrides) | см. README корня |
 | `f1/records/catalog.json` | — РУКАМИ | курируемые рекорды |

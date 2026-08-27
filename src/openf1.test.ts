@@ -6,6 +6,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   meetingsToSnapshot,
+  snapshotMode,
   matchMeeting,
   activeRoundsFrom,
   isRaceLike,
@@ -135,4 +136,28 @@ test("isRaceLike: гонка/спринт против практик, квал 
   assert.equal(isRaceLike("Qualifying"), false);
   assert.equal(isRaceLike("Practice 1"), false);
   assert.equal(isRaceLike(undefined), false);
+});
+
+/// Режим сезона N+1: зеркалим ЛИСТИНГ митингов и уходим. Без этого критерий
+/// «оверлей» (митинг без пары в jolpica) записал бы в цель весь календарь
+/// следующего года — activeRounds() читает current.json текущего сезона, и ни
+/// одна дата N+1 с ним не матчится.
+test("snapshotMode: прошлый / текущий / следующий сезон", () => {
+  assert.equal(snapshotMode(2025, 2026), "historic");
+  assert.equal(snapshotMode(2026, 2026), "current");
+  assert.equal(snapshotMode(2027, 2026), "future");
+});
+
+test("meetingsToSnapshot: без гарда сезон N+1 целиком уехал бы в оверлей", () => {
+  // Даты раундов — ТЕКУЩЕГО сезона (так их и читает продьюсер), митинги — N+1.
+  const nextSeason = [
+    { meeting_key: 9001, meeting_name: "Australian Grand Prix",
+      date_start: "2027-03-05T01:30:00+00:00", date_end: "2027-03-07T06:00:00+00:00" },
+    { meeting_key: 9002, meeting_name: "Chinese Grand Prix",
+      date_start: "2027-03-12T01:30:00+00:00", date_end: "2027-03-14T06:00:00+00:00" },
+  ];
+  const targets = meetingsToSnapshot(nextSeason, [], Date.parse("2026-12-01T00:00:00Z"),
+                                     ["2026-03-08", "2026-03-15"]);
+  assert.deepEqual(targets.map((t) => t.reason), ["overlay", "overlay"],
+    "именно поэтому режим future выходит до отбора целей");
 });
