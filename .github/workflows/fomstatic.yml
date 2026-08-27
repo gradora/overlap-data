@@ -1,0 +1,55 @@
+name: fomstatic
+
+# Проактивный снапшот статического архива FOM live timing (шаг 5.4 DATA-PLAN):
+# погода, компаунды, рейс-контрол и пит-тайминги сезонов 2018–2021 — данные,
+# которых нет ни у OpenF1 (начинается с 2023), ни у Jolpica (компаундов нет
+# вообще). Архив уже дырявый: 2017 и весь 2022 отдают 403, то есть оттуда УЖЕ
+# теряли. Что не сняли — можем не снять никогда.
+#
+# Суточный прогон, а не разовый ручной: он resume-safe и добирает только
+# отсутствующие файлы, поэтому первые прогоны наливают снимок порциями, а
+# дальше каждый стоит четыре запроса индексов. Заодно продьюсер остаётся под
+# сторожем проводки и под сигналом свежести — ручной прогон не даёт ни того,
+# ни другого (прецедент f1teams: 17 суток простоя заметил владелец).
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: "Сколько файлов добрать за прогон"
+        default: "400"
+
+# Своя группа: прогон длинный (сотни запросов с паузой) и не должен ни
+# вытеснять часовой snapshot, ни вытесняться им.
+concurrency:
+  group: fomstatic
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  fomstatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Снапшот статики FOM
+        env:
+          FOM_BUDGET: ${{ inputs.budget || '400' }}
+        run: npm run fomstatic
+
+      - name: Закоммитить снимок
+        if: always()
+        uses: ./.github/actions/commit-push
+        with:
+          paths: data/f1/fom
+          message-prefix: fomstatic
