@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T14:35:57.582Z",
+  "series": "wec",
+  "season": 2027,
+  "round": 9,
+  "slug": "bapco-energies-8-hours-of-bahrain-2027",
+  "name": "Bapco Energies 8 Hours of Bahrain",
+  "venue": "Circuit international de Sakhir",
+  "trackRef": "bahrain",
+  "countryCode": "bh",
+  "status": "EventScheduled",
+  "start": "2027-11-01T12:00:00+01:00",
+  "end": "2027-11-06T12:00:00+01:00",
+  "frozen": false,
+  "crewSource": null,
+  "sourceIds": {
+    "fiawec": {
+      "slug": "bapco-energies-8-hours-of-bahrain-2027",
+      "raceId": 5048
+    }
+  },
+  "sessions": [
+    {
+      "kind": "practice",
+      "name": "Free Practice 1",
+      "number": 1,
+      "phase": null,
+      "raceClass": null,
+      "start": "2027-11-04T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 2",
+      "number": 2,
+      "phase": null,
+      "raceClass": null,
+      "start": "2027-11-04T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 3",
+      "number": 3,
+      "phase": null,
+      "raceClass": null,
+      "start": "2027-11-05T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2027-11-05T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2027-11-05T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2027-11-05T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2027-11-05T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "race",
+      "name": "Race",
+      "number": null,
+      "phase": null,
+      "raceClass": null,
+      "start": "2027-11-06T12:00:00+01:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    }
+  ]
+}

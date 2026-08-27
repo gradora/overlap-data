@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T14:35:57.568Z",
+  "series": "wec",
+  "season": 2027,
+  "frozen": false,
+  "events": [
+    {
+      "round": 1,
+      "slug": "qatar-1812km-2027",
+      "name": "Qatar 1812km",
+      "venue": "Lusail International Circuit",
+      "trackRef": "losail",
+      "status": "EventScheduled",
+      "countryCode": "qa",
+      "start": "2027-03-23T12:00:00+01:00",
+      "end": "2027-03-27T12:00:00+01:00",
+      "resultsPath": "wec/2027/01_qatar-1812km-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "qatar-1812km-2027",
+          "raceId": 5043,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 2,
+      "slug": "6-hours-of-imola-2027",
+      "name": "6 Hours of Imola",
+      "venue": "Imola",
+      "trackRef": "imola",
+      "status": "EventScheduled",
+      "countryCode": "it",
+      "start": "2027-04-05T12:00:00+02:00",
+      "end": "2027-04-11T12:00:00+02:00",
+      "resultsPath": "wec/2027/02_6-hours-of-imola-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-imola-2027",
+          "raceId": 5044,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 3,
+      "slug": "6-hours-of-silverstone-2027",
+      "name": "6 Hours of Silverstone",
+      "venue": "Silverstone",
+      "trackRef": "silverstone",
+      "status": "EventScheduled",
+      "countryCode": "gb",
+      "start": "2027-04-19T12:00:00+02:00",
+      "end": "2027-04-25T12:00:00+02:00",
+      "resultsPath": "wec/2027/03_6-hours-of-silverstone-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-silverstone-2027",
+          "raceId": 5055,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 4,
+      "slug": "totalenergies-6-hours-of-spa-francorchamps-2027",
+      "name": "TotalEnergies 6 Hours of Spa-Francorchamps",
+      "venue": "Spa-Francorchamps",
+      "trackRef": "spa-francorchamps",
+      "status": "EventScheduled",
+      "countryCode": "be",
+      "start": "2027-05-10T12:00:00+02:00",
+      "end": "2027-05-15T12:00:00+02:00",
+      "resultsPath": "wec/2027/04_totalenergies-6-hours-of-spa-francorchamps-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "totalenergies-6-hours-of-spa-francorchamps-2027",
+          "raceId": 5045,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 5,
+      "slug": "24-hours-of-le-mans-2027",
+      "name": "24 Hours of Le Mans",
+      "venue": "24 Heures du Mans",
+      "trackRef": "le-mans",
+      "status": "EventScheduled",
+      "countryCode": "fr",
+      "start": "2027-06-07T12:00:00+02:00",
+      "end": "2027-06-13T12:00:00+02:00",
+      "resultsPath": "wec/2027/05_24-hours-of-le-mans-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "24-hours-of-le-mans-2027",
+          "raceId": 5051,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 6,
+      "slug": "rolex-6-hours-of-sao-paulo-2027",
+      "name": "ROLEX 6 Hours of São Paulo",
+      "venue": "Interlagos",
+      "trackRef": "interlagos",
+      "status": "EventScheduled",
+      "countryCode": "br",
+      "start": "2027-07-05T12:00:00+02:00",
+      "end": "2027-07-11T12:00:00+02:00",
+      "resultsPath": "wec/2027/06_rolex-6-hours-of-sao-paulo-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "rolex-6-hours-of-sao-paulo-2027",
+          "raceId": 5049,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 7,
+      "slug": "lone-star-le-mans-2027",
+      "name": "Lone Star Le Mans",
+      "venue": "Circuit des Amériques",
+      "trackRef": "circuit-of-the-americas",
+      "status": "EventScheduled",
+      "countryCode": "us",
+      "start": "2027-09-06T12:00:00+02:00",
+      "end": "2027-09-12T12:00:00+02:00",
+      "resultsPath": "wec/2027/07_lone-star-le-mans-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "lone-star-le-mans-2027",
+          "raceId": 5047,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 8,
+      "slug": "6-hours-of-fuji-2027",
+      "name": "6 Hours of Fuji",
+      "venue": "Fuji Speedway",
+      "trackRef": "fuji",
+      "status": "EventScheduled",
+      "countryCode": "jp",
+      "start": "2027-09-20T12:00:00+02:00",
+      "end": "2027-09-26T12:00:00+02:00",
+      "resultsPath": "wec/2027/08_6-hours-of-fuji-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-fuji-2027",
+          "raceId": 5046,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 9,
+      "slug": "bapco-energies-8-hours-of-bahrain-2027",
+      "name": "Bapco Energies 8 Hours of Bahrain",
+      "venue": "Circuit international de Sakhir",
+      "trackRef": "bahrain",
+      "status": "EventScheduled",
+      "countryCode": "bh",
+      "start": "2027-11-01T12:00:00+01:00",
+      "end": "2027-11-06T12:00:00+01:00",
+      "resultsPath": "wec/2027/09_bapco-energies-8-hours-of-bahrain-2027.json",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "bapco-energies-8-hours-of-bahrain-2027",
+          "raceId": 5048,
+          "sessions": []
+        }
+      }
+    }
+  ]
+}
