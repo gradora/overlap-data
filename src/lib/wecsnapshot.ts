@@ -224,7 +224,7 @@ function isClassTag(s: string): boolean {
     || t.includes("LMP2") || t.includes("LMGT3");
 }
 
-/// ПАРНО с WECRacePageParser.parse: берётся ПЕРВЫЙ ld+json-блок со словом
+/// ПОРТ WECRacePageParser.parse (снят с клиента в 3c): берётся ПЕРВЫЙ ld+json-блок со словом
 /// SportsEvent; не распарсился — null (клиент не перебирает дальше — поэтому
 /// здесь не eventInfo из fiawecsite, у того семантика «ищи следующий блок»).
 /// Отступление от Swift-порта (осознанное): subEvent без имени просто
@@ -461,7 +461,7 @@ function makeStandingRow(cells: string[], roundCount: number): WecStandingRowPar
   return { position, name, carNumber, totalPoints: total, stagePoints };
 }
 
-/// ПАРНО с WECStandingsParser.parse: четыре таблицы страницы, заголовок
+/// ПОРТ WECStandingsParser.parse (снят с клиента в 3c): четыре таблицы страницы, заголовок
 /// чемпионата — ближайший heading/tab-кнопка ПЕРЕД таблицей, колонки этапов —
 /// flag:XX в шапке.
 export function parseStandingsTables(html: string): WecStandingTableParsed[] {

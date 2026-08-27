@@ -130,7 +130,7 @@ export interface WecEventDoc {
 
 // MARK: - Порт WECResultsParser (страница /en/page/resultats-1?raceId&sessionId)
 
-/// ПАРНО с WECResultsParser.cleanText. Набор сущностей СВОЙ (у парсера зачёта
+/// ПОРТ WECResultsParser.cleanText (снят с клиента в 3c). Набор сущностей СВОЙ (у парсера зачёта
 /// он другой: там &rsquo;, здесь &lt;/&gt;) — поэтому функция не общая с
 /// wecsnapshot.ts: общая молча подменила бы поведение одного из двух портов.
 function cleanText(html: string): string {
@@ -143,7 +143,7 @@ function cleanText(html: string): string {
 }
 
 /// Первая таблица, чья разметка упоминает и позицию, и команду/участников
-/// (навигационные таблицы пропускаются). ПАРНО с WECResultsParser.resultsTable.
+/// (навигационные таблицы пропускаются). ПОРТ WECResultsParser.resultsTable (снят с клиента в 3c).
 function resultsTable(html: string): string | null {
   for (const m of html.matchAll(/<table[^>]*>([\s\S]*?)<\/table>/g)) {
     const low = m[1].toLowerCase();
@@ -153,7 +153,7 @@ function resultsTable(html: string): string | null {
 }
 
 /// Текст всех <td>, кроме чисто-картиночных (логотип бренда + иллюстрация
-/// машины под шапкой Competitors). ПАРНО с WECResultsParser.textCells.
+/// машины под шапкой Competitors). ПОРТ WECResultsParser.textCells (снят с клиента в 3c).
 function textCells(rowHTML: string): string[] {
   const out: string[] = [];
   for (const m of rowHTML.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)) {
@@ -170,7 +170,7 @@ const leadingInt = (raw: string): number | null => {
 };
 
 /// Прочерк гэпа на fiawec означает «лидер / гэпа нет» → "".
-/// ПАРНО с WECResultsParser.normalizeGap.
+/// ПОРТ WECResultsParser.normalizeGap (снят с клиента в 3c).
 const normalizeGap = (raw: string): string => {
   const t = raw.trim();
   return t === "-" || t === "–" ? "" : t;

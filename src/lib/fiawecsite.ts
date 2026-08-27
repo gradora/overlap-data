@@ -102,7 +102,8 @@ export function isRaceMirrorOfSeason(file: string, year: number): boolean {
 // Тестовые уик-энды сезона (прологи). ОТДЕЛЬНО от raceSlugs: от порядка
 // зачётных слагов считается номер раунда и имена derived-файлов
 // <год>_<раунд>.json, а пролог по дате всегда первый — в общем списке он сдвинул
-// бы весь сезон. ПАРНО с WECSeasonParser.testSlugs в приложении.
+// бы весь сезон. Правило жило и в приложении (WECSeasonParser.testSlugs); с шага 3c
+// клиентского парсера нет — эта копия единственная.
 export function testSlugs(html: string, year: number): string[] {
   return slugsOf(html, year, (s) => s.includes("prologue") || s.includes("test"));
 }
@@ -117,7 +118,8 @@ function slugsOf(html: string, year: number, keep: (slug: string) => boolean): s
   // Хвост «-<год>» с необязательным коротким числовым индексом: Ле-Ман-2025
   // опубликован как «24-hours-of-le-mans-2025-1» (бесхвостая форма редиректит
   // на него). Две цифры, а не \d+ — иначе «-2025-2026» попал бы в оба сезона.
-  // ПАРНО с WECSeasonParser.matchesSeason в приложении — менять только вместе.
+  // жило и в приложении (WECSeasonParser.matchesSeason);
+  // с шага 3c клиентского парсера нет — эта копия единственная.
   const seasonTail = new RegExp(`-${year}(-\\d{1,2})?$`);
   for (const m of html.matchAll(/\/en\/race\/([a-z0-9-]+)/g)) {
     const slug = m[1];
