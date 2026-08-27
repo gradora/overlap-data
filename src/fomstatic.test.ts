@@ -9,8 +9,8 @@ import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import {
-  parseIndex, slicePath, missingSlices, runFomSnapshot, snapshotSize, isSafeSessionPath,
-  SLICES, FOM_BASE,
+  parseIndex, slicePath, indexPath, missingSlices, runFomSnapshot, snapshotSize,
+  isSafeSessionPath, SLICES, FOM_BASE,
 } from "./lib/fomstatic.js";
 
 const INDEX = {
@@ -125,7 +125,7 @@ test("прогон: снимает все срезы и второй раз в �
       dataDir: root, years: [2018], delayMs: 0, fetch: first.fetch, log: () => {},
     });
     assert.equal(r1.fetched, SLICES.length);
-    assert.equal(snapshotSize(root), SLICES.length);
+    assert.equal(snapshotSize(root), SLICES.length + 1, "срезы + индекс года");
     assert.equal(readFileSync(join(root, slicePath(SESSION, "WeatherData")), "utf8"),
                  "00:00:00.000{}\n", "байты источника сохраняются как есть");
 
@@ -137,6 +137,23 @@ test("прогон: снимает все срезы и второй раз в �
     assert.equal(r2.fetched, 0);
     assert.deepEqual(second.calls, [`${FOM_BASE}2018/Index.json`],
                      "снятое перекачивать нельзя: 1500 файлов каждый прогон");
+    assert.equal(snapshotSize(root), SLICES.length + 1, "повтор не плодит файлов");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+/// Отсчёты в срезах идут ОТНОСИТЕЛЬНЫМ временем от старта фида, а час старта и
+/// пояс сессии лежат только в индексе. Снимок без индекса — это данные, смысл
+/// которых потерян.
+test("прогон: индекс года сохраняется рядом со срезами", async () => {
+  const root = tempData();
+  try {
+    const src = fakeFetch({ indexByYear: { 2018: JSON.stringify(INDEX) } });
+    await runFomSnapshot({ dataDir: root, years: [2018], delayMs: 0, fetch: src.fetch, log: () => {} });
+    const saved = readFileSync(join(root, indexPath(2018)), "utf8");
+    assert.equal(JSON.parse(saved).Meetings[0].Sessions[1].Key, 5082,
+                 "без StartDate/GmtOffset из индекса относительное время не привязать");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -151,14 +168,14 @@ test("прогон: бюджет ограничивает порцию, оста
     });
     assert.equal(r.fetched, 2);
     assert.equal(r.missing, SLICES.length, "недостача считается ДО бюджета — иначе не видно масштаба");
-    assert.equal(snapshotSize(root), 2);
+    assert.equal(snapshotSize(root), 2 + 1, "два среза + индекс");
 
     const rest = await runFomSnapshot({
       dataDir: root, years: [2018], budget: 99, delayMs: 0,
       fetch: fakeFetch({ indexByYear: { 2018: JSON.stringify(INDEX) } }).fetch, log: () => {},
     });
     assert.equal(rest.fetched, SLICES.length - 2);
-    assert.equal(snapshotSize(root), SLICES.length);
+    assert.equal(snapshotSize(root), SLICES.length + 1);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -189,8 +206,8 @@ test("пустой ответ среза не создаёт файл — ина
     });
     assert.equal(r.fetched, 0);
     assert.equal(r.failed, SLICES.length);
-    assert.equal(snapshotSize(root), 0,
-                 "пустышка на диске означала бы «снято» и больше не перезапрашивалась бы");
+    assert.equal(snapshotSize(root), 1,
+                 "на диске только индекс: пустышка среза означала бы «снято» и больше не перезапрашивалась бы");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

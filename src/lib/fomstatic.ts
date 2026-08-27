@@ -105,6 +105,17 @@ export function parseIndex(raw: string, log?: (m: string) => void): FomSession[]
   return out;
 }
 
+/// Путь снятого индекса года ОТНОСИТЕЛЬНО data/.
+///
+/// Индекс снимаем НАРАВНЕ со срезами, а не считаем служебным. В нём лежат
+/// `StartDate` и `GmtOffset` сессии, а отсчёты в срезах идут ОТНОСИТЕЛЬНЫМ
+/// временем от старта фида («00:04:16.058{…}»). Без индекса привязать их к
+/// абсолютному времени нечем: путь сессии несёт дату и имя митинга, но не час
+/// старта и не пояс. Потеряем индекс — снимок останется, а смысл отсчётов уйдёт.
+export function indexPath(year: number): string {
+  return join("f1", "fom", String(year), "Index.json");
+}
+
 /// Путь файла снимка ОТНОСИТЕЛЬНО data/. Повторяет путь источника — так снимок
 /// самоописателен: по имени файла видно, какая сессия и какой срез.
 export function slicePath(session: FomSession, slice: Slice): string {
@@ -164,6 +175,15 @@ export async function runFomSnapshot(input: {
       log(`  ${year}: индекс недоступен (${indexRes?.status ?? "сеть"}) — пропуск`);
       continue;
     }
+    // Индекс кладём на диск ДО обхода срезов: если прогон оборвётся, привязка
+    // ко времени уже сохранена.
+    const indexTarget = join(dataDir, indexPath(year));
+    mkdirSync(dirname(indexTarget), { recursive: true });
+    if (!existsSync(indexTarget) || readFileSync(indexTarget, "utf8") !== indexRes.text) {
+      writeFileSync(indexTarget, indexRes.text);
+      log(`  ${year}: индекс сохранён`);
+    }
+
     const sessions = parseIndex(indexRes.text, log);
     const missing = missingSlices(dataDir, sessions);
     missingTotal += missing.length;
