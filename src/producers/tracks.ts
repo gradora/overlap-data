@@ -12,11 +12,17 @@
 
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { fetchText, writeIfChanged } from "../lib/mirror.js";
+import { fetchText, writeIfChanged, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { utcDay } from "../lib/freshness.js";
 import { TRACKS_MARKER } from "../lib/producers.js";
 
 const OUT_PATH = join(process.cwd(), "data", "tracks", "index.json");
+
+/// Версия формы справочника. Первая — конверт появился в шаге 5.2, до него
+/// файл был голой картой «слаг → запись». Клиент гейтится на неё fail-closed:
+/// чужая версия означает «семантика поменялась», и читать такой файл сборкой,
+/// которая её не знает, нельзя.
+export const TRACKS_SCHEMA_VERSION = 1;
 /// Отметка «прогон реально собрал справочник» для реестра свежести — tracks
 /// бежит в отдельном воркфлоу, и иначе health.ts о нём не узнаёт. Путь берём
 /// ИЗ РЕЕСТРА, а не литералом: обе стороны контракта обязаны смотреть в одну
@@ -506,7 +512,13 @@ export function publishTracks(
   }
 
   mkdirSync(join(process.cwd(), "data", "tracks"), { recursive: true });
-  const wrote = writeIfChanged(OUT_PATH, JSON.stringify(index, null, 2) + "\n");
+  // Конверт (шаг 5.2): справочник трасс был ПОСЛЕДНИМ derived-семейством без
+  // него — голая карта «слаг → запись» без schemaVersion. Смена его формы была
+  // тихой поломкой клиента без единого способа отличить «схема уехала» от
+  // «файла нет»; ровно этот класс уже ловили у остальных двенадцати семейств.
+  // generatedAt из сравнения исключён (см. writeJSONWithEnvelope), поэтому
+  // еженедельный прогон без изменений коммита не даёт.
+  const wrote = writeJSONWithEnvelope(OUT_PATH, { tracks: index }, TRACKS_SCHEMA_VERSION);
 
   // Отметка для реестра свежести: tracks живёт в СВОЁМ воркфлоу, и health.ts
   // (он бежит в snapshot.yml) не видит его outcome через steps.<id>.outcome.

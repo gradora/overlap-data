@@ -4,8 +4,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, readFileSync, existsSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
+import { writeJSONWithEnvelope } from "./lib/mirror.js";
 import { join, resolve } from "node:path";
 import {
   bucketFor,
@@ -17,6 +18,7 @@ import {
   parseLongestRace,
   buildTrack,
   enoughLoaded,
+  TRACKS_SCHEMA_VERSION,
 } from "./producers/tracks.js";
 
 // --- Фрагмент реального wikitext Spa: секция Lap records + два лейаута ---
@@ -187,4 +189,36 @@ test("publishTracks: при полной загрузке пишет и инде
   const marker = JSON.parse(readFileSync(join(cwd, "data", "tracks", "_health.json"), "utf8"));
   assert.match(marker.lastSuccess, /^\d{4}-\d{2}-\d{2}$/, "маркер обязан нести дату суток");
   rmSync(cwd, { recursive: true, force: true });
+});
+
+// MARK: - Конверт справочника (шаг 5.2)
+
+/// Справочник трасс был ПОСЛЕДНИМ derived-семейством без конверта — голой
+/// картой «слаг → запись». Смена его формы была тихой поломкой клиента:
+/// отличить «схема уехала» от «файла нет» было нечем.
+///
+/// publishTracks трогает боевые пути (OUT_PATH считается из cwd на импорте),
+/// поэтому здесь проверяется ровно то, что публикация вызывает: форма конверта
+/// и его идемпотентность на writeJSONWithEnvelope.
+test("конверт: schemaVersion, трассы под ключом tracks, идемпотентность", () => {
+  const root = mkdtempSync(join(tmpdir(), "tracks-envelope-"));
+  try {
+    const path = join(root, "index.json");
+    const tracks = { "spa-francorchamps": { wikiTitle: "Circuit de Spa-Francorchamps" } };
+
+    assert.equal(writeJSONWithEnvelope(path, { tracks }, TRACKS_SCHEMA_VERSION), true);
+    const doc = JSON.parse(readFileSync(path, "utf8"));
+    assert.equal(doc.schemaVersion, TRACKS_SCHEMA_VERSION);
+    assert.ok(typeof doc.generatedAt === "string", "конверт обязан нести метку сборки");
+    assert.deepEqual(Object.keys(doc.tracks), ["spa-francorchamps"]);
+    assert.equal(doc.tracks["spa-francorchamps"].wikiTitle, "Circuit de Spa-Francorchamps");
+
+    // Идемпотентность: те же данные — второй записи нет (generatedAt из
+    // сравнения исключён, иначе еженедельный прогон коммитил бы вхолостую).
+    assert.equal(writeJSONWithEnvelope(path, { tracks }, TRACKS_SCHEMA_VERSION), false);
+    // А изменившийся справочник — пишется.
+    assert.equal(writeJSONWithEnvelope(path, { tracks: { monza: {} } }, TRACKS_SCHEMA_VERSION), true);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
