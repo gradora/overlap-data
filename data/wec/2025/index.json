@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-26T19:39:10.918Z",
+  "series": "wec",
+  "season": 2025,
+  "frozen": true,
+  "events": [
+    {
+      "round": 0,
+      "slug": "official-prologue-qatar-2025",
+      "name": "Official Prologue - QATAR",
+      "venue": "Lusail International Circuit",
+      "trackRef": "losail",
+      "status": "EventCompleted",
+      "countryCode": "qa",
+      "start": "2025-02-21T00:00:00+01:00",
+      "end": "2025-02-22T00:00:00+01:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "official-prologue-qatar-2025",
+          "raceId": 4928,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 1,
+      "slug": "qatar-1812km-2025",
+      "name": "Qatar 1812km",
+      "venue": "Lusail International Circuit",
+      "trackRef": "losail",
+      "status": "EventCompleted",
+      "countryCode": "qa",
+      "start": "2025-02-26T00:00:00+01:00",
+      "end": "2025-02-28T00:00:00+01:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "qatar-1812km-2025",
+          "raceId": 4929,
+          "sessions": [
+            {
+              "id": 7557,
+              "label": "RACE"
+            },
+            {
+              "id": 7556,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7555,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7554,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7553,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7552,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7551,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7550,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 2,
+      "slug": "6-hours-of-imola-2025",
+      "name": "6 Hours of Imola",
+      "venue": "Imola",
+      "trackRef": "imola",
+      "status": "EventCompleted",
+      "countryCode": "it",
+      "start": "2025-04-18T00:00:00+02:00",
+      "end": "2025-04-20T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-imola-2025",
+          "raceId": 4930,
+          "sessions": [
+            {
+              "id": 7564,
+              "label": "RACE"
+            },
+            {
+              "id": 7563,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7562,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7561,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7560,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7559,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7558,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7545,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 3,
+      "slug": "totalenergies-6-hours-of-spa-francorchamps-2025",
+      "name": "TotalEnergies 6 Hours of Spa-Francorchamps",
+      "venue": "Spa-Francorchamps",
+      "trackRef": "spa-francorchamps",
+      "status": "EventCompleted",
+      "countryCode": "be",
+      "start": "2025-05-08T00:00:00+02:00",
+      "end": "2025-05-10T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "totalenergies-6-hours-of-spa-francorchamps-2025",
+          "raceId": 4931,
+          "sessions": [
+            {
+              "id": 7572,
+              "label": "RACE"
+            },
+            {
+              "id": 7571,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7570,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7569,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7568,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7567,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7566,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7565,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 4,
+      "slug": "24-hours-of-le-mans-2025-1",
+      "name": "24 Hours of Le Mans",
+      "venue": "24 Heures du Mans",
+      "trackRef": "le-mans",
+      "status": "EventCompleted",
+      "countryCode": "fr",
+      "start": "2025-06-11T00:00:00+02:00",
+      "end": "2025-06-15T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "24-hours-of-le-mans-2025-1",
+          "raceId": 4933,
+          "sessions": [
+            {
+              "id": 7608,
+              "label": "RACE"
+            },
+            {
+              "id": 7626,
+              "label": "WARM-UP"
+            },
+            {
+              "id": 7625,
+              "label": "FREE PRACTICE 4"
+            },
+            {
+              "id": 7624,
+              "label": "HYPERPOLE 2 - HYPERCAR"
+            },
+            {
+              "id": 7623,
+              "label": "HYPERPOLE 1 - HYPERCAR"
+            },
+            {
+              "id": 7622,
+              "label": "HYPERPOLE 2 - LMP2 & LMGT3"
+            },
+            {
+              "id": 7621,
+              "label": "HYPERPOLE 1 - LMP2 & LMGT3"
+            },
+            {
+              "id": 7618,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7617,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7620,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7619,
+              "label": "QUALIFYING - LMP2 & LMGT3"
+            },
+            {
+              "id": 7616,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 5,
+      "slug": "rolex-6-hours-of-sao-paulo-2025",
+      "name": "Rolex 6 Hours of São Paulo",
+      "venue": "Interlagos",
+      "trackRef": "interlagos",
+      "status": "EventCompleted",
+      "countryCode": "br",
+      "start": "2025-07-11T00:00:00+02:00",
+      "end": "2025-07-13T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "rolex-6-hours-of-sao-paulo-2025",
+          "raceId": 4934,
+          "sessions": [
+            {
+              "id": 7582,
+              "label": "RACE"
+            },
+            {
+              "id": 7581,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7580,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7579,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7578,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7577,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7576,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7575,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 6,
+      "slug": "lone-star-le-mans-2025",
+      "name": "Lone Star Le Mans",
+      "venue": "Circuit des Amériques",
+      "trackRef": "circuit-of-the-americas",
+      "status": "EventCompleted",
+      "countryCode": "us",
+      "start": "2025-09-05T00:00:00+02:00",
+      "end": "2025-09-07T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "lone-star-le-mans-2025",
+          "raceId": 4935,
+          "sessions": [
+            {
+              "id": 7590,
+              "label": "RACE"
+            },
+            {
+              "id": 7589,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7588,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7587,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7586,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7585,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7584,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7583,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 7,
+      "slug": "6-hours-of-fuji-2025",
+      "name": "6 Hours of Fuji",
+      "venue": "Fuji Speedway",
+      "trackRef": "fuji",
+      "status": "EventCompleted",
+      "countryCode": "jp",
+      "start": "2025-09-26T00:00:00+02:00",
+      "end": "2025-09-28T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-fuji-2025",
+          "raceId": 4936,
+          "sessions": [
+            {
+              "id": 7598,
+              "label": "RACE"
+            },
+            {
+              "id": 7597,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7596,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7595,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7594,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7593,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7592,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7591,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 8,
+      "slug": "bapco-energies-8-hours-of-bahrain-2025",
+      "name": "Bapco Energies 8 Hours of Bahrain",
+      "venue": "Circuit international de Sakhir",
+      "trackRef": "bahrain",
+      "status": "EventCompleted",
+      "countryCode": "bh",
+      "start": "2025-11-06T00:00:00+01:00",
+      "end": "2025-11-08T00:00:00+01:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "bapco-energies-8-hours-of-bahrain-2025",
+          "raceId": 4937,
+          "sessions": [
+            {
+              "id": 7606,
+              "label": "RACE"
+            },
+            {
+              "id": 7605,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7604,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7603,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7602,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7601,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7600,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7599,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

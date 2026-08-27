@@ -1,0 +1,1965 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-26T19:39:02.286Z",
+  "series": "wec",
+  "season": 2026,
+  "frozen": false,
+  "rounds": [
+    "IT",
+    "BE",
+    "FR",
+    "BR",
+    "US",
+    "JP",
+    "ES",
+    "IT"
+  ],
+  "classes": [
+    {
+      "raceClass": "HYPERCAR",
+      "winsSource": "real",
+      "crews": [
+        {
+          "position": 1,
+          "carNumber": "7",
+          "team": "Toyota Racing",
+          "drivers": [
+            "KAMUI KOBAYASHI",
+            "MIKE CONWAY",
+            "NYCK DE VRIES"
+          ],
+          "points": 75,
+          "pointsSource": "official",
+          "stagePoints": [
+            15,
+            10,
+            50,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 2,
+          "carNumber": "20",
+          "team": "BMW M Team WRT",
+          "drivers": [
+            "RENÉ RAST",
+            "ROBIN FRIJNS",
+            "SHELDON VAN DER LINDE"
+          ],
+          "points": 75,
+          "pointsSource": "official",
+          "stagePoints": [
+            10,
+            25,
+            36,
+            4,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 3,
+          "carNumber": "51",
+          "team": "Ferrari AF Corse",
+          "drivers": [
+            "ALESSANDRO PIER GUIDI",
+            "ANTONIO GIOVINAZZI",
+            "JAMES CALADO"
+          ],
+          "points": 57,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            0,
+            20,
+            18,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 4,
+          "carNumber": "8",
+          "team": "Toyota Racing",
+          "drivers": [
+            "BRENDON HARTLEY",
+            "RYŌ HIRAKAWA",
+            "SÉBASTIEN BUEMI"
+          ],
+          "points": 56,
+          "pointsSource": "official",
+          "stagePoints": [
+            25,
+            1,
+            30,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 5,
+          "carNumber": "15",
+          "team": "BMW M Team WRT",
+          "drivers": [
+            "KEVIN MAGNUSSEN",
+            "RAFFAELE MARCIELLO",
+            "DRIES VANTHOOR"
+          ],
+          "points": 50,
+          "pointsSource": "official",
+          "stagePoints": [
+            6,
+            18,
+            0,
+            25,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 6,
+          "carNumber": "12",
+          "team": "Cadillac Hertz Team JOTA",
+          "drivers": [
+            "NORMAN NATO",
+            "WILL STEVENS",
+            "LOUIS DELÉTRAZ"
+          ],
+          "points": 42,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            2,
+            24,
+            15,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 7,
+          "carNumber": "83",
+          "team": "AF Corse",
+          "drivers": [
+            "PHILIP HANSON",
+            "ROBERT KUBICA",
+            "YIFEI YE"
+          ],
+          "points": 31,
+          "pointsSource": "official",
+          "stagePoints": [
+            1,
+            8,
+            12,
+            10,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 8,
+          "carNumber": "007",
+          "team": "Aston Martin THOR Team",
+          "drivers": [
+            "HARRY TINCKNELL",
+            "TOM GAMBLE",
+            "ROSS GUNN"
+          ],
+          "points": 30,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            12,
+            8,
+            8,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 9,
+          "carNumber": "35",
+          "team": "Alpine Endurance Team",
+          "drivers": [
+            "ANTÓNIO FÉLIX DA COSTA",
+            "CHARLES MILESI",
+            "FERDINAND HABSBURG"
+          ],
+          "points": 29,
+          "pointsSource": "official",
+          "stagePoints": [
+            12,
+            0,
+            16,
+            1,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 10,
+          "carNumber": "50",
+          "team": "Ferrari AF Corse",
+          "drivers": [
+            "ANTONIO FUOCO",
+            "MIGUEL MOLINA",
+            "NICKLAS NIELSEN"
+          ],
+          "points": 29,
+          "pointsSource": "official",
+          "stagePoints": [
+            8,
+            15,
+            0,
+            6,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 11,
+          "carNumber": "38",
+          "team": "Cadillac Hertz Team JOTA",
+          "drivers": [
+            "EARL BAMBER",
+            "SÉBASTIEN BOURDAIS",
+            "JACK AITKEN"
+          ],
+          "points": 16,
+          "pointsSource": "official",
+          "stagePoints": [
+            4,
+            0,
+            0,
+            12,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 12,
+          "carNumber": "93",
+          "team": "Peugeot Totalenergies",
+          "drivers": [
+            "NICK CASSIDY",
+            "PAUL DI RESTA",
+            "STOFFEL VANDOORNE"
+          ],
+          "points": 6,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            6,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 13,
+          "carNumber": "17",
+          "team": "Genesis Magma Racing",
+          "drivers": [
+            "ANDRÉ LOTTERER",
+            "LUIS FELIPE DERANI",
+            "MATHYS JAUBERT"
+          ],
+          "points": 4,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            4,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 14,
+          "carNumber": "36",
+          "team": "Alpine Endurance Team",
+          "drivers": [
+            "FRÉDÉRIC MAKOWIECKI",
+            "JULES GOUNON",
+            "VICTOR MARTINS"
+          ],
+          "points": 4,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            4,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 15,
+          "carNumber": "94",
+          "team": "Peugeot Totalenergies",
+          "drivers": [
+            "LOÏC DUVAL",
+            "MALTHE JAKOBSEN",
+            "THÉO POURCHAIRE"
+          ],
+          "points": 3,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            2,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 16,
+          "carNumber": "009",
+          "team": "Aston Martin THOR Team",
+          "drivers": [
+            "ALEX RIBERAS",
+            "MARCO SØRENSEN",
+            "ROMAN DE ANGELIS"
+          ],
+          "points": 2,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            2,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 17,
+          "carNumber": "19",
+          "team": "Genesis Magma Racing",
+          "drivers": [
+            "DANIEL JUNCADELLA",
+            "MATHIEU JAMINET",
+            "PAUL-LOUP CHATIN"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        }
+      ],
+      "driverRows": [
+        {
+          "position": 1,
+          "carNumber": "20",
+          "drivers": [
+            "RENÉ RAST",
+            "ROBIN FRIJNS"
+          ],
+          "points": 75,
+          "pointsSource": "official",
+          "stagePoints": [
+            10,
+            25,
+            36,
+            4,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 2,
+          "carNumber": "7",
+          "drivers": [
+            "KAMUI KOBAYASHI",
+            "MIKE CONWAY",
+            "NYCK DE VRIES"
+          ],
+          "points": 75,
+          "pointsSource": "official",
+          "stagePoints": [
+            15,
+            10,
+            50,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 3,
+          "carNumber": "20",
+          "drivers": [
+            "SHELDON VAN DER LINDE"
+          ],
+          "points": 65,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            25,
+            36,
+            4,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 4,
+          "carNumber": "51",
+          "drivers": [
+            "ALESSANDRO PIER GUIDI",
+            "ANTONIO GIOVINAZZI",
+            "JAMES CALADO"
+          ],
+          "points": 57,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            0,
+            20,
+            18,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 5,
+          "carNumber": "8",
+          "drivers": [
+            "BRENDON HARTLEY",
+            "RYŌ HIRAKAWA",
+            "SÉBASTIEN BUEMI"
+          ],
+          "points": 56,
+          "pointsSource": "official",
+          "stagePoints": [
+            25,
+            1,
+            30,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 6,
+          "carNumber": "15",
+          "drivers": [
+            "KEVIN MAGNUSSEN",
+            "RAFFAELE MARCIELLO"
+          ],
+          "points": 50,
+          "pointsSource": "official",
+          "stagePoints": [
+            6,
+            18,
+            0,
+            25,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 7,
+          "carNumber": "15",
+          "drivers": [
+            "DRIES VANTHOOR"
+          ],
+          "points": 44,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            18,
+            0,
+            25,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 8,
+          "carNumber": "12",
+          "drivers": [
+            "NORMAN NATO",
+            "WILL STEVENS"
+          ],
+          "points": 42,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            2,
+            24,
+            15,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 9,
+          "carNumber": "83",
+          "drivers": [
+            "PHILIP HANSON",
+            "ROBERT KUBICA",
+            "YIFEI YE"
+          ],
+          "points": 31,
+          "pointsSource": "official",
+          "stagePoints": [
+            1,
+            8,
+            12,
+            10,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 10,
+          "carNumber": "007",
+          "drivers": [
+            "HARRY TINCKNELL",
+            "TOM GAMBLE"
+          ],
+          "points": 30,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            12,
+            8,
+            8,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 11,
+          "carNumber": "50",
+          "drivers": [
+            "ANTONIO FUOCO",
+            "MIGUEL MOLINA",
+            "NICKLAS NIELSEN"
+          ],
+          "points": 29,
+          "pointsSource": "official",
+          "stagePoints": [
+            8,
+            15,
+            0,
+            6,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 12,
+          "carNumber": "35",
+          "drivers": [
+            "ANTÓNIO FÉLIX DA COSTA",
+            "CHARLES MILESI",
+            "FERDINAND HABSBURG"
+          ],
+          "points": 29,
+          "pointsSource": "official",
+          "stagePoints": [
+            12,
+            0,
+            16,
+            1,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 13,
+          "carNumber": "12",
+          "drivers": [
+            "LOUIS DELÉTRAZ"
+          ],
+          "points": 26,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            2,
+            24,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 14,
+          "carNumber": "38",
+          "drivers": [
+            "EARL BAMBER",
+            "SÉBASTIEN BOURDAIS"
+          ],
+          "points": 16,
+          "pointsSource": "official",
+          "stagePoints": [
+            4,
+            0,
+            0,
+            12,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 15,
+          "carNumber": "38",
+          "drivers": [
+            "JACK AITKEN"
+          ],
+          "points": 12,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            12,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 16,
+          "carNumber": "007",
+          "drivers": [
+            "ROSS GUNN"
+          ],
+          "points": 8,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            8,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 17,
+          "carNumber": "93",
+          "drivers": [
+            "NICK CASSIDY",
+            "PAUL DI RESTA",
+            "STOFFEL VANDOORNE"
+          ],
+          "points": 6,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            6,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 18,
+          "carNumber": "17",
+          "drivers": [
+            "ANDRÉ LOTTERER",
+            "LUIS FELIPE DERANI",
+            "MATHYS JAUBERT"
+          ],
+          "points": 4,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            4,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 19,
+          "carNumber": "36",
+          "drivers": [
+            "FRÉDÉRIC MAKOWIECKI",
+            "JULES GOUNON",
+            "VICTOR MARTINS"
+          ],
+          "points": 4,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            4,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 20,
+          "carNumber": "94",
+          "drivers": [
+            "LOÏC DUVAL",
+            "MALTHE JAKOBSEN",
+            "THÉO POURCHAIRE"
+          ],
+          "points": 3,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            2,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 21,
+          "carNumber": "009",
+          "drivers": [
+            "ALEX RIBERAS",
+            "MARCO SØRENSEN"
+          ],
+          "points": 2,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            2,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 22,
+          "carNumber": "19",
+          "drivers": [
+            "DANIEL JUNCADELLA",
+            "MATHIEU JAMINET",
+            "PAUL-LOUP CHATIN"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 23,
+          "carNumber": "009",
+          "drivers": [
+            "ROMAN DE ANGELIS"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      ],
+      "manufacturers": [
+        {
+          "position": 1,
+          "name": "TOYOTA",
+          "points": 132,
+          "pointsSource": "official",
+          "stagePoints": [
+            40,
+            12,
+            80,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 2,
+          "name": "BMW",
+          "points": 127,
+          "pointsSource": "official",
+          "stagePoints": [
+            16,
+            43,
+            36,
+            31,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 3,
+          "name": "FERRARI",
+          "points": 88,
+          "pointsSource": "official",
+          "stagePoints": [
+            26,
+            15,
+            20,
+            26,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 4,
+          "name": "CADILLAC",
+          "points": 60,
+          "pointsSource": "official",
+          "stagePoints": [
+            4,
+            4,
+            24,
+            27,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 5,
+          "name": "ALPINE",
+          "points": 41,
+          "pointsSource": "official",
+          "stagePoints": [
+            13,
+            1,
+            24,
+            3,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 6,
+          "name": "ASTON MARTIN",
+          "points": 40,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            12,
+            12,
+            14,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 7,
+          "name": "PEUGEOT",
+          "points": 15,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            8,
+            6,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 8,
+          "name": "GENESIS",
+          "points": 6,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            6,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "raceClass": "LMGT3",
+      "winsSource": "real",
+      "crews": [
+        {
+          "position": 1,
+          "carNumber": "33",
+          "team": "TF Sport",
+          "drivers": [
+            "JONNY EDGAR",
+            "NICKY CATSBURG",
+            "BEN KEATING",
+            "BLAKE MCDONALD",
+            "NICOLÁS VARRONE"
+          ],
+          "points": 76,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            4,
+            50,
+            4,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 2,
+          "carNumber": "92",
+          "team": "The Bend Manthey",
+          "drivers": [
+            "RICCARDO PERA",
+            "RICHARD LIETZ",
+            "YASSER SHAHIN"
+          ],
+          "points": 49,
+          "pointsSource": "official",
+          "stagePoints": [
+            15,
+            15,
+            4,
+            15,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 3,
+          "carNumber": "34",
+          "team": "Racing Team Turkey By TF",
+          "drivers": [
+            "CHARLIE EASTWOOD",
+            "PETER DEMPSEY",
+            "SALIH YOLUÇ"
+          ],
+          "points": 43,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            2,
+            16,
+            25,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 4,
+          "carNumber": "69",
+          "team": "Team WRT",
+          "drivers": [
+            "ANTHONY MCINTOSH",
+            "DANIEL HARPER",
+            "PARKER THOMPSON"
+          ],
+          "points": 43,
+          "pointsSource": "official",
+          "stagePoints": [
+            25,
+            0,
+            0,
+            18,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 5,
+          "carNumber": "21",
+          "team": "Vista AF Corse",
+          "drivers": [
+            "ALESSIO ROVERA",
+            "FRANÇOIS HÉRIAU",
+            "SIMON MANN"
+          ],
+          "points": 42,
+          "pointsSource": "official",
+          "stagePoints": [
+            8,
+            12,
+            20,
+            2,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 6,
+          "carNumber": "87",
+          "team": "Akkodis ASP Team",
+          "drivers": [
+            "CLEMENS SCHMID",
+            "JOSÉ MARÍA LÓPEZ",
+            "PETRU UMBRĂRESCU"
+          ],
+          "points": 38,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            8,
+            24,
+            6,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 7,
+          "carNumber": "78",
+          "team": "Akkodis ASP Team",
+          "drivers": [
+            "HADRIEN DAVID",
+            "TOM VAN ROMPUY",
+            "JACK HAWKSWORTH",
+            "ESTEBAN MASSON"
+          ],
+          "points": 37,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            36,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 8,
+          "carNumber": "10",
+          "team": "Garage 59",
+          "drivers": [
+            "ANTARES AU",
+            "MARVIN KIRCHHÖFER",
+            "THOMAS FLEMING"
+          ],
+          "points": 34,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            25,
+            8,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 1
+        },
+        {
+          "position": 9,
+          "carNumber": "23",
+          "team": "Heart Of Racing Team",
+          "drivers": [
+            "GRAY NEWELL",
+            "JONNY ADAM",
+            "EDUARDO BARRICHELLO",
+            "KOBE PAUWELS"
+          ],
+          "points": 33,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            0,
+            30,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 10,
+          "carNumber": "91",
+          "team": "Manthey DK Engineering",
+          "drivers": [
+            "AYHANCAN GÜVEN",
+            "JAMES COTTINGHAM",
+            "TIMUR BOGUSLAVSKIY"
+          ],
+          "points": 30,
+          "pointsSource": "official",
+          "stagePoints": [
+            12,
+            6,
+            0,
+            12,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 11,
+          "carNumber": "32",
+          "team": "Team WRT",
+          "drivers": [
+            "AUGUSTO FARFUS",
+            "DARREN LEUNG",
+            "SEAN GELAEL"
+          ],
+          "points": 22,
+          "pointsSource": "official",
+          "stagePoints": [
+            10,
+            0,
+            12,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 12,
+          "carNumber": "27",
+          "team": "Heart Of Racing Team",
+          "drivers": [
+            "IAN JAMES",
+            "MATTIA DRUDI",
+            "ZACHARIE ROBICHON"
+          ],
+          "points": 19,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            18,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 13,
+          "carNumber": "58",
+          "team": "Garage 59",
+          "drivers": [
+            "ALEXANDER WEST",
+            "BENJAMIN GOETHE",
+            "FINN GEHRSITZ"
+          ],
+          "points": 18,
+          "pointsSource": "official",
+          "stagePoints": [
+            6,
+            10,
+            2,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 14,
+          "carNumber": "88",
+          "team": "Proton Competition",
+          "drivers": [
+            "GIAMMARCO LEVORATO",
+            "LOGAN SARGEANT",
+            "STEFANO GATTUSO"
+          ],
+          "points": 14,
+          "pointsSource": "official",
+          "stagePoints": [
+            4,
+            0,
+            0,
+            10,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 15,
+          "carNumber": "61",
+          "team": "Iron Lynx",
+          "drivers": [
+            "MARTIN BERRY",
+            "MAXIME MARTIN",
+            "RUI ANDRADE"
+          ],
+          "points": 9,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            1,
+            0,
+            8,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 16,
+          "carNumber": "77",
+          "team": "Proton Competition",
+          "drivers": [
+            "BEN TUCK",
+            "ERIC POWELL",
+            "SEBASTIAN PRIAULX"
+          ],
+          "points": 2,
+          "pointsSource": "official",
+          "stagePoints": [
+            1,
+            0,
+            0,
+            1,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 17,
+          "carNumber": "54",
+          "team": "Vista AF Corse",
+          "drivers": [
+            "DAVIDE RIGON",
+            "FRANCESCO CASTELLACCI",
+            "THOMAS FLOHR"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        },
+        {
+          "position": 18,
+          "carNumber": "79",
+          "team": "Iron Lynx",
+          "drivers": [
+            "JOHANNES ZELGER",
+            "LIN HODENIUS",
+            "MATTEO CRESSONI"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ],
+          "wins": 0
+        }
+      ],
+      "driverRows": [
+        {
+          "position": 1,
+          "carNumber": "33",
+          "drivers": [
+            "JONNY EDGAR"
+          ],
+          "points": 76,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            4,
+            50,
+            4,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 2,
+          "carNumber": "33",
+          "drivers": [
+            "NICKY CATSBURG"
+          ],
+          "points": 72,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            4,
+            50,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 3,
+          "carNumber": "33",
+          "drivers": [
+            "BEN KEATING"
+          ],
+          "points": 54,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            50,
+            4,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 4,
+          "carNumber": "92",
+          "drivers": [
+            "RICCARDO PERA",
+            "RICHARD LIETZ",
+            "YASSER SHAHIN"
+          ],
+          "points": 49,
+          "pointsSource": "official",
+          "stagePoints": [
+            15,
+            15,
+            4,
+            15,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 5,
+          "carNumber": "69",
+          "drivers": [
+            "ANTHONY MCINTOSH",
+            "DANIEL HARPER",
+            "PARKER THOMPSON"
+          ],
+          "points": 43,
+          "pointsSource": "official",
+          "stagePoints": [
+            25,
+            0,
+            0,
+            18,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 6,
+          "carNumber": "34",
+          "drivers": [
+            "CHARLIE EASTWOOD",
+            "PETER DEMPSEY",
+            "SALIH YOLUÇ"
+          ],
+          "points": 43,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            2,
+            16,
+            25,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 7,
+          "carNumber": "21",
+          "drivers": [
+            "ALESSIO ROVERA",
+            "FRANÇOIS HÉRIAU",
+            "SIMON MANN"
+          ],
+          "points": 42,
+          "pointsSource": "official",
+          "stagePoints": [
+            8,
+            12,
+            20,
+            2,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 8,
+          "carNumber": "87",
+          "drivers": [
+            "CLEMENS SCHMID",
+            "JOSÉ MARÍA LÓPEZ",
+            "PETRU UMBRĂRESCU"
+          ],
+          "points": 38,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            8,
+            24,
+            6,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 9,
+          "carNumber": "78",
+          "drivers": [
+            "HADRIEN DAVID",
+            "TOM VAN ROMPUY"
+          ],
+          "points": 37,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            36,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 10,
+          "carNumber": "78",
+          "drivers": [
+            "JACK HAWKSWORTH"
+          ],
+          "points": 36,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            36,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 11,
+          "carNumber": "10",
+          "drivers": [
+            "ANTARES AU",
+            "MARVIN KIRCHHÖFER",
+            "THOMAS FLEMING"
+          ],
+          "points": 34,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            25,
+            8,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 12,
+          "carNumber": "23",
+          "drivers": [
+            "GRAY NEWELL",
+            "JONNY ADAM"
+          ],
+          "points": 33,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            0,
+            30,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 13,
+          "carNumber": "23",
+          "drivers": [
+            "EDUARDO BARRICHELLO"
+          ],
+          "points": 30,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            30,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 14,
+          "carNumber": "91",
+          "drivers": [
+            "AYHANCAN GÜVEN",
+            "JAMES COTTINGHAM",
+            "TIMUR BOGUSLAVSKIY"
+          ],
+          "points": 30,
+          "pointsSource": "official",
+          "stagePoints": [
+            12,
+            6,
+            0,
+            12,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 15,
+          "carNumber": "33",
+          "drivers": [
+            "BLAKE MCDONALD"
+          ],
+          "points": 22,
+          "pointsSource": "official",
+          "stagePoints": [
+            18,
+            4,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 16,
+          "carNumber": "32",
+          "drivers": [
+            "AUGUSTO FARFUS",
+            "DARREN LEUNG",
+            "SEAN GELAEL"
+          ],
+          "points": 22,
+          "pointsSource": "official",
+          "stagePoints": [
+            10,
+            0,
+            12,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 17,
+          "carNumber": "27",
+          "drivers": [
+            "IAN JAMES",
+            "MATTIA DRUDI",
+            "ZACHARIE ROBICHON"
+          ],
+          "points": 19,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            18,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 18,
+          "carNumber": "58",
+          "drivers": [
+            "ALEXANDER WEST",
+            "BENJAMIN GOETHE",
+            "FINN GEHRSITZ"
+          ],
+          "points": 18,
+          "pointsSource": "official",
+          "stagePoints": [
+            6,
+            10,
+            2,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 19,
+          "carNumber": "88",
+          "drivers": [
+            "GIAMMARCO LEVORATO",
+            "LOGAN SARGEANT",
+            "STEFANO GATTUSO"
+          ],
+          "points": 14,
+          "pointsSource": "official",
+          "stagePoints": [
+            4,
+            0,
+            0,
+            10,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 20,
+          "carNumber": "61",
+          "drivers": [
+            "MARTIN BERRY",
+            "MAXIME MARTIN",
+            "RUI ANDRADE"
+          ],
+          "points": 9,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            1,
+            0,
+            8,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 21,
+          "carNumber": "33",
+          "drivers": [
+            "NICOLÁS VARRONE"
+          ],
+          "points": 4,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            4,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 22,
+          "carNumber": "23",
+          "drivers": [
+            "KOBE PAUWELS"
+          ],
+          "points": 3,
+          "pointsSource": "official",
+          "stagePoints": [
+            2,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 23,
+          "carNumber": "77",
+          "drivers": [
+            "BEN TUCK",
+            "ERIC POWELL",
+            "SEBASTIAN PRIAULX"
+          ],
+          "points": 2,
+          "pointsSource": "official",
+          "stagePoints": [
+            1,
+            0,
+            0,
+            1,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 24,
+          "carNumber": "78",
+          "drivers": [
+            "ESTEBAN MASSON"
+          ],
+          "points": 1,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 25,
+          "carNumber": "54",
+          "drivers": [
+            "DAVIDE RIGON",
+            "FRANCESCO CASTELLACCI",
+            "THOMAS FLOHR"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "position": 26,
+          "carNumber": "79",
+          "drivers": [
+            "JOHANNES ZELGER",
+            "LIN HODENIUS",
+            "MATTEO CRESSONI"
+          ],
+          "points": 0,
+          "pointsSource": "official",
+          "stagePoints": [
+            0,
+            0,
+            0,
+            0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ]
+}

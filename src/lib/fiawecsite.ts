@@ -13,7 +13,8 @@ export const COUNTRY_NAME_TO_ISO2: Record<string, string> = {
   "SAUDI ARABIA": "sa",
 };
 // E3 JSON-LD address ISO-3 → ISO-2 (порт WECRacePageParser.iso3to2).
-const ISO3_TO_2: Record<string, string> = {
+// Экспорт: wecsnapshot.ts кладёт ту же ISO-2 в index.json (countryCode клиента).
+export const ISO3_TO_2: Record<string, string> = {
   ITA: "it", BEL: "be", FRA: "fr", BRA: "br", USA: "us", JPN: "jp", QAT: "qa",
   BHR: "bh", GBR: "gb", CHN: "cn", PRT: "pt", ESP: "es", DEU: "de", SAU: "sa", ARE: "ae",
 };
@@ -37,6 +38,16 @@ export function expectedRaceMirrors(slugs: string[]): Set<string> {
   return new Set(slugs.map((s) => mirrorSlug(`/en/race/${s}`)));
 }
 
+/// Тела всех <script type="application/ld+json"> страницы — в порядке
+/// документа. Выделено из eventInfo: wecsnapshot.ts (фаза 3a) читает тот же
+/// JSON-LD, но с клиентской семантикой «первый SportsEvent-блок, не
+/// распарсился → nil» (WECRacePageParser останавливается на первом блоке,
+/// eventInfo ниже перебирает дальше — обе семантики живут на этом хелпере).
+export function ldJsonBlocks(html: string): string[] {
+  const blocks = html.match(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) ?? [];
+  return blocks.map((block) => block.replace(/<script[^>]*>/i, "").replace(/<\/script>/i, ""));
+}
+
 // start/endDate (мс) + ISO-2 страны из JSON-LD SportsEvent страницы
 // /en/race/<slug>. Экспортирован: wecfia.ts читает те же зеркальные страницы
 // для freeze-окон своих этапов.
@@ -45,9 +56,7 @@ export function eventInfo(html: string): {
   endMs: number | null;
   iso2: string | null;
 } {
-  const blocks = html.match(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) ?? [];
-  for (const block of blocks) {
-    const body = block.replace(/<script[^>]*>/i, "").replace(/<\/script>/i, "");
+  for (const body of ldJsonBlocks(html)) {
     if (!body.includes("SportsEvent")) continue;
     try {
       const j = JSON.parse(body);

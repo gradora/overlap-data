@@ -12,6 +12,7 @@ import {
   eventInfo, expectedRaceMirrors, isRaceMirrorOfSeason, raceIdOf,
   raceSlugs, seasonStarted, sessionOptions, stripCountdown, testSlugs,
 } from "../lib/fiawecsite.js";
+import { buildWecSnapshot } from "../lib/wecsnapshot.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const FIAWEC = "https://www.fiawec.com";
@@ -122,6 +123,9 @@ async function main() {
   // пустой HTML): храним только с <table.
   const started = Object.values(endBySlug).filter((v): v is number => v !== null);
   if (!seasonStarted(started, NOW)) {
+    // Витрина (фаза 3a) собирается и в пред-сезонье: календарь публикуется до
+    // первого этапа, а зачёт сам отсечётся season-guard'ом.
+    console.log(`  ${buildWecSnapshot(YEAR, NOW)}`);
     console.log(
       `Done. ${slugs.length} events (${frozenEvents} frozen E3); сезон ${YEAR} не начался — E5/E6 пропущены`,
     );
@@ -156,6 +160,10 @@ async function main() {
       }
     }
   }
+
+  // Витрина фазы 3a — из только что снятого зеркала, тем же прогоном (нового
+  // шага воркфлоу и записи в реестре свежести НЕ появляется).
+  console.log(`  ${buildWecSnapshot(YEAR, NOW)}`);
 
   console.log(`Done. ${slugs.length} events, ${tests.length} tests (${frozenEvents} frozen E3), ${Object.keys(raceIdBySlug).length} raceIds (${frozenRaces} frozen, ${skipped} without page), ${e6} session results updated.`);
 }

@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-26T19:39:02.265Z",
+  "series": "wec",
+  "season": 2026,
+  "frozen": false,
+  "events": [
+    {
+      "round": 0,
+      "slug": "official-prologue-imola-2026",
+      "name": "Official Prologue - IMOLA",
+      "venue": "Imola",
+      "trackRef": "imola",
+      "status": "EventCompleted",
+      "countryCode": "it",
+      "start": "2026-04-14T00:00:00+02:00",
+      "end": "2026-04-14T12:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "official-prologue-imola-2026",
+          "raceId": 5042,
+          "sessions": []
+        }
+      }
+    },
+    {
+      "round": 1,
+      "slug": "6-hours-of-imola-2026",
+      "name": "6 Hours of Imola",
+      "venue": "Imola",
+      "trackRef": "imola",
+      "status": "EventCompleted",
+      "countryCode": "it",
+      "start": "2026-04-17T00:00:00+02:00",
+      "end": "2026-04-19T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-imola-2026",
+          "raceId": 4948,
+          "sessions": [
+            {
+              "id": 7804,
+              "label": "RACE"
+            },
+            {
+              "id": 7803,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7802,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7801,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7800,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7799,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7798,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7797,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 2,
+      "slug": "totalenergies-6-hours-of-spa-francorchamps-2026",
+      "name": "TotalEnergies 6 Hours of Spa-Francorchamps",
+      "venue": "Spa-Francorchamps",
+      "trackRef": "spa-francorchamps",
+      "status": "EventCompleted",
+      "countryCode": "be",
+      "start": "2026-05-07T00:00:00+02:00",
+      "end": "2026-05-09T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "totalenergies-6-hours-of-spa-francorchamps-2026",
+          "raceId": 4949,
+          "sessions": [
+            {
+              "id": 7812,
+              "label": "RACE"
+            },
+            {
+              "id": 7811,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7810,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7809,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7808,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7807,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7806,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7805,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 3,
+      "slug": "24-hours-of-le-mans-2026",
+      "name": "24 Hours of Le Mans",
+      "venue": "24 Heures du Mans",
+      "trackRef": "le-mans",
+      "status": "EventCompleted",
+      "countryCode": "fr",
+      "start": "2026-06-10T00:00:00+02:00",
+      "end": "2026-06-14T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "24-hours-of-le-mans-2026",
+          "raceId": 4951,
+          "sessions": [
+            {
+              "id": 7709,
+              "label": "RACE"
+            },
+            {
+              "id": 7869,
+              "label": "WARM-UP"
+            },
+            {
+              "id": 7868,
+              "label": "FREE PRACTICE 4"
+            },
+            {
+              "id": 7867,
+              "label": "HYPERPOLE 2 - HYPERCAR"
+            },
+            {
+              "id": 7866,
+              "label": "HYPERPOLE 1 - HYPERCAR"
+            },
+            {
+              "id": 7865,
+              "label": "HYPERPOLE 2 - LMP2 & LMGT3"
+            },
+            {
+              "id": 7864,
+              "label": "HYPERPOLE 1 - LMP2 & LMGT3"
+            },
+            {
+              "id": 7861,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7860,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7863,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7862,
+              "label": "QUALIFYING - LMP2 & LMGT3"
+            },
+            {
+              "id": 7859,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 4,
+      "slug": "rolex-6-hours-of-sao-paulo-2026",
+      "name": "ROLEX 6 Hours of São Paulo",
+      "venue": "Interlagos",
+      "trackRef": "interlagos",
+      "status": "EventCompleted",
+      "countryCode": "br",
+      "start": "2026-07-10T00:00:00+02:00",
+      "end": "2026-07-12T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "rolex-6-hours-of-sao-paulo-2026",
+          "raceId": 4952,
+          "sessions": [
+            {
+              "id": 7851,
+              "label": "RACE"
+            },
+            {
+              "id": 7858,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7857,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7856,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7855,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7854,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7853,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7852,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 5,
+      "slug": "lone-star-le-mans-2026",
+      "name": "Lone Star Le Mans",
+      "venue": "Circuit des Amériques",
+      "trackRef": "circuit-of-the-americas",
+      "status": "EventScheduled",
+      "countryCode": "us",
+      "start": "2026-09-04T00:00:00+02:00",
+      "end": "2026-09-06T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "lone-star-le-mans-2026",
+          "raceId": 4953,
+          "sessions": [
+            {
+              "id": 7822,
+              "label": "RACE"
+            },
+            {
+              "id": 7821,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7820,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7819,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7818,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7817,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7816,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7815,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 6,
+      "slug": "6-hours-of-fuji-2026",
+      "name": "6 Hours of Fuji",
+      "venue": "Fuji Speedway",
+      "trackRef": "fuji",
+      "status": "EventScheduled",
+      "countryCode": "jp",
+      "start": "2026-09-25T00:00:00+02:00",
+      "end": "2026-09-27T00:00:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-fuji-2026",
+          "raceId": 4954,
+          "sessions": [
+            {
+              "id": 7830,
+              "label": "RACE"
+            },
+            {
+              "id": 7829,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 7828,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 7827,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 7826,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 7825,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 7824,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 7823,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 7,
+      "slug": "6-hours-of-barcelona-2026",
+      "name": "6 Hours of Barcelona",
+      "venue": "Barcelona",
+      "trackRef": "barcelona",
+      "status": "EventScheduled",
+      "countryCode": "es",
+      "start": "2026-10-16T00:00:00+02:00",
+      "end": "2026-10-18T23:59:00+02:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-barcelona-2026",
+          "raceId": 5065,
+          "sessions": [
+            {
+              "id": 8284,
+              "label": "RACE"
+            },
+            {
+              "id": 8283,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 8282,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 8281,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 8280,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 8279,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 8278,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 8277,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "round": 8,
+      "slug": "6-hours-of-monza-2026",
+      "name": "6 Hours of Monza",
+      "venue": "Monza",
+      "trackRef": "monza",
+      "status": "EventScheduled",
+      "countryCode": "it",
+      "start": "2026-11-06T00:00:00+01:00",
+      "end": "2026-11-08T23:59:00+01:00",
+      "sourceIds": {
+        "fiawec": {
+          "slug": "6-hours-of-monza-2026",
+          "raceId": 5066,
+          "sessions": [
+            {
+              "id": 8292,
+              "label": "RACE"
+            },
+            {
+              "id": 8291,
+              "label": "HYPERPOLE - HYPERCAR"
+            },
+            {
+              "id": 8290,
+              "label": "QUALIFYING - HYPERCAR"
+            },
+            {
+              "id": 8289,
+              "label": "HYPERPOLE - LMGT3"
+            },
+            {
+              "id": 8288,
+              "label": "QUALIFYING - LMGT3"
+            },
+            {
+              "id": 8287,
+              "label": "FREE PRACTICE 3"
+            },
+            {
+              "id": 8286,
+              "label": "FREE PRACTICE 2"
+            },
+            {
+              "id": 8285,
+              "label": "FREE PRACTICE 1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
