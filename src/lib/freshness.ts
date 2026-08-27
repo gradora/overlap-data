@@ -157,6 +157,9 @@ export function staleProducers(
 ): StaleEntry[] {
   const out: StaleEntry[] = [];
   for (const spec of registry) {
+    // Ручной продьюсер (см. ProducerSpec.manual) в расчёт не входит: ему никто
+    // не обещал регулярности, и вечная тревога по нему обесценила бы сигнал.
+    if (spec.manual) continue;
     const success = lastSuccess[spec.key];
     const since = success ?? firstSeen[spec.key];
     if (since === undefined) continue; // ни отметки, ни точки отсчёта — судить не о чем
@@ -194,9 +197,14 @@ export function computeFreshness(
   today: string,
   registry: ProducerSpec[] = PRODUCERS,
 ): Freshness {
+  // Ручные продьюсеры (ProducerSpec.manual) выпадают из свежести ЦЕЛИКОМ, а не
+  // только из просрочки: иначе им проставлялся бы firstSeen — точка отсчёта для
+  // того, кто «ещё не отработал», — и health.json вечно показывал бы ожидание
+  // прогона, которого никто не обещал.
+  const tracked = registry.filter((spec) => !spec.manual);
   const lastSuccess = mergeLastSuccess(
-    readStamps(previous?.lastSuccess), outcomes, markers, today, registry,
+    readStamps(previous?.lastSuccess), outcomes, markers, today, tracked,
   );
-  const firstSeen = mergeFirstSeen(readStamps(previous?.firstSeen), lastSuccess, today, registry);
-  return { lastSuccess, firstSeen, stale: staleProducers(lastSuccess, firstSeen, today, registry) };
+  const firstSeen = mergeFirstSeen(readStamps(previous?.firstSeen), lastSuccess, today, tracked);
+  return { lastSuccess, firstSeen, stale: staleProducers(lastSuccess, firstSeen, today, tracked) };
 }

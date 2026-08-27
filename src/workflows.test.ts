@@ -12,6 +12,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { PRODUCERS } from "./lib/producers.js";
 
 const WORKFLOWS_DIR = ".github/workflows";
 const PRODUCERS_DIR = "src/producers";
@@ -25,7 +26,12 @@ const NOT_PRODUCERS = new Set(["test", "typecheck"]);
 /// все до одного стоят в кроне. Добавляя сюда имя, оставь рядом причину:
 /// «ручной» без объяснения — это ровно тот случай, из-за которого f1teams
 /// простоял вне крона 17 дней и уронил экран команды.
-const MANUAL_ONLY = new Map<string, string>();
+/// Ручные продьюсеры берутся ИЗ РЕЕСТРА (ProducerSpec.manual), а не из второго
+/// списка здесь: два источника правды про одно и то же разъезжались бы молча —
+/// продьюсер, убранный из крона, оставался бы «ручным» только в одном месте.
+const MANUAL_ONLY = new Map<string, string>(
+  PRODUCERS.filter((p) => p.manual && p.script).map((p) => [p.script!, p.manual!]),
+);
 
 interface Workflow { name: string; text: string }
 

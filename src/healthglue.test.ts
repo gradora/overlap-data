@@ -181,7 +181,15 @@ test("реестр покрывает все продьюсеры и у кажд
   assert.ok(PRODUCERS.length >= 20);
   for (const s of PRODUCERS) {
     assert.ok(s.budgetDays > 0, `${s.key}: бюджет обязан быть положительным`);
-    assert.ok(s.workflow.endsWith(".yml"), `${s.key}: канал указан не файлом воркфлоу`);
+    // У ручного продьюсера канал — не воркфлоу, а команда: воркфлоу для него
+    // не просто отсутствует, а НЕВОЗМОЖЕН (fomstatic: источник отдаёт раннерам
+    // GitHub 403). Требовать «.yml» здесь значило бы толкать к фиктивному крону.
+    if (s.manual) {
+      assert.ok(s.manual.length > 10, `${s.key}: ручной продьюсер обязан объяснить причину`);
+      assert.ok(!s.workflow.endsWith(".yml"), `${s.key}: ручной, но канал назван воркфлоу`);
+    } else {
+      assert.ok(s.workflow.endsWith(".yml"), `${s.key}: канал указан не файлом воркфлоу`);
+    }
   }
 });
 

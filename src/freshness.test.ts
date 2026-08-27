@@ -262,7 +262,7 @@ test("продьюсер, которого нет в snapshot.yml, попада�
 /// тест валился не на регрессии, а на расширении реестра.
 function markerStamps(day: string): Stamps {
   const out: Stamps = {};
-  for (const p of PRODUCERS) if (p.marker) out[p.key] = day;
+  for (const p of PRODUCERS) if (p.marker && !p.manual) out[p.key] = day;
   return out;
 }
 
@@ -273,7 +273,8 @@ test("живой snapshot.yml + маркеры чужих воркфлоу: пр
   const f = computeFreshness(undefined, outcomesFromWorkflow(yml, PRODUCERS), markerStamps(DAY), DAY);
   assert.deepEqual(f.stale, []);
   assert.deepEqual(f.firstSeen, {}, "все продьюсеры реестра отметились в первый же прогон");
-  assert.equal(Object.keys(f.lastSuccess).length, PRODUCERS.length);
+  // Ручные продьюсеры в свежесть не входят вовсе (см. computeFreshness).
+  assert.equal(Object.keys(f.lastSuccess).length, PRODUCERS.filter((p) => !p.manual).length);
 });
 
 // MARK: - Дневная гранулярность
@@ -354,7 +355,7 @@ test("каждый шаг snapshot.yml объявлен в реестре", () =
 test("ключ реестра, env-переменная и id шага — одно пространство имён", () => {
   const yml = readFileSync(SNAPSHOT_YML, "utf8");
   for (const p of PRODUCERS) {
-    if (p.marker) continue;
+    if (p.marker || p.manual) continue;   // маркерные и ручные шага в snapshot.yml не имеют
     assert.ok(
       yml.includes(`${envKeyFor(p.key)}: \${{ steps.${p.key}.outcome }}`),
       `«${p.key}»: в snapshot.yml нет ${envKeyFor(p.key)} от steps.${p.key} — ` +
@@ -390,7 +391,15 @@ test("бюджеты положительные, ключи уникальны, 
     assert.ok(!keys.has(p.key), `дубль ключа «${p.key}» в реестре`);
     keys.add(p.key);
     assert.ok(p.budgetDays >= 1, `«${p.key}»: бюджет должен быть ≥1 суток`);
-    assert.match(p.workflow, /^\.github\/workflows\/[\w-]+\.yml$/, `«${p.key}»: канал указан неверно`);
+    if (p.manual) {
+      // Ручной продьюсер называет каналом КОМАНДУ, а не воркфлоу: крон для него
+      // невозможен (fomstatic — источник отдаёт раннерам GitHub 403), и
+      // требование «.yml» толкало бы завести фиктивный.
+      assert.match(p.workflow, /^вручную: npm run [\w-]+$/, `«${p.key}»: ручной канал назван неверно`);
+      assert.ok((p.manual ?? "").length > 10, `«${p.key}»: причина ручного прогона не объяснена`);
+    } else {
+      assert.match(p.workflow, /^\.github\/workflows\/[\w-]+\.yml$/, `«${p.key}»: канал указан неверно`);
+    }
   }
 });
 
