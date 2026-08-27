@@ -242,7 +242,7 @@ test("продьюсер, которого нет в snapshot.yml, попада�
 
   for (let d = 0; d <= budget + 2; d++) {
     const today = addDays(start, d);
-    const f = computeFreshness(state, outcomes, { tracks: today }, today);
+    const f = computeFreshness(state, outcomes, markerStamps(today), today);
     state = { lastSuccess: f.lastSuccess, firstSeen: f.firstSeen };
     if (staleKeys(f).includes("f1teams")) seen.push(d);
     // Пока бюджет не вышел — тишина; и НИКОГДА не должен всплыть кто-то ещё.
@@ -257,11 +257,20 @@ test("продьюсер, которого нет в snapshot.yml, попада�
   assert.equal(state!.lastSuccess.f1teams, undefined, "успеха у него не было");
 });
 
-test("живой snapshot.yml + маркер tracks: просроченных нет", () => {
+/// Отметки ВСЕХ продьюсеров с маркером на указанный день. Литеральный
+/// `{ tracks: DAY }` ломался при появлении второго такого продьюсера (weclive):
+/// тест валился не на регрессии, а на расширении реестра.
+function markerStamps(day: string): Stamps {
+  const out: Stamps = {};
+  for (const p of PRODUCERS) if (p.marker) out[p.key] = day;
+  return out;
+}
+
+test("живой snapshot.yml + маркеры чужих воркфлоу: просроченных нет", () => {
   // Обратная сторона того же теста — на реальной проводке сигнал молчит,
   // иначе он был бы бесполезен.
   const yml = readFileSync(SNAPSHOT_YML, "utf8");
-  const f = computeFreshness(undefined, outcomesFromWorkflow(yml, PRODUCERS), { tracks: DAY }, DAY);
+  const f = computeFreshness(undefined, outcomesFromWorkflow(yml, PRODUCERS), markerStamps(DAY), DAY);
   assert.deepEqual(f.stale, []);
   assert.deepEqual(f.firstSeen, {}, "все продьюсеры реестра отметились в первый же прогон");
   assert.equal(Object.keys(f.lastSuccess).length, PRODUCERS.length);

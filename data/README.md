@@ -26,6 +26,7 @@
 | `wec/<год>/` | wec (внутри прогона зеркала) | `index.json` + `standings.json` + `NN_<event-slug>.json` / `test_<slug>.json` (сессии события; путь публикует `index.events[].resultsPath`) |
 | `f1/calendar/<год>.json` | f1overrides (внутри прогона GC) | смёрженный календарь сезона: jolpica + оверлей OpenF1 + курируемый слой. `round` 0 — сентинел «раунда в источнике нет» (тест/отмена/фантом), `status` tbc — нумерация провизорна, `sourceIds` — ключи события во всех источниках |
 | `tracks/index.json` | tracks | синглтон, ПЛОСКАЯ карта slug→запись (без конверта) |
+| `wec/_live_health.json` | weclive (свой воркфлоу) | маркер свежести продьюсера «идущий этап»: `{"lastSuccess":"YYYY-MM-DD"}`, пишется на каждом прогоне (включая холостой) ДНЁМ — иначе 96 прогонов в сутки давали бы 96 коммитов |
 | `f1/overrides/calendar.json` | — РУКАМИ (+GC f1overrides) | см. README корня |
 | `f1/records/catalog.json` | — РУКАМИ | курируемые рекорды |
 | `health.json` | health | heartbeat + статусы всех продьюсеров |
