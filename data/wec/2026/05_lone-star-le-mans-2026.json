@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T09:13:46.970Z",
+  "series": "wec",
+  "season": 2026,
+  "round": 5,
+  "slug": "lone-star-le-mans-2026",
+  "name": "Lone Star Le Mans",
+  "venue": "Circuit des Amériques",
+  "trackRef": "circuit-of-the-americas",
+  "countryCode": "us",
+  "status": "EventScheduled",
+  "start": "2026-09-04T00:00:00+02:00",
+  "end": "2026-09-06T00:00:00+02:00",
+  "frozen": false,
+  "crewSource": "seasonStandings",
+  "sourceIds": {
+    "fiawec": {
+      "slug": "lone-star-le-mans-2026",
+      "raceId": 4953
+    }
+  },
+  "sessions": [
+    {
+      "kind": "practice",
+      "name": "Free Practice 1",
+      "number": 1,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-04T11:30:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7815
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 2",
+      "number": 2,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-04T16:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7816
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 3",
+      "number": 3,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-05T11:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7817
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2026-09-05T15:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7818
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2026-09-05T15:20:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7819
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-05T15:40:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7820
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-05T16:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7821
+      },
+      "rows": []
+    },
+    {
+      "kind": "race",
+      "name": "Race",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-09-06T13:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 7822
+      },
+      "rows": []
+    }
+  ]
+}

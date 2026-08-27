@@ -3,6 +3,12 @@
 // Приложение (SnapshotMirror.wecPath) читает их первым, при промахе — прямой
 // fiawec. Перечисление URL повторяет парсеры приложения: slugs из /en/season,
 // raceId из /en/page/resultats-1, sessionId из resultats-1?raceId=.
+//
+// Тем же прогоном (без своего шага воркфлоу и записи в реестре свежести) из
+// снятого зеркала собирается витрина WEC — фазы 3a и 3b DATA-PLAN:
+//   wec/<год>/index.json + standings.json      — buildWecSnapshot,
+//   wec/<год>/<NN>_<слаг>.json (сессии события) — buildWecEventFiles
+// (порядок обязателен: файлы событий строятся из index.json этого прогона).
 
 import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -12,6 +18,7 @@ import {
   eventInfo, expectedRaceMirrors, isRaceMirrorOfSeason, raceIdOf,
   raceSlugs, seasonStarted, sessionOptions, stripCountdown, testSlugs,
 } from "../lib/fiawecsite.js";
+import { buildWecEventFiles } from "../lib/wecevents.js";
 import { buildWecSnapshot } from "../lib/wecsnapshot.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -123,9 +130,11 @@ async function main() {
   // пустой HTML): храним только с <table.
   const started = Object.values(endBySlug).filter((v): v is number => v !== null);
   if (!seasonStarted(started, NOW)) {
-    // Витрина (фаза 3a) собирается и в пред-сезонье: календарь публикуется до
-    // первого этапа, а зачёт сам отсечётся season-guard'ом.
+    // Витрина (фазы 3a/3b) собирается и в пред-сезонье: календарь и расписания
+    // уик-эндов публикуются до первого этапа (протоколов там просто нет), а
+    // зачёт сам отсечётся season-guard'ом.
     console.log(`  ${buildWecSnapshot(YEAR, NOW)}`);
+    console.log(`  ${buildWecEventFiles(YEAR, NOW)}`);
     console.log(
       `Done. ${slugs.length} events (${frozenEvents} frozen E3); сезон ${YEAR} не начался — E5/E6 пропущены`,
     );
@@ -161,9 +170,10 @@ async function main() {
     }
   }
 
-  // Витрина фазы 3a — из только что снятого зеркала, тем же прогоном (нового
+  // Витрина фаз 3a/3b — из только что снятого зеркала, тем же прогоном (нового
   // шага воркфлоу и записи в реестре свежести НЕ появляется).
   console.log(`  ${buildWecSnapshot(YEAR, NOW)}`);
+  console.log(`  ${buildWecEventFiles(YEAR, NOW)}`);
 
   console.log(`Done. ${slugs.length} events, ${tests.length} tests (${frozenEvents} frozen E3), ${Object.keys(raceIdBySlug).length} raceIds (${frozenRaces} frozen, ${skipped} without page), ${e6} session results updated.`);
 }

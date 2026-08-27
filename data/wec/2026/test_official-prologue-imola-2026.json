@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T09:13:46.942Z",
+  "series": "wec",
+  "season": 2026,
+  "round": 0,
+  "slug": "official-prologue-imola-2026",
+  "name": "Official Prologue - IMOLA",
+  "venue": "Imola",
+  "trackRef": "imola",
+  "countryCode": "it",
+  "status": "EventCompleted",
+  "start": "2026-04-14T00:00:00+02:00",
+  "end": "2026-04-14T12:00:00+02:00",
+  "frozen": true,
+  "crewSource": "seasonStandings",
+  "sourceIds": {
+    "fiawec": {
+      "slug": "official-prologue-imola-2026",
+      "raceId": 5042
+    }
+  },
+  "sessions": [
+    {
+      "kind": "other",
+      "name": "MORNING SESSION",
+      "number": null,
+      "phase": null,
+      "raceClass": null,
+      "start": "2026-04-14T09:00:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    },
+    {
+      "kind": "other",
+      "name": "AFTERNOON SESSION",
+      "number": null,
+      "phase": null,
+      "raceClass": null,
+      "start": "2026-04-14T14:00:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": null
+      },
+      "rows": []
+    }
+  ]
+}

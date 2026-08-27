@@ -61,7 +61,7 @@ test("assembleIndexEvents: нумерация по дате старта, не �
   const imola = page("imola-2031", racePageHTML({ name: "WEC 6 Hours of Imola 2031", start: "2031-04-18T00:00:00+02:00", end: "2031-04-20T00:00:00+02:00" }));
   const tba = page("tba-2031", racePageHTML({ name: "WEC Mystery 2031" }));
   // Порядок страницы сезона нарочно «неправильный»: нумерует дата, не навигация.
-  const events = assembleIndexEvents([tba, spa, imola], [], undefined, new Map());
+  const events = assembleIndexEvents(2031, [tba, spa, imola], [], undefined, new Map());
   assert.deepEqual(events.map((e) => [e.round, e.slug]), [
     [1, "imola-2031"], [2, "spa-2031"], [3, "tba-2031"],
   ]);
@@ -72,14 +72,14 @@ test("assembleIndexEvents: нумерация по дате старта, не �
 test("assembleIndexEvents: ничья без дат — по слагу (клиентский тай-брейк)", () => {
   const a = page("b-race-2031", racePageHTML({ name: "B 2031" }));
   const b = page("a-race-2031", racePageHTML({ name: "A 2031" }));
-  const events = assembleIndexEvents([a, b], [], undefined, new Map());
+  const events = assembleIndexEvents(2031, [a, b], [], undefined, new Map());
   assert.deepEqual(events.map((e) => e.slug), ["a-race-2031", "b-race-2031"]);
 });
 
 test("прологи: round=0, впереди файла, нумерацию этапов не смещают", () => {
   const race = page("6-hours-of-imola-2031", racePageHTML({ name: "WEC 6 Hours of Imola 2031", start: "2031-04-18T00:00:00+02:00" }));
   const prologue = page("official-prologue-imola-2031", racePageHTML({ name: "WEC Official Prologue - IMOLA 2031", start: "2031-04-14T00:00:00+02:00" }));
-  const events = assembleIndexEvents([race], [prologue], undefined, new Map());
+  const events = assembleIndexEvents(2031, [race], [prologue], undefined, new Map());
   assert.deepEqual(events.map((e) => [e.round, e.slug]), [
     [0, "official-prologue-imola-2031"], [1, "6-hours-of-imola-2031"],
   ]);
@@ -428,6 +428,13 @@ test("buildWecSnapshot: полный цикл из зеркала; повтор 
       [1, "totalenergies-6-hours-of-spa-francorchamps-2031"],
       [2, "24-hours-of-le-mans-2031-1"],
     ]);
+    // Путь файла сессий события (шаг 3b) публикует индекс: имя считает ОДНА
+    // функция на обе стороны контракта, клиент его сам не выводит.
+    assert.deepEqual(index.events.map((e: any) => e.resultsPath), [
+      "wec/2031/test_official-prologue-imola-2031.json",
+      "wec/2031/01_totalenergies-6-hours-of-spa-francorchamps-2031.json",
+      "wec/2031/02_24-hours-of-le-mans-2031-1.json",
+    ]);
     const leMans = index.events[2];
     assert.equal(leMans.trackRef, "le-mans", "числовой хвост слага Ле-Мана не мешает рефу");
     assert.equal(leMans.countryCode, "fr");
@@ -528,4 +535,41 @@ test("standingsPageSeason: активная кнопка не обязана с�
     <button class="season-selector btn btn-link" data-season="15">Season 2032</button>
     <button class="season-selector btn btn-link active" data-season="2">Season 2031</button>`;
   assert.equal(standingsPageSeason(html), 2031, "нужен год АКТИВНОЙ кнопки, не первой");
+});
+
+test("parseRacePage: расписание уик-энда — время и статус каждой сессии", () => {
+  // Находка скептика 3b: порт времени и статуса сессий (subEvent) не был
+  // покрыт НИЧЕМ — два мутанта (start: null, status: null) переживали весь
+  // прогон. Между тем именно эти поля определяют, что экран показывает у
+  // карточки сессии и считает ли билдер её завершённой.
+  const ld = {
+    "@type": "SportsEvent",
+    name: "6 Hours of Imola",
+    startDate: "2026-04-17T00:00:00+02:00",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: { name: "Imola", address: "ITA" },
+    subEvent: [
+      {
+        "@type": "SportsEvent", name: "Free Practice 1",
+        startDate: "2026-04-17T12:30:00+02:00",
+        eventStatus: "https://schema.org/EventCompleted",
+      },
+      {
+        "@type": "SportsEvent", name: "Race",
+        startDate: "2026-04-19T13:00:00+02:00",
+        eventStatus: "https://schema.org/EventScheduled",
+      },
+      // Сессия без времени — расписание объявлено, слот ещё не назначен.
+      { "@type": "SportsEvent", name: "Warm Up" },
+    ],
+  };
+  const parsed = parseRacePage(
+    `<html><script type="application/ld+json">${JSON.stringify(ld)}</script></html>`,
+  );
+  assert.ok(parsed);
+  assert.deepEqual(parsed!.sessions, [
+    { name: "Free Practice 1", start: "2026-04-17T12:30:00+02:00", status: "EventCompleted" },
+    { name: "Race", start: "2026-04-19T13:00:00+02:00", status: "EventScheduled" },
+    { name: "Warm Up", start: null, status: null },
+  ]);
 });

@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T09:13:46.971Z",
+  "series": "wec",
+  "season": 2026,
+  "round": 7,
+  "slug": "6-hours-of-barcelona-2026",
+  "name": "6 Hours of Barcelona",
+  "venue": "Barcelona",
+  "trackRef": "barcelona",
+  "countryCode": "es",
+  "status": "EventScheduled",
+  "start": "2026-10-16T00:00:00+02:00",
+  "end": "2026-10-18T23:59:00+02:00",
+  "frozen": false,
+  "crewSource": "seasonStandings",
+  "sourceIds": {
+    "fiawec": {
+      "slug": "6-hours-of-barcelona-2026",
+      "raceId": 5065
+    }
+  },
+  "sessions": [
+    {
+      "kind": "practice",
+      "name": "Free Practice 1",
+      "number": 1,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-16T11:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8277
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 2",
+      "number": 2,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-16T15:50:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8278
+      },
+      "rows": []
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 3",
+      "number": 3,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-17T10:10:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8279
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2026-10-17T11:50:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8280
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2026-10-17T12:10:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8281
+      },
+      "rows": []
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-17T12:30:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8282
+      },
+      "rows": []
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-17T12:50:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8283
+      },
+      "rows": []
+    },
+    {
+      "kind": "race",
+      "name": "Race",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2026-10-18T12:00:00+02:00",
+      "status": "EventScheduled",
+      "sourceIds": {
+        "sessionId": 8284
+      },
+      "rows": []
+    }
+  ]
+}

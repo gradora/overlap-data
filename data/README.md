@@ -23,6 +23,7 @@
 | `f1/beasts/`, `f1/records/` | f1beasts / f1records | `<сезон>.json` |
 | `f1/history/index.json` | f1history | синглтон |
 | `imsa/<год>/` | imsa | `NN_<venue-slug>.json` + `index.json` + `points.json` |
+| `wec/<год>/` | wec (внутри прогона зеркала) | `index.json` + `standings.json` + `NN_<event-slug>.json` / `test_<slug>.json` (сессии события; путь публикует `index.events[].resultsPath`) |
 | `tracks/index.json` | tracks | синглтон, ПЛОСКАЯ карта slug→запись (без конверта) |
 | `f1/overrides/calendar.json` | — РУКАМИ (+GC f1overrides) | см. README корня |
 | `f1/records/catalog.json` | — РУКАМИ | курируемые рекорды |

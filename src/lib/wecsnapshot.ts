@@ -63,6 +63,12 @@ export interface WecIndexEvent {
   /// календарную дату (день/месяц) — нормализация в UTC сдвинула бы день.
   start: string | null;
   end: string | null;
+  /// Путь файла сессий события относительно data/ («wec/2026/01_6-hours-of-
+  /// imola-2026.json», шаг 3b). Имя считает ОДНА функция wecEventFileName на
+  /// обе стороны: имя, вычисленное клиентом самостоятельно, стало бы вторым
+  /// несвязанным TS↔Swift-стыком — ровно тем, что фаза 3 закрывает.
+  /// Аддитивное поле схемы v1 (клиент 3a игнорирует незнакомые ключи).
+  resultsPath: string;
   sourceIds: {
     fiawec: {
       slug: string;
@@ -70,6 +76,13 @@ export interface WecIndexEvent {
       sessions: WecSessionRef[];
     };
   };
+}
+
+/// Имя файла сессий события: этап — «NN_<слаг>.json» (образец IMSA), пролог
+/// (round 0) — «test_<слаг>.json» (образец imsa/<y>/test_<slug>.json): номера
+/// у теста нет, а «00_» притворялось бы этапом.
+export function wecEventFileName(round: number, slug: string): string {
+  return round >= 1 ? `${String(round).padStart(2, "0")}_${slug}.json` : `test_${slug}.json`;
 }
 
 export interface WecSeasonIndexDoc {
@@ -154,6 +167,22 @@ export interface WecRacePageInfo {
   startMs: number | null;
   endMs: number | null;
   raceId: number | null;
+  /// Расписание уик-энда (subEvent JSON-LD) — единственный источник времён и
+  /// статусов сессий. В index.json НЕ попадает (там сессии живут id-шниками
+  /// дропдауна), его потребитель — шаг 3b (wecevents.ts): и лента сессий
+  /// события, и экран пролога, у которого протоколов нет вовсе.
+  sessions: WecScheduledSession[];
+}
+
+/// Одна строка расписания уик-энда. ПАРНО с WECScheduledSession приложения.
+export interface WecScheduledSession {
+  /// Подпись fiawec с уже срезанным хвостом «- <событие>» («Free Practice 1»,
+  /// «Qualifying - HYPERCAR», «MORNING SESSION»).
+  name: string;
+  /// Сырая ISO-строка с офсетом трассы — как start/end события (нормализация
+  /// в UTC сдвинула бы календарный день).
+  start: string | null;
+  status: string | null; // EventScheduled / EventInProgress / EventCompleted
 }
 
 /// «WEC TotalEnergies 6 Hours of Spa-Francorchamps 2026» → ядро имени.
@@ -173,9 +202,34 @@ function statusWord(raw: unknown): string | null {
   return parts[parts.length - 1] || null;
 }
 
+/// «Free Practice 1 - 6 Hours of Imola» → «Free Practice 1»; классовый
+/// квалификатор сохраняется («Qualifying - HYPERCAR - 24 Hours of Le Mans» →
+/// «Qualifying - HYPERCAR»). ПАРНО с WECRacePageParser.sessionName.
+function scheduledSessionName(raw: string): string {
+  const s = raw.trim();
+  const i = s.indexOf(" - ");           // ПЕРВОЕ вхождение, как range(of:)
+  if (i < 0) return s;
+  const head = s.slice(0, i);
+  const rest = s.slice(i + 3);
+  const j = rest.indexOf(" - ");
+  if (j >= 0 && isClassTag(rest.slice(0, j))) return `${head} - ${rest.slice(0, j)}`.trim();
+  if (isClassTag(rest)) return `${head} - ${rest}`.trim();
+  return head.trim();
+}
+
+/// ПАРНО с WECRacePageParser.isClassTag.
+function isClassTag(s: string): boolean {
+  const t = s.trim().toUpperCase();
+  return t === "HYPERCAR" || t === "LMGT3" || t === "LMP2"
+    || t.includes("LMP2") || t.includes("LMGT3");
+}
+
 /// ПАРНО с WECRacePageParser.parse: берётся ПЕРВЫЙ ld+json-блок со словом
 /// SportsEvent; не распарсился — null (клиент не перебирает дальше — поэтому
 /// здесь не eventInfo из fiawecsite, у того семантика «ищи следующий блок»).
+/// Отступление от Swift-порта (осознанное): subEvent без имени просто
+/// пропускается, а не роняет разбор всей страницы (у клиента LDSub.name
+/// обязателен — один безымянный сабэвент убил бы и даты, и статус события).
 export function parseRacePage(html: string): WecRacePageInfo | null {
   const body = ldJsonBlocks(html).find((b) => b.includes("SportsEvent"));
   if (!body) return null;
@@ -196,6 +250,7 @@ export function parseRacePage(html: string): WecRacePageInfo | null {
   const addr = typeof j.location?.address === "string" ? j.location.address : "";
   const iso3 = (addr.split(",").pop() ?? "").trim().toUpperCase();
   const m = /raceIds?&quot;:\[?(\d+)/.exec(html) ?? /"raceIds?":\[?(\d+)/.exec(html);
+  const subs = Array.isArray(j.subEvent) ? j.subEvent : [];
   return {
     name: cleanEventName(j.name),
     venue: typeof j.location?.name === "string" ? j.location.name : "",
@@ -206,6 +261,13 @@ export function parseRacePage(html: string): WecRacePageInfo | null {
     startMs: ms(start),
     endMs: ms(end),
     raceId: m ? Number(m[1]) : null,
+    sessions: subs
+      .filter((s: any) => typeof s?.name === "string")
+      .map((s: any) => ({
+        name: scheduledSessionName(s.name),
+        start: typeof s.startDate === "string" ? s.startDate : null,
+        status: statusWord(s.eventStatus),
+      })),
   };
 }
 
@@ -258,6 +320,7 @@ interface AssembleInput {
 /// участвуют в нумерации этапов (конвенция testSlugs). Порядок в файле:
 /// прологи по дате, затем этапы по раундам.
 export function assembleIndexEvents(
+  season: number,
   races: AssembleInput[],
   tests: AssembleInput[],
   refs: RefsMap | undefined,
@@ -273,6 +336,11 @@ export function assembleIndexEvents(
     countryCode: e.page.iso2,
     start: e.page.start,
     end: e.page.end,
+    // Не nullable (в отличие от IMSA): файл события пишется ВСЕГДА — у
+    // будущего этапа он несёт расписание уик-энда, ради которого клиент и
+    // ходил за 1.5 МБ HTML. Пустой файл невозможен: index собирается только
+    // из распарсенных страниц (fail-closed выше).
+    resultsPath: `wec/${season}/${wecEventFileName(round, e.slug)}`,
     sourceIds: {
       fiawec: {
         slug: e.slug,
@@ -956,7 +1024,7 @@ export function buildWecSnapshot(
   }
 
   const refs = loadRefs();
-  const events = assembleIndexEvents(races, testPages, refs, sessionsByRaceId);
+  const events = assembleIndexEvents(year, races, testPages, refs, sessionsByRaceId);
   const raceEvents = events.filter((e) => e.round >= 1);
   const ends = raceEvents
     .map((e) => (e.end ? Date.parse(e.end) : NaN))

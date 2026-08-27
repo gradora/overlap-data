@@ -1,0 +1,1417 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-27T09:13:46.885Z",
+  "series": "wec",
+  "season": 2025,
+  "round": 5,
+  "slug": "rolex-6-hours-of-sao-paulo-2025",
+  "name": "Rolex 6 Hours of São Paulo",
+  "venue": "Interlagos",
+  "trackRef": "interlagos",
+  "countryCode": "br",
+  "status": "EventCompleted",
+  "start": "2025-07-11T00:00:00+02:00",
+  "end": "2025-07-13T00:00:00+02:00",
+  "frozen": true,
+  "crewSource": null,
+  "sourceIds": {
+    "fiawec": {
+      "slug": "rolex-6-hours-of-sao-paulo-2025",
+      "raceId": 4934
+    }
+  },
+  "sessions": [
+    {
+      "kind": "practice",
+      "name": "Free Practice 1",
+      "number": 1,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-11T11:00:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7575
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 43,
+          "totalTime": "1:25.176",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 48,
+          "totalTime": "1:25.260",
+          "gapFirst": "+0.084",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 53,
+          "totalTime": "1:25.330",
+          "gapFirst": "+0.154",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "7",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 52,
+          "totalTime": "1:25.344",
+          "gapFirst": "+0.168",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 50,
+          "totalTime": "1:25.348",
+          "gapFirst": "+0.172",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 48,
+          "totalTime": "1:25.352",
+          "gapFirst": "+0.176",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 53,
+          "totalTime": "1:25.398",
+          "gapFirst": "+0.222",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 53,
+          "totalTime": "1:25.453",
+          "gapFirst": "+0.277",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 49,
+          "totalTime": "1:25.465",
+          "gapFirst": "+0.289",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 50,
+          "totalTime": "1:25.483",
+          "gapFirst": "+0.307",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 42,
+          "totalTime": "1:25.574",
+          "gapFirst": "+0.398",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 45,
+          "totalTime": "1:25.669",
+          "gapFirst": "+0.493",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 45,
+          "totalTime": "1:25.761",
+          "gapFirst": "+0.585",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 51,
+          "totalTime": "1:25.901",
+          "gapFirst": "+0.725",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "99",
+          "team": "PROTON COMPETITION",
+          "laps": 45,
+          "totalTime": "1:26.095",
+          "gapFirst": "+0.919",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 52,
+          "totalTime": "1:26.161",
+          "gapFirst": "+0.985",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 46,
+          "totalTime": "1:26.455",
+          "gapFirst": "+1.279",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 51,
+          "totalTime": "1:26.668",
+          "gapFirst": "+1.492",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 2",
+      "number": 2,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-11T15:45:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7576
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 47,
+          "totalTime": "1:23.508",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 42,
+          "totalTime": "1:23.612",
+          "gapFirst": "+0.104",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 58,
+          "totalTime": "1:23.618",
+          "gapFirst": "+0.110",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 53,
+          "totalTime": "1:23.681",
+          "gapFirst": "+0.173",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 57,
+          "totalTime": "1:24.006",
+          "gapFirst": "+0.498",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 57,
+          "totalTime": "1:24.019",
+          "gapFirst": "+0.511",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "7",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 58,
+          "totalTime": "1:24.023",
+          "gapFirst": "+0.515",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 54,
+          "totalTime": "1:24.118",
+          "gapFirst": "+0.610",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 51,
+          "totalTime": "1:24.140",
+          "gapFirst": "+0.632",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 54,
+          "totalTime": "1:24.148",
+          "gapFirst": "+0.640",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 49,
+          "totalTime": "1:24.259",
+          "gapFirst": "+0.751",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 52,
+          "totalTime": "1:24.296",
+          "gapFirst": "+0.788",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 51,
+          "totalTime": "1:24.298",
+          "gapFirst": "+0.790",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 58,
+          "totalTime": "1:24.438",
+          "gapFirst": "+0.930",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 51,
+          "totalTime": "1:24.461",
+          "gapFirst": "+0.953",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 53,
+          "totalTime": "1:24.571",
+          "gapFirst": "+1.063",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 51,
+          "totalTime": "1:25.153",
+          "gapFirst": "+1.645",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "99",
+          "team": "PROTON COMPETITION",
+          "laps": 51,
+          "totalTime": "1:26.139",
+          "gapFirst": "+2.631",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "practice",
+      "name": "Free Practice 3",
+      "number": 3,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-12T10:10:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7577
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 38,
+          "totalTime": "1:23.695",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 38,
+          "totalTime": "1:24.185",
+          "gapFirst": "+0.490",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 38,
+          "totalTime": "1:24.287",
+          "gapFirst": "+0.592",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "7",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 36,
+          "totalTime": "1:24.349",
+          "gapFirst": "+0.654",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 35,
+          "totalTime": "1:24.368",
+          "gapFirst": "+0.673",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 38,
+          "totalTime": "1:24.409",
+          "gapFirst": "+0.714",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "99",
+          "team": "PROTON COMPETITION",
+          "laps": 38,
+          "totalTime": "1:24.442",
+          "gapFirst": "+0.747",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 33,
+          "totalTime": "1:24.444",
+          "gapFirst": "+0.749",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 35,
+          "totalTime": "1:24.480",
+          "gapFirst": "+0.785",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 37,
+          "totalTime": "1:24.505",
+          "gapFirst": "+0.810",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 37,
+          "totalTime": "1:24.574",
+          "gapFirst": "+0.879",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 37,
+          "totalTime": "1:24.598",
+          "gapFirst": "+0.903",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 35,
+          "totalTime": "1:24.776",
+          "gapFirst": "+1.081",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 34,
+          "totalTime": "1:24.944",
+          "gapFirst": "+1.249",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 38,
+          "totalTime": "1:24.997",
+          "gapFirst": "+1.302",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 33,
+          "totalTime": "1:25.057",
+          "gapFirst": "+1.362",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 40,
+          "totalTime": "1:25.714",
+          "gapFirst": "+2.019",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 40,
+          "totalTime": "1:25.889",
+          "gapFirst": "+2.194",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2025-07-12T14:45:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7578
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "87",
+          "team": "AKKODIS ASP TEAM",
+          "laps": 5,
+          "totalTime": "1:34.488",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "59",
+          "team": "UNITED AUTOSPORTS",
+          "laps": 7,
+          "totalTime": "1:34.891",
+          "gapFirst": "+0.403",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "88",
+          "team": "PROTON COMPETITION",
+          "laps": 6,
+          "totalTime": "1:35.032",
+          "gapFirst": "+0.544",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "95",
+          "team": "UNITED AUTOSPORTS",
+          "laps": 8,
+          "totalTime": "1:35.090",
+          "gapFirst": "+0.602",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "61",
+          "team": "IRON LYNX",
+          "laps": 7,
+          "totalTime": "1:35.156",
+          "gapFirst": "+0.668",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "78",
+          "team": "AKKODIS ASP TEAM",
+          "laps": 7,
+          "totalTime": "1:35.193",
+          "gapFirst": "+0.705",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "81",
+          "team": "TF SPORT",
+          "laps": 8,
+          "totalTime": "1:35.263",
+          "gapFirst": "+0.775",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "33",
+          "team": "TF SPORT",
+          "laps": 8,
+          "totalTime": "1:35.287",
+          "gapFirst": "+0.799",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "85",
+          "team": "IRON DAMES",
+          "laps": 7,
+          "totalTime": "1:35.327",
+          "gapFirst": "+0.839",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "10",
+          "team": "RACING SPIRIT OF LEMAN",
+          "laps": 7,
+          "totalTime": "1:35.340",
+          "gapFirst": "+0.852",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "54",
+          "team": "VISTA AF CORSE",
+          "laps": 7,
+          "totalTime": "1:35.366",
+          "gapFirst": "+0.878",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "27",
+          "team": "HEART OF RACING TEAM",
+          "laps": 7,
+          "totalTime": "1:35.481",
+          "gapFirst": "+0.993",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "92",
+          "team": "MANTHEY 1ST PHORM",
+          "laps": 8,
+          "totalTime": "1:35.504",
+          "gapFirst": "+1.016",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "46",
+          "team": "TEAM WRT",
+          "laps": 5,
+          "totalTime": "1:35.536",
+          "gapFirst": "+1.048",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "21",
+          "team": "VISTA AF CORSE",
+          "laps": 7,
+          "totalTime": "1:35.542",
+          "gapFirst": "+1.054",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "77",
+          "team": "PROTON COMPETITION",
+          "laps": 7,
+          "totalTime": "1:35.554",
+          "gapFirst": "+1.066",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "31",
+          "team": "THE BEND TEAM WRT",
+          "laps": 5,
+          "totalTime": "1:36.684",
+          "gapFirst": "+2.196",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "60",
+          "team": "IRON LYNX",
+          "laps": 7,
+          "totalTime": "",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - LMGT3",
+      "number": null,
+      "phase": null,
+      "raceClass": "LMGT3",
+      "start": "2025-07-12T15:05:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7579
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "10",
+          "team": "RACING SPIRIT OF LEMAN",
+          "laps": 6,
+          "totalTime": "1:33.849",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "87",
+          "team": "AKKODIS ASP TEAM",
+          "laps": 6,
+          "totalTime": "1:33.873",
+          "gapFirst": "+0.024",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "78",
+          "team": "AKKODIS ASP TEAM",
+          "laps": 6,
+          "totalTime": "1:33.963",
+          "gapFirst": "+0.114",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "61",
+          "team": "IRON LYNX",
+          "laps": 6,
+          "totalTime": "1:34.051",
+          "gapFirst": "+0.202",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "95",
+          "team": "UNITED AUTOSPORTS",
+          "laps": 6,
+          "totalTime": "1:34.219",
+          "gapFirst": "+0.370",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "59",
+          "team": "UNITED AUTOSPORTS",
+          "laps": 6,
+          "totalTime": "1:34.418",
+          "gapFirst": "+0.569",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "85",
+          "team": "IRON DAMES",
+          "laps": 6,
+          "totalTime": "1:34.433",
+          "gapFirst": "+0.584",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "88",
+          "team": "PROTON COMPETITION",
+          "laps": 6,
+          "totalTime": "1:34.448",
+          "gapFirst": "+0.599",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "33",
+          "team": "TF SPORT",
+          "laps": 7,
+          "totalTime": "1:34.507",
+          "gapFirst": "+0.658",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "81",
+          "team": "TF SPORT",
+          "laps": 7,
+          "totalTime": "1:34.952",
+          "gapFirst": "+1.103",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "qualifying",
+      "name": "Qualifying - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-12T15:25:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7580
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 6,
+          "totalTime": "1:22.829",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 7,
+          "totalTime": "1:23.208",
+          "gapFirst": "+0.379",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 7,
+          "totalTime": "1:23.269",
+          "gapFirst": "+0.440",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 6,
+          "totalTime": "1:23.279",
+          "gapFirst": "+0.450",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 6,
+          "totalTime": "1:23.391",
+          "gapFirst": "+0.562",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 6,
+          "totalTime": "1:23.391",
+          "gapFirst": "+0.562",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 8,
+          "totalTime": "1:23.533",
+          "gapFirst": "+0.704",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 8,
+          "totalTime": "1:23.537",
+          "gapFirst": "+0.708",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 7,
+          "totalTime": "1:23.595",
+          "gapFirst": "+0.766",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 6,
+          "totalTime": "1:23.673",
+          "gapFirst": "+0.844",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 8,
+          "totalTime": "1:23.710",
+          "gapFirst": "+0.881",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "99",
+          "team": "PROTON COMPETITION",
+          "laps": 8,
+          "totalTime": "1:23.740",
+          "gapFirst": "+0.911",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 8,
+          "totalTime": "1:23.751",
+          "gapFirst": "+0.922",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 8,
+          "totalTime": "1:23.759",
+          "gapFirst": "+0.930",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 8,
+          "totalTime": "1:23.770",
+          "gapFirst": "+0.941",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 8,
+          "totalTime": "1:23.816",
+          "gapFirst": "+0.987",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 8,
+          "totalTime": "1:23.831",
+          "gapFirst": "+1.002",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "7",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 7,
+          "totalTime": "1:24.153",
+          "gapFirst": "+1.324",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "hyperpole",
+      "name": "Hyperpole - HYPERCAR",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-12T15:45:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7581
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 6,
+          "totalTime": "1:22.570",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 7,
+          "totalTime": "1:22.670",
+          "gapFirst": "+0.100",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 6,
+          "totalTime": "1:22.834",
+          "gapFirst": "+0.264",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 6,
+          "totalTime": "1:22.948",
+          "gapFirst": "+0.378",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 5,
+          "totalTime": "1:23.062",
+          "gapFirst": "+0.492",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 6,
+          "totalTime": "1:23.101",
+          "gapFirst": "+0.531",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 7,
+          "totalTime": "1:23.159",
+          "gapFirst": "+0.589",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 6,
+          "totalTime": "1:23.259",
+          "gapFirst": "+0.689",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 6,
+          "totalTime": "1:23.386",
+          "gapFirst": "+0.816",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 7,
+          "totalTime": "1:23.496",
+          "gapFirst": "+0.926",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    },
+    {
+      "kind": "race",
+      "name": "Race",
+      "number": null,
+      "phase": null,
+      "raceClass": "HYPERCAR",
+      "start": "2025-07-13T11:30:00+02:00",
+      "status": "EventCompleted",
+      "sourceIds": {
+        "sessionId": 7582
+      },
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 242,
+          "totalTime": "6:00:19.732",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 2,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 242,
+          "totalTime": "6:01:16.748",
+          "gapFirst": "57.016",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 3,
+          "carNumber": "5",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 242,
+          "totalTime": "6:01:18.614",
+          "gapFirst": "58.882",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 4,
+          "carNumber": "6",
+          "team": "PORSCHE PENSKE MOTORSPORT",
+          "laps": 241,
+          "totalTime": "6:00:47.676",
+          "gapFirst": "1 Lap",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 5,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 241,
+          "totalTime": "6:01:42.059",
+          "gapFirst": "1 Lap",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 6,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 240,
+          "totalTime": "6:00:23.184",
+          "gapFirst": "2 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 7,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 240,
+          "totalTime": "6:00:40.955",
+          "gapFirst": "2 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 8,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 240,
+          "totalTime": "6:00:56.572",
+          "gapFirst": "2 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 9,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 240,
+          "totalTime": "6:00:57.326",
+          "gapFirst": "2 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 10,
+          "carNumber": "99",
+          "team": "PROTON COMPETITION",
+          "laps": 240,
+          "totalTime": "6:01:40.434",
+          "gapFirst": "2 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 11,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 239,
+          "totalTime": "6:00:26.730",
+          "gapFirst": "3 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 12,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 239,
+          "totalTime": "6:00:42.389",
+          "gapFirst": "3 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 13,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 239,
+          "totalTime": "6:01:04.673",
+          "gapFirst": "3 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 14,
+          "carNumber": "7",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 239,
+          "totalTime": "6:01:20.329",
+          "gapFirst": "3 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 15,
+          "carNumber": "8",
+          "team": "TOYOTA GAZOO RACING",
+          "laps": 239,
+          "totalTime": "6:01:21.870",
+          "gapFirst": "3 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 16,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 238,
+          "totalTime": "6:01:00.107",
+          "gapFirst": "4 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 17,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 222,
+          "totalTime": "6:01:23.383",
+          "gapFirst": "20 Laps",
+          "status": "classified",
+          "drivers": []
+        },
+        {
+          "position": 18,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 200,
+          "totalTime": "6:00:50.068",
+          "gapFirst": "42 Laps",
+          "status": "classified",
+          "drivers": []
+        }
+      ]
+    }
+  ]
+}
