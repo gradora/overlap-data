@@ -172,6 +172,15 @@ jobs:
         continue-on-error: true
         run: npm run f1overrides
 
+      # Историческая погода событий F1 (шаг 5.3). Бессетевой, как витрина:
+      # берёт листинги сессий и погоду из УЖЕ снятого зеркала openf1, а сшивает
+      # через sourceIds.openf1.meetingKey витрины — поэтому обязан идти ПОСЛЕ
+      # обоих (openf1 выше, f1overrides строкой выше).
+      - name: Погода событий F1
+        id: f1weather
+        continue-on-error: true
+        run: npm run f1weather
+
       # Пишет data/health.json (дневной heartbeat — держит крон живым в
       # межсезонье + сигнал устаревания приложению + отметки свежести
       # lastSuccess/firstSeen/stale по реестру src/lib/producers.ts). Реальные
@@ -199,6 +208,7 @@ jobs:
           RECORDS_OUTCOME: ${{ steps.records.outcome }}
           F1TEAMS_OUTCOME: ${{ steps.f1teams.outcome }}
           F1OVERRIDES_OUTCOME: ${{ steps.f1overrides.outcome }}
+          F1WEATHER_OUTCOME: ${{ steps.f1weather.outcome }}
           NEXTSEASON_OUTCOME: ${{ steps.nextseason.outcome }}
         run: npm run health
 
@@ -218,7 +228,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1teams=${{ steps.f1teams.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}" \
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1teams=${{ steps.f1teams.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}" "f1weather=${{ steps.f1weather.outcome }}" \
                    "nextseason=${{ steps.nextseason.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi

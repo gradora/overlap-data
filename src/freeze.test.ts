@@ -92,7 +92,7 @@ test("длинное окно — только у продьюсеров реш�
   // Список поимённый: новый потребитель длинного окна должен появиться здесь
   // осознанно, а не «сам собой» вместе с чужой правкой.
   assert.deepEqual(short.sort(), [
-    "f1.ts", "f1beasts.ts", "f1milestones.ts", "imsa.ts", "imsahighlights.ts",
-    "openf1.ts", "wec.ts", "wec.ts", "wec.ts", "wechighlights.ts",
+    "f1.ts", "f1beasts.ts", "f1milestones.ts", "f1weather.ts", "imsa.ts",
+    "imsahighlights.ts", "openf1.ts", "wec.ts", "wec.ts", "wec.ts", "wechighlights.ts",
   ]);
 });

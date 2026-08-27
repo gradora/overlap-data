@@ -7,7 +7,7 @@
 // приложении). Завершённые раунды ЗАМОРАЖИВАЕМ (их сессии неизменны) — иначе
 // каждый прогон долбил бы OpenF1 по всему сезону.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
@@ -230,7 +230,31 @@ async function historicBackfill(meetings: any[]) {
   console.log("Done (historic backfill).");
 }
 
+/// Разовый проход добора по ВСЕМУ уже снятому зеркалу (`BACKFILL=late`).
+///
+/// Обычный `backfillLateHandles` вызывается только для митингов, попавших в
+/// ЦЕЛИ прогона, а цели — это текущий сезон: активные раунды, тесты, отмены,
+/// оверлей. Прошлогодние митинги в них не входят вовсе, поэтому ручка,
+/// добавленная сегодня, никогда бы не появилась у архива. Здесь идём от
+/// листингов на диске, а не от календаря: что зеркалили, то и дозаполняем.
+async function backfillAllMirrored() {
+  const listings = readdirSync(OUT_DIR).filter((f: string) => f.startsWith("sessions_meeting_key_"));
+  console.log(`Добор поздних ручек по зеркалу: ${listings.length} митингов`);
+  let done = 0;
+  for (const file of listings) {
+    const key = Number(file.replace("sessions_meeting_key_", ""));
+    if (!Number.isFinite(key)) continue;
+    await backfillLateHandles(key);
+    done++;
+  }
+  console.log(`Done (добор по ${done} митингам).`);
+}
+
 async function main() {
+  if (process.env.BACKFILL === "late") {
+    await backfillAllMirrored();
+    return;
+  }
   console.log(`OpenF1 mirror, season ${YEAR}` +
     `${HISTORIC ? " (historic backfill)" : FUTURE ? " (листинг митингов)" : ""}`);
   const meetings = HISTORIC
@@ -265,7 +289,7 @@ async function main() {
     // Исключение — разовый добор pit/race_control из уже зеркалированного
     // листинга (ручки добавили позже основного зеркала): существующие не тянем.
     if (isFrozen(t.finishMs, NOW)) {
-      await backfillPit(key);
+      await backfillLateHandles(key);
       continue;
     }
     // Финиш впереди либо неизвестен → уик-энд ещё идёт: снимаем ТОЛЬКО уже
@@ -290,6 +314,10 @@ async function main() {
       // Лента рейс-контрола (флаги/SC/инциденты) — по всем сессиям: recap
       // и в практиках/квалах содержателен.
       await mirror(`race_control?session_key=${sk}`);
+      // Погода сессии (шаг 5.3): воздух, трасса, влажность, давление, ветер и
+      // бинарный дождь — по всем сессиям. Это ЕДИНСТВЕННЫЙ источник температуры
+      // ТРАССЫ: у Open-Meteo, на который клиент падает сегодня, её нет вовсе.
+      await mirror(`weather?session_key=${sk}`);
     }
     console.log(`  ${t.reason} meeting ${key} (${t.meeting.meeting_name ?? "?"}): ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
   }
@@ -303,10 +331,14 @@ export function isRaceLike(name: unknown): boolean {
   return n.includes("race") || n.includes("sprint");
 }
 
-// Разовый добор файлов для замороженных раундов (ручки, добавленные позже
-// основного зеркала: pit, race_control): сессии читаем из УЖЕ зеркалированного
-// листинга (без сети), тянем только отсутствующие файлы.
-async function backfillPit(meetingKey: number) {
+// Разовый добор файлов для замороженных раундов — ручек, добавленных ПОЗЖЕ
+// основного зеркала (pit, race_control, weather). Сессии читаем из УЖЕ
+// зеркалированного листинга (без сети), тянем только отсутствующие файлы.
+//
+// Без этого добора новая ручка появлялась бы только у будущих уик-эндов:
+// замороженные митинги основной цикл пропускает целиком, и архив остался бы
+// дырявым навсегда.
+async function backfillLateHandles(meetingKey: number) {
   let sessions: any[];
   try {
     sessions = JSON.parse(
@@ -319,6 +351,7 @@ async function backfillPit(meetingKey: number) {
     const wanted = [
       ...(isRaceLike(s.session_name) ? [`pit?session_key=${s.session_key}`] : []),
       `race_control?session_key=${s.session_key}`,
+      `weather?session_key=${s.session_key}`,
     ]
     for (const rel of wanted) {
       if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
