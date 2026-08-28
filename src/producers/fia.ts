@@ -19,6 +19,7 @@ import { envFlag, envNumber } from "../lib/env.js";
 import {
   type DocRef, type FiaEvent, type FiaPenalty, type FiaStartingGrid,
   canReuseGrid, carryOver, eventSlugFromUrl, finalRoundFile, findSeasonUrl, isPenaltyDoc,
+  pickGridDoc,
   markNextRace, matchRound, mergeFiaEvent, parseDocList,
   parseEventOptions, parsePenaltyDoc, parseStartingGridDoc, planPenaltyFetches, raceStartWall,
   seasonUrlYear, skipFirstWrite, slugifyRace,
@@ -407,21 +408,26 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
     );
   }
 
-  // Официальная стартовая решётка (Final приоритетнее Provisional).
-  const gridDocs = docs.filter((d) => /starting grid/i.test(d.title));
-  const gridDoc =
-    gridDocs.find((d) => /final/i.test(d.title)) ?? gridDocs.find((d) => /provisional/i.test(d.title));
-  let startingGrid: FiaStartingGrid | undefined;
-  const gridReused = canReuseGrid(existing, gridDoc, FORCE);
-  if (gridDoc && gridReused) {
-    console.log(`  Doc ${gridDoc.doc} (грид): пропущен — тот же документ уже разобран`);
-  } else if (gridDoc) {
-    const text = await fetchPdfText(gridDoc.url, `Doc ${gridDoc.doc} (грид)`);
-    if (text) {
-      startingGrid = parseStartingGridDoc(text, gridDoc) ?? undefined;
-      if (!startingGrid) console.warn(`  Doc ${gridDoc.doc}: решётка не распознана (парсер)`);
+  // Официальные стартовые решётки — ДВА независимых слота (внутри каждого
+  // Final приоритетнее Provisional). Слот был один, и спринтовый документ
+  // занимал гоночный, пока не выходил гоночный: на 2026_12 — около суток.
+  // Признак спринта и обоснование — в pickGridDoc.
+  const readGrid = async (slot: "race" | "sprint"): Promise<FiaStartingGrid | undefined> => {
+    const gridDoc = pickGridDoc(docs, slot);
+    if (!gridDoc) return undefined;
+    const label = slot === "sprint" ? "грид спринта" : "грид";
+    if (canReuseGrid(existing, gridDoc, FORCE, slot)) {
+      console.log(`  Doc ${gridDoc.doc} (${label}): пропущен — тот же документ уже разобран`);
+      return undefined;   // прежнее значение слота удержит слияние (fresh ?? prev)
     }
-  }
+    const text = await fetchPdfText(gridDoc.url, `Doc ${gridDoc.doc} (${label})`);
+    if (!text) return undefined;
+    const parsed = parseStartingGridDoc(text, gridDoc) ?? undefined;
+    if (!parsed) console.warn(`  Doc ${gridDoc.doc}: ${label} не распознан (парсер)`);
+    return parsed;
+  };
+  const startingGrid = await readGrid("race");
+  const sprintStartingGrid = await readGrid("sprint");
 
   // Слияние с уже собранным файлом раунда: прогон ДОПОЛНЯЕТ его, а не заменяет,
   // и НИКОГДА ничего не удаляет (обоснование — в mergeFiaEvent). listedDocs
@@ -430,6 +436,7 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
     penalties,
     carried,
     startingGrid,
+    sprintStartingGrid,
     listedDocs: penaltyDocs.map((d) => d.doc),
   });
   // Досюда доходят два разных случая, и путать их в логе нельзя. С непустым

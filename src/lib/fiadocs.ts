@@ -57,7 +57,10 @@ export interface FiaEvent {
   event: string;
   updated?: string;
   penalties: FiaPenalty[];
+  /// Решётка ГОНКИ. Спринтовая сюда не попадает никогда — см. pickGridDoc.
   startingGrid?: FiaStartingGrid;
+  /// Решётка СПРИНТА — есть только на спринтовых уик-эндах.
+  sprintStartingGrid?: FiaStartingGrid;
 }
 
 export interface DocRef {
@@ -583,11 +586,36 @@ export function planPenaltyFetches(
   return plan;
 }
 
-// Решётка. «Стало final — больше не качаем» НЕПРАВИЛЬНО: на спринтовых уик-эндах
-// final→final под другим номером — норма (2026_12: provisional 25 спринта →
-// final 32 спринта → final 61 гонки), и такое правило заморозило бы в файле
-// спринтовую решётку. Provisional→Final тоже всегда меняет номер документа,
-// поэтому ключ по номеру покрывает апгрейд, а отпечаток — переиздание.
+// Спринтовая решётка — ОТДЕЛЬНЫЙ документ, а не разновидность гоночной.
+//
+// На спринтовом уик-энде FIA публикует «Final Sprint Starting Grid» (файл
+// …_final_sprint_starting_grid.pdf) и позже «Final Starting Grid» (…_final_
+// starting_grid.pdf). Оба проходят фильтр «starting grid» + «final», а слот в
+// файле был один — и выбирался просто ПЕРВЫЙ подходящий документ списка.
+// Итог на 2026_12 (Зандворт): doc 32 со спринтовой решёткой (поул — машина 63)
+// простоял в гоночном слоте примерно сутки, пока его не сменил doc 61 с
+// настоящей гоночной (поул — машина 1). Сменил по везению, а не по логике.
+//
+// Поэтому документ выбирается ПОД СЛОТ, а не «какой найдётся». Признак —
+// «sprint» в заголовке ИЛИ в адресе: заголовок приходит из вёрстки FIA и
+// может измениться, адрес формируется из него же и служит вторым мнением.
+export function isSprintGridDoc(d: DocRef): boolean {
+  return /sprint/i.test(d.title) || /sprint/i.test(d.url);
+}
+
+/// Документ решётки для слота: Final приоритетнее Provisional; спринтовые и
+/// гоночные документы не смешиваются. Нет подходящего — undefined, и слот
+/// честно остаётся пустым (гоночная решётка до воскресенья ещё не издана).
+export function pickGridDoc(docs: DocRef[], slot: "race" | "sprint"): DocRef | undefined {
+  const want = docs.filter(
+    (d) => /starting grid/i.test(d.title) && isSprintGridDoc(d) === (slot === "sprint"),
+  );
+  return want.find((d) => /final/i.test(d.title)) ?? want.find((d) => /provisional/i.test(d.title));
+}
+
+// Решётка. «Стало final — больше не качаем» НЕПРАВИЛЬНО: Provisional→Final
+// всегда меняет номер документа, поэтому ключ по номеру покрывает апгрейд, а
+// отпечаток (url + дата издания) — переиздание под тем же номером.
 //
 // Версия парсера — у самой решётки (g.parser): решётка живёт в файле рядом со
 // штрафами, но качается и стареет отдельно от них.
@@ -595,8 +623,9 @@ export function canReuseGrid(
   prev: FiaEvent | null,
   gridDoc: DocRef | null | undefined,
   force: boolean,
+  slot: "race" | "sprint" = "race",
 ): boolean {
-  const g = prev?.startingGrid;
+  const g = slot === "sprint" ? prev?.sprintStartingGrid : prev?.startingGrid;
   if (force || !g || !gridDoc || g.parser !== PENALTY_PARSER_VERSION) return false;
   return g.doc === gridDoc.doc && g.url === gridDoc.url && g.publishedAt === gridDoc.publishedAt;
 }
@@ -607,7 +636,8 @@ export function canReuseGrid(
 export interface FiaScrape {
   penalties: FiaPenalty[];        // разобранные в ЭТОМ прогоне решения раунда
   carried: FiaPenalty[];          // перенос из предыдущего раунда (carryOver)
-  startingGrid?: FiaStartingGrid; // распарсенная в этом прогоне решётка (если далась)
+  startingGrid?: FiaStartingGrid;       // гоночная решётка этого прогона (если далась)
+  sprintStartingGrid?: FiaStartingGrid; // спринтовая — отдельный документ, отдельный слот
   // Номера штрафных доков, которые СЕЙЧАС видны на странице FIA. Ничего не
   // авторизуют — нужны ровно для того, чтобы заметить и громко залогировать
   // пропажу документа, который в файле уже есть (см. FiaMerge.missing).
@@ -617,6 +647,7 @@ export interface FiaScrape {
 export interface FiaMerge {
   penalties: FiaPenalty[];
   startingGrid?: FiaStartingGrid;
+  sprintStartingGrid?: FiaStartingGrid;
   updated?: string;
   kept: number;        // решений взято из прежнего файла (в прогоне не перечитывались)
   missing: number[];   // есть в файле, но пропали со страницы FIA — ОСТАВЛЕНЫ, только лог
@@ -676,11 +707,20 @@ export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge
 
   // Решётка: свежая берётся, только если это не откат final → provisional
   // (Final публикуется после Provisional и учитывает штрафы — он финальнее).
-  const prevGrid = prev?.startingGrid;
-  const downgrade = prevGrid?.kind === "final" && fresh.startingGrid?.kind === "provisional";
-  const startingGrid = downgrade ? prevGrid : (fresh.startingGrid ?? prevGrid);
+  // Слоты независимы: спринтовая решётка не обновляет гоночную и наоборот,
+  // иначе вернулась бы ровно та подмена, ради которой слоты и разделены.
+  const keepBetter = (
+    prevGrid: FiaStartingGrid | undefined,
+    freshGrid: FiaStartingGrid | undefined,
+  ): FiaStartingGrid | undefined => {
+    const downgrade = prevGrid?.kind === "final" && freshGrid?.kind === "provisional";
+    return downgrade ? prevGrid : (freshGrid ?? prevGrid);
+  };
+  const startingGrid = keepBetter(prev?.startingGrid, fresh.startingGrid);
+  const sprintStartingGrid = keepBetter(prev?.sprintStartingGrid, fresh.sprintStartingGrid);
 
-  const updated = [...penalties.map((p) => p.publishedAt), startingGrid?.publishedAt]
+  const updated = [...penalties.map((p) => p.publishedAt), startingGrid?.publishedAt,
+                   sprintStartingGrid?.publishedAt]
     .filter((x): x is string => !!x)
     .sort()
     .pop();
@@ -688,6 +728,7 @@ export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge
   return {
     penalties,
     ...(startingGrid ? { startingGrid } : {}),
+    ...(sprintStartingGrid ? { sprintStartingGrid } : {}),
     ...(updated ? { updated } : {}),
     kept,
     missing: missing.sort((a, b) => a - b),

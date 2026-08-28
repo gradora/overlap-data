@@ -21,6 +21,7 @@ import {
   mergeFiaEvent,
   planPenaltyFetches,
   canReuseGrid,
+  pickGridDoc,
   skipFirstWrite,
   PENALTY_PARSER_VERSION,
   type DocRef,
@@ -649,10 +650,13 @@ test("canReuseGrid: тот же документ — из файла, любая
   // provisional → final: номер документа всегда новый — качаем.
   const prov = eventFile([], grid({ kind: "provisional", doc: 65, url: "https://www.fia.com/prov.pdf" }));
   assert.equal(canReuseGrid(prov, same, false), false);
-  // final (спринт) → final (гонка): на спринтовых уик-эндах это норма
-  // (2026_12: prov 25 спринта → final 32 спринта → final 61 гонки).
-  const sprintFinal = eventFile([], grid({ kind: "final", doc: 32, url: "https://www.fia.com/sprint.pdf" }));
-  assert.equal(canReuseGrid(sprintFinal, { ...same, doc: 61, url: "https://www.fia.com/race.pdf" }, false), false);
+  // Смена номера документа в СВОЁМ слоте (переиздание гоночной решётки) —
+  // качаем. Раньше здесь стоял случай «final спринта → final гонки» с
+  // пометкой «на спринтовых уик-эндах это норма»: норма была описана верно,
+  // а поведение — нет, спринтовая решётка вообще не должна была оказаться в
+  // гоночном слоте. Разделение слотов — в тестах ниже.
+  const other = eventFile([], grid({ kind: "final", doc: 61, url: "https://www.fia.com/race.pdf" }));
+  assert.equal(canReuseGrid(other, { ...same, doc: 70 }, false), false);
   // Переиздание того же номера (url/дата поменялись) — качаем.
   assert.equal(canReuseGrid(PREV_12, { ...same, publishedAt: "2026-08-23 16:20 CET" }, false), false);
   assert.equal(canReuseGrid(PREV_12, { ...same, url: "https://www.fia.com/grid_v2.pdf" }, false), false);
@@ -833,4 +837,94 @@ test("matchRound: тестовый уик-энд FIA — не этап чемп�
   assert.equal(matchRound("test", races), null);
   // Настоящий этап по-прежнему матчится, в том числе по префиксу страны.
   assert.deepEqual(matchRound("bahrain_grand_prix", races), { round: 4, raceDate: "2025-04-13", raceTime: undefined });
+});
+
+// MARK: - Разделение спринтовой и гоночной решётки
+// Боевой дефект: спринтовый и гоночный документы решётки неразличимы фильтром
+// «starting grid» + «final» (у спринта заголовок «Final Sprint Starting Grid»),
+// а слот в файле был один. На 2026_12 doc 32 со спринтовой решёткой простоял в
+// гоночном слоте около суток — до выхода doc 61 с гоночной. Заменился он не
+// логикой, а порядком документов в списке.
+
+/// Документы решёток спринтового уик-энда — заголовки и адреса как у FIA.
+const gridRef = (doc: number, title: string, file: string): DocRef => ({
+  doc, title,
+  url: `https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_${file}.pdf`,
+  publishedAt: `2026-08-2${doc % 10} 14:00 CET`,
+});
+
+const SPRINT_PROV = gridRef(25, "Provisional Sprint Starting Grid", "provisional_sprint_starting_grid");
+const SPRINT_FINAL = gridRef(32, "Final Sprint Starting Grid", "final_sprint_starting_grid");
+const RACE_FINAL = gridRef(61, "Final Starting Grid", "final_starting_grid");
+
+test("выбор решётки: спринтовый документ в гоночный слот не попадает", () => {
+  // Суббота спринтового уик-энда: гоночной решётки ещё НЕ издано.
+  assert.equal(pickGridDoc([SPRINT_PROV, SPRINT_FINAL], "race"), undefined,
+               "гоночный слот занят спринтовым документом — это и есть боевой дефект");
+  assert.equal(pickGridDoc([SPRINT_PROV, SPRINT_FINAL], "sprint")?.doc, 32,
+               "спринтовый слот обязан взять свой final");
+});
+
+test("выбор решётки: каждый слот берёт свой документ", () => {
+  const docs = [SPRINT_PROV, SPRINT_FINAL, RACE_FINAL];
+  assert.equal(pickGridDoc(docs, "race")?.doc, 61);
+  assert.equal(pickGridDoc(docs, "sprint")?.doc, 32);
+  // Порядок в списке не должен решать ничего: раньше решал именно он.
+  const reversed = [...docs].reverse();
+  assert.equal(pickGridDoc(reversed, "race")?.doc, 61);
+  assert.equal(pickGridDoc(reversed, "sprint")?.doc, 32);
+});
+
+test("выбор решётки: Final приоритетнее Provisional внутри слота", () => {
+  const prov = gridRef(65, "Provisional Starting Grid", "provisional_starting_grid");
+  assert.equal(pickGridDoc([prov, RACE_FINAL], "race")?.doc, 61);
+  assert.equal(pickGridDoc([prov], "race")?.doc, 65);
+  // Обычный уик-энд: спринта нет вовсе — слот пустой, а не «что-нибудь».
+  assert.equal(pickGridDoc([prov, RACE_FINAL], "sprint"), undefined);
+});
+
+test("выбор решётки: признак спринта читается и из адреса", () => {
+  // Вёрстка FIA может отдать заголовок без слова Sprint — адрес остаётся
+  // вторым мнением, иначе документ снова уедет в гоночный слот.
+  const odd = { ...SPRINT_FINAL, title: "Final Starting Grid" };
+  assert.equal(pickGridDoc([odd], "race"), undefined);
+  assert.equal(pickGridDoc([odd], "sprint")?.doc, 32);
+});
+
+test("слияние: слоты решёток независимы", () => {
+  const raceGrid = grid({ doc: 61, url: "https://www.fia.com/race.pdf" });
+  const prev = { ...eventFile([], raceGrid), sprintStartingGrid: grid({ doc: 32 }) };
+  // Прогон принёс только спринтовую — гоночная обязана уцелеть.
+  const merged = mergeFiaEvent(prev, {
+    penalties: [], carried: [], listedDocs: [],
+    sprintStartingGrid: grid({ doc: 32, url: "https://www.fia.com/sprint2.pdf" }),
+  });
+  assert.equal(merged.startingGrid?.doc, 61, "гоночная решётка потерялась при обновлении спринтовой");
+  assert.equal(merged.sprintStartingGrid?.url, "https://www.fia.com/sprint2.pdf");
+});
+
+test("слияние: откат final → provisional не проходит ни в одном слоте", () => {
+  const prev = {
+    ...eventFile([], grid({ kind: "final", doc: 61 })),
+    sprintStartingGrid: grid({ kind: "final", doc: 32 }),
+  };
+  const merged = mergeFiaEvent(prev, {
+    penalties: [], carried: [], listedDocs: [],
+    startingGrid: grid({ kind: "provisional", doc: 65 }),
+    sprintStartingGrid: grid({ kind: "provisional", doc: 25 }),
+  });
+  assert.equal(merged.startingGrid?.doc, 61);
+  assert.equal(merged.sprintStartingGrid?.doc, 32);
+});
+
+test("докач решётки: слот сверяется со своим прежним документом", () => {
+  const prev = {
+    ...eventFile([], grid({ doc: 61, url: "https://www.fia.com/race.pdf" })),
+    sprintStartingGrid: grid({ doc: 32, url: "https://www.fia.com/sprint.pdf" }),
+  };
+  const raceDoc = { doc: 61, title: "Final Starting Grid",
+                    url: "https://www.fia.com/race.pdf", publishedAt: "2026-08-23 14:00 CET" };
+  assert.equal(canReuseGrid(prev, raceDoc, false, "race"), true);
+  // Тот же документ, но спрошенный про ЧУЖОЙ слот — не переиспользуем.
+  assert.equal(canReuseGrid(prev, raceDoc, false, "sprint"), false);
 });
