@@ -40,6 +40,7 @@ import { envFlag } from "./env.js";
 import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
 import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
+import { checkEventKeys, f1EventKey } from "./eventkey.js";
 
 /// Своя версия у семейства (прецедент 3a/3b: каждая витрина — независимый
 /// контракт). Связать её с чужой — значит молча «менять» схему календаря
@@ -74,6 +75,10 @@ export interface F1CalendarEvent {
   /// оверлея, «f1-override-<дата>» у курируемого этапа (по ДАТЕ, иначе id
   /// столкнулся бы с одноимённым раундом jolpica).
   id: string;
+  /// Стабильный ключ файла события (семейство `events/`, фаза 6). Отдельный
+  /// от `id`, потому что `id` гонки jolpica содержит РАУНД, а он дрейфует при
+  /// отмене этапа. Обоснование формата — в lib/eventkey.ts.
+  eventKey: string;
   /// Номер этапа; 0 — СЕНТИНЕЛ «раунда в источнике нет» (тесты, отмены,
   /// курируемые фантомы). Клиентские round-keyed фетчи деталки (сессии,
   /// победители, штрафы, юбилеи) по нулю честно пусты — именно поэтому
@@ -658,6 +663,8 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
         openf1: meetingKey === null ? null : { meetingKey },
         override: false,
       },
+      eventKey: f1EventKey(season, assetSlugFor(venue, "race"),
+        meetingKey === null ? { kind: "round", round } : { kind: "meeting", meetingKey }),
     });
   }
 
@@ -684,6 +691,8 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
         openf1: { meetingKey: meeting.meeting_key },
         override: false,
       },
+      eventKey: f1EventKey(season, assetSlugFor(venue, kind),
+                           { kind: "meeting", meetingKey: meeting.meeting_key }),
     });
   }
 
@@ -712,6 +721,10 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
       // jolpica-ключа НЕТ намеренно: провизорный round записи ключом не
       // является, а сентинел 0 в источнике не существует.
       sourceIds: { jolpica: null, openf1: null, override: true },
+      // Пары в OpenF1 у курируемого этапа нет вовсе — различитель задаёт
+      // куратор, и это дата, та же что в `id`.
+      eventKey: f1EventKey(season, assetSlugFor(venue, "race"),
+                           { kind: "override", date: entry.date }),
     });
   }
 
@@ -762,6 +775,11 @@ export interface CrossCheck {
 ///    («был у источника, исчез из ленты»), только теперь он кричит.
 export function crossCheckCalendar(
   doc: F1CalendarDoc, meetings: OpenF1MeetingRaw[],
+  /// Прежде опубликованная витрина — нужна ТОЛЬКО сторожу ключей события:
+  /// дрейф ключа виден лишь в сравнении с тем, под каким именем файлы уже
+  /// лежат. Нет предыдущей (первый сбор сезона) — проверяется одна
+  /// уникальность.
+  prev?: { events: { id: string; eventKey?: string }[] } | null,
 ): CrossCheck {
   const fatal: string[] = [];
   const warnings: string[] = [];
@@ -809,6 +827,17 @@ export function crossCheckCalendar(
         `(${dayOf(m.date_start) ?? "?"}) не представлен ни одним событием`);
     }
   }
+
+  // Сторож идентичности файла события (фаза 6): уникальность и неизменность
+  // ключа. До него ни одно семейство не проверяло ни того, ни другого —
+  // перенумерация раундов сломала бы четыре сразу и молча.
+  const keys = checkEventKeys(
+    doc.events.map((e) => ({ id: e.id, eventKey: e.eventKey })),
+    prev ? prev.events.flatMap((e) => (e.eventKey ? [{ id: e.id, eventKey: e.eventKey }] : []))
+         : null,
+  );
+  fatal.push(...keys.fatal);
+  warnings.push(...keys.warnings);
 
   return { fatal, warnings };
 }
@@ -1056,9 +1085,11 @@ export function buildF1CalendarFiles(
       overrides: readOverrides(root, season, currentYear),
       now,
     });
-    const check = crossCheckCalendar(doc, meetings);
+    const calendarPath = join(root, "f1", "calendar", `${season}.json`);
+    const published = readPrev<{ payload?: F1CalendarDoc } & F1CalendarDoc>(calendarPath);
+    const check = crossCheckCalendar(doc, meetings, published?.payload ?? published ?? null);
     for (const w of check.warnings) console.warn(`::warning::f1 calendar ${season}: ${w}`);
-    const outcome = writeF1Calendar(join(root, "f1", "calendar", `${season}.json`), doc, check);
+    const outcome = writeF1Calendar(calendarPath, doc, check);
     parts.push(`${season}: ${outcome} (${doc.events.length} событий${doc.frozen ? ", frozen" : ""})`);
   }
   for (const e of orphanOverrides(root, built)) {

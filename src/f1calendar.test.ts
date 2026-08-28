@@ -817,3 +817,72 @@ test("оркестрация: охват — от нижней границы п
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+// MARK: - Сторож ключа файла события (фаза 6)
+// Ключ — имя файла нового семейства `events/`, поэтому две вещи обязаны быть
+// fatal, а не предупреждением: коллизия (второй файл молча перезапишет
+// первый) и дрейф (файлы прежнего имени осиротеют, а история начнётся с нуля).
+
+test("ключ события: у каждого события он есть и он уникален", () => {
+  const doc = docOf({
+    schedule: [race("1", { date: "2026-03-08" }), race("2", { date: "2026-03-15" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 }),
+               meeting("Shanghai", "2026-03-13", "2026-03-15", { key: 1280 })],
+  });
+  const keys = doc.events.map((e) => e.eventKey);
+  assert.equal(keys.length, new Set(keys).size, "ключи не уникальны");
+  assert.ok(keys.every((k) => /^f1-2026-[a-z0-9-]+$/.test(k)), keys.join(", "));
+  assert.deepEqual(crossCheckCalendar(doc, []).fatal, []);
+});
+
+test("ключ события: раунд в него не входит — перенумерация ключ не двигает", () => {
+  const asRound1 = docOf({
+    schedule: [race("1", { date: "2026-03-08" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
+  });
+  const asRound2 = docOf({
+    schedule: [race("2", { date: "2026-03-08" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
+  });
+  assert.equal(asRound1.events[0].eventKey, asRound2.events[0].eventKey,
+               "ключ поехал вместе с раундом — вся затея бессмысленна");
+  // А вот id, наоборот, раунд содержит — потому ключ и понадобился отдельный.
+  assert.notEqual(asRound1.events[0].id, asRound2.events[0].id);
+});
+
+test("ключ события: дрейф относительно опубликованного — fatal, файл не пишется", () => {
+  const doc = docOf({
+    schedule: [race("1", { date: "2026-03-08" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
+  });
+  const published = { events: [{ id: doc.events[0].id, eventKey: "f1-2026-melbourne-1279" }] };
+  const check = crossCheckCalendar(doc, [], published);
+  assert.equal(check.fatal.length, 1, "дрейф ключа обязан быть fatal");
+  assert.match(check.fatal[0], /ДРЕЙФАНУЛ/);
+
+  // И fatal обязан ОСТАНОВИТЬ запись, а не только напечататься. Сезон берём
+  // НЕзамороженный: у замороженного запись и так не идёт, и проверка fatal до
+  // неё просто не доходит — тест бы прошёл сам собой.
+  const live = docOf({
+    schedule: [race("1", { date: "2026-03-08" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
+    now: Date.parse("2026-03-09T00:00:00Z"),
+  });
+  const liveCheck = crossCheckCalendar(live, [],
+    { events: [{ id: live.events[0].id, eventKey: "f1-2026-melbourne-1279" }] });
+  assert.equal(live.frozen, false, "сезон обязан быть незамороженным для этой половины");
+  const dir = mkdtempSync(join(tmpdir(), "f1cal-key-"));
+  const path = join(dir, "2026.json");
+  writeFileSync(path, JSON.stringify({ schemaVersion: 1, season: 2026, events: [] }));
+  assert.equal(writeF1Calendar(path, live, liveCheck), "kept-previous");
+  assert.deepEqual(JSON.parse(readFileSync(path, "utf8")).events, [],
+                   "файл всё-таки перезаписан при fatal");
+});
+
+test("ключ события: первый сбор сезона дрейфом не считается", () => {
+  const doc = docOf({
+    schedule: [race("1", { date: "2026-03-08" })],
+    meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
+  });
+  assert.deepEqual(crossCheckCalendar(doc, [], null).fatal, []);
+});
