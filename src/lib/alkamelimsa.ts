@@ -101,8 +101,8 @@ export function matchImsaTrack(folderName: string, venue: string, refs?: RefsMap
   // отсеивает признак WeatherTech-папки у вызывающего.
   else builtin = fc.endsWith("-" + vc);
 
-  // Сверка с картой: только когда карта знает ОБЕ стороны (положительное
-  // мнение); иначе молчим — встроенная таблица работает как раньше.
+  // Карта ПОБЕЖДАЕТ, когда знает ОБЕ стороны (положительное мнение); знает
+  // одну или ни одной — отвечает встроенная таблица (офлайн-дно).
   // refs === null — явное «без карты» (тесты); try/catch — битый объект карты
   // не имеет права ронять матчер (fail-open сквозной).
   const m = refs === null ? undefined : refs ?? defaultRefs();
@@ -110,13 +110,17 @@ export function matchImsaTrack(folderName: string, venue: string, refs?: RefsMap
     try {
       const ft = refTrackByImsaLabel(m, clean);
       const vt = refTrackByImsaLabel(m, venue);
-      if (ft && vt && (ft.slug === vt.slug) !== builtin) {
-        warnOnce(`matchImsaTrack:${folderName}|${venue}`,
-          `  refs: matchImsaTrack(«${folderName}», «${venue}») = ${builtin}, а по карте ` +
-          `${ft.slug} vs ${vt.slug} → ${ft.slug === vt.slug} — побеждает встроенная таблица`);
+      if (ft && vt) {
+        const viaMap = ft.slug === vt.slug;
+        if (viaMap !== builtin) {
+          warnOnce(`matchImsaTrack:${folderName}|${venue}`,
+            `  refs: matchImsaTrack(«${folderName}», «${venue}») = ${builtin}, а по карте ` +
+            `${ft.slug} vs ${vt.slug} → ${viaMap} — побеждает карта`);
+        }
+        return viaMap;
       }
     } catch {
-      // fail-open: мнение карты — только совет
+      // fail-open: битая карта не имеет права ронять матчер
     }
   }
   return builtin;

@@ -148,19 +148,20 @@ export function matchTrack(
         // знает, но относит к другой трассе, либо матч есть ровно у одной
         // стороны. Кандидат, которого карта не знает вовсе, — молча (обкатка:
         // карта заведомо покрывает не все суффиксные варианты архива).
+        // Кандидат, которого карта относит к той же трассе, что и venue.
+        const mapPick = tracks.find((cand) => refTrackByLabel(m, cand)?.slug === targetTrack.slug);
         const builtinTrack = builtin !== undefined ? refTrackByLabel(m, builtin) : undefined;
         if (builtin !== undefined && builtinTrack && builtinTrack.slug !== targetTrack.slug) {
           warnOnce(`matchTrack:${scheduleVenue}|${builtin}`,
             `  refs: matchTrack «${scheduleVenue}» → «${builtin}», а карта считает это трассой ` +
-            `«${builtinTrack.slug}» (venue → «${targetTrack.slug}») — побеждает встроенная таблица`);
-        } else if (builtin === undefined) {
-          const mapPick = tracks.find((cand) => refTrackByLabel(m, cand)?.slug === targetTrack.slug);
-          if (mapPick !== undefined) {
-            warnOnce(`matchTrack:${scheduleVenue}|∅`,
-              `  refs: matchTrack «${scheduleVenue}» не сматчился встроенно, а карта находит ` +
-              `«${mapPick}» (${targetTrack.slug}) — побеждает встроенная таблица (нет матча)`);
-          }
+            `«${builtinTrack.slug}» (venue → «${targetTrack.slug}») — побеждает карта`);
+        } else if (builtin === undefined && mapPick !== undefined) {
+          warnOnce(`matchTrack:${scheduleVenue}|∅`,
+            `  refs: matchTrack «${scheduleVenue}» не сматчился встроенно, а карта находит ` +
+            `«${mapPick}» (${targetTrack.slug}) — побеждает карта`);
         }
+        // Карта ПОБЕЖДАЕТ там, где у неё есть кандидат.
+        if (mapPick !== undefined) return mapPick;
       }
     } catch {
       // fail-open: мнение карты — только совет

@@ -421,13 +421,22 @@ export function matchRound(
           if (hit) mapRound = Number(hit.round);
         }
       }
-      if (mapRound !== undefined && mapRound !== (builtin?.round ?? null)) {
-        warnOnce(`matchRound:${eventSlug}|${season}`,
-          `  refs: matchRound «${eventSlug}» → ${builtin?.round ?? null}, а карта говорит ` +
-          `${mapRound} — побеждает встроенная таблица`);
+      if (mapRound !== undefined) {
+        if (mapRound !== (builtin?.round ?? null)) {
+          warnOnce(`matchRound:${eventSlug}|${season}`,
+            `  refs: matchRound «${eventSlug}» → ${builtin?.round ?? null}, а карта говорит ` +
+            `${mapRound} — побеждает карта`);
+        }
+        // Карта ПОБЕЖДАЕТ там, где у неё есть мнение. null — материализованный
+        // TESTING_SLUG («не матчить ни на какой раунд»), и это тоже мнение.
+        if (mapRound === null) return null;
+        const hit = races.find((r) => Number(r.round) === mapRound);
+        return hit
+          ? { round: Number(hit.round), raceDate: hit.date, raceTime: hit.time }
+          : builtin;
       }
     } catch {
-      // fail-open: мнение карты — только совет
+      // fail-open: битая карта не имеет права ронять матчер
     }
   }
   return builtin;

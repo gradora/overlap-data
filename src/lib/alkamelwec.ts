@@ -164,14 +164,17 @@ export function matchAkRound(
             break;
           }
         }
-        if (mapRound !== null && mapRound !== builtin) {
-          warnOnce(`matchAkRound:${label}`,
-            `  refs: matchAkRound «${label}» → ${builtin}, а карта (${track.slug}) ведёт к ` +
-            `раунду ${mapRound} — побеждает встроенная таблица`);
+        if (mapRound !== null) {
+          if (mapRound !== builtin) {
+            warnOnce(`matchAkRound:${label}`,
+              `  refs: matchAkRound «${label}» → ${builtin}, а карта (${track.slug}) ведёт к ` +
+              `раунду ${mapRound} — побеждает карта`);
+          }
+          return mapRound;   // карта побеждает там, где у неё есть мнение
         }
       }
     } catch {
-      // fail-open: мнение карты — только совет
+      // fail-open: битая карта не имеет права ронять матчер
     }
   }
   return builtin;

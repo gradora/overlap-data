@@ -296,9 +296,12 @@ test("фьюз приоритета: matchRound — pin против встро�
   });
   const races = [{ round: "1", date: "2031-03-01", raceName: "Fuse Grand Prix" }];
   const { result, warns } = captureWarns(() => matchRound("fuse_grand_prix", races, refs));
-  assert.equal(result?.round, 1, "победить обязана встроенная таблица");
+  // Перещёлк приоритета (28.08.2026): побеждает КАРТА. Пин указывает на раунд
+  // 5, которого в списке нет, — тогда карта мнение высказала, но привязать
+  // некуда, и ответом остаётся встроенный матч.
+  assert.equal(result?.round, 1, "пин на несуществующий раунд — откат на встроенный матч");
   assert.equal(warns.length, 1, "расхождение обязано дать ровно один warning");
-  assert.ok(warns[0].includes("побеждает встроенная"), warns[0]);
+  assert.ok(warns[0].includes("побеждает карта"), warns[0]);
 });
 
 test("фьюз приоритета: matchAkRound — алиас карты ведёт к другому раунду", () => {
@@ -310,9 +313,10 @@ test("фьюз приоритета: matchAkRound — алиас карты ве
   });
   const slugs = ["6-hours-of-imola-2031", "fuse-losail-race-2031"];
   const { result, warns } = captureWarns(() => matchAkRound("FUSE LOSAIL", slugs, refs));
-  assert.equal(result, 2, "победить обязана встроенная таблица (прямое вхождение)");
+  // Карта ведёт алиасом «imola» к первому слагу — и теперь побеждает она.
+  assert.equal(result, 1, "победить обязана карта");
   assert.equal(warns.length, 1);
-  assert.ok(warns[0].includes("побеждает встроенная"), warns[0]);
+  assert.ok(warns[0].includes("побеждает карта"), warns[0]);
 });
 
 test("фьюз приоритета: matchImsaTrack — карта склеивает имена, встроенная нет", () => {
@@ -326,9 +330,9 @@ test("фьюз приоритета: matchImsaTrack — карта склеив�
   });
   const { result, warns } = captureWarns(() =>
     matchImsaTrack("02_Fuse Old Name", "Fuse Track Beta", refs));
-  assert.equal(result, false, "победить обязана встроенная таблица (нет матча)");
+  assert.equal(result, true, "карта знает обе стороны и склеивает их — побеждает она");
   assert.equal(warns.length, 1);
-  assert.ok(warns[0].includes("побеждает встроенная"), warns[0]);
+  assert.ok(warns[0].includes("побеждает карта"), warns[0]);
 });
 
 test("фьюз приоритета: matchTrack — карта относит кандидата к другой трассе", () => {
@@ -342,9 +346,11 @@ test("фьюз приоритета: matchTrack — карта относит к
   });
   const { result, warns } = captureWarns(() =>
     matchTrack("Fuse Speedway Alpha", ["Fuse Alpha Raceway"], refs));
-  assert.equal(result, "Fuse Alpha Raceway", "победить обязана встроенная таблица");
+  // venue «Fuse Speedway Alpha» карта относит к fuse-x, а единственный
+  // кандидат — к fuse-y: кандидата под мнение карты нет, ответ — встроенный.
+  assert.equal(result, "Fuse Alpha Raceway", "кандидата под мнение карты нет — откат");
   assert.equal(warns.length, 1);
-  assert.ok(warns[0].includes("побеждает встроенная"), warns[0]);
+  assert.ok(warns[0].includes("побеждает карта"), warns[0]);
 });
 
 test("фьюз приоритета: warning дедуплицируется в пределах прогона", () => {
