@@ -1,7 +1,10 @@
 // Тесты деривации хайлайтов уик-энда из зеркала OpenF1.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bestSeconds, computeFastestLap, computeFastestPitStop, formatLap, raceTag, sessionTag, shortDriver } from "./producers/f1highlights.js";
+import {
+  bestSeconds, computeFastestLap, computeFastestPitStop, computeRaceFastestLap,
+  formatLap, lapSeconds, raceTag, sessionTag, shortDriver,
+} from "./producers/f1highlights.js";
 
 test("sessionTag: круговые сессии, гонки — нет", () => {
   assert.equal(sessionTag("Practice 1"), "FP1");
@@ -82,4 +85,59 @@ test("raceTag: гонки да, квалы нет", () => {
   assert.equal(raceTag("Sprint Qualifying"), null);
   assert.equal(raceTag("Qualifying"), null);
   assert.equal(raceTag("Practice 1"), null);
+});
+
+// MARK: - Быстрый круг ГОНКИ (fastestLapRace)
+// Разведение двух величин, которые до сих пор жили под одним именем: лучший
+// круг уик-энда (практики+квала, гонка исключена) и быстрый круг гонки —
+// та самая классическая величина, которую на экране команды считает
+// «Fastest laps».
+
+const raceDoc = (results: any[]) => ({
+  MRData: { RaceTable: { Races: [{ Results: results }] } },
+});
+
+const row = (given: string, family: string, rank: string, time: string, code = "") => ({
+  Driver: { givenName: given, familyName: family, code },
+  FastestLap: { rank, lap: "63", Time: { time } },
+});
+
+test("быстрый круг гонки берётся по РАНГУ, а не по минимуму времени", () => {
+  // Ранг проставляет источник: круг, не засчитанный из-за лимитов трассы,
+  // ранга не получает, хотя по времени может быть быстрее.
+  const doc = raceDoc([
+    row("Max", "Verstappen", "2", "1:13.900"),
+    row("George", "Russell", "1", "1:14.119"),
+  ]);
+  const lap = computeRaceFastestLap(doc);
+  assert.equal(lap?.driver, "G. Russell", "взяли по времени вместо ранга");
+  assert.equal(lap?.time, "1:14.119");
+  assert.equal(lap?.tag, "R", "тег обязан отличать круг гонки от круга уик-энда");
+  assert.ok(Math.abs((lap?.seconds ?? 0) - 74.119) < 0.001);
+});
+
+test("быстрый круг гонки: нет протокола или нет ранга — поля просто нет", () => {
+  assert.equal(computeRaceFastestLap(null), null);
+  assert.equal(computeRaceFastestLap(raceDoc([])), null);
+  // Гонка не классифицирована: круги есть, ранга 1 нет.
+  assert.equal(computeRaceFastestLap(raceDoc([row("Max", "Verstappen", "3", "1:13.9")])), null);
+});
+
+test("разбор времени круга: минуты необязательны, мусор — null", () => {
+  assert.ok(Math.abs((lapSeconds("1:14.119") ?? 0) - 74.119) < 1e-9);
+  assert.ok(Math.abs((lapSeconds("58.921") ?? 0) - 58.921) < 1e-9);
+  assert.equal(lapSeconds("1:28:03.403"), null, "полное время гонки — не круг");
+  assert.equal(lapSeconds(""), null);
+  assert.equal(lapSeconds("—"), null);
+});
+
+test("две величины не подменяют друг друга", () => {
+  // Круг уик-энда считается ТОЛЬКО по круговым сессиям — гонка исключена
+  // (в её протоколе дистанция, не круг), поэтому источники не пересекаются.
+  assert.equal(sessionTag("Race"), null);
+  assert.equal(sessionTag("Sprint"), null);
+  assert.equal(sessionTag("Qualifying"), "Q");
+  // А круг гонки приходит с тегом «R» — их всегда можно различить.
+  const lap = computeRaceFastestLap(raceDoc([row("George", "Russell", "1", "1:14.119")]));
+  assert.equal(lap?.tag, "R");
 });

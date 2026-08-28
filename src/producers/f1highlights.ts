@@ -38,7 +38,14 @@ export interface MedianPitStop {
 export interface RoundHighlights {
   season: number;
   round: number;
+  /// Лучший круг УИК-ЭНДА: практики, квала, спринт-квала. Гонка и спринт
+  /// исключены намеренно (в их протоколе дистанция, а не круг) — то есть это
+  /// НЕ «быстрый круг» в гоночном смысле. Имя историческое; смысл — в теге.
   fastestLap?: FastestLap;
+  /// Быстрый круг ГОНКИ — та самая классическая величина, которую на экране
+  /// команды считает «Fastest laps». Источник — jolpica (FastestLap с рангом
+  /// 1 в протоколе), а не OpenF1: в session_result гонки лежит дистанция.
+  fastestLapRace?: FastestLap;
   fastestPitStop?: FastestPitStop;
   medianPitStop?: MedianPitStop;
 }
@@ -81,6 +88,35 @@ export function formatLap(seconds: number): string {
 export function shortDriver(first?: string, last?: string, fallback?: string): string {
   if (first && last) return `${first[0]}. ${last}`;
   return fallback ?? "";
+}
+
+// «1:14.119» / «58.921» → секунды. Обратная к formatLap; отдельная, потому
+// что jolpica отдаёт время строкой, а OpenF1 — числом.
+export function lapSeconds(time: string): number | null {
+  const m = /^(?:(\d+):)?(\d{1,2}(?:\.\d+)?)$/.exec(time.trim());
+  if (!m) return null;
+  const secs = Number(m[1] ?? 0) * 60 + Number(m[2]);
+  return Number.isFinite(secs) && secs > 0 ? secs : null;
+}
+
+// Быстрый круг ГОНКИ из протокола jolpica: у каждого пилота свой лучший круг
+// с рангом, ранг 1 — быстрейший в гонке. Считаем по рангу, а не минимумом по
+// времени: ранг проставляет источник, и он же решает спорные случаи (круг,
+// не засчитанный из-за нарушения лимитов трассы, ранга не получает).
+export function computeRaceFastestLap(raceResults: any): FastestLap | null {
+  const rows = raceResults?.MRData?.RaceTable?.Races?.[0]?.Results;
+  if (!Array.isArray(rows)) return null;
+  const best = rows.find((r: any) => String(r?.FastestLap?.rank) === "1");
+  const time = best?.FastestLap?.Time?.time;
+  if (typeof time !== "string") return null;
+  const secs = lapSeconds(time);
+  if (secs == null) return null;
+  return {
+    time,
+    seconds: secs,
+    driver: shortDriver(best.Driver?.givenName, best.Driver?.familyName, best.Driver?.code),
+    tag: "R",
+  };
 }
 
 // «Race» → R, «Sprint» → SPR; квалы/прочее — null (питстопы значимы в гонках).
@@ -215,18 +251,28 @@ async function main() {
       if (Array.isArray(pit)) pits.set(s.session_key, pit);
     }
     const lap = computeFastestLap(sessions, results, drivers);
+    // Протокол гонки — из зеркала jolpica; нет его (гонка ещё не
+    // классифицирована) — поля просто не будет.
+    let raceResults: any = null;
+    try {
+      raceResults = JSON.parse(
+        readFileSync(join(JOLPICA_DIR, `${YEAR}_${round}_results.json`), "utf8"));
+    } catch { /* протокола нет — не беда */ }
+    const raceLap = raceResults ? computeRaceFastestLap(raceResults) : null;
     const stop = computeFastestPitStop(sessions, pits, drivers);
     const median = computeMedianPitStop(sessions, pits);
     const out: RoundHighlights = {
       season: YEAR,
       round,
       ...(lap ? { fastestLap: lap } : {}),
+      ...(raceLap ? { fastestLapRace: raceLap } : {}),
       ...(stop ? { fastestPitStop: stop } : {}),
       ...(median ? { medianPitStop: median } : {}),
     };
     const changed = writeJSONWithEnvelope(path, out);
     console.log(
       `  R${round}: ${lap ? `${lap.time} ${lap.driver} (${lap.tag})` : "нет круга"}` +
+      `${raceLap ? `, гонка ${raceLap.time} ${raceLap.driver}` : ""}` +
       `${stop ? `, пит ${stop.time} ${stop.driver}` : ""} → ${changed ? "записано" : "без изменений"}`,
     );
   }
