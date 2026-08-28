@@ -7,14 +7,11 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
+import { mirrorSlug } from "./lib/mirror.js";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import {
-  buildWecEventDoc, buildWecEventFiles, crewByCarNumber, parseSessionRows,
-  sessionClassOf, sessionKindOf, wecEventRegression, writeWecEvent,
-  type WecEventDoc,
-} from "./lib/wecevents.js";
+import { buildWecEventDoc, buildWecEventFiles, crewByCarNumber, parseSessionRows, sessionClassOf, sessionKindOf, wecEventRegression, writeWecEvent, type WecEventDoc, trackTimeZone, WEC_EVENT_SCHEMA_VERSION, resetRefsCacheForTesting } from "./lib/wecevents.js";
 import type { WecIndexEvent, WecStandingsDoc } from "./lib/wecsnapshot.js";
 
 // MARK: Фикстуры
@@ -467,7 +464,7 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
     assert.match(buildWecEventFiles(2031, NOW, root), /events 2031: 2 written/);
     const racePath = join(seasonDir, "01_6-hours-of-imola-2031.json");
     const doc = JSON.parse(readFileSync(racePath, "utf8"));
-    assert.equal(doc.schemaVersion, 1);
+    assert.equal(doc.schemaVersion, WEC_EVENT_SCHEMA_VERSION);
     assert.equal(doc.series, "wec");
     assert.equal(doc.round, 1);
     assert.equal(doc.trackRef, "imola", "ref события едет из index.json");
@@ -544,4 +541,76 @@ test("buildWecEventFiles: нет индекса сезона — ни одног
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+// MARK: - Часовой пояс площадки (починка ложного офсета источника)
+
+/// fiawec штампует расписанию ПАРИЖСКИЙ офсет независимо от места этапа: у
+/// Фудзи «10:15+02:00» вместо «+09:00» — ошибка семь часов, видимая
+/// пользователю в расписании. Настенное время верное, врёт только офсет.
+///
+/// Тест гоняет СБОРКУ, а не читает готовый файл: проверка по коммиченным
+/// данным зелена и с выключенной починкой — файл-то уже пересобран.
+test("сборка: момент сессии пересобирается по часовому поясу трассы", () => {
+  const root = mkdtempSync(join(tmpdir(), "wectz-"));
+  const NOW = Date.parse("2031-10-01T00:00:00Z");
+  try {
+    const mirrorDir = join(root, "wec", "fiawec");
+    const seasonDir = join(root, "wec", "2031");
+    mkdirSync(mirrorDir, { recursive: true });
+    mkdirSync(seasonDir, { recursive: true });
+
+    const sessions = [{ id: 70, label: "RACE" }];
+    writeFileSync(join(seasonDir, "index.json"), JSON.stringify({
+      schemaVersion: 1, series: "wec", season: 2031, frozen: false,
+      events: [indexEvent({
+        round: 1, slug: "6-hours-of-fuji-2031", name: "6 Hours of Fuji",
+        venue: "Fuji Speedway", trackRef: "fuji", countryCode: "jp",
+        start: "2031-09-26T00:00:00+02:00", end: "2031-09-28T00:00:00+02:00",
+        resultsPath: "wec/2031/01_6-hours-of-fuji-2031.json",
+        sourceIds: { fiawec: { slug: "6-hours-of-fuji-2031", raceId: 70, sessions } },
+      })],
+    }));
+    // Страница события: расписание с ЛОЖНЫМ парижским офсетом — ровно как у
+    // источника.
+    writeFileSync(join(mirrorDir, mirrorSlug("/en/race/6-hours-of-fuji-2031")), `
+      <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"SportsEvent","name":"6 Hours of Fuji",
+       "startDate":"2031-09-26T00:00:00+02:00","endDate":"2031-09-28T00:00:00+02:00",
+       "subEvent":[{"name":"Race","startDate":"2031-09-28T11:00:00+02:00",
+                    "eventStatus":"https://schema.org/EventCompleted"}]}
+      </script>`);
+    writeFileSync(join(mirrorDir, mirrorSlug("/en/page/resultats-1?raceId=70")),
+                  `<select><option value="70" selected>RACE</option></select>`);
+
+    resetRefsCacheForTesting();
+    buildWecEventFiles(2031, NOW, root);
+    const doc = JSON.parse(
+      readFileSync(join(seasonDir, "01_6-hours-of-fuji-2031.json"), "utf8"));
+    const payload = doc.payload ?? doc;
+    const race = payload.sessions.find((x: any) => x.name === "Race");
+    assert.equal(String(race.start).slice(-6), "+09:00",
+                 "офсет остался парижским — момент смещён на семь часов");
+    assert.match(String(race.start), /T11:00:00/,
+                 "настенное время обязано остаться дословным");
+    assert.equal(new Date(Date.parse(race.start)).toISOString(), "2031-09-28T02:00:00.000Z");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("сессии: у европейских этапов офсет остаётся прежним", () => {
+  // Обратная сторона: починка не имеет права ломать то, что и так было верно
+  // (Ле-Ман в июне — тот же CEST, что штампует источник).
+  const doc = JSON.parse(readFileSync("data/wec/2025/04_24-hours-of-le-mans-2025-1.json", "utf8"));
+  const payload = doc.payload ?? doc;
+  for (const s of payload.sessions.filter((x: any) => x.start)) {
+    assert.equal(String(s.start).slice(-6), "+02:00", s.name);
+  }
+});
+
+test("сессии: зона неизвестна — строка остаётся как была (fail-open)", () => {
+  assert.equal(trackTimeZone(null), null);
+  assert.equal(trackTimeZone("нет-такой-трассы"), null);
+  assert.equal(trackTimeZone("fuji"), "Asia/Tokyo");
 });

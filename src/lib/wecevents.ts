@@ -39,6 +39,8 @@ import { join } from "node:path";
 import { envFlag } from "./env.js";
 import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
+import { loadRefs } from "./refs.js";
+import { reanchorToZone } from "./zonedtime.js";
 import {
   wecEventFileName, type WecIndexEvent, type WecScheduledSession,
   type WecSeasonIndexDoc, type WecStandingsDoc, parseRacePage,
@@ -46,7 +48,15 @@ import {
 
 /// Своя версия у семейства (прецедент 3a: index и standings — независимые
 /// контракты; событие — третий).
-export const WEC_EVENT_SCHEMA_VERSION = 1;
+/// Версия формы файла события.
+///
+/// 2 — исправлен СМЫСЛ `session.start`: fiawec штампует расписанию парижский
+/// офсет независимо от места этапа, и до этой версии момент был смещён (у
+/// Фудзи на 7 часов). Форма поля не изменилась, изменилось значение — но это
+/// ровно тот случай, ради которого версия и существует: файлы прошлых сезонов
+/// заморожены, и без бампа гейт заморозки не дал бы им пересобраться, оставив
+/// архив с ложным временем навсегда.
+export const WEC_EVENT_SCHEMA_VERSION = 2;
 
 // MARK: - Типы контракта
 
@@ -329,6 +339,22 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
   const refs = event.sourceIds.fiawec.sessions;
   const byKey = new Map(refs.map((s) => [joinKey(s.label), s]));
 
+  // ОФСЕТ ИСТОЧНИКА ВРЁТ. fiawec штампует расписанию ПАРИЖСКИЙ офсет
+  // независимо от места этапа: у Фудзи стоит «10:15+02:00» вместо «+09:00»
+  // (ошибка 7 часов), у Катара и Бахрейна — 2 часа, у COTA и Сан-Паулу — 5–7.
+  // Настенное время при этом верное: расписание так и публикуют. Поэтому
+  // переанкориваем момент в часовом поясе ПЛОЩАДКИ, взятом из карты сущностей.
+  //
+  // Чинить обязан бэкенд: клиент показывает время в поясе устройства, и без
+  // правильного момента врёт всё — и подпись, и «сессия идёт», и сортировка.
+  // Зона неизвестна (нет trackRef или трассы нет в карте) — оставляем строку
+  // как есть: fail-open, хуже прежнего не станет.
+  const zone = trackTimeZone(event.trackRef);
+  const fixOffset = (iso: string | null): string | null => {
+    if (!iso || !zone) return iso;
+    return reanchorToZone(iso, zone) ?? iso;
+  };
+
   const make = (
     label: string, name: string, sched: WecScheduledSession | null, sessionId: number | null,
   ): WecEventSession => {
@@ -340,7 +366,7 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
       number,
       phase,
       raceClass: sessionClassOf(label, sessionId !== null),
-      start: sched?.start ?? null,
+      start: fixOffset(sched?.start ?? null),
       status: sched?.status ?? null,
       sourceIds: { sessionId },
       rows: rows.map((r) => ({ ...r, drivers: crewByCar.get(r.carNumber) ?? [] })),
@@ -482,6 +508,20 @@ export function writeWecEvent(path: string, next: WecEventDoc): EventWriteOutcom
 /// (состав сезона и номера раундов), standings.json (экипажи по номеру
 /// машины), зеркало fiawec (страницы событий и протоколы сессий).
 /// Возвращает краткий итог для лога продьюсера.
+/// Часовой пояс площадки по её каноничному слагу. Карта сущностей читается
+/// лениво и кэшируется: сборка события зовёт резолвер на каждую сессию.
+let refsCache: ReturnType<typeof loadRefs> | undefined | null = null;
+
+export function trackTimeZone(trackRef: string | null): string | null {
+  if (!trackRef) return null;
+  if (refsCache === null) refsCache = loadRefs();
+  const track = refsCache?.tracks.find((t) => t.slug === trackRef);
+  return track?.timezone ?? null;
+}
+
+/// Только для тестов: сбросить кэш карты между прогонами.
+export function resetRefsCacheForTesting(): void { refsCache = null; }
+
 export function buildWecEventFiles(
   year: number,
   now: number,

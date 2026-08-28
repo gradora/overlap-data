@@ -304,7 +304,7 @@ test("фьюз приоритета: matchRound — pin против встро�
 test("фьюз приоритета: matchAkRound — алиас карты ведёт к другому раунду", () => {
   const refs = refsWith({
     tracks: [{
-      slug: "fuse-losail", display: "Fuse", country: "Qatar",
+      slug: "fuse-losail", display: "Fuse", country: "Qatar", timezone: "Europe/Rome",
       aliases: { alkamelWec: ["fuse-losail"], fiawec: ["imola"] },
     }],
   });
@@ -319,7 +319,7 @@ test("фьюз приоритета: matchImsaTrack — карта склеив�
   const refs = refsWith({
     tracks: [
       {
-        slug: "fuse-a", display: "Fuse A", country: "USA",
+        slug: "fuse-a", display: "Fuse A", country: "USA", timezone: "Europe/Rome",
         aliases: { alkamelImsa: ["fuse-old-name", "fuse-track-beta"] },
       },
     ],
@@ -334,9 +334,9 @@ test("фьюз приоритета: matchImsaTrack — карта склеив�
 test("фьюз приоритета: matchTrack — карта относит кандидата к другой трассе", () => {
   const refs = refsWith({
     tracks: [
-      { slug: "fuse-x", display: "X", country: "USA",
+      { slug: "fuse-x", display: "X", country: "USA", timezone: "Europe/Rome",
         aliases: { imsaVenue: ["Fuse Speedway Alpha"] } },
-      { slug: "fuse-y", display: "Y", country: "USA",
+      { slug: "fuse-y", display: "Y", country: "USA", timezone: "Europe/Rome",
         aliases: { imsaVenue: ["Fuse Alpha Raceway"] } },
     ],
   });

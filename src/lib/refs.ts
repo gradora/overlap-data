@@ -41,6 +41,12 @@ export interface RefTrack {
   slug: string;      // канонический слаг = asset-slug приложения (ключи TRACKS в tracks.ts)
   display: string;
   country: string;   // display-форма jolpica/RaceLocation («USA», «UK», «UAE»)
+  /// Часовой пояс площадки, IANA («Asia/Tokyo»). Не украшение: fiawec штампует
+  /// ВСЕМ этапам парижский офсет независимо от места — у Фудзи «10:15+02:00»
+  /// вместо «10:15+09:00», ошибка 7 часов. Настенное время в источнике верное,
+  /// врёт только офсет, поэтому зона нужна, чтобы восстановить настоящий момент.
+  /// Зона, а не смещение: летнее время меняется дважды в год.
+  timezone: string;
   aliases: Partial<Record<RefTrackAliasSource, string[]>>;
 }
 
