@@ -22,6 +22,7 @@ import {
   planPenaltyFetches,
   canReuseGrid,
   pickGridDoc,
+  roundFileFrom,
   skipFirstWrite,
   PENALTY_PARSER_VERSION,
   type DocRef,
@@ -927,4 +928,30 @@ test("докач решётки: слот сверяется со своим п�
   assert.equal(canReuseGrid(prev, raceDoc, false, "race"), true);
   // Тот же документ, но спрошенный про ЧУЖОЙ слот — не переиспользуем.
   assert.equal(canReuseGrid(prev, raceDoc, false, "sprint"), false);
+});
+
+/// Сторож против того, что уже случилось: спринтовая решётка проходила отбор,
+/// скрейп и слияние — и МОЛЧА пропадала на записи, потому что итоговый объект
+/// файла собирался вручную и её там просто забыли. Теперь сборка в одном
+/// месте и под тестом.
+test("файл раунда несёт ОБЕ решётки, а не только гоночную", () => {
+  const merged = mergeFiaEvent(null, {
+    penalties: [], carried: [], listedDocs: [],
+    startingGrid: grid({ kind: "final", doc: 61 }),
+    sprintStartingGrid: grid({ kind: "final", doc: 32 }),
+  });
+  const out = roundFileFrom(merged,
+    { season: 2026, round: 12, event: "dutch_grand_prix", penalties: [] });
+  assert.equal(out.startingGrid?.doc, 61);
+  assert.equal(out.sprintStartingGrid?.doc, 32, "спринтовая решётка потерялась при записи");
+  assert.equal(out.season, 2026);
+  assert.equal(out.round, 12);
+});
+
+test("файл раунда без решёток полей решёток не заводит", () => {
+  const merged = mergeFiaEvent(null, { penalties: [], carried: [], listedDocs: [] });
+  const out = roundFileFrom(merged,
+    { season: 2026, round: 1, event: "x", penalties: [] });
+  assert.equal("startingGrid" in out, false);
+  assert.equal("sprintStartingGrid" in out, false);
 });

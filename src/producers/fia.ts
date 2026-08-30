@@ -19,7 +19,7 @@ import { envFlag, envNumber } from "../lib/env.js";
 import {
   type DocRef, type FiaEvent, type FiaPenalty, type FiaStartingGrid,
   canReuseGrid, carryOver, eventSlugFromUrl, finalRoundFile, findSeasonUrl, isPenaltyDoc,
-  pickGridDoc,
+  pickGridDoc, roundFileFrom,
   markNextRace, matchRound, mergeFiaEvent, parseDocList,
   parseEventOptions, parsePenaltyDoc, parseStartingGridDoc, planPenaltyFetches, raceStartWall,
   seasonUrlYear, skipFirstWrite, slugifyRace,
@@ -37,6 +37,29 @@ const NOW = Date.now();
 // Читаем один раз на модуль: флаг нужен и в отборе раундов, и в produceEvent
 // (там он снимает пропуск уже разобранных документов).
 const FORCE = envFlag("FIA_FORCE");
+// Разовый операторский добор нового слота решётки спринта: он появился позже
+// уже собранных раундов, а стюардское окно (14 дней) закрывает им дорогу
+// навсегда — «заморожено» здесь значило бы «не получить вовсе».
+//
+// Отдельным флагом, а не постоянным правилом: «в файле нет спринтовой решётки»
+// верно и для НЕспринтовых раундов, и постоянное правило гоняло бы прогон на
+// страницу каждого раунда сезона вечно. Будущие спринты заполняются сами —
+// они попадают в активное окно.
+//
+// Дёшево: без FIA_FORCE уже разобранные штрафные документы переиспользуются,
+// гоночная решётка тоже (canReuseGrid), качается только спринтовый PDF.
+// Прогон: FIA_SPRINT_GRID_BACKFILL=1 SEASON=2025 npm run fia
+const SPRINT_GRID_BACKFILL = envFlag("FIA_SPRINT_GRID_BACKFILL");
+
+/// Уже собранный файл раунда — нужен добору слота решётки спринта.
+function readRoundFile(path: string): FiaEvent | null {
+  try {
+    const d = JSON.parse(readFileSync(path, "utf8"));
+    return (d?.payload ?? d) as FiaEvent;
+  } catch {
+    return null;
+  }
+}
 
 function jolpicaSchedule(): {
   season: string | null;
@@ -227,8 +250,11 @@ async function main() {
     // Заморозку форс ОБХОДИТ — прошедший раунд проходит по needsBackfill даже
     // с существующим файлом, — но упирается в бюджет бэкфилла, поэтому полная
     // пересборка истории пишется как FIA_FORCE=1 FIA_BACKFILL=99 npm run fia.
+    const roundFile = join(OUT_DIR, `${YEAR}_${round}.json`);
+    const lacksSprintGrid = SPRINT_GRID_BACKFILL && existsSync(roundFile)
+      && !readRoundFile(roundFile)?.sprintStartingGrid;
     const needsBackfill =
-      (FORCE || !existsSync(join(OUT_DIR, `${YEAR}_${round}.json`))) &&
+      (FORCE || lacksSprintGrid || !existsSync(roundFile)) &&
       raceStartMs < NOW;
     if (!isActive && !needsBackfill) continue;
     if (!isActive) {
@@ -468,14 +494,8 @@ async function produceEvent(docs: DocRef[], round: number, raceDate: string, rac
   // навсегда (напр. при запоздавшем raceTime у Jolpica). Идемпотентно.
   const penaltiesOut = markNextRace(merged.penalties, raceWall);
 
-  const out: FiaEvent = {
-    season: YEAR,
-    round,
-    event: eventSlug,
-    ...(merged.updated ? { updated: merged.updated } : {}),
-    penalties: penaltiesOut,
-    ...(merged.startingGrid ? { startingGrid: merged.startingGrid } : {}),
-  };
+  const out = roundFileFrom(merged,
+    { season: YEAR, round, event: eventSlug, penalties: penaltiesOut });
   const changed = writeJSONWithEnvelope(path, out);
   // merged.kept считает всё, что пришло из файла: и намеренно пропущенное
   // докачом, и уцелевшее после осечки, и то, что вообще не появилось в

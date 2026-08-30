@@ -735,6 +735,25 @@ export function mergeFiaEvent(prev: FiaEvent | null, fresh: FiaScrape): FiaMerge
   };
 }
 
+/// Итоговый файл раунда из результата слияния. ОТДЕЛЬНОЙ функцией, потому что
+/// собранный вручную объект уже терял поле: спринтовая решётка проходила
+/// отбор, скрейп и слияние — и молча пропадала на записи, потому что её забыли
+/// перечислить здесь. Теперь это одно место, и оно под тестом.
+export function roundFileFrom(
+  merged: FiaMerge,
+  meta: { season: number; round: number; event: string; penalties: FiaPenalty[] },
+): FiaEvent {
+  return {
+    season: meta.season,
+    round: meta.round,
+    event: meta.event,
+    ...(merged.updated ? { updated: merged.updated } : {}),
+    penalties: meta.penalties,
+    ...(merged.startingGrid ? { startingGrid: merged.startingGrid } : {}),
+    ...(merged.sprintStartingGrid ? { sprintStartingGrid: merged.sprintStartingGrid } : {}),
+  };
+}
+
 // Перенос из предыдущего раунда: его next_race-грид-штрафы становятся
 // обычными race-штрафами текущего, с пометкой carriedFrom (по ней приложение
 // не считает их «поздними» — doc-номера разных уик-эндов несравнимы, а FIA
