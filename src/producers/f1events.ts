@@ -13,7 +13,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { writeJSONWithEnvelope } from "../lib/mirror.js";
 import {
-  EVENT_FILE_SCHEMA_VERSION, buildEventFile, eventFilePath,
+  EVENT_FILE_SCHEMA_VERSION, type EventEntryDriver, buildEventFile, eventFilePath,
 } from "../lib/eventfile.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -33,6 +33,7 @@ interface ShowcaseEvent {
   id: string;
   eventKey?: string;
   round: number;
+  sourceIds?: { openf1?: { meetingKey?: number } | null };
 }
 
 export function readShowcase(season: number, dataDir = DATA_DIR): ShowcaseEvent[] {
@@ -41,9 +42,35 @@ export function readShowcase(season: number, dataDir = DATA_DIR): ShowcaseEvent[
   return doc?.payload?.events ?? doc?.events ?? [];
 }
 
+/// Срез заявки сезона по одному митингу: у каждого пилота ровно одно место.
+/// Пилот, проехавший митинг за две команды (такое бывает у резервистов между
+/// РАЗНЫМИ митингами, внутри одного — нет), взял бы первое по номеру.
+export function entryForMeeting(list: any, meetingKey: number): EventEntryDriver[] {
+  const drivers = list?.payload?.drivers ?? list?.drivers;
+  if (!Array.isArray(drivers)) return [];
+  const out: EventEntryDriver[] = [];
+  for (const d of drivers) {
+    const seat = (d.seats ?? []).find((s: any) => s.meetingKey === meetingKey);
+    if (!seat) continue;
+    out.push({
+      driverId: d.driverId,
+      acronym: seat.acronym,
+      givenName: d.givenName,
+      familyName: d.familyName,
+      ...(d.nationality ? { nationality: d.nationality } : {}),
+      car: seat.car,
+      ...(seat.team ? { team: seat.team } : {}),
+      ...(seat.teamColour ? { teamColour: seat.teamColour } : {}),
+      ...(seat.constructorId ? { constructorId: seat.constructorId } : {}),
+    });
+  }
+  return out.sort((a, b) => a.car - b.car);
+}
+
 export async function main(): Promise<void> {
   console.log(`F1 events, season ${YEAR}`);
   const events = readShowcase(YEAR);
+  const entryList = readJSON(join(DATA_DIR, "f1", "entrylist", `${YEAR}.json`));
   if (!events.length) {
     console.warn("events: витрины календаря нет — пропускаем прогон");
     return;
@@ -61,11 +88,13 @@ export async function main(): Promise<void> {
     const family = (name: string) =>
       round >= 1 ? readJSON(join(DATA_DIR, "f1", name, `${YEAR}_${round}.json`)) : null;
 
+    const meetingKey = e.sourceIds?.openf1?.meetingKey;
     const file = buildEventFile({
       season: YEAR,
       eventKey: e.eventKey,
       eventId: e.id,
       round,
+      entry: meetingKey != null ? entryForMeeting(entryList, meetingKey) : [],
       fia: family("fia"),
       winners: family("winners"),
       highlights: family("highlights"),

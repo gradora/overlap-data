@@ -60,6 +60,31 @@ export function stripEnvelope(doc: unknown): Record<string, unknown> | null {
   return Object.keys(out).length ? out : null;
 }
 
+/// Пилот, реально вышедший на трассу в ЭТОМ событии, с разрезолвленной
+/// личностью. Срез заявки сезона по митингу (см. lib/entrylist.ts).
+///
+/// Зачем внутри файла события: клиент резолвил акроним сам, по составу сезона
+/// из ЗАЧЁТА, а для архивного события ради этого качал `<год>/driverStandings`
+/// целиком. Заодно уходит целый класс молчаливых подмен — угадывание по
+/// первым трём буквам фамилии (братья Леклеры).
+export interface EventEntryDriver {
+  driverId: string;
+  /// Акроним, под которым пилот идёт в протоколах этого события.
+  acronym: string;
+  givenName: string;
+  familyName: string;
+  /// Только у зачётных: заявка не отдаёт национальность резервистам, и
+  /// выдумывать её нечем — клиент рисует нейтральный флаг.
+  nationality?: string;
+  car: number;
+  team?: string;
+  teamColour?: string;
+  /// Конструктор jolpica ЭТОГО этапа — не сезона: у мидсезонной пересадки
+  /// (Лоусон-2025: red_bull → rb) сезонный список дал бы первую команду на
+  /// весь год. Нет — пилот не стартовал в гонке этапа.
+  constructorId?: string;
+}
+
 export interface EventFile {
   schemaVersion: number;
   series: "f1";
@@ -71,6 +96,9 @@ export interface EventFile {
   /// СВОЕГО события, а не соседа.
   eventId: string;
   round: number;
+  /// Заявка ЭТОГО события. Пусто/отсутствует — срез не собрался (нет ключа
+  /// митинга или заявки сезона), и клиент резолвит прежним путём.
+  entry?: EventEntryDriver[];
   fia?: Record<string, unknown>;
   winners?: Record<string, unknown>;
   highlights?: Record<string, unknown>;
@@ -82,6 +110,7 @@ export interface EventFileInput {
   eventKey: string;
   eventId: string;
   round: number;
+  entry?: EventEntryDriver[];
   fia?: unknown;
   winners?: unknown;
   highlights?: unknown;
@@ -99,7 +128,9 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     highlights: stripEnvelope(input.highlights),
     milestones: stripEnvelope(input.milestones),
   };
-  if (Object.values(blocks).every((b) => b === null)) return null;
+  const entry = input.entry ?? [];
+  // Пусто во ВСЕХ блоках И в заявке — собирать нечего.
+  if (Object.values(blocks).every((b) => b === null) && !entry.length) return null;
 
   return {
     schemaVersion: EVENT_FILE_SCHEMA_VERSION,
@@ -108,6 +139,7 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     eventKey: input.eventKey,
     eventId: input.eventId,
     round: input.round,
+    ...(entry.length ? { entry } : {}),
     ...(blocks.fia ? { fia: blocks.fia } : {}),
     ...(blocks.winners ? { winners: blocks.winners } : {}),
     ...(blocks.highlights ? { highlights: blocks.highlights } : {}),

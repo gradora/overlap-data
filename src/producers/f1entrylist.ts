@@ -55,6 +55,41 @@ export function readMeetingRows(year: number, dir = OPENF1_DIR): Map<number, Ope
   return out;
 }
 
+/// `meetingKey` → (`driverId` → `constructorId`) по протоколам гонок.
+///
+/// Митинг сопоставляется раунду через витрину календаря: она единственная
+/// знает эту связь и уже держит её в `sourceIds.openf1.meetingKey`. Спринт
+/// читаем тоже — пилот мог проехать спринт и сойти в гонке.
+export function constructorsByMeeting(year: number, dataDir = DATA_DIR): Map<number, Map<string, string>> {
+  const out = new Map<number, Map<string, string>>();
+  const cal = readJSON(join(dataDir, "f1", "calendar", `${year}.json`));
+  const events = cal?.payload?.events ?? cal?.events;
+  if (!Array.isArray(events)) return out;
+
+  for (const e of events) {
+    const mk = e?.sourceIds?.openf1?.meetingKey;
+    const round = e?.sourceIds?.jolpica?.round;
+    if (typeof mk !== "number" || typeof round !== "number") continue;
+    const byDriver = new Map<string, string>();
+    for (const kind of ["results", "sprint"]) {
+      const doc = readJSON(join(dataDir, "f1", "jolpica", `${year}_${round}_${kind}.json`));
+      const races = doc?.MRData?.RaceTable?.Races;
+      if (!Array.isArray(races)) continue;
+      for (const race of races) {
+        for (const r of race?.Results ?? race?.SprintResults ?? []) {
+          const did = r?.Driver?.driverId;
+          const cid = r?.Constructor?.constructorId;
+          // Гоночный протокол приоритетнее спринтового: он читается вторым
+          // только если гонки ещё нет.
+          if (did && cid && !byDriver.has(did)) byDriver.set(did, cid);
+        }
+      }
+    }
+    if (byDriver.size) out.set(mk, byDriver);
+  }
+  return out;
+}
+
 export async function main(): Promise<void> {
   console.log(`F1 entrylist, season ${YEAR}`);
   const entry = readEntry(YEAR);
@@ -73,6 +108,7 @@ export async function main(): Promise<void> {
     entry,
     rowsByMeeting,
     exceptions: loadRefs()?.f1DriverAcronyms ?? [],
+    constructorsByMeeting: constructorsByMeeting(YEAR),
   });
 
   const changed = writeJSONWithEnvelope(OUT_PATH, {

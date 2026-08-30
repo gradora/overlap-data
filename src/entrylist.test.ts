@@ -160,3 +160,47 @@ test("опубликованные заявки связаны полность�
               `${year}: пилот без единого места — его не должно быть в файле`);
   }
 });
+
+// MARK: Конструктор — на месте, а не на человеке
+
+/// Мидсезонная пересадка: Лоусон в 2025 проехал два раунда за red_bull и
+/// остальные за rb. Зачёт несёт обе команды списком, и клиент брал первую —
+/// то есть показал бы Red Bull на весь сезон. Конструктор обязан жить на
+/// МЕСТЕ (этап), а не на личности.
+test("конструктор берётся по этапу, а не по сезону", () => {
+  const lawson: JolpicaDriver = { driverId: "lawson", givenName: "Liam", familyName: "Lawson" };
+  const list = buildEntryList({
+    season: 2025, entry: [lawson],
+    rowsByMeeting: new Map([
+      [1254, rows(1254, [["LAW", 30, "Red Bull Racing"]])],
+      [1256, rows(1256, [["LAW", 30, "Racing Bulls"]])],
+    ]),
+    constructorsByMeeting: new Map([
+      [1254, new Map([["lawson", "red_bull"]])],
+      [1256, new Map([["lawson", "rb"]])],
+    ]),
+  });
+  assert.deepEqual(list.drivers[0].seats.map((s) => s.constructorId), ["red_bull", "rb"]);
+});
+
+test("не стартовавший в гонке остаётся без конструктора, а не с чужим", () => {
+  const aron: JolpicaDriver = { driverId: "paul_aron", givenName: "Paul", familyName: "Aron" };
+  const list = buildEntryList({
+    season: 2025, entry: [aron],
+    rowsByMeeting: new Map([[1260, rows(1260, [["ARO", 61, "Alpine"]])]]),
+    constructorsByMeeting: new Map([[1260, new Map([["gasly", "alpine"]])]]),
+  });
+  assert.equal(list.drivers[0].seats[0].constructorId, undefined,
+               "резервисту приписали конструктора другого пилота");
+});
+
+/// Сторож на опубликованных данных: пересадка Лоусона обязана быть видна.
+test("в опубликованной заявке 2025 у Лоусона две команды по этапам", () => {
+  const doc = JSON.parse(readFileSync("data/f1/entrylist/2025.json", "utf8"));
+  const p = doc.payload ?? doc;
+  const lawson = p.drivers.find((d: any) => d.driverId === "lawson");
+  assert.ok(lawson, "Лоусона нет в заявке 2025");
+  const teams = new Set(lawson.seats.map((s: any) => s.constructorId).filter(Boolean));
+  assert.deepEqual([...teams].sort(), ["rb", "red_bull"],
+                   "пересадка потерялась — конструктор снова сезонный");
+});

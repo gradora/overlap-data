@@ -58,6 +58,14 @@ export interface EntrySeat {
   team?: string;
   teamColour?: string;
   acronym: string;
+  /// Конструктор jolpica ЭТОГО этапа — не сезона. Разница не теоретическая:
+  /// Лоусон в 2025 проехал два раунда за `red_bull` и остальные за `rb`, а
+  /// зачёт несёт обе команды списком. Клиент брал из этого списка первую и
+  /// показал бы Red Bull на весь сезон.
+  ///
+  /// Нет — пилот в этом этапе не стартовал в гонке (резервист пятничной
+  /// сессии): в протоколах jolpica его нет, и выводить конструктора неоткуда.
+  constructorId?: string;
 }
 
 export interface EntryDriver {
@@ -150,8 +158,11 @@ export function buildEntryList(input: {
   entry: JolpicaDriver[];
   rowsByMeeting: Map<number, OpenF1DriverRow[]>;
   exceptions?: AcronymException[];
+  /// `meetingKey` → (`driverId` → `constructorId`) из протоколов гонок того
+  /// этапа. Нет записи — место останется без конструктора, и это честно.
+  constructorsByMeeting?: Map<number, Map<string, string>>;
 }): EntryList {
-  const { season, entry, rowsByMeeting, exceptions = [] } = input;
+  const { season, entry, rowsByMeeting, exceptions = [], constructorsByMeeting } = input;
   const seats = new Map<string, EntrySeat[]>();
   const unresolved: UnresolvedEntry[] = [];
   const seenUnresolved = new Set<string>();
@@ -174,10 +185,12 @@ export function buildEntryList(input: {
       // Один человек в одном митинге — одно место: строки повторяются по
       // сессиям, и без дедупа у пилота было бы по пять одинаковых записей.
       if (!list.some((s) => s.meetingKey === meetingKey && s.car === car)) {
+        const constructorId = constructorsByMeeting?.get(meetingKey)?.get(person.driverId);
         list.push({
           meetingKey, car, acronym,
           ...(row.team_name ? { team: row.team_name } : {}),
           ...(row.team_colour ? { teamColour: row.team_colour } : {}),
+          ...(constructorId ? { constructorId } : {}),
         });
       }
       seats.set(person.driverId, list);
