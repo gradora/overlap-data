@@ -15,7 +15,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { classifyDecision, PENALTY_PARSER_VERSION, type FiaPenalty } from "./lib/fiadocs.js";
 
@@ -69,4 +69,47 @@ test("решение со штрафом не записано предупре�
     .filter(({ p }) => p.type === "warning" || p.type === "reprimand" || p.type === "other")
     .map(({ file, p }) => `${file} doc ${p.doc} (${p.type}): «${p.decision.slice(0, 70)}»`);
   assert.deepEqual(lost, [], "штраф записан младшей санкцией — сумма не доедет до приложения");
+});
+
+/// Кумулятив побед на трассе обязан РАСТИ у одной и той же команды, как бы
+/// источник ни писал её имя. Так вскрылось, что Meyer Shank Racing считался
+/// двумя командами из-за пунктуации («w/ Curb Agajanian» против
+/// «W/Curb-Agajanian»): обе победы на трассе показывались как первая.
+///
+/// Файл победителей пишется ОДИН раз (история трассы в сезоне неизменна), и
+/// это верно — но означает, что правка счёта до старых файлов сама не
+/// доходит. Пересборка разовая: IMSA_WINNERS_FORCE=1.
+test("победы на трассе считаются сквозь написания имени команды", () => {
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const problems: string[] = [];
+  // ТОЛЬКО WEC и IMSA: у них кумулятив ключуется КОМАНДОЙ, и расщепление
+  // имени его ломает. У F1 ключ — ПИЛОТ, и две победы одной конюшни разными
+  // пилотами законно показывают по единице.
+  for (const series of ["wec", "imsa"]) {
+    const dir = join(process.cwd(), "data", series, "winners");
+    if (!existsSync(dir)) continue;
+    for (const name of readdirSync(dir).filter((n) => n.endsWith(".json"))) {
+      const doc = JSON.parse(readFileSync(join(dir, name), "utf8"));
+      const p = doc.payload ?? doc;
+      const byTeam = new Map<string, { year: number; wins: number }[]>();
+      for (const w of p.winners ?? []) {
+        const key = norm(w.constructor ?? w.team ?? "");
+        if (!key) continue;
+        byTeam.set(key, [...(byTeam.get(key) ?? []), { year: w.year, wins: w.winsHere }]);
+      }
+      for (const [key, rows] of byTeam) {
+        if (rows.length < 2) continue;
+        const sorted = [...rows].sort((a, b) => a.year - b.year);
+        for (let i = 1; i < sorted.length; i++) {
+          if (sorted[i].wins <= sorted[i - 1].wins) {
+            problems.push(`${series}/${name}: «${key}» ${sorted[i - 1].year}→${sorted[i].year} ` +
+              `кумулятив ${sorted[i - 1].wins}→${sorted[i].wins} не вырос`);
+          }
+        }
+      }
+    }
+  }
+  assert.deepEqual(problems, [],
+    "кумулятив побед не растёт — команда расщепилась на два имени; " +
+    "пересобрать: IMSA_WINNERS_FORCE=1 IMSA_WINNERS_BACKFILL=99 npm run imsawinners");
 });

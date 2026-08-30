@@ -23,7 +23,7 @@ import { SCHEDULE } from "../lib/schedule.js";
 import {
   bestTrackStage, buildWecWinners, crewSurnames, imsaOverallWinner, overallWinner,
 } from "../lib/winnersbuild.js";
-import { envNumber } from "../lib/env.js";
+import { envFlag, envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "imsa", "winners");
@@ -52,10 +52,20 @@ async function main(): Promise<void> {
   }
 
   let backfill = envNumber("IMSA_WINNERS_BACKFILL", 1);
+  // Разовая пересборка после правки СЧЁТА побед. Файл победителей пишется
+  // один раз (история трассы неизменна в сезоне), и это верно — но означает,
+  // что изменение логики подсчёта до старых файлов НЕ ДОХОДИТ никогда.
+  //
+  // Пересчитать локально нельзя: кумулятив winsHere считается по ВСЕЙ истории
+  // трассы, а в файл попадают только последние пять строк — из них счёт
+  // восстанавливается с занижением. Поэтому именно пересборка.
+  //
+  // Прогон: IMSA_WINNERS_FORCE=1 IMSA_WINNERS_BACKFILL=99 npm run imsawinners
+  const force = envFlag("IMSA_WINNERS_FORCE");
 
   for (const entry of schedule) {
     const path = join(OUT_DIR, `${YEAR}_${entry.round}.json`);
-    if (existsSync(path)) continue; // история неизменна — пишем один раз
+    if (existsSync(path) && !force) continue; // история неизменна — пишем один раз
     if (backfill <= 0) continue;
     backfill--;
 
