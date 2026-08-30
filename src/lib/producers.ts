@@ -115,6 +115,9 @@ export const PRODUCERS: ProducerSpec[] = [
   { key: "records", script: "f1records", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1teams", script: "f1teams", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1overrides", script: "f1overrides", budgetDays: HOURLY, workflow: SNAPSHOT },
+  // Заявка сезона с разрезолвленными личностями (D4 фазы 6). Бессетевая
+  // деривация из зеркал jolpica и openf1 — идёт после обоих.
+  { key: "f1entrylist", script: "f1entrylist", budgetDays: HOURLY, workflow: SNAPSHOT },
   // Проекция семейств в файл события (фаза 6). Ходит только по локальным
   // файлам, поэтому идёт ПОСЛЕ них в snapshot.yml: собранное в этом же прогоне
   // попадает в проекцию сразу, а не через час.

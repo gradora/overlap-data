@@ -57,6 +57,11 @@ jobs:
       - name: Хайлайты F1
         run: npm run f1highlights
 
+      # Заявка сезона: в пятницу в протоколе появляется резервист, и связать
+      # его с человеком надо в том же прогоне, а не через час.
+      - name: Заявка сезона F1
+        run: npm run f1entrylist
+
       # Бессетевая проекция семейств в файл события — последней, чтобы забрать
       # и хайлайты этого прогона, и штрафы, доснятые fia.yml.
       - name: Файл события F1
@@ -69,5 +74,5 @@ jobs:
           # Ровно то, что пишут три шага выше. Не `data/f1`: решения
           # стюардов (data/f1/fia) принадлежат fia.yml, и захватывать их
           # чужим коммитом — значит гоняться с ним за один файл.
-          paths: data/f1/openf1 data/f1/highlights data/f1/events
+          paths: data/f1/openf1 data/f1/highlights data/f1/entrylist data/f1/events
           message-prefix: f1live

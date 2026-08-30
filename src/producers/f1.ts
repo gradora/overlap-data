@@ -22,7 +22,9 @@ const OUT_DIR = join(process.cwd(), "data", "f1", "jolpica");
 // null — у пути нет годового эквивалента (current/next.json) или сезона нет.
 export function yearEquivalent(relative: string, json: any): string | null {
   const mr = json?.MRData;
-  const season = mr?.RaceTable?.season ?? mr?.StandingsTable?.season;
+  // DriverTable — заявка сезона (drivers.json): свою таблицу она называет
+  // иначе, и без неё годовая копия не писалась вовсе.
+  const season = mr?.RaceTable?.season ?? mr?.StandingsTable?.season ?? mr?.DriverTable?.season;
   if (!season) return null;
   if (relative === "current.json") return `${season}.json`;
   if (relative === "current/next.json") return null; // «next» относителен, не сезонен
@@ -130,6 +132,7 @@ async function historicSeason(): Promise<void> {
   }
   await mirror(`${YEAR}/driverStandings.json`);
   await mirror(`${YEAR}/constructorStandings.json`);
+  await mirror(`${YEAR}/drivers.json?limit=100`);   // заявка сезона, см. выше
   const allResults = await mirrorPaginated(`${YEAR}/results.json`);
   const slices = writeRoundResultSlices(allResults);
   if (slices > 0) console.log(`  round slices updated: ${slices}`);
@@ -189,6 +192,12 @@ async function main() {
   await mirror("current/last/results.json");
   await mirror("current/driverStandings.json");
   await mirror("current/constructorStandings.json");
+  // ЗАЯВКА сезона — не зачёт. Разница принципиальная: зачёт несёт только тех,
+  // кто набирал очки, а заявка — всех допущенных, включая резервистов и
+  // пилотов пятничных сессий. Именно её не хватало, чтобы разрезолвить
+  // протоколы (2026: 32 в заявке против 23 в зачёте). limit — потому что по
+  // умолчанию ручка отдаёт 30, а заявка 2025 из 36 человек.
+  await mirror("current/drivers.json?limit=100");
 
   // Все результаты гонок и спринтов сезона (пагинация) + пер-раундовые слайсы.
   const allResults = await mirrorPaginated("current/results.json");

@@ -98,6 +98,16 @@ export interface RefDriverException {
   note?: string;
 }
 
+/// Акроним протокола, который правилом не выводится. Заводится ТОЛЬКО когда
+/// правило «акроним = начало нормализованной фамилии» промахнулось или дало
+/// двух кандидатов: за 2025–2026 такая запись ровно одна (братья Леклеры).
+export interface RefAcronymException {
+  code: string;          // акроним в протоколе OpenF1 («LEL»)
+  driverId: string;      // кому он принадлежит (id заявки jolpica)
+  seasons?: number[];    // пусто — во всех сезонах
+  note?: string;
+}
+
 export interface RefsMap {
   schemaVersion: number;
   generatedAt?: string;
@@ -115,6 +125,9 @@ export interface RefsMap {
     iso3ToIso2: Record<string, string>;
     nameToIso2: Record<string, string>;
   };
+  /// Опционально: карта прошлой версии его не несёт, и это не повод считать
+  /// её непригодной (аддитивная правка — правило 1 плана).
+  f1DriverAcronyms?: RefAcronymException[];
 }
 
 // MARK: Загрузка (fail-open)
