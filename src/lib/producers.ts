@@ -115,6 +115,10 @@ export const PRODUCERS: ProducerSpec[] = [
   { key: "records", script: "f1records", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1teams", script: "f1teams", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1overrides", script: "f1overrides", budgetDays: HOURLY, workflow: SNAPSHOT },
+  // Проекции derived в файл события WEC и IMSA (фаза 6). Бессетевые, идут
+  // после своих семейств.
+  { key: "wecevents", script: "wecevents", budgetDays: HOURLY, workflow: SNAPSHOT },
+  { key: "imsaevents", script: "imsaevents", budgetDays: HOURLY, workflow: SNAPSHOT },
   // Заявка сезона с разрезолвленными личностями (D4 фазы 6). Бессетевая
   // деривация из зеркал jolpica и openf1 — идёт после обоих.
   { key: "f1entrylist", script: "f1entrylist", budgetDays: HOURLY, workflow: SNAPSHOT },

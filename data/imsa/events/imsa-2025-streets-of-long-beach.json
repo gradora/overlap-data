@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.471Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-streets-of-long-beach",
+  "eventId": "streets-of-long-beach",
+  "round": 3,
+  "fia": {
+    "season": 2025,
+    "round": 3,
+    "event": "streets-of-long-beach",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2025,
+    "round": 3,
+    "circuit": "Streets of Long Beach",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "VAN DER ZANDE / BOURDAIS",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac V-Series.R",
+        "winsHere": 2
+      },
+      {
+        "year": 2023,
+        "name": "TANDY / JAMINET",
+        "constructor": "Porsche Penske Motorsports",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "VAN DER ZANDE / BOURDAIS",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "NASR / DERANI",
+        "constructor": "Whelen Engineering Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "name": "BARBOSA / ALBUQUERQUE",
+        "constructor": "Mustang Sampling Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 2
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 3,
+    "fastestLap": {
+      "time": "1:12.708",
+      "seconds": 72.708,
+      "driver": "F. Nasr",
+      "car": "7",
+      "team": "Porsche Penske Motorsport",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "42.696",
+      "seconds": 42.696,
+      "driver": "M. Goikhberg",
+      "car": "78",
+      "team": "Forte Racing",
+      "class": "GTD"
+    },
+    "medianPitStop": {
+      "time": "1:05.2",
+      "seconds": 65.2
+    }
+  }
+}

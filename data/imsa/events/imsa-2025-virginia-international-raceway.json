@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.473Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-virginia-international-raceway",
+  "eventId": "virginia-international-raceway",
+  "round": 9,
+  "fia": {
+    "season": 2025,
+    "round": 9,
+    "event": "virginia-international-raceway",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2025,
+    "round": 9,
+    "circuit": "VIRginia International Raceway",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "SNOW / SELLERS",
+        "constructor": "Paul Miller Racing",
+        "vehicle": "BMW M4 GT3",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "GARCIA / TAYLOR",
+        "constructor": "Corvette Racing",
+        "vehicle": "Chevrolet Corvette C8.R GTD",
+        "winsHere": 5
+      },
+      {
+        "year": 2022,
+        "name": "CAMPBELL / JAMINET",
+        "constructor": "Pfaff Motorsports",
+        "vehicle": "Porsche 911 GT3R",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "MILNER / TANDY",
+        "constructor": "Corvette Racing",
+        "vehicle": "Chevrolet Corvette C8.R",
+        "winsHere": 4
+      },
+      {
+        "year": 2020,
+        "name": "GARCIA / TAYLOR",
+        "constructor": "Corvette Racing",
+        "vehicle": "Chevrolet Corvette C8.R",
+        "winsHere": 3
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 9,
+    "fastestLap": {
+      "time": "1:46.205",
+      "seconds": 106.205,
+      "driver": "F. Schandorff",
+      "car": "70",
+      "team": "Inception Racing",
+      "class": "GTD"
+    },
+    "fastestPitStop": {
+      "time": "21.457",
+      "seconds": 21.457,
+      "driver": "K. Bachler",
+      "car": "77",
+      "team": "AO Racing",
+      "class": "GTDPRO"
+    },
+    "medianPitStop": {
+      "time": "56.6",
+      "seconds": 56.6
+    }
+  }
+}

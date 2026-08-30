@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.472Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-detroit-street-circuit",
+  "eventId": "detroit-street-circuit",
+  "round": 5,
+  "fia": {
+    "season": 2025,
+    "round": 5,
+    "event": "detroit-street-circuit",
+    "updated": "2025-05-30T23:48:27.000Z",
+    "penalties": [
+      {
+        "doc": 15,
+        "car": 14,
+        "driver": "Vasser Sullivan Racing",
+        "session": "Technical",
+        "type": "deleted_laps",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During post-Qualifying Technical Inspection, GTD PRO Car #14 was found to have a Ground Clearance less than the minimum per IWSC GTD PRO TR 7.4.5.a",
+        "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/11_Detroit%20Street%20Course/18_Penalties/TP%2025-15.pdf",
+        "publishedAt": "2025-05-30T23:48:27.000Z"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2025,
+    "round": 5,
+    "circuit": "Detroit Street Circuit",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Wayne Taylor Racing with Andretti",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 5,
+    "fastestLap": {
+      "time": "1:06.641",
+      "seconds": 66.641,
+      "driver": "N. Tandy",
+      "car": "7",
+      "team": "Porsche Penske Motorsport",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "26.845",
+      "seconds": 26.845,
+      "driver": "A. Costa",
+      "car": "81",
+      "team": "DragonSpeed",
+      "class": "GTDPRO"
+    },
+    "medianPitStop": {
+      "time": "32.0",
+      "seconds": 32
+    }
+  }
+}

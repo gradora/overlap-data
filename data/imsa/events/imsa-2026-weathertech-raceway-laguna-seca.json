@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.791Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-weathertech-raceway-laguna-seca",
+  "eventId": "weathertech-raceway-laguna-seca",
+  "round": 4,
+  "fia": {
+    "season": 2026,
+    "round": 4,
+    "event": "weathertech-raceway-laguna-seca",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2026,
+    "round": 4,
+    "circuit": "WeatherTech Raceway Laguna Seca",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "CAMPBELL / JAMINET",
+        "constructor": "Porsche Penske Motorsport",
+        "vehicle": "Porsche 963",
+        "winsHere": 2
+      },
+      {
+        "year": 2024,
+        "name": "TANDY / JAMINET",
+        "constructor": "Porsche Penske Motorsport",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "BOURDAIS / VAN DER ZANDE",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac V-Series.R",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 2
+      },
+      {
+        "year": 2021,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 4,
+    "final": true,
+    "fastestLap": {
+      "time": "1:15.315",
+      "seconds": 75.315,
+      "driver": "J. Aitken",
+      "car": "31",
+      "team": "Cadillac Whelen",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "24.443",
+      "seconds": 24.443,
+      "driver": "N. Johnson",
+      "car": "59",
+      "team": "RLL Team McLaren",
+      "class": "GTDPRO"
+    },
+    "medianPitStop": {
+      "time": "47.8",
+      "seconds": 47.8
+    }
+  }
+}

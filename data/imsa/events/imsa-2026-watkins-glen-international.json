@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.792Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-watkins-glen-international",
+  "eventId": "watkins-glen-international",
+  "round": 6,
+  "fia": {
+    "season": 2026,
+    "round": 6,
+    "event": "watkins-glen-international",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2026,
+    "round": 6,
+    "circuit": "Watkins Glen International",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "BLOMQVIST / BRAUN",
+        "constructor": "Acura Meyer Shank Racing w/Curb Agajanian",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "name": "CAMERON / NASR",
+        "constructor": "Porsche Penske Motorsport",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "DE PHILLIPPI / YELLOLY",
+        "constructor": "BMW M Team RLL",
+        "vehicle": "BMW M Hybrid V8",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "JARVIS / TINCKNELL / BOMARITO",
+        "constructor": "Mazda Motorsports",
+        "vehicle": "Mazda DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 6,
+    "final": true,
+    "fastestLap": {
+      "time": "1:34.967",
+      "seconds": 94.967,
+      "driver": "J. Aitken",
+      "car": "31",
+      "team": "Cadillac Whelen",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "29.749",
+      "seconds": 29.749,
+      "driver": "M. Bell",
+      "car": "13",
+      "team": "13 Autosport",
+      "class": "GTD"
+    },
+    "medianPitStop": {
+      "time": "1:01.7",
+      "seconds": 61.7
+    }
+  }
+}

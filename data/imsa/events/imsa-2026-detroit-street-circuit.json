@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.792Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-detroit-street-circuit",
+  "eventId": "detroit-street-circuit",
+  "round": 5,
+  "fia": {
+    "season": 2026,
+    "round": 5,
+    "event": "detroit-street-circuit",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2026,
+    "round": 5,
+    "circuit": "Detroit Street Circuit",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "YELLOLY / VAN DER ZANDE",
+        "constructor": "Acura Meyer Shank Racing w/Curb Agajanian",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Wayne Taylor Racing with Andretti",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 5,
+    "final": true,
+    "fastestLap": {
+      "time": "1:06.234",
+      "seconds": 66.234,
+      "driver": "E. Bamber",
+      "car": "31",
+      "team": "Cadillac Whelen",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "29.133",
+      "seconds": 29.133,
+      "driver": "R. De Angelis",
+      "car": "23",
+      "team": "ASTON MARTIN THOR Team",
+      "class": "GTP"
+    },
+    "medianPitStop": {
+      "time": "37.1",
+      "seconds": 37.1
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.793Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-canadian-tire-motorsport-park",
+  "eventId": "canadian-tire-motorsport-park",
+  "round": 7,
+  "fia": {
+    "season": 2026,
+    "round": 7,
+    "event": "canadian-tire-motorsport-park",
+    "updated": "2026-07-11T22:37:59.000Z",
+    "penalties": [
+      {
+        "doc": 12,
+        "car": 99,
+        "driver": "AO Racing",
+        "session": "Technical",
+        "type": "deleted_laps",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During Post-Qualifying Technical Inspection, LMP2 Car #99 was found to be in violation of FIA LMP2 Technical Regulation 3.5.4.a1",
+        "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/15_Canadian%20Tire%20Motorsport%20Park/18_Penalties/TP%2026-12.pdf",
+        "publishedAt": "2026-07-11T22:37:59.000Z"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2026,
+    "round": 7,
+    "circuit": "Canadian Tire Motorsport Park",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "HYETT / CAMERON",
+        "constructor": "AO Racing",
+        "vehicle": "ORECA LMP2 07",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "name": "BOULLE / DILLMANN",
+        "constructor": "Inter Europol by PR1 Mathiasen Motorsports",
+        "vehicle": "ORECA LMP2 07",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "BLOMQVIST / BRAUN",
+        "constructor": "Meyer Shank Racing w/ Curb Agajanian",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "VAN DER ZANDE / BOURDAIS",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "name": "JARVIS / NUNEZ",
+        "constructor": "Mazda Team Joest",
+        "vehicle": "Mazda DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 7,
+    "final": true,
+    "fastestLap": {
+      "time": "1:08.481",
+      "seconds": 68.481,
+      "driver": "S. Alvarez",
+      "car": "8",
+      "team": "Tower Motorsports",
+      "class": "LMP2"
+    },
+    "fastestPitStop": {
+      "time": "29.882",
+      "seconds": 29.882,
+      "driver": "F. Fraga",
+      "car": "16",
+      "team": "Myers Riley Motorsports",
+      "class": "GTD"
+    },
+    "medianPitStop": {
+      "time": "54.2",
+      "seconds": 54.2
+    }
+  }
+}

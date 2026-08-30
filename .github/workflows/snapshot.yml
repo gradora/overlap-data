@@ -73,6 +73,13 @@ jobs:
         continue-on-error: true
         run: npm run wecwinners
 
+      # Проекция derived WEC в файл события (фаза 6) — ПОСЛЕ всех трёх
+      # семейств серии, иначе в файл попадут прошлые данные.
+      - name: Файл события WEC
+        id: wecevents
+        continue-on-error: true
+        run: npm run wecevents
+
       - name: Решения IMSA (Notice Board)
         id: imsafia
         continue-on-error: true
@@ -87,6 +94,12 @@ jobs:
         id: imsawinners
         continue-on-error: true
         run: npm run imsawinners
+
+      # То же для IMSA.
+      - name: Файл события IMSA
+        id: imsaevents
+        continue-on-error: true
+        run: npm run imsaevents
 
       - name: Решения стюардов FIA (штрафы)
         id: fia
@@ -227,6 +240,8 @@ jobs:
           F1TEAMS_OUTCOME: ${{ steps.f1teams.outcome }}
           F1OVERRIDES_OUTCOME: ${{ steps.f1overrides.outcome }}
           F1WEATHER_OUTCOME: ${{ steps.f1weather.outcome }}
+          WECEVENTS_OUTCOME: ${{ steps.wecevents.outcome }}
+          IMSAEVENTS_OUTCOME: ${{ steps.imsaevents.outcome }}
           F1ENTRYLIST_OUTCOME: ${{ steps.f1entrylist.outcome }}
           F1EVENTS_OUTCOME: ${{ steps.f1events.outcome }}
           NEXTSEASON_OUTCOME: ${{ steps.nextseason.outcome }}
@@ -248,7 +263,7 @@ jobs:
           FAILED=""
           for p in "imsa=${{ steps.imsa.outcome }}" "f1=${{ steps.f1.outcome }}" \
                    "openf1=${{ steps.openf1.outcome }}" "wec=${{ steps.wec.outcome }}" \
-                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1teams=${{ steps.f1teams.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}" "f1weather=${{ steps.f1weather.outcome }}" "f1entrylist=${{ steps.f1entrylist.outcome }}" "f1events=${{ steps.f1events.outcome }}" \
+                   "fia=${{ steps.fia.outcome }}" "wecfia=${{ steps.wecfia.outcome }}" "wechighlights=${{ steps.wechighlights.outcome }}" "wecwinners=${{ steps.wecwinners.outcome }}" "imsafia=${{ steps.imsafia.outcome }}" "imsahighlights=${{ steps.imsahighlights.outcome }}" "imsawinners=${{ steps.imsawinners.outcome }}" "winners=${{ steps.winners.outcome }}" "highlights=${{ steps.highlights.outcome }}" "milestones=${{ steps.milestones.outcome }}" "f1history=${{ steps.f1history.outcome }}" "beasts=${{ steps.beasts.outcome }}" "records=${{ steps.records.outcome }}" "f1teams=${{ steps.f1teams.outcome }}" "f1overrides=${{ steps.f1overrides.outcome }}" "f1weather=${{ steps.f1weather.outcome }}" "wecevents=${{ steps.wecevents.outcome }}" "imsaevents=${{ steps.imsaevents.outcome }}" "f1entrylist=${{ steps.f1entrylist.outcome }}" "f1events=${{ steps.f1events.outcome }}" \
                    "nextseason=${{ steps.nextseason.outcome }}"; do
             name="${p%%=*}"; outcome="${p##*=}"
             if [ "$outcome" = "failure" ]; then FAILED="$FAILED $name"; fi

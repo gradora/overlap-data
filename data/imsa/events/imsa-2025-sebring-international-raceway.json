@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.471Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-sebring-international-raceway",
+  "eventId": "sebring-international-raceway",
+  "round": 2,
+  "fia": {
+    "season": 2025,
+    "round": 2,
+    "event": "sebring-international-raceway",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2025,
+    "round": 2,
+    "circuit": "Sebring International Raceway",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "TAYLOR / DELETRAZ / HERTA",
+        "constructor": "Wayne Taylor Racing with Andretti",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "DERANI / SIMS / AITKEN",
+        "constructor": "Whelen Engineering Racing Cadillac",
+        "vehicle": "Cadillac V-Series R",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "BAMBER / LYNN / JANI",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "VAUTIER / DUVAL / BOURDAIS",
+        "constructor": "Mustang Sampling / JDC-Miller MotorSports",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2020,
+        "name": "BOMARITO / TINCKNELL / HUNTER-REAY",
+        "constructor": "Mazda Motorsports",
+        "vehicle": "Mazda DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 2,
+    "fastestLap": {
+      "time": "1:49.120",
+      "seconds": 109.12,
+      "driver": "F. Nasr",
+      "car": "7",
+      "team": "Porsche Penske Motorsport",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "32.287",
+      "seconds": 32.287,
+      "driver": "T. Blomqvist",
+      "car": "60",
+      "team": "Acura Meyer Shank Racing w/Curb Agajanian",
+      "class": "GTP"
+    },
+    "medianPitStop": {
+      "time": "1:16.3",
+      "seconds": 76.3
+    }
+  }
+}

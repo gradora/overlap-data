@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.794Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-virginia-international-raceway",
+  "eventId": "virginia-international-raceway",
+  "round": 9,
+  "fia": {
+    "season": 2026,
+    "round": 9,
+    "event": "virginia-international-raceway",
+    "penalties": []
+  },
+  "winners": {
+    "season": 2026,
+    "round": 9,
+    "circuit": "VIRginia International Raceway",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "GARCIA / SIMS",
+        "constructor": "Corvette Racing by Pratt Miller Motorsports",
+        "vehicle": "Chevrolet Corvette Z06 GT3.R",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "name": "SNOW / SELLERS",
+        "constructor": "Paul Miller Racing",
+        "vehicle": "BMW M4 GT3",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "GARCIA / TAYLOR",
+        "constructor": "Corvette Racing",
+        "vehicle": "Chevrolet Corvette C8.R GTD",
+        "winsHere": 5
+      },
+      {
+        "year": 2022,
+        "name": "CAMPBELL / JAMINET",
+        "constructor": "Pfaff Motorsports",
+        "vehicle": "Porsche 911 GT3R",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "MILNER / TANDY",
+        "constructor": "Corvette Racing",
+        "vehicle": "Chevrolet Corvette C8.R",
+        "winsHere": 4
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 9,
+    "fastestLap": {
+      "time": "1:46.686",
+      "seconds": 106.686,
+      "driver": "A. Caldarelli",
+      "car": "9",
+      "team": "Pfaff Motorsports",
+      "class": "GTDPRO"
+    },
+    "fastestPitStop": {
+      "time": "21.695",
+      "seconds": 21.695,
+      "driver": "C. Stevenson",
+      "car": "81",
+      "team": "DragonSpeed",
+      "class": "GTD"
+    },
+    "medianPitStop": {
+      "time": "54.3",
+      "seconds": 54.3
+    }
+  }
+}

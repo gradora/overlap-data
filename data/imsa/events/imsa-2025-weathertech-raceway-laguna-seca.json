@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.471Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-weathertech-raceway-laguna-seca",
+  "eventId": "weathertech-raceway-laguna-seca",
+  "round": 4,
+  "fia": {
+    "season": 2025,
+    "round": 4,
+    "event": "weathertech-raceway-laguna-seca",
+    "updated": "2025-05-11T00:54:45.000Z",
+    "penalties": [
+      {
+        "doc": 13,
+        "car": 7,
+        "driver": "Precision Racing LA",
+        "session": "Technical",
+        "type": "other",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During Technical Inspection following Qualifying, TCR Car #7 was found to have a ground clearance lower than permitted per IMPC TB 25-11c1.",
+        "decision": "Qualifying times are invalidated, Car #7 is moved to the back of the Class.",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/10_WeatherTech%20Raceway%20Laguna%20Seca/18_Penalties/TP%2025-13.pdf",
+        "publishedAt": "2025-05-10T02:28:32.000Z"
+      },
+      {
+        "doc": 14,
+        "car": 27,
+        "driver": "",
+        "session": "Technical",
+        "type": "deleted_laps",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During Technical Inspection following Qualifying, GTD Car # 27 was found to have a ground clearance below the minimum per IWSC GTD TR 7.4.5",
+        "decision": "Qualifying lap times are invalidated. Car is moved to the back of the Class",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/10_WeatherTech%20Raceway%20Laguna%20Seca/18_Penalties/TP%2025-14.pdf",
+        "publishedAt": "2025-05-11T00:54:45.000Z"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2025,
+    "round": 4,
+    "circuit": "WeatherTech Raceway Laguna Seca",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "TANDY / JAMINET",
+        "constructor": "Porsche Penske Motorsport",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "BOURDAIS / VAN DER ZANDE",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac V-Series.R",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 2
+      },
+      {
+        "year": 2021,
+        "name": "TAYLOR / ALBUQUERQUE",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2020,
+        "name": "CASTRONEVES / TAYLOR",
+        "constructor": "ACURA TEAM PENSKE",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 4,
+    "fastestLap": {
+      "time": "1:14.637",
+      "seconds": 74.637,
+      "driver": "M. Jaminet",
+      "car": "6",
+      "team": "Porsche Penske Motorsport",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "23.680",
+      "seconds": 23.68,
+      "driver": "E. Skeer",
+      "car": "120",
+      "team": "Wright Motorsports",
+      "class": "GTD"
+    },
+    "medianPitStop": {
+      "time": "59.0",
+      "seconds": 59
+    }
+  }
+}

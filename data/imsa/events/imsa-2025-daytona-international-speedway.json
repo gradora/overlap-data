@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.469Z",
+  "series": "imsa",
+  "season": 2025,
+  "eventKey": "imsa-2025-daytona-international-speedway",
+  "eventId": "daytona-international-speedway",
+  "round": 1,
+  "fia": {
+    "season": 2025,
+    "round": 1,
+    "event": "daytona-international-speedway",
+    "updated": "2025-01-29T21:01:59.000Z",
+    "penalties": [
+      {
+        "doc": 3,
+        "car": 8,
+        "driver": "Tower Motorsports",
+        "session": "Technical",
+        "type": "other",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During Post-Race Technical Inspection, LMP2 Car #8 was found to have exceeded the maximum allowable wear to the regulated area of the skid block per FIA 2025 LMP2 Technical Regulation 3.5.6",
+        "decision": "Car is moved to the back of the Class",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/02_Rolex%2024%20-%20Daytona%20International%20Speedway/18_Penalties/TP%2025-3.pdf",
+        "publishedAt": "2025-01-29T21:01:59.000Z"
+      },
+      {
+        "doc": 4,
+        "car": 21,
+        "driver": "Stevan McAleer",
+        "session": "Sporting",
+        "type": "other",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car #021 Driver Stevan McAleer drove 4:01:15.316 in the 6 hours period from 22:15:43 PM to 4:15:43 AM, exceeding the maximum of four (4) hours in any six (6) hour",
+        "decision": "Back of class per article 12.12 Drive-Time Penalty Order Priority",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/02_Rolex%2024%20-%20Daytona%20International%20Speedway/18_Penalties/SP%2025-4.pdf",
+        "publishedAt": "2025-01-26T20:03:27.000Z"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2025,
+    "round": 1,
+    "circuit": "Daytona International Speedway",
+    "winners": [
+      {
+        "year": 2024,
+        "name": "CAMERON / NASR / CAMPBELL / NEWGARDEN",
+        "constructor": "Porsche Penske Motorsports",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "name": "BLOMQVIST / BRAUN / CASTRONEVES / PAGENAUD",
+        "constructor": "Meyer Shank Racing w/ Curb Agajanian",
+        "vehicle": "Acura ARX-06",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "JARVIS / BLOMQVIST / CASTRONEVES / PAGENAUD",
+        "constructor": "Meyer Shank Racing W/Curb-Agajanian",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "TAYLOR / ALBUQUERQUE / ROSSI / CASTRONEVES",
+        "constructor": "Konica Minolta Acura ARX-05",
+        "vehicle": "Acura DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2020,
+        "name": "BRISCOE / DIXON / KOBAYASHI / VAN DER ZANDE",
+        "constructor": "Konica Minolta Cadillac DPi-V.R",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2025,
+    "round": 1,
+    "fastestLap": {
+      "time": "1:35.868",
+      "seconds": 95.868,
+      "driver": "S. van der Linde",
+      "car": "25",
+      "team": "BMW M Team RLL",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "44.903",
+      "seconds": 44.903,
+      "driver": "A. Garcia",
+      "car": "3",
+      "team": "Corvette Racing by Pratt Miller Motorsports",
+      "class": "GTDPRO"
+    },
+    "medianPitStop": {
+      "time": "1:30.4",
+      "seconds": 90.4
+    }
+  }
+}

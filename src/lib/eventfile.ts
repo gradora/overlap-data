@@ -21,6 +21,15 @@
 // 70 КБ в среднем против 7.3 КБ всех блоков вместе и грузится условно.
 // Протоколы сессий — поставка D4, им нужен курируемый слой личностей.
 //
+// У WEC И IMSA — ТОЛЬКО DERIVED, БЕЗ СЕССИЙ. У них файл события уже есть
+// (`<серия>/<год>/NN_<слаг>.json`, путь публикует сам индекс), и дублировать
+// в проекцию 26 МБ сессий было бы бессмысленно. Вставить блоки ВНУТРЬ того
+// файла тоже нельзя: его пишет продьюсер зеркала, который в снапшоте идёт
+// РАНЬШЕ derived-семейств, и он пересобирает файл по белому списку — блоки
+// либо отставали бы на прогон, либо стирались бы каждый раз. Поэтому у этих
+// серий проекция несёт только штрафы, победителей и хайлайты: экран качает
+// два файла вместо четырёх.
+//
 // ВАЖНО ПРО generatedAt. Из блоков он вырезается вместе с остальным конвертом.
 // Иначе композит менялся бы каждый прогон источника, `writeJSONWithEnvelope`
 // видел бы отличие и git пух бы на пустом месте.
@@ -85,9 +94,11 @@ export interface EventEntryDriver {
   constructorId?: string;
 }
 
+export type EventSeries = "f1" | "wec" | "imsa";
+
 export interface EventFile {
   schemaVersion: number;
-  series: "f1";
+  series: EventSeries;
   season: number;
   /// Ключ файла — он же имя. Дублируется внутрь, чтобы файл, попавший не по
   /// тому адресу (сбой деплоя, ручное копирование), был отличим от своего.
@@ -106,6 +117,8 @@ export interface EventFile {
 }
 
 export interface EventFileInput {
+  /// F1 по умолчанию — у него проекция появилась первой.
+  series?: EventSeries;
   season: number;
   eventKey: string;
   eventId: string;
@@ -134,7 +147,7 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
 
   return {
     schemaVersion: EVENT_FILE_SCHEMA_VERSION,
-    series: "f1",
+    series: input.series ?? "f1",
     season: input.season,
     eventKey: input.eventKey,
     eventId: input.eventId,

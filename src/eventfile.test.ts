@@ -4,6 +4,10 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { run } from "./lib/seriesevents.js";
 import { EVENT_FILE_SCHEMA_VERSION, buildEventFile, eventFilePath, stripEnvelope }
   from "./lib/eventfile.js";
 
@@ -93,4 +97,66 @@ test("проекция детерминирована", () => {
   const a = JSON.stringify(buildEventFile(input()));
   const b = JSON.stringify(buildEventFile(input()));
   assert.equal(a, b);
+});
+
+// MARK: - Проекция WEC и IMSA
+// У этих серий файл события уже существует, поэтому проекция несёт ТОЛЬКО
+// derived: сессии в неё не дублируются, а вставить блоки внутрь существующего
+// файла нельзя — его пишет продьюсер зеркала, идущий в снапшоте раньше
+// derived-семейств.
+
+test("серия попадает в файл и не подменяется дефолтом", () => {
+  const wec = buildEventFile({
+    series: "wec", season: 2025, eventKey: "wec-2025-6-hours-of-imola-2025",
+    eventId: "6-hours-of-imola-2025", round: 1, fia,
+  })!;
+  assert.equal(wec.series, "wec");
+  assert.equal(wec.eventKey, "wec-2025-6-hours-of-imola-2025");
+  // Без явной серии — F1: у него проекция появилась первой.
+  assert.equal(buildEventFile(input())!.series, "f1");
+});
+
+test("у проекции WEC/IMSA нет заявки и протоколов — только derived", () => {
+  const imsa = buildEventFile({
+    series: "imsa", season: 2026, eventKey: "imsa-2026-daytona-international-speedway",
+    eventId: "daytona-international-speedway", round: 1, fia, winners,
+  })!;
+  assert.deepEqual(Object.keys(imsa).filter((k) => ["entry", "milestones"].includes(k)), [],
+                   "в проекцию этих серий не должно попадать ничего, кроме derived");
+  assert.ok("fia" in imsa && "winners" in imsa);
+});
+
+/// Пролог WEC и тесты идут с сентинелом round 0 — round-keyed семейств у них
+/// нет, и файла быть не должно.
+test("событие с сентинелом раунда файла не получает", () => {
+  assert.equal(buildEventFile({
+    series: "wec", season: 2026, eventKey: "wec-2026-official-prologue-imola-2026",
+    eventId: "official-prologue-imola-2026", round: 0,
+  }), null);
+});
+
+/// ПРОВОДКА продьюсера, а не сборки: мутант «серию не передали» переживает
+/// любой тест, который зовёт buildEventFile напрямую, потому что там серия
+/// приходит аргументом теста. Ловится только прогоном самого продьюсера.
+test("продьюсер серии пишет ИМЕННО свою серию", async () => {
+  const root = mkdtempSync(join(tmpdir(), "seriesevents-"));
+  mkdirSync(join(root, "wec", "2025"), { recursive: true });
+  mkdirSync(join(root, "wec", "fia"), { recursive: true });
+  writeFileSync(join(root, "wec", "2025", "index.json"), JSON.stringify({
+    schemaVersion: 1, events: [{ round: 1, slug: "6-hours-of-imola-2025" }],
+  }));
+  writeFileSync(join(root, "wec", "fia", "2025_1.json"), JSON.stringify({
+    schemaVersion: 1, generatedAt: "x", season: 2025, round: 1,
+    event: "imola", penalties: [{ doc: 1, car: 7 }],
+  }));
+
+  await run("wec", 2025, root);
+
+  const out = JSON.parse(readFileSync(
+    join(root, "wec", "events", "wec-2025-6-hours-of-imola-2025.json"), "utf8"));
+  assert.equal(out.series, "wec", "продьюсер записал чужую серию");
+  assert.equal(out.eventKey, "wec-2025-6-hours-of-imola-2025");
+  assert.equal(out.eventId, "6-hours-of-imola-2025");
+  assert.equal(out.fia.penalties.length, 1);
+  rmSync(root, { recursive: true, force: true });
 });

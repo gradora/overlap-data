@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:42:48.791Z",
+  "series": "imsa",
+  "season": 2026,
+  "eventKey": "imsa-2026-streets-of-long-beach",
+  "eventId": "streets-of-long-beach",
+  "round": 3,
+  "fia": {
+    "season": 2026,
+    "round": 3,
+    "event": "streets-of-long-beach",
+    "updated": "2026-04-18T02:45:13.000Z",
+    "penalties": [
+      {
+        "doc": 9,
+        "car": 89,
+        "driver": "Vasser Sullivan Racing",
+        "session": "Technical",
+        "type": "deleted_laps",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "During post-Qualifying Technical Inspection, GTD Car #89 was found to have a ground clearance lower than the minimum per GTD Technical Regulation 7.4.5.",
+        "decision": "Lap times are invalidated. Car is moved to the back of the Class.",
+        "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/07_Long%20Beach%20Street%20Circuit/18_Penalties/TP%2026-9.pdf",
+        "publishedAt": "2026-04-18T02:45:13.000Z"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2026,
+    "round": 3,
+    "circuit": "Streets of Long Beach",
+    "winners": [
+      {
+        "year": 2025,
+        "name": "TANDY / NASR",
+        "constructor": "Porsche Penske Motorsport",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "name": "VAN DER ZANDE / BOURDAIS",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac V-Series.R",
+        "winsHere": 2
+      },
+      {
+        "year": 2023,
+        "name": "TANDY / JAMINET",
+        "constructor": "Porsche Penske Motorsports",
+        "vehicle": "Porsche 963",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "name": "VAN DER ZANDE / BOURDAIS",
+        "constructor": "Cadillac Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "name": "NASR / DERANI",
+        "constructor": "Whelen Engineering Racing",
+        "vehicle": "Cadillac DPi",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 3,
+    "final": true,
+    "fastestLap": {
+      "time": "1:12.918",
+      "seconds": 72.918,
+      "driver": "L. Heinrich",
+      "car": "5",
+      "team": "JDC-Miller MotorSports",
+      "class": "GTP"
+    },
+    "fastestPitStop": {
+      "time": "41.756",
+      "seconds": 41.756,
+      "driver": "P. Eng",
+      "car": "25",
+      "team": "BMW M Team WRT",
+      "class": "GTP"
+    },
+    "medianPitStop": {
+      "time": "1:04.5",
+      "seconds": 64.5
+    }
+  }
+}

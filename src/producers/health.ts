@@ -193,6 +193,8 @@ function main() {
       f1Records: countFiles("f1/records"),
       f1Overrides: countFiles("f1/overrides"),
       f1Entrylist: countFiles("f1/entrylist"),
+      wecEvents: countFiles("wec/events"),
+      imsaEvents: countFiles("imsa/events"),
       f1Events: countFiles("f1/events"),
       // Витрина календаря собирается прогоном f1overrides (фаза 4 DATA-PLAN);
       // своего продьюсера у неё нет, но семейство обязано быть видно в health —
