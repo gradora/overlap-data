@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:26:37.473Z",
+  "generatedAt": "2026-08-30T20:06:41.940Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-miami-1284",
@@ -258,7 +258,7 @@
     "penalties": [
       {
         "doc": 21,
-        "parser": 2,
+        "parser": 3,
         "car": 16,
         "driver": "Charles Leclerc",
         "session": "Free Practice 1",
@@ -272,7 +272,7 @@
       },
       {
         "doc": 28,
-        "parser": 2,
+        "parser": 3,
         "car": 23,
         "driver": "Alexander Albon",
         "session": "Sprint Qualifying",
@@ -286,37 +286,37 @@
       },
       {
         "doc": 40,
-        "parser": 2,
+        "parser": 3,
         "car": 41,
         "driver": "Arvid Lindblad",
         "session": "Sprint Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "sprint",
         "corrected": false,
         "fact": "The team continued to work on the car beyond the covers-on time.",
         "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_41_-_parc_ferme.pdf",
-        "publishedAt": "2026-05-02 16:54 CET"
+        "publishedAt": "2026-05-02 16:54 CET",
+        "pitlane": true
       },
       {
         "doc": 49,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Sprint",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "sprint",
         "corrected": false,
         "fact": "Leaving the track without a justifiable reason multiple times.",
         "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_12_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
-        "publishedAt": "2026-05-02 19:34 CET"
+        "publishedAt": "2026-05-02 19:34 CET",
+        "seconds": 5
       },
       {
         "doc": 54,
-        "parser": 2,
+        "parser": 3,
         "car": 5,
         "driver": "Gabriel Bortoleto",
         "session": "Sprint",
@@ -330,7 +330,7 @@
       },
       {
         "doc": 70,
-        "parser": 2,
+        "parser": 3,
         "car": 6,
         "driver": "Isack Hadjar",
         "session": "Qualifying",
@@ -344,26 +344,26 @@
       },
       {
         "doc": 75,
-        "parser": 2,
+        "parser": 3,
         "car": 6,
         "driver": "Isack Hadjar",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
         "fact": "The following Power Unit elements have been used: 4th Energy Store (ES) 4th Control Electronics Unit (PU-CE) Power Unit element and the control electronics unit were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
         "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_6_-_pu_elements_changed_under_parc_ferme.pdf",
-        "publishedAt": "2026-05-03 16:43 CET"
+        "publishedAt": "2026-05-03 16:43 CET",
+        "pitlane": true
       },
       {
         "doc": 80,
-        "parser": 2,
+        "parser": 3,
         "car": 77,
         "driver": "Valtteri Bottas",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
         "fact": "Pit lane speeding – 89.5 km/h",
@@ -373,7 +373,7 @@
       },
       {
         "doc": 91,
-        "parser": 2,
+        "parser": 3,
         "car": 31,
         "driver": "Esteban Ocon",
         "session": "Race",
@@ -387,7 +387,7 @@
       },
       {
         "doc": 92,
-        "parser": 2,
+        "parser": 3,
         "car": 23,
         "driver": "Alexander Albon",
         "session": "Race",
@@ -401,7 +401,7 @@
       },
       {
         "doc": 93,
-        "parser": 2,
+        "parser": 3,
         "car": 14,
         "driver": "Fernando Alonso",
         "session": "Race",
@@ -415,7 +415,7 @@
       },
       {
         "doc": 94,
-        "parser": 2,
+        "parser": 3,
         "car": 3,
         "driver": "Max Verstappen",
         "session": "Race",
@@ -429,7 +429,7 @@
       },
       {
         "doc": 95,
-        "parser": 2,
+        "parser": 3,
         "car": 63,
         "driver": "George Russell",
         "session": "Race",
@@ -443,37 +443,37 @@
       },
       {
         "doc": 97,
-        "parser": 2,
+        "parser": 3,
         "car": 16,
         "driver": "Charles Leclerc",
         "session": "Race",
         "type": "time",
-        "seconds": 20,
         "appliesTo": "race",
         "corrected": false,
         "fact": "Car 16 left the track on several occasions without a justifiable reason.",
         "decision": "Drive through penalty imposed after the Race. (20 seconds added to elapsed Race time).",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_16_-_leaving_the_track_multiple_times_and_driving_in_an_unsafe_condition_.pdf",
-        "publishedAt": "2026-05-03 23:24 CET"
+        "publishedAt": "2026-05-03 23:24 CET",
+        "seconds": 20
       },
       {
         "doc": 99,
-        "parser": 2,
+        "parser": 3,
         "car": 3,
         "driver": "Max Verstappen",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
         "fact": "Crossed the white line at pit exit.",
         "decision": "5 second time penalty imposed after the Race. (5 seconds added to elapsed Race time).",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_3_-_pit_exit_incident.pdf",
-        "publishedAt": "2026-05-03 23:48 CET"
+        "publishedAt": "2026-05-03 23:48 CET",
+        "seconds": 5
       },
       {
         "doc": 100,
-        "parser": 2,
+        "parser": 3,
         "car": 30,
         "driver": "Liam Lawson",
         "session": "Race",

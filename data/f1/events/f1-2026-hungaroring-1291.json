@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T15:56:36.190Z",
+  "generatedAt": "2026-08-30T20:06:41.945Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-hungaroring-1291",
@@ -303,7 +303,7 @@
     "penalties": [
       {
         "doc": 13,
-        "parser": 2,
+        "parser": 3,
         "car": 6,
         "driver": "Isack Hadjar",
         "session": "Free Practice 1",
@@ -317,7 +317,7 @@
       },
       {
         "doc": 19,
-        "parser": 2,
+        "parser": 3,
         "car": 55,
         "driver": "Carlos Sainz",
         "session": "Free Practice 1",
@@ -331,7 +331,7 @@
       },
       {
         "doc": 20,
-        "parser": 2,
+        "parser": 3,
         "car": 3,
         "driver": "Max Verstappen",
         "session": "Free Practice 1",
@@ -345,7 +345,7 @@
       },
       {
         "doc": 21,
-        "parser": 2,
+        "parser": 3,
         "car": 55,
         "driver": "Carlos Sainz",
         "session": "Free Practice 1",
@@ -359,37 +359,37 @@
       },
       {
         "doc": 36,
-        "parser": 2,
+        "parser": 3,
         "car": 44,
         "driver": "Lewis Hamilton",
         "session": "Qualifying",
         "type": "grid",
-        "gridDrop": 3,
         "appliesTo": "race",
         "corrected": false,
         "fact": "Car 44 unnecessarily impeded Car 81.",
         "decision": "Drop of 3 grid positions for the next Sprint/Race in which the driver participates.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_44_-_unnecessarily_impeding_of_car_81.pdf",
-        "publishedAt": "2026-07-25 18:40 CET"
+        "publishedAt": "2026-07-25 18:40 CET",
+        "gridDrop": 3
       },
       {
         "doc": 41,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Qualifying",
         "type": "grid",
-        "gridDrop": 3,
         "appliesTo": "race",
         "corrected": false,
         "fact": "The driver of Car 12 did not slow sufficiently under single yellow flags at Turn 14.",
         "decision": "Drop of 3 grid positions for the next Sprint/Race in which the driver participates. 1 penalty point (total of 4 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_12_-_yellow_flag_infringement.pdf",
-        "publishedAt": "2026-07-25 19:31 CET"
+        "publishedAt": "2026-07-25 19:31 CET",
+        "gridDrop": 3
       },
       {
         "doc": 43,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Qualifying",
@@ -403,37 +403,37 @@
       },
       {
         "doc": 50,
-        "parser": 2,
+        "parser": 3,
         "car": 11,
         "driver": "Sergio Perez",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
         "fact": "The setup of the suspension has been changed while under parc fermé without the approval of the Technical Director.",
         "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_11_-_changes_made_under_parc_ferme.pdf",
-        "publishedAt": "2026-07-26 12:38 CET"
+        "publishedAt": "2026-07-26 12:38 CET",
+        "pitlane": true
       },
       {
         "doc": 54,
-        "parser": 2,
+        "parser": 3,
         "car": 55,
         "driver": "Carlos Sainz",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
         "fact": "Car 55 collided with car 81.",
         "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_collision_with_car_81.pdf",
-        "publishedAt": "2026-07-26 16:55 CET"
+        "publishedAt": "2026-07-26 16:55 CET",
+        "seconds": 5
       },
       {
         "doc": 56,
-        "parser": 2,
+        "parser": 3,
         "car": 16,
         "driver": "Charles Leclerc",
         "session": "Race",
@@ -447,37 +447,37 @@
       },
       {
         "doc": 57,
-        "parser": 2,
+        "parser": 3,
         "car": 44,
         "driver": "Lewis Hamilton",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
         "fact": "Pit lane speeding – 80.1 km/h.",
         "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-07-26 17:16 CET"
+        "publishedAt": "2026-07-26 17:16 CET",
+        "seconds": 5
       },
       {
         "doc": 59,
-        "parser": 2,
+        "parser": 3,
         "car": 87,
         "driver": "Oliver Bearman",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
         "fact": "The driver ignored Blue Flags being displayed for Car 6’s approach.",
         "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_87_-_ignoring_blue_flags.pdf",
-        "publishedAt": "2026-07-26 18:05 CET"
+        "publishedAt": "2026-07-26 18:05 CET",
+        "seconds": 5
       },
       {
         "doc": 60,
-        "parser": 2,
+        "parser": 3,
         "car": 11,
         "driver": "Sergio Perez",
         "session": "Race",
