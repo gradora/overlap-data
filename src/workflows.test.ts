@@ -189,3 +189,18 @@ test("у каждого продьюсера в src/producers есть npm-ск�
     assert.ok(scripts.has(name), `${PRODUCERS_DIR}/${file} без npm-скрипта «${name}»`);
   }
 });
+
+/// Обратная проверка к «у каждого продьюсера есть скрипт»: ШАГ, зовущий
+/// несуществующий скрипт, падает КАЖДЫЙ прогон и молча — в логе крона это
+/// одна строка среди сотни. Опечатка в имени переживала бы недели.
+test("каждый npm run в воркфлоу зовёт существующий скрипт", () => {
+  const pkg = JSON.parse(readFileSync("package.json", "utf8"));
+  const scripts = new Set(Object.keys(pkg.scripts ?? {}));
+  for (const wf of allWorkflows()) {
+    const code = stripComments(wf.text);
+    for (const m of code.matchAll(/npm run ([\w:-]+)/g)) {
+      assert.ok(scripts.has(m[1]),
+                `${wf.name}: шаг зовёт «npm run ${m[1]}», но такого скрипта в package.json нет`);
+    }
+  }
+});
