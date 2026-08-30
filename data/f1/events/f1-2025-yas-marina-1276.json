@@ -1,0 +1,386 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.773Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-yas-marina-1276",
+  "eventId": "f1-2025-24",
+  "round": 24,
+  "fia": {
+    "event": "abu_dhabi_grand_prix",
+    "updated": "2025-12-07 16:36 CET",
+    "penalties": [
+      {
+        "doc": 21,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "",
+        "type": "fine",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver did not attend the Fan Engagement activity on Friday",
+        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €25,000 of which €15,000 is suspended for a period of 12 months from today’s date subject to there being no further breach of any part of Article 19 during that period.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_18_-_fan_engagement_activity.pdf",
+        "publishedAt": "2025-12-06 11:47 CET"
+      },
+      {
+        "doc": 22,
+        "parser": 2,
+        "car": 14,
+        "driver": "Fernando Alonso",
+        "session": "",
+        "type": "fine",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver did not attend the Fan Engagement activity on Friday",
+        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €25,000 of which €15,000 is suspended for a period of 12 months from today’s date subject to there being no further breach of any part of Article 19 during that period.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_14_-_fan_engagement_activity.pdf",
+        "publishedAt": "2025-12-06 11:48 CET"
+      },
+      {
+        "doc": 30,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Practice 3",
+        "type": "fine",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Car 22 impeded Car 4 between turns 11 and 12",
+        "decision": "The competitor (Oracle Red Bull Racing) is fined €10,000 A formal warning is issued to the driver.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_22_-_impeding_of_car_4_.pdf",
+        "publishedAt": "2025-12-06 14:20 CET"
+      },
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Practice 3",
+        "type": "fine",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Car 23 was released from its garage into the path of Car 31.",
+        "decision": "The competitor (Atlassian Williams Racing) is fined €5,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_23_-_unsafe_release_from_garage.pdf",
+        "publishedAt": "2025-12-06 14:40 CET"
+      },
+      {
+        "doc": 32,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Practice 3",
+        "type": "fine",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Car 12 was released from the garage into the path of Car 22, and collided with that car causing damage to both cars",
+        "decision": "The competitor (Mercedes-AMG PETRONAS F1 Team) is fined €10,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_12_-_unsafe_release_from_garage.pdf",
+        "publishedAt": "2025-12-06 14:40 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 27 allegedly causing a collision, and touched wheels with Car 10 at exit of T5.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_decision_-_car_27_-_alleged_causing_a_collision_.pdf",
+        "publishedAt": "2025-12-07 15:58 CET"
+      },
+      {
+        "doc": 44,
+        "parser": 2,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 10 allegedly causing a collision, and touched wheels with Car 27 at exit of T5.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_decision_-_car_10_-_alleged_causing_a_collision_.pdf",
+        "publishedAt": "2025-12-07 15:58 CET"
+      },
+      {
+        "doc": 45,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 30 drove erratically when defending its position against Car 87",
+        "decision": "5 second time penalty. 1 penalty point (total of 6 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_30_-_erratic_driving.pdf",
+        "publishedAt": "2025-12-07 15:58 CET"
+      },
+      {
+        "doc": 46,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 22 made more than one change of direction to defend its position",
+        "decision": "5 second time penalty. 1 penalty point (total of 8 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_22_-_more_than_one_change_of_direction.pdf",
+        "publishedAt": "2025-12-07 15:59 CET"
+      },
+      {
+        "doc": 47,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Pit lane speeding – 80.1 km/h",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_23_-_pit_lane_speeding.pdf",
+        "publishedAt": "2025-12-07 15:59 CET"
+      },
+      {
+        "doc": 48,
+        "parser": 2,
+        "car": 4,
+        "driver": "Lando Norris",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 4 left the track on the straight between T5 and T6 and allegedly gained a lasting advantage.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_decision_-_car_4_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2025-12-07 15:59 CET"
+      },
+      {
+        "doc": 50,
+        "parser": 2,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Leaving the track without a justifiable reason multiple times.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_10_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
+        "publishedAt": "2025-12-07 16:04 CET"
+      },
+      {
+        "doc": 51,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 87 made more than one change of direction to defend its position",
+        "decision": "5 second time penalty. 1 penalty point (total of 10 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_87_-_more_than_one_change_of_direction.pdf",
+        "publishedAt": "2025-12-07 16:04 CET"
+      },
+      {
+        "doc": 52,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 18 made more than one change of direction to defend its position",
+        "decision": "5 second time penalty. 1 penalty point (total of 6 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_18_-_more_than_one_change_of_direction.pdf",
+        "publishedAt": "2025-12-07 16:36 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 42,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 1
+        },
+        {
+          "position": 2,
+          "car": 4
+        },
+        {
+          "position": 3,
+          "car": 81
+        },
+        {
+          "position": 4,
+          "car": 63
+        },
+        {
+          "position": 5,
+          "car": 16
+        },
+        {
+          "position": 6,
+          "car": 14
+        },
+        {
+          "position": 7,
+          "car": 5
+        },
+        {
+          "position": 8,
+          "car": 31
+        },
+        {
+          "position": 9,
+          "car": 6
+        },
+        {
+          "position": 10,
+          "car": 22
+        },
+        {
+          "position": 11,
+          "car": 87
+        },
+        {
+          "position": 12,
+          "car": 55
+        },
+        {
+          "position": 13,
+          "car": 30
+        },
+        {
+          "position": 14,
+          "car": 12
+        },
+        {
+          "position": 15,
+          "car": 18
+        },
+        {
+          "position": 16,
+          "car": 44
+        },
+        {
+          "position": 17,
+          "car": 23
+        },
+        {
+          "position": 18,
+          "car": 27
+        },
+        {
+          "position": 19,
+          "car": 10
+        },
+        {
+          "position": 20,
+          "car": 43
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-12-07 13:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "yas_marina",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "NOR",
+        "name": "Lando Norris",
+        "constructor": "McLaren",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 4
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2020,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:22.207",
+      "seconds": 82.207,
+      "driver": "M. Verstappen",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:26.725",
+      "seconds": 86.725,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2",
+      "seconds": 2,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.5",
+      "seconds": 2.5
+    }
+  },
+  "milestones": {
+    "achievements": [
+      {
+        "driver": "N. Hülkenberg",
+        "given": "Nico",
+        "count": 250
+      },
+      {
+        "driver": "C. Leclerc",
+        "given": "Charles",
+        "count": 150,
+        "team": "Ferrari"
+      }
+    ]
+  }
+}

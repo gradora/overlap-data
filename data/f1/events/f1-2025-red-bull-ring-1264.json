@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.764Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-red-bull-ring-1264",
+  "eventId": "f1-2025-11",
+  "round": 11,
+  "fia": {
+    "event": "austrian_grand_prix",
+    "updated": "2025-06-29 18:51 CET",
+    "penalties": [
+      {
+        "doc": 15,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Practice 2",
+        "type": "fine",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Pit lane speeding – 80.1 km/h",
+        "decision": "The competitor (Mercedes-AMG PETRONAS F1 Team) is fined €100",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_12_-_pit_lane_speeding.pdf",
+        "publishedAt": "2025-06-27 18:29 CET"
+      },
+      {
+        "doc": 18,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Practice 2",
+        "type": "warning",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Unnecessary impeding of Car 12 by Car 44 in turn 4.",
+        "decision": "Driver: Warning.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_44_-_impeding_of_car_12.pdf",
+        "publishedAt": "2025-06-27 18:40 CET"
+      },
+      {
+        "doc": 28,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Qualifying",
+        "type": "reprimand",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Entering the fast lane without a suitable gap at 17:03.",
+        "decision": "Reprimand to the competitor. Warning to the driver.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_63_-_pit_lane_incident.pdf",
+        "publishedAt": "2025-06-28 18:21 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Allegedly forcing Car 87 off of the track in Turn 3",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_decision_-_car_43_-_alleged_forcing_another_driver_off_of_the_track.pdf",
+        "publishedAt": "2025-06-29 16:35 CET"
+      },
+      {
+        "doc": 40,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Causing a collision with Car 43 in Turn 4.",
+        "decision": "10 second time penalty. 2 penalty points (total of 4 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_22_-_causing_a_collision_with_car_43_in_turn_4.pdf",
+        "publishedAt": "2025-06-29 16:30 CET"
+      },
+      {
+        "doc": 42,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 43 forcing Car 81 off of the track between Turns 3 and 4.",
+        "decision": "5 second time penalty. 1 penalty point (total of 3 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_43_-_forcing_car_81_off_track.pdf",
+        "publishedAt": "2025-06-29 17:07 CET"
+      },
+      {
+        "doc": 45,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Race",
+        "type": "grid",
+        "gridDrop": 3,
+        "appliesTo": "next_race",
+        "corrected": false,
+        "fact": "Car 12 caused a collision with Car 1 in Turn 3",
+        "decision": "Drop of 3 grid positions for the next Race in which the driver participates. 2 penalty points (total of 2 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_1.pdf",
+        "publishedAt": "2025-06-29 17:44 CET"
+      },
+      {
+        "doc": 46,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 22 allegedly forcing Car 18 off track in Turn 3.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_decision_-_car_22_-_alleged_forcing_car_18_off_track.pdf",
+        "publishedAt": "2025-06-29 18:51 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 37,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 4
+        },
+        {
+          "position": 2,
+          "car": 16
+        },
+        {
+          "position": 3,
+          "car": 81
+        },
+        {
+          "position": 4,
+          "car": 44
+        },
+        {
+          "position": 5,
+          "car": 63
+        },
+        {
+          "position": 6,
+          "car": 30
+        },
+        {
+          "position": 7,
+          "car": 1
+        },
+        {
+          "position": 8,
+          "car": 5
+        },
+        {
+          "position": 9,
+          "car": 12
+        },
+        {
+          "position": 10,
+          "car": 10
+        },
+        {
+          "position": 11,
+          "car": 14
+        },
+        {
+          "position": 12,
+          "car": 23
+        },
+        {
+          "position": 13,
+          "car": 6
+        },
+        {
+          "position": 14,
+          "car": 43
+        },
+        {
+          "position": 15,
+          "car": 87
+        },
+        {
+          "position": 16,
+          "car": 18
+        },
+        {
+          "position": 17,
+          "car": 31
+        },
+        {
+          "position": 18,
+          "car": 22
+        },
+        {
+          "position": 19,
+          "car": 55
+        },
+        {
+          "position": 20,
+          "car": 27
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-06-29 14:01 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "red_bull_ring",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "RUS",
+        "name": "George Russell",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 5
+      },
+      {
+        "year": 2022,
+        "code": "LEC",
+        "name": "Charles Leclerc",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 4
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:03.971",
+      "seconds": 63.971,
+      "driver": "L. Norris",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:07.924",
+      "seconds": 67.924,
+      "driver": "O. Piastri",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2",
+      "seconds": 2,
+      "driver": "O. Piastri",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.5",
+      "seconds": 2.5
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

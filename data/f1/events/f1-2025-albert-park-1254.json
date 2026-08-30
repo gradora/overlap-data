@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.755Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-albert-park-1254",
+  "eventId": "f1-2025-1",
+  "round": 1,
+  "fia": {
+    "event": "australian_grand_prix",
+    "updated": "2025-03-16 08:23 CET",
+    "penalties": [
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_87_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-03-16 01:55 CET"
+      },
+      {
+        "doc": 35,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The setup of the car has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_30_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-03-16 04:43 CET"
+      },
+      {
+        "doc": 36,
+        "parser": 2,
+        "car": 14,
+        "driver": "Fernando Alonso",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver of Car 14 failed to maintain a 10 car-length distance behind the Safety Car.",
+        "decision": "No penalty applied.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_14_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+        "publishedAt": "2025-03-16 06:16 CET"
+      },
+      {
+        "doc": 37,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver of Car 44 failed to maintain a 10 car-length distance behind the Safety Car.",
+        "decision": "No penalty is applied.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_44_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+        "publishedAt": "2025-03-16 06:20 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver of Car 22 failed to maintain a 10 car-length distance from the car in front, behind the Safety Car.",
+        "decision": "No penalty applied.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_22_-_failing_to_maintain_distance_behind_the_safety_car.pdf",
+        "publishedAt": "2025-03-16 06:23 CET"
+      },
+      {
+        "doc": 39,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver of Car 23 failed to maintain a 10 car-length distance behind the Safety Car.",
+        "decision": "No penalty applied.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_decision_-_car_23_-_failing_to_maintain_distance_behind_the_safety_car_0.pdf",
+        "publishedAt": "2025-03-16 06:25 CET"
+      },
+      {
+        "doc": 40,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 5 was released into the path of Car 30.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_5_-_unsafe_release.pdf",
+        "publishedAt": "2025-03-16 06:54 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 12,
+        "driver": "Andrea Kimi Antonelli",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 12 was released into the path of Car 27.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_12_-_unsafe_release.pdf",
+        "publishedAt": "2025-03-16 08:23 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 33,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 4
+        },
+        {
+          "position": 2,
+          "car": 81
+        },
+        {
+          "position": 3,
+          "car": 1
+        },
+        {
+          "position": 4,
+          "car": 63
+        },
+        {
+          "position": 5,
+          "car": 22
+        },
+        {
+          "position": 6,
+          "car": 23
+        },
+        {
+          "position": 7,
+          "car": 16
+        },
+        {
+          "position": 8,
+          "car": 44
+        },
+        {
+          "position": 9,
+          "car": 10
+        },
+        {
+          "position": 10,
+          "car": 55
+        },
+        {
+          "position": 11,
+          "car": 6
+        },
+        {
+          "position": 12,
+          "car": 14
+        },
+        {
+          "position": 13,
+          "car": 18
+        },
+        {
+          "position": 14,
+          "car": 7
+        },
+        {
+          "position": 15,
+          "car": 5
+        },
+        {
+          "position": 16,
+          "car": 12
+        },
+        {
+          "position": 17,
+          "car": 27
+        },
+        {
+          "position": 18,
+          "car": 30
+        },
+        {
+          "position": 19,
+          "car": 31
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 87,
+          "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+          "doc": 31
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-03-16 04:01 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "albert_park",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "SAI",
+        "name": "Carlos Sainz",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "code": "LEC",
+        "name": "Charles Leclerc",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "BOT",
+        "name": "Valtteri Bottas",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      },
+      {
+        "year": 2018,
+        "code": "VET",
+        "name": "Sebastian Vettel",
+        "constructor": "Ferrari",
+        "winsHere": 3
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:15.096",
+      "seconds": 75.096,
+      "driver": "L. Norris",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:22.167",
+      "seconds": 82.167,
+      "driver": "L. Norris",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.3",
+      "seconds": 2.3,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.8",
+      "seconds": 2.8
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

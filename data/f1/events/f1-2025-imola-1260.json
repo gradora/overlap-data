@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.761Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-imola-1260",
+  "eventId": "f1-2025-7",
+  "round": 7,
+  "fia": {
+    "event": "emilia_romagna_grand_prix",
+    "updated": "2025-05-18 17:33 CET",
+    "penalties": [
+      {
+        "doc": 13,
+        "parser": 2,
+        "car": 55,
+        "driver": "Carlos Sainz",
+        "session": "Practice 1",
+        "type": "fine",
+        "appliesTo": "Practice 1",
+        "corrected": false,
+        "fact": "Pit lane speeding – 93.7 km/h",
+        "decision": "The competitor (Atlassian Williams Racing) is fined €1000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_55_-_pit_lane_speeding.pdf",
+        "publishedAt": "2025-05-16 16:56 CET"
+      },
+      {
+        "doc": 16,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Practice 1",
+        "type": "fine",
+        "appliesTo": "Practice 1",
+        "corrected": false,
+        "fact": "Failed to follow the procedures in TD 003Q 2 g.ii.",
+        "decision": "The competitor (Scuderia Ferrari HP) is fined €5,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_16_-_tyre_operating_procedures.pdf",
+        "publishedAt": "2025-05-16 18:41 CET"
+      },
+      {
+        "doc": 20,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Practice 2",
+        "type": "none",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Car 5 allegedly overtook Car 14 under yellow flags at Turn 4.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_decision_-_car_5_-_alleged_yellow_flag_infringement.pdf",
+        "publishedAt": "2025-05-16 20:59 CET"
+      },
+      {
+        "doc": 25,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Practice 3",
+        "type": "fine",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Pit lane speeding – 85.1 km/h.",
+        "decision": "The competitor (BWT Alpine F1 Team) is fined €600",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_43_-_pit_lane_speeding.pdf",
+        "publishedAt": "2025-05-17 15:41 CET"
+      },
+      {
+        "doc": 28,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Qualifying",
+        "type": "grid",
+        "gridDrop": 1,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Entering fast lane in the pit lane before a re-start time was confirmed.",
+        "decision": "Drop of 1 grid position for the next Race in which the driver participates.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_43_-_alleged_failure_to_follow_race_directors_instructions_fast_lane.pdf",
+        "publishedAt": "2025-05-17 18:51 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The following Power Unit elements have been used: 3rd Energy Store (ES) 3rd Control Electronics (CE) Components of a different specification have been changed whilst under Parc Ferme. All Power Unit elements were replaced with the approval of the FIA Technical Delegate during Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_22_-_pu_elements_and_parc_ferme.pdf",
+        "publishedAt": "2025-05-18 12:29 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 16 allegedly forced Car 23 off the track at turn 2.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_decision_-_car_16_-_alleged_forcing_another_driver_off_the_track.pdf",
+        "publishedAt": "2025-05-18 17:33 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 40,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 81
+        },
+        {
+          "position": 2,
+          "car": 1
+        },
+        {
+          "position": 3,
+          "car": 63
+        },
+        {
+          "position": 4,
+          "car": 4
+        },
+        {
+          "position": 5,
+          "car": 14
+        },
+        {
+          "position": 6,
+          "car": 55
+        },
+        {
+          "position": 7,
+          "car": 23
+        },
+        {
+          "position": 8,
+          "car": 18
+        },
+        {
+          "position": 9,
+          "car": 6
+        },
+        {
+          "position": 10,
+          "car": 10
+        },
+        {
+          "position": 11,
+          "car": 16
+        },
+        {
+          "position": 12,
+          "car": 44
+        },
+        {
+          "position": 13,
+          "car": 12
+        },
+        {
+          "position": 14,
+          "car": 5
+        },
+        {
+          "position": 15,
+          "car": 30
+        },
+        {
+          "position": 16,
+          "car": 43
+        },
+        {
+          "position": 17,
+          "car": 27
+        },
+        {
+          "position": 18,
+          "car": 31
+        },
+        {
+          "position": 19,
+          "car": 87
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 43,
+          "text": "1 place grid penalty - Failing to follow Race Director's instructions",
+          "doc": 28
+        },
+        {
+          "car": 22,
+          "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+          "doc": 38
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-05-18 14:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "imola",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2020,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      },
+      {
+        "year": 2006,
+        "code": "MSC",
+        "name": "Michael Schumacher",
+        "constructor": "Ferrari",
+        "winsHere": 7
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:14.670",
+      "seconds": 74.67,
+      "driver": "O. Piastri",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:17.988",
+      "seconds": 77.988,
+      "driver": "M. Verstappen",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2",
+      "seconds": 2,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.7",
+      "seconds": 2.7
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

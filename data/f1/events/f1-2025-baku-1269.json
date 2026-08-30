@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.768Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-baku-1269",
+  "eventId": "f1-2025-17",
+  "round": 17,
+  "fia": {
+    "event": "azerbaijan_grand_prix",
+    "updated": "2025-09-21 15:16 CET",
+    "penalties": [
+      {
+        "doc": 18,
+        "parser": 2,
+        "car": 81,
+        "driver": "Oscar Piastri",
+        "session": "Practice 2",
+        "type": "reprimand",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "The driver of Car 81 failed to slow under yellow flags at 16:33.",
+        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_81_-_failure_to_slow_under_yellow_flags.pdf",
+        "publishedAt": "2025-09-19 17:00 CET"
+      },
+      {
+        "doc": 24,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Practice 3",
+        "type": "none",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Car 27 overtook Car 44 under yellow flag conditions at 13:33.",
+        "decision": "No penalty is applied",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_27_-_failure_to_slow_under_yellow_flags.pdf",
+        "publishedAt": "2025-09-20 17:12 CET"
+      },
+      {
+        "doc": 25,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Qualifying",
+        "type": "reprimand",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "The driver of Car 12 overtook two cars between turns 1 and 2 at 16:04.",
+        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_12_-_failure_to_slow_under_yellow_flags.pdf",
+        "publishedAt": "2025-09-20 17:15 CET"
+      },
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 31,
+        "driver": "Esteban Ocon",
+        "session": "Qualifying",
+        "type": "dsq",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "The Car failed the rear wing main plane tip deflection test.",
+        "decision": "Car 31 is disqualified from the Qualifying classifications.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_31_-_failure_of_rear_wing_main_plane_tip_deflection_test.pdf",
+        "publishedAt": "2025-09-20 18:29 CET"
+      },
+      {
+        "doc": 42,
+        "parser": 2,
+        "car": 81,
+        "driver": "Oscar Piastri",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 81 moved forward from its start position, prior to the start signal.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_81_false_start_-_moving_before_signal.pdf",
+        "publishedAt": "2025-09-21 13:46 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 14,
+        "driver": "Fernando Alonso",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 14 moved forward from its start position, prior to the start signal.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_14_false_start_-_moving_before_signal.pdf",
+        "publishedAt": "2025-09-21 14:03 CET"
+      },
+      {
+        "doc": 44,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 23 caused a collision with Car 43 in Turn 5.",
+        "decision": "10 second time penalty. 2 penalty points (total of 4 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_infringement_-_car_23_-_causing_a_collision.pdf",
+        "publishedAt": "2025-09-21 15:16 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 41,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 1
+        },
+        {
+          "position": 2,
+          "car": 55
+        },
+        {
+          "position": 3,
+          "car": 30
+        },
+        {
+          "position": 4,
+          "car": 12
+        },
+        {
+          "position": 5,
+          "car": 63
+        },
+        {
+          "position": 6,
+          "car": 22
+        },
+        {
+          "position": 7,
+          "car": 4
+        },
+        {
+          "position": 8,
+          "car": 6
+        },
+        {
+          "position": 9,
+          "car": 81
+        },
+        {
+          "position": 10,
+          "car": 16
+        },
+        {
+          "position": 11,
+          "car": 14
+        },
+        {
+          "position": 12,
+          "car": 44
+        },
+        {
+          "position": 13,
+          "car": 5
+        },
+        {
+          "position": 14,
+          "car": 18
+        },
+        {
+          "position": 15,
+          "car": 87
+        },
+        {
+          "position": 16,
+          "car": 43
+        },
+        {
+          "position": 17,
+          "car": 27
+        },
+        {
+          "position": 18,
+          "car": 10
+        },
+        {
+          "position": 19,
+          "car": 23
+        },
+        {
+          "position": 20,
+          "car": 31
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2025_azerbaijan_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-09-21 12:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "baku",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "PIA",
+        "name": "Oscar Piastri",
+        "constructor": "McLaren",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "PER",
+        "name": "Sergio Pérez",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "code": "PER",
+        "name": "Sergio Pérez",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "BOT",
+        "name": "Valtteri Bottas",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:41.117",
+      "seconds": 101.117,
+      "driver": "M. Verstappen",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:43.388",
+      "seconds": 103.388,
+      "driver": "M. Verstappen",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.2",
+      "seconds": 2.2,
+      "driver": "I. Hadjar",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.5",
+      "seconds": 2.5
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

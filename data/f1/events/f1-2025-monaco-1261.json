@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.761Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-monaco-1261",
+  "eventId": "f1-2025-8",
+  "round": 8,
+  "fia": {
+    "event": "monaco_grand_prix",
+    "updated": "2025-05-25 19:06 CET",
+    "penalties": [
+      {
+        "doc": 17,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "",
+        "type": "grid",
+        "gridDrop": 1,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Collision between Car 18 and Car 16 at Turn 6.",
+        "decision": "Drop of 1 grid position for the next Race in which the driver participates. 1 penalty point (total of 3 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_18_-_incident_with_car_16_in_turn_6.pdf",
+        "publishedAt": "2025-05-23 15:37 CET"
+      },
+      {
+        "doc": 22,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Practice 2",
+        "type": "grid",
+        "gridDrop": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 87 overtook Car 55 under red flag.",
+        "decision": "Drop of 10 grid positions for the next Race in which the driver participates. 2 penalty points (total of 4 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_87_-_alleged_failure_to_comply_with_red_flag.pdf",
+        "publishedAt": "2025-05-23 19:22 CET"
+      },
+      {
+        "doc": 23,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Practice 2",
+        "type": "none",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Alleged failing to slow under yellow flags.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_decision_-_car_22_-_alleged_failing_to_slow_for_yellow_flags.pdf",
+        "publishedAt": "2025-05-23 19:23 CET"
+      },
+      {
+        "doc": 28,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Practice 3",
+        "type": "none",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Car 43 overtook Car 18 under red flag.",
+        "decision": "No Further Action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_decision_-_car_43_-_alleged_failure_to_comply_with_red_flag.pdf",
+        "publishedAt": "2025-05-24 14:50 CET"
+      },
+      {
+        "doc": 29,
+        "parser": 2,
+        "car": 55,
+        "driver": "Carlos Sainz",
+        "session": "Practice 2",
+        "type": "none",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Car 55 overtook Car 43 under red flag.",
+        "decision": "No Further Action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_decision_-_car_55_-_alleged_failure_to_comply_with_red_flag_in_p2.pdf",
+        "publishedAt": "2025-05-24 14:53 CET"
+      },
+      {
+        "doc": 37,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Qualifying",
+        "type": "grid",
+        "gridDrop": 3,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 18 impeded Car 10 in Turn 10.",
+        "decision": "Drop of 3 grid positions for the next Race in which the driver participates.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_18_-_impeding_car_10_in_turn_10.pdf",
+        "publishedAt": "2025-05-24 18:27 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Qualifying",
+        "type": "grid",
+        "gridDrop": 3,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 44 impeded Car 1 in Turn 3.",
+        "decision": "Drop of 3 grid positions for the next Race in which the driver participates.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_44_-_impeding_of_car_1.pdf",
+        "publishedAt": "2025-05-24 19:07 CET"
+      },
+      {
+        "doc": 47,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Race",
+        "type": "other",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 63 left the track at Turns 10-11 and gained a lasting advantage.",
+        "decision": "Drive through penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_63_-_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2025-05-25 17:01 CET"
+      },
+      {
+        "doc": 54,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Reconnaissance Laps",
+        "type": "fine",
+        "appliesTo": "Reconnaissance Laps",
+        "corrected": false,
+        "fact": "Car 87 was released from the garage in an unsafe condition.",
+        "decision": "The competitor (MoneyGram Haas F1 Team) is fined €5,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_haas_-_unsafe_condition_of_car_87.pdf",
+        "publishedAt": "2025-05-25 18:04 CET"
+      },
+      {
+        "doc": 56,
+        "parser": 2,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Race",
+        "type": "reprimand",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 10 collided with Car 22 in Turn 10.",
+        "decision": "Reprimand This is the driver’s 1st reprimand of the season",
+        "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_10_-_incident_with_car_22.pdf",
+        "publishedAt": "2025-05-25 19:06 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 46,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 4
+        },
+        {
+          "position": 2,
+          "car": 16
+        },
+        {
+          "position": 3,
+          "car": 81
+        },
+        {
+          "position": 4,
+          "car": 1
+        },
+        {
+          "position": 5,
+          "car": 6
+        },
+        {
+          "position": 6,
+          "car": 14
+        },
+        {
+          "position": 7,
+          "car": 44
+        },
+        {
+          "position": 8,
+          "car": 31
+        },
+        {
+          "position": 9,
+          "car": 30
+        },
+        {
+          "position": 10,
+          "car": 23
+        },
+        {
+          "position": 11,
+          "car": 55
+        },
+        {
+          "position": 12,
+          "car": 22
+        },
+        {
+          "position": 13,
+          "car": 27
+        },
+        {
+          "position": 14,
+          "car": 63
+        },
+        {
+          "position": 15,
+          "car": 12
+        },
+        {
+          "position": 16,
+          "car": 5
+        },
+        {
+          "position": 17,
+          "car": 10
+        },
+        {
+          "position": 18,
+          "car": 43
+        },
+        {
+          "position": 19,
+          "car": 18
+        },
+        {
+          "position": 20,
+          "car": 87
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 18,
+          "text": "1 place grid penalty - Causing a collision",
+          "doc": 17
+        },
+        {
+          "car": 87,
+          "text": "10 place grid penalty - Overtaking under red flag conditions",
+          "doc": 22
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-05-25 14:01 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "monaco",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "LEC",
+        "name": "Charles Leclerc",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2022,
+        "code": "PER",
+        "name": "Sergio Pérez",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 3
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:09.954",
+      "seconds": 69.954,
+      "driver": "L. Norris",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:13.221",
+      "seconds": 73.221,
+      "driver": "L. Norris",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2",
+      "seconds": 2,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.5",
+      "seconds": 2.5
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

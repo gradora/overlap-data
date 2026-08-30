@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.757Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-shanghai-1255",
+  "eventId": "f1-2025-2",
+  "round": 2,
+  "fia": {
+    "event": "chinese_grand_prix",
+    "updated": "2025-03-23 13:02 CET",
+    "penalties": [
+      {
+        "doc": 27,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Sprint Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 16 exceeded the time limit between the Safety Car lines.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_decision_-_car_16_-_alleged_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
+        "publishedAt": "2025-03-21 11:52 CET"
+      },
+      {
+        "doc": 30,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Sprint Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 18 exceeded the time limit between the Safety Car lines.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_decision_-_car_18_-_alleged_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
+        "publishedAt": "2025-03-21 12:03 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Sprint Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "sprint",
+        "corrected": false,
+        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
+        "decision": "Required to start the Sprint from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_27_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-03-22 02:47 CET"
+      },
+      {
+        "doc": 46,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Sprint",
+        "type": "none",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "fact": "Incident with car 7 in turn 14.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_decision_-_car_30_-_alleged_incident_with_car_7.pdf",
+        "publishedAt": "2025-03-22 06:08 CET"
+      },
+      {
+        "doc": 49,
+        "parser": 2,
+        "car": 7,
+        "driver": "Jack Doohan",
+        "session": "Sprint",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "sprint",
+        "corrected": false,
+        "fact": "Collision between car 7 and car 5 in turn 14.",
+        "decision": "10 second time penalty imposed after the Sprint. 2 penalty points (total of 2 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_7_-_incident_with_car_5.pdf",
+        "publishedAt": "2025-03-22 06:47 CET"
+      },
+      {
+        "doc": 58,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Alleged Impeding of car 18 in turn 13.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_decision_-_car_87_-_alleged_impeding_of_car_18.pdf",
+        "publishedAt": "2025-03-22 10:05 CET"
+      },
+      {
+        "doc": 61,
+        "parser": 2,
+        "car": 6,
+        "driver": "Isack Hadjar",
+        "session": "Qualifying",
+        "type": "fine",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 6 was released into the path of Car 1 in the pit lane.",
+        "decision": "The competitor (Visa Cash App Racing Bulls F1 Team) is fined €5,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_6_-_unsafe_release.pdf",
+        "publishedAt": "2025-03-22 11:15 CET"
+      },
+      {
+        "doc": 68,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_30_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-03-23 06:23 CET"
+      },
+      {
+        "doc": 72,
+        "parser": 2,
+        "car": 7,
+        "driver": "Jack Doohan",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Forcing another driver off the track in turn 14.",
+        "decision": "10 second time penalty. 2 penalty points (total of 4 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_7_-_forcing_another_driver_off_the_track.pdf",
+        "publishedAt": "2025-03-23 10:13 CET"
+      },
+      {
+        "doc": 73,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Reconnaissance Laps",
+        "type": "warning",
+        "appliesTo": "Reconnaissance Laps",
+        "corrected": false,
+        "fact": "Practice start position",
+        "decision": "Warning.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_5_-_practice_start.pdf",
+        "publishedAt": "2025-03-23 10:22 CET"
+      },
+      {
+        "doc": 75,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Reconnaissance Laps",
+        "type": "warning",
+        "appliesTo": "Reconnaissance Laps",
+        "corrected": false,
+        "fact": "Practice start position",
+        "decision": "Warning.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_22_-_practice_start.pdf",
+        "publishedAt": "2025-03-23 10:23 CET"
+      },
+      {
+        "doc": 76,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Reconnaissance Laps",
+        "type": "warning",
+        "appliesTo": "Reconnaissance Laps",
+        "corrected": false,
+        "fact": "Practice start position",
+        "decision": "Warning.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_27_-_practice_start.pdf",
+        "publishedAt": "2025-03-23 10:23 CET"
+      },
+      {
+        "doc": 84,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The thickness of the plank assembly was below the permitted minimum thickness.",
+        "decision": "Car 44 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_44_-_technical_non-compliance_plank_assembly.pdf",
+        "publishedAt": "2025-03-23 12:28 CET"
+      },
+      {
+        "doc": 87,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Weight of Car 16 was below the minimum weight required (800 kg).",
+        "decision": "Car 16 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_16_-_technical_non-compliance_weight.pdf",
+        "publishedAt": "2025-03-23 12:58 CET"
+      },
+      {
+        "doc": 88,
+        "parser": 2,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Weight of Car 10 was below the minimum weight required (800 kg).",
+        "decision": "Car 10 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_10_-_technical_non-compliance_weight.pdf",
+        "publishedAt": "2025-03-23 13:02 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 70,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 81
+        },
+        {
+          "position": 2,
+          "car": 63
+        },
+        {
+          "position": 3,
+          "car": 4
+        },
+        {
+          "position": 4,
+          "car": 1
+        },
+        {
+          "position": 5,
+          "car": 44
+        },
+        {
+          "position": 6,
+          "car": 16
+        },
+        {
+          "position": 7,
+          "car": 6
+        },
+        {
+          "position": 8,
+          "car": 12
+        },
+        {
+          "position": 9,
+          "car": 22
+        },
+        {
+          "position": 10,
+          "car": 23
+        },
+        {
+          "position": 11,
+          "car": 31
+        },
+        {
+          "position": 12,
+          "car": 27
+        },
+        {
+          "position": 13,
+          "car": 14
+        },
+        {
+          "position": 14,
+          "car": 18
+        },
+        {
+          "position": 15,
+          "car": 55
+        },
+        {
+          "position": 16,
+          "car": 10
+        },
+        {
+          "position": 17,
+          "car": 87
+        },
+        {
+          "position": 18,
+          "car": 7
+        },
+        {
+          "position": 19,
+          "car": 5
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 30,
+          "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+          "doc": 68
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-03-23 07:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "shanghai",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 6
+      },
+      {
+        "year": 2018,
+        "code": "RIC",
+        "name": "Daniel Ricciardo",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2017,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 5
+      },
+      {
+        "year": 2016,
+        "code": "ROS",
+        "name": "Nico Rosberg",
+        "constructor": "Mercedes",
+        "winsHere": 2
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:30.641",
+      "seconds": 90.641,
+      "driver": "O. Piastri",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:35.454",
+      "seconds": 95.45400000000001,
+      "driver": "L. Norris",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.1",
+      "seconds": 2.1,
+      "driver": "Y. Tsunoda",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.7",
+      "seconds": 2.7
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.762Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-barcelona-1262",
+  "eventId": "f1-2025-9",
+  "round": 9,
+  "fia": {
+    "event": "spanish_grand_prix",
+    "updated": "2025-06-01 19:10 CET",
+    "penalties": [
+      {
+        "doc": 17,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Allegedly leaving the pit lane while facing a technical issue with the car.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_43_-_allegedly_leaving_the_pit_lane_with_a_technical_issue.pdf",
+        "publishedAt": "2025-05-31 17:13 CET"
+      },
+      {
+        "doc": 27,
+        "parser": 2,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Qualifying",
+        "type": "warning",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Driver of Car 18 failed to be weighed immediately after Qualifying.",
+        "decision": "Warning.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_18_-_post-qualifying_weighing.pdf",
+        "publishedAt": "2025-06-01 12:17 CET"
+      },
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The setup of the suspension has been changed while under Parc Ferme. The front wing specification has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-06-01 12:49 CET"
+      },
+      {
+        "doc": 34,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 23 left the track at turn 1 and gained a lasting advantage.",
+        "decision": "10 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_23_-_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2025-06-01 16:30 CET"
+      },
+      {
+        "doc": 39,
+        "parser": 2,
+        "car": 1,
+        "driver": "Max Verstappen",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 1 left the track at turn 1 and allegedly gained a lasting advantage.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_1_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2025-06-01 18:01 CET"
+      },
+      {
+        "doc": 40,
+        "parser": 2,
+        "car": 1,
+        "driver": "Max Verstappen",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 1 collided with Car 63 at turn 5.",
+        "decision": "10 second time penalty. 3 penalty points (total of 11 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_1_-_causing_a_collision_with_car_63_at_t5.pdf",
+        "publishedAt": "2025-06-01 18:03 CET"
+      },
+      {
+        "doc": 41,
+        "parser": 2,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 87 left the track at turn 1 and gained a lasting advantage.",
+        "decision": "10 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_87_-_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2025-06-01 18:09 CET"
+      },
+      {
+        "doc": 42,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 30 allegedly collided with Car 23 at turn 1.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_30_-_alleged_collision_with_car_23.pdf",
+        "publishedAt": "2025-06-01 18:40 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 30 collided with Car 87 and forced Car 87 off the track at turn 1.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_30_-_alleged_collision_with_car_87.pdf",
+        "publishedAt": "2025-06-01 18:46 CET"
+      },
+      {
+        "doc": 45,
+        "parser": 2,
+        "car": 1,
+        "driver": "Max Verstappen",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Collision involving Car 1 and Car 16 on the start/finish straight.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_1_-_alleged_collision_with_car_16.pdf",
+        "publishedAt": "2025-06-01 19:10 CET"
+      },
+      {
+        "doc": 46,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Collision involving Car 1 and Car 16 on the start/finish straight.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_decision_-_car_16_-_alleged_collision_with_car_1.pdf",
+        "publishedAt": "2025-06-01 19:10 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 33,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 81
+        },
+        {
+          "position": 2,
+          "car": 4
+        },
+        {
+          "position": 3,
+          "car": 1
+        },
+        {
+          "position": 4,
+          "car": 63
+        },
+        {
+          "position": 5,
+          "car": 44
+        },
+        {
+          "position": 6,
+          "car": 12
+        },
+        {
+          "position": 7,
+          "car": 16
+        },
+        {
+          "position": 8,
+          "car": 10
+        },
+        {
+          "position": 9,
+          "car": 6
+        },
+        {
+          "position": 10,
+          "car": 14
+        },
+        {
+          "position": 11,
+          "car": 23
+        },
+        {
+          "position": 12,
+          "car": 5
+        },
+        {
+          "position": 13,
+          "car": 30
+        },
+        {
+          "position": 14,
+          "car": 87
+        },
+        {
+          "position": 15,
+          "car": 27
+        },
+        {
+          "position": 16,
+          "car": 31
+        },
+        {
+          "position": 17,
+          "car": 55
+        },
+        {
+          "position": 18,
+          "car": 43
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 22,
+          "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+          "doc": 31
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-06-01 14:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "catalunya",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 4
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2021,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 6
+      },
+      {
+        "year": 2020,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 5
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:11.546",
+      "seconds": 71.546,
+      "driver": "O. Piastri",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:15.743",
+      "seconds": 75.743,
+      "driver": "O. Piastri",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.1",
+      "seconds": 2.1,
+      "driver": "C. Leclerc",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.5",
+      "seconds": 2.5
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.772Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-las-vegas-strip-1274",
+  "eventId": "f1-2025-22",
+  "round": 22,
+  "fia": {
+    "event": "las_vegas_grand_prix",
+    "updated": "2025-11-23 11:01 CET",
+    "penalties": [
+      {
+        "doc": 12,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Alleged Failure to slow for yellow flags",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_5_-_alleged_failure_to_slow_for_yellow_flags.pdf",
+        "publishedAt": "2025-11-21 13:16 CET"
+      },
+      {
+        "doc": 17,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Practice 2",
+        "type": "none",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Driver left the car in gear when he abandoned the car due to a transmission problem and appeared to leave the car in a power-on situation.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_16_-_alleged_failure_to_leave_the_gar_in_gear_and_turn_off_ers.pdf",
+        "publishedAt": "2025-11-21 13:15 CET"
+      },
+      {
+        "doc": 21,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Practice 3",
+        "type": "fine",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Pit lane speeding – 80.1 km/h",
+        "decision": "The competitor (Scuderia Ferrari HP) is fined €100.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
+        "publishedAt": "2025-11-22 01:56 CET"
+      },
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "The Competitor appeared to fail to submit setup sheet for car 63 within the required time frame.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_63_-_alleged_failure_to_submit_setup_sheet.pdf",
+        "publishedAt": "2025-11-22 07:05 CET"
+      },
+      {
+        "doc": 32,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "The Competitor appeared to fail to submit setup sheet for car 12 within the required time frame.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_12_-_alleged_failure_to_submit_setup_sheet.pdf",
+        "publishedAt": "2025-11-22 07:06 CET"
+      },
+      {
+        "doc": 35,
+        "parser": 2,
+        "car": 55,
+        "driver": "Carlos Sainz",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 55 went off the track at Turn 5 and rejoined as Car 18 was approaching.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_55_-_alleged_rejoining_the_track_unsafely.pdf",
+        "publishedAt": "2025-11-22 07:43 CET"
+      },
+      {
+        "doc": 36,
+        "parser": 2,
+        "car": 43,
+        "driver": "Franco Colapinto",
+        "session": "Qualifying",
+        "type": "fine",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "The team failed to electronically lodge the return of the tyres.",
+        "decision": "The competitor (BWT Alpine F1 Team) is fined €5,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_43_-_electronic_return_of_tyres.pdf",
+        "publishedAt": "2025-11-22 07:48 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The following Power Unit elements have been used: 6th Internal Combustion Engine (ICE) 6th Turbo Charger (TC) 6th Motor Generator Unit - Heat (MGU-H) 6th Motor Generator Unit - Kinetic (MGU-K) 9th Engine Exhaust System (EX) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme. The rear wing assembly has been changed while under Parc Ferme without the approval of the FIA Technical Delegate.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-11-23 01:56 CET"
+      },
+      {
+        "doc": 47,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Turn 1 incident with car 81",
+        "decision": "No further action",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_decision_-_car_30_-_turn_1_incident_with_car_81.pdf",
+        "publishedAt": "2025-11-23 05:59 CET"
+      },
+      {
+        "doc": 48,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 12 moved forward from its start position, prior to the start signal.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_12_-_moved_prior_to_start_signal.pdf",
+        "publishedAt": "2025-11-23 06:40 CET"
+      },
+      {
+        "doc": 49,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Collison with Car 44 in Turn 14.",
+        "decision": "5 second time penalty. 1 penalty point (total of 5 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_23_-_collision_with_car_44_in_turn_14.pdf",
+        "publishedAt": "2025-11-23 07:00 CET"
+      },
+      {
+        "doc": 50,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "",
+        "type": "reprimand",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 23 exceeded the pit lane speed limit when leaving the grid on the Formation Lap.",
+        "decision": "Driver: Reprimand (Driving). This is the driver’s 3rd reprimand of the season.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_23_-_exceeded_speed_limit_when_leaving_the_grid.pdf",
+        "publishedAt": "2025-11-23 07:00 CET"
+      },
+      {
+        "doc": 51,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Race",
+        "type": "grid",
+        "gridDrop": 5,
+        "appliesTo": "next_race",
+        "corrected": false,
+        "fact": "Car 5 collided with Car 18 in Turn 1",
+        "decision": "Drop of 5 grid positions for the next Race in which the driver participates. 2 penalty points (total of 2 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_5_-_causing_a_collision_with_car_18_in_turn_1.pdf",
+        "publishedAt": "2025-11-23 06:41 CET"
+      },
+      {
+        "doc": 57,
+        "parser": 2,
+        "car": 4,
+        "driver": "Lando Norris",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The thickness of the plank assembly was below the permitted minimum thickness.",
+        "decision": "Car 4 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_4_-_technical_non-conformity_plank_assembly.pdf",
+        "publishedAt": "2025-11-23 10:45 CET"
+      },
+      {
+        "doc": 58,
+        "parser": 2,
+        "car": 81,
+        "driver": "Oscar Piastri",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": true,
+        "fact": "The thickness of the plank assembly was below the permitted minimum thickness.",
+        "decision": "Car 81 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_81_-_technical_non-conformity_plank_assembly_corrected.pdf",
+        "publishedAt": "2025-11-23 11:01 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 45,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 4
+        },
+        {
+          "position": 2,
+          "car": 1
+        },
+        {
+          "position": 3,
+          "car": 55
+        },
+        {
+          "position": 4,
+          "car": 63
+        },
+        {
+          "position": 5,
+          "car": 81
+        },
+        {
+          "position": 6,
+          "car": 30
+        },
+        {
+          "position": 7,
+          "car": 14
+        },
+        {
+          "position": 8,
+          "car": 6
+        },
+        {
+          "position": 9,
+          "car": 16
+        },
+        {
+          "position": 10,
+          "car": 10
+        },
+        {
+          "position": 11,
+          "car": 27
+        },
+        {
+          "position": 12,
+          "car": 18
+        },
+        {
+          "position": 13,
+          "car": 31
+        },
+        {
+          "position": 14,
+          "car": 87
+        },
+        {
+          "position": 15,
+          "car": 43
+        },
+        {
+          "position": 16,
+          "car": 23
+        },
+        {
+          "position": 17,
+          "car": 12
+        },
+        {
+          "position": 18,
+          "car": 5
+        },
+        {
+          "position": 19,
+          "car": 44
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 22,
+          "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions and additional power unit elements have been used",
+          "doc": 43
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-11-23 04:07 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "vegas",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "RUS",
+        "name": "George Russell",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:33.602",
+      "seconds": 93.602,
+      "driver": "L. Norris",
+      "tag": "FP2"
+    },
+    "fastestLapRace": {
+      "time": "1:33.365",
+      "seconds": 93.36500000000001,
+      "driver": "M. Verstappen",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.2",
+      "seconds": 2.2,
+      "driver": "G. Russell",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "3.1",
+      "seconds": 3.1
+    }
+  },
+  "milestones": {
+    "achievements": [
+      {
+        "driver": "G. Russell",
+        "given": "George",
+        "count": 150
+      }
+    ]
+  }
+}

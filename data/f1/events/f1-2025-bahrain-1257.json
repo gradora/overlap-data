@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.758Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-bahrain-1257",
+  "eventId": "f1-2025-4",
+  "round": 4,
+  "fia": {
+    "event": "bahrain_grand_prix",
+    "updated": "2025-04-13 21:06 CET",
+    "penalties": [
+      {
+        "doc": 17,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Practice 1",
+        "type": "reprimand",
+        "appliesTo": "Practice 1",
+        "corrected": false,
+        "fact": "Car 22 overtook Car 23 in the Pit Lane.",
+        "decision": "Reprimand (Driving). This is the driver’s first reprimand for the 2025 Season",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_22_-_pit_lane_incident.pdf",
+        "publishedAt": "2025-04-11 16:32 CET"
+      },
+      {
+        "doc": 18,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Practice 1",
+        "type": "fine",
+        "appliesTo": "Practice 1",
+        "corrected": false,
+        "fact": "Car 23 unnecessarily impeded Car 46 in turn 13.",
+        "decision": "The competitor (Atlassian Williams Racing) is fined €7,500.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_23_-_impeding_of_car_46.pdf",
+        "publishedAt": "2025-04-11 17:00 CET"
+      },
+      {
+        "doc": 31,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Qualifying",
+        "type": "deleted_laps",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 27 exceeded track limits at turn 11 during Q1.",
+        "decision": "The lap time of 1:31.998 of Car 27 recorded in Q1 is deleted. All lap times of Car 27 in Q2 are deleted. Car 27 will therefore be classified in position 16 in Qualifying.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_27_-_track_limits.pdf",
+        "publishedAt": "2025-04-12 20:31 CET"
+      },
+      {
+        "doc": 33,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Qualifying",
+        "type": "grid",
+        "gridDrop": 1,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Entering fast lane in the pit lane before a re-start time was confirmed.",
+        "decision": "Drop of 1 grid position for the next Race in which the driver participates.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_63_-_alleged_failure_to_follow_race_directors_instructions_fast_lane.pdf",
+        "publishedAt": "2025-04-12 21:21 CET"
+      },
+      {
+        "doc": 34,
+        "parser": 2,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Qualifying",
+        "type": "grid",
+        "gridDrop": 1,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Entering fast lane in the pit lane before a re-start time was confirmed.",
+        "decision": "Drop of 1 grid position for the next Race in which the driver participates.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_12_-_alleged_failure_to_follow_race_directors_instructions_fast_lane.pdf",
+        "publishedAt": "2025-04-12 21:25 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 4,
+        "driver": "Lando Norris",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 4 was not in the correct starting position.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_4_-_incorrect_starting_position.pdf",
+        "publishedAt": "2025-04-13 17:45 CET"
+      },
+      {
+        "doc": 47,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 30 collided with Car 18 in turn 2.",
+        "decision": "5 second time penalty. 1 penalty point (total of 3 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_30_-_causing_a_collision_with_car_18_at_t2.pdf",
+        "publishedAt": "2025-04-13 19:48 CET"
+      },
+      {
+        "doc": 49,
+        "parser": 2,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Car 30 collided with car 27 in turn 1.",
+        "decision": "10 second time penalty. 2 penalty points (total of 5 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_30_-_causing_a_collision_with_car_27_at_t1.pdf",
+        "publishedAt": "2025-04-13 20:03 CET"
+      },
+      {
+        "doc": 50,
+        "parser": 2,
+        "car": 7,
+        "driver": "Jack Doohan",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Leaving the track without a justifiable reason multiple times.",
+        "decision": "5 second time penalty.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_7_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
+        "publishedAt": "2025-04-13 20:17 CET"
+      },
+      {
+        "doc": 53,
+        "parser": 2,
+        "car": 55,
+        "driver": "Carlos Sainz",
+        "session": "Race",
+        "type": "time",
+        "seconds": 10,
+        "appliesTo": "race",
+        "corrected": true,
+        "fact": "Car 55 forced Car 12 off the track at turn 10.",
+        "decision": "10 second time penalty. 2 penalty points (total of 3 for the 12 month period).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_55_-_forcing_another_driver_off_the_track_corrected.pdf",
+        "publishedAt": "2025-04-13 20:37 CET"
+      },
+      {
+        "doc": 54,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The driver used the DRS system when more than 1 second from the car in front.",
+        "decision": "No penalty is applied.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_63_-_alleged_drs_infringement.pdf",
+        "publishedAt": "2025-04-13 20:58 CET"
+      },
+      {
+        "doc": 55,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Race",
+        "type": "dsq",
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The thickness of the plank assembly was below the permitted minimum thickness.",
+        "decision": "Car 27 is disqualified from the Race classification. All other drivers move up in the classification.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_infringement_-_car_27_-_technical_non-compliance_plank_assembly.pdf",
+        "publishedAt": "2025-04-13 21:06 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 42,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 81
+        },
+        {
+          "position": 2,
+          "car": 16
+        },
+        {
+          "position": 3,
+          "car": 63
+        },
+        {
+          "position": 4,
+          "car": 10
+        },
+        {
+          "position": 5,
+          "car": 12
+        },
+        {
+          "position": 6,
+          "car": 4
+        },
+        {
+          "position": 7,
+          "car": 1
+        },
+        {
+          "position": 8,
+          "car": 55
+        },
+        {
+          "position": 9,
+          "car": 44
+        },
+        {
+          "position": 10,
+          "car": 22
+        },
+        {
+          "position": 11,
+          "car": 7
+        },
+        {
+          "position": 12,
+          "car": 6
+        },
+        {
+          "position": 13,
+          "car": 14
+        },
+        {
+          "position": 14,
+          "car": 31
+        },
+        {
+          "position": 15,
+          "car": 23
+        },
+        {
+          "position": 16,
+          "car": 27
+        },
+        {
+          "position": 17,
+          "car": 30
+        },
+        {
+          "position": 18,
+          "car": 5
+        },
+        {
+          "position": 19,
+          "car": 18
+        },
+        {
+          "position": 20,
+          "car": 87
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2025_bahrain_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-04-13 16:01 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "bahrain",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "code": "LEC",
+        "name": "Charles Leclerc",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 5
+      },
+      {
+        "year": 2020,
+        "code": "PER",
+        "name": "Sergio Pérez",
+        "constructor": "Racing Point",
+        "winsHere": 1
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:29.841",
+      "seconds": 89.841,
+      "driver": "O. Piastri",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:35.140",
+      "seconds": 95.14,
+      "driver": "O. Piastri",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.1",
+      "seconds": 2.1,
+      "driver": "L. Hamilton",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.8",
+      "seconds": 2.8
+    }
+  },
+  "milestones": {
+    "achievements": [
+      {
+        "driver": "O. Piastri",
+        "given": "Oscar",
+        "count": 50
+      },
+      {
+        "driver": "O. Piastri",
+        "given": "Oscar",
+        "count": 50,
+        "team": "McLaren"
+      }
+    ]
+  }
+}

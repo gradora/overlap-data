@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T12:56:19.769Z",
+  "series": "f1",
+  "season": 2025,
+  "eventKey": "f1-2025-marina-bay-1270",
+  "eventId": "f1-2025-18",
+  "round": 18,
+  "fia": {
+    "event": "singapore_grand_prix",
+    "updated": "2025-10-05 17:08 CET",
+    "penalties": [
+      {
+        "doc": 21,
+        "parser": 2,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Practice 2",
+        "type": "fine",
+        "appliesTo": "Practice 2",
+        "corrected": false,
+        "fact": "Unsafe Release",
+        "decision": "The competitor (Scuderia Ferrari HP) is fined €10,000.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_16_-_unsafe_release.pdf",
+        "publishedAt": "2025-10-03 18:27 CET"
+      },
+      {
+        "doc": 26,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Practice 3",
+        "type": "none",
+        "appliesTo": "Practice 3",
+        "corrected": false,
+        "fact": "Allegedly failing to comply with a red flag.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_decision_-_car_44_-_allegedly_failing_to_comply_with_a_red_flag.pdf",
+        "publishedAt": "2025-10-04 14:31 CET"
+      },
+      {
+        "doc": 37,
+        "parser": 2,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Allegedly failing to slow under yellow flags.",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_decision_-_car_63_-_allegedly_failing_to_slow_under_yellow_flags.pdf",
+        "publishedAt": "2025-10-04 18:02 CET"
+      },
+      {
+        "doc": 38,
+        "parser": 2,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Allegedly failing to slow under yellow flags",
+        "decision": "No Further Action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_decision_-_car_5_-_alleged_yellow_flag_infringement.pdf",
+        "publishedAt": "2025-10-04 18:17 CET"
+      },
+      {
+        "doc": 39,
+        "parser": 2,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Allegedly failing to slow under yellow flags",
+        "decision": "No further action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_decision_-_car_27_-_alleged_yellow_flag_infringement.pdf",
+        "publishedAt": "2025-10-04 18:18 CET"
+      },
+      {
+        "doc": 40,
+        "parser": 2,
+        "car": 22,
+        "driver": "Yuki Tsunoda",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Allegedly failing to slow under yellow flags",
+        "decision": "No Further Action.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_decision_-_car_22_-_alleged_yellow_flag_infringement.pdf",
+        "publishedAt": "2025-10-04 18:18 CET"
+      },
+      {
+        "doc": 42,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Qualifying",
+        "type": "dsq",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 23 exceeded the maximum limit of 85 mm on both sides of the rear wing outer area.",
+        "decision": "Disqualification from Qualifying",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_23_-_technical_regulations_drs.pdf",
+        "publishedAt": "2025-10-04 18:42 CET"
+      },
+      {
+        "doc": 43,
+        "parser": 2,
+        "car": 55,
+        "driver": "Carlos Sainz",
+        "session": "Qualifying",
+        "type": "dsq",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "fact": "Car 55 exceeded the maximum limit of 85 mm on both sides of the rear wing outer area.",
+        "decision": "Disqualification of Qualifying",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_55_-_technical_regulations_drs.pdf",
+        "publishedAt": "2025-10-04 18:43 CET"
+      },
+      {
+        "doc": 51,
+        "parser": 2,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The floor has been changed for one of a different specification and the setup of the suspension has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_10_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-10-05 12:13 CET"
+      },
+      {
+        "doc": 52,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Qualifying",
+        "type": "grid",
+        "pitlane": true,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
+        "decision": "Required to start the Race from the pit lane.",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_23_-_changes_made_during_parc_ferme.pdf",
+        "publishedAt": "2025-10-05 12:14 CET"
+      },
+      {
+        "doc": 56,
+        "parser": 2,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Reconnaissance Laps",
+        "type": "reprimand",
+        "appliesTo": "Reconnaissance Laps",
+        "corrected": false,
+        "fact": "Use of pit exit lane during reconnaissance lap",
+        "decision": "Reprimand (driving) to the driver",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_23_-_use_of_pit_exit_lane_during_reconnaissance_lap.pdf",
+        "publishedAt": "2025-10-05 15:53 CET"
+      },
+      {
+        "doc": 60,
+        "parser": 2,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "fact": "Leaving the track without a justifiable reason, multiple times.",
+        "decision": "5 second time penalty. (5 seconds added to elapsed Race time).",
+        "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_infringement_-_car_44_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
+        "publishedAt": "2025-10-05 17:08 CET"
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 55,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 63
+        },
+        {
+          "position": 2,
+          "car": 1
+        },
+        {
+          "position": 3,
+          "car": 81
+        },
+        {
+          "position": 4,
+          "car": 12
+        },
+        {
+          "position": 5,
+          "car": 4
+        },
+        {
+          "position": 6,
+          "car": 44
+        },
+        {
+          "position": 7,
+          "car": 16
+        },
+        {
+          "position": 8,
+          "car": 6
+        },
+        {
+          "position": 9,
+          "car": 87
+        },
+        {
+          "position": 10,
+          "car": 14
+        },
+        {
+          "position": 11,
+          "car": 27
+        },
+        {
+          "position": 12,
+          "car": 30
+        },
+        {
+          "position": 13,
+          "car": 22
+        },
+        {
+          "position": 14,
+          "car": 5
+        },
+        {
+          "position": 15,
+          "car": 18
+        },
+        {
+          "position": 16,
+          "car": 43
+        },
+        {
+          "position": 17,
+          "car": 31
+        },
+        {
+          "position": 18,
+          "car": 55
+        },
+        {
+          "position": 61,
+          "car": 23
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2025-10-05 13:00 CET"
+    }
+  },
+  "winners": {
+    "circuitId": "marina_bay",
+    "winners": [
+      {
+        "year": 2024,
+        "code": "NOR",
+        "name": "Lando Norris",
+        "constructor": "McLaren",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "SAI",
+        "name": "Carlos Sainz",
+        "constructor": "Ferrari",
+        "winsHere": 1
+      },
+      {
+        "year": 2022,
+        "code": "PER",
+        "name": "Sergio Pérez",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "VET",
+        "name": "Sebastian Vettel",
+        "constructor": "Ferrari",
+        "winsHere": 5
+      },
+      {
+        "year": 2018,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 4
+      }
+    ]
+  },
+  "highlights": {
+    "fastestLap": {
+      "time": "1:29.158",
+      "seconds": 89.158,
+      "driver": "G. Russell",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:33.808",
+      "seconds": 93.80799999999999,
+      "driver": "L. Hamilton",
+      "tag": "R"
+    },
+    "fastestPitStop": {
+      "time": "2.1",
+      "seconds": 2.1,
+      "driver": "Y. Tsunoda",
+      "tag": "R"
+    },
+    "medianPitStop": {
+      "time": "2.8",
+      "seconds": 2.8
+    }
+  },
+  "milestones": {
+    "achievements": []
+  }
+}
