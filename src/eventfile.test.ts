@@ -29,9 +29,10 @@ test("конверт источника в проекцию не попадае�
   assert.doesNotMatch(asText, /generatedAt/,
     "generatedAt просочился — файл будет меняться каждый прогон источника");
   assert.doesNotMatch(asText, /schemaVersion/);
-  // season и round живут сверху, дублировать их в каждом блоке незачем.
-  assert.equal((file.fia as any).season, undefined);
-  assert.equal((file.fia as any).round, undefined);
+  // А season и round ОСТАЮТСЯ: клиентские модели объявляют их обязательными,
+  // и без них блок не декодируется тем же декодером, что и отдельный файл.
+  assert.equal((file.fia as any).season, 2025);
+  assert.equal((file.fia as any).round, 14);
   assert.equal(file.season, 2025);
   assert.equal(file.round, 14);
 });
@@ -75,6 +76,9 @@ test("stripEnvelope понимает обе формы: плоскую и с pay
   const nested = stripEnvelope({ schemaVersion: 1, generatedAt: "x", payload: { a: 1 } });
   assert.deepEqual(flat, { a: 1 });
   assert.deepEqual(nested, { a: 1 });
+  // season/round конвертом не считаются — они нужны декодеру блока.
+  assert.deepEqual(stripEnvelope({ generatedAt: "x", season: 2025, round: 14 }),
+                   { season: 2025, round: 14 });
   assert.equal(stripEnvelope(null), null);
   assert.equal(stripEnvelope([1, 2]), null, "массив — не документ семейства");
   assert.equal(stripEnvelope("текст"), null);
