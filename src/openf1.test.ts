@@ -4,6 +4,9 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { mirrorSlug } from "./lib/mirror.js";
 import {
   meetingsToSnapshot,
   snapshotMode,
@@ -160,4 +163,33 @@ test("meetingsToSnapshot: без гарда сезон N+1 целиком уех
                                      ["2026-03-08", "2026-03-15"]);
   assert.deepEqual(targets.map((t) => t.reason), ["overlay", "overlay"],
     "именно поэтому режим future выходит до отбора целей");
+});
+
+/// Сторож против «прошедший этап без данных». Гейт заморозки раньше значил
+/// «не получить вовсе»: митинг, не собранный в свою неделю, пропускался
+/// НАВСЕГДА — добор поздних ручек читает уже зеркалированный листинг, а его
+/// нет. Так пропали предсезонные тесты 2026, и приложение полгода писало про
+/// февральский этап «Testing schedule unavailable», хотя у источника сессии
+/// лежали всё это время.
+///
+/// Проверяем не код, а РЕЗУЛЬТАТ: у каждого отстоявшегося митинга сезона есть
+/// листинг сессий. Отстоявшегося — потому что у идущего уик-энда его законно
+/// может ещё не быть.
+test("у отстоявшихся митингов сезона есть зеркало сессий", () => {
+  const dir = join(process.cwd(), "data", "f1", "openf1");
+  const now = Date.now();
+  const settled = 8 * 24 * 3600 * 1000;   // freeze 7 дней + сутки запаса
+  for (const year of [2025, 2026]) {
+    const listing = join(dir, mirrorSlug(`meetings?year=${year}`));
+    if (!existsSync(listing)) continue;
+    const meetings = JSON.parse(readFileSync(listing, "utf8"));
+    const missing = (Array.isArray(meetings) ? meetings : []).filter((m: any) => {
+      const end = Date.parse(m?.date_end ?? m?.date_start ?? "");
+      if (!Number.isFinite(end) || now - end < settled) return false;
+      return !existsSync(join(dir, mirrorSlug(`sessions?meeting_key=${m.meeting_key}`)));
+    }).map((m: any) => `${m.meeting_key} «${m.meeting_name}» (${String(m.date_start).slice(0, 10)})`);
+    assert.deepEqual(missing, [],
+      `${year}: митинги отстоялись, а листинга сессий нет — приложение покажет ` +
+      `прошедший этап как «расписание недоступно»`);
+  }
 });
