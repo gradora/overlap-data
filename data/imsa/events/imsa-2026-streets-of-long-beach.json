@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.791Z",
+  "generatedAt": "2026-08-30T21:14:03.764Z",
   "series": "imsa",
   "season": 2026,
   "eventKey": "imsa-2026-streets-of-long-beach",
@@ -17,13 +17,15 @@
         "car": 89,
         "driver": "Vasser Sullivan Racing",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
         "fact": "During post-Qualifying Technical Inspection, GTD Car #89 was found to have a ground clearance lower than the minimum per GTD Technical Regulation 7.4.5.",
         "decision": "Lap times are invalidated. Car is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/07_Long%20Beach%20Street%20Circuit/18_Penalties/TP%2026-9.pdf",
-        "publishedAt": "2026-04-18T02:45:13.000Z"
+        "publishedAt": "2026-04-18T02:45:13.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -37,7 +39,7 @@
         "name": "TANDY / NASR",
         "constructor": "Porsche Penske Motorsport",
         "vehicle": "Porsche 963",
-        "winsHere": 1
+        "winsHere": 2
       },
       {
         "year": 2024,

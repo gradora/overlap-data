@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.790Z",
+  "generatedAt": "2026-08-30T21:14:03.763Z",
   "series": "imsa",
   "season": 2026,
   "eventKey": "imsa-2026-daytona-international-speedway",
@@ -23,20 +23,23 @@
         "fact": "During post-Qualifying Technical Inspection, GTD PRO Car #1 was found to have camber in excess of the permitted limit as defined by MMTB_IWSC_2026_02",
         "decision": "Lap Times are invalidated, Car is moved to the back of the Category",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/02_Rolex%2024%20-%20Daytona%20International%20Speedway/18_Penalties/TP%2026-2.pdf",
-        "publishedAt": "2026-01-23T17:20:53.000Z"
+        "publishedAt": "2026-01-23T17:20:53.000Z",
+        "parser": 3
       },
       {
         "doc": 3,
         "car": 31,
         "driver": "Cadillac Whelen",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
         "fact": "During post-Qualifying Technical Inspection, GTP Car #31 was found to have friction area of the rear skid block beyond the permitted tolerance per LMDh TR Appendices Appendix C Art. 3.5.9",
         "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/02_Rolex%2024%20-%20Daytona%20International%20Speedway/18_Penalties/TP%2026-3.pdf",
-        "publishedAt": "2026-01-23T17:20:53.000Z"
+        "publishedAt": "2026-01-23T17:20:53.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -50,7 +53,7 @@
         "name": "VANTHOOR / TANDY / NASR",
         "constructor": "Porsche Penske Motorsport",
         "vehicle": "Porsche 963",
-        "winsHere": 1
+        "winsHere": 2
       },
       {
         "year": 2024,
@@ -64,7 +67,7 @@
         "name": "BLOMQVIST / BRAUN / CASTRONEVES / PAGENAUD",
         "constructor": "Meyer Shank Racing w/ Curb Agajanian",
         "vehicle": "Acura ARX-06",
-        "winsHere": 1
+        "winsHere": 2
       },
       {
         "year": 2022,
@@ -78,7 +81,7 @@
         "name": "TAYLOR / ALBUQUERQUE / ROSSI / CASTRONEVES",
         "constructor": "Konica Minolta Acura ARX-05",
         "vehicle": "Acura DPi",
-        "winsHere": 1
+        "winsHere": 2
       }
     ]
   },
