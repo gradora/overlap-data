@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:36:02.622Z",
+  "generatedAt": "2026-08-30T18:56:19.606Z",
   "season": 2025,
   "round": 16,
   "event": "italian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 15,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Practice 2",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 16,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 22,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Practice 3",
@@ -44,46 +44,46 @@
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_italian_grand_prix_-_infringement_-_car_6_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-09-07 13:23 CET"
+      "publishedAt": "2025-09-07 13:23 CET",
+      "pitlane": true
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_italian_grand_prix_-_infringement_-_car_10_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-09-07 13:24 CET"
+      "publishedAt": "2025-09-07 13:24 CET",
+      "pitlane": true
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_italian_grand_prix_-_infringement_-_car_31_-_forcing_another_driver_off_the_track.pdf",
-      "publishedAt": "2025-09-07 16:00 CET"
+      "publishedAt": "2025-09-07 16:00 CET",
+      "seconds": 5
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -95,33 +95,33 @@
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_italian_grand_prix_-_infringement_-_car_12_-_erratic_driving_.pdf",
-      "publishedAt": "2025-09-07 17:21 CET"
+      "publishedAt": "2025-09-07 17:21 CET",
+      "seconds": 5
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_italian_grand_prix_-_infringement_-_car_87_-_causing_a_collision.pdf",
-      "publishedAt": "2025-09-07 17:24 CET"
+      "publishedAt": "2025-09-07 17:24 CET",
+      "seconds": 10
     },
     {
       "doc": 44,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -133,7 +133,7 @@
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
@@ -145,17 +145,17 @@
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_44_-_failing_to_slow_for_yellow_flags.pdf",
       "publishedAt": "2025-08-31 20:22 CET",
-      "carriedFrom": 15
+      "carriedFrom": 15,
+      "gridDrop": 5
     }
   ],
   "startingGrid": {

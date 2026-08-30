@@ -14,7 +14,13 @@ export const CHAMPIONSHIP_URL =
 // ---- Типы вывода (зеркалят модель приложения FIAPenalties) ----
 
 export type PenaltyType =
-  | "grid" | "time" | "dsq" | "reprimand" | "warning" | "fine" | "deleted_laps" | "none" | "other";
+  | "grid" | "time" | "dsq" | "reprimand" | "warning" | "fine" | "deleted_laps"
+  /// Проезд по пит-лейн без остановки. Самый частый вид у эндуранса: 108
+  /// решений в корпусе лежали в «other», потому что каскад его не знал.
+  | "drive_through"
+  /// Стоп-энд-гоу; длительность — в `seconds`.
+  | "stop_go"
+  | "none" | "other";
 
 export interface FiaPenalty {
   doc: number;                 // номер документа стюардов
@@ -164,7 +170,13 @@ export function isPenaltyDoc(title: string): boolean {
 // v2 — деньги подняты выше выговора и предупреждения в classifyDecision:
 // решение с формальным предупреждением И штрафом писалось как «warning», и
 // сумма терялась (4 случая в корпусе, включая €10 000 Red Bull).
-export const PENALTY_PARSER_VERSION = 2;
+// v3 — каскад научился эндуранс-санкциям: drive-through, stop-and-go,
+// «секунды к следующему питстопу» (промах был на двух словах «to be»),
+// аннулирование кругов в формулировках всех трёх серий, «back of the class»
+// у IMSA, чёрно-белый флаг. Было 302 решения в «other» из 1304 — стало 14.
+// Записи типа «other» несут смысл ТОЛЬКО в тексте решения, поэтому четверть
+// корпуса фактически не была разобрана.
+export const PENALTY_PARSER_VERSION = 3;
 
 const BODY_ANCHOR = "determine the following:";
 // Метки полей в порядке появления (Offence — синоним Infringement у части доков).
@@ -227,10 +239,29 @@ export function classifyDecision(decision: string): {
   // «start from the pit lane» и вариант со вставкой сессии: «required to start
   // the Race/Sprint from the pit lane» (Китай-2026, Албон doc 68).
   if (/start(?:ing)?(?: the \w+)? from the pit ?lane|pit ?lane start/.test(d)) return { type: "grid", pitlane: true };
-  if (/back of the (?:starting )?grid/.test(d)) return { type: "grid", backOfGrid: true };
+  // «back of the grid» у FIA и «moved to the back of the class» у IMSA — одна
+  // санкция, разные слова источников.
+  if (/back of the (?:starting )?grid|(?:moved to the )?back of the class/.test(d)) {
+    return { type: "grid", backOfGrid: true };
+  }
   if ((m = d.match(/(\d+)\s*second(?:s)? time penalty/))) return { type: "time", seconds: Number(m[1]) };
-  // WEC: «10 seconds added at the next pit stop» — время к следующему питу.
-  if ((m = d.match(/(\d+)\s*second(?:s)? added/))) return { type: "time", seconds: Number(m[1]) };
+  // WEC: «10 seconds added at the next pit stop» и «…to be added to the next
+  // pit stop» — одна и та же санкция. Второй вариант каскад не знал, и 31
+  // решение уходило в «other» из-за двух слов «to be».
+  if ((m = d.match(/(\d+)\s*second(?:s)?\s*(?:to be )?added/))) {
+    return { type: "time", seconds: Number(m[1]) };
+  }
+  // Эндуранс: проезд по пит-лейн и стоп-энд-гоу. Без них 175 решений корпуса
+  // лежали в «other» — то есть приложение знало, что штраф был, но не знало
+  // какой.
+  if (/drive[- ]?through/.test(d)) return { type: "drive_through" };
+  if ((m = d.match(/(\d+)\s*minutes?\s+stop[\s-]*(?:and|&)?[\s-]*go/))) {
+    return { type: "stop_go", seconds: Number(m[1]) * 60 };
+  }
+  if ((m = d.match(/(\d+)\s*seconds?\s+stop[\s-]*(?:and|&)?[\s-]*go/))) {
+    return { type: "stop_go", seconds: Number(m[1]) };
+  }
+  if (/stop[\s-]*(?:and|&)?[\s-]*go/.test(d)) return { type: "stop_go" };
   if (/disqualif|excluded from/.test(d)) return { type: "dsq" };
   // Деньги — ВЫШЕ выговора и предупреждения: решение часто несёт формальное
   // предупреждение вместе со штрафом, и материальна тут именно сумма.
@@ -239,7 +270,16 @@ export function classifyDecision(decision: string): {
   // «Driver: Warning.» — стюардовское предупреждение (напр. за дельту SC2-SC1);
   // на результат не влияет, но должно доходить до приложения, а не в "other".
   if (/\bwarning\b/.test(d)) return { type: "warning" };
-  if (/lap ?time.*delet|deletion of.*lap|deleted lap/.test(d)) return { type: "deleted_laps" };
+  // «Cancellation of the times since the start of the session» — та же санкция,
+  // что удаление кругов, только формулировка эндуранса.
+  // Аннулирование кругов: у каждой серии своя формулировка — «deleted»,
+  // «cancellation of the times», «lap times are invalidated».
+  if (/lap ?time.*(?:delet|invalidat)|deletion of.*lap|deleted lap|cancellation of (?:the )?(?:times?|laps?|best)/
+      .test(d)) {
+    return { type: "deleted_laps" };
+  }
+  // Чёрно-белый флаг — формальное предупреждение за неспортивное поведение.
+  if (/black and white flag/.test(d)) return { type: "warning" };
   return { type: "other" };
 }
 

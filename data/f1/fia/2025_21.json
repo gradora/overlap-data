@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:03:02.553Z",
+  "generatedAt": "2026-08-30T18:56:19.608Z",
   "season": 2025,
   "round": 21,
   "event": "sao_paulo_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 23,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Sprint Qualifying",
@@ -20,133 +20,133 @@
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-08 13:59 CET"
+      "publishedAt": "2025-11-08 13:59 CET",
+      "pitlane": true
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_55_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-08 13:59 CET"
+      "publishedAt": "2025-11-08 13:59 CET",
+      "pitlane": true
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_87_-_driving_in_a_manner_deemed_potentially_dangerous.pdf",
-      "publishedAt": "2025-11-08 18:01 CET"
+      "publishedAt": "2025-11-08 18:01 CET",
+      "seconds": 5
     },
     {
       "doc": 55,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_31_-_pu_elements_and_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-09 16:27 CET"
+      "publishedAt": "2025-11-09 16:27 CET",
+      "pitlane": true
     },
     {
       "doc": 56,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_1_-_pu_elements_and_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-09 16:33 CET"
+      "publishedAt": "2025-11-09 16:33 CET",
+      "pitlane": true
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_22_-_causing_a_collision_with_car_18_in_turn_8.pdf",
-      "publishedAt": "2025-11-09 20:02 CET"
+      "publishedAt": "2025-11-09 20:02 CET",
+      "seconds": 10
     },
     {
       "doc": 60,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_22_-_failure_to_serve_a_time_penalty_during_a_pit_stop.pdf",
-      "publishedAt": "2025-11-09 20:02 CET"
+      "publishedAt": "2025-11-09 20:02 CET",
+      "seconds": 10
     },
     {
       "doc": 61,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_infringement_-_car_44_-_causing_a_collision_with_car_43_in_turn_15.pdf",
-      "publishedAt": "2025-11-09 20:03 CET"
+      "publishedAt": "2025-11-09 20:03 CET",
+      "seconds": 5
     },
     {
       "doc": 65,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_corrected_-_sprint_infringement_-_car_30_-_causing_a_collision_with_car_87_at_t4.pdf",
-      "publishedAt": "2025-11-09 22:10 CET"
+      "publishedAt": "2025-11-09 22:10 CET",
+      "seconds": 5
     },
     {
       "doc": 68,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2025_sao_paulo_grand_prix_-_corrected_race_-_infringement_-_car_81_-_causing_a_collision_with_car_12_in_turn_1.pdf",
-      "publishedAt": "2025-11-09 22:35 CET"
+      "publishedAt": "2025-11-09 22:35 CET",
+      "seconds": 10
     }
   ],
   "startingGrid": {

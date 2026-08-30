@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:56:19.625Z",
   "season": 2026,
   "round": 2,
   "event": "sebring-international-raceway",
@@ -9,22 +11,26 @@
       "car": 48,
       "driver": "WINWARD RACING",
       "session": "Technical",
-      "type": "deleted_laps",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/06_Sebring%20International%20Raceway/18_Penalties/TP%2026-7.pdf",
-      "publishedAt": "2026-03-20T20:01:37.000Z"
+      "publishedAt": "2026-03-20T20:01:37.000Z",
+      "parser": 3,
+      "backOfGrid": true
     },
     {
       "doc": 8,
       "car": 10,
       "driver": "Cadillac Wayne Taylor Racing",
       "session": "Technical",
-      "type": "other",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/06_Sebring%20International%20Raceway/18_Penalties/TP%2026-8.pdf",
-      "publishedAt": "2026-03-23T16:01:33.000Z"
+      "publishedAt": "2026-03-23T16:01:33.000Z",
+      "parser": 3,
+      "backOfGrid": true
     },
     {
       "doc": 9,
@@ -35,7 +41,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/06_Sebring%20International%20Raceway/18_Penalties/SP%2026-9.pdf",
-      "publishedAt": "2026-03-23T16:01:30.000Z"
+      "publishedAt": "2026-03-23T16:01:30.000Z",
+      "parser": 3
     }
   ]
 }

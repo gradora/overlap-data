@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T15:36:43.890Z",
+  "generatedAt": "2026-08-30T18:56:19.619Z",
   "season": 2025,
   "round": 7,
   "event": "6-hours-of-fuji-2025",
@@ -15,18 +15,21 @@
       "appliesTo": "Drivers Briefing",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/009_Doc%209%20-%20Decision%20no.%201%20-%20Car%2036.pdf",
-      "publishedAt": "2025-09-26T01:36:18.000Z"
+      "publishedAt": "2025-09-26T01:36:18.000Z",
+      "parser": 3
     },
     {
       "doc": 10,
       "car": 46,
       "driver": "Valentino ROSSI",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/010_Doc%2010%20-%20Decision%20no.%203%20-%20Car%2046.pdf",
-      "publishedAt": "2025-09-26T02:23:56.000Z"
+      "publishedAt": "2025-09-26T02:23:56.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 11,
@@ -37,7 +40,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/011_Doc%2011%20-%20Decision%20no.%202%20-%20Car%2099.pdf",
-      "publishedAt": "2025-09-26T02:22:05.000Z"
+      "publishedAt": "2025-09-26T02:22:05.000Z",
+      "parser": 3
     },
     {
       "doc": 12,
@@ -48,51 +52,60 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/012_Doc%2012%20-%20Decision%20no.%204%20-%20Car%2093.pdf",
-      "publishedAt": "2025-09-26T02:31:52.000Z"
+      "publishedAt": "2025-09-26T02:31:52.000Z",
+      "parser": 3
     },
     {
       "doc": 13,
       "car": 46,
       "driver": "Kelvin VAN DER LINDE",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/013_Doc%2013%20-%20Decision%20no.%205%20-%20Car%2046.pdf",
-      "publishedAt": "2025-09-26T02:42:28.000Z"
+      "publishedAt": "2025-09-26T02:42:28.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 14,
       "car": 95,
       "driver": "Darren LEUNG",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/014_Doc%2014%20-%20Decision%20no.%206%20-%20Car%2095.pdf",
-      "publishedAt": "2025-09-26T02:44:57.000Z"
+      "publishedAt": "2025-09-26T02:44:57.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 15,
       "car": 33,
       "driver": "Jonny EDGAR",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/015_Doc%2015%20-%20Decision%20no.%207%20-%20Car%2033.pdf",
-      "publishedAt": "2025-09-26T02:50:35.000Z"
+      "publishedAt": "2025-09-26T02:50:35.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 16,
       "car": 85,
       "driver": "Célia MARTIN",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/016_Doc%2016%20-%20Decision%20no.%208%20-%20Car%2085.pdf",
-      "publishedAt": "2025-09-26T02:52:15.000Z"
+      "publishedAt": "2025-09-26T02:52:15.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 19,
@@ -103,7 +116,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/019_Doc%2019%20-%20Decision%20no.%209%20-%20Car%208.pdf",
-      "publishedAt": "2025-09-26T06:00:15.000Z"
+      "publishedAt": "2025-09-26T06:00:15.000Z",
+      "parser": 3
     },
     {
       "doc": 21,
@@ -114,7 +128,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/021_Doc%2021%20-%20Decision%20no.%2010%20-%20Car%2020.pdf",
-      "publishedAt": "2025-09-26T06:50:28.000Z"
+      "publishedAt": "2025-09-26T06:50:28.000Z",
+      "parser": 3
     },
     {
       "doc": 22,
@@ -125,7 +140,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/022_Doc%2022%20-%20Decision%20no.%2011%20-%20Car%2059.pdf",
-      "publishedAt": "2025-09-26T07:10:06.000Z"
+      "publishedAt": "2025-09-26T07:10:06.000Z",
+      "parser": 3
     },
     {
       "doc": 24,
@@ -136,7 +152,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/024_Doc%2024%20-%20Decision%20no.%2012%20-%20Car%2081.pdf",
-      "publishedAt": "2025-09-26T07:19:50.000Z"
+      "publishedAt": "2025-09-26T07:19:50.000Z",
+      "parser": 3
     },
     {
       "doc": 29,
@@ -147,7 +164,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/029_Doc%2029%20-%20Decision%20no.%2018%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-27T01:02:40.000Z"
+      "publishedAt": "2025-09-27T01:02:40.000Z",
+      "parser": 3
     },
     {
       "doc": 30,
@@ -158,7 +176,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/030_Doc%2030%20-%20Decision%20no.%2019%20-%20Car%20009.pdf",
-      "publishedAt": "2025-09-27T02:00:02.000Z"
+      "publishedAt": "2025-09-27T02:00:02.000Z",
+      "parser": 3
     },
     {
       "doc": 31,
@@ -169,7 +188,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/031_Doc%2031%20-%20Decision%20no.%2020%20-%20Car%206.pdf",
-      "publishedAt": "2025-09-27T02:08:02.000Z"
+      "publishedAt": "2025-09-27T02:08:02.000Z",
+      "parser": 3
     },
     {
       "doc": 33,
@@ -180,7 +200,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/033_Doc%2033%20-%20Decision%20no.%2021%20-%20Car%205.pdf",
-      "publishedAt": "2025-09-27T02:35:23.000Z"
+      "publishedAt": "2025-09-27T02:35:23.000Z",
+      "parser": 3
     },
     {
       "doc": 35,
@@ -191,7 +212,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/035_Doc%2035%20-%20Decision%20no.%2022%20-%20Car%2060.pdf",
-      "publishedAt": "2025-09-27T05:27:42.000Z"
+      "publishedAt": "2025-09-27T05:27:42.000Z",
+      "parser": 3
     },
     {
       "doc": 36,
@@ -202,7 +224,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/036_Doc%2036%20-%20Decision%20no.%2023%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-27T05:51:30.000Z"
+      "publishedAt": "2025-09-27T05:51:30.000Z",
+      "parser": 3
     },
     {
       "doc": 37,
@@ -213,18 +236,20 @@
       "appliesTo": "LMGT3 Hyperpole",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/037_Doc%2037%20-%20Decision%20no.%2024%20-%20Car%2092.pdf",
-      "publishedAt": "2025-09-27T06:06:00.000Z"
+      "publishedAt": "2025-09-27T06:06:00.000Z",
+      "parser": 3
     },
     {
       "doc": 44,
       "car": 77,
       "driver": "Bernardo SOUSA",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/044_Doc%2044%20-%20Decision%20no.%2025%20-%20Car%2077.pdf",
-      "publishedAt": "2025-09-28T02:48:48.000Z"
+      "publishedAt": "2025-09-28T02:48:48.000Z",
+      "parser": 3
     },
     {
       "doc": 45,
@@ -235,29 +260,32 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/045_Doc%2045%20-%20Decision%20no.%2026%20-%20Car%2036.pdf",
-      "publishedAt": "2025-09-28T02:53:20.000Z"
+      "publishedAt": "2025-09-28T02:53:20.000Z",
+      "parser": 3
     },
     {
       "doc": 50,
       "car": 95,
       "driver": "95 / UNITED AUTOSPORTS",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/050_Doc%2050%20-%20Decision%20no.%2031%20-%20Car%2095.pdf",
-      "publishedAt": "2025-11-05T07:13:07.000Z"
+      "publishedAt": "2025-11-05T07:13:07.000Z",
+      "parser": 3
     },
     {
       "doc": 52,
       "car": 27,
       "driver": "Ian JAMES",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/052_Doc%2052%20-%20Decision%20no.%2032%20-%20Car%2027.pdf",
-      "publishedAt": "2025-09-28T03:45:19.000Z"
+      "publishedAt": "2025-09-28T03:45:19.000Z",
+      "parser": 3
     },
     {
       "doc": 54,
@@ -265,11 +293,12 @@
       "driver": "Marco Sørensen",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/054_Doc%2054%20-%20Decision%20no.%2038%20-%20Car%20009.pdf",
-      "publishedAt": "2025-09-28T03:55:30.000Z"
+      "publishedAt": "2025-09-28T03:55:30.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 55,
@@ -280,62 +309,71 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/055_Doc%2055%20-%20Decision%20no.%2039%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-28T04:02:30.000Z"
+      "publishedAt": "2025-09-28T04:02:30.000Z",
+      "parser": 3
     },
     {
       "doc": 58,
       "car": 8,
       "driver": "Sébastien BUEMI",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/058_Doc%2058%20-%20Decision%20no.%2041%20-%20Car%208.pdf",
-      "publishedAt": "2025-09-28T04:25:29.000Z"
+      "publishedAt": "2025-09-28T04:25:29.000Z",
+      "parser": 3,
+      "seconds": 180
     },
     {
       "doc": 59,
       "car": 7,
       "driver": "Harry TINCKNELL",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/059_Doc%2059%20-%20Decision%20no.%2042%20-%20Car%20007.pdf",
-      "publishedAt": "2025-09-28T04:36:03.000Z"
+      "publishedAt": "2025-09-28T04:36:03.000Z",
+      "parser": 3
     },
     {
       "doc": 60,
       "car": 60,
       "driver": "Andrew GILBERT",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/060_Doc%2060%20-%20Decision%20no.%2043%20-%20Car%2060.pdf",
-      "publishedAt": "2025-09-28T04:39:42.000Z"
+      "publishedAt": "2025-09-28T04:39:42.000Z",
+      "parser": 3
     },
     {
       "doc": 61,
       "car": 60,
       "driver": "Andrew GILBERT",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/061_Doc%2061%20-%20Decision%20no.%2044%20-%20Car%2060.pdf",
-      "publishedAt": "2025-09-28T04:45:11.000Z"
+      "publishedAt": "2025-09-28T04:45:11.000Z",
+      "parser": 3,
+      "seconds": 30
     },
     {
       "doc": 62,
       "car": 35,
       "driver": "Ferdinand HABSBURG",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/062_Doc%2062%20-%20Decision%20no.%2045%20-%20Car%2035.pdf",
-      "publishedAt": "2025-09-28T05:02:54.000Z"
+      "publishedAt": "2025-09-28T05:02:54.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 64,
@@ -346,7 +384,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/064_Doc%2064%20-%20Decision%20no.%2046%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-28T05:25:04.000Z"
+      "publishedAt": "2025-09-28T05:25:04.000Z",
+      "parser": 3
     },
     {
       "doc": 67,
@@ -357,7 +396,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/067_Doc%2067%20-%20Decision%20no.%2047%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T05:59:04.000Z"
+      "publishedAt": "2025-09-28T05:59:04.000Z",
+      "parser": 3
     },
     {
       "doc": 68,
@@ -365,11 +405,12 @@
       "driver": "Ryan HARDWICK",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/068_Doc%2068%20-%20Decision%20no.%2048%20-%20Car%2092.pdf",
-      "publishedAt": "2025-09-28T06:00:04.000Z"
+      "publishedAt": "2025-09-28T06:00:04.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 69,
@@ -380,7 +421,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/069_Doc%2069%20-%20Decision%20no.%2049%20-%20Car%208.pdf",
-      "publishedAt": "2025-09-28T06:06:42.000Z"
+      "publishedAt": "2025-09-28T06:06:42.000Z",
+      "parser": 3
     },
     {
       "doc": 71,
@@ -391,7 +433,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/071_Doc%2071%20-%20Decision%20no.%2051%20-%20Car%206.pdf",
-      "publishedAt": "2025-09-28T06:37:15.000Z"
+      "publishedAt": "2025-09-28T06:37:15.000Z",
+      "parser": 3
     },
     {
       "doc": 72,
@@ -402,40 +445,45 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/072_Doc%2072%20-%20Decision%20no.%2050%20-%20Car%2020.pdf",
-      "publishedAt": "2025-09-28T06:48:57.000Z"
+      "publishedAt": "2025-09-28T06:48:57.000Z",
+      "parser": 3
     },
     {
       "doc": 73,
       "car": 35,
       "driver": "35 / ALPINE ENDURANCE TEAM",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/073_Doc%2073%20-%20Decision%20no.%2052%20-%20Car%2035.pdf",
-      "publishedAt": "2025-09-28T06:49:45.000Z"
+      "publishedAt": "2025-09-28T06:49:45.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 74,
       "car": 5,
       "driver": "Julien ANDLAUER",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/074_Doc%2074%20-%20Decision%20no.%2053%20-%20Car%205.pdf",
-      "publishedAt": "2025-09-28T06:56:34.000Z"
+      "publishedAt": "2025-09-28T06:56:34.000Z",
+      "parser": 3
     },
     {
       "doc": 75,
       "car": 51,
       "driver": "Alessandro PIER GUIDI",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/075_Doc%2075%20-%20Decision%20no.%2054%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T06:57:21.000Z"
+      "publishedAt": "2025-09-28T06:57:21.000Z",
+      "parser": 3
     },
     {
       "doc": 76,
@@ -446,7 +494,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/076_Doc%2076%20-%20Decision%20no.%2055%20-%20Car%20009.pdf",
-      "publishedAt": "2025-09-28T07:05:45.000Z"
+      "publishedAt": "2025-09-28T07:05:45.000Z",
+      "parser": 3
     },
     {
       "doc": 77,
@@ -454,22 +503,24 @@
       "driver": "Ryan HARDWICK",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/077_Doc%2077%20-%20Decision%20no.%2048%20AMENDED%20-%20Car%2092.pdf",
-      "publishedAt": "2025-09-28T07:22:01.000Z"
+      "publishedAt": "2025-09-28T07:22:01.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 79,
       "car": 36,
       "driver": "Frédéric MAKOWIECKI",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/079_Doc%2079%20-%20Decision%20no.%2056%20-%20Car%2036.pdf",
-      "publishedAt": "2025-09-28T07:42:52.000Z"
+      "publishedAt": "2025-09-28T07:42:52.000Z",
+      "parser": 3
     },
     {
       "doc": 80,
@@ -480,7 +531,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/080_Doc%2080%20-%20Decision%20no.%2057%20-%20Car%207.pdf",
-      "publishedAt": "2025-09-28T07:43:42.000Z"
+      "publishedAt": "2025-09-28T07:43:42.000Z",
+      "parser": 3
     },
     {
       "doc": 81,
@@ -491,7 +543,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/081_Doc%2081%20-%20Decision%20no.%2058%20-%20Car%2010.pdf",
-      "publishedAt": "2025-09-28T08:13:09.000Z"
+      "publishedAt": "2025-09-28T08:13:09.000Z",
+      "parser": 3
     },
     {
       "doc": 83,
@@ -499,11 +552,12 @@
       "driver": "6 / PORSCHE PENSKE MOTORSPORT",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/083_Doc%2083%20-%20Decision%20no.%2060%20-%20Car%206.pdf",
-      "publishedAt": "2025-09-28T09:02:55.000Z"
+      "publishedAt": "2025-09-28T09:02:55.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 84,
@@ -514,7 +568,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/084_Doc%2084%20-%20Decision%20no.%2059%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T09:01:23.000Z"
+      "publishedAt": "2025-09-28T09:01:23.000Z",
+      "parser": 3
     },
     {
       "doc": 85,
@@ -525,7 +580,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/085_Doc%2085%20-%20Decision%20no.%2061%20-%20Car%207.pdf",
-      "publishedAt": "2025-09-28T09:41:02.000Z"
+      "publishedAt": "2025-09-28T09:41:02.000Z",
+      "parser": 3
     },
     {
       "doc": 86,
@@ -536,7 +592,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/086_Doc%2086%20-%20Decision%20no.%2062%20-%20Car%2012.pdf",
-      "publishedAt": "2025-09-28T09:50:04.000Z"
+      "publishedAt": "2025-09-28T09:50:04.000Z",
+      "parser": 3
     },
     {
       "doc": 87,
@@ -547,7 +604,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/087_Doc%2087%20-%20Decision%20no.%2063%20-%20Car%2095.pdf",
-      "publishedAt": "2025-09-28T09:58:25.000Z"
+      "publishedAt": "2025-09-28T09:58:25.000Z",
+      "parser": 3
     },
     {
       "doc": 88,
@@ -555,11 +613,12 @@
       "driver": "21 / VISTA AF CORSE",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/088_Doc%2088%20-%20Decision%20no.%2064%20-%20Car%2021.pdf",
-      "publishedAt": "2025-09-28T10:20:03.000Z"
+      "publishedAt": "2025-09-28T10:20:03.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 89,
@@ -570,18 +629,21 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/089_Doc%2089%20-%20Decision%20no.%2065%20-%20Car%2083.pdf",
-      "publishedAt": "2025-09-28T11:05:48.000Z"
+      "publishedAt": "2025-09-28T11:05:48.000Z",
+      "parser": 3
     },
     {
       "doc": 90,
       "car": 51,
       "driver": "Alessandro PIER GUIDI",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/090_Doc%2090%20-%20Decision%20no.%2066%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T11:06:30.000Z"
+      "publishedAt": "2025-09-28T11:06:30.000Z",
+      "parser": 3,
+      "seconds": 30
     },
     {
       "doc": 91,
@@ -592,29 +654,32 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/091_Doc%2091%20-%20Decision%20no.%2067%20-%20Car%2031.pdf",
-      "publishedAt": "2025-09-28T11:07:27.000Z"
+      "publishedAt": "2025-09-28T11:07:27.000Z",
+      "parser": 3
     },
     {
       "doc": 92,
       "car": 51,
       "driver": "Alessandro PIER GUIDI",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/092_Doc%2092%20-%20Decision%20no.%2068%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T11:08:24.000Z"
+      "publishedAt": "2025-09-28T11:08:24.000Z",
+      "parser": 3
     },
     {
       "doc": 94,
       "car": 10,
       "driver": "Valentin HASSE CLOT",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/094_Doc%2094%20-%20Decision%20no.%2070%20-%20Car%2010.pdf",
-      "publishedAt": "2025-09-28T12:22:30.000Z"
+      "publishedAt": "2025-09-28T12:22:30.000Z",
+      "parser": 3
     },
     {
       "doc": 95,
@@ -625,7 +690,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/095_Doc%2095%20-%20Decision%20no.%2071%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-28T12:23:17.000Z"
+      "publishedAt": "2025-09-28T12:23:17.000Z",
+      "parser": 3
     },
     {
       "doc": 96,
@@ -633,11 +699,12 @@
       "driver": "Antonio FUOCO",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/096_Doc%2096%20-%20Decision%20no.%2072%20-%20Car%2050.pdf",
-      "publishedAt": "2025-09-28T12:24:01.000Z"
+      "publishedAt": "2025-09-28T12:24:01.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 97,
@@ -648,7 +715,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/097_Doc%2097%20-%20Decision%20no.%2073%20-%20Car%2094.pdf",
-      "publishedAt": "2025-09-28T12:25:45.000Z"
+      "publishedAt": "2025-09-28T12:25:45.000Z",
+      "parser": 3
     },
     {
       "doc": 98,
@@ -659,7 +727,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/098_Doc%2098%20-%20Decision%20no.%2074%20-%20Car%2031.pdf",
-      "publishedAt": "2025-09-28T13:20:59.000Z"
+      "publishedAt": "2025-09-28T13:20:59.000Z",
+      "parser": 3
     },
     {
       "doc": 99,
@@ -670,7 +739,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/099_Doc%2099%20-%20Decision%20no.%2075%20-%20Car%2099.pdf",
-      "publishedAt": "2025-09-28T13:07:25.000Z"
+      "publishedAt": "2025-09-28T13:07:25.000Z",
+      "parser": 3
     },
     {
       "doc": 103,
@@ -681,51 +751,59 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/103_Doc%20103%20-%20Decision%20no.%2076%20-%20Car%20009.pdf",
-      "publishedAt": "2025-09-28T13:31:27.000Z"
+      "publishedAt": "2025-09-28T13:31:27.000Z",
+      "parser": 3
     },
     {
       "doc": 104,
       "car": 33,
       "driver": "33 / TF SPORT",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/104_Doc%20104%20-%20Decision%20no.%2078%20-%20Car%2033.pdf",
-      "publishedAt": "2025-09-28T13:53:20.000Z"
+      "publishedAt": "2025-09-28T13:53:20.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 105,
       "car": 54,
       "driver": "54 / VISTA AF CORSE",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/105_Doc%20105%20-%20Decision%20no.%2077%20-%20Car%2054.pdf",
-      "publishedAt": "2025-09-28T14:00:00.000Z"
+      "publishedAt": "2025-09-28T14:00:00.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 106,
       "car": 59,
       "driver": "Sébastien BAUD",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/106_Doc%20106%20-%20Decision%20no.%2079%20-%20Car%2059.pdf",
-      "publishedAt": "2025-09-28T14:04:07.000Z"
+      "publishedAt": "2025-09-28T14:04:07.000Z",
+      "parser": 3,
+      "seconds": 30
     },
     {
       "doc": 107,
       "car": 60,
       "driver": "Fran RUEDA",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/107_Doc%20107%20-%20Decision%20no.%2080%20-%20Car%2060.pdf",
-      "publishedAt": "2025-09-28T14:09:36.000Z"
+      "publishedAt": "2025-09-28T14:09:36.000Z",
+      "parser": 3
     },
     {
       "doc": 108,
@@ -736,51 +814,56 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/108_Doc%20108%20-%20Decision%20no.%2081%20-%20Car%207.pdf",
-      "publishedAt": "2025-09-28T14:15:11.000Z"
+      "publishedAt": "2025-09-28T14:15:11.000Z",
+      "parser": 3
     },
     {
       "doc": 109,
       "car": 60,
       "driver": "Fran RUEDA",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": true,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/109_Doc%20109%20-%20Decision%20no.%2080%20AMENDED%20-%20Car%2060.pdf",
-      "publishedAt": "2025-09-28T14:18:04.000Z"
+      "publishedAt": "2025-09-28T14:18:04.000Z",
+      "parser": 3
     },
     {
       "doc": 110,
       "car": 94,
       "driver": "94 / PEUGEOT TOTALENERGIES",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/110_Doc%20110%20-%20Decision%20no.%2082%20-%20Car%2094.pdf",
-      "publishedAt": "2025-09-28T14:26:33.000Z"
+      "publishedAt": "2025-09-28T14:26:33.000Z",
+      "parser": 3
     },
     {
       "doc": 111,
       "car": 51,
       "driver": "51 / FERRARI AF CORSE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/111_Doc%20111%20-%20Decision%20no.%2083%20-%20Car%2051.pdf",
-      "publishedAt": "2025-09-28T14:27:40.000Z"
+      "publishedAt": "2025-09-28T14:27:40.000Z",
+      "parser": 3
     },
     {
       "doc": 112,
       "car": 50,
       "driver": "50 / FERRARI AF CORSE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/112_Doc%20112%20-%20Decision%20no.%2084%20-%20Car%2050.pdf",
-      "publishedAt": "2025-09-28T14:28:35.000Z"
+      "publishedAt": "2025-09-28T14:28:35.000Z",
+      "parser": 3
     },
     {
       "doc": 113,
@@ -791,7 +874,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/113_Doc%20113%20-%20Decision%20no.%2085%20-%20Car%2099.pdf",
-      "publishedAt": "2025-09-28T14:34:54.000Z"
+      "publishedAt": "2025-09-28T14:34:54.000Z",
+      "parser": 3
     },
     {
       "doc": 114,
@@ -799,11 +883,12 @@
       "driver": "Clemens SCHMID",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/07_6%20Hours%20of%20Fuji/114_Doc%20114%20-%20Decision%20no.%2086%20-%20Car%2087.pdf",
-      "publishedAt": "2025-09-28T14:43:56.000Z"
+      "publishedAt": "2025-09-28T14:43:56.000Z",
+      "parser": 3,
+      "seconds": 5
     }
   ]
 }

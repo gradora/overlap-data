@@ -955,3 +955,64 @@ test("файл раунда без решёток полей решёток не
   assert.equal("startingGrid" in out, false);
   assert.equal("sprintStartingGrid" in out, false);
 });
+
+// MARK: - Санкции эндуранса (каскад v3)
+// До версии 3 каскад знал только формулировки F1, и 302 решения из 1304 (23 %)
+// лежали в «other» — то есть приложение знало, что штраф был, но не знало
+// какой. Смысл такой записи жил ТОЛЬКО в тексте решения.
+
+test("drive-through распознаётся во всех написаниях", () => {
+  for (const t of ["Drive through penalty", "Drive-Through", "drive through penalty."]) {
+    assert.equal(classifyDecision(t).type, "drive_through", t);
+  }
+});
+
+test("stop-and-go: минуты и секунды приводятся к секундам", () => {
+  assert.deepEqual(classifyDecision("5 minutes Stop and Go penalty"),
+                   { type: "stop_go", seconds: 300 });
+  assert.deepEqual(classifyDecision("10 seconds stop-and-go penalty."),
+                   { type: "stop_go", seconds: 10 });
+  // Длительность может не называться — санкция всё равно опознана.
+  assert.deepEqual(classifyDecision("Stop and go penalty"), { type: "stop_go" });
+});
+
+/// Промах был на двух словах: «10 seconds added» каскад знал, а
+/// «10 seconds TO BE added to the next pit stop» — нет, и 31 решение уходило
+/// в «other».
+test("секунды к следующему питстопу: обе формулировки", () => {
+  assert.deepEqual(classifyDecision("10 seconds added at the next pit stop"),
+                   { type: "time", seconds: 10 });
+  assert.deepEqual(classifyDecision("30 seconds to be added to the next pit stop."),
+                   { type: "time", seconds: 30 });
+});
+
+test("аннулирование кругов — в формулировках всех трёх серий", () => {
+  for (const t of [
+    "Deletion of lap time",
+    "Cancellation of the times since the start of the session",
+    "Lap times are invalidated",
+    "Cancellation of lap 12",
+    "Cancellation of the best lap time",
+  ]) {
+    assert.equal(classifyDecision(t).type, "deleted_laps", t);
+  }
+});
+
+test("«back of the class» у IMSA — тот же грид-штраф, что «back of the grid»", () => {
+  assert.deepEqual(classifyDecision("Moved to back of the class"),
+                   { type: "grid", backOfGrid: true });
+  assert.deepEqual(classifyDecision("Start from the back of the grid"),
+                   { type: "grid", backOfGrid: true });
+});
+
+test("чёрно-белый флаг — предупреждение, а не «other»", () => {
+  assert.equal(classifyDecision("Black and white flag").type, "warning");
+});
+
+/// Порядок каскада важен: деньги выше выговора, а санкции эндуранса — ниже
+/// времени, чтобы «10 second time penalty» не съело stop-and-go.
+test("порядок каскада не нарушен новыми ветками", () => {
+  assert.deepEqual(classifyDecision("10 second time penalty"), { type: "time", seconds: 10 });
+  assert.equal(classifyDecision("Fine of €25,000 and a warning").type, "fine");
+  assert.equal(classifyDecision("No further action.").type, "none");
+});

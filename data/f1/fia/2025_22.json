@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:36:43.683Z",
+  "generatedAt": "2026-08-30T18:56:19.608Z",
   "season": 2025,
   "round": 22,
   "event": "las_vegas_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 12,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 17,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 21,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Practice 3",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Qualifying",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Qualifying",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Qualifying",
@@ -80,7 +80,7 @@
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Qualifying",
@@ -92,20 +92,20 @@
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-23 01:56 CET"
+      "publishedAt": "2025-11-23 01:56 CET",
+      "pitlane": true
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -117,33 +117,33 @@
     },
     {
       "doc": 48,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_12_-_moved_prior_to_start_signal.pdf",
-      "publishedAt": "2025-11-23 06:40 CET"
+      "publishedAt": "2025-11-23 06:40 CET",
+      "seconds": 5
     },
     {
       "doc": 49,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_23_-_collision_with_car_44_in_turn_14.pdf",
-      "publishedAt": "2025-11-23 07:00 CET"
+      "publishedAt": "2025-11-23 07:00 CET",
+      "seconds": 5
     },
     {
       "doc": 50,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "",
@@ -155,20 +155,20 @@
     },
     {
       "doc": 51,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "next_race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_5_-_causing_a_collision_with_car_18_in_turn_1.pdf",
-      "publishedAt": "2025-11-23 06:41 CET"
+      "publishedAt": "2025-11-23 06:41 CET",
+      "gridDrop": 5
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Race",
@@ -180,7 +180,7 @@
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",

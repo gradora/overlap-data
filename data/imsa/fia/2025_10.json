@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T15:42:58.067Z",
+  "generatedAt": "2026-08-30T18:56:19.625Z",
   "season": 2025,
   "round": 10,
   "event": "indianapolis-motor-speedway",
@@ -11,22 +11,26 @@
       "car": 75,
       "driver": "75 Express",
       "session": "Technical",
-      "type": "deleted_laps",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/19_Indianapolis%20Motor%20Speedway/18_Penalties/TP%2025-25.pdf",
-      "publishedAt": "2025-09-20T22:44:26.000Z"
+      "publishedAt": "2025-09-20T22:44:26.000Z",
+      "parser": 3,
+      "backOfGrid": true
     },
     {
       "doc": 26,
       "car": 60,
       "driver": "Acura Meyer Shank Racing w/Curb Agajanian",
       "session": "Technical",
-      "type": "other",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/19_Indianapolis%20Motor%20Speedway/18_Penalties/TP%2025-26.pdf",
-      "publishedAt": "2025-09-20T23:48:45.000Z"
+      "publishedAt": "2025-09-20T23:48:45.000Z",
+      "parser": 3,
+      "backOfGrid": true
     }
   ]
 }

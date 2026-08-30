@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:38:13.814Z",
+  "generatedAt": "2026-08-30T18:56:19.613Z",
   "season": 2026,
   "round": 6,
   "event": "monaco_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 17,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Lando Norris",
       "session": "Thursday Press Conference",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 18,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Thursday Press Conference",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Free Practice 1",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 29,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 1",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Free Practice 1",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Free Practice 1",
@@ -80,7 +80,7 @@
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 2",
@@ -92,7 +92,7 @@
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Free Practice 2",
@@ -104,7 +104,7 @@
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Lando Norris",
       "session": "Free Practice 2",
@@ -116,7 +116,7 @@
     },
     {
       "doc": 49,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Free Practice 3",
@@ -128,7 +128,7 @@
     },
     {
       "doc": 50,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Free Practice 3",
@@ -140,7 +140,7 @@
     },
     {
       "doc": 60,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Qualifying",
@@ -152,7 +152,7 @@
     },
     {
       "doc": 61,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Qualifying",
@@ -164,11 +164,11 @@
     },
     {
       "doc": 69,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_11_-_false_start_-_out_of_position.pdf",
@@ -176,111 +176,111 @@
     },
     {
       "doc": 70,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
-      "publishedAt": "2026-06-07 16:17 CET"
+      "publishedAt": "2026-06-07 16:17 CET",
+      "seconds": 5
     },
     {
       "doc": 71,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_63_-_pit_lane_speeding_0.pdf",
-      "publishedAt": "2026-06-07 18:26 CET"
+      "publishedAt": "2026-06-07 18:26 CET",
+      "seconds": 5
     },
     {
       "doc": 72,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_43_-_pit_lane_speeding_0.pdf",
-      "publishedAt": "2026-06-07 18:26 CET"
+      "publishedAt": "2026-06-07 18:26 CET",
+      "seconds": 5
     },
     {
       "doc": 73,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_10_-_pit_lane_speeding.pdf",
-      "publishedAt": "2026-06-07 18:26 CET"
+      "publishedAt": "2026-06-07 18:26 CET",
+      "seconds": 5
     },
     {
       "doc": 74,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_81_-_pit_lane_speeding.pdf",
-      "publishedAt": "2026-06-07 18:27 CET"
+      "publishedAt": "2026-06-07 18:27 CET",
+      "seconds": 5
     },
     {
       "doc": 75,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_10_-_pit_lane_speeding_0.pdf",
-      "publishedAt": "2026-06-07 18:27 CET"
+      "publishedAt": "2026-06-07 18:27 CET",
+      "seconds": 5
     },
     {
       "doc": 77,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_18_-_exceeded_track_limits.pdf",
-      "publishedAt": "2026-06-07 18:28 CET"
+      "publishedAt": "2026-06-07 18:28 CET",
+      "seconds": 5
     },
     {
       "doc": 82,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_11_-_false_start_-_out_of_position_at_restart.pdf",
-      "publishedAt": "2026-06-07 19:35 CET"
+      "publishedAt": "2026-06-07 19:35 CET",
+      "seconds": 10
     },
     {
       "doc": 84,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -292,7 +292,7 @@
     },
     {
       "doc": 85,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -304,7 +304,7 @@
     },
     {
       "doc": 86,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Reconnaissance Laps",
@@ -316,20 +316,20 @@
     },
     {
       "doc": 89,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_27_-_causing_a_collision_with_car_55.pdf",
-      "publishedAt": "2026-06-07 20:28 CET"
+      "publishedAt": "2026-06-07 20:28 CET",
+      "seconds": 10
     },
     {
       "doc": 90,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",

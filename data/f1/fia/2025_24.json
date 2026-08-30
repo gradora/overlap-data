@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:37:01.902Z",
+  "generatedAt": "2026-08-30T18:56:19.609Z",
   "season": 2025,
   "round": 24,
   "event": "abu_dhabi_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 21,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 22,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Practice 3",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Practice 3",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Practice 3",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -80,7 +80,7 @@
     },
     {
       "doc": 44,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -92,46 +92,46 @@
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_30_-_erratic_driving.pdf",
-      "publishedAt": "2025-12-07 15:58 CET"
+      "publishedAt": "2025-12-07 15:58 CET",
+      "seconds": 5
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_22_-_more_than_one_change_of_direction.pdf",
-      "publishedAt": "2025-12-07 15:59 CET"
+      "publishedAt": "2025-12-07 15:59 CET",
+      "seconds": 5
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_23_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-12-07 15:59 CET"
+      "publishedAt": "2025-12-07 15:59 CET",
+      "seconds": 5
     },
     {
       "doc": 48,
-      "parser": 2,
+      "parser": 3,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Race",
@@ -143,42 +143,42 @@
     },
     {
       "doc": 50,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_10_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
-      "publishedAt": "2025-12-07 16:04 CET"
+      "publishedAt": "2025-12-07 16:04 CET",
+      "seconds": 5
     },
     {
       "doc": 51,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_87_-_more_than_one_change_of_direction.pdf",
-      "publishedAt": "2025-12-07 16:04 CET"
+      "publishedAt": "2025-12-07 16:04 CET",
+      "seconds": 5
     },
     {
       "doc": 52,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_abu_dhabi_grand_prix_-_infringement_-_car_18_-_more_than_one_change_of_direction.pdf",
-      "publishedAt": "2025-12-07 16:36 CET"
+      "publishedAt": "2025-12-07 16:36 CET",
+      "seconds": 5
     }
   ],
   "startingGrid": {

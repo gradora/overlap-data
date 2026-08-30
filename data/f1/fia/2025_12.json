@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:36.531Z",
+  "generatedAt": "2026-08-30T18:56:19.604Z",
   "season": 2025,
   "round": 12,
   "event": "british_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 16,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 2",
@@ -20,59 +20,59 @@
     },
     {
       "doc": 25,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Practice 3",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2025_british_grand_prix_-_infringement_-_car_87_-_failure_to_comply_with_red_flag_corrected.pdf",
-      "publishedAt": "2025-07-05 15:08 CET"
+      "publishedAt": "2025-07-05 15:08 CET",
+      "gridDrop": 10
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2025_british_grand_prix_-_infringement_-_car_43_-_pu_elements_corrected.pdf",
-      "publishedAt": "2025-07-06 14:39 CET"
+      "publishedAt": "2025-07-06 14:39 CET",
+      "pitlane": true
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_british_grand_prix_-_infringement_-_car_81_-_safety_car_procedure.pdf",
-      "publishedAt": "2025-07-06 17:36 CET"
+      "publishedAt": "2025-07-06 17:36 CET",
+      "seconds": 10
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_british_grand_prix_-_infringement_-_car_22_-_causing_a_collision.pdf",
-      "publishedAt": "2025-07-06 17:44 CET"
+      "publishedAt": "2025-07-06 17:44 CET",
+      "seconds": 10
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -84,7 +84,7 @@
     },
     {
       "doc": 48,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -96,7 +96,7 @@
     },
     {
       "doc": 49,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
@@ -108,17 +108,17 @@
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_1.pdf",
       "publishedAt": "2025-06-29 17:44 CET",
-      "carriedFrom": 11
+      "carriedFrom": 11,
+      "gridDrop": 3
     }
   ],
   "startingGrid": {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:38:50.954Z",
+  "generatedAt": "2026-08-30T18:56:19.611Z",
   "season": 2026,
   "round": 10,
   "event": "belgian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 13,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 18,
-      "parser": 2,
+      "parser": 3,
       "car": 34,
       "driver": "Jak Crawford",
       "session": "Free Practice 1",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 19,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Free Practice 1",
@@ -44,46 +44,46 @@
     },
     {
       "doc": 21,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Free Practice 1",
       "type": "grid",
-      "backOfGrid": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_6_-_changes_to_pu_elements.pdf",
-      "publishedAt": "2026-07-17 16:52 CET"
+      "publishedAt": "2026-07-17 16:52 CET",
+      "backOfGrid": true
     },
     {
       "doc": 22,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Free Practice 1",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_18_-_change_to_pu_element.pdf",
-      "publishedAt": "2026-07-17 16:53 CET"
+      "publishedAt": "2026-07-17 16:53 CET",
+      "gridDrop": 10
     },
     {
       "doc": 23,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Lando Norris",
       "session": "Free Practice 1",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_1_-_change_to_pu_element.pdf",
-      "publishedAt": "2026-07-17 16:53 CET"
+      "publishedAt": "2026-07-17 16:53 CET",
+      "gridDrop": 10
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Free Practice 1",
@@ -95,7 +95,7 @@
     },
     {
       "doc": 33,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 2",
@@ -107,7 +107,7 @@
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Free Practice 2",
@@ -119,20 +119,20 @@
     },
     {
       "doc": 37,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 3",
       "type": "grid",
-      "backOfGrid": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_14_-_change_to_pu_elements.pdf",
-      "publishedAt": "2026-07-18 14:27 CET"
+      "publishedAt": "2026-07-18 14:27 CET",
+      "backOfGrid": true
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Free Practice 3",
@@ -144,59 +144,59 @@
     },
     {
       "doc": 44,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Free Practice 1",
       "type": "grid",
-      "gridDrop": 30,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_corrected_infringement_-_car_6_-_changes_to_pu_elements.pdf",
-      "publishedAt": "2026-07-18 15:51 CET"
+      "publishedAt": "2026-07-18 15:51 CET",
+      "gridDrop": 30
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 3",
       "type": "grid",
-      "gridDrop": 20,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_corrected_infringement_-_car_14_-_change_to_pu_elements.pdf",
-      "publishedAt": "2026-07-18 15:52 CET"
+      "publishedAt": "2026-07-18 15:52 CET",
+      "gridDrop": 20
     },
     {
       "doc": 54,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Qualifying",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_55_-_change_to_pu_elements.pdf",
-      "publishedAt": "2026-07-19 12:22 CET"
+      "publishedAt": "2026-07-19 12:22 CET",
+      "gridDrop": 10
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_44_-_causing_a_collision_with_car_63_in_turn_5.pdf",
-      "publishedAt": "2026-07-19 16:20 CET"
+      "publishedAt": "2026-07-19 16:20 CET",
+      "seconds": 5
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -208,7 +208,7 @@
     },
     {
       "doc": 63,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -220,7 +220,7 @@
     },
     {
       "doc": 64,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Reconnaissance Laps",

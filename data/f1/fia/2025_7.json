@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:34:56.625Z",
+  "generatedAt": "2026-08-30T18:56:19.610Z",
   "season": 2025,
   "round": 7,
   "event": "emilia_romagna_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 13,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 1",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 16,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Practice 1",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 20,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Practice 2",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 25,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Practice 3",
@@ -56,33 +56,33 @@
     },
     {
       "doc": 28,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Qualifying",
       "type": "grid",
-      "gridDrop": 1,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_43_-_alleged_failure_to_follow_race_directors_instructions_fast_lane.pdf",
-      "publishedAt": "2025-05-17 18:51 CET"
+      "publishedAt": "2025-05-17 18:51 CET",
+      "gridDrop": 1
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_emilia_romagna_grand_prix_-_infringement_-_car_22_-_pu_elements_and_parc_ferme.pdf",
-      "publishedAt": "2025-05-18 12:29 CET"
+      "publishedAt": "2025-05-18 12:29 CET",
+      "pitlane": true
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",

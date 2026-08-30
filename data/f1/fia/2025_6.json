@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:02:42.517Z",
+  "generatedAt": "2026-08-30T18:56:19.610Z",
   "season": 2025,
   "round": 6,
   "event": "miami_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 14,
-      "parser": 2,
+      "parser": 3,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Practice 1",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 19,
-      "parser": 2,
+      "parser": 3,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Practice 1",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 20,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Practice 1",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 26,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Sprint Qualifying",
@@ -56,59 +56,59 @@
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-05-03 17:00 CET"
+      "publishedAt": "2025-05-03 17:00 CET",
+      "pitlane": true
     },
     {
       "doc": 48,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Sprint",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_1_-_unsafe_release_from_a_pit_stop.pdf",
-      "publishedAt": "2025-05-03 21:07 CET"
+      "publishedAt": "2025-05-03 21:07 CET",
+      "seconds": 10
     },
     {
       "doc": 49,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_87_-_unsafe_release_from_a_pit_stop.pdf",
-      "publishedAt": "2025-05-03 21:07 CET"
+      "publishedAt": "2025-05-03 21:07 CET",
+      "seconds": 5
     },
     {
       "doc": 50,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_23_-_safety_car_ecu_minimum_time.pdf",
-      "publishedAt": "2025-05-03 21:54 CET"
+      "publishedAt": "2025-05-03 21:54 CET",
+      "seconds": 5
     },
     {
       "doc": 51,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Reconnaissance Laps",
@@ -120,20 +120,20 @@
     },
     {
       "doc": 52,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_30_-_collision_with_car_14.pdf",
-      "publishedAt": "2025-05-03 22:01 CET"
+      "publishedAt": "2025-05-03 22:01 CET",
+      "seconds": 5
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Qualifying",
@@ -145,33 +145,33 @@
     },
     {
       "doc": 68,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": true,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_10_-_corrected_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-05-04 18:56 CET"
+      "publishedAt": "2025-05-04 18:56 CET",
+      "pitlane": true
     },
     {
       "doc": 72,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_22_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-05-04 23:38 CET"
+      "publishedAt": "2025-05-04 23:38 CET",
+      "seconds": 5
     },
     {
       "doc": 77,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -183,7 +183,7 @@
     },
     {
       "doc": 78,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -195,7 +195,7 @@
     },
     {
       "doc": 82,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -207,7 +207,7 @@
     },
     {
       "doc": 83,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",

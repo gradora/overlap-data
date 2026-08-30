@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T15:42:54.965Z",
+  "generatedAt": "2026-08-30T18:56:19.625Z",
   "season": 2025,
   "round": 6,
   "event": "watkins-glen-international",
@@ -11,22 +11,26 @@
       "car": 21,
       "driver": "Af Corse",
       "session": "Technical",
-      "type": "deleted_laps",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/14_Watkins%20Glen%20International/18_Penalties/TP%2025-18.pdf",
-      "publishedAt": "2025-06-21T20:40:19.000Z"
+      "publishedAt": "2025-06-21T20:40:19.000Z",
+      "parser": 3,
+      "backOfGrid": true
     },
     {
       "doc": 20,
       "car": 65,
       "driver": "Ford Multimatic Motorsports",
       "session": "Technical",
-      "type": "other",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/14_Watkins%20Glen%20International/18_Penalties/TP%2025-20.pdf",
-      "publishedAt": "2025-06-24T16:03:39.000Z"
+      "publishedAt": "2025-06-24T16:03:39.000Z",
+      "parser": 3,
+      "backOfGrid": true
     }
   ]
 }

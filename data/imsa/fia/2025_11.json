@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T15:42:59.942Z",
+  "generatedAt": "2026-08-30T18:56:19.625Z",
   "season": 2025,
   "round": 11,
   "event": "michelin-raceway-road-atlanta",
@@ -11,11 +11,13 @@
       "car": 11,
       "driver": "TDS RACING",
       "session": "Technical",
-      "type": "deleted_laps",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/21_Michelin%20Raceway%20Road%20Atlanta/18_Penalties/TP%2025-29.pdf",
-      "publishedAt": "2025-10-10T23:11:38.000Z"
+      "publishedAt": "2025-10-10T23:11:38.000Z",
+      "parser": 3,
+      "backOfGrid": true
     }
   ]
 }

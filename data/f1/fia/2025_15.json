@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:55.421Z",
+  "generatedAt": "2026-08-30T18:56:19.605Z",
   "season": 2025,
   "round": 15,
   "event": "dutch_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 17,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 2",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 3",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Qualifying",
@@ -44,59 +44,59 @@
     },
     {
       "doc": 41,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_87_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-08-31 12:57 CET"
+      "publishedAt": "2025-08-31 12:57 CET",
+      "pitlane": true
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_55_-_causing_a_collision_with_car_30.pdf",
-      "publishedAt": "2025-08-31 16:50 CET"
+      "publishedAt": "2025-08-31 16:50 CET",
+      "seconds": 10
     },
     {
       "doc": 52,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_12_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-08-31 19:11 CET"
+      "publishedAt": "2025-08-31 19:11 CET",
+      "seconds": 5
     },
     {
       "doc": 53,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_16.pdf",
-      "publishedAt": "2025-08-31 19:12 CET"
+      "publishedAt": "2025-08-31 19:12 CET",
+      "seconds": 10
     },
     {
       "doc": 55,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -108,20 +108,20 @@
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "next_race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_44_-_failing_to_slow_for_yellow_flags.pdf",
-      "publishedAt": "2025-08-31 20:22 CET"
+      "publishedAt": "2025-08-31 20:22 CET",
+      "gridDrop": 5
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
@@ -133,7 +133,7 @@
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",

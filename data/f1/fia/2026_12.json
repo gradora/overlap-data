@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:02:07.329Z",
+  "generatedAt": "2026-08-30T18:56:19.612Z",
   "season": 2026,
   "round": 12,
   "event": "dutch_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 22,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Sprint Qualifying",
@@ -20,33 +20,33 @@
     },
     {
       "doc": 29,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_55_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2026-08-22 10:44 CET"
+      "publishedAt": "2026-08-22 10:44 CET",
+      "pitlane": true
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_14_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2026-08-22 10:45 CET"
+      "publishedAt": "2026-08-22 10:45 CET",
+      "pitlane": true
     },
     {
       "doc": 33,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Sprint",
@@ -58,7 +58,7 @@
     },
     {
       "doc": 37,
-      "parser": 2,
+      "parser": 3,
       "car": 77,
       "driver": "Valtteri Bottas",
       "session": "Sprint",
@@ -70,7 +70,7 @@
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Sprint",
@@ -82,7 +82,7 @@
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 3,
       "driver": "Max Verstappen",
       "session": "Sprint",
@@ -94,7 +94,7 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint",
@@ -106,7 +106,7 @@
     },
     {
       "doc": 41,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint",
@@ -118,7 +118,7 @@
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Sprint",
@@ -130,7 +130,7 @@
     },
     {
       "doc": 52,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
@@ -142,24 +142,24 @@
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_11_-_changes_made_in_parc_ferme.pdf",
-      "publishedAt": "2026-08-23 12:34 CET"
+      "publishedAt": "2026-08-23 12:34 CET",
+      "pitlane": true
     },
     {
       "doc": 62,
-      "parser": 2,
+      "parser": 3,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_41_-_overtaking_under_yellow_flags.pdf",
@@ -167,11 +167,11 @@
     },
     {
       "doc": 63,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_43_-_overtaking_under_yellow_flags.pdf",
@@ -179,46 +179,46 @@
     },
     {
       "doc": 65,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_43_-_failure_to_slow_for_yellow_flags.pdf",
-      "publishedAt": "2026-08-23 17:36 CET"
+      "publishedAt": "2026-08-23 17:36 CET",
+      "seconds": 10
     },
     {
       "doc": 66,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_30_-_failure_to_follow_for_yellow_flags.pdf",
-      "publishedAt": "2026-08-23 17:37 CET"
+      "publishedAt": "2026-08-23 17:37 CET",
+      "seconds": 10
     },
     {
       "doc": 68,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_infringement_-_car_55_-_collision_with_car_23.pdf",
-      "publishedAt": "2026-08-23 18:09 CET"
+      "publishedAt": "2026-08-23 18:09 CET",
+      "seconds": 10
     },
     {
       "doc": 69,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
@@ -230,7 +230,7 @@
     },
     {
       "doc": 70,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",

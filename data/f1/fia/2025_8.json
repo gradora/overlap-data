@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:03.414Z",
+  "generatedAt": "2026-08-30T18:56:19.611Z",
   "season": 2025,
   "round": 8,
   "event": "monaco_grand_prix",
@@ -8,33 +8,33 @@
   "penalties": [
     {
       "doc": 17,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "",
       "type": "grid",
-      "gridDrop": 1,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_18_-_incident_with_car_16_in_turn_6.pdf",
-      "publishedAt": "2025-05-23 15:37 CET"
+      "publishedAt": "2025-05-23 15:37 CET",
+      "gridDrop": 1
     },
     {
       "doc": 22,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Practice 2",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_87_-_alleged_failure_to_comply_with_red_flag.pdf",
-      "publishedAt": "2025-05-23 19:22 CET"
+      "publishedAt": "2025-05-23 19:22 CET",
+      "gridDrop": 10
     },
     {
       "doc": 23,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Practice 2",
@@ -46,7 +46,7 @@
     },
     {
       "doc": 28,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Practice 3",
@@ -58,7 +58,7 @@
     },
     {
       "doc": 29,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Practice 2",
@@ -70,37 +70,37 @@
     },
     {
       "doc": 37,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_18_-_impeding_car_10_in_turn_10.pdf",
-      "publishedAt": "2025-05-24 18:27 CET"
+      "publishedAt": "2025-05-24 18:27 CET",
+      "gridDrop": 3
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Qualifying",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_44_-_impeding_of_car_1.pdf",
-      "publishedAt": "2025-05-24 19:07 CET"
+      "publishedAt": "2025-05-24 19:07 CET",
+      "gridDrop": 3
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_monaco_grand_prix_-_infringement_-_car_63_-_leaving_the_track_and_gaining_an_advantage.pdf",
@@ -108,7 +108,7 @@
     },
     {
       "doc": 54,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Reconnaissance Laps",
@@ -120,7 +120,7 @@
     },
     {
       "doc": 56,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",

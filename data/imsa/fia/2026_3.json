@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:56:19.625Z",
   "season": 2026,
   "round": 3,
   "event": "streets-of-long-beach",
@@ -9,11 +11,13 @@
       "car": 89,
       "driver": "Vasser Sullivan Racing",
       "session": "Technical",
-      "type": "deleted_laps",
+      "type": "grid",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/26-2026/07_Long%20Beach%20Street%20Circuit/18_Penalties/TP%2026-9.pdf",
-      "publishedAt": "2026-04-18T02:45:13.000Z"
+      "publishedAt": "2026-04-18T02:45:13.000Z",
+      "parser": 3,
+      "backOfGrid": true
     }
   ]
 }

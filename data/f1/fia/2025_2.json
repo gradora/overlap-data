@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:02:38.987Z",
+  "generatedAt": "2026-08-30T18:56:19.607Z",
   "season": 2025,
   "round": 2,
   "event": "chinese_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Sprint Qualifying",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint Qualifying",
@@ -32,20 +32,20 @@
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_27_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-03-22 02:47 CET"
+      "publishedAt": "2025-03-22 02:47 CET",
+      "pitlane": true
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Sprint",
@@ -57,20 +57,20 @@
     },
     {
       "doc": 49,
-      "parser": 2,
+      "parser": 3,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Sprint",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_7_-_incident_with_car_5.pdf",
-      "publishedAt": "2025-03-22 06:47 CET"
+      "publishedAt": "2025-03-22 06:47 CET",
+      "seconds": 10
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Qualifying",
@@ -82,7 +82,7 @@
     },
     {
       "doc": 61,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Qualifying",
@@ -94,33 +94,33 @@
     },
     {
       "doc": 68,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_30_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-03-23 06:23 CET"
+      "publishedAt": "2025-03-23 06:23 CET",
+      "pitlane": true
     },
     {
       "doc": 72,
-      "parser": 2,
+      "parser": 3,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_chinese_grand_prix_-_infringement_-_car_7_-_forcing_another_driver_off_the_track.pdf",
-      "publishedAt": "2025-03-23 10:13 CET"
+      "publishedAt": "2025-03-23 10:13 CET",
+      "seconds": 10
     },
     {
       "doc": 73,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Reconnaissance Laps",
@@ -132,7 +132,7 @@
     },
     {
       "doc": 75,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Reconnaissance Laps",
@@ -144,7 +144,7 @@
     },
     {
       "doc": 76,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Reconnaissance Laps",
@@ -156,7 +156,7 @@
     },
     {
       "doc": 84,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -168,7 +168,7 @@
     },
     {
       "doc": 87,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -180,7 +180,7 @@
     },
     {
       "doc": 88,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",

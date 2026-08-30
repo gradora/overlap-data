@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:02:49.790Z",
+  "generatedAt": "2026-08-30T18:56:19.605Z",
   "season": 2025,
   "round": 13,
   "event": "belgian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 23,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint Qualifying",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 24,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Sprint Qualifying",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 25,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Sprint Qualifying",
@@ -44,68 +44,68 @@
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Sprint",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_43_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-07-26 11:00 CET"
+      "publishedAt": "2025-07-26 11:00 CET",
+      "pitlane": true
     },
     {
       "doc": 56,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_14_-_pu_elements.pdf",
-      "publishedAt": "2025-07-27 12:39 CET"
+      "publishedAt": "2025-07-27 12:39 CET",
+      "pitlane": true
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_12_-_pu_elements.pdf",
-      "publishedAt": "2025-07-27 12:52 CET"
+      "publishedAt": "2025-07-27 12:52 CET",
+      "pitlane": true
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_44_-_pu_elements.pdf",
-      "publishedAt": "2025-07-27 12:49 CET"
+      "publishedAt": "2025-07-27 12:49 CET",
+      "pitlane": true
     },
     {
       "doc": 60,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_55_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-07-27 13:00 CET"
+      "publishedAt": "2025-07-27 13:00 CET",
+      "pitlane": true
     }
   ],
   "startingGrid": {

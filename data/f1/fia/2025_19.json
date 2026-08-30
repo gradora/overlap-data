@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:03:00.464Z",
+  "generatedAt": "2026-08-30T18:56:19.607Z",
   "season": 2025,
   "round": 19,
   "event": "united_states_grand_prix",
@@ -8,33 +8,33 @@
   "penalties": [
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_united_states_grand_prix_-_infringement_-_car_18_-_causing_a_collision_with_car_31.pdf",
-      "publishedAt": "2025-10-18 20:40 CET"
+      "publishedAt": "2025-10-18 20:40 CET",
+      "gridDrop": 5
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Sprint",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_united_states_grand_prix_-_infringement_-_car_87_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-10-18 21:07 CET"
+      "publishedAt": "2025-10-18 21:07 CET",
+      "seconds": 10
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Qualifying",
@@ -46,16 +46,16 @@
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "next_race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_united_states_grand_prix_-_infringement_-_car_55_-_causing_a_collision_with_car_12_in_turn_15.pdf",
-      "publishedAt": "2025-10-20 01:02 CET"
+      "publishedAt": "2025-10-20 01:02 CET",
+      "gridDrop": 5
     }
   ],
   "startingGrid": {

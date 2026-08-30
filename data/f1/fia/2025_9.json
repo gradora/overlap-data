@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:11.382Z",
+  "generatedAt": "2026-08-30T18:56:19.611Z",
   "season": 2025,
   "round": 9,
   "event": "spanish_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 17,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Qualifying",
@@ -32,33 +32,33 @@
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-06-01 12:49 CET"
+      "publishedAt": "2025-06-01 12:49 CET",
+      "pitlane": true
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_23_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-06-01 16:30 CET"
+      "publishedAt": "2025-06-01 16:30 CET",
+      "seconds": 10
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",
@@ -70,33 +70,33 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_1_-_causing_a_collision_with_car_63_at_t5.pdf",
-      "publishedAt": "2025-06-01 18:03 CET"
+      "publishedAt": "2025-06-01 18:03 CET",
+      "seconds": 10
     },
     {
       "doc": 41,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_spanish_grand_prix_-_infringement_-_car_87_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-06-01 18:09 CET"
+      "publishedAt": "2025-06-01 18:09 CET",
+      "seconds": 10
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -108,7 +108,7 @@
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
@@ -120,7 +120,7 @@
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",
@@ -132,7 +132,7 @@
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",

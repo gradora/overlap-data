@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:36:25.516Z",
+  "generatedAt": "2026-08-30T18:56:19.608Z",
   "season": 2025,
   "round": 20,
   "event": "mexico_city_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 14,
-      "parser": 2,
+      "parser": 3,
       "car": 36,
       "driver": "Arvid Lindblad",
       "session": "Practice 1",
@@ -20,24 +20,24 @@
     },
     {
       "doc": 33,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_55_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-10-26 22:49 CET"
+      "publishedAt": "2025-10-26 22:49 CET",
+      "seconds": 5
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_55_-_pit_lane_speeding_2nd.pdf",
@@ -45,20 +45,20 @@
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_mexico_city_grand_prix_-_infringement_-_car_44_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-10-26 23:23 CET"
+      "publishedAt": "2025-10-26 23:23 CET",
+      "seconds": 10
     },
     {
       "doc": 37,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -70,7 +70,7 @@
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -82,17 +82,17 @@
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_united_states_grand_prix_-_infringement_-_car_55_-_causing_a_collision_with_car_12_in_turn_15.pdf",
       "publishedAt": "2025-10-20 01:02 CET",
-      "carriedFrom": 19
+      "carriedFrom": 19,
+      "gridDrop": 5
     }
   ],
   "startingGrid": {

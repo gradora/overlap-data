@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T15:34:19.277Z",
+  "generatedAt": "2026-08-30T18:56:19.615Z",
   "season": 2025,
   "round": 2,
   "event": "6-hours-of-imola-2025",
@@ -11,22 +11,26 @@
       "car": 87,
       "driver": "Clemens SCHMID",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/024_Doc%2024%20-%20Decision%20no.%2011%20-%20Car%2087.pdf",
-      "publishedAt": "2025-04-18T13:33:59.000Z"
+      "publishedAt": "2025-04-18T13:33:59.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 27,
       "car": 60,
       "driver": "Matteo CRESSONI",
       "session": "FP2",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/027_Doc%2027%20-%20Decision%20no.%2012%20-%20Car%2060.pdf",
-      "publishedAt": "2025-04-18T14:35:38.000Z"
+      "publishedAt": "2025-04-18T14:35:38.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 29,
@@ -37,7 +41,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/029_Doc%2029%20-%20Decision%20no.%2013%20-%20Car%205.pdf",
-      "publishedAt": "2025-04-18T15:05:39.000Z"
+      "publishedAt": "2025-04-18T15:05:39.000Z",
+      "parser": 3
     },
     {
       "doc": 30,
@@ -48,40 +53,47 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/030_Doc%2030%20-%20Decision%20no.%2014%20-%20Car%20007.pdf",
-      "publishedAt": "2025-04-18T15:20:42.000Z"
+      "publishedAt": "2025-04-18T15:20:42.000Z",
+      "parser": 3
     },
     {
       "doc": 31,
       "car": 31,
       "driver": "Timur BOGUSLAVSKIY",
       "session": "FP2",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/031_Doc%2031%20-%20Decision%20no.%2015%20-%20Car%2031.pdf",
-      "publishedAt": "2025-04-18T15:31:18.000Z"
+      "publishedAt": "2025-04-18T15:31:18.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 32,
       "car": 5,
       "driver": "Mathieu JAMINET",
       "session": "FP2",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/032_Doc%2032%20-%20Decision%20no.%2016%20-%20Car%205.pdf",
-      "publishedAt": "2025-04-18T15:35:11.000Z"
+      "publishedAt": "2025-04-18T15:35:11.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 33,
       "car": 95,
       "driver": "Sean GELAEL",
       "session": "FP2",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/033_Doc%2033%20-%20Decision%20no.%2017%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-18T15:37:21.000Z"
+      "publishedAt": "2025-04-18T15:37:21.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 35,
@@ -92,7 +104,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/035_Doc%2035%20-%20Decision%20no.%2018%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-18T15:58:38.000Z"
+      "publishedAt": "2025-04-18T15:58:38.000Z",
+      "parser": 3
     },
     {
       "doc": 38,
@@ -103,7 +116,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/038_Doc%2038%20-%20Decision%20no.%2020%20-%20Car%2033.pdf",
-      "publishedAt": "2025-04-19T09:39:47.000Z"
+      "publishedAt": "2025-04-19T09:39:47.000Z",
+      "parser": 3
     },
     {
       "doc": 39,
@@ -114,29 +128,34 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/039_Doc%2039%20-%20Decision%20no.%2021%20-%20Car%2015.pdf",
-      "publishedAt": "2025-04-19T09:41:44.000Z"
+      "publishedAt": "2025-04-19T09:41:44.000Z",
+      "parser": 3
     },
     {
       "doc": 40,
       "car": 38,
       "driver": "Sebastien BOURDAIS",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/040_Doc%2040%20-%20Decision%20no.%2022%20-%20Car%2038.pdf",
-      "publishedAt": "2025-04-19T09:51:37.000Z"
+      "publishedAt": "2025-04-19T09:51:37.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 41,
       "car": 8,
       "driver": "Ryō HIRAKAWA",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/041_Doc%2041%20-%20Decision%20no.%2023%20-%20Car%208.pdf",
-      "publishedAt": "2025-04-19T09:55:04.000Z"
+      "publishedAt": "2025-04-19T09:55:04.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 44,
@@ -147,40 +166,44 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/044_Doc%2044%20-%20Decision%20no.%2024%20-%20Car%2015.pdf",
-      "publishedAt": "2025-04-19T10:42:06.000Z"
+      "publishedAt": "2025-04-19T10:42:06.000Z",
+      "parser": 3
     },
     {
       "doc": 45,
       "car": 54,
       "driver": "Thomas FLOHR",
       "session": "",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/045_Doc%2045%20-%20Decision%20no.%2025%20-%20Car%2054.pdf",
-      "publishedAt": "2025-04-19T12:20:08.000Z"
+      "publishedAt": "2025-04-19T12:20:08.000Z",
+      "parser": 3
     },
     {
       "doc": 48,
       "car": 92,
       "driver": "Ryan HARDWICK",
       "session": "Qualifying LMGT3",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/048_Doc%2048%20-%20Decision%20no.%2026%20-%20Car%2092.pdf",
-      "publishedAt": "2025-04-19T13:06:58.000Z"
+      "publishedAt": "2025-04-19T13:06:58.000Z",
+      "parser": 3
     },
     {
       "doc": 49,
       "car": 95,
       "driver": "95 / UNITED AUTOSPORTS",
       "session": "LMGT3 Hyperpole",
-      "type": "other",
+      "type": "deleted_laps",
       "appliesTo": "LMGT3 Hyperpole",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/049_Doc%2049%20-%20Decision%20no.%2027%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-19T13:49:25.000Z"
+      "publishedAt": "2025-04-19T13:49:25.000Z",
+      "parser": 3
     },
     {
       "doc": 50,
@@ -191,7 +214,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/050_Doc%2050%20-%20Decision%20no.%2028%20-%20Car%2015.pdf",
-      "publishedAt": "2025-04-19T14:16:34.000Z"
+      "publishedAt": "2025-04-19T14:16:34.000Z",
+      "parser": 3
     },
     {
       "doc": 52,
@@ -202,117 +226,136 @@
       "appliesTo": "Hyerpole Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/052_Doc%2052%20-%20Decision%20no.%2029%20-%20Car%2035.pdf",
-      "publishedAt": "2025-04-19T14:21:34.000Z"
+      "publishedAt": "2025-04-19T14:21:34.000Z",
+      "parser": 3
     },
     {
       "doc": 53,
       "car": 50,
       "driver": "Antonio FUOCO",
       "session": "Qualifying Hypercar",
-      "type": "other",
+      "type": "deleted_laps",
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/053_Doc%2053%20-%20Decision%20no.%2030%20-%20Car%2050.pdf",
-      "publishedAt": "2025-04-19T14:43:49.000Z"
+      "publishedAt": "2025-04-19T14:43:49.000Z",
+      "parser": 3
     },
     {
       "doc": 54,
       "car": 95,
       "driver": "95 / UNITED AUTOSPORTS",
       "session": "LMGT3 Hyperpole",
-      "type": "other",
+      "type": "deleted_laps",
       "appliesTo": "LMGT3 Hyperpole",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/054_Doc%2054%20-%20Decision%20no.%2031%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-19T15:25:32.000Z"
+      "publishedAt": "2025-04-19T15:25:32.000Z",
+      "parser": 3
     },
     {
       "doc": 60,
       "car": 77,
       "driver": "Bernardo SOUSA",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/060_Doc%2060%20-%20Decision%20no.%2032%20-%20Car%2077.pdf",
-      "publishedAt": "2025-04-20T11:38:47.000Z"
+      "publishedAt": "2025-04-20T11:38:47.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 61,
       "car": 31,
       "driver": "Yasser SHAHIN",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/061_Doc%2061%20-%20Decision%20no.%2033%20-%20Car%2031.pdf",
-      "publishedAt": "2025-04-20T11:42:48.000Z"
+      "publishedAt": "2025-04-20T11:42:48.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 62,
       "car": 81,
       "driver": "Tom VAN ROMPUY",
       "session": "",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/062_Doc%2062%20-%20Decision%20no.%2034%20-%20Car%2081.pdf",
-      "publishedAt": "2025-04-20T11:45:27.000Z"
+      "publishedAt": "2025-04-20T11:45:27.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 63,
       "car": 95,
       "driver": "Darren LEUNG",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/063_Doc%2063%20-%20Decision%20no.%2035%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-20T11:46:49.000Z"
+      "publishedAt": "2025-04-20T11:46:49.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 64,
       "car": 88,
       "driver": "Stefano GATTUSO",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/064_Doc%2064%20-%20Decision%20no.%2036%20-%20Car%2088.pdf",
-      "publishedAt": "2025-04-20T11:48:45.000Z"
+      "publishedAt": "2025-04-20T11:48:45.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 65,
       "car": 21,
       "driver": "François HERIAU",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/065_Doc%2065%20-%20Decision%20no.%2037%20-%20Car%2021.pdf",
-      "publishedAt": "2025-04-20T11:49:37.000Z"
+      "publishedAt": "2025-04-20T11:49:37.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 66,
       "car": 87,
       "driver": "Petru UMBRARESCU",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/066_Doc%2066%20-%20Decision%20no.%2038%20-%20Car%2087.pdf",
-      "publishedAt": "2025-04-20T11:50:47.000Z"
+      "publishedAt": "2025-04-20T11:50:47.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 67,
       "car": 5,
       "driver": "Julien ANDLAUER",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/067_Doc%2067%20-%20Decision%20no.%2039%20-%20Car%205.pdf",
-      "publishedAt": "2025-04-20T11:53:39.000Z"
+      "publishedAt": "2025-04-20T11:53:39.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 68,
@@ -323,18 +366,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/068_Doc%2068%20-%20Decision%20no.%2040%20-%20Car%2035.pdf",
-      "publishedAt": "2025-04-20T12:05:35.000Z"
+      "publishedAt": "2025-04-20T12:05:35.000Z",
+      "parser": 3
     },
     {
       "doc": 69,
       "car": 85,
       "driver": "Célia MARTIN",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/069_Doc%2069%20-%20Decision%20no.%2041%20-%20Car%2085.pdf",
-      "publishedAt": "2025-04-20T12:13:33.000Z"
+      "publishedAt": "2025-04-20T12:13:33.000Z",
+      "parser": 3
     },
     {
       "doc": 72,
@@ -345,7 +390,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/072_Doc%2072%20-%20Decision%20no.%2045%20-%20Car%2094.pdf",
-      "publishedAt": "2025-04-20T12:40:48.000Z"
+      "publishedAt": "2025-04-20T12:40:48.000Z",
+      "parser": 3
     },
     {
       "doc": 73,
@@ -353,22 +399,24 @@
       "driver": "Loïc DUVAL",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/073_Doc%2073%20-%20Decision%20no.%2046%20-%20Car%2094.pdf",
-      "publishedAt": "2025-04-20T12:56:12.000Z"
+      "publishedAt": "2025-04-20T12:56:12.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 74,
       "car": 38,
       "driver": "Earl BAMBER",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/074_Doc%2074%20-%20Decision%20no.%2047%20-%20Car%2038.pdf",
-      "publishedAt": "2025-04-20T13:06:42.000Z"
+      "publishedAt": "2025-04-20T13:06:42.000Z",
+      "parser": 3
     },
     {
       "doc": 75,
@@ -376,22 +424,24 @@
       "driver": "Thomas FLOHR",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/075_Doc%2075%20-%20Decision%20no.%2048%20-%20Car%2054.pdf",
-      "publishedAt": "2025-04-20T13:10:55.000Z"
+      "publishedAt": "2025-04-20T13:10:55.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 76,
       "car": 8,
       "driver": "Brendon HARTLEY",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/076_Doc%2076%20-%20Decision%20no.%2049%20-%20Car%208.pdf",
-      "publishedAt": "2025-04-20T13:14:20.000Z"
+      "publishedAt": "2025-04-20T13:14:20.000Z",
+      "parser": 3
     },
     {
       "doc": 82,
@@ -402,18 +452,21 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/082_Doc%2082%20-%20Decision%20no.%2050%20-%20Car%2020.pdf",
-      "publishedAt": "2025-04-20T14:34:41.000Z"
+      "publishedAt": "2025-04-20T14:34:41.000Z",
+      "parser": 3
     },
     {
       "doc": 84,
       "car": 87,
       "driver": "Clemens SCHMID",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/084_Doc%2084%20-%20Decision%20no.%2051%20-%20Car%2087.pdf",
-      "publishedAt": "2025-04-20T14:47:37.000Z"
+      "publishedAt": "2025-04-20T14:47:37.000Z",
+      "parser": 3,
+      "seconds": 25
     },
     {
       "doc": 85,
@@ -424,40 +477,44 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/085_Doc%2085%20-%20Decision%20no.%2052%20-%20Car%2077.pdf",
-      "publishedAt": "2025-04-20T15:01:24.000Z"
+      "publishedAt": "2025-04-20T15:01:24.000Z",
+      "parser": 3
     },
     {
       "doc": 90,
       "car": 95,
       "driver": "Marino SATO",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/090_Doc%2090%20-%20Decision%20no.%2053%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-20T15:30:57.000Z"
+      "publishedAt": "2025-04-20T15:30:57.000Z",
+      "parser": 3
     },
     {
       "doc": 91,
       "car": 77,
       "driver": "Ben TUCK",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/091_Doc%2091%20-%20Decision%20no.%2054%20-%20Car%2077.pdf",
-      "publishedAt": "2025-04-20T15:42:38.000Z"
+      "publishedAt": "2025-04-20T15:42:38.000Z",
+      "parser": 3
     },
     {
       "doc": 92,
       "car": 61,
       "driver": "Lin HODENIUS",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/092_Doc%2092%20-%20Decision%20no.%2055%20-%20Car%2061.pdf",
-      "publishedAt": "2025-04-20T15:48:00.000Z"
+      "publishedAt": "2025-04-20T15:48:00.000Z",
+      "parser": 3
     },
     {
       "doc": 95,
@@ -468,40 +525,44 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/095_Doc%2095%20-%20Decision%20no.%2056%20-%20Car%2093.pdf",
-      "publishedAt": "2025-04-20T16:09:06.000Z"
+      "publishedAt": "2025-04-20T16:09:06.000Z",
+      "parser": 3
     },
     {
       "doc": 97,
       "car": 31,
       "driver": "Yasser SHAHIN",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/097_Doc%2097%20-%20Decision%20no.%2057%20-%20Car%2031.pdf",
-      "publishedAt": "2025-04-20T16:47:09.000Z"
+      "publishedAt": "2025-04-20T16:47:09.000Z",
+      "parser": 3
     },
     {
       "doc": 98,
       "car": 9,
       "driver": "Marco SORENSEN",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/098_Doc%2098%20-%20Decision%20no.%2058%20-%20Car%20009.pdf",
-      "publishedAt": "2025-04-20T16:56:03.000Z"
+      "publishedAt": "2025-04-20T16:56:03.000Z",
+      "parser": 3
     },
     {
       "doc": 99,
       "car": 59,
       "driver": "Sébastien BAUD",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/099_Doc%2099%20-%20Decision%20no.%2059%20-%20Car%2059.pdf",
-      "publishedAt": "2025-04-20T17:00:09.000Z"
+      "publishedAt": "2025-04-20T17:00:09.000Z",
+      "parser": 3
     },
     {
       "doc": 100,
@@ -512,7 +573,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/100_Doc%20100%20-%20Decision%20no.%2060%20-%20Car%2099.pdf",
-      "publishedAt": "2025-04-20T17:10:26.000Z"
+      "publishedAt": "2025-04-20T17:10:26.000Z",
+      "parser": 3
     },
     {
       "doc": 102,
@@ -523,7 +585,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/102_Doc%20102%20-%20Decision%20no.%2061%20-%20Car%2095.pdf",
-      "publishedAt": "2025-04-20T17:37:48.000Z"
+      "publishedAt": "2025-04-20T17:37:48.000Z",
+      "parser": 3
     },
     {
       "doc": 105,
@@ -534,29 +597,32 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/105_Doc%20105%20-%20Decision%20no.%2062%20-%20Car%20009.pdf",
-      "publishedAt": "2025-04-20T17:48:11.000Z"
+      "publishedAt": "2025-04-20T17:48:11.000Z",
+      "parser": 3
     },
     {
       "doc": 106,
       "car": 46,
       "driver": "Valentino ROSSI",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/106_Doc%20106%20-%20Decision%20no.%2063%20-%20Car%2046.pdf",
-      "publishedAt": "2025-04-20T18:53:45.000Z"
+      "publishedAt": "2025-04-20T18:53:45.000Z",
+      "parser": 3
     },
     {
       "doc": 108,
       "car": 50,
       "driver": "Antonio FUOCO",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/108_Doc%20108%20-%20Decision%20no.%2098%20-%20Car%2050.pdf",
-      "publishedAt": "2025-04-20T19:12:09.000Z"
+      "publishedAt": "2025-04-20T19:12:09.000Z",
+      "parser": 3
     },
     {
       "doc": 109,
@@ -564,11 +630,12 @@
       "driver": "61 / IRON LYNX",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/109_Doc%20109%20-%20Decision%20no.%2099%20-%20Car%2061.pdf",
-      "publishedAt": "2025-04-20T19:19:54.000Z"
+      "publishedAt": "2025-04-20T19:19:54.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 110,
@@ -579,7 +646,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/110_Doc%20110%20-%20Decision%20no.%20100%20-%20Car%2099.pdf",
-      "publishedAt": "2025-04-20T19:25:48.000Z"
+      "publishedAt": "2025-04-20T19:25:48.000Z",
+      "parser": 3
     },
     {
       "doc": 111,
@@ -590,18 +658,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/111_Doc%20111%20-%20Decision%20no.%20101%20-%20Car%2010.pdf",
-      "publishedAt": "2025-04-20T19:32:22.000Z"
+      "publishedAt": "2025-04-20T19:32:22.000Z",
+      "parser": 3
     },
     {
       "doc": 112,
       "car": 31,
       "driver": "Augusto FARFUS",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/02_6%20Hours%20of%20Imola/112_Doc%20112%20-%20Decision%20no.%20102%20-%20Car%2031.pdf",
-      "publishedAt": "2025-04-20T19:56:55.000Z"
+      "publishedAt": "2025-04-20T19:56:55.000Z",
+      "parser": 3
     }
   ]
 }

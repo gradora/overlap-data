@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:38:23.100Z",
+  "generatedAt": "2026-08-30T18:56:19.614Z",
   "season": 2026,
   "round": 7,
   "event": "barcelona-catalunya_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 19,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Free Practice 2",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 20,
-      "parser": 2,
+      "parser": 3,
       "car": 77,
       "driver": "Valtteri Bottas",
       "session": "Free Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 21,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Free Practice 2",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 33,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Free Practice 3",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Free Practice 3",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Free Practice 3",
@@ -80,20 +80,20 @@
     },
     {
       "doc": 52,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_14_-_pu_elements_and_changes_used_during_parc_ferme.pdf",
-      "publishedAt": "2026-06-14 12:56 CET"
+      "publishedAt": "2026-06-14 12:56 CET",
+      "pitlane": true
     },
     {
       "doc": 57,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -105,7 +105,7 @@
     },
     {
       "doc": 58,
-      "parser": 2,
+      "parser": 3,
       "car": 41,
       "driver": "Arvid Lindblad",
       "session": "Race",
@@ -117,20 +117,20 @@
     },
     {
       "doc": 62,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_43_-_failing_to_slow_for_yellow_flags.pdf",
-      "publishedAt": "2026-06-14 19:06 CET"
+      "publishedAt": "2026-06-14 19:06 CET",
+      "seconds": 10
     },
     {
       "doc": 63,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -142,7 +142,7 @@
     },
     {
       "doc": 64,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -154,16 +154,16 @@
     },
     {
       "doc": 67,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_12_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
-      "publishedAt": "2026-06-14 19:22 CET"
+      "publishedAt": "2026-06-14 19:22 CET",
+      "seconds": 5
     }
   ],
   "startingGrid": {

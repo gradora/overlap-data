@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:37:14.011Z",
+  "generatedAt": "2026-08-30T18:56:19.611Z",
   "season": 2026,
   "round": 1,
   "event": "australian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 25,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 2",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 26,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Practice 2",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Qualifying",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 41,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Qualifying",
@@ -80,7 +80,7 @@
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Reconnaissance Laps",
@@ -92,11 +92,11 @@
     },
     {
       "doc": 60,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Grid Procedure",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "Grid Procedure",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_australian_grand_prix_-_infringement_-_car_43_-_grid_procedure_infringement.pdf",
@@ -104,7 +104,7 @@
     },
     {
       "doc": 62,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -116,7 +116,7 @@
     },
     {
       "doc": 63,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
@@ -128,7 +128,7 @@
     },
     {
       "doc": 64,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -140,7 +140,7 @@
     },
     {
       "doc": 66,
-      "parser": 2,
+      "parser": 3,
       "car": 11,
       "driver": "Sergio Perez",
       "session": "Race",

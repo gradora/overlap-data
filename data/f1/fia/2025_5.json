@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:34:39.478Z",
+  "generatedAt": "2026-08-30T18:56:19.609Z",
   "season": 2025,
   "round": 5,
   "event": "saudi_arabian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 13,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Practice 1",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 14,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Practice 1",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 20,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Practice 3",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 28,
-      "parser": 2,
+      "parser": 3,
       "car": 7,
       "driver": "Jack Doohan",
       "session": "Practice 3",
@@ -68,20 +68,20 @@
     },
     {
       "doc": 44,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_saudi_arabian_grand_prix_-_infringement_-_car_1_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-04-20 21:44 CET"
+      "publishedAt": "2025-04-20 21:44 CET",
+      "seconds": 5
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -93,16 +93,16 @@
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_saudi_arabian_grand_prix_-_infringement_-_car_30_-_leaving_the_track_and_gaining_an_advantage.pdf",
-      "publishedAt": "2025-04-20 22:13 CET"
+      "publishedAt": "2025-04-20 22:13 CET",
+      "seconds": 10
     }
   ],
   "startingGrid": {

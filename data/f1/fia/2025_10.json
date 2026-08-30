@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:24.833Z",
+  "generatedAt": "2026-08-30T18:56:19.603Z",
   "season": 2025,
   "round": 10,
   "event": "canadian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 11,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Practice 1",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 13,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 18,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 2",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 24,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 3",
@@ -56,7 +56,7 @@
     },
     {
       "doc": 27,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Practice 3",
@@ -68,7 +68,7 @@
     },
     {
       "doc": 29,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Practice 3",
@@ -80,33 +80,33 @@
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Practice 3",
       "type": "grid",
-      "gridDrop": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_22_-_overtaking_under_red_flag_conditions.pdf",
-      "publishedAt": "2025-06-14 22:08 CET"
+      "publishedAt": "2025-06-14 22:08 CET",
+      "gridDrop": 10
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Qualifying",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_6_-_impeding_car_55.pdf",
-      "publishedAt": "2025-06-15 00:43 CET"
+      "publishedAt": "2025-06-15 00:43 CET",
+      "gridDrop": 3
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Qualifying",
@@ -118,46 +118,46 @@
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_30_-_pu_elements_and_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-06-15 18:13 CET"
+      "publishedAt": "2025-06-15 18:13 CET",
+      "pitlane": true
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_10_-_pu_elements.pdf",
-      "publishedAt": "2025-06-15 18:51 CET"
+      "publishedAt": "2025-06-15 18:51 CET",
+      "pitlane": true
     },
     {
       "doc": 50,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_18_-_forcing_another_driver_off_of_the_track.pdf",
-      "publishedAt": "2025-06-15 22:23 CET"
+      "publishedAt": "2025-06-15 22:23 CET",
+      "seconds": 10
     },
     {
       "doc": 63,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
@@ -169,7 +169,7 @@
     },
     {
       "doc": 64,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -181,20 +181,20 @@
     },
     {
       "doc": 65,
-      "parser": 2,
+      "parser": 3,
       "car": 4,
       "driver": "Lando Norris",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_canadian_grand_prix_-_infringement_-_car_4_-_collision_with_car_81.pdf",
-      "publishedAt": "2025-06-16 02:19 CET"
+      "publishedAt": "2025-06-16 02:19 CET",
+      "seconds": 5
     },
     {
       "doc": 66,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
@@ -206,7 +206,7 @@
     },
     {
       "doc": 67,
-      "parser": 2,
+      "parser": 3,
       "car": 81,
       "driver": "Oscar Piastri",
       "session": "Race",
@@ -218,7 +218,7 @@
     },
     {
       "doc": 68,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
@@ -230,7 +230,7 @@
     },
     {
       "doc": 69,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
@@ -242,7 +242,7 @@
     },
     {
       "doc": 70,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Race",
@@ -254,7 +254,7 @@
     },
     {
       "doc": 71,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",

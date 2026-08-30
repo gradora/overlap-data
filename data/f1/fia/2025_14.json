@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:47.771Z",
+  "generatedAt": "2026-08-30T18:56:19.605Z",
   "season": 2025,
   "round": 14,
   "event": "hungarian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 15,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Practice 2",
@@ -20,33 +20,33 @@
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_22_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-08-03 13:02 CET"
+      "publishedAt": "2025-08-03 13:02 CET",
+      "pitlane": true
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_27_-_false_start.pdf",
-      "publishedAt": "2025-08-03 15:42 CET"
+      "publishedAt": "2025-08-03 15:42 CET",
+      "seconds": 5
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -58,33 +58,33 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_10_-_colliding_with_car_55.pdf",
-      "publishedAt": "2025-08-03 18:10 CET"
+      "publishedAt": "2025-08-03 18:10 CET",
+      "seconds": 10
     },
     {
       "doc": 41,
-      "parser": 2,
+      "parser": 3,
       "car": 16,
       "driver": "Charles Leclerc",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_hungarian_grand_prix_-_infringement_-_car_16_-_erratic_driving.pdf",
-      "publishedAt": "2025-08-03 18:11 CET"
+      "publishedAt": "2025-08-03 18:11 CET",
+      "seconds": 5
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 1,
       "driver": "Max Verstappen",
       "session": "Race",

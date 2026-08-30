@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-30T18:56:19.623Z",
   "season": 2026,
   "round": 3,
   "event": "24-hours-of-le-mans-2026",
@@ -13,7 +15,8 @@
       "appliesTo": "FP1 Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/008_Doc%208%20-%20Decision%20no.%201%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-07T08:59:46.000Z"
+      "publishedAt": "2026-06-07T08:59:46.000Z",
+      "parser": 3
     },
     {
       "doc": 9,
@@ -24,7 +27,8 @@
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/009_Doc%209%20-%20Decision%20no.%202%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-07T09:00:22.000Z"
+      "publishedAt": "2026-06-07T09:00:22.000Z",
+      "parser": 3
     },
     {
       "doc": 11,
@@ -35,7 +39,8 @@
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/011_Doc%2011%20-%20Decision%20no.%203%20-%20Car%20343.pdf",
-      "publishedAt": "2026-06-07T09:12:51.000Z"
+      "publishedAt": "2026-06-07T09:12:51.000Z",
+      "parser": 3
     },
     {
       "doc": 12,
@@ -46,7 +51,8 @@
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/012_Doc%2012%20-%20Decision%20no.%204%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-07T09:15:48.000Z"
+      "publishedAt": "2026-06-07T09:15:48.000Z",
+      "parser": 3
     },
     {
       "doc": 13,
@@ -57,40 +63,46 @@
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/013_Doc%2013%20-%20Decision%20no.%206%20-%20Car%203.pdf",
-      "publishedAt": "2026-06-07T09:42:02.000Z"
+      "publishedAt": "2026-06-07T09:42:02.000Z",
+      "parser": 3
     },
     {
       "doc": 14,
       "car": 83,
       "driver": "Philip HANSON",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/014_Doc%2014%20-%20Decision%20no.%207%20-%20Car%2083.pdf",
-      "publishedAt": "2026-06-07T09:55:26.000Z"
+      "publishedAt": "2026-06-07T09:55:26.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 15,
       "car": 43,
       "driver": "Jakub SMIECHOWSKI",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/015_Doc%2015%20-%20Decision%20no.%208%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-07T09:56:18.000Z"
+      "publishedAt": "2026-06-07T09:56:18.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 16,
       "car": 37,
       "driver": "Adrien CLOSMENIL",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/016_Doc%2016%20-%20Decision%20no.%205%20-%20Car%2037.pdf",
-      "publishedAt": "2026-06-07T10:11:43.000Z"
+      "publishedAt": "2026-06-07T10:11:43.000Z",
+      "parser": 3
     },
     {
       "doc": 17,
@@ -101,51 +113,60 @@
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/017_Doc%2017%20-%20Decision%20no.%209%20-%20Car%20343.pdf",
-      "publishedAt": "2026-06-07T10:19:32.000Z"
+      "publishedAt": "2026-06-07T10:19:32.000Z",
+      "parser": 3
     },
     {
       "doc": 18,
       "car": 26,
       "driver": "Ryan CULLEN",
       "session": "Testday - FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "Testday - FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/018_Doc%2018%20-%20Decision%20no.%2010%20-%20Car%2026.pdf",
-      "publishedAt": "2026-06-07T10:23:29.000Z"
+      "publishedAt": "2026-06-07T10:23:29.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 19,
       "car": 3,
       "driver": "John FARANO",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/019_Doc%2019%20-%20Decision%20no.%2011%20-%20Car%203.pdf",
-      "publishedAt": "2026-06-07T11:15:25.000Z"
+      "publishedAt": "2026-06-07T11:15:25.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 20,
       "car": 7,
       "driver": "Tom GAMBLE",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/020_Doc%2020%20-%20Decision%20no.%2012%20-%20Car%20007.pdf",
-      "publishedAt": "2026-06-07T11:37:00.000Z"
+      "publishedAt": "2026-06-07T11:37:00.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 22,
       "car": 7,
       "driver": "Tom GAMBLE",
       "session": "FP1 - Test Day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1 - Test Day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/022_Doc%2022%20-%20Decision%20no.%2013%20-%20Car%20007.pdf",
-      "publishedAt": "2026-06-07T12:41:46.000Z"
+      "publishedAt": "2026-06-07T12:41:46.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 25,
@@ -156,7 +177,8 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/025_Doc%2025%20-%20Decision%20no.%2023%20-%20Car%20007.pdf",
-      "publishedAt": "2026-06-07T14:25:49.000Z"
+      "publishedAt": "2026-06-07T14:25:49.000Z",
+      "parser": 3
     },
     {
       "doc": 26,
@@ -167,29 +189,34 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/026_Doc%2026%20-%20Decision%20no.%2024%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-07T14:34:05.000Z"
+      "publishedAt": "2026-06-07T14:34:05.000Z",
+      "parser": 3
     },
     {
       "doc": 27,
       "car": 62,
       "driver": "Julian HANSES",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/027_Doc%2027%20-%20Decision%20no.%2025%20-%20Car%2062.pdf",
-      "publishedAt": "2026-06-07T14:38:35.000Z"
+      "publishedAt": "2026-06-07T14:38:35.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 28,
       "car": 14,
       "driver": "Tobias LUTKE",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/028_Doc%2028%20-%20Decision%20no.%2026%20-%20Car%2014.pdf",
-      "publishedAt": "2026-06-07T14:41:47.000Z"
+      "publishedAt": "2026-06-07T14:41:47.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 29,
@@ -200,7 +227,8 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/029_Doc%2029%20-%20Decision%20no.%2027%20-%20Car%2077.pdf",
-      "publishedAt": "2026-06-07T14:47:06.000Z"
+      "publishedAt": "2026-06-07T14:47:06.000Z",
+      "parser": 3
     },
     {
       "doc": 30,
@@ -211,7 +239,8 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/030_Doc%2030%20-%20Decision%20no.%2028%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-07T14:53:37.000Z"
+      "publishedAt": "2026-06-07T14:53:37.000Z",
+      "parser": 3
     },
     {
       "doc": 31,
@@ -222,18 +251,21 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/031_Doc%2031%20-%20Decision%20no.%2029%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-07T15:08:02.000Z"
+      "publishedAt": "2026-06-07T15:08:02.000Z",
+      "parser": 3
     },
     {
       "doc": 32,
       "car": 9,
       "driver": "Kakunoshin OHTA",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/032_Doc%2032%20-%20Decision%20no.%2030%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-07T15:22:50.000Z"
+      "publishedAt": "2026-06-07T15:22:50.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 33,
@@ -244,18 +276,21 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/033_Doc%2033%20-%20Decision%20no.%2031%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-07T15:40:10.000Z"
+      "publishedAt": "2026-06-07T15:40:10.000Z",
+      "parser": 3
     },
     {
       "doc": 34,
       "car": 9,
       "driver": "Kakunoshin OHTA",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/034_Doc%2034%20-%20Decision%20no.%2032%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-07T15:45:36.000Z"
+      "publishedAt": "2026-06-07T15:45:36.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 36,
@@ -266,95 +301,112 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/036_Doc%2036%20-%20Decision%20no.%2036%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-07T15:56:55.000Z"
+      "publishedAt": "2026-06-07T15:56:55.000Z",
+      "parser": 3
     },
     {
       "doc": 37,
       "car": 29,
       "driver": "Louis ROUSSET",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/037_Doc%2037%20-%20Decision%20no.%2037%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-07T16:00:18.000Z"
+      "publishedAt": "2026-06-07T16:00:18.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 38,
       "car": 222,
       "driver": "Daniel SCHNEIDER",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/038_Doc%2038%20-%20Decision%20no.%2038%20-%20Car%20222.pdf",
-      "publishedAt": "2026-06-07T16:02:30.000Z"
+      "publishedAt": "2026-06-07T16:02:30.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 39,
       "car": 222,
       "driver": "Daniel SCHNEIDER",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/039_Doc%2039%20-%20Decision%20no.%2039%20-%20Car%20222.pdf",
-      "publishedAt": "2026-06-07T16:04:10.000Z"
+      "publishedAt": "2026-06-07T16:04:10.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 40,
       "car": 57,
       "driver": "Takeshi KIMURA",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/040_Doc%2040%20-%20Decision%20no.%2040%20-%20Car%2057.pdf",
-      "publishedAt": "2026-06-07T16:54:58.000Z"
+      "publishedAt": "2026-06-07T16:54:58.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 41,
       "car": 10,
       "driver": "Antares AU",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/041_Doc%2041%20-%20Decision%20no.%2041%20-%20Car%2010.pdf",
-      "publishedAt": "2026-06-07T16:10:40.000Z"
+      "publishedAt": "2026-06-07T16:10:40.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 43,
       "car": 26,
       "driver": "Ryan CULLEN",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/043_Doc%2043%20-%20Decision%20no.%2044%20-%20Car%2026.pdf",
-      "publishedAt": "2026-06-07T16:35:53.000Z"
+      "publishedAt": "2026-06-07T16:35:53.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 44,
       "car": 26,
       "driver": "Ryan CULLEN",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/044_Doc%2044%20-%20Decision%20no.%2045%20-%20Car%2026.pdf",
-      "publishedAt": "2026-06-07T16:38:22.000Z"
+      "publishedAt": "2026-06-07T16:38:22.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 45,
       "car": 3,
       "driver": "John FARANO",
       "session": "FP2 - Test day",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/045_Doc%2045%20-%20Decision%20no.%2046%20-%20Car%203.pdf",
-      "publishedAt": "2026-06-07T16:41:23.000Z"
+      "publishedAt": "2026-06-07T16:41:23.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 46,
@@ -365,7 +417,8 @@
       "appliesTo": "FP2 - Test day",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/046_Doc%2046%20-%20Decision%20no.%2047%20-%20Car%2019.pdf",
-      "publishedAt": "2026-06-10T09:30:35.000Z"
+      "publishedAt": "2026-06-10T09:30:35.000Z",
+      "parser": 3
     },
     {
       "doc": 52,
@@ -376,7 +429,8 @@
       "appliesTo": "FP 1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/052_Doc%2052%20-%20Decision%20no.%2049%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-10T12:29:05.000Z"
+      "publishedAt": "2026-06-10T12:29:05.000Z",
+      "parser": 3
     },
     {
       "doc": 56,
@@ -387,7 +441,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/056_Doc%2056%20-%20Decision%20no.%2057%20-%20Car%2088.pdf",
-      "publishedAt": "2026-06-10T14:19:58.000Z"
+      "publishedAt": "2026-06-10T14:19:58.000Z",
+      "parser": 3
     },
     {
       "doc": 57,
@@ -398,18 +453,21 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/057_Doc%2057%20-%20Decision%20no.%2058%20-%20Car%2013.pdf",
-      "publishedAt": "2026-06-10T14:34:38.000Z"
+      "publishedAt": "2026-06-10T14:34:38.000Z",
+      "parser": 3
     },
     {
       "doc": 59,
       "car": 83,
       "driver": "Robert KUBICA",
       "session": "FP1",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/059_Doc%2059%20-%20Decision%20no.%2061%20-%20Car%2083.pdf",
-      "publishedAt": "2026-06-10T14:43:30.000Z"
+      "publishedAt": "2026-06-10T14:43:30.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 61,
@@ -420,7 +478,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/061_Doc%2061%20-%20Decision%20no.%2065%20-%20Car%2078.pdf",
-      "publishedAt": "2026-06-10T15:05:53.000Z"
+      "publishedAt": "2026-06-10T15:05:53.000Z",
+      "parser": 3
     },
     {
       "doc": 62,
@@ -431,7 +490,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/062_Doc%2062%20-%20Decision%20no.%2066%20-%20Car%2025.pdf",
-      "publishedAt": "2026-06-10T15:07:06.000Z"
+      "publishedAt": "2026-06-10T15:07:06.000Z",
+      "parser": 3
     },
     {
       "doc": 63,
@@ -442,7 +502,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/063_Doc%2063%20-%20Decision%20no.%2067%20-%20Car%2059.pdf",
-      "publishedAt": "2026-06-10T15:15:45.000Z"
+      "publishedAt": "2026-06-10T15:15:45.000Z",
+      "parser": 3
     },
     {
       "doc": 64,
@@ -453,7 +514,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/064_Doc%2064%20-%20Decision%20no.%2068%20-%20Car%20183.pdf",
-      "publishedAt": "2026-06-10T15:25:51.000Z"
+      "publishedAt": "2026-06-10T15:25:51.000Z",
+      "parser": 3
     },
     {
       "doc": 66,
@@ -464,7 +526,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/066_Doc%2066%20-%20Decision%20no.%2069%20-%20Car%2062.pdf",
-      "publishedAt": "2026-06-10T15:33:20.000Z"
+      "publishedAt": "2026-06-10T15:33:20.000Z",
+      "parser": 3
     },
     {
       "doc": 67,
@@ -475,7 +538,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/067_Doc%2067%20-%20Decision%20no.%2070%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-10T15:53:27.000Z"
+      "publishedAt": "2026-06-10T15:53:27.000Z",
+      "parser": 3
     },
     {
       "doc": 71,
@@ -486,7 +550,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/071_Doc%2071%20-%20Decision%20no.%2079%20-%20Car%207.pdf",
-      "publishedAt": "2026-06-10T16:16:35.000Z"
+      "publishedAt": "2026-06-10T16:16:35.000Z",
+      "parser": 3
     },
     {
       "doc": 72,
@@ -497,7 +562,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/072_Doc%2072%20-%20Decision%20no.%2080%20-%20Car%2037.pdf",
-      "publishedAt": "2026-06-10T16:34:24.000Z"
+      "publishedAt": "2026-06-10T16:34:24.000Z",
+      "parser": 3
     },
     {
       "doc": 73,
@@ -508,7 +574,8 @@
       "appliesTo": "FP1",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/073_Doc%2073%20-%20Decision%20no.%2081%20-%20Car%20009.pdf",
-      "publishedAt": "2026-06-10T16:38:04.000Z"
+      "publishedAt": "2026-06-10T16:38:04.000Z",
+      "parser": 3
     },
     {
       "doc": 75,
@@ -519,7 +586,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/075_Doc%2075%20-%20Decision%20no.%2082%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-10T17:11:55.000Z"
+      "publishedAt": "2026-06-10T17:11:55.000Z",
+      "parser": 3
     },
     {
       "doc": 76,
@@ -530,7 +598,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/076_Doc%2076%20-%20Decision%20no.%2083%20-%20Car%2078.pdf",
-      "publishedAt": "2026-06-10T17:15:55.000Z"
+      "publishedAt": "2026-06-10T17:15:55.000Z",
+      "parser": 3
     },
     {
       "doc": 78,
@@ -538,11 +607,12 @@
       "driver": "Louis ROUSSET",
       "session": "LMGT3 and LMP2 Qualifying",
       "type": "grid",
-      "gridDrop": 1,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/078_Doc%2078%20-%20Decision%20no.%2084%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-10T18:05:58.000Z"
+      "publishedAt": "2026-06-10T18:05:58.000Z",
+      "parser": 3,
+      "gridDrop": 1
     },
     {
       "doc": 81,
@@ -553,7 +623,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/081_Doc%2081%20-%20Decision%20no.%2085%20-%20Car%2048.pdf",
-      "publishedAt": "2026-06-10T19:31:50.000Z"
+      "publishedAt": "2026-06-10T19:31:50.000Z",
+      "parser": 3
     },
     {
       "doc": 82,
@@ -561,11 +632,12 @@
       "driver": "Malthe JAKOBSEN",
       "session": "Qualifying - Hypercar",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/082_Doc%2082%20-%20Decision%20no.%2086%20-%20Car%2094.pdf",
-      "publishedAt": "2026-06-10T19:54:20.000Z"
+      "publishedAt": "2026-06-10T19:54:20.000Z",
+      "parser": 3,
+      "gridDrop": 3
     },
     {
       "doc": 83,
@@ -576,7 +648,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/083_Doc%2083%20-%20Decision%20no.%2087%20-%20Car%20150.pdf",
-      "publishedAt": "2026-06-10T20:09:04.000Z"
+      "publishedAt": "2026-06-10T20:09:04.000Z",
+      "parser": 3
     },
     {
       "doc": 84,
@@ -587,7 +660,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/084_Doc%2084%20-%20Decision%20no.%2088%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-10T20:29:58.000Z"
+      "publishedAt": "2026-06-10T20:29:58.000Z",
+      "parser": 3
     },
     {
       "doc": 86,
@@ -598,7 +672,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/086_Doc%2086%20-%20Decision%20no.%2089%20-%20Car%2093.pdf",
-      "publishedAt": "2026-06-10T20:46:53.000Z"
+      "publishedAt": "2026-06-10T20:46:53.000Z",
+      "parser": 3
     },
     {
       "doc": 88,
@@ -609,7 +684,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/088_Doc%2088%20-%20Decision%20no.%2090%20-%20Car%2034.pdf",
-      "publishedAt": "2026-06-10T21:28:38.000Z"
+      "publishedAt": "2026-06-10T21:28:38.000Z",
+      "parser": 3
     },
     {
       "doc": 89,
@@ -620,7 +696,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/089_Doc%2089%20-%20Decision%20no.%2091%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-10T21:40:24.000Z"
+      "publishedAt": "2026-06-10T21:40:24.000Z",
+      "parser": 3
     },
     {
       "doc": 90,
@@ -631,7 +708,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/090_Doc%2090%20-%20Decision%20no.%2092%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-10T21:55:24.000Z"
+      "publishedAt": "2026-06-10T21:55:24.000Z",
+      "parser": 3
     },
     {
       "doc": 91,
@@ -642,7 +720,8 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/091_Doc%2091%20-%20Decision%20no.%2093%20-%20Car%2030.pdf",
-      "publishedAt": "2026-06-10T21:58:55.000Z"
+      "publishedAt": "2026-06-10T21:58:55.000Z",
+      "parser": 3
     },
     {
       "doc": 92,
@@ -653,51 +732,60 @@
       "appliesTo": "FP2",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/092_Doc%2092%20-%20Decision%20no.%2094%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-10T22:08:27.000Z"
+      "publishedAt": "2026-06-10T22:08:27.000Z",
+      "parser": 3
     },
     {
       "doc": 96,
       "car": 94,
       "driver": "Théo POURCHAIRE",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/096_Doc%2096%20-%20Decision%20no.%2095%20-%20Car%2094.pdf",
-      "publishedAt": "2026-06-11T13:14:46.000Z"
+      "publishedAt": "2026-06-11T13:14:46.000Z",
+      "parser": 3,
+      "seconds": 60
     },
     {
       "doc": 97,
       "car": 150,
       "driver": "Lilou WADOUX",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/097_Doc%2097%20-%20Decision%20no.%2096%20-%20Car%20150.pdf",
-      "publishedAt": "2026-06-11T13:30:29.000Z"
+      "publishedAt": "2026-06-11T13:30:29.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 98,
       "car": 4,
       "driver": "Alexander QUINN",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/098_Doc%2098%20-%20Decision%20no.%2097%20-%20Car%204.pdf",
-      "publishedAt": "2026-06-11T13:42:33.000Z"
+      "publishedAt": "2026-06-11T13:42:33.000Z",
+      "parser": 3,
+      "seconds": 60
     },
     {
       "doc": 99,
       "car": 9,
       "driver": "Kakunoshin OHTA",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/099_Doc%2099%20-%20Decision%20no.%2098%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-11T13:46:50.000Z"
+      "publishedAt": "2026-06-11T13:46:50.000Z",
+      "parser": 3,
+      "seconds": 60
     },
     {
       "doc": 101,
@@ -708,7 +796,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/101_Doc%20101%20-%20Decision%20no.%20102%20-%20Car%2024.pdf",
-      "publishedAt": "2026-06-11T13:59:47.000Z"
+      "publishedAt": "2026-06-11T13:59:47.000Z",
+      "parser": 3
     },
     {
       "doc": 102,
@@ -719,7 +808,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/102_Doc%20102%20-%20Decision%20no.%20103%20-%20Car%204.pdf",
-      "publishedAt": "2026-06-11T14:05:52.000Z"
+      "publishedAt": "2026-06-11T14:05:52.000Z",
+      "parser": 3
     },
     {
       "doc": 103,
@@ -730,7 +820,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/103_Doc%20103%20-%20Decision%20no.%20104%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-11T14:14:59.000Z"
+      "publishedAt": "2026-06-11T14:14:59.000Z",
+      "parser": 3
     },
     {
       "doc": 105,
@@ -741,7 +832,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/105_Doc%20105%20-%20Decision%20no.%20107%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-11T14:29:34.000Z"
+      "publishedAt": "2026-06-11T14:29:34.000Z",
+      "parser": 3
     },
     {
       "doc": 106,
@@ -752,7 +844,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/106_Doc%20106%20-%20Decision%20no.%20108%20-%20Car%2091.pdf",
-      "publishedAt": "2026-06-11T14:33:49.000Z"
+      "publishedAt": "2026-06-11T14:33:49.000Z",
+      "parser": 3
     },
     {
       "doc": 107,
@@ -763,18 +856,21 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/107_Doc%20107%20-%20Decision%20no.%20109%20-%20Car%2033.pdf",
-      "publishedAt": "2026-06-11T14:36:06.000Z"
+      "publishedAt": "2026-06-11T14:36:06.000Z",
+      "parser": 3
     },
     {
       "doc": 108,
       "car": 9,
       "driver": "Kakunoshin OHTA",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/108_Doc%20108%20-%20Decision%20no.%20110%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-11T14:51:18.000Z"
+      "publishedAt": "2026-06-11T14:51:18.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 110,
@@ -785,7 +881,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/110_Doc%20110%20-%20Decision%20no.%20113%20-%20Car%2087.pdf",
-      "publishedAt": "2026-06-11T14:56:43.000Z"
+      "publishedAt": "2026-06-11T14:56:43.000Z",
+      "parser": 3
     },
     {
       "doc": 113,
@@ -796,7 +893,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/113_Doc%20113%20-%20Decision%20no.%20114%20-%20Car%207.pdf",
-      "publishedAt": "2026-06-11T15:13:09.000Z"
+      "publishedAt": "2026-06-11T15:13:09.000Z",
+      "parser": 3
     },
     {
       "doc": 114,
@@ -807,7 +905,8 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/114_Doc%20114%20-%20Decision%20no.%20115%20-%20Car%209.pdf",
-      "publishedAt": "2026-06-11T15:20:27.000Z"
+      "publishedAt": "2026-06-11T15:20:27.000Z",
+      "parser": 3
     },
     {
       "doc": 116,
@@ -818,18 +917,21 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/116_Doc%20116%20-%20Decision%20no.%20118%20-%20Car%2034.pdf",
-      "publishedAt": "2026-06-11T15:24:41.000Z"
+      "publishedAt": "2026-06-11T15:24:41.000Z",
+      "parser": 3
     },
     {
       "doc": 117,
       "car": 50,
       "driver": "Miguel MOLINA",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/117_Doc%20117%20-%20Decision%20no.%20119%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-11T15:38:25.000Z"
+      "publishedAt": "2026-06-11T15:38:25.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 118,
@@ -840,18 +942,21 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/118_Doc%20118%20-%20Decision%20no.%20120%20-%20Car%2013.pdf",
-      "publishedAt": "2026-06-11T15:45:49.000Z"
+      "publishedAt": "2026-06-11T15:45:49.000Z",
+      "parser": 3
     },
     {
       "doc": 120,
       "car": 57,
       "driver": "Takeshi KIMURA",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/120_Doc%20120%20-%20Decision%20no.%20121%20-%20Car%2057.pdf",
-      "publishedAt": "2026-06-11T16:10:51.000Z"
+      "publishedAt": "2026-06-11T16:10:51.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 121,
@@ -862,18 +967,21 @@
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/121_Doc%20121%20-%20Decision%20no.%20122%20-%20Car%2093.pdf",
-      "publishedAt": "2026-06-11T16:44:35.000Z"
+      "publishedAt": "2026-06-11T16:44:35.000Z",
+      "parser": 3
     },
     {
       "doc": 122,
       "car": 9,
       "driver": "Roman DE ANGELIS",
       "session": "FP3",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "FP3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/122_Doc%20122%20-%20Decision%20no.%20123%20-%20Car%20009.pdf",
-      "publishedAt": "2026-06-11T16:57:39.000Z"
+      "publishedAt": "2026-06-11T16:57:39.000Z",
+      "parser": 3,
+      "seconds": 300
     },
     {
       "doc": 123,
@@ -884,18 +992,20 @@
       "appliesTo": "Hyperpole 1 - LMP2 + LMGT3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/123_Doc%20123%20-%20Decision%20no.%20124%20-%20Car%2091.pdf",
-      "publishedAt": "2026-06-11T18:32:56.000Z"
+      "publishedAt": "2026-06-11T18:32:56.000Z",
+      "parser": 3
     },
     {
       "doc": 124,
       "car": 30,
       "driver": "Richard VERSCHOOR",
       "session": "Hyperpole 1 - LMP2 + LMGT3",
-      "type": "other",
+      "type": "deleted_laps",
       "appliesTo": "Hyperpole 1 - LMP2 + LMGT3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/124_Doc%20124%20-%20Decision%20no.%20125%20-%20Car%2030.pdf",
-      "publishedAt": "2026-06-11T18:41:29.000Z"
+      "publishedAt": "2026-06-11T18:41:29.000Z",
+      "parser": 3
     },
     {
       "doc": 126,
@@ -906,7 +1016,8 @@
       "appliesTo": "Hyperpole 1 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/126_Doc%20126%20-%20Decision%20no.%20126%20-%20Car%2051.pdf",
-      "publishedAt": "2026-06-11T19:42:26.000Z"
+      "publishedAt": "2026-06-11T19:42:26.000Z",
+      "parser": 3
     },
     {
       "doc": 127,
@@ -917,18 +1028,20 @@
       "appliesTo": "Hyperpole 1 HYPERCAR",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/127_Doc%20127%20-%20Decision%20no.%20127%20-%20Car%2012.pdf",
-      "publishedAt": "2026-06-11T19:53:23.000Z"
+      "publishedAt": "2026-06-11T19:53:23.000Z",
+      "parser": 3
     },
     {
       "doc": 129,
       "car": 38,
       "driver": "Jack AITKEN",
       "session": "Hyerpole 2 Hypercar",
-      "type": "other",
+      "type": "deleted_laps",
       "appliesTo": "Hyerpole 2 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/129_Doc%20129%20-%20Decision%20no.%20133%20-%20Car%2038.pdf",
-      "publishedAt": "2026-06-11T20:46:53.000Z"
+      "publishedAt": "2026-06-11T20:46:53.000Z",
+      "parser": 3
     },
     {
       "doc": 130,
@@ -939,7 +1052,8 @@
       "appliesTo": "Hyperpole 1 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/130_Doc%20130%20-%20Decision%20no.%20134%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-11T21:28:05.000Z"
+      "publishedAt": "2026-06-11T21:28:05.000Z",
+      "parser": 3
     },
     {
       "doc": 131,
@@ -950,7 +1064,8 @@
       "appliesTo": "Hyperpole 1 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/131_Doc%20131%20-%20Decision%20no.%20128%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-11T21:30:38.000Z"
+      "publishedAt": "2026-06-11T21:30:38.000Z",
+      "parser": 3
     },
     {
       "doc": 132,
@@ -961,7 +1076,8 @@
       "appliesTo": "Hyerpole 2 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/132_Doc%20132%20-%20Decision%20no.%20129%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-11T21:52:44.000Z"
+      "publishedAt": "2026-06-11T21:52:44.000Z",
+      "parser": 3
     },
     {
       "doc": 134,
@@ -972,7 +1088,8 @@
       "appliesTo": "Hyperpole 2 - LMP2 + LMGT3",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/134_Doc%20134%20-%20Decision%20no.%20130%20-%20Car%2078.pdf",
-      "publishedAt": "2026-06-11T22:11:33.000Z"
+      "publishedAt": "2026-06-11T22:11:33.000Z",
+      "parser": 3
     },
     {
       "doc": 135,
@@ -983,7 +1100,8 @@
       "appliesTo": "FP4",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/135_Doc%20135%20-%20Decision%20no.%20131%20-%20Car%2013.pdf",
-      "publishedAt": "2026-06-11T22:14:06.000Z"
+      "publishedAt": "2026-06-11T22:14:06.000Z",
+      "parser": 3
     },
     {
       "doc": 137,
@@ -994,7 +1112,8 @@
       "appliesTo": "FP4",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/137_Doc%20137%20-%20Decision%20no.%20135%20-%20Car%2048.pdf",
-      "publishedAt": "2026-06-11T22:56:22.000Z"
+      "publishedAt": "2026-06-11T22:56:22.000Z",
+      "parser": 3
     },
     {
       "doc": 142,
@@ -1005,29 +1124,34 @@
       "appliesTo": "Before Hyperpole 1 Hypercar",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/142_Doc%20142%20-%20Decision%20no.%20132%20-%20Car%20009.pdf",
-      "publishedAt": "2026-06-12T14:32:36.000Z"
+      "publishedAt": "2026-06-12T14:32:36.000Z",
+      "parser": 3
     },
     {
       "doc": 148,
       "car": 14,
       "driver": "14 / TDS RACING",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/148_Doc%20148%20-%20Decision%20no.%20136%20-%20Car%2014.pdf",
-      "publishedAt": "2026-06-13T14:47:04.000Z"
+      "publishedAt": "2026-06-13T14:47:04.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 149,
       "car": 29,
       "driver": "Esteban MASSON",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/149_Doc%20149%20-%20Decision%20no.%20137%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-13T15:13:21.000Z"
+      "publishedAt": "2026-06-13T15:13:21.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 151,
@@ -1038,7 +1162,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/151_Doc%20151%20-%20Decision%20no.%20138%20-%20Car%2079.pdf",
-      "publishedAt": "2026-06-13T16:07:45.000Z"
+      "publishedAt": "2026-06-13T16:07:45.000Z",
+      "parser": 3
     },
     {
       "doc": 153,
@@ -1049,18 +1174,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/153_Doc%20153%20-%20Decision%20no.%20139%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-13T16:23:00.000Z"
+      "publishedAt": "2026-06-13T16:23:00.000Z",
+      "parser": 3
     },
     {
       "doc": 154,
       "car": 50,
       "driver": "Antonio FUOCO",
       "session": "Race",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/154_Doc%20154%20-%20Decision%20no.%20140%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-13T16:41:21.000Z"
+      "publishedAt": "2026-06-13T16:41:21.000Z",
+      "parser": 3
     },
     {
       "doc": 155,
@@ -1071,29 +1198,32 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/155_Doc%20155%20-%20Decision%20no.%20141%20-%20Car%2019.pdf",
-      "publishedAt": "2026-06-13T17:08:27.000Z"
+      "publishedAt": "2026-06-13T17:08:27.000Z",
+      "parser": 3
     },
     {
       "doc": 156,
       "car": 14,
       "driver": "Mathias BECHE",
       "session": "Race",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/156_Doc%20156%20-%20Decision%20no.%20142%20-%20Car%2014.pdf",
-      "publishedAt": "2026-06-13T17:17:58.000Z"
+      "publishedAt": "2026-06-13T17:17:58.000Z",
+      "parser": 3
     },
     {
       "doc": 158,
       "car": 51,
       "driver": "Alessandro PIER GUIDI",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/158_Doc%20158%20-%20Decision%20no.%20143%20-%20Car%2051.pdf",
-      "publishedAt": "2026-06-13T17:49:06.000Z"
+      "publishedAt": "2026-06-13T17:49:06.000Z",
+      "parser": 3
     },
     {
       "doc": 159,
@@ -1101,22 +1231,25 @@
       "driver": "83 / AF CORSE",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/159_Doc%20159%20-%20Decision%20no.%20144%20-%20Car%2083.pdf",
-      "publishedAt": "2026-06-13T17:56:30.000Z"
+      "publishedAt": "2026-06-13T17:56:30.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 161,
       "car": 3,
       "driver": "3 / DKR ENGINEERING",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/161_Doc%20161%20-%20Decision%20no.%20145%20-%20Car%203.pdf",
-      "publishedAt": "2026-06-13T18:50:58.000Z"
+      "publishedAt": "2026-06-13T18:50:58.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 163,
@@ -1124,11 +1257,12 @@
       "driver": "Valerio RINICELLA",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/163_Doc%20163%20-%20Decision%20no.%20146%20-%20Car%2028.pdf",
-      "publishedAt": "2026-06-13T19:21:01.000Z"
+      "publishedAt": "2026-06-13T19:21:01.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 164,
@@ -1139,7 +1273,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/164_Doc%20164%20-%20Decision%20no.%20147%20-%20Car%2015.pdf",
-      "publishedAt": "2026-06-13T19:40:03.000Z"
+      "publishedAt": "2026-06-13T19:40:03.000Z",
+      "parser": 3
     },
     {
       "doc": 165,
@@ -1150,40 +1285,44 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/165_Doc%20165%20-%20Decision%20no.%20148%20-%20Car%2038.pdf",
-      "publishedAt": "2026-06-13T20:15:21.000Z"
+      "publishedAt": "2026-06-13T20:15:21.000Z",
+      "parser": 3
     },
     {
       "doc": 166,
       "car": 3,
       "driver": "John FARANO",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/166_Doc%20166%20-%20Decision%20no.%20149%20-%20Car%203.pdf",
-      "publishedAt": "2026-06-13T20:46:56.000Z"
+      "publishedAt": "2026-06-13T20:46:56.000Z",
+      "parser": 3
     },
     {
       "doc": 167,
       "car": 28,
       "driver": "Valerio RINICELLA",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/167_Doc%20167%20-%20Decision%20no.%20151%20-%20Car%2028.pdf",
-      "publishedAt": "2026-06-13T21:08:26.000Z"
+      "publishedAt": "2026-06-13T21:08:26.000Z",
+      "parser": 3
     },
     {
       "doc": 168,
       "car": 93,
       "driver": "Stoffel VANDOORNE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/168_Doc%20168%20-%20Decision%20no.%20152%20-%20Car%2093.pdf",
-      "publishedAt": "2026-06-13T21:09:24.000Z"
+      "publishedAt": "2026-06-13T21:09:24.000Z",
+      "parser": 3
     },
     {
       "doc": 169,
@@ -1194,7 +1333,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/169_Doc%20169%20-%20Decision%20no.%20153%20-%20Car%2059.pdf",
-      "publishedAt": "2026-06-13T21:25:55.000Z"
+      "publishedAt": "2026-06-13T21:25:55.000Z",
+      "parser": 3
     },
     {
       "doc": 171,
@@ -1202,11 +1342,12 @@
       "driver": "24 / NIELSEN RACING",
       "session": "Race",
       "type": "time",
-      "seconds": 20,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/171_Doc%20171%20-%20Decision%20no.%20150%20-%20Car%2024.pdf",
-      "publishedAt": "2026-06-13T21:33:30.000Z"
+      "publishedAt": "2026-06-13T21:33:30.000Z",
+      "parser": 3,
+      "seconds": 20
     },
     {
       "doc": 173,
@@ -1217,7 +1358,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/173_Doc%20173%20-%20Decision%20no.%20154%20-%20Car%2014.pdf",
-      "publishedAt": "2026-06-13T22:12:30.000Z"
+      "publishedAt": "2026-06-13T22:12:30.000Z",
+      "parser": 3
     },
     {
       "doc": 174,
@@ -1228,18 +1370,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/174_Doc%20174%20-%20Decision%20no.%20155%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-13T22:30:32.000Z"
+      "publishedAt": "2026-06-13T22:30:32.000Z",
+      "parser": 3
     },
     {
       "doc": 178,
       "car": 88,
       "driver": "Giammarco LEVORATO",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/178_Doc%20178%20-%20Decision%20no.%20156%20-%20Car%2088.pdf",
-      "publishedAt": "2026-06-13T23:12:21.000Z"
+      "publishedAt": "2026-06-13T23:12:21.000Z",
+      "parser": 3
     },
     {
       "doc": 180,
@@ -1247,11 +1391,12 @@
       "driver": "Benjamin GOETHE",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/180_Doc%20180%20-%20Decision%20no.%20157%20-%20Car%2058.pdf",
-      "publishedAt": "2026-06-13T23:35:14.000Z"
+      "publishedAt": "2026-06-13T23:35:14.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 181,
@@ -1262,7 +1407,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/181_Doc%20181%20-%20Decision%20no.%20158%20-%20Car%2079.pdf",
-      "publishedAt": "2026-06-13T23:39:44.000Z"
+      "publishedAt": "2026-06-13T23:39:44.000Z",
+      "parser": 3
     },
     {
       "doc": 182,
@@ -1273,7 +1419,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/182_Doc%20182%20-%20Decision%20no.%20159%20-%20Car%2043.pdf",
-      "publishedAt": "2026-06-13T23:56:38.000Z"
+      "publishedAt": "2026-06-13T23:56:38.000Z",
+      "parser": 3
     },
     {
       "doc": 183,
@@ -1284,18 +1431,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/183_Doc%20183%20-%20Decision%20no.%20160%20-%20Car%2078.pdf",
-      "publishedAt": "2026-06-13T23:58:57.000Z"
+      "publishedAt": "2026-06-13T23:58:57.000Z",
+      "parser": 3
     },
     {
       "doc": 184,
       "car": 58,
       "driver": "Benjamin GOETHE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/184_Doc%20184%20-%20Decision%20no.%20161%20-%20Car%2058.pdf",
-      "publishedAt": "2026-06-14T00:03:12.000Z"
+      "publishedAt": "2026-06-14T00:03:12.000Z",
+      "parser": 3
     },
     {
       "doc": 185,
@@ -1306,7 +1455,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/185_Doc%20185%20-%20Decision%20no.%20162%20-%20Car%2083.pdf",
-      "publishedAt": "2026-06-14T00:11:56.000Z"
+      "publishedAt": "2026-06-14T00:11:56.000Z",
+      "parser": 3
     },
     {
       "doc": 187,
@@ -1317,18 +1467,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/187_Doc%20187%20-%20Decision%20no.%20163%20-%20Car%2083.pdf",
-      "publishedAt": "2026-06-14T00:37:04.000Z"
+      "publishedAt": "2026-06-14T00:37:04.000Z",
+      "parser": 3
     },
     {
       "doc": 192,
       "car": 9,
       "driver": "Marco SØRENSEN",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/192_Doc%20192%20-%20Decision%20no.%20167%20-%20Car%20009.pdf",
-      "publishedAt": "2026-06-14T04:17:26.000Z"
+      "publishedAt": "2026-06-14T04:17:26.000Z",
+      "parser": 3
     },
     {
       "doc": 195,
@@ -1336,33 +1488,36 @@
       "driver": "Matthieu VAXIVIERE",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/195_Doc%20195%20-%20Decision%20no.%20172%20-%20Car%20183.pdf",
-      "publishedAt": "2026-06-14T05:10:07.000Z"
+      "publishedAt": "2026-06-14T05:10:07.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 196,
       "car": 87,
       "driver": "Clemens SCHMID",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/196_Doc%20196%20-%20Decision%20no.%20173%20-%20Car%2087.pdf",
-      "publishedAt": "2026-06-14T05:17:47.000Z"
+      "publishedAt": "2026-06-14T05:17:47.000Z",
+      "parser": 3
     },
     {
       "doc": 197,
       "car": 101,
       "driver": "Filipe ALBUQUERQUE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/197_Doc%20197%20-%20Decision%20no.%20174%20-%20Car%20101.pdf",
-      "publishedAt": "2026-06-14T05:19:21.000Z"
+      "publishedAt": "2026-06-14T05:19:21.000Z",
+      "parser": 3
     },
     {
       "doc": 199,
@@ -1373,7 +1528,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/199_Doc%20199%20-%20Decision%20no.%20175%20-%20Car%2029.pdf",
-      "publishedAt": "2026-06-14T05:44:35.000Z"
+      "publishedAt": "2026-06-14T05:44:35.000Z",
+      "parser": 3
     },
     {
       "doc": 200,
@@ -1381,11 +1537,12 @@
       "driver": "André LOTTERER",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/200_Doc%20200%20-%20Decision%20no.%20176%20-%20Car%2017.pdf",
-      "publishedAt": "2026-06-14T05:46:26.000Z"
+      "publishedAt": "2026-06-14T05:46:26.000Z",
+      "parser": 3,
+      "seconds": 5
     },
     {
       "doc": 202,
@@ -1396,18 +1553,21 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/202_Doc%20202%20-%20Decision%20no.%20179%20-%20Car%2074.pdf",
-      "publishedAt": "2026-06-14T06:07:35.000Z"
+      "publishedAt": "2026-06-14T06:07:35.000Z",
+      "parser": 3
     },
     {
       "doc": 203,
       "car": 77,
       "driver": "Eric POWELL",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/203_Doc%20203%20-%20Decision%20no.%20180%20-%20Car%2077.pdf",
-      "publishedAt": "2026-06-14T06:18:29.000Z"
+      "publishedAt": "2026-06-14T06:18:29.000Z",
+      "parser": 3,
+      "seconds": 45
     },
     {
       "doc": 204,
@@ -1418,29 +1578,32 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/204_Doc%20204%20-%20Decision%20no.%20181%20-%20Car%207.pdf",
-      "publishedAt": "2026-06-14T06:24:02.000Z"
+      "publishedAt": "2026-06-14T06:24:02.000Z",
+      "parser": 3
     },
     {
       "doc": 208,
       "car": 101,
       "driver": "Filipe ALBUQUERQUE",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/208_Doc%20208%20-%20Decision%20no.%20186%20-%20Car%20101.pdf",
-      "publishedAt": "2026-06-14T07:02:24.000Z"
+      "publishedAt": "2026-06-14T07:02:24.000Z",
+      "parser": 3
     },
     {
       "doc": 210,
       "car": 58,
       "driver": "Finn GEHRSITZ",
       "session": "Race",
-      "type": "other",
+      "type": "drive_through",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/210_Doc%20210%20-%20Decision%20no.%20187%20-%20Car%2058.pdf",
-      "publishedAt": "2026-06-14T07:29:59.000Z"
+      "publishedAt": "2026-06-14T07:29:59.000Z",
+      "parser": 3
     },
     {
       "doc": 213,
@@ -1451,7 +1614,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/213_Doc%20213%20-%20Decision%20no.%20190%20-%20Car%2010.pdf",
-      "publishedAt": "2026-06-14T08:53:08.000Z"
+      "publishedAt": "2026-06-14T08:53:08.000Z",
+      "parser": 3
     },
     {
       "doc": 214,
@@ -1462,7 +1626,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/214_Doc%20214%20-%20Decision%20no.%20191%20-%20Car%20007.pdf",
-      "publishedAt": "2026-06-14T08:56:53.000Z"
+      "publishedAt": "2026-06-14T08:56:53.000Z",
+      "parser": 3
     },
     {
       "doc": 215,
@@ -1473,7 +1638,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/215_Doc%20215%20-%20Decision%20no.%20192%20-%20Car%20343.pdf",
-      "publishedAt": "2026-06-14T09:09:17.000Z"
+      "publishedAt": "2026-06-14T09:09:17.000Z",
+      "parser": 3
     },
     {
       "doc": 217,
@@ -1484,7 +1650,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/217_Doc%20217%20-%20Decision%20no.%20193%20-%20Car%2050.pdf",
-      "publishedAt": "2026-06-14T09:29:00.000Z"
+      "publishedAt": "2026-06-14T09:29:00.000Z",
+      "parser": 3
     },
     {
       "doc": 218,
@@ -1495,29 +1662,34 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/218_Doc%20218%20-%20Decision%20no.%20194%20-%20Car%20343.pdf",
-      "publishedAt": "2026-06-14T09:49:51.000Z"
+      "publishedAt": "2026-06-14T09:49:51.000Z",
+      "parser": 3
     },
     {
       "doc": 219,
       "car": 62,
       "driver": "62 / TEAM QATAR BY IRON LYNX",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/219_Doc%20219%20-%20Decision%20no.%20195%20-%20Car%2062.pdf",
-      "publishedAt": "2026-06-14T10:02:05.000Z"
+      "publishedAt": "2026-06-14T10:02:05.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 220,
       "car": 62,
       "driver": "62 / TEAM QATAR BY IRON LYNX",
       "session": "Race",
-      "type": "other",
+      "type": "time",
       "appliesTo": "race",
       "corrected": true,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/220_Doc%20220%20-%20Decision%20no.%20195%20AMENDED%20-%20Car%2062.pdf",
-      "publishedAt": "2026-06-14T10:27:28.000Z"
+      "publishedAt": "2026-06-14T10:27:28.000Z",
+      "parser": 3,
+      "seconds": 10
     },
     {
       "doc": 222,
@@ -1528,18 +1700,20 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/222_Doc%20222%20-%20Decision%20no.%20196%20-%20Car%2035.pdf",
-      "publishedAt": "2026-06-14T10:48:55.000Z"
+      "publishedAt": "2026-06-14T10:48:55.000Z",
+      "parser": 3
     },
     {
       "doc": 225,
       "car": 7,
       "driver": "Nyck DE VRIES",
       "session": "Race",
-      "type": "other",
+      "type": "warning",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/225_Doc%20225%20-%20Decision%20no.%20197%20-%20Car%207.pdf",
-      "publishedAt": "2026-06-14T13:09:37.000Z"
+      "publishedAt": "2026-06-14T13:09:37.000Z",
+      "parser": 3
     },
     {
       "doc": 227,
@@ -1550,7 +1724,8 @@
       "appliesTo": "race",
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/03_24%20Hours%20of%20Le%20Mans/227_Doc%20227%20-%20Decision%20no.%20198%20-%20Car%2036.pdf",
-      "publishedAt": "2026-06-14T13:49:08.000Z"
+      "publishedAt": "2026-06-14T13:49:08.000Z",
+      "parser": 3
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:34:11.150Z",
+  "generatedAt": "2026-08-30T18:56:19.601Z",
   "season": 2025,
   "round": 1,
   "event": "australian_grand_prix",
@@ -8,33 +8,33 @@
   "penalties": [
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_87_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-03-16 01:55 CET"
+      "publishedAt": "2025-03-16 01:55 CET",
+      "pitlane": true
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 30,
       "driver": "Liam Lawson",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_30_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-03-16 04:43 CET"
+      "publishedAt": "2025-03-16 04:43 CET",
+      "pitlane": true
     },
     {
       "doc": 36,
-      "parser": 2,
+      "parser": 3,
       "car": 14,
       "driver": "Fernando Alonso",
       "session": "Race",
@@ -46,7 +46,7 @@
     },
     {
       "doc": 37,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Race",
@@ -58,7 +58,7 @@
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
@@ -70,7 +70,7 @@
     },
     {
       "doc": 39,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Race",
@@ -82,29 +82,29 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_5_-_unsafe_release.pdf",
-      "publishedAt": "2025-03-16 06:54 CET"
+      "publishedAt": "2025-03-16 06:54 CET",
+      "seconds": 5
     },
     {
       "doc": 43,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Andrea Kimi Antonelli",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_australian_grand_prix_-_infringement_-_car_12_-_unsafe_release.pdf",
-      "publishedAt": "2025-03-16 08:23 CET"
+      "publishedAt": "2025-03-16 08:23 CET",
+      "seconds": 5
     }
   ],
   "startingGrid": {

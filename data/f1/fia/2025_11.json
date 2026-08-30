@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T15:35:30.641Z",
+  "generatedAt": "2026-08-30T18:56:19.604Z",
   "season": 2025,
   "round": 11,
   "event": "austrian_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 15,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Practice 2",
@@ -20,7 +20,7 @@
     },
     {
       "doc": 18,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Practice 2",
@@ -32,7 +32,7 @@
     },
     {
       "doc": 28,
-      "parser": 2,
+      "parser": 3,
       "car": 63,
       "driver": "George Russell",
       "session": "Qualifying",
@@ -44,7 +44,7 @@
     },
     {
       "doc": 38,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
@@ -56,46 +56,46 @@
     },
     {
       "doc": 40,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",
       "type": "time",
-      "seconds": 10,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_22_-_causing_a_collision_with_car_43_in_turn_4.pdf",
-      "publishedAt": "2025-06-29 16:30 CET"
+      "publishedAt": "2025-06-29 16:30 CET",
+      "seconds": 10
     },
     {
       "doc": 42,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_43_-_forcing_car_81_off_track.pdf",
-      "publishedAt": "2025-06-29 17:07 CET"
+      "publishedAt": "2025-06-29 17:07 CET",
+      "seconds": 5
     },
     {
       "doc": 45,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 3,
       "appliesTo": "next_race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_austrian_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_1.pdf",
-      "publishedAt": "2025-06-29 17:44 CET"
+      "publishedAt": "2025-06-29 17:44 CET",
+      "gridDrop": 3
     },
     {
       "doc": 46,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Race",

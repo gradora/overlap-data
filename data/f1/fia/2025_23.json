@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:03:05.334Z",
+  "generatedAt": "2026-08-30T18:56:19.608Z",
   "season": 2025,
   "round": 23,
   "event": "qatar_grand_prix",
@@ -8,7 +8,7 @@
   "penalties": [
     {
       "doc": 18,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Sprint Qualifying",
@@ -20,85 +20,85 @@
     },
     {
       "doc": 29,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_18_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-29 14:03 CET"
+      "publishedAt": "2025-11-29 14:03 CET",
+      "pitlane": true
     },
     {
       "doc": 30,
-      "parser": 2,
+      "parser": 3,
       "car": 44,
       "driver": "Lewis Hamilton",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_44_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-29 14:04 CET"
+      "publishedAt": "2025-11-29 14:04 CET",
+      "pitlane": true
     },
     {
       "doc": 31,
-      "parser": 2,
+      "parser": 3,
       "car": 10,
       "driver": "Pierre Gasly",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_10_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-29 14:04 CET"
+      "publishedAt": "2025-11-29 14:04 CET",
+      "pitlane": true
     },
     {
       "doc": 32,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Sprint Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_43_-_changes_made_during_parc_ferme.pdf",
-      "publishedAt": "2025-11-29 14:05 CET"
+      "publishedAt": "2025-11-29 14:05 CET",
+      "pitlane": true
     },
     {
       "doc": 34,
-      "parser": 2,
+      "parser": 3,
       "car": 22,
       "driver": "Yuki Tsunoda",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_22_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
-      "publishedAt": "2025-11-29 15:38 CET"
+      "publishedAt": "2025-11-29 15:38 CET",
+      "seconds": 5
     },
     {
       "doc": 35,
-      "parser": 2,
+      "parser": 3,
       "car": 12,
       "driver": "Kimi Antonelli",
       "session": "Sprint",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "sprint",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_12_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
-      "publishedAt": "2025-11-29 15:39 CET"
+      "publishedAt": "2025-11-29 15:39 CET",
+      "seconds": 5
     },
     {
       "doc": 47,
-      "parser": 2,
+      "parser": 3,
       "car": 55,
       "driver": "Carlos Sainz",
       "session": "Qualifying",
@@ -110,7 +110,7 @@
     },
     {
       "doc": 48,
-      "parser": 2,
+      "parser": 3,
       "car": 23,
       "driver": "Alexander Albon",
       "session": "Qualifying",
@@ -122,46 +122,46 @@
     },
     {
       "doc": 55,
-      "parser": 2,
+      "parser": 3,
       "car": 43,
       "driver": "Franco Colapinto",
       "session": "Qualifying",
       "type": "grid",
-      "pitlane": true,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_43_-_changes_made_during_parc_ferme_0.pdf",
-      "publishedAt": "2025-11-30 14:33 CET"
+      "publishedAt": "2025-11-30 14:33 CET",
+      "pitlane": true
     },
     {
       "doc": 59,
-      "parser": 2,
+      "parser": 3,
       "car": 31,
       "driver": "Esteban Ocon",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_31_-_false_start_-_moving_before_signal.pdf",
-      "publishedAt": "2025-11-30 17:49 CET"
+      "publishedAt": "2025-11-30 17:49 CET",
+      "seconds": 5
     },
     {
       "doc": 60,
-      "parser": 2,
+      "parser": 3,
       "car": 18,
       "driver": "Lance Stroll",
       "session": "Race",
       "type": "time",
-      "seconds": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_18_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-11-30 19:02 CET"
+      "publishedAt": "2025-11-30 19:02 CET",
+      "seconds": 5
     },
     {
       "doc": 61,
-      "parser": 2,
+      "parser": 3,
       "car": 27,
       "driver": "Nico Hulkenberg",
       "session": "Race",
@@ -173,19 +173,20 @@
     },
     {
       "doc": 65,
-      "parser": 2,
+      "parser": 3,
       "car": 87,
       "driver": "Oliver Bearman",
       "session": "Race",
-      "type": "other",
+      "type": "stop_go",
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_qatar_grand_prix_-_infringement_-_car_87_-_released_in_an_unsafe_condition.pdf",
-      "publishedAt": "2025-11-30 19:24 CET"
+      "publishedAt": "2025-11-30 19:24 CET",
+      "seconds": 10
     },
     {
       "doc": 67,
-      "parser": 2,
+      "parser": 3,
       "car": 6,
       "driver": "Isack Hadjar",
       "session": "Race",
@@ -197,17 +198,17 @@
     },
     {
       "doc": 51,
-      "parser": 2,
+      "parser": 3,
       "car": 5,
       "driver": "Gabriel Bortoleto",
       "session": "Race",
       "type": "grid",
-      "gridDrop": 5,
       "appliesTo": "race",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_5_-_causing_a_collision_with_car_18_in_turn_1.pdf",
       "publishedAt": "2025-11-23 06:41 CET",
-      "carriedFrom": 22
+      "carriedFrom": 22,
+      "gridDrop": 5
     }
   ],
   "startingGrid": {
