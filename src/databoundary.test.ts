@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import {
-  DATA_FAMILIES, DATA_FILES, classify, matchesFamily, splitBlockers,
+  DATA_FAMILIES, DATA_FILES, classify, matchesFamily, readyToMove, splitBlockers,
 } from "./lib/databoundary.js";
 
 const DATA_DIR = join(process.cwd(), "data");
@@ -80,11 +80,16 @@ test("зоны не пересекаются и заданы у всех зап�
   assert.equal(paths.length, new Set(paths).size, "путь описан дважды");
 });
 
-/// Кухня без читателей — то, что можно унести хоть сегодня. Проверяем, что
-/// такие записи есть: если их не осталось, значит вся кухня блокирующая, и
-/// план сплита надо пересматривать целиком.
-test("часть кухни готова к переезду немедленно", () => {
-  const ready = DATA_FAMILIES.filter((f) => f.zone === "кухня" && !f.clientReads);
-  assert.ok(ready.length > 0, "готовой к переезду кухни не осталось");
-  assert.deepEqual(ready.map((f) => f.path).sort(), ["f1/fom", "wec/fiawec"]);
+/// Кухня, которую не читает НИКТО — ни приложение, ни сборка. Снимок статики
+/// FOM таким был и переехал 31.08.2026; на сегодня таких путей не осталось.
+/// Тест не требует, чтобы список был непустым: он фиксирует ФАКТ, и любое
+/// его изменение должно быть осознанным.
+test("готовность кухни к переезду названа поимённо", () => {
+  assert.deepEqual(readyToMove().map((f) => f.path).sort(), [],
+    "появилась (или исчезла) кухня без читателей — это прямо двигает план сплита");
+  // А то, что держится сборкой, обязано объяснять чем.
+  for (const f of DATA_FAMILIES.filter((x) => x.zone === "кухня" && x.producerReads)) {
+    assert.ok(f.note && f.note.length > 20,
+              `${f.path}: держится сборкой — запись обязана называть продьюсеров`);
+  }
 });

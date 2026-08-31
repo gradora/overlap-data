@@ -11,9 +11,11 @@
 // и на них стоит сторож: новый каталог в `data/` обязан получить зону
 // осознанно, а не «сам собой».
 //
-// ЗАМЕРЕНО 30.08.2026: кухня 93 МБ из 105, из них клиент читает 31 МБ
-// (`f1/openf1` и `f1/jolpica`). Остальные 62 МБ — снимок FOM и HTML fiawec —
-// не читаются приложением вовсе и могут переехать хоть сегодня.
+// СОСТОЯНИЕ 31.08.2026. Снимок статики FOM (39 МБ) ПЕРЕЕХАЛ в приватный
+// репозиторий overlap-data-private — читателей у него не было вовсе.
+// Осталось здесь: `f1/openf1` и `f1/jolpica` (31 МБ, читает приложение) и
+// `wec/fiawec` (24 МБ, читают ШЕСТЬ продьюсеров WEC — унести его можно только
+// вместе с переносом сборки, иначе WEC перестанет собираться).
 
 export type Zone =
   /// Сырые ответы источников. Наружу не публикуется после сплита.
@@ -28,33 +30,34 @@ export interface DataFamily {
   path: string;
   zone: Zone;
   /// Читает ли ПРИЛОЖЕНИЕ этот путь напрямую (не через продьюсера).
-  /// У кухни это и есть признак блокера сплита.
   clientReads: boolean;
+  /// Читают ли ПРОДЬЮСЕРЫ бэкенда. Признак заведён отдельно, потому что
+  /// «клиент не читает» ещё не значит «можно унести»: у `wec/fiawec` нет ни
+  /// одного читателя в приложении, но есть ШЕСТЬ в сборке, и переезд без
+  /// переноса сборки её остановит.
+  producerReads?: boolean;
   note?: string;
 }
 
 export const DATA_FAMILIES: DataFamily[] = [
   // --- Кухня ---
   {
-    path: "f1/jolpica", zone: "кухня", clientReads: true,
+    path: "f1/jolpica", zone: "кухня", clientReads: true, producerReads: true,
     note: "Все вызовы jolpica у клиента идут mirror-first (F1RacingDataService, " +
       "SeasonBrowser). Блокер сплита: снимаем только вместе с переездом " +
       "расписаний/зачётов/протоколов в витрину.",
   },
   {
-    path: "f1/openf1", zone: "кухня", clientReads: true,
+    path: "f1/openf1", zone: "кухня", clientReads: true, producerReads: true,
     note: "OpenF1Service ходит mirror-first по сессиям, протоколам и " +
       "рейс-контролу. Блокер сплита; фаза 6 постепенно его снимает.",
   },
   {
-    path: "wec/fiawec", zone: "кухня", clientReads: false,
-    note: "HTML fiawec. Клиентских читателей НЕ осталось — каскад удалён шагом " +
-      "3c. Может переехать в приватный репозиторий немедленно.",
-  },
-  {
-    path: "f1/fom", zone: "кухня", clientReads: false,
-    note: "Страховочный срез статики FOM 2018–2021, продьюсер ручной. " +
-      "Потребителей нет ни на клиенте, ни на бэкенде — чистый архивный вход.",
+    path: "wec/fiawec", zone: "кухня", clientReads: false, producerReads: true,
+    note: "HTML fiawec. Клиентских читателей нет (каскад удалён шагом 3c), но " +
+      "ЧИТАЮТ ШЕСТЬ ПРОДЬЮСЕРОВ: wec, weclive, wecfia, wechighlights и две " +
+      "библиотеки. Копия уже лежит в приватном репо; удалить отсюда можно " +
+      "только вместе с переносом сборки WEC.",
   },
 
   // --- Витрина ---
@@ -120,4 +123,11 @@ export function classify(path: string): DataFamily | null {
 /// унести сырьё в приватный репозиторий.
 export function splitBlockers(): DataFamily[] {
   return DATA_FAMILIES.filter((f) => f.zone === "кухня" && f.clientReads);
+}
+
+/// Кухня, готовая к переезду ПРЯМО СЕЙЧАС: её не читает ни приложение, ни
+/// сборка. Пусто — значит всё оставшееся сырьё чем-то держится, и переезд
+/// требует не копирования, а изменения топологии.
+export function readyToMove(): DataFamily[] {
+  return DATA_FAMILIES.filter((f) => f.zone === "кухня" && !f.clientReads && !f.producerReads);
 }

@@ -18,7 +18,15 @@
 import { join } from "node:path";
 import { runFomSnapshot, snapshotSize, FOM_YEARS } from "../lib/fomstatic.js";
 
-const DATA_DIR = join(process.cwd(), "data");
+// Снимок уехал в ПРИВАТНЫЙ репозиторий (кухня): публиковать сырьё FOM в
+// открытом репо значит редистрибутировать его. Продьюсер ручной, гоняется с
+// машины владельца, поэтому каталог задаётся переменной; по умолчанию —
+// соседний клон `overlap-data-private`.
+//
+// Гард намеренно громкий: запись в публичный `data/` вернула бы 39 МБ чужой
+// статики туда, откуда её только что вычистили.
+const DATA_DIR = process.env.FOM_DATA_DIR
+  ?? join(process.cwd(), "..", "overlap-data-private", "data");
 
 async function main() {
   const years = process.env.SEASON
@@ -27,6 +35,11 @@ async function main() {
   const budget = Number(process.env.FOM_BUDGET ?? 400);
 
   console.log(`FOM static snapshot: годы ${years.join(", ")}, бюджет ${budget} файлов`);
+  if (DATA_DIR.startsWith(join(process.cwd(), "data"))) {
+    console.error("fomstatic: каталог указывает в ПУБЛИЧНЫЙ data/ — снимок FOM " +
+      "живёт в приватном репозитории. Задай FOM_DATA_DIR.");
+    process.exit(1);
+  }
   const before = snapshotSize(DATA_DIR);
   const result = await runFomSnapshot({ dataDir: DATA_DIR, years, budget });
   const after = snapshotSize(DATA_DIR);
