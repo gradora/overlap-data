@@ -22,8 +22,8 @@
 // СОЗНАТЕЛЬНО: снимок должен пережить любые будущие правки наших парсеров, а
 // разбирать строки будет тот продьюсер, которому это понадобится.
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { existsSync, mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve, sep } from "node:path";
 import { fetchText } from "./http.js";
 
 export const FOM_BASE = "https://livetiming.formula1.com/static/";
@@ -231,4 +231,66 @@ export function snapshotSize(dataDir: string): number {
 export function readSlice(dataDir: string, session: FomSession, slice: Slice): string | null {
   const p = join(dataDir, slicePath(session, slice));
   return existsSync(p) ? readFileSync(p, "utf8") : null;
+}
+
+// MARK: - Куда пишется снимок
+//
+// С 31.08.2026 снимок живёт в ПРИВАТНОМ репозитории: сырьё чужого источника в
+// открытом репо — редистрибуция. Резолв вынесен сюда чистой функцией не ради
+// красоты: гард, живший строчкой в продьюсере, обходился четырьмя
+// правдоподобными значениями переменной (`data`, `./data`, пустая строка,
+// симлинк) и не был покрыт ни одним тестом — мутация «убрать его целиком»
+// оставляла 531 тест зелёным. Защита правового решения, которую нельзя
+// сломать в тесте, — не защита.
+
+/// Реальный путь для несуществующего каталога: поднимаемся до ближайшего
+/// существующего предка (его realpath разворачивает симлинки вроде
+/// /tmp → /private/tmp) и приклеиваем обратно отброшенный хвост. Без этого
+/// сравнение «внутри репозитория?» врёт на macOS в обе стороны.
+function realish(p: string): string {
+  let head = resolve(p);
+  const tail: string[] = [];
+  for (;;) {
+    if (existsSync(head)) return join(realpathSync(head), ...tail.reverse());
+    const up = dirname(head);
+    if (up === head) return resolve(p);
+    tail.push(head.slice(up.length + 1));
+    head = up;
+  }
+}
+
+export type FomDataDir = { dir: string } | { error: string };
+
+/// Куда fomstatic пишет снимок. Отказ — это результат, а не исключение:
+/// вызывающий печатает `error` и выходит единицей.
+///
+/// Два отказа, и оба выстраданы:
+/// 1. каталог ВНУТРИ публичного репозитория — вернул бы 39 МБ туда, откуда их
+///    вычистили перезаписью истории. Проверяется весь репозиторий, а не
+///    `data/`: пустая переменная давала корень, куда не смотрит ни сторож
+///    охвата, ни `git add data` крона;
+/// 2. каталог не похож на клон приватного репозитория (рядом нет `.git`) —
+///    иначе продьюсер молча создаёт обычную папку и качает 39 МБ «в никуда»,
+///    отчитываясь нулевым кодом. Снял и потерял хуже, чем не снял.
+export function resolveFomDataDir(
+  env: Record<string, string | undefined>, cwd: string,
+): FomDataDir {
+  const raw = env.FOM_DATA_DIR?.trim();
+  const dir = realish(raw ? resolve(cwd, raw) : join(cwd, "..", "overlap-data-private", "data"));
+  const repo = realish(cwd);
+
+  if (dir === repo || dir.startsWith(repo + sep)) {
+    return { error: "fomstatic: каталог указывает ВНУТРЬ публичного репозитория " +
+      `(${dir}). Снимок статики FOM живёт в приватном overlap-data-private — ` +
+      "публиковать его здесь значит редистрибутировать чужое сырьё. " +
+      "Задай FOM_DATA_DIR путём в приватный клон." };
+  }
+  if (!existsSync(join(dir, "..", ".git"))) {
+    return { error: `fomstatic: каталог снимка не найден (${dir}). Это не клон ` +
+      "приватного репозитория, и молча создавать его нельзя: прогон скачал бы " +
+      "39 МБ туда, откуда их никто не закоммитит. Сделай\n" +
+      "  git clone git@github.com:gradora/overlap-data-private.git ~/Code/overlap-data-private\n" +
+      "или задай FOM_DATA_DIR." };
+  }
+  return { dir };
 }

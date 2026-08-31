@@ -124,8 +124,9 @@ enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот
 
 | Workflow | Расписание | Что | Гейт |
 |---|---|---|---|
-| `snapshot.yml` | каждый час (`17 * * * *`) | 20 продьюсеров + health | outcome всех шагов + свежесть по реестру |
+| `snapshot.yml` | каждый час (`17 * * * *`) | 25 продьюсеров + health | outcome всех шагов + свежесть по реестру |
 | `fia.yml` | `*/15` Пт–Вс | только штрафы FIA (своя concurrency-group — не дропается за snapshot) | exit-code |
+| `f1live.yml` | `*/15` Пт–Вс | идущий уик-энд F1: зеркало OpenF1, хайлайты, заявка сезона, файл события. Та же concurrency-group, что у snapshot | exit-code |
 | `weclive.yml` | `*/15` ежедневно | только ИДУЩИЙ этап WEC: его страницы + пересборка его файла. Нет этапа — прогон не касается сети. Своя concurrency-group | свежесть через маркер `wec/_live_health.json` |
 | `tracks.yml` | Пн 04:00 | справочник трасс из англ-вики | exit-code + свежесть через маркер |
 | `ci.yml` | push/PR | typecheck + tests | — |

@@ -10,7 +10,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { PRODUCERS } from "./lib/producers.js";
 
@@ -202,5 +202,19 @@ test("каждый npm run в воркфлоу зовёт существующи
       assert.ok(scripts.has(m[1]),
                 `${wf.name}: шаг зовёт «npm run ${m[1]}», но такого скрипта в package.json нет`);
     }
+  }
+});
+
+/// Число продьюсеров в README дрейфует молча: было «20» при 25 шагах, и
+/// f1live.yml в таблице не появился вовсе. Таблица — то, по чему разбирают
+/// «кто и когда бежит», и врущая таблица уводит ровно там, где нужна точность.
+test("README называет верное число продьюсеров и все воркфлоу", () => {
+  const readme = readFileSync("README.md", "utf8");
+  const inSnapshot = PRODUCERS.filter((p) => p.workflow?.includes("snapshot.yml")).length;
+  assert.match(readme, new RegExp(`\\| ${inSnapshot} продьюсеров \\+ health \\|`),
+    `в snapshot.yml ${inSnapshot} продьюсеров — README называет другое число`);
+
+  for (const f of readdirSync(WORKFLOWS_DIR)) {
+    assert.ok(readme.includes(`\`${f}\``), `${f} не описан в таблице воркфлоу README`);
   }
 });

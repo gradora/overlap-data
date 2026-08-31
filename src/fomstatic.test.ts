@@ -5,12 +5,20 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import {
-  parseIndex, slicePath, indexPath, missingSlices, runFomSnapshot, snapshotSize,
-  isSafeSessionPath, SLICES, FOM_BASE,
+  FOM_BASE,
+  SLICES,
+  indexPath,
+  isSafeSessionPath,
+  missingSlices,
+  parseIndex,
+  resolveFomDataDir,
+  runFomSnapshot,
+  slicePath,
+  snapshotSize,
 } from "./lib/fomstatic.js";
 
 const INDEX = {
@@ -211,4 +219,99 @@ test("пустой ответ среза не создаёт файл — ина
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+// MARK: - Куда пишется снимок (resolveFomDataDir)
+//
+// Гард появился 31.08.2026 вместе с переездом снимка в приватный репозиторий и
+// сразу был найден дырявым: строчное сравнение `startsWith(join(cwd,"data"))`
+// пропускало `data`, `./data`, пустую переменную и симлинк — то есть ровно те
+// значения, которые владелец наберёт первыми. Таблица ниже — список этих дыр.
+//
+// Песочница своя у каждого теста и «репозиторий» лежит ВНУТРИ неё: соседние
+// каталоги здесь часть проверки, а общий tmpdir на роль соседа не годится —
+// туда пишут другие тесты, и проверка «соседа нет» ложно зеленела.
+function sandbox(): { base: string; repo: string } {
+  const base = realpathSync(mkdtempSync(join(tmpdir(), "fomdir-")));
+  const repo = join(base, "overlap-data");
+  mkdirSync(repo, { recursive: true });
+  return { base, repo };
+}
+
+/// Клон приватного репозитория: каталог `data` рядом с `.git`.
+function fakeClone(base: string, name: string): string {
+  const dir = join(base, name, "data");
+  mkdirSync(dir, { recursive: true });
+  mkdirSync(join(base, name, ".git"), { recursive: true });
+  return dir;
+}
+
+test("каталог снимка: любой путь внутрь публичного репозитория отвергается", () => {
+  const { base, repo } = sandbox();
+  mkdirSync(join(repo, "data"), { recursive: true });
+  mkdirSync(join(repo, "sub"), { recursive: true });
+  symlinkSync(join(repo, "data"), join(repo, "linkdata"));
+
+  // Каждое из этих значений раньше проходило гард и писало в публичный репо.
+  for (const v of ["data", "./data", "data/f1", "sub/../data", "linkdata", ".",
+                   join(repo, "data"), repo]) {
+    const r = resolveFomDataDir({ FOM_DATA_DIR: v }, repo);
+    assert.ok("error" in r, `значение ${JSON.stringify(v)} пропущено внутрь репозитория`);
+    assert.match((r as { error: string }).error, /ВНУТРЬ публичного/);
+  }
+  rmSync(base, { recursive: true, force: true });
+});
+
+/// Пустая переменная — это «не задана», а не «пиши в текущий каталог».
+/// Раньше `??` ловил только undefined, и `FOM_DATA_DIR=$НЕЗАДАННАЯ` клал
+/// снимок в КОРЕНЬ репозитория — мимо сторожа охвата data/ и мимо `git add data`.
+test("каталог снимка: пустая переменная равносильна незаданной", () => {
+  const { base, repo } = sandbox();
+  const clone = fakeClone(base, "overlap-data-private");
+  for (const v of ["", "   ", undefined]) {
+    const r = resolveFomDataDir({ FOM_DATA_DIR: v }, repo);
+    assert.equal((r as { dir: string }).dir, clone,
+                 `значение ${JSON.stringify(v)} не свелось к дефолту`);
+  }
+  rmSync(base, { recursive: true, force: true });
+});
+
+/// Обратная сторона: сравнение по строке без границы сегмента отвергало и
+/// СОСЕДНИЕ каталоги — `…/overlap-data/data-private` не внутри `data/`.
+test("каталог снимка: соседний путь с общим префиксом не считается внутренним", () => {
+  const { base, repo } = sandbox();
+  for (const name of ["data-private", "database"]) {
+    const dir = fakeClone(base, name);
+    const r = resolveFomDataDir({ FOM_DATA_DIR: dir }, repo);
+    assert.ok(!("error" in r), `${name} ошибочно принят за публичный data/`);
+  }
+  rmSync(base, { recursive: true, force: true });
+});
+
+/// Молчаливое создание каталога — как раз то, что превращает «снял» в
+/// «снял и потерял»: файлы легли бы туда, где нет git и некому коммитить.
+test("каталог снимка: не клон приватного репозитория — отказ с инструкцией", () => {
+  const { base, repo } = sandbox();
+  const r = resolveFomDataDir({ FOM_DATA_DIR: join(base, "нет-такого", "data") }, repo);
+  assert.ok("error" in r, "несуществующий каталог принят молча");
+  assert.match((r as { error: string }).error, /git clone .*overlap-data-private/);
+
+  // Каталог есть, но это не клон — тоже отказ: коммитить снятое будет некому.
+  const bare = join(base, "просто-папка", "data");
+  mkdirSync(bare, { recursive: true });
+  assert.ok("error" in resolveFomDataDir({ FOM_DATA_DIR: bare }, repo),
+            "обычная папка принята за клон");
+
+  // А настоящий клон принимается, и путь возвращается развёрнутым.
+  const ok = fakeClone(base, "приватный");
+  assert.equal((resolveFomDataDir({ FOM_DATA_DIR: ok }, repo) as { dir: string }).dir, ok);
+  rmSync(base, { recursive: true, force: true });
+});
+
+/// Дефолт обязан ОТКАЗЫВАТЬ, пока соседнего клона нет: молчаливый скач с нуля
+/// в несуществующий каталог хуже отказа — 1557 срезов уходят в никуда.
+test("каталог снимка: без переменной и без клона — отказ, а не тихий скач", () => {
+  const { base, repo } = sandbox();
+  assert.ok("error" in resolveFomDataDir({}, repo), "несуществующий сосед принят молча");
+  rmSync(base, { recursive: true, force: true });
 });

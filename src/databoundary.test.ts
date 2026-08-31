@@ -8,6 +8,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, statSync } from "node:fs";
+
+/// Точечные имена в обходе не участвуют: Finder кладёт .DS_Store в любой
+/// открытый каталог, и сторож охвата краснел бы «новое семейство без зоны» —
+/// шум ровно на том тесте, который единственный ловит возврат кухни.
+const visible = (dir: string) => readdirSync(dir).filter((n) => !n.startsWith("."));
 import { join } from "node:path";
 import {
   DATA_FAMILIES, DATA_FILES, classify, matchesFamily, readyToMove, splitBlockers,
@@ -20,10 +25,10 @@ const DATA_DIR = join(process.cwd(), "data");
 /// каждого файла.
 function actualPaths(): string[] {
   const out: string[] = [];
-  for (const top of readdirSync(DATA_DIR)) {
+  for (const top of visible(DATA_DIR)) {
     const topPath = join(DATA_DIR, top);
     if (!statSync(topPath).isDirectory()) { out.push(top); continue; }
-    const inner = readdirSync(topPath);
+    const inner = visible(topPath);
     const dirs = inner.filter((n) => statSync(join(topPath, n)).isDirectory());
     if (!dirs.length) { out.push(top); continue; }
     for (const n of inner) out.push(`${top}/${n}`);

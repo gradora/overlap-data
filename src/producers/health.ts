@@ -136,9 +136,14 @@ export function assembleHealth(input: {
   // snapshot.yml реально есть. Продьюсер из чужого воркфлоу (tracks) сюда не
   // попадает: его outcome был бы вечным "unknown", и приложение красило бы его
   // в сломанные (SnapshotHealthView.failedProducers фильтрует != "success").
+  //
+  // По той же причине сюда не попадает и РУЧНОЙ продьюсер (fomstatic): в CI он
+  // не бежит никогда — источник отдаёт раннерам 403, а с 31.08.2026 он и пишет
+  // в другой репозиторий. Его "unknown" был бы вечным красным, а красный,
+  // который ничего не значит, обесценивает те, которые значат.
   const producers: Record<string, Outcome> = {};
   for (const spec of PRODUCERS) {
-    if (spec.marker) continue;
+    if (spec.marker || spec.manual) continue;
     // Суточный шаг под `if:`: на ежечасных прогонах штатно skipped — это не
     // сбой, приводим к success (см. normalizeOutcome).
     producers[spec.key] = normalizeOutcome(spec, outcomeOf(envKeyFor(spec.key)));

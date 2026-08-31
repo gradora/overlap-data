@@ -16,17 +16,11 @@
 // (2017 и 2022 уже так), а не наша поломка.
 
 import { join } from "node:path";
-import { runFomSnapshot, snapshotSize, FOM_YEARS } from "../lib/fomstatic.js";
+import { runFomSnapshot, snapshotSize, resolveFomDataDir, FOM_YEARS }
+  from "../lib/fomstatic.js";
 
-// Снимок уехал в ПРИВАТНЫЙ репозиторий (кухня): публиковать сырьё FOM в
-// открытом репо значит редистрибутировать его. Продьюсер ручной, гоняется с
-// машины владельца, поэтому каталог задаётся переменной; по умолчанию —
-// соседний клон `overlap-data-private`.
-//
-// Гард намеренно громкий: запись в публичный `data/` вернула бы 39 МБ чужой
-// статики туда, откуда её только что вычистили.
-const DATA_DIR = process.env.FOM_DATA_DIR
-  ?? join(process.cwd(), "..", "overlap-data-private", "data");
+// Куда пишется снимок и почему это не строчка здесь, а функция под тестом —
+// см. resolveFomDataDir в lib/fomstatic.ts.
 
 async function main() {
   const years = process.env.SEASON
@@ -35,22 +29,38 @@ async function main() {
   const budget = Number(process.env.FOM_BUDGET ?? 400);
 
   console.log(`FOM static snapshot: годы ${years.join(", ")}, бюджет ${budget} файлов`);
-  if (DATA_DIR.startsWith(join(process.cwd(), "data"))) {
-    console.error("fomstatic: каталог указывает в ПУБЛИЧНЫЙ data/ — снимок FOM " +
-      "живёт в приватном репозитории. Задай FOM_DATA_DIR.");
-    process.exit(1);
-  }
+
+  const target = resolveFomDataDir(process.env, process.cwd());
+  if ("error" in target) { console.error(target.error); process.exit(1); }
+  const DATA_DIR = target.dir;
+  console.log(`каталог снимка: ${DATA_DIR}`);
+
   const before = snapshotSize(DATA_DIR);
   const result = await runFomSnapshot({ dataDir: DATA_DIR, years, budget });
   const after = snapshotSize(DATA_DIR);
 
   const left = Math.max(0, result.missing - result.fetched);
   console.log(`Done. снято ${result.fetched}, всего файлов ${before} → ${after}, ` +
-    `осталось добрать ${left}${result.failed ? `, отказов ${result.failed}` : ""}`);
+    `осталось добрать ≥${left}${result.failed ? `, отказов ${result.failed}` : ""}`);
+  // «≥» не педантизм: недостача считается по годам, до которых дошёл бюджет,
+  // и на пустом каталоге занижена в разы.
+
+  // Продьюсер ручной, и коммитить за владельца он не будет — но снятое и не
+  // закоммиченное теряется молча, а восстановить его неоткуда: источник уже
+  // терял 2017 и 2022. Поэтому конец прогона всегда говорит, что делать.
+  if (result.fetched > 0) {
+    console.log(`\nСНЯТОЕ ЕЩЁ НЕ СОХРАНЕНО. Закоммить и запушь:\n` +
+      `  git -C ${join(DATA_DIR, "..")} add data/f1/fom\n` +
+      `  git -C ${join(DATA_DIR, "..")} commit -m "fomstatic: +${result.fetched} срезов"\n` +
+      `  git -C ${join(DATA_DIR, "..")} push`);
+  }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch((e) => {
-    console.warn(`FOM static snapshot: прогон не удался — ${e}`);
+    // Нулевой код на провале врал бы обёрткам: `npm run fomstatic && git push`
+    // отработал бы по несостоявшемуся прогону.
+    console.error(`FOM static snapshot: прогон не удался — ${e}`);
+    process.exitCode = 1;
   });
 }
