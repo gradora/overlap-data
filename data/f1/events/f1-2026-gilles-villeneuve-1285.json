@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.941Z",
+  "generatedAt": "2026-08-31T19:11:05.044Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-gilles-villeneuve-1285",
@@ -265,10 +265,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Pit lane speeding – 96.3 km/h",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €1000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_16_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-05-22 19:34 CET"
+        "publishedAt": "2026-05-22 19:34 CET",
+        "fineEur": 1000
       },
       {
         "doc": 22,
@@ -279,8 +278,6 @@
         "type": "none",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Car 31 left the pit lane when the light at the end of the pit lane was red.",
-        "decision": "No penalty is applied.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_31_-_leaving_the_pitlane_after_the_end_of_the_session.pdf",
         "publishedAt": "2026-05-22 20:31 CET"
       },
@@ -293,10 +290,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "The CDS did not function when the car stopped on the track.",
-        "decision": "The competitor (Visa Cash App Racing Bulls F1 Team) is fined €30,000, €20,000 of which is suspended for a period of 12 months subject to no further breach of this regulation by the Competitor, for either of its cars.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_30_-_breach_of_article_c9.3.pdf",
-        "publishedAt": "2026-05-22 23:24 CET"
+        "publishedAt": "2026-05-22 23:24 CET",
+        "fineEur": 30000
       },
       {
         "doc": 38,
@@ -307,8 +303,6 @@
         "type": "warning",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 12 exceeded the time limit between the Safety Car lines.",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_12_-_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
         "publishedAt": "2026-05-23 15:09 CET"
       },
@@ -321,8 +315,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The setup of the car has been changed while under Parc Ferme.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_77_-_parc_ferme.pdf",
         "publishedAt": "2026-05-23 17:14 CET",
         "pitlane": true
@@ -336,8 +328,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The setup of the car has been changed while under Parc Ferme.",
-        "decision": "Required to start the Sprint from the pit lane. TGR Haas F1 Team changed the setup of Car 87 under Parc Ferme, without the approval of the Technical Delegate, this not being in accordance with Article B3.5.3 of the FIA F1 Regulations. The F1 car is therefore required to start the Sprint from pit lane as per Article B3.5.3b of the FIA F1 Regulations. Competitors are reminded that they have the right to appeal certain decisions of the Stewards, in accordance with Article 15 of the FIA International Sporting Code and Chapter 5 of the FIA Judicial and Disciplinary Rules, within the applicable time limits. Decisions of the Stewards are taken independently of the FIA and are based solely on the relevant regulations, guidelines and evidence presented. Garry Connelly Tanja Geilhausen Pedro Lamy Marcel Demers",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_87_-_parc_ferme.pdf",
         "publishedAt": "2026-05-23 17:14 CET",
         "pitlane": true
@@ -351,8 +341,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The setup of the car has been changed while under Parc Ferme and the team continued to work on the car beyond the covers-on time.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_10_-_parc_ferme.pdf",
         "publishedAt": "2026-05-23 17:17 CET",
         "pitlane": true
@@ -366,8 +354,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The setup of the car has been changed while under Parc Ferme and the team continued to work on the car beyond the covers-on time.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_23_-_parc_ferme.pdf",
         "publishedAt": "2026-05-23 17:18 CET",
         "pitlane": true
@@ -381,8 +367,6 @@
         "type": "none",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 18 did not start the formation lap.",
-        "decision": "No penalty applied",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_starting_procedure_infringement.pdf",
         "publishedAt": "2026-05-23 19:49 CET"
       },
@@ -395,8 +379,6 @@
         "type": "time",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 27 left the track and rejoined in the same position, whilst defending against Car 30",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_leaving_the_track_and_gaining_an_advantage.pdf",
         "publishedAt": "2026-05-23 19:49 CET",
         "seconds": 10
@@ -410,8 +392,6 @@
         "type": "time",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 11 forced Car 30 off the track prior to Turn 13",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_11_-_forcing_car_30_off_track.pdf",
         "publishedAt": "2026-05-23 19:50 CET",
         "seconds": 10
@@ -425,8 +405,6 @@
         "type": "none",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 44 left the track and rejoined at Turn 13",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_44_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
         "publishedAt": "2026-05-23 19:50 CET"
       },
@@ -439,8 +417,6 @@
         "type": "none",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 31 was reported as having air released on the left rear tyre with the wheel fitted to the car.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_31_-_alleged_procedural_infringement.pdf",
         "publishedAt": "2026-05-23 21:53 CET"
       },
@@ -453,10 +429,9 @@
         "type": "fine",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 14 was released from the garage into the path of Car 43",
-        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_14_-_unsafe_release_from_garage.pdf",
-        "publishedAt": "2026-05-24 01:05 CET"
+        "publishedAt": "2026-05-24 01:05 CET",
+        "fineEur": 5000
       },
       {
         "doc": 77,
@@ -467,10 +442,9 @@
         "type": "fine",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 18 was released from the garage with wheel covers still fitted.",
-        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €7,500.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_released_in_an_unsafe_condition.pdf",
-        "publishedAt": "2026-05-24 01:10 CET"
+        "publishedAt": "2026-05-24 01:10 CET",
+        "fineEur": 7500
       },
       {
         "doc": 80,
@@ -481,8 +455,6 @@
         "type": "reprimand",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 11 failed to move to the right into turn 13 as required in the Competition Notes.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_11_-_failing_to_follow_race_directors_event_notes.pdf",
         "publishedAt": "2026-05-24 01:22 CET"
       },
@@ -495,8 +467,6 @@
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 44 allegedly impeded Car 10 on the approach to Turn 8.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_44_-_alleged_impeding_of_car_10.pdf",
         "publishedAt": "2026-05-24 01:23 CET"
       },
@@ -509,8 +479,6 @@
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 18 allegedly impeded Car 27 on the approach to Turn 5",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_18_-_allegedly_impeded_car_27.pdf",
         "publishedAt": "2026-05-24 01:23 CET"
       },
@@ -523,8 +491,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 4th Energy Store (ES) 4th Control Electronics Unit (PU-CE) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during parc fermé.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_pu_elements_changed_under_parc_ferme.pdf",
         "publishedAt": "2026-05-24 19:08 CET",
         "pitlane": true
@@ -538,8 +504,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.3 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-05-25 00:52 CET",
         "seconds": 5
@@ -553,8 +517,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_77_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-05-25 01:57 CET",
         "seconds": 5
@@ -568,8 +530,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 5 exceeded the VSC delta in several mini sectors during a VSC deployment.",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_5_-_driving_unnecessarily_slowly_during_vsc.pdf",
         "publishedAt": "2026-05-25 01:59 CET",
         "seconds": 5
@@ -583,8 +543,6 @@
         "type": "stop_go",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Cars 27 and 30 were out of position at Safety Car Line 1 during the formation lap. Car 27 did not enter the Pit Lane as required by the Regulations.",
-        "decision": "A mandatory Stop-and-Go penalty imposed after the Race. This penalty is suspended for the period ending at the final race of the 2026 Championship on condition that no further similar breach, by this driver, occurs. In addition the driver is Reprimanded for failure to start the formation lap in the correct order. This is the driver’s first Reprimand for the Season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_starting_procedure_infringement.pdf",
         "publishedAt": "2026-05-25 02:08 CET"
       },
@@ -597,8 +555,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 81 collided with Car 23 in Turn 10",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_81_-_collision_with_car_23.pdf",
         "publishedAt": "2026-05-25 02:09 CET",
         "seconds": 10
@@ -612,8 +568,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 6 made more than one change of direction to defend its position",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_6_-_more_than_one_change_of_direction.pdf",
         "publishedAt": "2026-05-29 16:49 CET",
         "seconds": 10
@@ -627,8 +581,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 11 had 6 sets of blue flags displayed prior to the lapped car behind passing.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_11_-_ignoring_blue_flags.pdf",
         "publishedAt": "2026-05-25 02:11 CET"
       },
@@ -641,8 +593,6 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Cars 27 and 30 were out of position at Safety Car Line 1 during the formation lap. Car 30 left the grid before Car 27",
-        "decision": "Reprimanded for failure to start the formation lap in the correct order. This is the driver’s first Reprimand for the Season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_30_-_starting_procedure_infringement.pdf",
         "publishedAt": "2026-05-25 02:12 CET"
       },
@@ -655,10 +605,9 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver threw his head restraint onto the track after his car came to a halt during the race.",
-        "decision": "The driver George Russell is fined €5.000, suspended for a period of 12 months subject to no further breaches by the driver of a similar nature.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_63_-_unsafe_act.pdf",
-        "publishedAt": "2026-05-25 02:22 CET"
+        "publishedAt": "2026-05-25 02:22 CET",
+        "fineEur": 5000
       },
       {
         "doc": 106,
@@ -669,8 +618,6 @@
         "type": "stop_go",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 6 failed to slow under double yellow flags at T13",
-        "decision": "10 Second Stop-and-Go penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_6_-_failing_to_slow_for_yellow_flags.pdf",
         "publishedAt": "2026-05-25 02:25 CET",
         "seconds": 10

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.945Z",
+  "generatedAt": "2026-08-31T19:11:05.047Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-spa-francorchamps-1290",
@@ -274,10 +274,9 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver was late attending the Thursday Press Conference",
-        "decision": "The competitor (TGR Haas F1 Team) is fined €5,000. This fine is suspended for a period of 12 months subject to there being no further breach of a similar nature.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_31_-_media_commitment.pdf",
-        "publishedAt": "2026-07-17 12:27 CET"
+        "publishedAt": "2026-07-17 12:27 CET",
+        "fineEur": 5000
       },
       {
         "doc": 18,
@@ -288,10 +287,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.1 km/h",
-        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_34_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-07-17 16:47 CET"
+        "publishedAt": "2026-07-17 16:47 CET",
+        "fineEur": 100
       },
       {
         "doc": 19,
@@ -302,8 +300,6 @@
         "type": "reprimand",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Crossing the white line at pit entry.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_55_-_crossing_the_white_line_at_pit_entry.pdf",
         "publishedAt": "2026-07-17 16:33 CET"
       },
@@ -316,8 +312,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 5th Engine (ICE) 5th Turbocharger (TC) 5th Exhaust Set (EXH)",
-        "decision": "Required to start the Race from the back of the starting grid.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_6_-_changes_to_pu_elements.pdf",
         "publishedAt": "2026-07-17 16:52 CET",
         "backOfGrid": true
@@ -331,8 +325,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit element has been used: 4th MGU-K",
-        "decision": "Drop of 10 grid positions for the next Race in which the driver participates.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_18_-_change_to_pu_element.pdf",
         "publishedAt": "2026-07-17 16:53 CET",
         "gridDrop": 10
@@ -346,8 +338,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit element has been used: 4th Control Electronics Unit (PU-CE)",
-        "decision": "Drop of 10 grid positions for the next Race in which the driver participates.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_1_-_change_to_pu_element.pdf",
         "publishedAt": "2026-07-17 16:53 CET",
         "gridDrop": 10
@@ -361,8 +351,6 @@
         "type": "reprimand",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Failing to slow under double yellow flags.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 2nd reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_27_-_failure_to_slow_under_double_yellow_flags.pdf",
         "publishedAt": "2026-07-17 18:58 CET"
       },
@@ -375,10 +363,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "The team failed to physically return electronically returned tyres to the appointed tyre supplier before the start of Free Practice 2.",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_ferrari_-_car_16_return_of_tyres.pdf",
-        "publishedAt": "2026-07-17 19:38 CET"
+        "publishedAt": "2026-07-17 19:38 CET",
+        "fineEur": 5000
       },
       {
         "doc": 34,
@@ -389,10 +376,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "The team failed to physically return electronically returned tyres to the appointed tyre supplier before the start of Free Practice 2.",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_ferrari_-_car_44_return_of_tyres.pdf",
-        "publishedAt": "2026-07-17 19:38 CET"
+        "publishedAt": "2026-07-17 19:38 CET",
+        "fineEur": 5000
       },
       {
         "doc": 37,
@@ -403,8 +389,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 5th Energy Store (ES) 5th Control Electronics Unit (PU-CE) 7th Power Unit Ancillary Component (PU-ANC)",
-        "decision": "Required to start the Race from the back of the starting grid.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_14_-_change_to_pu_elements.pdf",
         "publishedAt": "2026-07-18 14:27 CET",
         "backOfGrid": true
@@ -418,8 +402,6 @@
         "type": "none",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Alleged failing to slow under yellow flags",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_decision_-_car_55_-_alleged_failure_to_slow_for_double_yellow_flags_.pdf",
         "publishedAt": "2026-07-18 15:09 CET"
       },
@@ -432,8 +414,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": true,
-        "fact": "The following Power Unit elements have been used: 5th Engine (ICE) 5th Turbocharger (TC) 5th Exhaust Set (EXH)",
-        "decision": "Drop of 30 grid positions for the next Race in which the driver participates. (Subject to Car 6 being classified in the results of qualifying, Car 6 will be allocated a grid position in the race in accordance with Article B2.5.4b.iv of the FIA F1 Regulations)",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_corrected_infringement_-_car_6_-_changes_to_pu_elements.pdf",
         "publishedAt": "2026-07-18 15:51 CET",
         "gridDrop": 30
@@ -447,8 +427,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": true,
-        "fact": "The following Power Unit elements have been used: 5th Energy Store (ES) 5th Control Electronics Unit (PU-CE) 7th Power Unit Ancillary Component (PU-ANC)",
-        "decision": "Drop of 20 grid positions for the next Race in which the driver participates. (Subject to Car 14 being classified in the results of qualifying, Car 14 will be allocated a grid position in the race in accordance with Article B2.5.4b.iv of the FIA F1 Regulations)",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_corrected_infringement_-_car_14_-_change_to_pu_elements.pdf",
         "publishedAt": "2026-07-18 15:52 CET",
         "gridDrop": 20
@@ -462,8 +440,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following additional Power Unit element has been used: 4th Control Electronics Unit (PU-CE) All Power Unit elements were replaced with the approval of the FIA Technical Delegate during parc fermé.",
-        "decision": "Drop of 10 grid positions for the next Race in which the driver participates.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_55_-_change_to_pu_elements.pdf",
         "publishedAt": "2026-07-19 12:22 CET",
         "gridDrop": 10
@@ -477,8 +453,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Causing a collision with Car 63 in turn 5",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_44_-_causing_a_collision_with_car_63_in_turn_5.pdf",
         "publishedAt": "2026-07-19 16:20 CET",
         "seconds": 5
@@ -492,8 +466,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision with Car 81 in turn 5.",
-        "decision": "No further action",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_decision_-_car_16_-_collision_with_car_81_in_turn_5.pdf",
         "publishedAt": "2026-07-19 16:21 CET"
       },
@@ -506,10 +478,9 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Unsafe release of car 44 from a pit stop.",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €30,000 of which €10,000 is suspended for 12 months on condition that the Competitor does not commit a similar infringement in the meantime and on the further condition that within 14 days the Competitor submits a report to the FIA regarding the incident and protocols introduced to mitigate the risk of such an incident occurring in the future.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_ferrari_-_unsafe_release_of_car_44.pdf",
-        "publishedAt": "2026-07-19 18:50 CET"
+        "publishedAt": "2026-07-19 18:50 CET",
+        "fineEur": 30000
       },
       {
         "doc": 64,
@@ -520,8 +491,6 @@
         "type": "reprimand",
         "appliesTo": "Reconnaissance Laps",
         "corrected": false,
-        "fact": "Car 23 left the pit lane during the reconnaissance laps without functioning rear lights",
-        "decision": "Competitor: Reprimand.",
         "url": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_infringement_-_car_23_-_car_safety_lights_.pdf",
         "publishedAt": "2026-07-19 19:09 CET"
       }

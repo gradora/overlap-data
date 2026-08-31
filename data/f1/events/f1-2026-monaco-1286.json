@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.942Z",
+  "generatedAt": "2026-08-31T19:11:05.045Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-monaco-1286",
@@ -265,10 +265,9 @@
         "type": "fine",
         "appliesTo": "Thursday Press Conference",
         "corrected": false,
-        "fact": "The driver was late attending the Thursday Press Conference",
-        "decision": "The competitor (McLaren Mastercard F1 Team) is fined €5,000. This fine is suspended for a period of 12 months subject to no further breach of a similar nature.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_1_-_media_commitment.pdf",
-        "publishedAt": "2026-06-05 12:32 CET"
+        "publishedAt": "2026-06-05 12:32 CET",
+        "fineEur": 5000
       },
       {
         "doc": 18,
@@ -279,10 +278,9 @@
         "type": "fine",
         "appliesTo": "Thursday Press Conference",
         "corrected": false,
-        "fact": "The driver was late attending the Thursday Press Conference",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €5,000. This fine is suspended for a period of 12 months subject to no further breach of a similar nature.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_16_-_media_commitment.pdf",
-        "publishedAt": "2026-06-05 12:32 CET"
+        "publishedAt": "2026-06-05 12:32 CET",
+        "fineEur": 5000
       },
       {
         "doc": 27,
@@ -293,10 +291,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.3 km/h",
-        "decision": "The competitor (Mercedes-AMG PETRONAS F1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_63_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-05 15:12 CET"
+        "publishedAt": "2026-06-05 15:12 CET",
+        "fineEur": 100
       },
       {
         "doc": 29,
@@ -307,8 +304,6 @@
         "type": "warning",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Car 16 unnecessarily impeded Car 30 into turn 18",
-        "decision": "Competitor: Formal warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_16_-_impeding_of_car_30.pdf",
         "publishedAt": "2026-06-05 16:19 CET"
       },
@@ -321,8 +316,6 @@
         "type": "warning",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Car 41 unnecessarily impeded Car 81 into turn 12",
-        "decision": "Competitor: Formal warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_41_-_impeding_of_car_81.pdf",
         "publishedAt": "2026-06-05 16:35 CET"
       },
@@ -335,8 +328,6 @@
         "type": "none",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Car 30 left the pit lane when the light at the end of the pit lane was red.",
-        "decision": "No penalty is applied.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_decision_-_car_30_-_alleged_leaving_the_pitlane_after_the_end_of_the_session.pdf",
         "publishedAt": "2026-06-05 16:42 CET"
       },
@@ -349,10 +340,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.5 km/h",
-        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_14_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-05 18:25 CET"
+        "publishedAt": "2026-06-05 18:25 CET",
+        "fineEur": 100
       },
       {
         "doc": 36,
@@ -363,10 +353,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "The competitor (Mercedes-AMG PETRONAS F1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_12_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-05 18:25 CET"
+        "publishedAt": "2026-06-05 18:25 CET",
+        "fineEur": 100
       },
       {
         "doc": 42,
@@ -377,10 +366,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "The CDS did not function when the car stopped on the track.",
-        "decision": "The competitor (McLaren Mastercard F1 Team) is fined €30,000, €10,000 of which is suspended for a period of 12 months subject to no further breaches of this regulation.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_1_-_technical_non-conformity_cds.pdf",
-        "publishedAt": "2026-06-05 20:17 CET"
+        "publishedAt": "2026-06-05 20:17 CET",
+        "fineEur": 30000
       },
       {
         "doc": 49,
@@ -391,10 +379,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Pit lane speeding – 68.9 km/h",
-        "decision": "The competitor (BWT Alpine F1 Team) is fined €900.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_43_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-06 14:13 CET"
+        "publishedAt": "2026-06-06 14:13 CET",
+        "fineEur": 900
       },
       {
         "doc": 50,
@@ -405,10 +392,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.2 km/h",
-        "decision": "The competitor (Atlassian Williams F1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_23_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-06 14:16 CET"
+        "publishedAt": "2026-06-06 14:16 CET",
+        "fineEur": 100
       },
       {
         "doc": 60,
@@ -419,10 +405,9 @@
         "type": "fine",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 41 was delayed in entering his pit stop by Car 23 and had to swerve around Car 23 and its mechanics.",
-        "decision": "Competitor: Formal warning A fine of €5,000 is also imposed on the Competitor for a breach of Article 12.2.1.h of the FIA International Sporting Code.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_23_-_pit_lane_incident_with_car_41.pdf",
-        "publishedAt": "2026-06-06 18:58 CET"
+        "publishedAt": "2026-06-06 18:58 CET",
+        "fineEur": 5000
       },
       {
         "doc": 61,
@@ -433,8 +418,6 @@
         "type": "warning",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 27 was travelling slowly ahead of Car 16 in the tunnel",
-        "decision": "Competitor: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_27_-_failure_to_follow_race_directors_instructions_-_tunnel.pdf",
         "publishedAt": "2026-06-06 19:17 CET"
       },
@@ -447,8 +430,6 @@
         "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 11 was out of position at the start of the race, taking the vacant position left by Car 5 which started in the pit lane.",
-        "decision": "Drive through penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_11_-_false_start_-_out_of_position.pdf",
         "publishedAt": "2026-06-07 15:31 CET"
       },
@@ -461,8 +442,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-06-07 16:17 CET",
         "seconds": 5
@@ -476,8 +455,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_63_-_pit_lane_speeding_0.pdf",
         "publishedAt": "2026-06-07 18:26 CET",
         "seconds": 5
@@ -491,8 +468,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_43_-_pit_lane_speeding_0.pdf",
         "publishedAt": "2026-06-07 18:26 CET",
         "seconds": 5
@@ -506,8 +481,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_10_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-06-07 18:26 CET",
         "seconds": 5
@@ -521,8 +494,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.1 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_81_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-06-07 18:27 CET",
         "seconds": 5
@@ -536,8 +507,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 60.4 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_10_-_pit_lane_speeding_0.pdf",
         "publishedAt": "2026-06-07 18:27 CET",
         "seconds": 5
@@ -551,8 +520,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 18 exceeded track limits",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_18_-_exceeded_track_limits.pdf",
         "publishedAt": "2026-06-07 18:28 CET",
         "seconds": 5
@@ -566,8 +533,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 11 was out of position at the restart after the red flag",
-        "decision": "10 second time penalty imposed after the Race.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_11_-_false_start_-_out_of_position_at_restart.pdf",
         "publishedAt": "2026-06-07 19:35 CET",
         "seconds": 10
@@ -581,8 +546,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 6 Allegedly left a gap of more than 10 lengths whilst behind the Safety Car",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_decision_-_car_6_-_alleged_safety_car_infringement.pdf",
         "publishedAt": "2026-06-07 19:42 CET"
       },
@@ -595,8 +558,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 44 Allegedly left a gap of more than 10 lengths whilst behind the Safety Car",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_decision_-_car_44_-_alleged_safety_car_infringement.pdf",
         "publishedAt": "2026-06-07 19:42 CET"
       },
@@ -609,8 +570,6 @@
         "type": "reprimand",
         "appliesTo": "Reconnaissance Laps",
         "corrected": false,
-        "fact": "Car 11 failed to follow the Race Directors instructions regarding practice starts",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_11_-_failing_to_follow_race_directors_event_notes_-_practice_starts.pdf",
         "publishedAt": "2026-06-07 19:42 CET"
       },
@@ -623,8 +582,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 27 collided with Car 55 in Turn 8",
-        "decision": "10 second time penalty imposed after the Race.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_infringement_-_car_27_-_causing_a_collision_with_car_55.pdf",
         "publishedAt": "2026-06-07 20:28 CET",
         "seconds": 10
@@ -638,8 +595,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 43 allegedly caused a collision with Car 55 at turn 8.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_decision_-_car_43_-_allegedly_causing_a_collision_with_car_55.pdf",
         "publishedAt": "2026-06-07 20:28 CET"
       }

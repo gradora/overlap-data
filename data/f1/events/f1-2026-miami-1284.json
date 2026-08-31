@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.940Z",
+  "generatedAt": "2026-08-31T19:11:05.042Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-miami-1284",
@@ -265,10 +265,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Pit lane speeding – 81.4 km/h",
-        "decision": "The competitor (Scuderia Ferrari HP) is fined €200.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_16_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-05-01 21:01 CET"
+        "publishedAt": "2026-05-01 21:01 CET",
+        "fineEur": 200
       },
       {
         "doc": 28,
@@ -279,8 +278,6 @@
         "type": "deleted_laps",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 23 exceeded track limits at Turn 6 during SQ1.",
-        "decision": "The lap time of 1.30.988 of Car 23 recorded in SQ1 is hereby deleted. All lap times of Car 23 in SQ2 are deleted. Car 23 will therefore be classified in position 19 in Sprint Qualifying.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_23_-_track_limits.pdf",
         "publishedAt": "2026-05-02 01:32 CET"
       },
@@ -293,8 +290,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The team continued to work on the car beyond the covers-on time.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_41_-_parc_ferme.pdf",
         "publishedAt": "2026-05-02 16:54 CET",
         "pitlane": true
@@ -308,8 +303,6 @@
         "type": "time",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Leaving the track without a justifiable reason multiple times.",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_12_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
         "publishedAt": "2026-05-02 19:34 CET",
         "seconds": 5
@@ -323,8 +316,6 @@
         "type": "dsq",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Engine intake air pressure exceeded maximum permitted limit.",
-        "decision": "Car 5 is disqualified from the Sprint classifications.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_5_-_technical_non-conformity_engine_intake_air_pressure.pdf",
         "publishedAt": "2026-05-02 21:07 CET"
       },
@@ -337,8 +328,6 @@
         "type": "dsq",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "LHS and RHS floor board were protruding out of the reference volume.",
-        "decision": "Car 6 is disqualified from the Qualifying classifications.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_6_-_technical_nonconformity_floor_board.pdf",
         "publishedAt": "2026-05-03 13:30 CET"
       },
@@ -351,8 +340,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 4th Energy Store (ES) 4th Control Electronics Unit (PU-CE) Power Unit element and the control electronics unit were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_6_-_pu_elements_changed_under_parc_ferme.pdf",
         "publishedAt": "2026-05-03 16:43 CET",
         "pitlane": true
@@ -366,8 +353,6 @@
         "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 89.5 km/h",
-        "decision": "Drive through penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_77_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-05-03 20:47 CET"
       },
@@ -380,8 +365,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged failure to slow under yellow flags at Turn 15.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_31_-_alleged_yellow_flag_infringement.pdf",
         "publishedAt": "2026-05-03 23:10 CET"
       },
@@ -394,8 +377,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged failure to slow under yellow flags at Turn 15.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_23_-_alleged_yellow_flag_infringement.pdf",
         "publishedAt": "2026-05-03 23:11 CET"
       },
@@ -408,8 +389,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged failure to slow under yellow flags at Turn 15.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_14_-_alleged_yellow_flag_infringement.pdf",
         "publishedAt": "2026-05-03 23:13 CET"
       },
@@ -422,8 +401,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact made at turn 1 between Cars 3 and 63.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_3_-_alleged_incident_with_car_63.pdf",
         "publishedAt": "2026-05-03 23:22 CET"
       },
@@ -436,8 +413,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact made at turn 1 between Cars 3 and 63.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_63_-_alleged_incident_with_car_3.pdf",
         "publishedAt": "2026-05-03 23:21 CET"
       },
@@ -450,8 +425,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 16 left the track on several occasions without a justifiable reason.",
-        "decision": "Drive through penalty imposed after the Race. (20 seconds added to elapsed Race time).",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_16_-_leaving_the_track_multiple_times_and_driving_in_an_unsafe_condition_.pdf",
         "publishedAt": "2026-05-03 23:24 CET",
         "seconds": 20
@@ -465,8 +438,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Crossed the white line at pit exit.",
-        "decision": "5 second time penalty imposed after the Race. (5 seconds added to elapsed Race time).",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_infringement_-_car_3_-_pit_exit_incident.pdf",
         "publishedAt": "2026-05-03 23:48 CET",
         "seconds": 5
@@ -480,8 +451,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 30 and 10 in Turn 17.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_decision_-_car_30_-_alleged_incident_with_car_10.pdf",
         "publishedAt": "2026-05-03 23:55 CET"
       }

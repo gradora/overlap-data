@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.938Z",
+  "generatedAt": "2026-08-31T19:11:05.040Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-shanghai-1280",
@@ -265,8 +265,6 @@
         "type": "reprimand",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Car 23 performed a practice start on the grid while another car was stationary on the same side of the grid",
-        "decision": "Driver: Reprimand (Driving).",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_23_-_breach_of_practice_start_procedure.pdf",
         "publishedAt": "2026-03-13 07:20 CET"
       },
@@ -279,8 +277,6 @@
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 12 Allegedly Impeded Car 1 at Turn 1",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_decision_-_car_12_-_alleged_impeding_of_car_1.pdf",
         "publishedAt": "2026-03-13 10:40 CET"
       },
@@ -293,8 +289,6 @@
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 10 allegedly impeded Car 3 at Turn 14",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_decision_-_car_10_-_alleged_impeding_of_car_3.pdf",
         "publishedAt": "2026-03-13 11:55 CET"
       },
@@ -307,8 +301,6 @@
         "type": "grid",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_23_-_changes_made_during_parc_ferme.pdf",
         "publishedAt": "2026-03-14 02:53 CET",
         "pitlane": true
@@ -322,8 +314,6 @@
         "type": "time",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Car 12 collided with Car 6 in Turn 6 on Lap 1",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_6.pdf",
         "publishedAt": "2026-03-14 05:38 CET",
         "seconds": 10
@@ -337,8 +327,6 @@
         "type": "time",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "Exceeding minimum time set by ECU behind safety car",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_11_-_safety_car_ecu_minimum_time.pdf",
         "publishedAt": "2026-03-14 05:41 CET",
         "seconds": 5
@@ -352,8 +340,6 @@
         "type": "warning",
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The Driver did not follow the Race Director’s Instruction considering practice starts (item 13.5 of the Event Notes).",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_6_-_failing_to_follow_race_directors_instruction.pdf",
         "publishedAt": "2026-03-14 05:57 CET"
       },
@@ -366,10 +352,9 @@
         "type": "fine",
         "appliesTo": "Reconnaissance Laps",
         "corrected": false,
-        "fact": "Car 10 left its garage with an antenna shield still fitted",
-        "decision": "The competitor (BWT Alpine F1 Team) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_10_-_released_in_an_unsafe_condition.pdf",
-        "publishedAt": "2026-03-14 06:30 CET"
+        "publishedAt": "2026-03-14 06:30 CET",
+        "fineEur": 5000
       },
       {
         "doc": 68,
@@ -380,8 +365,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The setup of the suspension has been changed while under Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane under Article B3.5.7b of the FIA F1 Regulations.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_23_-_changes_made_during_parc_ferme_0.pdf",
         "publishedAt": "2026-03-15 05:41 CET",
         "pitlane": true
@@ -395,8 +378,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 31 colided with Car 43 in Turm 2",
-        "decision": "10 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_infringement_-_car_31_-_causing_a_collision_with_car_43.pdf",
         "publishedAt": "2026-03-15 09:32 CET",
         "seconds": 10

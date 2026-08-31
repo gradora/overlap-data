@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.942Z",
+  "generatedAt": "2026-08-31T19:11:05.046Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-barcelona-1287",
@@ -319,8 +319,6 @@
         "type": "warning",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "Car 14 crossed the white line at the pit exit.",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_14_-_pit_exit_incident.pdf",
         "publishedAt": "2026-06-12 18:02 CET"
       },
@@ -333,10 +331,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.5 km/h",
-        "decision": "The competitor (Cadillac Formula 1 Team) is fined €100.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_77_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-12 18:11 CET"
+        "publishedAt": "2026-06-12 18:11 CET",
+        "fineEur": 100
       },
       {
         "doc": 21,
@@ -347,10 +344,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 2",
         "corrected": false,
-        "fact": "Pit lane speeding – 84.4 km/h",
-        "decision": "The competitor (Cadillac Formula 1 Team) is fined €500.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_11_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-12 18:26 CET"
+        "publishedAt": "2026-06-12 18:26 CET",
+        "fineEur": 500
       },
       {
         "doc": 33,
@@ -361,10 +357,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Pit lane speeding – 85.9 km/h",
-        "decision": "The competitor (Aston Martin Aramco F1 Team) is fined €600.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_18_-_pit_lane_speeding.pdf",
-        "publishedAt": "2026-06-13 13:41 CET"
+        "publishedAt": "2026-06-13 13:41 CET",
+        "fineEur": 600
       },
       {
         "doc": 39,
@@ -375,8 +370,6 @@
         "type": "reprimand",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Car 12 was driving in an erratic manner in turn 2.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_12_-_driving_erratically.pdf",
         "publishedAt": "2026-06-13 14:36 CET"
       },
@@ -389,8 +382,6 @@
         "type": "warning",
         "appliesTo": "Free Practice 3",
         "corrected": false,
-        "fact": "Car 16 impeded Car 27 in Turn 5",
-        "decision": "Driver: Warning. Competitor: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_16_-_impeding_of_car_27.pdf",
         "publishedAt": "2026-06-13 15:38 CET"
       },
@@ -403,8 +394,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 4th Energy Store (ES) 4th Control Electronics Unit (PU-CE) 4th MGU-K All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc fermé.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_14_-_pu_elements_and_changes_used_during_parc_ferme.pdf",
         "publishedAt": "2026-06-14 12:56 CET",
         "pitlane": true
@@ -418,8 +407,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 27 allegedly left the track and gained an advantage in Turn 2",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_decision_-_car_27_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
         "publishedAt": "2026-06-14 17:13 CET"
       },
@@ -432,8 +419,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 41 allegedly left the track and gained an advantage in Turn 2",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_decision_-_car_41_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
         "publishedAt": "2026-06-14 17:14 CET"
       },
@@ -446,11 +431,11 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 43 failed to slow for a single yellow flag",
-        "decision": "10 second time penalty imposed after the Race. 1 penalty point (total of 2 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_43_-_failing_to_slow_for_yellow_flags.pdf",
         "publishedAt": "2026-06-14 19:06 CET",
-        "seconds": 10
+        "seconds": 10,
+        "licencePoints": 1,
+        "licencePointsTotal": 2
       },
       {
         "doc": 63,
@@ -461,10 +446,9 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 23 started the formation lap with parts of a tyre blanket still on the car.",
-        "decision": "The competitor (Atlassian Williams F1 Team) is fined €5,000",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_23_-_start_procedure_infringement.pdf",
-        "publishedAt": "2026-06-14 19:07 CET"
+        "publishedAt": "2026-06-14 19:07 CET",
+        "fineEur": 5000
       },
       {
         "doc": 64,
@@ -475,10 +459,9 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The Mechanics of Car 55 left equipment on the grass area next to the grid after the 15 second signal.",
-        "decision": "The competitor (Atlassian Williams F1 Team) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_55_-_start_procedure_infringement.pdf",
-        "publishedAt": "2026-06-14 19:08 CET"
+        "publishedAt": "2026-06-14 19:08 CET",
+        "fineEur": 5000
       },
       {
         "doc": 67,
@@ -489,8 +472,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 12 left the track four times during the race.",
-        "decision": "5 second time penalty imposed after the Race.",
         "url": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_infringement_-_car_12_-_leaving_the_track_without_a_justifiable_reason_multiple_times.pdf",
         "publishedAt": "2026-06-14 19:22 CET",
         "seconds": 5

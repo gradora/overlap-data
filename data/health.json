@@ -21,14 +21,12 @@
   "records": "success",
   "f1teams": "success",
   "f1overrides": "success",
-  "fiareclass": "unknown",
   "wecevents": "success",
   "imsaevents": "success",
   "f1entrylist": "success",
   "f1events": "success",
   "nextseason": "success",
-  "f1weather": "success",
-  "fomstatic": "unknown"
+  "f1weather": "success"
  },
  "lastSuccess": {
   "imsa": "2026-08-31",
@@ -56,11 +54,10 @@
   "f1events": "2026-08-31",
   "nextseason": "2026-08-31",
   "f1weather": "2026-08-31",
-  "weclive": "2026-08-31"
+  "weclive": "2026-08-31",
+  "tracks": "2026-08-31"
  },
- "firstSeen": {
-  "tracks": "2026-08-25"
- },
+ "firstSeen": {},
  "stale": [],
  "counts": {
   "imsa": 115,
@@ -80,8 +77,8 @@
   "f1Events": 52,
   "f1Calendar": 2,
   "f1Teams": 3,
-  "wec": 234,
-  "tracks": 2
+  "wec": 233,
+  "tracks": 3
  },
  "blocked": {
   "f1teams": 0

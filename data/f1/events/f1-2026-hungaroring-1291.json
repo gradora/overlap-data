@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T20:06:41.945Z",
+  "generatedAt": "2026-08-31T19:11:05.048Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-hungaroring-1291",
@@ -310,10 +310,9 @@
         "type": "fine",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "Pit lane speeding – 83.8 km/h",
-        "decision": "The competitor (Oracle Red Bull Racing) is fined €400.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_6_-_pit_lane_speeding_.pdf",
-        "publishedAt": "2026-07-24 14:11 CET"
+        "publishedAt": "2026-07-24 14:11 CET",
+        "fineEur": 400
       },
       {
         "doc": 19,
@@ -324,8 +323,6 @@
         "type": "warning",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "The driver of Car 55 was preparing his brakes when on the racing line between turns 11 and 12 and hindered Car 3 which was on a push lap.",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_erratic_driving_in_turn_12_0.pdf",
         "publishedAt": "2026-07-24 16:06 CET"
       },
@@ -338,8 +335,6 @@
         "type": "none",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "The driver of Car 3 slowed significantly in turn 12",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_3_-_alleged_erratic_driving_in_turn_12.pdf",
         "publishedAt": "2026-07-24 16:06 CET"
       },
@@ -352,8 +347,6 @@
         "type": "none",
         "appliesTo": "Free Practice 1",
         "corrected": false,
-        "fact": "After overtaking Car 61, the driver of Car 55 slowed significantly at turn 9.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_55_-_alleged_erratic_driving_in_turn_9.pdf",
         "publishedAt": "2026-07-24 16:31 CET"
       },
@@ -366,8 +359,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 44 unnecessarily impeded Car 81.",
-        "decision": "Drop of 3 grid positions for the next Sprint/Race in which the driver participates.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_44_-_unnecessarily_impeding_of_car_81.pdf",
         "publishedAt": "2026-07-25 18:40 CET",
         "gridDrop": 3
@@ -381,11 +372,11 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver of Car 12 did not slow sufficiently under single yellow flags at Turn 14.",
-        "decision": "Drop of 3 grid positions for the next Sprint/Race in which the driver participates. 1 penalty point (total of 4 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_12_-_yellow_flag_infringement.pdf",
         "publishedAt": "2026-07-25 19:31 CET",
-        "gridDrop": 3
+        "gridDrop": 3,
+        "licencePoints": 1,
+        "licencePointsTotal": 4
       },
       {
         "doc": 43,
@@ -396,8 +387,6 @@
         "type": "warning",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Driving unnecessarily slowly during Qualifying.",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_12_-_alleged_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
         "publishedAt": "2026-07-25 19:39 CET"
       },
@@ -410,8 +399,6 @@
         "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The setup of the suspension has been changed while under parc fermé without the approval of the Technical Director.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_11_-_changes_made_under_parc_ferme.pdf",
         "publishedAt": "2026-07-26 12:38 CET",
         "pitlane": true
@@ -425,8 +412,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 55 collided with car 81.",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_55_-_collision_with_car_81.pdf",
         "publishedAt": "2026-07-26 16:55 CET",
         "seconds": 5
@@ -440,8 +425,6 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver of Car 16 appeared not to take appropriate action when yellow flags were displayed at Turn 2.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_decision_-_car_16_-_alleged_failure_to_slow_for_yellow_flags.pdf",
         "publishedAt": "2026-07-26 17:03 CET"
       },
@@ -454,8 +437,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.1 km/h.",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-07-26 17:16 CET",
         "seconds": 5
@@ -469,8 +450,6 @@
         "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver ignored Blue Flags being displayed for Car 6’s approach.",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_87_-_ignoring_blue_flags.pdf",
         "publishedAt": "2026-07-26 18:05 CET",
         "seconds": 5
@@ -484,8 +463,6 @@
         "type": "warning",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Cars 11 was out of position at Safety Car Line 1 during the formation lap.",
-        "decision": "Driver: Warning.",
         "url": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_infringement_-_car_11_-_starting_procedure_infringement.pdf",
         "publishedAt": "2026-07-26 18:12 CET"
       }
