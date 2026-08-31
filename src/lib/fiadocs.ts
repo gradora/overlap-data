@@ -36,8 +36,24 @@ export interface FiaPenalty {
   appliesTo: string;           // «race» | «next_race» | «qualifying» | …: к чему применить
   corrected: boolean;          // документ «Corrected Infringement» — заменяет ранний
   carriedFrom?: number;        // перенесён из раунда N (грид-штраф «на следующую гонку»)
-  fact?: string;
-  decision: string;
+  // ТЕКСТ РЕШЕНИЯ И ФАКТА НЕ ПУБЛИКУЕТСЯ. Это охраняемое выражение FIA, а не
+  // факт, и держать его в открытом репозитории — редистрибуция (пункт
+  // правового аудита, обязательный к правке до релиза). Всё, что нужно
+  // приложению, разобрано в поля ниже; строку решения оно собирает само
+  // (PenaltyText), а на первоисточник ведёт ссылка `url`.
+  //
+  // ЦЕНА, ОСОЗНАННАЯ: без текста переклассификация офлайн невозможна, и
+  // правка каскада теперь доходит до истории только полной пересборкой —
+  // FIA_FORCE=1 FIA_BACKFILL=99 npm run fia.
+  /// Денежный штраф в евро. Числом, потому что клиент рисует строку решения
+  /// из РАЗОБРАННЫХ полей, а не из текста FIA: текст — охраняемое выражение,
+  /// сумма — факт.
+  fineEur?: number;
+  /// Баллы суперлицензии, назначенные этим решением.
+  licencePoints?: number;
+  /// Накопленные баллы за 12 месяцев, если решение их называет. Раньше клиент
+  /// доставал оба числа регуляркой прямо из публикуемой прозы.
+  licencePointsTotal?: number;
   url: string;
   publishedAt?: string;
 }
@@ -203,7 +219,10 @@ export function fieldValue(body: string, label: string, labels: string[]): strin
   return body.slice(from, end).trim();
 }
 
-function field(body: string, label: string): string | null {
+/// Экспортирована ради тестов: сам ТЕКСТ решения наружу больше не
+/// публикуется, но корректность его вырезки из PDF проверять обязательно —
+/// сдвинься граница поля, и в классификацию поедет кусок «Reason».
+export function field(body: string, label: string): string | null {
   return fieldValue(body, label, FIELD_LABELS);
 }
 
@@ -241,7 +260,7 @@ export function classifyDecision(decision: string): {
   if (/start(?:ing)?(?: the \w+)? from the pit ?lane|pit ?lane start/.test(d)) return { type: "grid", pitlane: true };
   // «back of the grid» у FIA и «moved to the back of the class» у IMSA — одна
   // санкция, разные слова источников.
-  if (/back of the (?:starting )?grid|(?:moved to the )?back of the class/.test(d)) {
+  if (/back of the (?:starting )?grid|(?:moved to )?(?:the )?back of (?:the )?class/.test(d)) {
     return { type: "grid", backOfGrid: true };
   }
   if ((m = d.match(/(\d+)\s*second(?:s)? time penalty/))) return { type: "time", seconds: Number(m[1]) };
@@ -283,6 +302,30 @@ export function classifyDecision(decision: string): {
   return { type: "other" };
 }
 
+/// Сумма денежного штрафа в евро. Разбирает «€25,000», «EUR 25.000» и
+/// «fine of 10,000 euros»; само слово «fined» без числа суммой не считается.
+export function fineAmountEur(decision: string): number | undefined {
+  const m = decision.match(
+    /(?:€|EUR\s*)\s*([\d][\d.,\s]*)|fine[d]?\s+(?:of\s+)?([\d][\d.,\s]*)\s*(?:€|EUR|euros?)/i);
+  const raw = m?.[1] ?? m?.[2];
+  if (!raw) return undefined;
+  // «25,000» и «25.000» — оба тысячные разделители у FIA; дробной части в
+  // штрафах не бывает, поэтому оставляем только цифры.
+  const n = Number(raw.replace(/[^\d]/g, ""));
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+}
+
+/// Баллы суперлицензии из текста решения: «… and 2 penalty points (total of 5
+/// for the 12 month period)» → { points: 2, total: 5 }.
+export function licencePoints(decision: string): { points?: number; total?: number } {
+  const out: { points?: number; total?: number } = {};
+  const p = decision.match(/(\d+)\s+penalty\s+points?/i);
+  if (p) out.points = Number(p[1]);
+  const t = decision.match(/total of (\d+)[^)]*12[- ]month period/i);
+  if (t) out.total = Number(t[1]);
+  return out;
+}
+
 export function appliesTo(decision: string, session: string): string {
   // Спринт — раньше race-паттернов: «start the Sprint from the pit lane»
   // относится к решётке СПРИНТА, не гонки (Сильверстоун-2026, Албон doc 35).
@@ -308,8 +351,9 @@ export function parsePenaltyDoc(text: string, ref: DocRef): FiaPenalty | null {
   const car = Number(dm[1]);
   const driver = dm[2];
   const session = field(body, "Session") ?? "";
-  const fact = field(body, "Fact") ?? undefined;
   const cls = classifyDecision(decision);
+  const fine = fineAmountEur(decision);
+  const points = licencePoints(decision);
 
   return {
     doc: ref.doc,
@@ -324,8 +368,9 @@ export function parsePenaltyDoc(text: string, ref: DocRef): FiaPenalty | null {
     ...(cls.backOfGrid ? { backOfGrid: true } : {}),
     appliesTo: appliesTo(decision, session),
     corrected: /corrected/i.test(ref.title),
-    fact,
-    decision,
+    ...(fine != null ? { fineEur: fine } : {}),
+    ...(points.points != null ? { licencePoints: points.points } : {}),
+    ...(points.total != null ? { licencePointsTotal: points.total } : {}),
     url: ref.url,
     publishedAt: ref.publishedAt,
   };

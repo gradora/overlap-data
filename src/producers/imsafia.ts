@@ -12,6 +12,7 @@ import { extractText, getDocumentProxy } from "unpdf";
 import {
   classifyDecision, mergeStewardsPenalties, planStewardsFetches, skipFirstWrite,
   type FiaEvent, type FiaPenalty, type StewardsListedDoc,
+  fineAmountEur,
 } from "../lib/fiadocs.js";
 import { matchImsaTrack } from "../lib/alkamelimsa.js";
 import { isStewardsFrozen } from "../lib/freeze.js";
@@ -114,8 +115,6 @@ export function parseImsaPenaltyPdf(
   let driver = field(text, /DRIVER:\s*(.*?)\s*AFFECTED PARTY:/s)
     .replace(/\s*\([^)]*\)\s*$/, "");
   if (!driver) driver = team;
-
-  const fact = field(text, /FACTS:\s*(.*?)\s*PENALTY\s*FINE:/s);
   const fine = field(text, /PENALTY\s*FINE:\s*(.*?)\s*CHANGE:/s);
   const change = field(text, /CHANGE:\s*(.*?)\s*SIGNATURES/s);
 
@@ -139,8 +138,7 @@ export function parseImsaPenaltyPdf(
     ...cls,
     appliesTo: "race",
     corrected: false,
-    ...(fact ? { fact } : {}),
-    decision,
+    ...(fineAmountEur(decision) != null ? { fineEur: fineAmountEur(decision)! } : {}),
     url,
     publishedAt,
   };

@@ -17,7 +17,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { classifyDecision, PENALTY_PARSER_VERSION, type FiaPenalty } from "./lib/fiadocs.js";
+import { PENALTY_PARSER_VERSION, type FiaPenalty } from "./lib/fiadocs.js";
 
 const DIR = join(process.cwd(), "data", "f1", "fia");
 
@@ -45,19 +45,10 @@ test("собранные решения разобраны текущей вер
       `(FIA_FORCE=1 FIA_BACKFILL=99 npm run fia)`,
   );
 
-  const drift: string[] = [];
-  for (const { file, p } of current) {
-    const c = classifyDecision(p.decision);
-    if (c.type !== p.type
-      || (c.gridDrop ?? null) !== (p.gridDrop ?? null)
-      || (c.seconds ?? null) !== (p.seconds ?? null)) {
-      drift.push(`${file} doc ${p.doc}: в файле ${p.type}, парсер даёт ${c.type} — «${p.decision.slice(0, 70)}»`);
-    }
-  }
-  assert.deepEqual(
-    drift, [],
-    `данные разошлись с парсером; пересобрать: FIA_FORCE=1 FIA_BACKFILL=99 npm run fia`,
-  );
+  // Вторая половина сторожа — переразбор текста решения — УДАЛЕНА вместе с
+  // самим текстом: он больше не публикуется (охраняемое выражение). Защита
+  // теперь держится на штампе версии выше: он ставится В МОМЕНТ разбора,
+  // поэтому «помечено текущей версией» и означает «разобрано текущим кодом».
 });
 
 test("решение со штрафом не записано предупреждением или выговором", () => {
@@ -65,9 +56,9 @@ test("решение со штрафом не записано предупре�
   // младшая ветка каскада не должна их съедать. Именно так терялись €5 000
   // Албона (Монако-2026 doc 60) и €10 000 Red Bull (Абу-Даби-2025 doc 30).
   const lost = storedPenalties()
-    .filter(({ p }) => /fine of|fined/i.test(p.decision))
-    .filter(({ p }) => p.type === "warning" || p.type === "reprimand" || p.type === "other")
-    .map(({ file, p }) => `${file} doc ${p.doc} (${p.type}): «${p.decision.slice(0, 70)}»`);
+    .filter(({ p }) => p.fineEur != null)
+    .filter(({ p }) => p.type !== "fine")
+    .map(({ file, p }) => `${file} doc ${p.doc} (${p.type}): €${p.fineEur}`);
   assert.deepEqual(lost, [], "штраф записан младшей санкцией — сумма не доедет до приложения");
 });
 

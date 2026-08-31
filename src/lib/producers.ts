@@ -115,19 +115,6 @@ export const PRODUCERS: ProducerSpec[] = [
   { key: "records", script: "f1records", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1teams", script: "f1teams", budgetDays: HOURLY, workflow: SNAPSHOT },
   { key: "f1overrides", script: "f1overrides", budgetDays: HOURLY, workflow: SNAPSHOT },
-  // Переклассификация уже собранных решений: РАЗОВЫЙ операторский шаг после
-  // правки каскада. Сети не требует — читает сохранённый текст решения с
-  // диска, поэтому и не нужен полный перескрейп полутора тысяч PDF.
-  {
-    key: "fiareclass",
-    script: "fiareclass",
-    budgetDays: 3650,   // разовый: свежесть здесь ничего не значит
-    workflow: "вручную: npm run fiareclass",
-    manual: "разовый шаг ПОСЛЕ правки classifyDecision. Кроном не гоняется " +
-      "намеренно: он переписывал бы классификацию каждый час, а нужен ровно " +
-      "один раз на изменение каскада. Сети не требует — читает сохранённый " +
-      "текст решения с диска, поэтому и не нужен перескрейп полутора тысяч PDF.",
-  },
   // Проекции derived в файл события WEC и IMSA (фаза 6). Бессетевые, идут
   // после своих семейств.
   { key: "wecevents", script: "wecevents", budgetDays: HOURLY, workflow: SNAPSHOT },

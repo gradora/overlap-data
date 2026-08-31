@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:56:19.608Z",
+  "generatedAt": "2026-08-31T10:07:59.979Z",
   "season": 2025,
   "round": 22,
   "event": "las_vegas_grand_prix",
@@ -40,7 +40,8 @@
       "appliesTo": "Practice 3",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_44_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-11-22 01:56 CET"
+      "publishedAt": "2025-11-22 01:56 CET",
+      "fineEur": 100
     },
     {
       "doc": 31,
@@ -88,7 +89,8 @@
       "appliesTo": "qualifying",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_43_-_electronic_return_of_tyres.pdf",
-      "publishedAt": "2025-11-22 07:48 CET"
+      "publishedAt": "2025-11-22 07:48 CET",
+      "fineEur": 5000
     },
     {
       "doc": 43,
@@ -139,7 +141,9 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_23_-_collision_with_car_44_in_turn_14.pdf",
       "publishedAt": "2025-11-23 07:00 CET",
-      "seconds": 5
+      "seconds": 5,
+      "licencePoints": 1,
+      "licencePointsTotal": 5
     },
     {
       "doc": 50,
@@ -164,7 +168,9 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_las_vegas_grand_prix_-_infringement_-_car_5_-_causing_a_collision_with_car_18_in_turn_1.pdf",
       "publishedAt": "2025-11-23 06:41 CET",
-      "gridDrop": 5
+      "gridDrop": 5,
+      "licencePoints": 2,
+      "licencePointsTotal": 2
     },
     {
       "doc": 57,

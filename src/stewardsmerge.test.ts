@@ -31,7 +31,6 @@ const pen = (doc: number, over: Partial<FiaPenalty> = {}): FiaPenalty => ({
   seconds: 10,
   appliesTo: "race",
   corrected: false,
-  decision: `Doc ${doc}: 10 seconds added`,
   url: `https://nb.example/doc-${doc}.pdf`,
   publishedAt: `2026-08-${String(10 + doc).padStart(2, "0")}T10:00:00.000Z`,
   ...over,
@@ -70,8 +69,8 @@ test("merge: урезанный листинг не удаляет решени�
 });
 
 test("merge: свежий разбор побеждает для того же ключа, прочее — из файла", () => {
-  const prev = [pen(1), pen(2, { seconds: 5, decision: "старый текст" })];
-  const fresh = [pen(2, { seconds: 30, decision: "новый текст" }), pen(3)];
+  const prev = [pen(1), pen(2, { seconds: 5 })];
+  const fresh = [pen(2, { seconds: 30 }), pen(3)];
   const m = mergeStewardsPenalties(prev, fresh, ["1", "2", "3"], byDoc);
   assert.equal(m.penalties.length, 3);
   assert.equal(m.penalties.find((p) => p.doc === 2)!.seconds, 30, "свежий разбор не победил");
@@ -86,8 +85,8 @@ test("merge: updated — максимум publishedAt итогового наб�
 test("merge: композитный ключ IMSA — TP и SP с одним номером не затирают друг друга", () => {
   // Ровно причина, по которой ключ параметризован: у IMSA «TP 26-11» и
   // «SP 26-11» — разные нотисы, склейка по одному doc потеряла бы один из них.
-  const tp = pen(11, { session: "TP", decision: "technical notice" });
-  const sp = pen(11, { session: "SP", decision: "sporting notice" });
+  const tp = pen(11, { session: "TP" });
+  const sp = pen(11, { session: "SP" });
   const m = mergeStewardsPenalties([tp], [sp], ["TP#11", "SP#11"], bySessionDoc);
   assert.equal(m.penalties.length, 2, "нотисы TP/SP с одним номером схлопнулись");
 });

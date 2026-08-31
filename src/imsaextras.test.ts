@@ -122,9 +122,12 @@ test("penalties: имя дока, парс PDF-текста, фильтр сер
   const p = parseImsaPenaltyPdf(iwsc, "Sporting", 9, "u");
   assert.equal(p?.car, 912);
   assert.equal(p?.driver, "Riccardo Pera");
-  assert.equal(p?.decision, "Moved to back of class");
   assert.equal(p?.session, "Sporting");
-  assert.ok(p?.fact?.includes("Drive Time"));
+  // Текст решения и факта наружу не публикуется — проверяем РАЗБОР:
+  // «Moved to back of class» обязан стать грид-штрафом «с конца», а не
+  // потеряться в «other».
+  assert.equal(p?.type, "grid");
+  assert.equal(p?.backOfGrid, true);
 
   // Реальный текст TP 26-11 (Уоткинс-Глен, IMPC — чужая серия) → скип.
   const impc = "EVENT: SERIES: TEAM: Sahlen's Six Hours of the Glen IMPC KMW Motorsports With TMR Engineering ENTRANT REPRESENTATIVE: Louis Milone DRIVER: AFFECTED PARTY: N/A FACTS: TCR Car #5 was found below minimum PENALTY FINE: N/A CHANGE: Lap times are invalidated, Car is moved to the back of the Class. SIGNATURES RETURN TROPHY 5 TCR TYPE: Technical";

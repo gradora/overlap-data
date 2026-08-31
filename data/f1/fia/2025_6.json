@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:56:19.610Z",
+  "generatedAt": "2026-08-31T10:07:59.981Z",
   "season": 2025,
   "round": 6,
   "event": "miami_grand_prix",
@@ -16,7 +16,8 @@
       "appliesTo": "Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_7_-_pit_lane_speeding.pdf",
-      "publishedAt": "2025-05-02 19:34 CET"
+      "publishedAt": "2025-05-02 19:34 CET",
+      "fineEur": 1000
     },
     {
       "doc": 19,
@@ -40,7 +41,8 @@
       "appliesTo": "Practice 1",
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_31_-_impeding_car_4.pdf",
-      "publishedAt": "2025-05-02 21:37 CET"
+      "publishedAt": "2025-05-02 21:37 CET",
+      "fineEur": 7500
     },
     {
       "doc": 26,
@@ -129,7 +131,9 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2025_miami_grand_prix_-_infringement_-_car_30_-_collision_with_car_14.pdf",
       "publishedAt": "2025-05-03 22:01 CET",
-      "seconds": 5
+      "seconds": 5,
+      "licencePoints": 1,
+      "licencePointsTotal": 6
     },
     {
       "doc": 59,

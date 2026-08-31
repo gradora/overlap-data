@@ -21,6 +21,7 @@ import {
   mergeFiaEvent,
   planPenaltyFetches,
   canReuseGrid,
+  field,
   pickGridDoc,
   roundFileFrom,
   skipFirstWrite,
@@ -62,12 +63,15 @@ test("parsePenaltyDoc: грид-дроп извлекается из поля De
   assert.equal(p!.gridDrop, 10);
   assert.equal(p!.appliesTo, "race"); // «for the next Race»
   assert.equal(p!.corrected, false);
-  assert.match(p!.decision, /Drop of 10 grid positions/);
-  assert.doesNotMatch(p!.decision, /Reason/); // Decision не захватил следующее поле
+  // Текст решения наружу не публикуется — проверяем ВЫРЕЗКУ поля из PDF, а
+  // не сохранённые данные: сдвинься граница, и в классификацию поедет «Reason».
+  assert.match(field(DOC23, "Decision")!, /Drop of 10 grid positions/);
+  assert.doesNotMatch(field(DOC23, "Decision")!, /Reason/);
   // Версия парсера — на самой записи: по ней докач решает, перечитывать ли
   // документ. Без штампа пропуск не включится никогда (качали бы всё вечно).
   assert.equal(p!.parser, PENALTY_PARSER_VERSION);
-  assert.equal(p!.fact, "The following Power Unit element has been used: 4th Control Electronics Unit (PU-CE)");
+  assert.equal(field(DOC23, "Fact"),
+               "The following Power Unit element has been used: 4th Control Electronics Unit (PU-CE)");
 });
 
 // --- Реальный текст Doc 63 (штраф Ferrari, unsafe release, Спа-2026): слово
@@ -92,9 +96,9 @@ test("parsePenaltyDoc: «Competitor» внутри Decision не обрезае�
   assert.equal(p!.car, 44);
   assert.equal(p!.type, "fine");
   // Полный текст: оба mid-text «Competitor» пережиты, конец — перед Reason.
-  assert.match(p!.decision, /on condition that the Competitor does not commit/);
-  assert.match(p!.decision, /occurring in the future\.$/);
-  assert.doesNotMatch(p!.decision, /Reason The Stewards/);
+  assert.match(field(DOC63, "Decision")!, /on condition that the Competitor does not commit/);
+  assert.match(field(DOC63, "Decision")!, /occurring in the future\.$/);
+  assert.doesNotMatch(field(DOC63, "Decision")!, /Reason The Stewards/);
 });
 
 test("parsePenaltyDoc: «No further action» → type none, тот же шаблон", () => {
@@ -103,7 +107,7 @@ test("parsePenaltyDoc: «No further action» → type none, тот же шабл
   assert.equal(p!.car, 55);
   assert.equal(p!.driver, "Carlos Sainz");
   assert.equal(p!.type, "none");
-  assert.equal(p!.decision, "No further action.");
+  assert.equal(field(DOC43, "Decision"), "No further action.");
 });
 
 test("classifyDecision: все типы штрафов генерически", () => {
@@ -255,7 +259,7 @@ test("markNextRace: пост-гоночный грид-штраф → next_race,
   const wall = raceStartWall("2026-07-19", "13:00:00Z")!; // 15:00 Paris
   const base = {
     car: 55, driver: "Carlos Sainz", session: "Qualifying",
-    appliesTo: "race", corrected: false, decision: "d", url: "u",
+    appliesTo: "race", corrected: false, url: "u",
   };
   const pens = [
     { ...base, doc: 54, type: "grid" as const, gridDrop: 10, publishedAt: "2026-07-19 12:22 CET" },
@@ -280,7 +284,7 @@ test("markNextRace: пометка ОТКАТЫВАЕТСЯ, когда врем
   // следующий раунд. Пересчёт должен идти в ОБЕ стороны.
   const base = {
     car: 55, driver: "Carlos Sainz", session: "Qualifying", type: "grid" as const,
-    gridDrop: 10, corrected: false, decision: "Drop of 10 grid positions.", url: "u",
+    gridDrop: 10, corrected: false, url: "u",
     publishedAt: "2026-07-19 12:22 CET",
   };
   const wrong = raceStartWall("2026-07-19", "09:00:00Z")!;   // 11:00 Paris — старт «раньше» публикации
@@ -302,7 +306,7 @@ test("markNextRace: appliesTo «sprint» неприкосновенен", () => 
   const wall = raceStartWall("2026-07-19", "13:00:00Z")!;    // 15:00 Paris
   const base = {
     car: 23, driver: "Alexander Albon", session: "Sprint Qualifying", type: "grid" as const,
-    pitlane: true, corrected: false, decision: "Required to start the Sprint from the pit lane.",
+    pitlane: true, corrected: false,
     url: "u",
   };
   const pens = [
@@ -321,10 +325,10 @@ const PREV_R10: FiaEvent = {
   season: 2026, round: 10, event: "belgian_grand_prix",
   penalties: [
     { doc: 60, car: 55, driver: "Carlos Sainz", session: "Race", type: "grid",
-      gridDrop: 5, appliesTo: "next_race", corrected: false, decision: "d", url: "u",
+      gridDrop: 5, appliesTo: "next_race", corrected: false, url: "u",
       publishedAt: "2026-07-19 18:41 CET" },
     { doc: 61, car: 1, driver: "Lando Norris", session: "Race", type: "time",
-      seconds: 5, appliesTo: "race", corrected: false, decision: "d", url: "u" },
+      seconds: 5, appliesTo: "race", corrected: false, url: "u" },
   ],
 };
 
@@ -417,7 +421,7 @@ test("classifyDecision: питлейн со вставкой сессии + appl
 
 const pen = (over: Partial<FiaPenalty> & { doc: number }): FiaPenalty => ({
   car: 55, driver: "Carlos Sainz", session: "Race", type: "time", seconds: 5,
-  appliesTo: "race", corrected: false, decision: "5 second time penalty.",
+  appliesTo: "race", corrected: false,
   parser: PENALTY_PARSER_VERSION,
   url: `https://www.fia.com/doc${over.doc}.pdf`,
   publishedAt: `2026-08-23 1${over.doc % 10}:00 CET`,
@@ -465,7 +469,7 @@ test("mergeFiaEvent: прогон без единого распарсенног
 
 test("mergeFiaEvent: свежий документ добавляется к прежним", () => {
   const m = mergeFiaEvent(PREV_12, {
-    penalties: [pen({ doc: 63, type: "dsq", decision: "Disqualified.", publishedAt: "2026-08-23 21:30 CET" })],
+    penalties: [pen({ doc: 63, type: "dsq", publishedAt: "2026-08-23 21:30 CET" })],
     carried: [], listedDocs: [...DOCS_12, 63],
   });
   assert.equal(m.penalties.length, 12);

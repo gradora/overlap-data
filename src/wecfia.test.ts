@@ -110,9 +110,9 @@ test("parseWecPenaltyDoc: штраф-файн FP1 (Doc 10)", () => {
   assert.equal(p!.driver, "Martin BERRY");
   assert.equal(p!.session, "FP1");
   assert.equal(p!.type, "fine");
-  assert.equal(p!.fact, "Speeding in the pitlane");
-  assert.match(p!.decision, /^Fine of 600 €/);
-  assert.match(p!.decision, /moment of the infringement\.$/); // Reason не захвачен
+  // Текст наружу не публикуется — проверяем разобранное: сумма штрафа
+  // числом. Корректность вырезки поля Decision держит fia.test.ts.
+  assert.equal(p!.fineEur, 600);
   assert.equal(p!.corrected, false);
   assert.equal(p!.publishedAt, "2026-07-10T15:17:41.000Z");
 });

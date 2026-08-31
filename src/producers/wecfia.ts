@@ -21,6 +21,7 @@ import {
   appliesTo, classifyDecision, fieldValue, mergeStewardsPenalties,
   planStewardsFetches, skipFirstWrite,
   type FiaEvent, type FiaPenalty, type StewardsListedDoc,
+  fineAmountEur,
 } from "../lib/fiadocs.js";
 import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "../lib/alkamelwec.js";
 import { eventInfo, raceSlugs } from "../lib/fiawecsite.js";
@@ -112,7 +113,6 @@ export function parseWecPenaltyDoc(
   const driver = dm?.[2] ?? fieldValue(text, "Competitor:", L) ?? "";
 
   const session = fieldValue(text, "Session:", L) ?? "";
-  const fact = fieldValue(text, "Fact:", L) ?? undefined;
   const cls = classifyDecision(decision);
 
   return {
@@ -128,8 +128,7 @@ export function parseWecPenaltyDoc(
     ...(cls.backOfGrid ? { backOfGrid: true } : {}),
     appliesTo: appliesTo(decision, session),
     corrected: /AMENDED/i.test(ref.title),
-    fact,
-    decision,
+    ...(fineAmountEur(decision) != null ? { fineEur: fineAmountEur(decision)! } : {}),
     url: ref.url,
     ...(publishedAt ? { publishedAt } : {}),
   };
