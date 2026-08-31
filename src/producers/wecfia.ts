@@ -233,13 +233,21 @@ async function main() {
   let backfill = envNumber("WEC_FIA_BACKFILL", 1);
   const ACTIVE_LEAD_MS = 4 * 24 * 3600 * 1000;
 
+  // Счётчики итога. Раньше прогон печатал голое «Done.», и три разных исхода
+  // выглядели одинаково: «нечего делать», «ни один раунд не сматчился» и «нет
+  // дат ни у одного этапа». Последние два — тихие поломки входа, и после
+  // переезда на слой фактов их цена выросла: пустой факт даёт ровно их.
+  let matched = 0, datedRounds = 0, touched = 0;
+
   for (const ev of events) {
     const round = matchAkRound(ev.label, slugs);
     if (round == null) {
       console.warn(`  «${ev.label}»: не сматчилось со слагами сезона — пропускаем`);
       continue;
     }
+    matched++;
     const dates = raceDates(slugs[round - 1]);
+    if (dates.endMs != null) datedRounds++;
     // Стюардское окно оседания (14 дней — срок права FIA на пересмотр), как у
     // fia.ts: длинное окно стало безопасным ровно тогда, когда файл раунда
     // перестал перезаписываться итогом прогона — теперь он НАКАПЛИВАЕТСЯ
@@ -255,6 +263,7 @@ async function main() {
     const needsBackfill = (FORCE || !exists) && started;
     if (frozen && exists && !FORCE) continue;
     if (!isActive && !needsBackfill) continue;
+    touched++;
     if (!isActive) {
       if (backfill <= 0) continue;
       backfill--;
@@ -279,7 +288,12 @@ async function main() {
     }
     await produceEvent(refs, round, ev.label, slugs[round - 1]);
   }
-  console.log("Done.");
+  console.log(`Done. событий Notice Board ${events.length}, сматчено ${matched}, ` +
+    `с датами ${datedRounds}, взято в работу ${touched}.`);
+  if (matched > 0 && datedRounds === 0) {
+    console.warn("::warning::wecfia: ни у одного раунда нет дат — похоже, " +
+      "фактов страниц событий нет, и окна заморозки считаются вслепую");
+  }
 }
 
 async function produceEvent(refs: WecDocRef[], round: number, label: string, slug: string) {

@@ -201,9 +201,13 @@ async function main() {
   const ctx = await akSeasonContext(YEAR);
   if (!ctx) return;
 
+  // См. тот же счётчик в wecfia: «Done.» без чисел не отличает «нечего делать»
+  // от «вход пуст», а после переезда на факты именно это и надо различать.
+  let datedRounds = 0;
   for (const ev of ctx.events) {
     const path = join(OUT_DIR, `${YEAR}_${ev.round}.json`);
     const dates = raceDates(ev.slug);
+    if (dates.endMs != null) datedRounds++;
     const raced = dates.endMs != null && dates.endMs < NOW;
     if (!raced) continue; // гонки ещё не было — хайлайтить нечего
     // Две закачки на этап вместо ежечасной: разбор после финиша и
@@ -241,7 +245,11 @@ async function main() {
       `${action === "seal" ? " (запечатан)" : ""}`,
     );
   }
-  console.log("Done.");
+  console.log(`Done. этапов сезона ${ctx.events.length}, с датами ${datedRounds}.`);
+  if (ctx.events.length > 0 && datedRounds === 0) {
+    console.warn("::warning::wechighlights: ни у одного этапа нет дат — похоже, " +
+      "фактов страниц событий нет, и хайлайты не соберутся ни по одному раунду");
+  }
 }
 
 // Запуск только как продьюсер (не при импорте из теста).
