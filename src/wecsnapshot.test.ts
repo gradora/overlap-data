@@ -5,6 +5,8 @@
 // imsastandings.test.ts): деградация входов не затирает прежний файл.
 
 import { test } from "node:test";
+import { putPage } from "./lib/wecextract.js";
+import { wecFactsFile } from "./lib/wecfacts.js";
 import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -351,49 +353,47 @@ test("buildWecSnapshot: полный цикл из зеркала; повтор 
   const root = mkdtempSync(join(tmpdir(), "wecdata-"));
   const NOW = Date.parse("2031-12-01T00:00:00Z"); // сезон 2031 давно закончился
   try {
-    const mirrorDir = join(root, "wec", "fiawec");
-    mkdirSync(mirrorDir, { recursive: true });
     mkdirSync(join(root, "wec", "highlights"), { recursive: true });
 
     // Сезонная страница: пролог + два этапа, порядок навигации НЕ хронологический.
-    writeFileSync(join(mirrorDir, "en_season_2031"), `
+    putPage(root, "/en/season/2031", `
       <a href="/en/race/totalenergies-6-hours-of-spa-francorchamps-2031">Spa</a>
       <a href="/en/race/24-hours-of-le-mans-2031-1">Le Mans</a>
       <a href="/en/race/official-prologue-imola-2031">Prologue</a>`);
-    writeFileSync(join(mirrorDir, "en_race_totalenergies_6_hours_of_spa_francorchamps_2031"),
+    putPage(root, "/en/race/totalenergies-6-hours-of-spa-francorchamps-2031",
       racePageHTML({
         name: "WEC TotalEnergies 6 Hours of Spa-Francorchamps 2031",
         start: "2031-05-08T00:00:00+02:00", end: "2031-05-10T00:00:00+02:00",
         status: "EventCompleted", venue: "Spa-Francorchamps",
         address: "Spa-Francorchamps, BEL", raceId: 41,
       }));
-    writeFileSync(join(mirrorDir, "en_race_24_hours_of_le_mans_2031_1"),
+    putPage(root, "/en/race/24-hours-of-le-mans-2031-1",
       racePageHTML({
         name: "WEC 24 Hours of Le Mans 2031",
         start: "2031-06-11T00:00:00+02:00", end: "2031-06-15T00:00:00+02:00",
         status: "EventCompleted", venue: "24 Heures du Mans",
         address: "24 Heures du Mans, FRA", raceId: 42,
       }));
-    writeFileSync(join(mirrorDir, "en_race_official_prologue_imola_2031"),
+    putPage(root, "/en/race/official-prologue-imola-2031",
       racePageHTML({
         name: "WEC Official Prologue - IMOLA 2031",
         start: "2031-04-14T00:00:00+02:00", end: "2031-04-14T12:00:00+02:00",
         status: "EventCompleted", venue: "Imola", address: "Imola, ITA", raceId: 40,
       }));
     // E5: дропдауны сессий обоих этапов (у Ле-Мана RACE первым — id не по порядку).
-    writeFileSync(join(mirrorDir, "en_page_resultats_1_raceId_41"),
+    putPage(root, "/en/page/resultats-1?raceId=41",
       '<select><option value="71">FREE PRACTICE 1</option><option value="72">RACE</option></select>');
-    writeFileSync(join(mirrorDir, "en_page_resultats_1_raceId_42"),
+    putPage(root, "/en/page/resultats-1?raceId=42",
       '<select><option value="80">RACE</option><option value="81">HYPERPOLE 1 - HYPERCAR</option></select>');
     // E6 гонки Ле-Мана (последний завершённый) — команды экипажей Hypercar.
-    writeFileSync(join(mirrorDir, "en_page_resultats_1_raceId_42_sessionId_80"), `
+    putPage(root, "/en/page/resultats-1?raceId=42&sessionId=80", `
       <table><tr><th>Pos.</th><th>Competitors</th><th>Team</th><th>Laps</th></tr>
       <tr><td>N°</td></tr>
       <tr><td>1</td><td><img src="x"/></td><td>#7</td><td>TOYOTA GAZOO RACING</td><td>380</td></tr>
       <tr><td>2</td><td><img src="x"/></td><td>#20</td><td>BMW M TEAM WRT</td><td>379</td></tr>
       </table>`);
     // Зачёт: активный сезон совпадает; Hypercar Drivers с подменным пилотом.
-    writeFileSync(join(mirrorDir, "en_page_manufacturers_classification"), `
+    putPage(root, "/en/page/manufacturers-classification", `
       <button class="season-selector btn active" data-season="2">Season 2031</button>
       <button>FIA Hypercar World Endurance Manufacturers&rsquo; Championship</button>
       <table>
@@ -467,7 +467,7 @@ test("buildWecSnapshot: полный цикл из зеркала; повтор 
 
     // Fail-closed целиком: пропала страница этапа → ни index, ни standings не тронуты
     // (иначе нумерация съехала бы на файле навсегда).
-    rmSync(join(mirrorDir, "en_race_24_hours_of_le_mans_2031_1"));
+    rmSync(wecFactsFile(root, "/en/race/24-hours-of-le-mans-2031-1"));
     assert.match(buildWecSnapshot(2031, NOW, root), /файлы не тронуты/);
     assert.equal(readFileSync(join(root, "wec", "2031", "index.json"), "utf8"), indexBytes);
     assert.equal(readFileSync(join(root, "wec", "2031", "standings.json"), "utf8"), standingsBytes);
@@ -480,18 +480,16 @@ test("buildWecSnapshot: season-guard зачёта — страница чужо�
   const root = mkdtempSync(join(tmpdir(), "wecdata-"));
   const NOW = Date.parse("2031-12-01T00:00:00Z");
   try {
-    const mirrorDir = join(root, "wec", "fiawec");
-    mkdirSync(mirrorDir, { recursive: true });
-    writeFileSync(join(mirrorDir, "en_season_2030"),
+    putPage(root, "/en/season/2030",
       '<a href="/en/race/6-hours-of-imola-2030">Imola</a>');
-    writeFileSync(join(mirrorDir, "en_race_6_hours_of_imola_2030"),
+    putPage(root, "/en/race/6-hours-of-imola-2030",
       racePageHTML({
         name: "WEC 6 Hours of Imola 2030", start: "2030-04-18T00:00:00+02:00",
         end: "2030-04-20T00:00:00+02:00", status: "EventCompleted",
         venue: "Imola", address: "Imola, ITA", raceId: 30,
       }));
     // Страница зачёта живёт ТЕКУЩИМ сезоном (2031) — архивных fiawec не хранит.
-    writeFileSync(join(mirrorDir, "en_page_manufacturers_classification"),
+    putPage(root, "/en/page/manufacturers-classification",
       '<button class="season-selector active">Season 2031</button><table><tr><th>flag:IT</th></tr><tr><td>1</td><td>TOYOTA</td><td>25</td><td>25</td></tr></table>');
 
     assert.match(buildWecSnapshot(2030, NOW, root), /standings: страница зачёта за 2031 — пропуск/);

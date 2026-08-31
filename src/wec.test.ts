@@ -4,6 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   stripCountdown, expectedRaceMirrors, raceSlugs, raceIdOf, isRaceMirrorOfSeason, testSlugs,
+  ldJsonBlocks, eventInfo, sessionOptions, raceOptions,
 } from "./lib/fiawecsite.js";
 
 test("stripCountdown: цифры отсчёта вырезаются, разметка и данные остаются", () => {
@@ -89,4 +90,77 @@ test("testSlugs: прологи отдельно от зачётных этап�
   assert.deepEqual(raceSlugs(html, 2026), ["6-hours-of-imola-2026"]);
   assert.deepEqual(testSlugs(html, 2026), ["official-prologue-imola-2026"]);
   assert.deepEqual(testSlugs(html, 2025), ["official-prologue-qatar-2025"]);
+});
+
+// MARK: - Парсеры, которые становятся несущими В МОМЕНТ ЗАПИСИ
+//
+// До перехода на слой фактов их промах был обратим: HTML лежал в репозитории,
+// чинишь функцию — и архив перечитывается на следующем прогоне бесплатно.
+// После перехода промах отравляет сохранённые факты, а лечение — только
+// перекачка с чужого сервера. Поэтому сначала тесты, потом переход.
+
+test("ldJsonBlocks: все блоки в порядке документа, без обёртки script", () => {
+  const html = `<head>
+    <script type="application/ld+json">{"@type":"BreadcrumbList"}</script>
+    <script src="x.js"></script>
+    <script type='application/ld+json'>{"@type":"SportsEvent","startDate":"2026-04-17"}</script>
+  </head>`;
+  const blocks = ldJsonBlocks(html);
+  assert.equal(blocks.length, 2, "второй блок объявлен одинарными кавычками — тоже наш");
+  assert.match(blocks[0], /BreadcrumbList/);
+  assert.match(blocks[1], /SportsEvent/);
+  for (const b of blocks) assert.doesNotMatch(b, /<\/?script/i);
+  assert.deepEqual(ldJsonBlocks("<html>без блоков</html>"), []);
+});
+
+/// eventInfo принимает решение О ЗАМОРОЗКЕ события. Промах здесь означает не
+/// кривую дату на экране, а этап, который перестанут перекачивать.
+test("eventInfo: даты и страна из первого РАЗБИРАЕМОГО SportsEvent-блока", () => {
+  const page = (body: string) => `<script type="application/ld+json">${body}</script>`;
+  const ok = page(JSON.stringify({
+    "@type": "SportsEvent", startDate: "2026-04-17T10:00:00+02:00",
+    endDate: "2026-04-19T16:00:00+02:00", location: { address: "Imola, ITA" },
+  }));
+  const info = eventInfo(ok);
+  assert.equal(info.startMs, Date.parse("2026-04-17T10:00:00+02:00"));
+  assert.equal(info.endMs, Date.parse("2026-04-19T16:00:00+02:00"));
+  assert.equal(info.iso2, "it");
+
+  // Блок без SportsEvent пропускается, а битый JSON НЕ роняет разбор: страница
+  // fiawec несёт несколько блоков, и первый регулярно оказывается чужим.
+  const mixed = page('{"@type":"BreadcrumbList"}') + page("{сломанный") + ok;
+  assert.deepEqual(eventInfo(mixed), info, "перебор блоков остановился раньше времени");
+
+  // Ни одного пригодного блока — тройка null, а не исключение и не нули:
+  // нулевая дата означала бы «1970», и заморозка сработала бы навсегда.
+  assert.deepEqual(eventInfo("<html>пусто</html>"),
+                   { startMs: null, endMs: null, iso2: null });
+  // Даты нет, а блок есть — тоже null, а не NaN.
+  assert.deepEqual(eventInfo(page('{"@type":"SportsEvent"}')),
+                   { startMs: null, endMs: null, iso2: null });
+  // Страна не по ISO-3 — null, а не мусорный код.
+  assert.equal(eventInfo(page(JSON.stringify({
+    "@type": "SportsEvent", location: { address: "Imola, Italy" },
+  }))).iso2, null);
+});
+
+/// Дропдаун сессий — вход для протоколов. Пустой список тихо обнуляет
+/// sourceIds.fiawec.sessions у этапа, и витрина теряет уик-энд целиком.
+test("sessionOptions/raceOptions: сессии отделены от годов, классов и этапов", () => {
+  const opt = (id: number, label: string) => `<option value="${id}">${label}</option>`;
+  const html = [
+    opt(1, "2026"), opt(2, "HYPERCAR"), opt(3, "LMGT3"),
+    opt(4, "Free Practice 1"), opt(5, "Qualifying - LMGT3"), opt(6, "HYPERPOLE 1"),
+    opt(7, "Warm Up"), opt(8, "RACE"), opt(9, "6 Hours of Imola"),
+    "<option>без value</option>", '<option value="10"></option>',
+  ].join("");
+
+  assert.deepEqual(sessionOptions(html).map((o) => o.id), [4, 5, 6, 7, 8],
+    "в сессии затесались год, класс или этап — протоколы поедут не по тем id");
+  assert.deepEqual(raceOptions(html).map((o) => o.label), ["6 Hours of Imola"]);
+  // Опция без value или без подписи — не опция: id обязателен для URL сессии.
+  assert.equal(sessionOptions(html).concat(raceOptions(html)).length, 6);
+  // Сущности в подписи разворачиваются: иначе метка не совпадёт с витриной.
+  assert.equal(sessionOptions(opt(11, "Qualifying &amp; Hyperpole"))[0].label,
+               "Qualifying & Hyperpole");
 });

@@ -19,10 +19,12 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchText, mirrorSlug, writeIfChanged } from "./mirror.js";
+import { extractFacts } from "./wecextract.js";
+import { wecResultsPath, wecSessionsPath, writeFacts } from "./wecfacts.js";
+import { fetchText, writeIfChanged } from "./mirror.js";
 import { WECLIVE_MARKER } from "./producers.js";
 import { utcDay } from "./freshness.js";
-import { sessionOptions, stripCountdown } from "./fiawecsite.js";
+import { stripCountdown } from "./fiawecsite.js";
 import { buildWecEventFiles } from "./wecevents.js";
 import { buildWecSnapshot } from "./wecsnapshot.js";
 
@@ -78,26 +80,36 @@ export function liveEvent(dataDir: string, year: number, now: number): LiveCandi
   return live.sort((a, b) => (a.startMs ?? 0) - (b.startMs ?? 0))[live.length - 1];
 }
 
-/// Обновление страниц ОДНОГО этапа: дропдаун сессий + каждая сессия с таблицей.
-/// Возвращает число переписанных файлов зеркала.
+/// Обновление ОДНОГО этапа: дропдаун сессий + каждая сессия с таблицей.
+/// Возвращает число переписанных файлов фактов.
+///
+/// Этот продьюсер бежит каждые 15 минут и до 31.08.2026 был вторым независимым
+/// писателем HTML в репозиторий. Перевод на факты обязан идти ОДНИМ коммитом с
+/// остальными: перевести только читателей — и живое окно уик-энда продолжило
+/// бы капать чужие страницы в публичный репо при зелёном прогоне.
 async function refreshEvent(dataDir: string, raceId: number): Promise<number> {
-  const outDir = join(dataDir, "wec", "fiawec");
-  const indexPath = `/en/page/resultats-1?raceId=${raceId}`;
+  const indexPath = wecSessionsPath(raceId);
   const res = await fetchText(`${FIAWEC}${indexPath}`);
   if (!res || res.status !== 200 || !res.text) {
     console.log(`  MISS  ${indexPath} (${res?.status ?? "net"})`);
     return 0;
   }
   let written = 0;
-  if (writeIfChanged(join(outDir, mirrorSlug(indexPath)), stripCountdown(res.text))) written++;
+  const dropdown = extractFacts(indexPath, stripCountdown(res.text));
+  if (dropdown?.kind !== "sessions") return 0;
+  if (writeFacts(dataDir, indexPath, dropdown)) written++;
 
-  for (const session of sessionOptions(res.text)) {
-    const path = `${indexPath}&sessionId=${session.id}`;
+  for (const session of dropdown.sessions) {
+    const path = wecResultsPath(raceId, session.id);
     const page = await fetchText(`${FIAWEC}${path}`);
     // Тот же гейт, что у полного продьюсера: страница без таблицы — это
-    // сессия, которая ещё не отгонялась, и зеркалить там нечего.
+    // сессия, которая ещё не отгонялась, и извлекать там нечего. Без гейта мы
+    // бы записали протокол с нулём строк поверх настоящего.
     if (page?.status === 200 && page.text.includes("<table")) {
-      if (writeIfChanged(join(outDir, mirrorSlug(path)), stripCountdown(page.text))) written++;
+      const facts = extractFacts(path, stripCountdown(page.text));
+      if (facts?.kind === "results" && facts.rows.length > 0 && writeFacts(dataDir, path, facts)) {
+        written++;
+      }
     }
   }
   return written;
@@ -122,10 +134,10 @@ export async function runWecLive(
   }
 
   const written = await refreshEvent(dataDir, event.raceId);
-  // Витрина пересобирается из ТОЛЬКО ЧТО снятого зеркала — тем же прогоном и в
+  // Витрина пересобирается из ТОЛЬКО ЧТО снятых фактов — тем же прогоном и в
   // том же порядке, что у полного продьюсера (index → файлы событий).
   const snapshot = buildWecSnapshot(year, now, dataDir);
   const events = buildWecEventFiles(year, now, dataDir);
-  return `wec live: ${event.slug} (raceId ${event.raceId}), зеркало ${written} файлов; ` +
+  return `wec live: ${event.slug} (raceId ${event.raceId}), факты ${written} файлов; ` +
     `${snapshot}; ${events}`;
 }

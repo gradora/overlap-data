@@ -1,8 +1,8 @@
-// Зеркало WEC (fiawec.com) — кэширующий прокси. Тянет ТЕ ЖЕ пути, что приложение
-// (WECDataService.loadHTML), и кладёт HTML как есть под wec/fiawec/<slug(path)>.
-// Приложение (SnapshotMirror.wecPath) читает их первым, при промахе — прямой
-// fiawec. Перечисление URL повторяет парсеры приложения: slugs из /en/season,
-// raceId из /en/page/resultats-1, sessionId из resultats-1?raceId=.
+// Продьюсер WEC. Тянет страницы fiawec.com, разбирает их В ПАМЯТИ и кладёт на
+// диск не страницу, а извлечённые ФАКТЫ (wec/facts/<slug(path)>). HTML этого
+// источника не существует в репозитории ни секунды — почему именно так, см.
+// шапку lib/wecfacts.ts. Перечисление URL повторяет парсеры: slugs из
+// /en/season, raceId со страницы события, sessionId из resultats-1?raceId=.
 //
 // Тем же прогоном (без своего шага воркфлоу и записи в реестре свежести) из
 // снятого зеркала собирается витрина WEC — фазы 3a и 3b DATA-PLAN:
@@ -10,57 +10,66 @@
 //   wec/<год>/<NN>_<слаг>.json (сессии события) — buildWecEventFiles
 // (порядок обязателен: файлы событий строятся из index.json этого прогона).
 
-import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { rmSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
-import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
+import { fetchText } from "../lib/mirror.js";
+import { stripCountdown } from "../lib/fiawecsite.js";
+import { seasonStarted } from "../lib/fiawecsite.js";
+import { extractFacts } from "../lib/wecextract.js";
 import {
-  eventInfo, expectedRaceMirrors, isRaceMirrorOfSeason, raceIdOf,
-  raceSlugs, seasonStarted, sessionOptions, stripCountdown, testSlugs,
-} from "../lib/fiawecsite.js";
+  orphanRaceFiles, readFacts, wecFactsDir, writeFacts,
+  wecIndexPath, wecRacePath, wecResultsPath, wecSeasonPath, wecSessionsPath,
+  wecStandingsPath, type WecFacts,
+} from "../lib/wecfacts.js";
 import { buildWecEventFiles } from "../lib/wecevents.js";
 import { buildWecSnapshot } from "../lib/wecsnapshot.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const FIAWEC = "https://www.fiawec.com";
-const OUT_DIR = join(process.cwd(), "data", "wec", "fiawec");
+const DATA_DIR = join(process.cwd(), "data");
 const NOW = Date.now();
 
-// Уже снятый mirror-файл (для freeze-решения без рескрейпа).
-function readMirror(path: string): string | null {
-  const f = join(OUT_DIR, mirrorSlug(path));
-  try {
-    return existsSync(f) ? readFileSync(f, "utf8") : null;
-  } catch {
-    return null;
-  }
-}
+/// Итог одного обращения к странице. `ok` и `facts` разведены НАМЕРЕННО:
+/// у индекса результатов ветки извлечения нет вовсе, и по одному лишь
+/// «фактов нет» гейт полного отказа принял бы живой сайт за мёртвый и слал
+/// владельцу письмо на каждом прогоне.
+interface Fetch { ok: boolean; facts: WecFacts | null; }
 
-// Тянем fiawec-относительный путь, кладём под wec/fiawec/<slug(path)>
-// (нормализовав отсчёт). HTML или null.
-async function mirror(path: string): Promise<string | null> {
+/// Скачать страницу, извлечь факты, записать. HTML дальше этой функции не
+/// уходит — в этом и весь смысл слоя.
+async function mirror(path: string): Promise<Fetch> {
   const res = await fetchText(`${FIAWEC}${path}`);
   if (!res || res.status !== 200 || !res.text) {
     console.log(`  MISS  ${path} (${res?.status ?? "net"})`);
-    return null;
+    return { ok: false, facts: null };
   }
-  const text = stripCountdown(res.text);
-  const changed = writeIfChanged(join(OUT_DIR, mirrorSlug(path)), text);
+  const facts = extractFacts(path, stripCountdown(res.text));
+  if (!facts) {
+    console.log(`  ok    ${path} (без читателей — на диск не кладём)`);
+    return { ok: true, facts: null };
+  }
+  const changed = writeFacts(DATA_DIR, path, facts);
   console.log(`  ${changed ? "write" : "same "} ${path}`);
-  return text;
+  return { ok: true, facts };
 }
 
 // Каркасный запрос с ретраем: разовый блип fiawec (сеть/502) не должен слать
 // ложный алерт-письмо через exit(1) — валим прогон только при устойчивом
 // отказе (все попытки впустую).
-async function mirrorFramework(path: string, attempts = 3): Promise<string | null> {
+async function mirrorFramework(path: string, attempts = 3): Promise<Fetch> {
+  let last: Fetch = { ok: false, facts: null };
   for (let i = 0; i < attempts; i++) {
-    const html = await mirror(path);
-    if (html) return html;
+    last = await mirror(path);
+    if (last.ok) return last;
     if (i < attempts - 1) await new Promise((r) => setTimeout(r, 5000));
   }
-  return null;
+  return last;
 }
+
+/// Факты страницы события, уже лежащие на диске. Заменяет прежнее чтение
+/// сохранённого HTML: решение о заморозке принимается по ним же.
+const raceFacts = (slug: string) => readFacts(DATA_DIR, wecRacePath(slug), "race");
 
 async function main() {
   console.log(`WEC mirror, season ${YEAR}`);
@@ -69,34 +78,37 @@ async function main() {
   // промахе зеркала), зачёт производителей. raceId с индекса больше не берём —
   // он всегда отдаёт ТЕКУЩИЙ сезон, id лежат на страницах самих гонок.
   // С ретраем — от гейта exit(1) зависит алерт владельцу, разовый блип не в счёт.
-  const season = await mirrorFramework(`/en/season/${YEAR}`);
-  const index = await mirrorFramework(`/en/page/resultats-1`);
-  // Оба каркасных запроса null → полный отказ fiawec: валим прогон (exit 1),
-  // иначе продьюсер завершится «success» при пустом зеркале и алерт-гейт
-  // промолчит при реальном аутэйдже.
-  if (!season && !index) {
+  const season = await mirrorFramework(wecSeasonPath(YEAR));
+  const index = await mirrorFramework(wecIndexPath());
+  // Оба каркасных запроса впустую → полный отказ fiawec: валим прогон (exit 1),
+  // иначе продьюсер завершится «success» при пустом входе и алерт-гейт
+  // промолчит при реальном аутэйдже. Спрашивается ИМЕННО `ok`: у индекса
+  // фактов не бывает по построению, и по ним гейт врал бы каждый прогон.
+  if (!season.ok && !index.ok) {
     console.error("fiawec season+index недоступны — весь прогон бесполезен");
     process.exit(1);
   }
-  await mirror(`/en/page/manufacturers-classification`);
+  await mirror(wecStandingsPath());
 
-  const slugs = season ? raceSlugs(season, YEAR) : [];
+  // Слаги берём из фактов, а не из свежего HTML: страница сезона могла не
+  // ответить в этом прогоне, и тогда работаем по последнему известному составу.
+  const seasonFacts = season.facts?.kind === "season"
+    ? season.facts
+    : readFacts(DATA_DIR, wecSeasonPath(YEAR), "season");
+  const slugs = seasonFacts?.races ?? [];
   // Прологи — отдельный список: в нумерацию раундов они не входят, но их
-  // страницы приложение читает так же, через зеркало.
-  const tests = season ? testSlugs(season, YEAR) : [];
+  // страницы разбираются так же.
+  const tests = seasonFacts?.tests ?? [];
 
   // GC осиротевших race-зеркал ТЕКУЩЕГО сезона: этап выпал из страницы сезона
   // (перенос в другой год) → его файл больше никто не обновит и не прочитает.
   // Только при живой странице сезона: без неё истинный состав неизвестен.
-  if (season && slugs.length > 0) {
+  if (season.ok && slugs.length > 0) {
     // Прологи тоже en_race_*_<год> — без них в ожидаемом наборе GC сносил бы
     // их страницу на каждом прогоне.
-    const expected = expectedRaceMirrors([...slugs, ...tests]);
-    for (const f of readdirSync(OUT_DIR)) {
-      if (isRaceMirrorOfSeason(f, YEAR) && !expected.has(f)) {
-        rmSync(join(OUT_DIR, f));
-        console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
-      }
+    for (const f of orphanRaceFiles(DATA_DIR, YEAR, [...slugs, ...tests])) {
+      rmSync(join(wecFactsDir(DATA_DIR), f));
+      console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
     }
   }
 
@@ -107,21 +119,19 @@ async function main() {
   const endBySlug: Record<string, number | null> = {};
   let frozenEvents = 0;
   for (const slug of slugs) {
-    const existing = readMirror(`/en/race/${slug}`);
-    const frozen = existing ? isFrozen(eventInfo(existing).endMs, NOW) : false;
+    const existing = raceFacts(slug);
+    const frozen = existing ? isFrozen(existing.info.endMs, NOW) : false;
     if (frozen) frozenEvents++;
-    const html = frozen ? existing! : (await mirror(`/en/race/${slug}`)) ?? existing;
-    const info = html ? eventInfo(html) : { startMs: null, endMs: null, iso2: null };
-    endBySlug[slug] = info.endMs;
-    const raceId = html ? raceIdOf(html) : null;
-    if (raceId !== null) raceIdBySlug[slug] = raceId;
+    const fresh = frozen ? null : await mirror(wecRacePath(slug));
+    const facts = (fresh?.facts?.kind === "race" ? fresh.facts : null) ?? existing;
+    endBySlug[slug] = facts?.info.endMs ?? null;
+    if (facts?.raceId != null) raceIdBySlug[slug] = facts.raceId;
   }
 
-  // Страницы прологов: только JSON-LD расписания (протоколов у теста нет).
+  // Страницы прологов: только расписание уик-энда (протоколов у теста нет).
   for (const slug of tests) {
-    const existing = readMirror(`/en/race/${slug}`);
-    const frozen = existing ? isFrozen(eventInfo(existing).endMs, NOW) : false;
-    if (!frozen) await mirror(`/en/race/${slug}`);
+    const existing = raceFacts(slug);
+    if (!(existing && isFrozen(existing.info.endMs, NOW))) await mirror(wecRacePath(slug));
   }
 
   // Per-race результаты (E5 дропдаун сессий) + per-session (E6). Freeze по
@@ -155,17 +165,28 @@ async function main() {
     const endMs = endBySlug[slug] ?? null;
     // Заморозка = «сыграно И уже снято»: одного возраста мало, иначе архивный
     // сезон, зеркала которого ещё не снимали, никогда бы не догрузился.
-    if (isFrozen(endMs, NOW) && existsSync(join(OUT_DIR, mirrorSlug(`/en/page/resultats-1?raceId=${raceId}`)))) {
+    // Заморозка = «сыграно И уже снято ПОЛНОСТЬЮ». Спрашивается непустой
+    // список сессий, а не наличие файла: частично разобранная страница дала бы
+    // файл с нулём сессий, этап пометился бы замороженным навсегда, и уик-энд
+    // молча исчез бы из витрины при зелёном прогоне.
+    const known = readFacts(DATA_DIR, wecSessionsPath(raceId), "sessions");
+    if (isFrozen(endMs, NOW) && (known?.sessions.length ?? 0) > 0) {
       frozenRaces++;
       continue;
     }
-    const e5 = await mirror(`/en/page/resultats-1?raceId=${raceId}`);
-    const sessionIds = e5 ? sessionOptions(e5).map((s) => s.id) : [];
-    for (const sessionId of sessionIds) {
-      const path = `/en/page/resultats-1?raceId=${raceId}&sessionId=${sessionId}`;
+    const e5 = await mirror(wecSessionsPath(raceId));
+    const sessions = e5.facts?.kind === "sessions" ? e5.facts.sessions : (known?.sessions ?? []);
+    for (const { id: sessionId } of sessions) {
+      const path = wecResultsPath(raceId, sessionId);
       const res = await fetchText(`${FIAWEC}${path}`);
+      // Гейт на <table — предохранитель, а не экономия трафика: будущую сессию
+      // fiawec отдаёт пустой страницей, и без него мы бы записали факт с нулём
+      // строк поверх настоящего протокола.
       if (res?.status === 200 && res.text.includes("<table")) {
-        if (writeIfChanged(join(OUT_DIR, mirrorSlug(path)), stripCountdown(res.text))) e6++;
+        const facts = extractFacts(path, stripCountdown(res.text));
+        if (facts?.kind === "results" && facts.rows.length > 0) {
+          if (writeFacts(DATA_DIR, path, facts)) e6++;
+        }
       }
     }
   }

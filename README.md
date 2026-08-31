@@ -11,7 +11,7 @@
 ```
 Jolpica ─┐                       ┌─ data/f1/jolpica/   (зеркало, + пер-раундовые слайсы)
 OpenF1 ──┤                       ├─ data/f1/openf1/    (зеркало, история 2023+)
-fiawec ──┤  src/producers/* ────►├─ data/wec/fiawec/   (зеркало HTML, нормализовано)
+fiawec ──┤  src/producers/* ────►├─ data/wec/facts/    (ФАКТЫ страниц, не страницы)
 Al Kamel ┤  (cron, см. ниже)     ├─ data/{f1,wec,imsa}/{fia,winners,highlights}/
 fia.com ─┤                       ├─ data/f1/{milestones,beasts,records,history}/
 enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот этапов)

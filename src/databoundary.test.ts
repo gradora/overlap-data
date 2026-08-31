@@ -7,7 +7,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 
 /// Точечные имена в обходе не участвуют: Finder кладёт .DS_Store в любой
 /// открытый каталог, и сторож охвата краснел бы «новое семейство без зоны» —
@@ -77,7 +77,7 @@ test("блокеры сплита названы поимённо", () => {
 });
 
 test("зоны не пересекаются и заданы у всех записей", () => {
-  const zones = new Set(["кухня", "витрина", "справочник"]);
+  const zones = new Set(["кухня", "заготовка", "витрина", "справочник"]);
   for (const f of [...DATA_FAMILIES, ...DATA_FILES]) {
     assert.ok(zones.has(f.zone), `${f.path}: неизвестная зона «${f.zone}»`);
   }
@@ -97,4 +97,30 @@ test("готовность кухни к переезду названа пои�
     assert.ok(f.note && f.note.length > 20,
               `${f.path}: держится сборкой — запись обязана называть продьюсеров`);
   }
+});
+
+/// СТОРОЖ ГРАНИЦЫ ФАКТА. До 31.08.2026 в data/ лежали 154 сохранённые страницы
+/// fiawec — 24 МБ чужого выражения в открытом репозитории. Их там больше нет, и
+/// вернуться они могут ровно одним способом: кто-то откатит правку продьюсера
+/// или напишет нового, который снова сохранит страницу целиком.
+///
+/// Этот сторож ловит КЛАСС, а не случай: любой файл в data/, который выглядит
+/// как разметка, роняет тесты. Он дешёвый (обход всех файлов) и точный —
+/// сегодня совпадений ноль.
+test("СТОРОЖ ГРАНИЦЫ: в data/ нет разметки", () => {
+  const offenders: string[] = [];
+  const walk = (dir: string, rel: string) => {
+    for (const name of readdirSync(dir).filter((n) => !n.startsWith("."))) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) { walk(full, `${rel}${name}/`); continue; }
+      const head = readFileSync(full, "utf8").slice(0, 400).trimStart();
+      if (head.startsWith("<") || /<(!doctype|html|script|table)\b/i.test(head)) {
+        offenders.push(`${rel}${name}`);
+      }
+    }
+  };
+  walk("data", "");
+  assert.deepEqual(offenders, [],
+    "в data/ появилась разметка: сохранять страницы источника целиком — " +
+    "редистрибуция чужого выражения, из-за которой и заводился слой фактов");
 });

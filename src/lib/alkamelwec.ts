@@ -5,9 +5,8 @@
 // Value="..."> (атрибут с большой буквы V — обычный регекс по value его
 // пропускает), файлы — прямыми href (листинг директорий закрыт, 403).
 
-import { readFileSync } from "node:fs";
+import { readFacts, wecSeasonPath } from "./wecfacts.js";
 import { join } from "node:path";
-import { raceSlugs } from "./fiawecsite.js";
 import { UA } from "./http.js";
 import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
 
@@ -271,16 +270,17 @@ export interface AkSeasonContext {
 /// Общий каркас продьюсеров архива: слаги сезона из wec-зеркала + селекторы
 /// корня архива + события сезона, сматченные к раундам. null — чего-то нет
 /// (зеркала/сезона на архиве) — вызывающий пропускает прогон толерантно.
-export async function akSeasonContext(year: number): Promise<AkSeasonContext | null> {
-  let seasonHtml: string;
-  try {
-    seasonHtml = readFileSync(
-      join(process.cwd(), "data", "wec", "fiawec", `en_season_${year}`), "utf8");
-  } catch {
-    console.warn(`alkamelwec: нет зеркала en_season_${year} — пропускаем`);
+export async function akSeasonContext(
+  year: number, dataDir: string = join(process.cwd(), "data"),
+): Promise<AkSeasonContext | null> {
+  // Корень — параметр: раньше путь собирался литералом прямо здесь, без
+  // константы и без mirrorSlug, и этот читатель выпадал из любой карты
+  // зависимостей (в карте границы его не было вовсе до 31.08.2026).
+  const slugs = readFacts(dataDir, wecSeasonPath(year), "season")?.races ?? [];
+  if (!slugs.length) {
+    console.warn(`::warning::alkamelwec: нет фактов сезона ${year} — пропускаем`);
     return null;
   }
-  const slugs = raceSlugs(seasonHtml, year);
   if (!slugs.length) {
     console.warn("alkamelwec: слаги сезона не распарсились — пропускаем");
     return null;

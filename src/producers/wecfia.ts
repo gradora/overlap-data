@@ -24,14 +24,14 @@ import {
   fineAmountEur,
 } from "../lib/fiadocs.js";
 import { ALKAMEL_WEC, matchAkRound, parseAkOptions, parseFileHrefs } from "../lib/alkamelwec.js";
-import { eventInfo, raceSlugs } from "../lib/fiawecsite.js";
+import { readFacts, wecRacePath, wecSeasonPath } from "../lib/wecfacts.js";
 import { fetchWithRetryLog, lastModifiedISO } from "../lib/http.js";
 import { envFlag, envNumber } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const NB = `${ALKAMEL_WEC}/noticeBoard.php`;
 const OUT_DIR = join(process.cwd(), "data", "wec", "fia");
-const MIRROR_DIR = join(process.cwd(), "data", "wec", "fiawec");
+const DATA_DIR = join(process.cwd(), "data");
 const NOW = Date.now();
 // Читаем один раз на модуль (как FIA_FORCE в fia.ts): флаг нужен и в отборе
 // раундов, и в produceEvent — там он снимает пропуск уже разобранных документов.
@@ -183,16 +183,12 @@ async function fetchPdf(
   }
 }
 
-// Зеркальная страница гонки (кладёт wec.ts) — freeze-окна этапа.
-function raceMirror(slug: string): string | null {
-  // mirrorSlug("/en/race/<slug>") без импорта: та же схема «не-алфанум → _».
-  const key = `en_race_${slug.replace(/[^a-z0-9.]+/gi, "_")}`;
-  try {
-    return readFileSync(join(MIRROR_DIR, key), "utf8");
-  } catch {
-    return null;
-  }
-}
+// Даты этапа — из фактов, которые кладёт wec.ts. Раньше здесь читалась
+// сохранённая страница и ключ собирался СВОЕЙ регуляркой «без импорта»:
+// правка канонического mirrorSlug сюда просто не дошла бы.
+const raceDates = (slug: string) =>
+  readFacts(DATA_DIR, wecRacePath(slug), "race")?.info
+    ?? { startMs: null, endMs: null, iso2: null };
 
 // ---- Продьюсер ----
 
@@ -201,14 +197,12 @@ async function main() {
 
   // Каркас раундов — страница сезона из wec-зеркала (сезон файла = YEAR, так
   // что season-guard тут структурный: нет файла сезона — нечего матчить).
-  let seasonHtml: string;
-  try {
-    seasonHtml = readFileSync(join(MIRROR_DIR, `en_season_${YEAR}`), "utf8");
-  } catch {
-    console.warn(`wecfia: нет зеркала en_season_${YEAR} — пропускаем прогон`);
+  const seasonFacts = readFacts(DATA_DIR, wecSeasonPath(YEAR), "season");
+  if (!seasonFacts) {
+    console.warn(`::warning::wecfia: нет фактов сезона ${YEAR} — пропускаем прогон`);
     return;
   }
-  const slugs = raceSlugs(seasonHtml, YEAR);
+  const slugs = seasonFacts.races;
   if (!slugs.length) {
     console.warn("wecfia: слаги сезона не распарсились — пропускаем");
     return;
@@ -245,8 +239,7 @@ async function main() {
       console.warn(`  «${ev.label}»: не сматчилось со слагами сезона — пропускаем`);
       continue;
     }
-    const pageHtml = raceMirror(slugs[round - 1]);
-    const dates = pageHtml ? eventInfo(pageHtml) : { startMs: null, endMs: null, iso2: null };
+    const dates = raceDates(slugs[round - 1]);
     // Стюардское окно оседания (14 дней — срок права FIA на пересмотр), как у
     // fia.ts: длинное окно стало безопасным ровно тогда, когда файл раунда
     // перестал перезаписываться итогом прогона — теперь он НАКАПЛИВАЕТСЯ

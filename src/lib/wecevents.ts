@@ -35,15 +35,16 @@
 //     (зеркало) на месте, фаза 6 добавит их аддитивно.
 
 import { readdirSync, readFileSync, rmSync } from "node:fs";
+import { readFacts, wecRacePath, wecResultsPath } from "./wecfacts.js";
 import { join } from "node:path";
 import { envFlag } from "./env.js";
 import { isFrozen } from "./freeze.js";
-import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
+import { writeJSONWithEnvelope } from "./mirror.js";
 import { loadRefs } from "./refs.js";
 import { reanchorToZone } from "./zonedtime.js";
 import {
   wecEventFileName, type WecIndexEvent, type WecScheduledSession,
-  type WecSeasonIndexDoc, type WecStandingsDoc, parseRacePage,
+  type WecSeasonIndexDoc, type WecStandingsDoc,
 } from "./wecsnapshot.js";
 
 /// Своя версия у семейства (прецедент 3a: index и standings — независимые
@@ -532,14 +533,6 @@ export function buildWecEventFiles(
   if (!index || index.season !== year || (index.events ?? []).length === 0) {
     return "events: нет index.json сезона — пропуск";
   }
-  const mirror = (path: string): string | null => {
-    try {
-      return readFileSync(join(root, "wec", "fiawec", mirrorSlug(path)), "utf8");
-    } catch {
-      return null;
-    }
-  };
-
   // Экипажи — из зачёта ЭТОГО сезона. Нет файла (архив: страницы зачёта
   // прошлых лет у fiawec не существует) → имена не резолвим и говорим об этом
   // честно полем crewSource, а не подставляем чужой сезон.
@@ -555,16 +548,15 @@ export function buildWecEventFiles(
   for (const event of index.events) {
     const file = wecEventFileName(event.round, event.slug);
     expected.add(file);
-    const html = mirror(`/en/race/${event.slug}`);
-    const page = html ? parseRacePage(html) : null;
+    const page = readFacts(root, wecRacePath(event.slug), "race")?.page ?? null;
     const raceId = event.sourceIds.fiawec.raceId;
     const rowsBySessionId = new Map<number, Omit<WecEventResultRow, "drivers">[]>();
     if (raceId !== null) {
       for (const ref of event.sourceIds.fiawec.sessions) {
-        const e6 = mirror(`/en/page/resultats-1?raceId=${raceId}&sessionId=${ref.id}`);
-        // Зеркала нет — сессия ещё не сыграна (fiawec отдаёт для будущих
-        // пустой HTML, и wec.ts такие не сохраняет). Пустой протокол ≠ дыра.
-        if (e6) rowsBySessionId.set(ref.id, parseSessionRows(e6));
+        const e6 = readFacts(root, wecResultsPath(raceId, ref.id), "results");
+        // Фактов нет — сессия ещё не сыграна (fiawec отдаёт для будущих
+        // пустую страницу, и wec.ts такие не сохраняет). Пустой протокол ≠ дыра.
+        if (e6) rowsBySessionId.set(ref.id, e6.rows);
       }
     }
     const doc = buildWecEventDoc({

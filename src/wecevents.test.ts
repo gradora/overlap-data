@@ -6,8 +6,9 @@
 // замороженное событие не пересобирается.
 
 import { test } from "node:test";
+import { putPage } from "./lib/wecextract.js";
+import { wecFactsFile } from "./lib/wecfacts.js";
 import assert from "node:assert/strict";
-import { mirrorSlug } from "./lib/mirror.js";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -411,9 +412,7 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
   const root = mkdtempSync(join(tmpdir(), "wecdata-"));
   const NOW = Date.parse("2031-04-25T00:00:00Z"); // этап 19.04 ещё НЕ заморожен (окно 7д)
   try {
-    const mirrorDir = join(root, "wec", "fiawec");
     const seasonDir = join(root, "wec", "2031");
-    mkdirSync(mirrorDir, { recursive: true });
     mkdirSync(seasonDir, { recursive: true });
 
     const sessions = [{ id: 50, label: "QUALIFYING - HYPERCAR" }, { id: 51, label: "RACE" }];
@@ -441,7 +440,7 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
     // Осиротевший файл прошлого прогона: этап уехал в другой сезон.
     writeFileSync(join(seasonDir, "09_qatar-1812km-2031.json"), '{"series":"wec"}');
 
-    writeFileSync(join(mirrorDir, "en_race_6_hours_of_imola_2031"), racePageHTML({
+    putPage(root, "/en/race/6-hours-of-imola-2031", racePageHTML({
       name: "WEC 6 Hours of Imola 2031", start: "2031-04-17T00:00:00+02:00",
       end: "2031-04-19T00:00:00+02:00", raceId: 41,
       sessions: [
@@ -449,12 +448,12 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
         { name: "Race", start: "2031-04-19T13:00:00+02:00" },
       ],
     }));
-    writeFileSync(join(mirrorDir, "en_race_official_prologue_imola_2031"), racePageHTML({
+    putPage(root, "/en/race/official-prologue-imola-2031", racePageHTML({
       name: "WEC Official Prologue - IMOLA 2031", start: "2031-04-14T00:00:00+02:00",
       end: "2031-04-14T12:00:00+02:00", raceId: 40,
       sessions: [{ name: "MORNING SESSION", start: "2031-04-14T09:00:00+02:00" }],
     }));
-    writeFileSync(join(mirrorDir, "en_page_resultats_1_raceId_41_sessionId_51"),
+    putPage(root, "/en/page/resultats-1?raceId=41&sessionId=51",
       sessionHTML(RACE_HEADERS, [
         { cells: ["1", "#8", "TOYOTA RACING", "213", "6:00:10.939", "-", "-", "180.37", "1:32.490", "88"] },
         { cells: ["2", "#51", "FERRARI AF CORSE", "213", "6:00:24.291", "13.352", "13.352", "180.36", "1:32.462", "90"] },
@@ -490,7 +489,7 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
     assert.equal(readFileSync(racePath, "utf8"), bytes);
 
     // Дыра зеркала: протокол пропал → прежний файл не тронут.
-    rmSync(join(mirrorDir, "en_page_resultats_1_raceId_41_sessionId_51"));
+    rmSync(wecFactsFile(root, "/en/page/resultats-1?raceId=41&sessionId=51"));
     assert.match(buildWecEventFiles(2031, NOW, root), /kept-previous/);
     assert.equal(readFileSync(racePath, "utf8"), bytes);
   } finally {
@@ -502,9 +501,7 @@ test("buildWecEventFiles: архивный сезон без зачёта — ф
   const root = mkdtempSync(join(tmpdir(), "wecdata-"));
   const NOW = Date.parse("2032-01-01T00:00:00Z");
   try {
-    const mirrorDir = join(root, "wec", "fiawec");
     const seasonDir = join(root, "wec", "2031");
-    mkdirSync(mirrorDir, { recursive: true });
     mkdirSync(seasonDir, { recursive: true });
     writeFileSync(join(seasonDir, "index.json"), JSON.stringify({
       schemaVersion: 1, series: "wec", season: 2031, frozen: true,
@@ -512,11 +509,11 @@ test("buildWecEventFiles: архивный сезон без зачёта — ф
         sourceIds: { fiawec: { slug: "6-hours-of-imola-2031", raceId: 41, sessions: [{ id: 51, label: "RACE" }] } },
       })],
     }));
-    writeFileSync(join(mirrorDir, "en_race_6_hours_of_imola_2031"), racePageHTML({
+    putPage(root, "/en/race/6-hours-of-imola-2031", racePageHTML({
       name: "WEC 6 Hours of Imola 2031", raceId: 41,
       sessions: [{ name: "Race", start: "2031-04-19T13:00:00+02:00" }],
     }));
-    writeFileSync(join(mirrorDir, "en_page_resultats_1_raceId_41_sessionId_51"),
+    putPage(root, "/en/page/resultats-1?raceId=41&sessionId=51",
       sessionHTML(RACE_HEADERS, [
         { cells: ["1", "#8", "TOYOTA RACING", "213", "6:00:10.939", "-", "-", "180.37", "1:32.490", "88"] },
       ]));
@@ -555,9 +552,7 @@ test("сборка: момент сессии пересобирается по 
   const root = mkdtempSync(join(tmpdir(), "wectz-"));
   const NOW = Date.parse("2031-10-01T00:00:00Z");
   try {
-    const mirrorDir = join(root, "wec", "fiawec");
     const seasonDir = join(root, "wec", "2031");
-    mkdirSync(mirrorDir, { recursive: true });
     mkdirSync(seasonDir, { recursive: true });
 
     const sessions = [{ id: 70, label: "RACE" }];
@@ -573,14 +568,14 @@ test("сборка: момент сессии пересобирается по 
     }));
     // Страница события: расписание с ЛОЖНЫМ парижским офсетом — ровно как у
     // источника.
-    writeFileSync(join(mirrorDir, mirrorSlug("/en/race/6-hours-of-fuji-2031")), `
+    putPage(root, "/en/race/6-hours-of-fuji-2031", `
       <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"SportsEvent","name":"6 Hours of Fuji",
        "startDate":"2031-09-26T00:00:00+02:00","endDate":"2031-09-28T00:00:00+02:00",
        "subEvent":[{"name":"Race","startDate":"2031-09-28T11:00:00+02:00",
                     "eventStatus":"https://schema.org/EventCompleted"}]}
       </script>`);
-    writeFileSync(join(mirrorDir, mirrorSlug("/en/page/resultats-1?raceId=70")),
+    putPage(root, "/en/page/resultats-1?raceId=70",
                   `<select><option value="70" selected>RACE</option></select>`);
 
     resetRefsCacheForTesting();

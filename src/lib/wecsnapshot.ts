@@ -22,10 +22,11 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
+import { ISO3_TO_2, ldJsonBlocks } from "./fiawecsite.js";
 import {
-  ISO3_TO_2, ldJsonBlocks, raceSlugs, sessionOptions, testSlugs,
-} from "./fiawecsite.js";
-import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
+  readFacts, wecRacePath, wecResultsPath, wecSeasonPath, wecSessionsPath, wecStandingsPath,
+} from "./wecfacts.js";
+import { writeJSONWithEnvelope } from "./mirror.js";
 import { loadRefs, type RefsMap } from "./refs.js";
 
 // Своя версия на каждый файл (прецедент STANDINGS_SCHEMA_VERSION фазы 1):
@@ -972,32 +973,25 @@ function loadWinners(
   return out;
 }
 
-/// Сборка витрины сезона из зеркала. Никакой сети: читает то, что wec.ts
-/// только что снял (или снял когда-то — для замороженных сезонов). Возвращает
-/// краткий итог для лога продьюсера.
+/// Сборка витрины сезона из ФАКТОВ. Никакой сети: читает то, что wec.ts
+/// только что снял и разобрал (или разобрал когда-то — для замороженных
+/// сезонов). Возвращает краткий итог для лога продьюсера.
+///
+/// До 31.08.2026 здесь лежало чтение сохранённого HTML с последующим разбором
+/// на каждом прогоне. Разбор переехал в момент записи — см. lib/wecfacts.ts.
 export function buildWecSnapshot(
   year: number,
   now: number,
   root: string = join(process.cwd(), "data"),
 ): string {
-  const mirror = (path: string): string | null => {
-    try {
-      return readFileSync(join(root, "wec", "fiawec", mirrorSlug(path)), "utf8");
-    } catch {
-      return null;
-    }
-  };
-
-  const seasonHtml = mirror(`/en/season/${year}`);
-  if (!seasonHtml) return `snapshot: нет зеркала сезона ${year} — пропуск`;
-  const slugs = raceSlugs(seasonHtml, year);
+  const seasonFacts = readFacts(root, wecSeasonPath(year), "season");
+  if (!seasonFacts) return `snapshot: нет фактов сезона ${year} — пропуск`;
+  const slugs = seasonFacts.races;
   if (slugs.length === 0) return `snapshot: сезон ${year} без этапов — пропуск`;
-  const tests = testSlugs(seasonHtml, year);
+  const tests = seasonFacts.tests;
 
-  const pageOf = (slug: string): WecRacePageInfo | null => {
-    const html = mirror(`/en/race/${slug}`);
-    return html ? parseRacePage(html) : null;
-  };
+  const pageOf = (slug: string): WecRacePageInfo | null =>
+    readFacts(root, wecRacePath(slug), "race")?.page ?? null;
   const racePages = slugs.map((slug) => ({ slug, page: pageOf(slug) }));
   // Прологи — мягко, как у клиента (buildTestEvents compactMap): пролог без
   // страницы в нумерацию не входит и ничего не смещает.
@@ -1019,8 +1013,8 @@ export function buildWecSnapshot(
   for (const e of [...races, ...testPages]) {
     const raceId = e.page.raceId;
     if (raceId === null || sessionsByRaceId.has(raceId)) continue;
-    const e5 = mirror(`/en/page/resultats-1?raceId=${raceId}`);
-    sessionsByRaceId.set(raceId, e5 ? sessionOptions(e5) : []);
+    sessionsByRaceId.set(raceId,
+      readFacts(root, wecSessionsPath(raceId), "sessions")?.sessions ?? []);
   }
 
   const refs = loadRefs();
@@ -1043,15 +1037,15 @@ export function buildWecSnapshot(
   const indexOutcome = writeWecIndex(join(outDir, "index.json"), indexDoc);
 
   // --- Зачёт ---
-  const mcHtml = mirror("/en/page/manufacturers-classification");
-  if (!mcHtml) return `snapshot ${year}: index ${indexOutcome}; standings: нет зеркала зачёта`;
-  const pageSeason = standingsPageSeason(mcHtml);
+  const mc = readFacts(root, wecStandingsPath(), "standings");
+  if (!mc) return `snapshot ${year}: index ${indexOutcome}; standings: нет фактов зачёта`;
+  const pageSeason = mc.season;
   if (pageSeason !== year) {
     // Страница зачёта всегда несёт ТЕКУЩИЙ сезон; архивных fiawec не хранит.
     // Season-guard: чужой сезон в свой файл не пишем (январские отравления).
     return `snapshot ${year}: index ${indexOutcome}; standings: страница зачёта за ${pageSeason ?? "?"} — пропуск`;
   }
-  const tables = parseStandingsTables(mcHtml);
+  const tables = mc.tables;
 
   // Классификация последней завершённой гонки — команды экипажей Hypercar
   // (порт цепочки lastCompletedEvent → RACE-сессия → таблица E6).
@@ -1063,8 +1057,8 @@ export function buildWecSnapshot(
     const raceSession = (sessionsByRaceId.get(raceId) ?? [])
       .find((s) => s.label.toUpperCase() === "RACE");
     if (raceSession) {
-      const e6 = mirror(`/en/page/resultats-1?raceId=${raceId}&sessionId=${raceSession.id}`);
-      if (e6) classificationRows = raceTeamRows(e6);
+      classificationRows =
+        readFacts(root, wecResultsPath(raceId, raceSession.id), "results")?.teamRows ?? [];
     }
   }
 

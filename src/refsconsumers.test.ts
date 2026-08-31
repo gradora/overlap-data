@@ -27,7 +27,7 @@ import { matchAkRound } from "./lib/alkamelwec.js";
 import { matchImsaTrack } from "./lib/alkamelimsa.js";
 import { matchTrack, SCHEDULE } from "./lib/schedule.js";
 import { buildWecWinners } from "./lib/winnersbuild.js";
-import { raceSlugs } from "./lib/fiawecsite.js";
+import { readFacts, wecSeasonPath } from "./lib/wecfacts.js";
 import { type RefsMap } from "./lib/refs.js";
 
 // ---- Хелперы ----
@@ -75,9 +75,12 @@ const jolpicaRaces = (season: number): {
   JSON.parse(readFileSync(join(process.cwd(), "data", "f1", "jolpica", `${season}.json`), "utf8"))
     .MRData.RaceTable.Races;
 
+/// Слаги сезона — из БОЕВЫХ фактов, а не из фикстуры: это единственная в
+/// наборе НЕсинтетическая проверка матчинга WEC, и её ценность ровно в том,
+/// что корпус настоящий. Раньше здесь читалась сохранённая страница fiawec;
+/// с 31.08.2026 страниц нет, а тот же список лежит в факте сезона.
 const wecSeasonSlugs = (season: number): string[] =>
-  raceSlugs(readFileSync(
-    join(process.cwd(), "data", "wec", "fiawec", `en_season_${season}`), "utf8"), season);
+  readFacts(join(process.cwd(), "data"), wecSeasonPath(season), "season")?.races ?? [];
 
 // MARK: 1. Золотые списки — matchRound (слаги событий из зеркал data/f1/fia)
 

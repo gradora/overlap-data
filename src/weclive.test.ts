@@ -3,6 +3,7 @@
 // нет. Второе — окно должно совпадать с тем, что клиент называл живым до 3c.
 
 import { test } from "node:test";
+import { wecFactsDir } from "./lib/wecfacts.js";
 import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -71,7 +72,7 @@ test("холостого прогона не видно: сети нет, фай
     const before = Date.parse("2026-08-27T12:00:00Z");   // за неделю до этапа
     const log = await runWecLive(before, root);
     assert.match(log, /идущих этапов нет/);
-    assert.equal(existsSync(join(root, "wec", "fiawec")), false,
+    assert.equal(existsSync(wecFactsDir(root)), false,
                  "холостой прогон не имеет права ходить в сеть");
     // Маркер свежести пишется ВСЕГДА — иначе «воркфлоу умер» и «этапов нет»
     // были бы неотличимы, и сигнал протухания молчал бы вечно.
@@ -111,7 +112,7 @@ test("этап идёт, но raceId ещё не найден — ждём по�
   try {
     const log = await runWecLive(Date.parse("2026-09-05T12:00:00Z"), root);
     assert.match(log, /raceId ещё нет/);
-    assert.equal(existsSync(join(root, "wec", "fiawec")), false, "в сеть без raceId не ходим");
+    assert.equal(existsSync(wecFactsDir(root)), false, "в сеть без raceId не ходим");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

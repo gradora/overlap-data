@@ -12,13 +12,13 @@ import {
   akEventHrefs, akSeasonContext, akTimeSeconds, ALKAMEL_WEC,
   fetchAkText, parseAkCsv, pickRaceCsv,
 } from "../lib/alkamelwec.js";
-import { eventInfo } from "../lib/fiawecsite.js";
+import { readFacts, wecRacePath } from "../lib/wecfacts.js";
 import { crewSurnames, fillMissingFacts, settleAction } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OUT_DIR = join(process.cwd(), "data", "wec", "highlights");
-const MIRROR_DIR = join(process.cwd(), "data", "wec", "fiawec");
+const DATA_DIR = join(process.cwd(), "data");
 const NOW = Date.now();
 
 // Реальные пит-стопы WEC (заправка+резина+смена пилота) длятся ~50–90 секунд;
@@ -182,14 +182,11 @@ export function classWinnersFromClassification(rows: Record<string, string>[]): 
     }));
 }
 
-function raceMirror(slug: string): string | null {
-  const key = `en_race_${slug.replace(/[^a-z0-9.]+/gi, "_")}`;
-  try {
-    return readFileSync(join(MIRROR_DIR, key), "utf8");
-  } catch {
-    return null;
-  }
-}
+// Продьюсеру от 24 МБ страниц нужен ровно ОДИН факт — endMs этапа: «гонка уже
+// была?». Раньше ради него читалась и разбиралась вся страница.
+const raceDates = (slug: string) =>
+  readFacts(DATA_DIR, wecRacePath(slug), "race")?.info
+    ?? { startMs: null, endMs: null, iso2: null };
 
 function readStored(path: string): WecRoundHighlights | null {
   try {
@@ -206,8 +203,7 @@ async function main() {
 
   for (const ev of ctx.events) {
     const path = join(OUT_DIR, `${YEAR}_${ev.round}.json`);
-    const page = raceMirror(ev.slug);
-    const dates = page ? eventInfo(page) : { startMs: null, endMs: null, iso2: null };
+    const dates = raceDates(ev.slug);
     const raced = dates.endMs != null && dates.endMs < NOW;
     if (!raced) continue; // гонки ещё не было — хайлайтить нечего
     // Две закачки на этап вместо ежечасной: разбор после финиша и
