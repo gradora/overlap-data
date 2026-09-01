@@ -152,13 +152,24 @@ export function buildF1StandingsDoc(root: string, year: number): F1StandingsDoc 
   const raceByTeam = stagePointsBy(results, (r) => r.Constructor?.constructorId, "Results");
   const sprintByTeam = stagePointsBy(sprints, (r) => r.Constructor?.constructorId, "SprintResults");
 
-  // Этапы — сыгранные раунды из результатов; локality — из расписания.
+  // Этапы — ВСЁ расписание сезона, не только сыгранные: таблица зачёта
+  // показывает будущие колонки дэшами, и прежний клиентский путь (мердж
+  // расписания с результатами) вёл себя так же. stages при этом несут только
+  // сыгранное.
   const played = [...new Set([...results, ...sprints].map((r) => num(r.round)))]
     .sort((a, b) => a - b);
+  const schedule = season?.schedule ?? [];
+  const allRounds = schedule.length
+    ? schedule.map((r) => num(r.round)).sort((a, b) => a - b)
+    : played;
   const localityByRound = new Map(
-    (season?.schedule ?? []).map((r) => [num(r.round), r.Circuit?.Location?.locality]));
-  const sprintRounds = new Set(sprints.map((r) => num(r.round)));
-  const rounds: F1StandingsRound[] = played.map((round) => {
+    schedule.map((r) => [num(r.round), r.Circuit?.Location?.locality]));
+  // Спринт-этап: у будущего — блок Sprint в расписании, у прошедшего — результаты.
+  const sprintRounds = new Set([
+    ...sprints.map((r) => num(r.round)),
+    ...schedule.filter((r) => (r as any).Sprint != null).map((r) => num(r.round)),
+  ]);
+  const rounds: F1StandingsRound[] = allRounds.map((round) => {
     const winner = sprints.find((r) => num(r.round) === round)
       ?.SprintResults?.find((row: any) => String(row.position) === "1") as any;
     return {
