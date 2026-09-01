@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  stripCountdown, expectedRaceMirrors, raceSlugs, raceIdOf, isRaceMirrorOfSeason, testSlugs,
+  stripCountdown, raceSlugs, raceIdOf, testSlugs,
   ldJsonBlocks, eventInfo, sessionOptions, raceOptions,
 } from "./lib/fiawecsite.js";
 
@@ -29,21 +29,6 @@ test("stripCountdown: цифры отсчёта вырезаются, разме
   assert.equal(stripCountdown(out), out);
 });
 
-test("expectedRaceMirrors: ключи совпадают со slug-конвенцией зеркала", () => {
-  const set = expectedRaceMirrors(["lone-star-le-mans-2026", "6-hours-of-fuji-2026"]);
-  assert.ok(set.has("en_race_lone_star_le_mans_2026"));
-  assert.ok(set.has("en_race_6_hours_of_fuji_2026"));
-  assert.equal(set.size, 2);
-});
-
-// ПАРНЫЙ тест с приложением: OverlapTests/WECParsersTests.swift,
-// WECSeasonParserTests — та же фикстура, тот же ожидаемый список. Менять только
-// вместе: продюсер зеркалит ровно те страницы, которые назовёт этот фильтр,
-// а приложение по ним же строит календарь и нумерует раунды.
-// Раньше это была ПАРНАЯ фикстура: те же входы и тот же ожидаемый список
-// стояли в приложении (WECSeasonParserTests). С шага 3c клиентского парсера
-// нет — сторона осталась одна, и правило про числовой хвост / прологи / чужие
-// годы держится только здесь.
 test("raceSlugs: числовой хвост, прологи, чужие годы", () => {
   const html = `
     <a href="/en/race/official-prologue-imola-2026">Prologue</a>
@@ -72,16 +57,6 @@ test("raceIdOf: id гонки со страницы события", () => {
 // GC удаляет файлы, поэтому предикат сезона у зеркала обязан совпадать с
 // предикатом слага: иначе файл Ле-Мана либо не чистится никогда, либо сносится
 // при живом этапе.
-test("isRaceMirrorOfSeason: числовой хвост принадлежит своему сезону", () => {
-  assert.equal(isRaceMirrorOfSeason("en_race_24_hours_of_le_mans_2025_1", 2025), true);
-  assert.equal(isRaceMirrorOfSeason("en_race_24_hours_of_le_mans_2025_1", 2026), false);
-  assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_fuji_2025", 2025), true);
-  assert.equal(isRaceMirrorOfSeason("en_season_2025", 2025), false, "не race-файл");
-  assert.equal(isRaceMirrorOfSeason("en_race_6_hours_of_imola_2025_2026", 2025), false);
-});
-
-// ПАРНЫЙ тест с приложением (WECSeasonParser.testSlugs). Пролог обязан жить в
-// СВОЁМ списке: raceSlugs задаёт нумерацию раундов и имена derived-файлов.
 test("testSlugs: прологи отдельно от зачётных этапов", () => {
   const html = `
     <a href="/en/race/official-prologue-imola-2026">Prologue</a>

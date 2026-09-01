@@ -3,7 +3,6 @@
 // season-guard. Выделены из продьюсера wec.ts: их импортируют alkamelwec и
 // wecfia — lib-модуль не должен тянуть module-body продьюсера (SEASON/NOW).
 
-import { mirrorSlug } from "./mirror.js";
 
 // E2 country label (uppercase) → ISO-2 (порт WECDataService.countryNameToISO2).
 export const COUNTRY_NAME_TO_ISO2: Record<string, string> = {
@@ -29,13 +28,6 @@ export function stripCountdown(html: string): string {
   return html
     .replace(/(data-countdown="[^"]*"[^>]*>)\s*\d+/g, "$1")
     .replace(/<!-- \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} -->\n?/g, "");
-}
-
-// Ожидаемые mirror-файлы race-страниц сезона — для GC осиротевших: fiawec
-// умеет перекраивать сезон задним числом (Qatar/Bahrain-2026 уехали в 2027),
-// и файлы выбывших этапов иначе замерзают в репо навечно.
-export function expectedRaceMirrors(slugs: string[]): Set<string> {
-  return new Set(slugs.map((s) => mirrorSlug(`/en/race/${s}`)));
 }
 
 /// Тела всех <script type="application/ld+json"> страницы — в порядке
@@ -90,13 +82,6 @@ export function eventInfo(html: string): {
 export function raceIdOf(html: string): number | null {
   const m = /raceIds?&quot;:\[?(\d+)/.exec(html) ?? /"raceIds?":\[?(\d+)/.exec(html);
   return m ? Number(m[1]) : null;
-}
-
-// Файл зеркала гонки принадлежит сезону: «en_race_<...>_<год>» с необязательным
-// коротким числовым хвостом (Ле-Ман-2025 → en_race_24_hours_of_le_mans_2025_1).
-// Зеркальное отражение предиката raceSlugs — держать рядом.
-export function isRaceMirrorOfSeason(file: string, year: number): boolean {
-  return file.startsWith("en_race_") && new RegExp(`_${year}(_\\d{1,2})?$`).test(file);
 }
 
 // Тестовые уик-энды сезона (прологи). ОТДЕЛЬНО от raceSlugs: от порядка

@@ -12,7 +12,10 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 /// Точечные имена в обходе не участвуют: Finder кладёт .DS_Store в любой
 /// открытый каталог, и сторож охвата краснел бы «новое семейство без зоны» —
 /// шум ровно на том тесте, который единственный ловит возврат кухни.
-const visible = (dir: string) => readdirSync(dir).filter((n) => !n.startsWith("."));
+/// Известный шум macOS — а НЕ всё точечное: скрытый каталог со страницами
+/// обязан краснить сторожа, .DS_Store — нет.
+const NOISE = new Set([".DS_Store", ".gitkeep"]);
+const visible = (dir: string) => readdirSync(dir).filter((n) => !NOISE.has(n));
 import { join } from "node:path";
 import {
   DATA_FAMILIES, DATA_FILES, classify, matchesFamily, readyToMove, splitBlockers,
@@ -113,8 +116,12 @@ test("СТОРОЖ ГРАНИЦЫ: в data/ нет разметки", () => {
     for (const name of readdirSync(dir).filter((n) => !n.startsWith("."))) {
       const full = join(dir, name);
       if (statSync(full).isDirectory()) { walk(full, `${rel}${name}/`); continue; }
-      const head = readFileSync(full, "utf8").slice(0, 400).trimStart();
-      if (head.startsWith("<") || /<(!doctype|html|script|table)\b/i.test(head)) {
+      // trimStart ДО среза: страница с четырьмя сотнями пробелов в начале
+      // иначе проходила бы. Скан первых 8 КБ, а не 400 байт: разметку можно
+      // спрятать за длинным JSON-полем.
+      const head = readFileSync(full, "utf8").trimStart().slice(0, 8192);
+      if (head.startsWith("<")
+          || /<(!doctype|html|script|table|body|div|span|a |iframe|style)\b/i.test(head)) {
         offenders.push(`${rel}${name}`);
       }
     }

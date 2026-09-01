@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Снапшот-бэкенд данных приложения Overlap: зеркала источников (Jolpica/OpenF1/fiawec/Al Kamel/fia.com) и derived-карточки для F1/WEC/IMSA.",
+  "description": "Снапшот-бэкенд данных приложения Overlap: зеркала Jolpica/OpenF1, факты fiawec, Al Kamel и fia.com и derived-карточки для F1/WEC/IMSA.",
   "scripts": {
     "imsa": "tsx src/producers/imsa.ts",
     "f1": "tsx src/producers/f1.ts",

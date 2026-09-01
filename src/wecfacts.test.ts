@@ -15,7 +15,7 @@ import { mirrorSlug } from "./lib/mirror.js";
 import { extractFacts, putPage } from "./lib/wecextract.js";
 import {
   MAX_FACT_STRING, WEC_FACTS_SCHEMA_VERSION, expectedRaceFiles, isRaceFileOfSeason,
-  longStringIn, orphanRaceFiles, readFacts, wecFactsFile, wecRacePath,
+  longStringIn, orphanRaceFiles, pruneOrphans, readFacts, wecFactsFile, wecRacePath,
   wecResultsPath, wecSeasonPath, wecSessionsPath, writeFacts,
 } from "./lib/wecfacts.js";
 
@@ -154,4 +154,54 @@ test("вид факта выбирается по адресу: сессии, п
   assert.equal(extractFacts(wecResultsPath(41, 51), "<table></table>")?.kind, "results");
   assert.equal(extractFacts("/en/page/manufacturers-classification", "<html></html>")?.kind,
                "standings");
+});
+
+/// Пол уборки: оборванный на трети ответ (HTTP 200, полстраницы) даёт
+/// усечённый список слагов — без пола уборка снесла бы пол-сезона.
+test("уборка отказывается сносить больше MAX_PRUNE_PER_RUN за прогон", () => {
+  const root = sandbox();
+  const all = ["6-hours-of-imola-2031", "6-hours-of-qatar-2031",
+               "6-hours-of-fuji-2031", "6-hours-of-monza-2031"];
+  for (const s of all) putPage(root, wecRacePath(s), "<html></html>");
+  // «Сезон» внезапно похудел до одного этапа — три сироты, больше предела.
+  assert.equal(pruneOrphans(root, 2031, all.slice(0, 1)), null,
+               "уборка поверила усечённой странице");
+  for (const s of all) {
+    assert.ok(existsSync(wecFactsFile(root, wecRacePath(s))), `${s} снесён при отказе`);
+  }
+  // Один выбывший — штатная перекройка, сносится.
+  const removed = pruneOrphans(root, 2031, all.slice(0, 3));
+  assert.deepEqual(removed, [mirrorSlug(wecRacePath("6-hours-of-monza-2031"))]);
+  rmSync(root, { recursive: true, force: true });
+});
+
+/// Подметание по raceId: дропдаун и протоколы выбывшего этапа предикату года
+/// не видны (в имени нет года) — без подметания они оставались бы навсегда,
+/// как лежали 4947 и 4955.
+test("уборка выбывшего этапа сносит и его дропдаун с протоколами", () => {
+  const root = sandbox();
+  putPage(root, wecRacePath("6-hours-of-imola-2031"), "<html></html>");
+  const gone = '<script>{"raceId&quot;:77}</script>';
+  putPage(root, wecRacePath("6-hours-of-qatar-2031"), gone);
+  putPage(root, wecSessionsPath(77), '<option value="9">RACE</option>');
+  putPage(root, wecResultsPath(77, 9), "<table></table>");
+
+  const removed = pruneOrphans(root, 2031, ["6-hours-of-imola-2031"]);
+  assert.equal(removed?.length, 3, `снесено ${removed?.length} из 3: ${removed}`);
+  assert.ok(!existsSync(wecFactsFile(root, wecSessionsPath(77))), "дропдаун остался");
+  assert.ok(!existsSync(wecFactsFile(root, wecResultsPath(77, 9))), "протокол остался");
+  rmSync(root, { recursive: true, force: true });
+});
+
+/// Обходы границы факта, найденные проверкой: текст в КЛЮЧЕ объекта и потолок
+/// объёма (страница, нарезанная кусками по 120, — это всё ещё страница).
+test("граница факта: ключи объекта и объём файла тоже под сторожем", () => {
+  const root = sandbox();
+  const long = "х".repeat(MAX_FACT_STRING + 1);
+  assert.equal(longStringIn({ [long]: 1 }), long, "текст в ключе пронесён");
+  const chunks = Array.from({ length: 700 }, (_, i) => `кусок ${i} `.repeat(10).slice(0, 110));
+  assert.throws(
+    () => writeFacts(root, wecSeasonPath(2031), { kind: "season", races: chunks, tests: [] }),
+    /это всё ещё страница/);
+  rmSync(root, { recursive: true, force: true });
 });

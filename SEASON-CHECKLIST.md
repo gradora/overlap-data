@@ -122,3 +122,11 @@ SEASON=N IMSA_WINNERS_BACKFILL=11 npm run imsawinners
 - [ ] После первых гонок: спот-чек `data/f1/fia/N+1_1.json` (carryOver из
   финала N, если был штраф «на следующую гонку»), winners/milestones файлы
   нового сезона.
+
+## После бампа WEC_FACTS_SCHEMA_VERSION
+
+Крон перечитает только текущий и следующий сезоны. Архив — руками, ПАРОЙ
+команд на каждый год (без второй витрина останется замороженной):
+
+    SEASON=<год> npm run wec
+    SEASON=<год> WEC_EVENTS_FORCE=1 npm run wec

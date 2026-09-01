@@ -10,7 +10,6 @@
 //   wec/<год>/<NN>_<слаг>.json (сессии события) — buildWecEventFiles
 // (порядок обязателен: файлы событий строятся из index.json этого прогона).
 
-import { rmSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText } from "../lib/mirror.js";
@@ -18,7 +17,7 @@ import { stripCountdown } from "../lib/fiawecsite.js";
 import { seasonStarted } from "../lib/fiawecsite.js";
 import { extractFacts } from "../lib/wecextract.js";
 import {
-  orphanRaceFiles, readFacts, wecFactsDir, writeFacts,
+  MAX_PRUNE_PER_RUN, pruneOrphans, readFacts, writeFacts,
   wecIndexPath, wecRacePath, wecResultsPath, wecSeasonPath, wecSessionsPath,
   wecStandingsPath, type WecFacts,
 } from "../lib/wecfacts.js";
@@ -74,8 +73,9 @@ const raceFacts = (slug: string) => readFacts(DATA_DIR, wecRacePath(slug), "race
 async function main() {
   console.log(`WEC mirror, season ${YEAR}`);
 
-  // Каркас: сезон (slugs), индекс результатов (его читает приложение при
-  // промахе зеркала), зачёт производителей. raceId с индекса больше не берём —
+  // Каркас: сезон (slugs), индекс результатов (нужен только как признак
+  // живости сайта для гейта полного отказа — на диск не пишется), зачёт
+  // производителей. raceId с индекса больше не берём —
   // он всегда отдаёт ТЕКУЩИЙ сезон, id лежат на страницах самих гонок.
   // С ретраем — от гейта exit(1) зависит алерт владельцу, разовый блип не в счёт.
   const season = await mirrorFramework(wecSeasonPath(YEAR));
@@ -106,9 +106,12 @@ async function main() {
   if (season.ok && slugs.length > 0) {
     // Прологи тоже en_race_*_<год> — без них в ожидаемом наборе GC сносил бы
     // их страницу на каждом прогоне.
-    for (const f of orphanRaceFiles(DATA_DIR, YEAR, [...slugs, ...tests])) {
-      rmSync(join(wecFactsDir(DATA_DIR), f));
-      console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
+    const removed = pruneOrphans(DATA_DIR, YEAR, [...slugs, ...tests]);
+    if (removed === null) {
+      console.warn(`::warning::wec: сирот больше ${MAX_PRUNE_PER_RUN} — похоже, ` +
+        "страница сезона пришла битой; уборка пропущена, файлы не тронуты");
+    } else {
+      for (const f of removed) console.log(`  prune ${f} (этап выбыл из сезона ${YEAR})`);
     }
   }
 
@@ -165,12 +168,13 @@ async function main() {
     const endMs = endBySlug[slug] ?? null;
     // Заморозка = «сыграно И уже снято»: одного возраста мало, иначе архивный
     // сезон, зеркала которого ещё не снимали, никогда бы не догрузился.
-    // Заморозка = «сыграно И уже снято ПОЛНОСТЬЮ». Спрашивается непустой
-    // список сессий, а не наличие файла: частично разобранная страница дала бы
-    // файл с нулём сессий, этап пометился бы замороженным навсегда, и уик-энд
-    // молча исчез бы из витрины при зелёном прогоне.
+    // Заморозка = «сыграно И снято ПОЛНОСТЬЮ». Полнота — это наличие МЕТКИ
+    // ГОНКИ в дропдауне, а не просто непустой список: у сыгранного этапа RACE
+    // есть всегда, а частично отрендеренная страница с одной практикой иначе
+    // заморозила бы этап навсегда — и уик-энд молча исчез бы из витрины.
     const known = readFacts(DATA_DIR, wecSessionsPath(raceId), "sessions");
-    if (isFrozen(endMs, NOW) && (known?.sessions.length ?? 0) > 0) {
+    const complete = known?.sessions.some((x) => x.label.toUpperCase().startsWith("RACE")) ?? false;
+    if (isFrozen(endMs, NOW) && complete) {
       frozenRaces++;
       continue;
     }

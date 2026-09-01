@@ -53,7 +53,7 @@ jobs:
         continue-on-error: true
         run: npm run openf1
 
-      - name: Зеркало WEC (fiawec)
+      - name: Факты WEC (fiawec)
         id: wec
         continue-on-error: true
         run: npm run wec

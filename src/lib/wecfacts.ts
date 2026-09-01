@@ -33,7 +33,7 @@
 // (wecsnapshot → wecfacts → wecsnapshot), а вместе с ним — порядок
 // инициализации, на который никто не смотрит.
 
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { mirrorSlug, writeIfChanged } from "./mirror.js";
 import type {
@@ -58,6 +58,11 @@ export const WEC_FACTS_DIRNAME = "facts";
 /// максимум 58. Абзац стюардского вердикта или анонс — 200+, и такой не
 /// пролезет обратно при будущей правке парсера.
 export const MAX_FACT_STRING = 120;
+
+/// Потолок ОБЪЁМА одного факта. Ограничение длины строки обходится нарезкой
+/// страницы на куски по 120 символов — потолок файла ловит именно этот класс.
+/// Крупнейший боевой факт (протокол Ле-Мана) — ~14 КБ; запас четырёхкратный.
+export const MAX_FACT_BYTES = 64 * 1024;
 
 // MARK: - Адреса страниц источника
 //
@@ -141,14 +146,23 @@ export const hasFacts = (root: string, path: string, kind: WecFactsKind): boolea
 /// разметку внутри строки. Тихо пропустить такое нельзя: один раз пропущенное
 /// уезжает в публичный репозиторий и остаётся в его истории.
 export function writeFacts(root: string, path: string, facts: WecFacts): boolean {
-  const offender = longStringIn(facts);
+  // Проверяется СЕРИАЛИЗОВАННАЯ форма, а не объект в памяти: toJSON и
+  // boxed String могли бы пронести текст мимо обхода объекта, но на диск
+  // попадает ровно то, что вернул JSON.stringify.
+  const body: Envelope = { schemaVersion: WEC_FACTS_SCHEMA_VERSION, payload: facts };
+  const text = JSON.stringify(body) + "\n";
+  const offender = longStringIn(JSON.parse(text));
   if (offender) {
     throw new Error(`wecfacts: факт для ${path} содержит строку длиной ` +
       `${offender.length} (предел ${MAX_FACT_STRING}) — это уже не факт, ` +
       `а выражение: ${JSON.stringify(offender.slice(0, 80))}`);
   }
-  const body: Envelope = { schemaVersion: WEC_FACTS_SCHEMA_VERSION, payload: facts };
-  return writeIfChanged(wecFactsFile(root, path), JSON.stringify(body) + "\n");
+  if (text.length > MAX_FACT_BYTES) {
+    throw new Error(`wecfacts: факт для ${path} весит ${text.length} байт ` +
+      `(предел ${MAX_FACT_BYTES}) — страница, нарезанная на короткие куски, ` +
+      "это всё ещё страница");
+  }
+  return writeIfChanged(wecFactsFile(root, path), text);
 }
 
 /// Первая строка, нарушающая границу факта, или null. Обходит структуру
@@ -162,7 +176,12 @@ export function longStringIn(value: unknown): string | null {
     return null;
   }
   if (value && typeof value === "object") {
-    for (const v of Object.values(value)) { const bad = longStringIn(v); if (bad) return bad; }
+    // Ключи проверяются наравне со значениями: текст можно спрятать и в имени
+    // поля — Object.values его не видит.
+    for (const [k, v] of Object.entries(value)) {
+      const bad = longStringIn(k) ?? longStringIn(v);
+      if (bad) return bad;
+    }
     return null;
   }
   return null;
@@ -193,4 +212,41 @@ export function orphanRaceFiles(root: string, year: number, slugs: string[]): st
   if (!existsSync(dir)) return [];
   const expected = expectedRaceFiles(slugs);
   return readdirSync(dir).filter((f) => isRaceFileOfSeason(f, year) && !expected.has(f));
+}
+
+/// Сколько выбывших за раз уборка готова снести. Оборванный на трети ответ
+/// (HTTP 200, полстраницы) дал бы усечённый список слагов — и уборка снесла
+/// бы пол-сезона при зелёном прогоне. Реальные перекройки календаря — один-два
+/// этапа; больше двух сирот — это не перекройка, а битая страница.
+export const MAX_PRUNE_PER_RUN = 2;
+
+/// Убрать файлы выбывших этапов: страницу события И его E5/E6 — дропдаун с
+/// протоколами адресуются по raceId и предикату года не видны, без этого они
+/// оставались бы навсегда (raceId 4947 и 4955 так и лежали).
+/// Возвращает список удалённых файлов; при превышении MAX_PRUNE_PER_RUN не
+/// удаляет ничего и возвращает null — вызывающий обязан прокричать.
+export function pruneOrphans(root: string, year: number, slugs: string[]): string[] | null {
+  const orphans = orphanRaceFiles(root, year, slugs);
+  if (orphans.length > MAX_PRUNE_PER_RUN) return null;
+  const dir = wecFactsDir(root);
+  const removed: string[] = [];
+  for (const f of orphans) {
+    // raceId — из самого удаляемого факта; страницы без него подмести нечем.
+    let raceId: number | null = null;
+    try {
+      const doc = JSON.parse(readFileSync(join(dir, f), "utf8"));
+      if (doc?.payload?.kind === "race") raceId = doc.payload.raceId;
+    } catch { /* битый файл — сносим только его */ }
+    rmSync(join(dir, f));
+    removed.push(f);
+    if (raceId === null) continue;
+    const prefix = mirrorSlug(wecSessionsPath(raceId));
+    for (const g of readdirSync(dir)) {
+      if (g === prefix || g.startsWith(`${prefix}_sessionId_`)) {
+        rmSync(join(dir, g));
+        removed.push(g);
+      }
+    }
+  }
+  return removed;
 }
