@@ -543,11 +543,12 @@ SC/VSC из RaceControlMessages 2018+ (снимает ручное куриро�
       события — из витрины (D4), до 17 GET к openf1 → 0 при живом файле;
       (б) зачёты F1 — документ f1/<год>/standings.json, 7-9 GET к jolpica
       → 1 GET витрины (Home, поиск, дуэли — через мосты, не отличают).
-      Кухню ещё держат ФОЛБЭКИ и: расписание сезона (current.json,
-      <год>.json — лента, SeasonBrowser), raceDetails (<год>_<раунд>),
-      last_results (карточка Home), allRaces-мердж ленты. Следующий
-      кандидат — расписание: витрина календаря уже есть, не хватает времён
-      сессий уик-энда и locality (см. разведку 01.09).
+      (в) расписание сезона — витрина календаря v2 (+sessions, +locality,
+      +circuit): лента и SeasonBrowser идут витриной, raceDetails стал
+      необязательным (сессии в модели с витрины).
+      Кухню ещё держат ФОЛБЭКИ и: last_results (карточка Home),
+      allRaces-мердж ленты (результаты в ленте), raceDetails в
+      fetchLastRace. Это последние прямые чтения jolpica на клиенте.
     - `wec/fiawec` (24 МБ) — клиент не читает, но это ВХОД СБОРКИ шести
       продьюсеров (`wec`, `weclive`, `wecfia`, `wechighlights`, `lib/season`,
       `lib/alkamelwec`, `lib/refs`, `lib/fiawecsite`). Копия в приватном репо
