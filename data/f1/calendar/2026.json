@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-28T16:15:50.549Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-01T16:12:27.243Z",
   "series": "f1",
   "season": 2026,
   "frozen": false,
@@ -71,6 +71,26 @@
         "raceTime": "04:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Melbourne",
+      "circuit": "Albert Park Grand Prix Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-03-06",
+          "time": "01:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-03-06",
+          "time": "05:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-03-07",
+          "time": "01:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-03-07",
+          "time": "05:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -99,6 +119,26 @@
         "raceTime": "07:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Shanghai",
+      "circuit": "Shanghai International Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-03-13",
+          "time": "03:30:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-03-13",
+          "time": "07:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-03-14",
+          "time": "07:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-03-14",
+          "time": "03:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -127,6 +167,26 @@
         "raceTime": "05:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Suzuka",
+      "circuit": "Suzuka Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-03-27",
+          "time": "02:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-03-27",
+          "time": "06:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-03-28",
+          "time": "02:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-03-28",
+          "time": "06:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -205,6 +265,26 @@
         "raceTime": "20:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Miami",
+      "circuit": "Miami International Autodrome",
+      "sessions": {
+        "fp1": {
+          "date": "2026-05-01",
+          "time": "16:00:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-05-01",
+          "time": "20:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-05-02",
+          "time": "20:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-05-02",
+          "time": "16:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -233,6 +313,26 @@
         "raceTime": "20:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Montreal",
+      "circuit": "Circuit Gilles Villeneuve",
+      "sessions": {
+        "fp1": {
+          "date": "2026-05-22",
+          "time": "16:30:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-05-22",
+          "time": "20:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-05-23",
+          "time": "20:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-05-23",
+          "time": "16:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -261,6 +361,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Monte Carlo",
+      "circuit": "Circuit de Monaco",
+      "sessions": {
+        "fp1": {
+          "date": "2026-06-05",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-06-05",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-06-06",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-06-06",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -289,6 +409,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Barcelona",
+      "circuit": "Circuit de Barcelona-Catalunya",
+      "sessions": {
+        "fp1": {
+          "date": "2026-06-12",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-06-12",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-06-13",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-06-13",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -317,6 +457,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Spielberg",
+      "circuit": "Red Bull Ring",
+      "sessions": {
+        "fp1": {
+          "date": "2026-06-26",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-06-26",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-06-27",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-06-27",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -345,6 +505,26 @@
         "raceTime": "14:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Silverstone",
+      "circuit": "Silverstone Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-07-03",
+          "time": "11:30:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-07-03",
+          "time": "15:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-07-04",
+          "time": "15:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-07-04",
+          "time": "11:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -373,6 +553,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Spa",
+      "circuit": "Circuit de Spa-Francorchamps",
+      "sessions": {
+        "fp1": {
+          "date": "2026-07-17",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-07-17",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-07-18",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-07-18",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -401,6 +601,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Budapest",
+      "circuit": "Hungaroring",
+      "sessions": {
+        "fp1": {
+          "date": "2026-07-24",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-07-24",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-07-25",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-07-25",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -429,6 +649,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Zandvoort",
+      "circuit": "Circuit Park Zandvoort",
+      "sessions": {
+        "fp1": {
+          "date": "2026-08-21",
+          "time": "10:30:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-08-21",
+          "time": "14:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-08-22",
+          "time": "14:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-08-22",
+          "time": "10:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -457,6 +697,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Monza",
+      "circuit": "Autodromo Nazionale di Monza",
+      "sessions": {
+        "fp1": {
+          "date": "2026-09-04",
+          "time": "10:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-09-04",
+          "time": "14:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-09-05",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-09-05",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -485,6 +745,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Madrid",
+      "circuit": "Madring",
+      "sessions": {
+        "fp1": {
+          "date": "2026-09-11",
+          "time": "11:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-09-11",
+          "time": "15:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-09-12",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-09-12",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -513,6 +793,26 @@
         "raceTime": "11:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Baku",
+      "circuit": "Baku City Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-09-24",
+          "time": "08:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-09-24",
+          "time": "12:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-09-25",
+          "time": "08:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-09-25",
+          "time": "12:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -541,6 +841,26 @@
         "raceTime": "07:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Kuala Lumpur",
+      "circuit": "Sepang International Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-10-02",
+          "time": "04:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-10-02",
+          "time": "08:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-10-03",
+          "time": "04:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-10-03",
+          "time": "08:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -569,6 +889,26 @@
         "raceTime": "12:00:00Z"
       },
       "sprintWeekend": true,
+      "locality": "Marina Bay",
+      "circuit": "Marina Bay Street Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-10-09",
+          "time": "08:30:00Z"
+        },
+        "sprintQualifying": {
+          "date": "2026-10-09",
+          "time": "12:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-10-10",
+          "time": "13:00:00Z"
+        },
+        "sprint": {
+          "date": "2026-10-10",
+          "time": "09:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -597,6 +937,26 @@
         "raceTime": "20:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Austin",
+      "circuit": "Circuit of the Americas",
+      "sessions": {
+        "fp1": {
+          "date": "2026-10-23",
+          "time": "17:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-10-23",
+          "time": "21:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-10-24",
+          "time": "17:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-10-24",
+          "time": "21:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -625,6 +985,26 @@
         "raceTime": "20:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Mexico City",
+      "circuit": "Autódromo Hermanos Rodríguez",
+      "sessions": {
+        "fp1": {
+          "date": "2026-10-30",
+          "time": "18:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-10-30",
+          "time": "22:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-10-31",
+          "time": "17:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-10-31",
+          "time": "21:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -653,6 +1033,26 @@
         "raceTime": "17:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "São Paulo",
+      "circuit": "Autódromo José Carlos Pace",
+      "sessions": {
+        "fp1": {
+          "date": "2026-11-06",
+          "time": "15:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-11-06",
+          "time": "19:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-11-07",
+          "time": "14:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-11-07",
+          "time": "18:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -681,6 +1081,26 @@
         "raceTime": "04:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Las Vegas",
+      "circuit": "Las Vegas Strip Street Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-11-20",
+          "time": "00:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-11-20",
+          "time": "04:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-11-21",
+          "time": "00:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-11-21",
+          "time": "04:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -709,6 +1129,26 @@
         "raceTime": "16:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Lusail",
+      "circuit": "Losail International Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-11-27",
+          "time": "13:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-11-27",
+          "time": "17:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-11-28",
+          "time": "14:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-11-28",
+          "time": "18:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,
@@ -737,6 +1177,26 @@
         "raceTime": "13:00:00Z"
       },
       "sprintWeekend": false,
+      "locality": "Abu Dhabi",
+      "circuit": "Yas Marina Circuit",
+      "sessions": {
+        "fp1": {
+          "date": "2026-12-04",
+          "time": "09:30:00Z"
+        },
+        "fp2": {
+          "date": "2026-12-04",
+          "time": "13:00:00Z"
+        },
+        "fp3": {
+          "date": "2026-12-05",
+          "time": "10:30:00Z"
+        },
+        "qualifying": {
+          "date": "2026-12-05",
+          "time": "14:00:00Z"
+        }
+      },
       "sourceIds": {
         "jolpica": {
           "season": 2026,

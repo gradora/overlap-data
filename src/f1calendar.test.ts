@@ -886,3 +886,32 @@ test("ключ события: первый сбор сезона дрейфом
   });
   assert.deepEqual(crossCheckCalendar(doc, [], null).fatal, []);
 });
+
+// MARK: - v2: сессии, город, сырое имя трассы
+
+/// Времена сессий берутся ИЗ РАСПИСАНИЯ и переживают мердж с результатами.
+/// В merged-строке сыгранного этапа сессий нет вовсе (она из results-страниц) —
+/// баг первого захода клал у сыгранных пустоту, и v2 был бы бесполезен ровно
+/// для тех этапов, которые смотрят чаще всего.
+test("v2: сессии уик-энда из расписания, у сыгранного этапа тоже", () => {
+  const scheduled: JolpicaRace = {
+    ...race("1", { date: "2026-03-08" }),
+    FirstPractice: { date: "2026-03-06", time: "01:30:00Z" },
+    Qualifying: { date: "2026-03-07", time: "05:00:00Z" },
+  };
+  // Строка результатов того же раунда — без сессионных блоков, как в зеркале.
+  const played = race("1", { date: "2026-03-08", results: [{ position: "1" }] });
+  const doc = docOf({ schedule: [scheduled], results: [played] });
+  const e = doc.events[0];
+  assert.deepEqual(e.sessions, {
+    fp1: { date: "2026-03-06", time: "01:30:00Z" },
+    qualifying: { date: "2026-03-07", time: "05:00:00Z" },
+  });
+  assert.equal(e.locality, "Melbourne");
+  assert.equal(e.circuit, "Albert Park Grand Prix Circuit",
+    "сырое имя источника: джойн домашней трассы команды живёт на нём");
+  // Будущий этап без опубликованных сессий блока не получает — «нет данных»
+  // отличимо от «пустое расписание».
+  const bare = docOf({ schedule: [race("2")] }).events[0];
+  assert.equal("sessions" in bare, false);
+});

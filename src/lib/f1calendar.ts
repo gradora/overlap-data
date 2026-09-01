@@ -45,7 +45,11 @@ import { checkEventKeys, f1EventKey } from "./eventkey.js";
 /// Своя версия у семейства (прецедент 3a/3b: каждая витрина — независимый
 /// контракт). Связать её с чужой — значит молча «менять» схему календаря
 /// бампом соседнего семейства.
-export const F1_CALENDAR_SCHEMA_VERSION = 1;
+// v2 (01.09.2026): +locality, +circuit (сырое имя jolpica — джойн домашней
+// трассы команды живёт на нём), +sessions (времена уик-энда). Этим витрина
+// закрывает последний контракт raceDetails и расписания сезона — лента и
+// экран события перестают читать кухню jolpica.
+export const F1_CALENDAR_SCHEMA_VERSION = 2;
 
 /// Нижняя граница охвата — ПАРНО с SeasonBrowser.earliestYear (2025): раньше
 /// приложение сезон просто не показывает (нет derived-карточек, у IMSA нет
@@ -118,6 +122,18 @@ export interface F1CalendarEvent {
   /// Уик-энд со спринтом — ПАРНО с CalendarItem: hasSprint = есть результаты
   /// спринта ИЛИ сессия спринта в расписании.
   sprintWeekend: boolean;
+  /// Город трассы — заголовки колонок зачёта (acronym) и фолбэк канона.
+  locality?: string;
+  /// СЫРОЕ имя трассы источника («Shanghai International Circuit»): джойн
+  /// домашней трассы команды (f1/teams) матчится по нему, venue канонизирован.
+  circuit?: string;
+  /// Времена сессий уик-энда из расписания. Раньше их возил raceDetails
+  /// (<год>_<раунд>.json кухни) — ровно шесть блоков и время гонки.
+  sessions?: {
+    fp1?: F1SessionTime; fp2?: F1SessionTime; fp3?: F1SessionTime;
+    sprintQualifying?: F1SessionTime; qualifying?: F1SessionTime;
+    sprint?: F1SessionTime;
+  };
   /// ПОЛНАЯ карта ключей события во всех источниках. Это не украшение, а
   /// системный кросс-чек, расширяющий guard 0.3 («round файла ↔ round
   /// документов») с одного семейства на стык источников:
@@ -164,7 +180,15 @@ export interface JolpicaRace {
   Results?: unknown[] | null;
   SprintResults?: unknown[] | null;
   Sprint?: { date: string; time?: string } | null;
+  FirstPractice?: { date: string; time?: string } | null;
+  SecondPractice?: { date: string; time?: string } | null;
+  ThirdPractice?: { date: string; time?: string } | null;
+  SprintQualifying?: { date: string; time?: string } | null;
+  Qualifying?: { date: string; time?: string } | null;
 }
+
+/// Сессия уик-энда в витрине — ровно как отдаёт источник: день + время UTC.
+export interface F1SessionTime { date: string; time?: string }
 
 export interface OpenF1MeetingRaw {
   meeting_key: number;
@@ -632,6 +656,25 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
     return hit.meeting_key;
   };
 
+  /// Времена сессий — ИЗ РАСПИСАНИЯ, не из merged-строки: у сыгранного
+  /// раунда merged заменяет строку результатами, а в них сессий нет вовсе
+  /// (клиентский merger вёл себя так же — потому и существовал raceDetails).
+  const scheduleByKey = new Map(input.schedule.map((r) => [`${r.season}/${r.round}`, r]));
+  const sessionsOf = (merged: JolpicaRace) => {
+    const race = scheduleByKey.get(`${merged.season}/${merged.round}`) ?? merged;
+    const t = (b?: { date: string; time?: string } | null): F1SessionTime | undefined =>
+      b ? { date: b.date, ...(b.time ? { time: b.time } : {}) } : undefined;
+    const out = {
+      ...(t(race.FirstPractice) ? { fp1: t(race.FirstPractice) } : {}),
+      ...(t(race.SecondPractice) ? { fp2: t(race.SecondPractice) } : {}),
+      ...(t(race.ThirdPractice) ? { fp3: t(race.ThirdPractice) } : {}),
+      ...(t(race.SprintQualifying) ? { sprintQualifying: t(race.SprintQualifying) } : {}),
+      ...(t(race.Qualifying) ? { qualifying: t(race.Qualifying) } : {}),
+      ...(t(race.Sprint) ? { sprint: t(race.Sprint) } : {}),
+    };
+    return Object.keys(out).length ? out : null;
+  };
+
   const events: F1CalendarEvent[] = [];
 
   for (const race of merged) {
@@ -658,6 +701,12 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
       // ПАРНО с CalendarItem.init(f1:): спринт-уик-энд = есть результаты
       // спринта ИЛИ сессия спринта в расписании.
       sprintWeekend: (race.SprintResults ?? null) !== null || (race.Sprint ?? null) !== null,
+      locality: race.Circuit.Location.locality,
+      circuit: race.Circuit.circuitName,
+      ...((): { sessions?: NonNullable<F1CalendarEvent["sessions"]> } => {
+        const sess = sessionsOf(race);
+        return sess ? { sessions: sess } : {};
+      })(),
       sourceIds: {
         jolpica: { season: Number(race.season) || season, round },
         openf1: meetingKey === null ? null : { meetingKey },
