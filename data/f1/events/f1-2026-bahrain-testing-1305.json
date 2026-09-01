@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T16:17:50.364Z",
+  "generatedAt": "2026-09-01T15:15:45.534Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-bahrain-testing-1305",
@@ -227,5 +227,696 @@
       "team": "Haas F1 Team",
       "teamColour": "9C9FA2"
     }
-  ]
+  ],
+  "protocols": {
+    "sessions": [
+      {
+        "key": 11470,
+        "name": "Day 1",
+        "start": "2026-02-18T07:00:00+00:00",
+        "results": [
+          {
+            "car": 63,
+            "position": 1,
+            "laps": 76,
+            "best": 93.459,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 70,
+            "best": 93.469,
+            "gap": 0.01,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 3,
+            "laps": 70,
+            "best": 93.739,
+            "gap": 0.28,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 4,
+            "laps": 54,
+            "best": 94.052,
+            "gap": 0.593,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 5,
+            "laps": 69,
+            "best": 94.158,
+            "gap": 0.699,
+            "compounds": [
+              "MEDIUM",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 6,
+            "laps": 66,
+            "best": 94.26,
+            "gap": 0.801,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 7,
+            "laps": 44,
+            "best": 94.299,
+            "gap": 0.84,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 8,
+            "laps": 55,
+            "best": 95.113,
+            "gap": 1.654,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 9,
+            "laps": 60,
+            "best": 95.254,
+            "gap": 1.795,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 10,
+            "laps": 71,
+            "best": 95.263,
+            "gap": 1.804,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 11,
+            "laps": 55,
+            "best": 95.69,
+            "gap": 2.231,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 12,
+            "laps": 61,
+            "best": 95.753,
+            "gap": 2.294,
+            "compounds": [
+              "MEDIUM",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 13,
+            "laps": 42,
+            "best": 95.778,
+            "gap": 2.319,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 14,
+            "laps": 61,
+            "best": 95.898,
+            "gap": 2.439,
+            "compounds": [
+              "TEST_UNKNOWN",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 15,
+            "laps": 26,
+            "best": 95.974,
+            "gap": 2.515,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 16,
+            "laps": 65,
+            "best": 96.418,
+            "gap": 2.959,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 17,
+            "laps": 28,
+            "best": 96.536,
+            "gap": 3.077,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 18,
+            "laps": 49,
+            "best": 96.741,
+            "gap": 3.282,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 19,
+            "laps": 75,
+            "best": 96.769,
+            "gap": 3.31,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 20,
+            "laps": 35,
+            "best": 96.798,
+            "gap": 3.339,
+            "compounds": [
+              "HARD",
+              "UNKNOWN",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 21,
+            "laps": 24,
+            "best": 100.892,
+            "gap": 7.433,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 3,
+            "laps": 0
+          }
+        ]
+      },
+      {
+        "key": 11469,
+        "name": "Day 2",
+        "start": "2026-02-19T07:00:00+00:00",
+        "results": [
+          {
+            "car": 12,
+            "position": 1,
+            "laps": 79,
+            "best": 92.803,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "UNKNOWN",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 86,
+            "best": 92.861,
+            "gap": 0.058,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 3,
+            "laps": 139,
+            "best": 93.162,
+            "gap": 0.359,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN",
+              "HARD"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 4,
+            "laps": 78,
+            "best": 93.408,
+            "gap": 0.605,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 5,
+            "laps": 72,
+            "best": 93.453,
+            "gap": 0.65,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 6,
+            "laps": 120,
+            "best": 93.818,
+            "gap": 1.015,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 7,
+            "laps": 73,
+            "best": 93.987,
+            "gap": 1.184,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 8,
+            "laps": 77,
+            "best": 94.111,
+            "gap": 1.308,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 9,
+            "laps": 58,
+            "best": 94.201,
+            "gap": 1.398,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 10,
+            "laps": 106,
+            "best": 94.532,
+            "gap": 1.729,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 11,
+            "laps": 117,
+            "best": 94.555,
+            "gap": 1.752,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 12,
+            "laps": 29,
+            "best": 95.263,
+            "gap": 2.46,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 13,
+            "laps": 69,
+            "best": 95.279,
+            "gap": 2.476,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 14,
+            "laps": 50,
+            "best": 95.369,
+            "gap": 2.566,
+            "compounds": [
+              "HARD",
+              "TEST_UNKNOWN",
+              "MEDIUM",
+              "UNKNOWN",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 15,
+            "laps": 68,
+            "best": 97.472,
+            "gap": 4.669,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 16,
+            "laps": 58,
+            "best": 100.193,
+            "gap": 7.39,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "laps": 0
+          },
+          {
+            "car": 10,
+            "laps": 0
+          },
+          {
+            "car": 16,
+            "laps": 0
+          },
+          {
+            "car": 18,
+            "laps": 0
+          },
+          {
+            "car": 41,
+            "laps": 0
+          },
+          {
+            "car": 55,
+            "laps": 0
+          }
+        ]
+      },
+      {
+        "key": 11468,
+        "name": "Day 3",
+        "start": "2026-02-20T07:00:00+00:00",
+        "results": [
+          {
+            "car": 16,
+            "position": 1,
+            "laps": 132,
+            "best": 91.992,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 47,
+            "best": 92.871,
+            "gap": 0.879,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 3,
+            "laps": 65,
+            "best": 93.109,
+            "gap": 1.117,
+            "compounds": [
+              "MEDIUM",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 4,
+            "laps": 82,
+            "best": 93.197,
+            "gap": 1.205,
+            "compounds": [
+              "MEDIUM",
+              "UNKNOWN",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 5,
+            "laps": 118,
+            "best": 93.421,
+            "gap": 1.429,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 6,
+            "laps": 88,
+            "best": 93.487,
+            "gap": 1.495,
+            "compounds": [
+              "TEST_UNKNOWN",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 7,
+            "laps": 71,
+            "best": 93.755,
+            "gap": 1.763,
+            "compounds": [
+              "TEST_UNKNOWN",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 8,
+            "laps": 49,
+            "best": 93.916,
+            "gap": 1.924,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 9,
+            "laps": 165,
+            "best": 94.149,
+            "gap": 2.157,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "TEST_UNKNOWN",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 10,
+            "laps": 141,
+            "best": 94.342,
+            "gap": 2.35,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "UNKNOWN",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 11,
+            "laps": 66,
+            "best": 94.352,
+            "gap": 2.36,
+            "compounds": [
+              "TEST_UNKNOWN",
+              "MEDIUM",
+              "HARD",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 12,
+            "laps": 82,
+            "best": 94.494,
+            "gap": 2.502,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "TEST_UNKNOWN",
+              "INTERMEDIATE",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 13,
+            "laps": 59,
+            "best": 94.511,
+            "gap": 2.519,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 14,
+            "laps": 38,
+            "best": 95.29,
+            "gap": 3.298,
+            "compounds": [
+              "HARD",
+              "UNKNOWN",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 15,
+            "laps": 64,
+            "best": 96.019,
+            "gap": 4.027,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "TEST_UNKNOWN",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 16,
+            "laps": 61,
+            "best": 100.842,
+            "gap": 8.85,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "TEST_UNKNOWN"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 17,
+            "laps": 6,
+            "compounds": [
+              "TEST_UNKNOWN",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 14,
+            "laps": 0
+          },
+          {
+            "car": 23,
+            "laps": 0
+          },
+          {
+            "car": 30,
+            "laps": 0
+          },
+          {
+            "car": 43,
+            "laps": 0
+          },
+          {
+            "car": 44,
+            "laps": 0
+          }
+        ]
+      }
+    ]
+  }
 }

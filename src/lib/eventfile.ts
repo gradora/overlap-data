@@ -76,6 +76,8 @@ export function stripEnvelope(doc: unknown): Record<string, unknown> | null {
 /// из ЗАЧЁТА, а для архивного события ради этого качал `<год>/driverStandings`
 /// целиком. Заодно уходит целый класс молчаливых подмен — угадывание по
 /// первым трём буквам фамилии (братья Леклеры).
+import type { ProtocolsBlock } from "./f1protocols.js";
+
 export interface EventEntryDriver {
   driverId: string;
   /// Акроним, под которым пилот идёт в протоколах этого события.
@@ -110,6 +112,7 @@ export interface EventFile {
   /// Заявка ЭТОГО события. Пусто/отсутствует — срез не собрался (нет ключа
   /// митинга или заявки сезона), и клиент резолвит прежним путём.
   entry?: EventEntryDriver[];
+  protocols?: ProtocolsBlock;
   fia?: Record<string, unknown>;
   winners?: Record<string, unknown>;
   highlights?: Record<string, unknown>;
@@ -117,6 +120,9 @@ export interface EventFile {
 }
 
 export interface EventFileInput {
+  /// Протоколы сессий (D4): позиции, гэпы, компаунды — джойн с `entry` по
+  /// номеру машины делает клиент.
+  protocols?: ProtocolsBlock | null;
   /// F1 по умолчанию — у него проекция появилась первой.
   series?: EventSeries;
   season: number;
@@ -135,6 +141,7 @@ export interface EventFileInput {
 /// раунда в источнике нет вовсе). Пустой файл писать нельзя: он неотличим от
 /// «данные есть, но пустые» и заставил бы клиента доверять пустоте.
 export function buildEventFile(input: EventFileInput): EventFile | null {
+  const protocols = input.protocols ?? null;
   const blocks = {
     fia: stripEnvelope(input.fia),
     winners: stripEnvelope(input.winners),
@@ -142,8 +149,8 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     milestones: stripEnvelope(input.milestones),
   };
   const entry = input.entry ?? [];
-  // Пусто во ВСЕХ блоках И в заявке — собирать нечего.
-  if (Object.values(blocks).every((b) => b === null) && !entry.length) return null;
+  // Пусто во ВСЕХ блоках, в заявке И в протоколах — собирать нечего.
+  if (Object.values(blocks).every((b) => b === null) && !entry.length && !protocols) return null;
 
   return {
     schemaVersion: EVENT_FILE_SCHEMA_VERSION,
@@ -153,6 +160,7 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     eventId: input.eventId,
     round: input.round,
     ...(entry.length ? { entry } : {}),
+    ...(protocols ? { protocols } : {}),
     ...(blocks.fia ? { fia: blocks.fia } : {}),
     ...(blocks.winners ? { winners: blocks.winners } : {}),
     ...(blocks.highlights ? { highlights: blocks.highlights } : {}),

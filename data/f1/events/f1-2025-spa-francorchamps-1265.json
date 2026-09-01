@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:26:37.144Z",
+  "generatedAt": "2026-09-01T15:15:57.428Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-spa-francorchamps-1265",
@@ -228,6 +228,1415 @@
       "constructorId": "haas"
     }
   ],
+  "protocols": {
+    "sessions": [
+      {
+        "key": 9929,
+        "name": "Practice 1",
+        "start": "2025-07-25T10:30:00+00:00",
+        "results": [
+          {
+            "car": 81,
+            "position": 1,
+            "laps": 23,
+            "best": 102.022,
+            "gap": 0,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 23,
+            "best": 102.426,
+            "gap": 0.404,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 3,
+            "laps": 22,
+            "best": 102.526,
+            "gap": 0.504,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 4,
+            "laps": 27,
+            "best": 102.598,
+            "gap": 0.576,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 5,
+            "laps": 22,
+            "best": 102.928,
+            "gap": 0.906,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 6,
+            "laps": 23,
+            "best": 102.979,
+            "gap": 0.957,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 7,
+            "laps": 24,
+            "best": 103.085,
+            "gap": 1.063,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 8,
+            "laps": 17,
+            "best": 103.112,
+            "gap": 1.09,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 9,
+            "laps": 22,
+            "best": 103.12,
+            "gap": 1.098,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 10,
+            "laps": 19,
+            "best": 103.122,
+            "gap": 1.1,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 11,
+            "laps": 16,
+            "best": 103.217,
+            "gap": 1.195,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 12,
+            "laps": 24,
+            "best": 103.261,
+            "gap": 1.239,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 25,
+            "best": 103.262,
+            "gap": 1.24,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 14,
+            "laps": 20,
+            "best": 103.47,
+            "gap": 1.448,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 15,
+            "laps": 21,
+            "best": 103.478,
+            "gap": 1.456,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 16,
+            "laps": 22,
+            "best": 103.57,
+            "gap": 1.548,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 17,
+            "laps": 21,
+            "best": 103.929,
+            "gap": 1.907,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 18,
+            "laps": 23,
+            "best": 104.492,
+            "gap": 2.47,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 19,
+            "laps": 21,
+            "best": 104.847,
+            "gap": 2.825,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 20,
+            "laps": 22,
+            "best": 105.077,
+            "gap": 3.055,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9930,
+        "name": "Sprint Qualifying",
+        "start": "2025-07-25T14:30:00+00:00",
+        "results": [
+          {
+            "car": 81,
+            "position": 1,
+            "laps": 11,
+            "best": [
+              101.769,
+              102.128,
+              100.51
+            ],
+            "gap": [
+              0,
+              0.716,
+              0
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 9,
+            "best": [
+              102.043,
+              101.583,
+              100.987
+            ],
+            "gap": [
+              0.274,
+              0.171,
+              0.477
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 3,
+            "laps": 12,
+            "best": [
+              102.068,
+              101.412,
+              101.128
+            ],
+            "gap": [
+              0.299,
+              0,
+              0.618
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 4,
+            "laps": 12,
+            "best": [
+              102.763,
+              101.786,
+              101.278
+            ],
+            "gap": [
+              0.994,
+              0.374,
+              0.768
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 5,
+            "laps": 12,
+            "best": [
+              102.822,
+              101.801,
+              101.565
+            ],
+            "gap": [
+              1.053,
+              0.389,
+              1.055
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 6,
+            "laps": 11,
+            "best": [
+              102.776,
+              102.051,
+              101.761
+            ],
+            "gap": [
+              1.007,
+              0.639,
+              1.251
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 7,
+            "laps": 12,
+            "best": [
+              103.024,
+              102.019,
+              101.857
+            ],
+            "gap": [
+              1.255,
+              0.607,
+              1.347
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 8,
+            "laps": 12,
+            "best": [
+              103.171,
+              101.949,
+              101.959
+            ],
+            "gap": [
+              1.402,
+              0.537,
+              1.449
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 9,
+            "laps": 11,
+            "best": [
+              102.711,
+              102.088,
+              101.971
+            ],
+            "gap": [
+              0.942,
+              0.676,
+              1.461
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 10,
+            "laps": 12,
+            "best": [
+              102.806,
+              101.901,
+              102.176
+            ],
+            "gap": [
+              1.037,
+              0.489,
+              1.666
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 11,
+            "laps": 9,
+            "best": [
+              102.897,
+              102.169,
+              null
+            ],
+            "gap": [
+              1.128,
+              0.757,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 12,
+            "laps": 9,
+            "best": [
+              102.912,
+              102.184,
+              null
+            ],
+            "gap": [
+              1.143,
+              0.772,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 13,
+            "laps": 8,
+            "best": [
+              102.65,
+              102.33,
+              null
+            ],
+            "gap": [
+              0.881,
+              0.918,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 14,
+            "laps": 7,
+            "best": [
+              102.427,
+              102.453,
+              null
+            ],
+            "gap": [
+              0.658,
+              1.041,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 15,
+            "laps": 8,
+            "best": [
+              102.736,
+              102.832,
+              null
+            ],
+            "gap": [
+              0.967,
+              1.42,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 16,
+            "laps": 6,
+            "best": [
+              103.212,
+              null,
+              null
+            ],
+            "gap": [
+              1.443,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 17,
+            "laps": 6,
+            "best": [
+              103.217,
+              null,
+              null
+            ],
+            "gap": [
+              1.448,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 18,
+            "laps": 6,
+            "best": [
+              103.408,
+              null,
+              null
+            ],
+            "gap": [
+              1.639,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 19,
+            "laps": 6,
+            "best": [
+              103.587,
+              null,
+              null
+            ],
+            "gap": [
+              1.818,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 20,
+            "laps": 6,
+            "best": [
+              105.394,
+              null,
+              null
+            ],
+            "gap": [
+              3.625,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9934,
+        "name": "Sprint",
+        "start": "2025-07-26T10:00:00+00:00",
+        "results": [
+          {
+            "car": 1,
+            "position": 1,
+            "laps": 15,
+            "best": 1597.997,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 15,
+            "best": 1598.75,
+            "gap": 0.753,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 3,
+            "laps": 15,
+            "best": 1599.411,
+            "gap": 1.414,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 4,
+            "laps": 15,
+            "best": 1608.173,
+            "gap": 10.176,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 5,
+            "laps": 15,
+            "best": 1611.786,
+            "gap": 13.789,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 6,
+            "laps": 15,
+            "best": 1612.961,
+            "gap": 14.964,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 7,
+            "laps": 15,
+            "best": 1616.607,
+            "gap": 18.61,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 8,
+            "laps": 15,
+            "best": 1617.116,
+            "gap": 19.119,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 9,
+            "laps": 15,
+            "best": 1620.18,
+            "gap": 22.183,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 10,
+            "laps": 15,
+            "best": 1620.894,
+            "gap": 22.897,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 11,
+            "laps": 15,
+            "best": 1622.548,
+            "gap": 24.551,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 12,
+            "laps": 15,
+            "best": 1623.966,
+            "gap": 25.969,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 13,
+            "laps": 15,
+            "best": 1624.592,
+            "gap": 26.595,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 14,
+            "laps": 15,
+            "best": 1627.043,
+            "gap": 29.046,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 15,
+            "laps": 15,
+            "best": 1628.172,
+            "gap": 30.175,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 16,
+            "laps": 15,
+            "best": 1628.938,
+            "gap": 30.941,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 17,
+            "laps": 15,
+            "best": 1629.978,
+            "gap": 31.981,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 18,
+            "laps": 15,
+            "best": 1630.864,
+            "gap": 32.867,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 19,
+            "laps": 15,
+            "best": 1636.069,
+            "gap": 38.072,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "laps": 12,
+            "dnf": true,
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9935,
+        "name": "Qualifying",
+        "start": "2025-07-26T14:00:00+00:00",
+        "results": [
+          {
+            "car": 4,
+            "position": 1,
+            "laps": 20,
+            "best": [
+              101.01,
+              100.715,
+              100.562
+            ],
+            "gap": [
+              0,
+              0.089,
+              0
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 21,
+            "best": [
+              101.201,
+              100.626,
+              100.647
+            ],
+            "gap": [
+              0.191,
+              0,
+              0.085
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 3,
+            "laps": 18,
+            "best": [
+              101.635,
+              101.084,
+              100.9
+            ],
+            "gap": [
+              0.625,
+              0.458,
+              0.338
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 4,
+            "laps": 15,
+            "best": [
+              101.334,
+              100.951,
+              100.903
+            ],
+            "gap": [
+              0.324,
+              0.325,
+              0.341
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 5,
+            "laps": 20,
+            "best": [
+              101.772,
+              101.505,
+              101.201
+            ],
+            "gap": [
+              0.762,
+              0.879,
+              0.639
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 6,
+            "laps": 18,
+            "best": [
+              101.784,
+              101.254,
+              101.26
+            ],
+            "gap": [
+              0.774,
+              0.628,
+              0.698
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 7,
+            "laps": 17,
+            "best": [
+              101.84,
+              101.245,
+              101.284
+            ],
+            "gap": [
+              0.83,
+              0.619,
+              0.722
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 8,
+            "laps": 19,
+            "best": [
+              101.572,
+              101.281,
+              101.31
+            ],
+            "gap": [
+              0.562,
+              0.655,
+              0.748
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 9,
+            "laps": 20,
+            "best": [
+              101.748,
+              101.297,
+              101.328
+            ],
+            "gap": [
+              0.738,
+              0.671,
+              0.766
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 10,
+            "laps": 18,
+            "best": [
+              101.908,
+              101.336,
+              102.387
+            ],
+            "gap": [
+              0.898,
+              0.71,
+              1.825
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 11,
+            "laps": 14,
+            "best": [
+              101.884,
+              101.525,
+              null
+            ],
+            "gap": [
+              0.874,
+              0.899,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 12,
+            "laps": 13,
+            "best": [
+              101.617,
+              101.617,
+              null
+            ],
+            "gap": [
+              0.607,
+              0.991,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 13,
+            "laps": 14,
+            "best": [
+              101.8,
+              101.633,
+              null
+            ],
+            "gap": [
+              0.79,
+              1.007,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 14,
+            "laps": 14,
+            "best": [
+              101.844,
+              101.707,
+              null
+            ],
+            "gap": [
+              0.834,
+              1.081,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 15,
+            "laps": 13,
+            "best": [
+              101.691,
+              101.758,
+              null
+            ],
+            "gap": [
+              0.681,
+              1.132,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 16,
+            "laps": 8,
+            "best": [
+              101.939,
+              null,
+              null
+            ],
+            "gap": [
+              0.929,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 17,
+            "laps": 8,
+            "best": [
+              102.022,
+              null,
+              null
+            ],
+            "gap": [
+              1.012,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 18,
+            "laps": 6,
+            "best": [
+              102.139,
+              null,
+              null
+            ],
+            "gap": [
+              1.129,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 19,
+            "laps": 8,
+            "best": [
+              102.385,
+              null,
+              null
+            ],
+            "gap": [
+              1.375,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 20,
+            "laps": 8,
+            "best": [
+              102.502,
+              null,
+              null
+            ],
+            "gap": [
+              1.492,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9939,
+        "name": "Race",
+        "start": "2025-07-27T13:00:00+00:00",
+        "results": [
+          {
+            "car": 81,
+            "position": 1,
+            "laps": 44,
+            "best": 5122.601,
+            "gap": 0,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 2,
+            "laps": 44,
+            "best": 5126.016,
+            "gap": 3.415,
+            "compounds": [
+              "INTERMEDIATE",
+              "HARD"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 3,
+            "laps": 44,
+            "best": 5142.786,
+            "gap": 20.185,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 4,
+            "laps": 44,
+            "best": 5144.332,
+            "gap": 21.731,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 5,
+            "laps": 44,
+            "best": 5157.464,
+            "gap": 34.863,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 6,
+            "laps": 44,
+            "best": 5162.527,
+            "gap": 39.926,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 7,
+            "laps": 44,
+            "best": 5163.28,
+            "gap": 40.679,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 8,
+            "laps": 44,
+            "best": 5174.634,
+            "gap": 52.033,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 9,
+            "laps": 44,
+            "best": 5179.035,
+            "gap": 56.434,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 10,
+            "laps": 44,
+            "best": 5195.315,
+            "gap": 72.714,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 11,
+            "laps": 44,
+            "best": 5195.746,
+            "gap": 73.145,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 12,
+            "laps": 44,
+            "best": 5196.229,
+            "gap": 73.628,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 13,
+            "laps": 44,
+            "best": 5197.996,
+            "gap": 75.395,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 14,
+            "laps": 44,
+            "best": 5202.432,
+            "gap": 79.831,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 15,
+            "laps": 44,
+            "best": 5208.664,
+            "gap": 86.063,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 16,
+            "laps": 44,
+            "best": 5209.322,
+            "gap": 86.721,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 17,
+            "laps": 44,
+            "best": 5210.525,
+            "gap": 87.924,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 18,
+            "laps": 44,
+            "best": 5214.625,
+            "gap": 92.024,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 19,
+            "laps": 44,
+            "best": 5217.851,
+            "gap": 95.25,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 20,
+            "laps": 43,
+            "gap": "+1 LAP",
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM",
+              "HARD"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "fia": {
     "season": 2025,
     "round": 13,
@@ -236,120 +1645,104 @@
     "penalties": [
       {
         "doc": 23,
-        "parser": 2,
+        "parser": 3,
         "car": 22,
         "driver": "Yuki Tsunoda",
         "session": "Sprint Qualifying",
         "type": "reprimand",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 22 driving unnecessarily slowly.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 2nd reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_22_-_driving_unnecessarily_slow.pdf",
         "publishedAt": "2025-07-25 18:37 CET"
       },
       {
         "doc": 24,
-        "parser": 2,
+        "parser": 3,
         "car": 63,
         "driver": "George Russell",
         "session": "Sprint Qualifying",
         "type": "reprimand",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 63 driving unnecessarily slowly.",
-        "decision": "Driver: Reprimand (Driving). This is the driver’s 1st reprimand of the season.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_decision_-_car_63_-_driving_unnecessarily_slowly.pdf",
         "publishedAt": "2025-07-25 18:37 CET"
       },
       {
         "doc": 25,
-        "parser": 2,
+        "parser": 3,
         "car": 10,
         "driver": "Pierre Gasly",
         "session": "Sprint Qualifying",
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 10 allegedly impeding Car 22 in turn 17.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_decision_-_car_10_-_allegedly_impeding_car_22.pdf",
         "publishedAt": "2025-07-25 18:37 CET"
       },
       {
         "doc": 35,
-        "parser": 2,
+        "parser": 3,
         "car": 43,
         "driver": "Franco Colapinto",
         "session": "Sprint",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "sprint",
         "corrected": false,
-        "fact": "The rear wing specification has been changed while under Parc Ferme.",
-        "decision": "Required to start the Sprint from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_43_-_changes_made_during_parc_ferme.pdf",
-        "publishedAt": "2025-07-26 11:00 CET"
+        "publishedAt": "2025-07-26 11:00 CET",
+        "pitlane": true
       },
       {
         "doc": 56,
-        "parser": 2,
+        "parser": 3,
         "car": 14,
         "driver": "Fernando Alonso",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 5th Internal Combustion Engine (ICE) 5th Turbo Charger (TC) 5th Motor Generator Unit - Heat (MGU-H) 5th Motor Generator Unit - Kinetic (MGU-K) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_14_-_pu_elements.pdf",
-        "publishedAt": "2025-07-27 12:39 CET"
+        "publishedAt": "2025-07-27 12:39 CET",
+        "pitlane": true
       },
       {
         "doc": 57,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Fact: The following Power Unit elements have been used: 5th Internal Combustion Engine (ICE) 5th Turbo Charger (TC) 5th Motor Generator Unit - Heat (MGU-H) 5th Motor Generator Unit - Kinetic (MGU-K) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_12_-_pu_elements.pdf",
-        "publishedAt": "2025-07-27 12:52 CET"
+        "publishedAt": "2025-07-27 12:52 CET",
+        "pitlane": true
       },
       {
         "doc": 58,
-        "parser": 2,
+        "parser": 3,
         "car": 44,
         "driver": "Lewis Hamilton",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The following Power Unit elements have been used: 5th Internal Combustion Engine (ICE) 5th Turbo Charger (TC) 5th Motor Generator Unit - Heat (MGU-H) 5th Motor Generator Unit - Kinetic (MGU-K) 3rd Energy Store (ES) 3rd Control Electronics (CE) 6th Engine Exhaust System (EX) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_44_-_pu_elements.pdf",
-        "publishedAt": "2025-07-27 12:49 CET"
+        "publishedAt": "2025-07-27 12:49 CET",
+        "pitlane": true
       },
       {
         "doc": 60,
-        "parser": 2,
+        "parser": 3,
         "car": 55,
         "driver": "Carlos Sainz",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The mechanical and aerodynamic set-up of car number 55 has been changed without the approval of the FIA technical delegate whilst under Parc Ferme.",
-        "decision": "Required to start the Race from the pit lane.",
         "url": "https://www.fia.com/system/files/decision-document/2025_belgian_grand_prix_-_infringement_-_car_55_-_changes_made_during_parc_ferme.pdf",
-        "publishedAt": "2025-07-27 13:00 CET"
+        "publishedAt": "2025-07-27 13:00 CET",
+        "pitlane": true
       }
     ],
     "startingGrid": {

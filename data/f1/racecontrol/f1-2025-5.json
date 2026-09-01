@@ -1,0 +1,991 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-01T15:15:57.392Z",
+  "id": "f1-2025-5",
+  "season": 2025,
+  "parserVersion": 1,
+  "sessions": [
+    {
+      "key": 10015,
+      "name": "Practice 1",
+      "events": [
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "finish",
+          "car": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 15
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 15
+        },
+        {
+          "kind": "track_condition"
+        }
+      ]
+    },
+    {
+      "key": 10016,
+      "name": "Practice 2",
+      "events": [
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "drs",
+          "enabled": false
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "investigation",
+          "car": 44,
+          "reason": "impeding"
+        },
+        {
+          "kind": "investigation",
+          "car": 44,
+          "reason": "impeding"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 21
+        },
+        {
+          "kind": "drs",
+          "enabled": false
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 20
+        },
+        {
+          "kind": "drs",
+          "enabled": false
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "RED",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 20
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 21
+        },
+        {
+          "kind": "medical_car"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 55
+        }
+      ]
+    },
+    {
+      "key": 10017,
+      "name": "Practice 3",
+      "events": [
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "investigation",
+          "car": 7
+        },
+        {
+          "kind": "investigation",
+          "car": 7
+        },
+        {
+          "kind": "investigation",
+          "car": 7
+        },
+        {
+          "kind": "investigation",
+          "car": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 17
+        },
+        {
+          "kind": "drs",
+          "enabled": false
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 17
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 31
+        }
+      ]
+    },
+    {
+      "key": 10018,
+      "name": "Qualifying",
+      "events": [
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 7,
+          "reason": "track_limits",
+          "time": "1:58.947"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 7,
+          "reason": "track_limits",
+          "time": "1:58.947"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 23,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 5,
+          "reason": "track_limits",
+          "time": "1:29.636"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 7,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 7,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 18
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 27,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 5,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 5,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "investigation",
+          "car": 44
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "investigation",
+          "car": 44
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "investigation",
+          "car": 30,
+          "reason": "unsafe_release"
+        },
+        {
+          "kind": "no_further_action",
+          "car": 30,
+          "reason": "unsafe_release"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 23,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 30,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "finish",
+          "car": 44
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 9
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 9
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 9
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 9
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 5
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "RED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 5
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 10,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 1
+        },
+        {
+          "kind": "no_further_action",
+          "car": 44
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 15
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 16
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 11
+        }
+      ]
+    },
+    {
+      "key": 10022,
+      "name": "Race",
+      "events": [
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "pit_status",
+          "lap": 1
+        },
+        {
+          "kind": "track_condition",
+          "lap": 1
+        },
+        {
+          "kind": "drs",
+          "lap": 1,
+          "enabled": false
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status",
+          "lap": 1
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "safety_car",
+          "lap": 1,
+          "virtual": false,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "lap": 1,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "car_event",
+          "lap": 1
+        },
+        {
+          "kind": "flag",
+          "lap": 2,
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "lap": 2,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 2,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 2,
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "investigation",
+          "lap": 2,
+          "car": 1
+        },
+        {
+          "kind": "investigation",
+          "lap": 3,
+          "car": 1
+        },
+        {
+          "kind": "safety_car",
+          "lap": 3,
+          "virtual": false,
+          "deployed": false
+        },
+        {
+          "kind": "flag",
+          "lap": 3,
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 3,
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "penalty",
+          "lap": 3,
+          "car": 1
+        },
+        {
+          "kind": "investigation",
+          "lap": 4,
+          "car": 22,
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "drs",
+          "lap": 5,
+          "enabled": true
+        },
+        {
+          "kind": "investigation",
+          "lap": 7,
+          "car": 22,
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 8,
+          "car": 1,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 8,
+          "car": 12,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 11,
+          "car": 5,
+          "reason": "track_limits",
+          "time": "1:36.994"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 13,
+          "car": 18,
+          "reason": "track_limits",
+          "time": "1:36.148"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 19,
+          "car": 30,
+          "reason": "track_limits",
+          "time": "1:35.162"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 20,
+          "car": 23,
+          "reason": "track_limits",
+          "time": "1:35.896"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 22,
+          "car": 5,
+          "reason": "track_limits",
+          "time": "1:36.354"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 23,
+          "car": 6,
+          "reason": "track_limits",
+          "time": "1:36.137"
+        },
+        {
+          "kind": "penalty_served",
+          "lap": 23,
+          "car": 1
+        },
+        {
+          "kind": "investigation",
+          "lap": 26,
+          "car": 5
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 27,
+          "car": 14,
+          "reason": "track_limits",
+          "time": "1:37.031"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 29,
+          "car": 4,
+          "reason": "track_limits",
+          "time": "1:33.342"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 30,
+          "car": 30,
+          "reason": "track_limits",
+          "time": "1:35.190"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 31,
+          "car": 12,
+          "reason": "track_limits",
+          "time": "1:33.780"
+        },
+        {
+          "kind": "investigation",
+          "lap": 31,
+          "car": 30
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 32,
+          "car": 6,
+          "reason": "track_limits",
+          "time": "1:35.421"
+        },
+        {
+          "kind": "lap_deleted",
+          "lap": 32,
+          "car": 44,
+          "reason": "track_limits",
+          "time": "1:34.392"
+        },
+        {
+          "kind": "no_further_action",
+          "lap": 35,
+          "car": 5
+        },
+        {
+          "kind": "flag",
+          "lap": 35,
+          "car": 5,
+          "flag": "BLACK AND WHITE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "investigation",
+          "lap": 37,
+          "car": 30
+        },
+        {
+          "kind": "penalty",
+          "lap": 38,
+          "car": 30
+        },
+        {
+          "kind": "investigation",
+          "lap": 40,
+          "car": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 41,
+          "car": 7,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 43,
+          "car": 7,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "no_further_action",
+          "lap": 43,
+          "car": 4
+        },
+        {
+          "kind": "flag",
+          "lap": 45,
+          "car": 7,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 46,
+          "car": 7,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 46,
+          "car": 18,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 46,
+          "car": 5,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 47,
+          "car": 5,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 48,
+          "car": 18,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 48,
+          "car": 5,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 48,
+          "car": 18,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 48,
+          "car": 5,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 50,
+          "car": 27,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 50,
+          "car": 27,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "lap": 50,
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status",
+          "lap": 50
+        }
+      ]
+    }
+  ]
+}

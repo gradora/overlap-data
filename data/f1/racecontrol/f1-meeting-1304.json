@@ -1,0 +1,952 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-01T15:15:45.529Z",
+  "id": "f1-meeting-1304",
+  "season": 2026,
+  "parserVersion": 1,
+  "sessions": [
+    {
+      "key": 11465,
+      "name": "Day 1",
+      "events": [
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "RED",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 10
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 63
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 16
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "RED",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 16
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 31
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": false
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        }
+      ]
+    },
+    {
+      "key": 11466,
+      "name": "Day 2",
+      "events": [
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": false
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "safety_car",
+          "virtual": false,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 1
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 18
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        }
+      ]
+    },
+    {
+      "key": 11467,
+      "name": "Day 3",
+      "events": [
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "RED",
+          "scope": "Track"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 13
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "finish",
+          "car": 55
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 8
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "car": 43,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "safety_car",
+          "virtual": false,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 11
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "safety_car",
+          "virtual": false,
+          "deployed": false
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "track_condition"
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": true
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 12
+        },
+        {
+          "kind": "safety_car",
+          "virtual": true,
+          "deployed": false
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Track"
+        },
+        {
+          "kind": "drs",
+          "enabled": true
+        },
+        {
+          "kind": "investigation"
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "investigation",
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 5
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 5
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 15
+        },
+        {
+          "kind": "flag",
+          "flag": "DOUBLE YELLOW",
+          "scope": "Sector",
+          "sector": 16
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 15
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 16
+        },
+        {
+          "kind": "pit_status"
+        },
+        {
+          "kind": "investigation"
+        },
+        {
+          "kind": "investigation",
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "penalty",
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "investigation",
+          "reason": "track_limits"
+        },
+        {
+          "kind": "investigation",
+          "reason": "track_limits"
+        },
+        {
+          "kind": "penalty_served",
+          "reason": "causing_a_collision"
+        },
+        {
+          "kind": "penalty",
+          "reason": "track_limits"
+        },
+        {
+          "kind": "penalty_served",
+          "reason": "track_limits"
+        },
+        {
+          "kind": "flag",
+          "car": 41,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "flag",
+          "car": 41,
+          "flag": "BLUE",
+          "scope": "Driver"
+        },
+        {
+          "kind": "session_status"
+        }
+      ]
+    }
+  ]
+}

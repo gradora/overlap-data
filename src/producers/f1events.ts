@@ -1,5 +1,9 @@
-// Продьюсер файла события F1 — ЧИСТАЯ проекция уже собранных семейств, ноль
-// сетевых запросов. Пишет data/f1/events/<eventKey>.json.
+// Продьюсер файла события F1 — ЧИСТАЯ проекция уже собранных семейств и
+// зеркала openf1, ноль сетевых запросов. Пишет data/f1/events/<eventKey>.json
+// и — с поставкой D4 — классифицированный рейс-контрол
+// data/f1/racecontrol/<id события>.json (отдельным файлом, как погода: он
+// нужен только ленте Recap прошедшего уик-энда, а вербатима в нём нет по
+// построению — см. lib/racecontrol.ts).
 //
 // Обоснование формы (проекция, а не накопитель), состава блоков и того, чего
 // здесь намеренно нет — в lib/eventfile.ts. Ключ файла и его стабильность —
@@ -15,6 +19,8 @@ import { writeJSONWithEnvelope } from "../lib/mirror.js";
 import {
   EVENT_FILE_SCHEMA_VERSION, type EventEntryDriver, buildEventFile, eventFilePath,
 } from "../lib/eventfile.js";
+import { buildProtocolsBlock } from "../lib/f1protocols.js";
+import { buildRaceControlDoc, writeRaceControl } from "../lib/racecontrolbuild.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const DATA_DIR = join(process.cwd(), "data");
@@ -76,7 +82,7 @@ export async function main(): Promise<void> {
     return;
   }
 
-  let written = 0, unchanged = 0, empty = 0, noKey = 0;
+  let written = 0, unchanged = 0, empty = 0, noKey = 0, rcWritten = 0;
   for (const e of events) {
     if (!e.eventKey) {
       // Витрина прошлой версии: ключа ещё нет. Молча пропустить нельзя —
@@ -89,12 +95,17 @@ export async function main(): Promise<void> {
       round >= 1 ? readJSON(join(DATA_DIR, "f1", name, `${YEAR}_${round}.json`)) : null;
 
     const meetingKey = e.sourceIds?.openf1?.meetingKey;
+    if (meetingKey != null) {
+      const rc = buildRaceControlDoc(DATA_DIR, YEAR, e.id, meetingKey);
+      if (rc && writeRaceControl(DATA_DIR, rc)) rcWritten++;
+    }
     const file = buildEventFile({
       season: YEAR,
       eventKey: e.eventKey,
       eventId: e.id,
       round,
       entry: meetingKey != null ? entryForMeeting(entryList, meetingKey) : [],
+      protocols: meetingKey != null ? buildProtocolsBlock(DATA_DIR, meetingKey) : null,
       fia: family("fia"),
       winners: family("winners"),
       highlights: family("highlights"),
@@ -112,7 +123,8 @@ export async function main(): Promise<void> {
   }
 
   console.log(`  событий ${events.length}: записано ${written}, без изменений ${unchanged}, ` +
-              `без блоков ${empty}` + (noKey ? `, БЕЗ КЛЮЧА ${noKey}` : ""));
+              `без блоков ${empty}, рейс-контрол обновлён у ${rcWritten}` +
+              (noKey ? `, БЕЗ КЛЮЧА ${noKey}` : ""));
   if (noKey) {
     console.warn(`::warning::f1 events: у ${noKey} событий витрины нет eventKey — ` +
       `календарь собран прошлой версией, файлы событий для них не построены`);

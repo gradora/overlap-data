@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T16:17:50.363Z",
+  "generatedAt": "2026-09-01T15:15:45.531Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-bahrain-testing-1304",
@@ -227,5 +227,661 @@
       "team": "Haas F1 Team",
       "teamColour": "9C9FA2"
     }
-  ]
+  ],
+  "protocols": {
+    "sessions": [
+      {
+        "key": 11465,
+        "name": "Day 1",
+        "start": "2026-02-11T07:00:00+00:00",
+        "results": [
+          {
+            "car": 1,
+            "position": 1,
+            "laps": 58,
+            "best": 94.669,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 2,
+            "laps": 136,
+            "best": 94.798,
+            "gap": 0.129,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 3,
+            "laps": 80,
+            "best": 95.19,
+            "gap": 0.521,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 4,
+            "laps": 115,
+            "best": 95.578,
+            "gap": 0.909,
+            "compounds": [
+              "SOFT",
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 5,
+            "laps": 54,
+            "best": 95.602,
+            "gap": 0.933,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 6,
+            "laps": 56,
+            "best": 96.108,
+            "gap": 1.439,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 7,
+            "laps": 52,
+            "best": 96.433,
+            "gap": 1.764,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 8,
+            "laps": 49,
+            "best": 96.765,
+            "gap": 2.096,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 9,
+            "laps": 73,
+            "best": 96.861,
+            "gap": 2.192,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 10,
+            "laps": 68,
+            "best": 97.437,
+            "gap": 2.768,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 11,
+            "laps": 30,
+            "best": 97.629,
+            "gap": 2.96,
+            "compounds": [
+              "HARD"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 12,
+            "laps": 75,
+            "best": 97.945,
+            "gap": 3.276,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 13,
+            "laps": 77,
+            "best": 98.221,
+            "gap": 3.552,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 14,
+            "laps": 58,
+            "best": 98.828,
+            "gap": 4.159,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 15,
+            "laps": 49,
+            "best": 98.871,
+            "gap": 4.202,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 16,
+            "laps": 49,
+            "best": 99.15,
+            "gap": 4.481,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 17,
+            "laps": 36,
+            "best": 99.883,
+            "gap": 5.214,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 18,
+            "laps": 28,
+            "best": 100.33,
+            "gap": 5.661,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "laps": 0
+          },
+          {
+            "car": 14,
+            "laps": 0
+          },
+          {
+            "car": 30,
+            "laps": 0
+          },
+          {
+            "car": 87,
+            "laps": 0
+          }
+        ]
+      },
+      {
+        "key": 11466,
+        "name": "Day 2",
+        "start": "2026-02-12T07:00:00+00:00",
+        "results": [
+          {
+            "car": 16,
+            "position": 1,
+            "laps": 139,
+            "best": 94.273,
+            "gap": 0,
+            "compounds": [
+              "SOFT",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 149,
+            "best": 94.784,
+            "gap": 0.511,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 3,
+            "laps": 130,
+            "best": 95.394,
+            "gap": 1.121,
+            "compounds": [
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 4,
+            "laps": 54,
+            "best": 96.458,
+            "gap": 2.185,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 5,
+            "laps": 87,
+            "best": 96.561,
+            "gap": 2.288,
+            "compounds": [
+              "SOFT",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 6,
+            "laps": 67,
+            "best": 96.67,
+            "gap": 2.397,
+            "compounds": [
+              "MEDIUM",
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 7,
+            "laps": 97,
+            "best": 96.723,
+            "gap": 2.45,
+            "compounds": [
+              "HARD",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 8,
+            "laps": 67,
+            "best": 96.824,
+            "gap": 2.551,
+            "compounds": [
+              "MEDIUM",
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 9,
+            "laps": 62,
+            "best": 97.229,
+            "gap": 2.956,
+            "compounds": [
+              "SOFT",
+              "UNKNOWN",
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 10,
+            "laps": 47,
+            "best": 97.266,
+            "gap": 2.993,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 11,
+            "laps": 83,
+            "best": 97.47,
+            "gap": 3.197,
+            "compounds": [
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 12,
+            "laps": 69,
+            "best": 97.592,
+            "gap": 3.319,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 13,
+            "laps": 50,
+            "best": 98.017,
+            "gap": 3.744,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 14,
+            "laps": 42,
+            "best": 98.653,
+            "gap": 4.38,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 15,
+            "laps": 98,
+            "best": 98.96,
+            "gap": 4.687,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "laps": 0
+          },
+          {
+            "car": 12,
+            "laps": 3,
+            "compounds": [
+              "UNKNOWN",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "laps": 0
+          },
+          {
+            "car": 31,
+            "laps": 0
+          },
+          {
+            "car": 43,
+            "laps": 0
+          },
+          {
+            "car": 44,
+            "laps": 0
+          },
+          {
+            "car": 81,
+            "laps": 0
+          }
+        ]
+      },
+      {
+        "key": 11467,
+        "name": "Day 3",
+        "start": "2026-02-13T07:00:00+00:00",
+        "results": [
+          {
+            "car": 12,
+            "position": 1,
+            "laps": 49,
+            "best": 93.669,
+            "gap": 0,
+            "compounds": [
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 2,
+            "laps": 78,
+            "best": 93.918,
+            "gap": 0.249,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 3,
+            "laps": 138,
+            "best": 94.209,
+            "gap": 0.54,
+            "compounds": [
+              "SOFT",
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 4,
+            "laps": 153,
+            "best": 94.549,
+            "gap": 0.88,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 5,
+            "laps": 61,
+            "best": 95.425,
+            "gap": 1.756,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 6,
+            "laps": 53,
+            "best": 95.61,
+            "gap": 1.941,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 7,
+            "laps": 68,
+            "best": 95.753,
+            "gap": 2.084,
+            "compounds": [
+              "SOFT",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 8,
+            "laps": 137,
+            "best": 95.806,
+            "gap": 2.137,
+            "compounds": [
+              "MEDIUM",
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 9,
+            "laps": 70,
+            "best": 95.972,
+            "gap": 2.303,
+            "compounds": [
+              "SOFT",
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 10,
+            "laps": 49,
+            "best": 96.291,
+            "gap": 2.622,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 11,
+            "laps": 71,
+            "best": 96.793,
+            "gap": 3.124,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 12,
+            "laps": 119,
+            "best": 96.808,
+            "gap": 3.139,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 13,
+            "laps": 68,
+            "best": 97.186,
+            "gap": 3.517,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 14,
+            "laps": 60,
+            "best": 97.536,
+            "gap": 3.867,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 15,
+            "laps": 69,
+            "best": 98.165,
+            "gap": 4.496,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 16,
+            "laps": 37,
+            "best": 98.772,
+            "gap": 5.103,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 17,
+            "laps": 62,
+            "best": 99.251,
+            "gap": 5.582,
+            "compounds": [
+              "SOFT",
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 1,
+            "laps": 1
+          },
+          {
+            "car": 10,
+            "laps": 1
+          },
+          {
+            "car": 14,
+            "laps": 1
+          },
+          {
+            "car": 16,
+            "laps": 1
+          },
+          {
+            "car": 41,
+            "laps": 1
+          }
+        ]
+      }
+    ]
+  }
 }

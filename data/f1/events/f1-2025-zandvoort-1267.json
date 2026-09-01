@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T15:56:35.847Z",
+  "generatedAt": "2026-09-01T15:15:57.436Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-zandvoort-1267",
@@ -228,6 +228,1288 @@
       "constructorId": "haas"
     }
   ],
+  "protocols": {
+    "sessions": [
+      {
+        "key": 9913,
+        "name": "Practice 1",
+        "start": "2025-08-29T10:30:00+00:00",
+        "results": [
+          {
+            "car": 4,
+            "position": 1,
+            "laps": 35,
+            "best": 70.278,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 32,
+            "best": 70.57,
+            "gap": 0.292,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 3,
+            "laps": 25,
+            "best": 70.779,
+            "gap": 0.501,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 4,
+            "laps": 25,
+            "best": 70.841,
+            "gap": 0.563,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 5,
+            "laps": 33,
+            "best": 71.171,
+            "gap": 0.893,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 6,
+            "laps": 24,
+            "best": 71.218,
+            "gap": 0.94,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 7,
+            "laps": 29,
+            "best": 71.386,
+            "gap": 1.108,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 8,
+            "laps": 33,
+            "best": 71.458,
+            "gap": 1.18,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 9,
+            "laps": 30,
+            "best": 71.509,
+            "gap": 1.231,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 10,
+            "laps": 30,
+            "best": 71.613,
+            "gap": 1.335,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 11,
+            "laps": 29,
+            "best": 71.753,
+            "gap": 1.475,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 12,
+            "laps": 30,
+            "best": 71.772,
+            "gap": 1.494,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 13,
+            "laps": 30,
+            "best": 71.875,
+            "gap": 1.597,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 14,
+            "laps": 32,
+            "best": 71.951,
+            "gap": 1.673,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 15,
+            "laps": 28,
+            "best": 71.96,
+            "gap": 1.682,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 16,
+            "laps": 24,
+            "best": 72.126,
+            "gap": 1.848,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 17,
+            "laps": 29,
+            "best": 72.144,
+            "gap": 1.866,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 18,
+            "laps": 27,
+            "best": 72.276,
+            "gap": 1.998,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 19,
+            "laps": 30,
+            "best": 72.564,
+            "gap": 2.286,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 20,
+            "laps": 6,
+            "best": 74.275,
+            "gap": 3.997,
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9914,
+        "name": "Practice 2",
+        "start": "2025-08-29T14:00:00+00:00",
+        "results": [
+          {
+            "car": 4,
+            "position": 1,
+            "laps": 28,
+            "best": 69.89,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 2,
+            "laps": 20,
+            "best": 69.977,
+            "gap": 0.087,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 3,
+            "laps": 29,
+            "best": 69.979,
+            "gap": 0.089,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 4,
+            "laps": 25,
+            "best": 70.274,
+            "gap": 0.384,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 5,
+            "laps": 23,
+            "best": 70.478,
+            "gap": 0.588,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 6,
+            "laps": 22,
+            "best": 70.738,
+            "gap": 0.848,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 7,
+            "laps": 26,
+            "best": 70.795,
+            "gap": 0.905,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 8,
+            "laps": 23,
+            "best": 70.834,
+            "gap": 0.944,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 9,
+            "laps": 26,
+            "best": 70.957,
+            "gap": 1.067,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 10,
+            "laps": 25,
+            "best": 71.08,
+            "gap": 1.19,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 11,
+            "laps": 26,
+            "best": 71.113,
+            "gap": 1.223,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 12,
+            "laps": 21,
+            "best": 71.185,
+            "gap": 1.295,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 25,
+            "best": 71.32,
+            "gap": 1.43,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 14,
+            "laps": 25,
+            "best": 71.339,
+            "gap": 1.449,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 15,
+            "laps": 23,
+            "best": 71.361,
+            "gap": 1.471,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 16,
+            "laps": 30,
+            "best": 71.682,
+            "gap": 1.792,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 17,
+            "laps": 16,
+            "best": 71.756,
+            "gap": 1.866,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 18,
+            "laps": 7,
+            "best": 71.975,
+            "gap": 2.085,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 19,
+            "laps": 28,
+            "best": 72.122,
+            "gap": 2.232,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 20,
+            "laps": 1,
+            "compounds": [
+              "HARD"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9915,
+        "name": "Practice 3",
+        "start": "2025-08-30T09:30:00+00:00",
+        "results": [
+          {
+            "car": 4,
+            "position": 1,
+            "laps": 16,
+            "best": 68.972,
+            "gap": 0,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 2,
+            "laps": 15,
+            "best": 69.214,
+            "gap": 0.242,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 3,
+            "laps": 17,
+            "best": 69.858,
+            "gap": 0.886,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 4,
+            "laps": 23,
+            "best": 69.913,
+            "gap": 0.941,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 5,
+            "laps": 20,
+            "best": 69.925,
+            "gap": 0.953,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 6,
+            "laps": 23,
+            "best": 69.938,
+            "gap": 0.966,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 7,
+            "laps": 22,
+            "best": 70.099,
+            "gap": 1.127,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 8,
+            "laps": 24,
+            "best": 70.103,
+            "gap": 1.131,
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 9,
+            "laps": 21,
+            "best": 70.166,
+            "gap": 1.194,
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 10,
+            "laps": 20,
+            "best": 70.232,
+            "gap": 1.26,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 11,
+            "laps": 17,
+            "best": 70.3,
+            "gap": 1.328,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 12,
+            "laps": 19,
+            "best": 70.349,
+            "gap": 1.377,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 21,
+            "best": 70.361,
+            "gap": 1.389,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 14,
+            "laps": 20,
+            "best": 70.373,
+            "gap": 1.401,
+            "compounds": [
+              "HARD",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 15,
+            "laps": 19,
+            "best": 70.595,
+            "gap": 1.623,
+            "compounds": [
+              "INTERMEDIATE",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 16,
+            "laps": 24,
+            "best": 70.599,
+            "gap": 1.627,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 17,
+            "laps": 31,
+            "best": 70.697,
+            "gap": 1.725,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 18,
+            "laps": 18,
+            "best": 70.801,
+            "gap": 1.829,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 19,
+            "laps": 24,
+            "best": 70.963,
+            "gap": 1.991,
+            "compounds": [
+              "INTERMEDIATE",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 20,
+            "laps": 21,
+            "best": 71.054,
+            "gap": 2.082,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9916,
+        "name": "Qualifying",
+        "start": "2025-08-30T13:00:00+00:00",
+        "results": [
+          {
+            "car": 81,
+            "position": 1,
+            "laps": 18,
+            "best": [
+              69.338,
+              68.964,
+              68.662
+            ],
+            "gap": [
+              0,
+              0.09,
+              0
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 2,
+            "laps": 18,
+            "best": [
+              69.469,
+              68.874,
+              68.674
+            ],
+            "gap": [
+              0.131,
+              0,
+              0.012
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 3,
+            "laps": 18,
+            "best": [
+              69.696,
+              69.122,
+              68.925
+            ],
+            "gap": [
+              0.358,
+              0.248,
+              0.263
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 4,
+            "laps": 18,
+            "best": [
+              69.966,
+              69.439,
+              69.208
+            ],
+            "gap": [
+              0.628,
+              0.565,
+              0.546
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 5,
+            "laps": 18,
+            "best": [
+              69.676,
+              69.313,
+              69.255
+            ],
+            "gap": [
+              0.338,
+              0.439,
+              0.593
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 6,
+            "laps": 22,
+            "best": [
+              69.906,
+              69.304,
+              69.34
+            ],
+            "gap": [
+              0.568,
+              0.43,
+              0.678
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 7,
+            "laps": 21,
+            "best": [
+              69.9,
+              69.261,
+              69.39
+            ],
+            "gap": [
+              0.562,
+              0.387,
+              0.728
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 8,
+            "laps": 18,
+            "best": [
+              69.779,
+              69.383,
+              69.5
+            ],
+            "gap": [
+              0.441,
+              0.509,
+              0.838
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 9,
+            "laps": 18,
+            "best": [
+              69.98,
+              69.472,
+              69.505
+            ],
+            "gap": [
+              0.642,
+              0.598,
+              0.843
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 10,
+            "laps": 17,
+            "best": [
+              69.95,
+              69.366,
+              69.63
+            ],
+            "gap": [
+              0.612,
+              0.492,
+              0.968
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 11,
+            "laps": 12,
+            "best": [
+              69.845,
+              69.493,
+              null
+            ],
+            "gap": [
+              0.507,
+              0.619,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 12,
+            "laps": 15,
+            "best": [
+              69.954,
+              69.622,
+              null
+            ],
+            "gap": [
+              0.616,
+              0.748,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 12,
+            "best": [
+              70.037,
+              69.622,
+              null
+            ],
+            "gap": [
+              0.699,
+              0.748,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 14,
+            "laps": 15,
+            "best": [
+              69.894,
+              69.637,
+              null
+            ],
+            "gap": [
+              0.556,
+              0.763,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 15,
+            "laps": 12,
+            "best": [
+              69.792,
+              69.652,
+              null
+            ],
+            "gap": [
+              0.454,
+              0.778,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 16,
+            "laps": 9,
+            "best": [
+              70.104,
+              null,
+              null
+            ],
+            "gap": [
+              0.766,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 17,
+            "laps": 9,
+            "best": [
+              70.195,
+              null,
+              null
+            ],
+            "gap": [
+              0.857,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 18,
+            "laps": 9,
+            "best": [
+              70.197,
+              null,
+              null
+            ],
+            "gap": [
+              0.859,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 19,
+            "laps": 9,
+            "best": [
+              70.262,
+              null,
+              null
+            ],
+            "gap": [
+              0.924,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "laps": 2,
+            "dnf": true,
+            "best": [
+              null,
+              null,
+              null
+            ],
+            "gap": [
+              null,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 9920,
+        "name": "Race",
+        "start": "2025-08-31T13:00:00+00:00",
+        "results": [
+          {
+            "car": 81,
+            "position": 1,
+            "laps": 72,
+            "best": 5909.849,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 72,
+            "best": 5911.12,
+            "gap": 1.271,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 3,
+            "laps": 72,
+            "best": 5913.082,
+            "gap": 3.233,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 4,
+            "laps": 72,
+            "best": 5915.503,
+            "gap": 5.654,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 5,
+            "laps": 72,
+            "best": 5916.176,
+            "gap": 6.327,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 6,
+            "laps": 72,
+            "best": 5918.893,
+            "gap": 9.044,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 7,
+            "laps": 72,
+            "best": 5919.346,
+            "gap": 9.497,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 8,
+            "laps": 72,
+            "best": 5921.558,
+            "gap": 11.709,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 22,
+            "position": 9,
+            "laps": 72,
+            "best": 5923.446,
+            "gap": 13.597,
+            "compounds": [
+              "SOFT",
+              "HARD"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 10,
+            "laps": 72,
+            "best": 5923.912,
+            "gap": 14.063,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 11,
+            "laps": 72,
+            "best": 5924.36,
+            "gap": 14.511,
+            "compounds": [
+              "SOFT",
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 12,
+            "laps": 72,
+            "best": 5926.912,
+            "gap": 17.063,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 13,
+            "laps": 72,
+            "best": 5927.225,
+            "gap": 17.376,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 14,
+            "laps": 72,
+            "best": 5929.574,
+            "gap": 19.725,
+            "compounds": [
+              "SOFT",
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 15,
+            "laps": 72,
+            "best": 5931.414,
+            "gap": 21.565,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 16,
+            "laps": 72,
+            "best": 5931.878,
+            "gap": 22.029,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 17,
+            "laps": 72,
+            "best": 5933.478,
+            "gap": 23.629,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 4,
+            "position": 18,
+            "laps": 64,
+            "dnf": true,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 16,
+            "laps": 52,
+            "dnf": true,
+            "compounds": [
+              "MEDIUM",
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "laps": 22,
+            "dnf": true,
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "fia": {
     "season": 2025,
     "round": 15,
@@ -236,160 +1518,146 @@
     "penalties": [
       {
         "doc": 17,
-        "parser": 2,
+        "parser": 3,
         "car": 81,
         "driver": "Oscar Piastri",
         "session": "Practice 2",
         "type": "fine",
         "appliesTo": "Practice 2",
         "corrected": false,
-        "fact": "Car 81 made two changes of direction in the fast lane causing Car 63 to brake heavily to avoid a collision.",
-        "decision": "The competitor (McLaren Formula 1 Team) is fined €5,000.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_81_-_pit_lane_incident.pdf",
-        "publishedAt": "2025-08-29 18:11 CET"
+        "publishedAt": "2025-08-29 18:11 CET",
+        "fineEur": 5000
       },
       {
         "doc": 27,
-        "parser": 2,
+        "parser": 3,
         "car": 63,
         "driver": "George Russell",
         "session": "Practice 3",
         "type": "fine",
         "appliesTo": "Practice 3",
         "corrected": false,
-        "fact": "Car 63 impeded Car 14 at pit entry at 12:19",
-        "decision": "The competitor (Mercedes-AMG PETRONAS F1 Team) is fined €7,500. Warning to the driver of Car 63",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_63_-_pit_lane_incident.pdf",
-        "publishedAt": "2025-08-30 13:41 CET"
+        "publishedAt": "2025-08-30 13:41 CET",
+        "fineEur": 7500
       },
       {
         "doc": 32,
-        "parser": 2,
+        "parser": 3,
         "car": 1,
         "driver": "Max Verstappen",
         "session": "Qualifying",
         "type": "none",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Car 1 exceeded the maximum time from the Second Safety Car line to the First Safety Car Line during the qualifying session",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_1_-_qualifying_sc2_-_sc1_times.pdf",
         "publishedAt": "2025-08-30 17:17 CET"
       },
       {
         "doc": 41,
-        "parser": 2,
+        "parser": 3,
         "car": 87,
         "driver": "Oliver Bearman",
         "session": "Qualifying",
         "type": "grid",
-        "pitlane": true,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The Team did not cover car 87 two hours after the chequered flag of the qualifying session and the following Power Unit elements have been used: 5th Internal Combustion Engine (ICE) 5th Turbo Charger (TC) 5th Motor Generator Unit - Heat (MGU-H) 5th Motor Generator Unit - Kinetic (MGU-K) 3rd Control Electronics (CE) 6th Engine Exhaust System (EX) All Power Unit elements were replaced without the approval of the FIA Technical Delegate during Parc Ferme.",
-        "decision": "Car 87 is required to start the Race from the pit lane and follow the procedures prescribed in Article 44.2.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_87_-_changes_made_during_parc_ferme.pdf",
-        "publishedAt": "2025-08-31 12:57 CET"
+        "publishedAt": "2025-08-31 12:57 CET",
+        "pitlane": true
       },
       {
         "doc": 45,
-        "parser": 2,
+        "parser": 3,
         "car": 55,
         "driver": "Carlos Sainz",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Causing a collision with Car 30 at turn 1",
-        "decision": "10 second time penalty. 2 penalty points (total of 4 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_55_-_causing_a_collision_with_car_30.pdf",
-        "publishedAt": "2025-08-31 16:50 CET"
+        "publishedAt": "2025-08-31 16:50 CET",
+        "seconds": 10,
+        "licencePoints": 2,
+        "licencePointsTotal": 4
       },
       {
         "doc": 52,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane speeding – 80.3 km/h",
-        "decision": "5 second time penalty.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_12_-_pit_lane_speeding.pdf",
-        "publishedAt": "2025-08-31 19:11 CET"
+        "publishedAt": "2025-08-31 19:11 CET",
+        "seconds": 5
       },
       {
         "doc": 53,
-        "parser": 2,
+        "parser": 3,
         "car": 12,
         "driver": "Kimi Antonelli",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Causing a collision with car 16 at turn 3",
-        "decision": "10 second time penalty. 2 penalty points (total of 4 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_12_-_causing_a_collision_with_car_16.pdf",
-        "publishedAt": "2025-08-31 19:12 CET"
+        "publishedAt": "2025-08-31 19:12 CET",
+        "seconds": 10,
+        "licencePoints": 2,
+        "licencePointsTotal": 4
       },
       {
         "doc": 55,
-        "parser": 2,
+        "parser": 3,
         "car": 16,
         "driver": "Charles Leclerc",
         "session": "Race",
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged Causing a collision.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_16_-_alleged_causing_a_collision.pdf",
         "publishedAt": "2025-08-31 20:14 CET"
       },
       {
         "doc": 57,
-        "parser": 2,
+        "parser": 3,
         "car": 44,
         "driver": "Lewis Hamilton",
         "session": "Race",
         "type": "grid",
-        "gridDrop": 5,
         "appliesTo": "next_race",
         "corrected": false,
-        "fact": "Failing to slow under double yellow flags at 14:23, 14:25 and to travel at a greatly reduced speed at pit entry road.",
-        "decision": "Drop of 5 grid positions for the next Race in which the driver participates. 2 penalty points (total of 2 for the 12 month period).",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_infringement_-_car_44_-_failing_to_slow_for_yellow_flags.pdf",
-        "publishedAt": "2025-08-31 20:22 CET"
+        "publishedAt": "2025-08-31 20:22 CET",
+        "gridDrop": 5,
+        "licencePoints": 2,
+        "licencePointsTotal": 2
       },
       {
         "doc": 58,
-        "parser": 2,
+        "parser": 3,
         "car": 63,
         "driver": "George Russell",
         "session": "Race",
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged Causing a collision.",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_63_-_alleged_causing_a_collision.pdf",
         "publishedAt": "2025-08-31 20:24 CET"
       },
       {
         "doc": 59,
-        "parser": 2,
+        "parser": 3,
         "car": 5,
         "driver": "Gabriel Bortoleto",
         "session": "Race",
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Failing to stop a car with significant and obvious damage",
-        "decision": "No further action.",
         "url": "https://www.fia.com/system/files/decision-document/2025_dutch_grand_prix_-_decision_-_car_5_alleged_driving_under_unsafe_conditions.pdf",
         "publishedAt": "2025-08-31 20:49 CET"
       }

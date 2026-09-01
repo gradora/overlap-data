@@ -79,6 +79,9 @@ export const DATA_FAMILIES: DataFamily[] = [
   { path: "f1/highlights", zone: "витрина", clientReads: true },
   { path: "f1/milestones", zone: "витрина", clientReads: true },
   { path: "f1/weather", zone: "витрина", clientReads: true },
+  { path: "f1/racecontrol", zone: "витрина", clientReads: true,
+    note: "Классифицированный рейс-контрол по id события (D4). Вербатима нет " +
+      "по построению: kind + машина/круг/время/причина, строку собирает клиент." },
   { path: "f1/history", zone: "витрина", clientReads: true },
   { path: "f1/beasts", zone: "витрина", clientReads: true },
   { path: "f1/records", zone: "витрина", clientReads: true },
