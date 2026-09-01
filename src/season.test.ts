@@ -58,7 +58,6 @@ test("yearEquivalent: годовые пути current-алиасов из сез
   );
 
   // «next» относителен во времени, сезонного эквивалента не имеет.
-  assert.equal(yearEquivalent("current/next.json", schedule), null);
   // Без сезона в ответе копия не пишется.
   assert.equal(yearEquivalent("current.json", { MRData: {} }), null);
 });

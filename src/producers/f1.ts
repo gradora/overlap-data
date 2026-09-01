@@ -19,7 +19,7 @@ const OUT_DIR = join(process.cwd(), "data", "f1", "jolpica");
 // Год-именованный эквивалент «current»-алиаса: тот же ответ доступен у Jolpica
 // и по явному сезонному пути (current.json ≡ 2026.json, current/driverStandings
 // ≡ 2026/driverStandings и т.д.). Сезон — из САМОГО ответа, не из часов.
-// null — у пути нет годового эквивалента (current/next.json) или сезона нет.
+// null — у пути нет годового эквивалента или сезона нет.
 export function yearEquivalent(relative: string, json: any): string | null {
   const mr = json?.MRData;
   // DriverTable — заявка сезона (drivers.json): свою таблицу она называет
@@ -27,7 +27,6 @@ export function yearEquivalent(relative: string, json: any): string | null {
   const season = mr?.RaceTable?.season ?? mr?.StandingsTable?.season ?? mr?.DriverTable?.season;
   if (!season) return null;
   if (relative === "current.json") return `${season}.json`;
-  if (relative === "current/next.json") return null; // «next» относителен, не сезонен
   // current/last/results: год-именованный ключ теперь пишут пер-раундовые
   // слайсы (writeRoundResultSlices) — они кроют ВСЕ раунды, включая последний;
   // двойной владелец одного ключа дёргал бы файл каждый прогон.
@@ -188,7 +187,6 @@ async function main() {
     console.error("Jolpica current.json недоступен — весь прогон бесполезен");
     process.exit(1);
   }
-  await mirror("current/next.json");
   await mirror("current/last/results.json");
   await mirror("current/driverStandings.json");
   await mirror("current/constructorStandings.json");
