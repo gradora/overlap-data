@@ -895,7 +895,7 @@ export function f1CalendarRegression(
 
 export type CalendarWriteOutcome = "written" | "unchanged" | "kept-previous" | "frozen";
 
-function readPrev<T>(path: string): T | null {
+export function readPrev<T>(path: string): T | null {
   try {
     return JSON.parse(readFileSync(path, "utf8")) as T;
   } catch {

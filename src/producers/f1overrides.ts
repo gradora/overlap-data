@@ -40,7 +40,8 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { buildF1CalendarFiles } from "../lib/f1calendar.js";
+import { buildF1CalendarFiles, coveredSeasons } from "../lib/f1calendar.js";
+import { writeF1StandingsFile } from "../lib/f1standings.js";
 import { writeIfChanged } from "../lib/mirror.js";
 
 const FILE = join(process.cwd(), "data", "f1", "overrides", "calendar.json");
@@ -149,6 +150,13 @@ function main() {
   // Курируемый слой при этом не приедет (чтение витрины к битому файлу
   // fail-open и вернёт пустой список) — это честная деградация одного слоя.
   console.log(buildF1CalendarFiles(Date.now()));
+  // Документы зачётов сезона — тем же шагом и по той же причине, что витрина
+  // календаря: входы (зеркало jolpica) уже сняты этим прогоном, нового шага
+  // воркфлоу и записи в реестре свежести не появляется.
+  const currentYear = new Date().getUTCFullYear();
+  for (const year of coveredSeasons(join(process.cwd(), "data"), currentYear)) {
+    console.log(`  ${writeF1StandingsFile(join(process.cwd(), "data"), year)}`);
+  }
   if (!ok) process.exit(1);
 }
 

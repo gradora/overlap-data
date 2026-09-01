@@ -1,0 +1,3973 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-01T15:51:10.598Z",
+  "series": "f1",
+  "season": 2026,
+  "frozen": false,
+  "rounds": [
+    {
+      "round": 1,
+      "locality": "Melbourne"
+    },
+    {
+      "round": 2,
+      "locality": "Shanghai",
+      "sprint": true,
+      "sprintWinner": {
+        "driverId": "russell",
+        "constructorId": "mercedes"
+      }
+    },
+    {
+      "round": 3,
+      "locality": "Suzuka"
+    },
+    {
+      "round": 4,
+      "locality": "Miami",
+      "sprint": true,
+      "sprintWinner": {
+        "driverId": "norris",
+        "constructorId": "mclaren"
+      }
+    },
+    {
+      "round": 5,
+      "locality": "Montreal",
+      "sprint": true,
+      "sprintWinner": {
+        "driverId": "russell",
+        "constructorId": "mercedes"
+      }
+    },
+    {
+      "round": 6,
+      "locality": "Monte Carlo"
+    },
+    {
+      "round": 7,
+      "locality": "Barcelona"
+    },
+    {
+      "round": 8,
+      "locality": "Spielberg"
+    },
+    {
+      "round": 9,
+      "locality": "Silverstone",
+      "sprint": true,
+      "sprintWinner": {
+        "driverId": "antonelli",
+        "constructorId": "mercedes"
+      }
+    },
+    {
+      "round": 10,
+      "locality": "Spa"
+    },
+    {
+      "round": 11,
+      "locality": "Budapest"
+    },
+    {
+      "round": 12,
+      "locality": "Zandvoort",
+      "sprint": true,
+      "sprintWinner": {
+        "driverId": "russell",
+        "constructorId": "mercedes"
+      }
+    }
+  ],
+  "drivers": [
+    {
+      "position": 1,
+      "driverId": "antonelli",
+      "givenName": "Andrea Kimi",
+      "familyName": "Antonelli",
+      "code": "ANT",
+      "permanentNumber": 12,
+      "nationality": "Italian",
+      "constructorId": "mercedes",
+      "constructorName": "Mercedes",
+      "points": 242,
+      "wins": 6,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 5,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "driverId": "russell",
+      "givenName": "George",
+      "familyName": "Russell",
+      "code": "RUS",
+      "permanentNumber": 63,
+      "nationality": "British",
+      "constructorId": "mercedes",
+      "constructorName": "Mercedes",
+      "points": 183,
+      "wins": 2,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 5,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 5,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 15,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "driverId": "hamilton",
+      "givenName": "Lewis",
+      "familyName": "Hamilton",
+      "code": "HAM",
+      "permanentNumber": 44,
+      "nationality": "British",
+      "constructorId": "ferrari",
+      "constructorName": "Ferrari",
+      "points": 183,
+      "wins": 1,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 15,
+            "classified": true
+          },
+          "sprint": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 8,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 15,
+            "classified": true
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "driverId": "norris",
+      "givenName": "Lando",
+      "familyName": "Norris",
+      "code": "NOR",
+      "permanentNumber": 1,
+      "nationality": "British",
+      "constructorId": "mclaren",
+      "constructorName": "McLaren",
+      "points": 159,
+      "wins": 2,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 5,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 6,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "driverId": "leclerc",
+      "givenName": "Charles",
+      "familyName": "Leclerc",
+      "code": "LEC",
+      "permanentNumber": 16,
+      "nationality": "Monegasque",
+      "constructorId": "ferrari",
+      "constructorName": "Ferrari",
+      "points": 155,
+      "wins": 1,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 6,
+      "driverId": "max_verstappen",
+      "givenName": "Max",
+      "familyName": "Verstappen",
+      "code": "VER",
+      "permanentNumber": 3,
+      "nationality": "Dutch",
+      "constructorId": "red_bull",
+      "constructorName": "Red Bull",
+      "points": 112,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 15,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 7,
+      "driverId": "piastri",
+      "givenName": "Oscar",
+      "familyName": "Piastri",
+      "code": "PIA",
+      "permanentNumber": 81,
+      "nationality": "Australian",
+      "constructorId": "mclaren",
+      "constructorName": "McLaren",
+      "points": 104,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 15,
+            "classified": true
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 5,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 8,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 8,
+      "driverId": "hadjar",
+      "givenName": "Isack",
+      "familyName": "Hadjar",
+      "code": "HAD",
+      "permanentNumber": 6,
+      "nationality": "French",
+      "constructorId": "red_bull",
+      "constructorName": "Red Bull",
+      "points": 68,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 9,
+      "driverId": "lawson",
+      "givenName": "Liam",
+      "familyName": "Lawson",
+      "code": "LAW",
+      "permanentNumber": 30,
+      "nationality": "New Zealander",
+      "constructorId": "rb",
+      "constructorName": "RB F1 Team",
+      "points": 49,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 8,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 10,
+      "driverId": "gasly",
+      "givenName": "Pierre",
+      "familyName": "Gasly",
+      "code": "GAS",
+      "permanentNumber": 10,
+      "nationality": "French",
+      "constructorId": "alpine",
+      "constructorName": "Alpine F1 Team",
+      "points": 44,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 8,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 11,
+      "driverId": "arvid_lindblad",
+      "givenName": "Arvid",
+      "familyName": "Lindblad",
+      "code": "LIN",
+      "permanentNumber": 41,
+      "nationality": "British",
+      "constructorId": "rb",
+      "constructorName": "RB F1 Team",
+      "points": 23,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 12,
+      "driverId": "colapinto",
+      "givenName": "Franco",
+      "familyName": "Colapinto",
+      "code": "COL",
+      "permanentNumber": 43,
+      "nationality": "Argentine",
+      "constructorId": "alpine",
+      "constructorName": "Alpine F1 Team",
+      "points": 19,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 8,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 13,
+      "driverId": "bearman",
+      "givenName": "Oliver",
+      "familyName": "Bearman",
+      "code": "BEA",
+      "permanentNumber": 87,
+      "nationality": "British",
+      "constructorId": "haas",
+      "constructorName": "Haas F1 Team",
+      "points": 18,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 14,
+      "driverId": "bortoleto",
+      "givenName": "Gabriel",
+      "familyName": "Bortoleto",
+      "code": "BOR",
+      "permanentNumber": 5,
+      "nationality": "Brazilian",
+      "constructorId": "audi",
+      "constructorName": "Audi",
+      "points": 10,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 15,
+      "driverId": "hulkenberg",
+      "givenName": "Nico",
+      "familyName": "Hülkenberg",
+      "code": "HUL",
+      "permanentNumber": 27,
+      "nationality": "German",
+      "constructorId": "audi",
+      "constructorName": "Audi",
+      "points": 6,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        }
+      ]
+    },
+    {
+      "position": 16,
+      "driverId": "sainz",
+      "givenName": "Carlos",
+      "familyName": "Sainz",
+      "code": "SAI",
+      "permanentNumber": 55,
+      "nationality": "Spanish",
+      "constructorId": "williams",
+      "constructorName": "Williams",
+      "points": 6,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 17,
+      "driverId": "albon",
+      "givenName": "Alexander",
+      "familyName": "Albon",
+      "code": "ALB",
+      "permanentNumber": 23,
+      "nationality": "Thai",
+      "constructorId": "williams",
+      "constructorName": "Williams",
+      "points": 5,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 18,
+      "driverId": "ocon",
+      "givenName": "Esteban",
+      "familyName": "Ocon",
+      "code": "OCO",
+      "permanentNumber": 31,
+      "nationality": "French",
+      "constructorId": "haas",
+      "constructorName": "Haas F1 Team",
+      "points": 3,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 19,
+      "driverId": "alonso",
+      "givenName": "Fernando",
+      "familyName": "Alonso",
+      "code": "ALO",
+      "permanentNumber": 14,
+      "nationality": "Spanish",
+      "constructorId": "aston_martin",
+      "constructorName": "Aston Martin",
+      "points": 3,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 20,
+      "driverId": "tsunoda",
+      "givenName": "Yuki",
+      "familyName": "Tsunoda",
+      "code": "TSU",
+      "permanentNumber": 22,
+      "nationality": "Japanese",
+      "constructorId": "rb",
+      "constructorName": "RB F1 Team",
+      "points": 0,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 21,
+      "driverId": "stroll",
+      "givenName": "Lance",
+      "familyName": "Stroll",
+      "code": "STR",
+      "permanentNumber": 18,
+      "nationality": "Canadian",
+      "constructorId": "aston_martin",
+      "constructorName": "Aston Martin",
+      "points": 0,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 22,
+      "driverId": "bottas",
+      "givenName": "Valtteri",
+      "familyName": "Bottas",
+      "code": "BOT",
+      "permanentNumber": 77,
+      "nationality": "Finnish",
+      "constructorId": "cadillac",
+      "constructorName": "Cadillac F1 Team",
+      "points": 0,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 23,
+      "driverId": "perez",
+      "givenName": "Sergio",
+      "familyName": "Pérez",
+      "code": "PER",
+      "permanentNumber": 11,
+      "nationality": "Mexican",
+      "constructorId": "cadillac",
+      "constructorName": "Cadillac F1 Team",
+      "points": 0,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    }
+  ],
+  "constructors": [
+    {
+      "position": 1,
+      "constructorId": "mercedes",
+      "name": "Mercedes",
+      "nationality": "German",
+      "points": 425,
+      "wins": 8,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 43,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 43,
+            "classified": true
+          },
+          "sprint": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 37,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 37,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 14,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 40,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 18,
+            "classified": true
+          },
+          "sprint": {
+            "points": 13,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 21,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 33,
+            "classified": true
+          },
+          "sprint": {
+            "points": 13,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "constructorId": "ferrari",
+      "name": "Ferrari",
+      "nationality": "Italian",
+      "points": 338,
+      "wins": 2,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 27,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 27,
+            "classified": true
+          },
+          "sprint": {
+            "points": 13,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 23,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 30,
+            "classified": true
+          },
+          "sprint": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 14,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 40,
+            "classified": true
+          },
+          "sprint": {
+            "points": 11,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 30,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 22,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 22,
+            "classified": true
+          },
+          "sprint": {
+            "points": 9,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "constructorId": "mclaren",
+      "name": "McLaren",
+      "nationality": "British",
+      "points": 263,
+      "wins": 2,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 28,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 33,
+            "classified": true
+          },
+          "sprint": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 16,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 33,
+            "classified": true
+          },
+          "sprint": {
+            "points": 10,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "constructorId": "red_bull",
+      "name": "Red Bull",
+      "nationality": "Austrian",
+      "points": 186,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 25,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 12,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 20,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 26,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 23,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 26,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 3,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "constructorId": "rb",
+      "name": "RB F1 Team",
+      "nationality": "Italian",
+      "points": 66,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 14,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 3,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 14,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 5,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 6,
+      "constructorId": "alpine",
+      "name": "Alpine F1 Team",
+      "nationality": "French",
+      "points": 63,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 9,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 6,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 12,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 7,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 3,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 7,
+      "constructorId": "haas",
+      "name": "Haas F1 Team",
+      "nationality": "American",
+      "points": 21,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 10,
+            "classified": true
+          },
+          "sprint": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 1,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 8,
+      "constructorId": "audi",
+      "name": "Audi",
+      "nationality": "German",
+      "points": 16,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 2,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 4,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 9,
+      "constructorId": "williams",
+      "name": "Williams",
+      "nationality": "British",
+      "points": 11,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 3,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 10,
+      "constructorId": "aston_martin",
+      "name": "Aston Martin",
+      "nationality": "British",
+      "points": 3,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": false
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 2,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    },
+    {
+      "position": 11,
+      "constructorId": "cadillac",
+      "name": "Cadillac F1 Team",
+      "nationality": "American",
+      "points": 0,
+      "wins": 0,
+      "stages": [
+        {
+          "round": 1,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 2,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 3,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 4,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 5,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 6,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 7,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 8,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 9,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 10,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 11,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
+        },
+        {
+          "round": 12,
+          "race": {
+            "points": 0,
+            "classified": true
+          },
+          "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        }
+      ]
+    }
+  ]
+}

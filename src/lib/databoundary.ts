@@ -71,6 +71,9 @@ export const DATA_FAMILIES: DataFamily[] = [
 
   // --- Витрина ---
   { path: "f1/calendar", zone: "витрина", clientReads: true },
+  { path: "f1/<год>", zone: "витрина", clientReads: true,
+    note: "standings.json — оба зачёта сезона одним файлом с раундовыми " +
+      "очками, по образцу WEC/IMSA. Заменяет клиенту 7-9 GET к кухне jolpica." },
   { path: "f1/events", zone: "витрина", clientReads: true },
   { path: "f1/entrylist", zone: "витрина", clientReads: false,
     note: "Читается через блок `entry` файла события, не напрямую." },
