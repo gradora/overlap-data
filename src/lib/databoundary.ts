@@ -52,14 +52,17 @@ export const DATA_FAMILIES: DataFamily[] = [
   // --- Кухня ---
   {
     path: "f1/jolpica", zone: "кухня", clientReads: true, producerReads: true,
-    note: "Все вызовы jolpica у клиента идут mirror-first (F1RacingDataService, " +
-      "SeasonBrowser). Блокер сплита: снимаем только вместе с переездом " +
-      "расписаний/зачётов/протоколов в витрину.",
+    note: "С 01.09.2026 у клиента ТОЛЬКО ФОЛБЭК: расписание — витрина " +
+      "календаря v2, зачёты — f1/<год>/standings.json, Last Event — файл " +
+      "события. Прямых чтений на горячем пути ноль; clientReads остаётся " +
+      "true, пока фолбэки живы.",
   },
   {
     path: "f1/openf1", zone: "кухня", clientReads: true, producerReads: true,
-    note: "OpenF1Service ходит mirror-first по сессиям, протоколам и " +
-      "рейс-контролу. Блокер сплита; фаза 6 постепенно его снимает.",
+    note: "С 01.09.2026 у клиента в основном ФОЛБЭК: протоколы+стинты — блок " +
+      "protocols файла события, рейс-контрол — f1/racecontrol. Прямыми " +
+      "остались погодная выгрузка производителя и цепочки для событий без " +
+      "файла (архив до 2023).",
   },
   {
     path: "wec/facts", zone: "заготовка", clientReads: false, producerReads: true,
