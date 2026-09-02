@@ -93,6 +93,9 @@ test("длинное окно — только у продьюсеров реш�
   // осознанно, а не «сам собой» вместе с чужой правкой.
   assert.deepEqual(short.sort(), [
     "f1.ts", "f1beasts.ts", "f1milestones.ts", "f1weather.ts", "imsa.ts",
-    "imsahighlights.ts", "openf1.ts", "wec.ts", "wec.ts", "wec.ts", "wechighlights.ts",
+    "imsahighlights.ts", "openf1.ts", "wec.ts", "wec.ts", "wec.ts",
+    // Два вызова: raced-гейт хайлайтов и weather-settle шага 5.6 — оба
+    // результатные окна, стюардского там нет.
+    "wechighlights.ts", "wechighlights.ts",
   ]);
 });

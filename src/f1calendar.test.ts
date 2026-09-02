@@ -926,7 +926,7 @@ test("контракт: ключи события витрины запинен�
     Qualifying: { date: "2026-03-07" },
     Sprint: { date: "2026-03-07" },
   }] });
-  const e = doc.events[0] as Record<string, unknown>;
+  const e = doc.events[0] as unknown as Record<string, unknown>;
   const required = ["id", "round", "kind", "status", "name", "venue", "country",
     "trackRef", "assetSlug", "dates", "sprintWeekend", "sourceIds", "eventKey",
     "locality", "circuit", "sessions"];

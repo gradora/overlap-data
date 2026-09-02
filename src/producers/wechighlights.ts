@@ -13,6 +13,11 @@ import {
   fetchAkText, parseAkCsv, pickRaceCsv,
 } from "../lib/alkamelwec.js";
 import { readFacts, wecRacePath } from "../lib/wecfacts.js";
+import {
+  AK_WEATHER_PARSER_VERSION, akWeatherSession, normalizeAlKamel, pickWeatherCsvs,
+  summarizeEvent, writeAkWeather,
+} from "../lib/akweather.js";
+import { WEATHER_SCHEMA_VERSION } from "../lib/weather.js";
 import { crewSurnames, fillMissingFacts, settleAction } from "../lib/winnersbuild.js";
 import { envFlag } from "../lib/env.js";
 
@@ -216,9 +221,17 @@ async function main() {
     const action = settleAction(
       existing != null, existing?.final === true, isFrozen(dates.endMs, NOW), envFlag("WEC_HL_FORCE"),
     );
-    if (action === "skip") continue;
+    // Погода (шаг 5.6) едет этим же прогоном и из этого же дерева: свой
+    // write-once (final) — хайлайты могли запечататься раньше, чем снята
+    // погода, и наоборот.
+    const weatherAction = weatherSettle(ev.slug, isFrozen(dates.endMs, NOW));
+    if (action === "skip" && weatherAction === "skip") continue;
 
     const hrefs = await akEventHrefs(ctx.seasonValue, ev.value);
+    if (weatherAction !== "skip") {
+      await produceWeather(ev.slug, hrefs, weatherAction === "seal");
+    }
+    if (action === "skip") continue;
     const csvHref = pickRaceCsv(hrefs, "Analysis");
     if (!csvHref) {
       console.warn(`  R${ev.round} (${ev.label}): Analysis гонки не найден`);
@@ -250,6 +263,48 @@ async function main() {
     console.warn("::warning::wechighlights: ни у одного этапа нет дат — похоже, " +
       "фактов страниц событий нет, и хайлайты не соберутся ни по одному раунду");
   }
+}
+
+/// Решение по погоде события: skip — файл запечатан; seal — окно закрылось,
+/// пишем финальный; иначе обычная запись.
+function weatherSettle(slug: string, frozen: boolean): "skip" | "seal" | "write" {
+  const path = join(process.cwd(), "data", "wec", "weather", `wec-${YEAR}-${slug}.json`);
+  const prev = readStored(path) as { final?: boolean } | null;
+  if (prev?.final === true && !envFlag("WEC_HL_FORCE")) return "skip";
+  return frozen ? "seal" : "write";
+}
+
+/// Погода события из Weather-CSV его дерева. Сессии без пригодных отсчётов
+/// пропускаются; событие без единой сессии файла не получает.
+async function produceWeather(slug: string, hrefs: string[], seal: boolean): Promise<void> {
+  const picks = pickWeatherCsvs(hrefs);
+  const sessions = [];
+  for (const p of picks) {
+    const csv = await fetchAkText(`${ALKAMEL_WEC}/${p.href}`, 60000);
+    if (!csv) continue;
+    const sess = akWeatherSession(p.session, normalizeAlKamel(parseAkCsv(csv) as never));
+    if (sess) sessions.push(sess);
+  }
+  if (!sessions.length) {
+    console.warn(`  weather ${slug}: пригодных Weather-CSV нет (${picks.length} кандидатов)`);
+    return;
+  }
+  sessions.sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0));
+  const doc = {
+    schemaVersion: WEATHER_SCHEMA_VERSION,
+    series: "wec",
+    season: YEAR,
+    eventId: `wec-${YEAR}-${slug}`,
+    source: "alkamel",
+    parserVersion: AK_WEATHER_PARSER_VERSION,
+    final: seal,
+    // Время в CSV абсолютное (TIME_UTC_SECONDS) — якорь не вычисляется.
+    timeAnchor: { method: "utc-column", confidenceSec: 0 },
+    sessions,
+    summary: summarizeEvent(sessions),
+  };
+  const outcome = writeAkWeather(join(process.cwd(), "data"), "wec", doc, envFlag("WEC_HL_FORCE"));
+  console.log(`  weather ${slug}: сессий ${sessions.length} → ${outcome}${seal ? " (запечатан)" : ""}`);
 }
 
 // Запуск только как продьюсер (не при импорте из теста).

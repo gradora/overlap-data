@@ -98,6 +98,10 @@ export const DATA_FAMILIES: DataFamily[] = [
       "Сессии в неё НЕ дублируются — у WEC файл события уже есть." },
   { path: "wec/fia", zone: "витрина", clientReads: true },
   { path: "wec/winners", zone: "витрина", clientReads: true },
+  { path: "wec/weather", zone: "витрина", clientReads: false,
+    note: "Погода событий из Al Kamel (шаг 5.6): сенсорные ряды по сессиям + " +
+      "сводки, время абсолютное. RAIN источника непригоден — дождь не пишется. " +
+      "Клиент подключит следующим шагом." },
   { path: "wec/highlights", zone: "витрина", clientReads: true },
   { path: "imsa/<год>", zone: "витрина", clientReads: true },
   { path: "imsa/events", zone: "витрина", clientReads: true,
