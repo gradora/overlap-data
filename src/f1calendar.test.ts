@@ -915,3 +915,23 @@ test("v2: сессии уик-энда из расписания, у сыгра�
   const bare = docOf({ schedule: [race("2")] }).events[0];
   assert.equal("sessions" in bare, false);
 });
+
+/// КОНТРАКТ-ПИН: ключи, которые декодит клиент (CodingKeys F1CalendarSource и
+/// F1SeasonStandingsSource). Переименование поля витрины иначе не роняло бы
+/// ни одного теста до прода — менять только ПАРОЙ с клиентом.
+test("контракт: ключи события витрины запинены парой с клиентом", () => {
+  const doc = docOf({ schedule: [{
+    ...race("1", { date: "2026-03-08", results: [{ position: "1" }] }),
+    FirstPractice: { date: "2026-03-06", time: "01:30:00Z" },
+    Qualifying: { date: "2026-03-07" },
+    Sprint: { date: "2026-03-07" },
+  }] });
+  const e = doc.events[0] as Record<string, unknown>;
+  const required = ["id", "round", "kind", "status", "name", "venue", "country",
+    "trackRef", "assetSlug", "dates", "sprintWeekend", "sourceIds", "eventKey",
+    "locality", "circuit", "sessions"];
+  for (const k of required) assert.ok(k in e, `ключ «${k}» пропал из события витрины`);
+  assert.deepEqual(Object.keys(e.sessions as object).sort(),
+    ["fp1", "qualifying", "sprint"], "ключи sessions уехали от клиентских");
+  assert.deepEqual(Object.keys((e.dates as object)).sort(), ["race", "raceTime", "start"]);
+});

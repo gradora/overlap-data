@@ -170,3 +170,21 @@ test("раунд из результатов вне расписания не т
             "очки сироты выпали из stages");
   rmSync(root, { recursive: true, force: true });
 });
+
+/// КОНТРАКТ-ПИН строк зачёта — та же пара с клиентским декодером.
+test("контракт: ключи строк документа зачётов запинены", () => {
+  const root = mkdtempSync(join(tmpdir(), "f1st-"));
+  seed(root);
+  const doc = buildF1StandingsDoc(root, 2031)!;
+  const d = doc.drivers[0] as unknown as Record<string, unknown>;
+  for (const k of ["position", "driverId", "givenName", "familyName", "code",
+    "permanentNumber", "constructorId", "constructorName", "points", "wins", "stages"]) {
+    assert.ok(k in d, `ключ «${k}» пропал из строки пилота`);
+  }
+  const stage = (d.stages as any[])[0];
+  assert.deepEqual(Object.keys(stage).sort(), ["race", "round"]);
+  assert.deepEqual(Object.keys(stage.race).sort(), ["classified", "points"]);
+  const r = doc.rounds[1] as unknown as Record<string, unknown>;
+  assert.deepEqual(Object.keys(r).sort(), ["locality", "round", "sprint", "sprintWinner"]);
+  rmSync(root, { recursive: true, force: true });
+});
