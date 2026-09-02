@@ -7,7 +7,13 @@
 
 import { mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchHTML, fetchJSON, folders } from "../lib/alkamel.js";
+import { fetchHTML, fetchJSON, files, folders } from "../lib/alkamel.js";
+import { finalHourFolder } from "../lib/alkamelimsa.js";
+import { parseAkCsv } from "../lib/alkamelwec.js";
+import {
+  AK_WEATHER_PARSER_VERSION, akWeatherSession, normalizeAlKamel, summarizeEvent, writeAkWeather,
+} from "../lib/akweather.js";
+import { WEATHER_SCHEMA_VERSION } from "../lib/weather.js";
 import {
   imsaShortDriver, imsaTimeSeconds, pickImsaFile, trackCandidates,
 } from "../lib/alkamelimsa.js";
@@ -202,10 +208,18 @@ async function main(): Promise<void> {
     const action = settleAction(
       existing != null, existing?.final === true, isFrozen(endMs, NOW), envFlag("IMSA_HL_FORCE"),
     );
-    if (action === "skip") continue;
+    // Погода (шаг 5.6) — этим же прогоном, свой write-once (см. WEC-аналог).
+    const weatherAction = imsaWeatherSettle(entry.round, isFrozen(endMs, NOW));
+    if (action === "skip" && weatherAction === "skip") continue;
 
     const candidates = trackCandidates(seasonFolders, entry.venue);
     const best = candidates.length ? await bestTrackStage(season, candidates) : null;
+    if (weatherAction !== "skip" && best?.stage) {
+      // Уик-энд — это WT-каталог: segments = [сезон, раунд, WT, сессия(, час)].
+      await produceImsaWeather(best.stage.segments.slice(0, 3), entry.round,
+                               weatherAction === "seal");
+    }
+    if (action === "skip") continue;
     if (!best?.stage) {
       console.log(`  R${entry.round} (${entry.venue}): гонка в архиве не найдена — скип`);
       continue;
@@ -241,6 +255,60 @@ async function main(): Promise<void> {
     );
   }
   console.log("Done.");
+}
+
+/// Решение по погоде события — как у WEC: skip/seal/write.
+function imsaWeatherSettle(round: number, frozen: boolean): "skip" | "seal" | "write" {
+  const path = join(process.cwd(), "data", "imsa", "weather", `imsa-${YEAR}-${round}.json`);
+  const prev = readStored(path) as { final?: boolean } | null;
+  if (prev?.final === true && !envFlag("IMSA_HL_FORCE")) return "skip";
+  return frozen ? "seal" : "write";
+}
+
+/// Погода уик-энда из Weather-CSV сессий WT-каталога. У гонки с Hour-папками
+/// CSV лежит в часах — берётся финальный (кумулятивный, по образцу WEC).
+async function produceImsaWeather(wtSegments: string[], round: number, seal: boolean): Promise<void> {
+  const wtHTML = await fetchHTML(wtSegments);
+  if (!wtHTML) return;
+  const sessions = [];
+  for (const dir of folders(wtHTML)) {
+    let segs = [...wtSegments, dir];
+    let sHTML = await fetchHTML(segs);
+    if (!sHTML) continue;
+    let wf = files(sHTML).find((f) => /^\d+_Weather_.*\.CSV$/i.test(f));
+    if (!wf) {
+      const hour = finalHourFolder(folders(sHTML));
+      if (!hour) continue;
+      segs = [...segs, hour];
+      sHTML = await fetchHTML(segs);
+      wf = sHTML ? files(sHTML).find((f) => /^\d+_Weather_.*\.CSV$/i.test(f)) : undefined;
+      if (!wf) continue;
+    }
+    const csv = await fetchHTML([...segs, wf]);
+    if (!csv) continue;
+    const name = dir.replace(/^\d+_?/, "");
+    const sess = akWeatherSession(name, normalizeAlKamel(parseAkCsv(csv) as never));
+    if (sess) sessions.push(sess);
+  }
+  if (!sessions.length) {
+    console.warn(`  weather R${round}: пригодных Weather-CSV нет`);
+    return;
+  }
+  sessions.sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0));
+  const doc = {
+    schemaVersion: WEATHER_SCHEMA_VERSION,
+    series: "imsa",
+    season: YEAR,
+    eventId: `imsa-${YEAR}-${round}`,
+    source: "alkamel",
+    parserVersion: AK_WEATHER_PARSER_VERSION,
+    final: seal,
+    timeAnchor: { method: "utc-column", confidenceSec: 0 },
+    sessions,
+    summary: summarizeEvent(sessions),
+  };
+  const outcome = writeAkWeather(join(process.cwd(), "data"), "imsa", doc, envFlag("IMSA_HL_FORCE"));
+  console.log(`  weather R${round}: сессий ${sessions.length} → ${outcome}${seal ? " (запечатан)" : ""}`);
 }
 
 // Запуск только как продьюсер (не при импорте из теста).

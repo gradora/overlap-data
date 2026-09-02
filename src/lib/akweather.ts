@@ -30,7 +30,8 @@ export interface AkWeatherRow {
   TIME_UTC_SECONDS?: string;
   AIR_TEMP?: string; TRACK_TEMP?: string; HUMIDITY?: string;
   PRESSURE?: string; WIND_SPEED?: string; WIND_DIRECTION?: string;
-  AIR_TEMP_UNIT?: string; TRACK_TEMP_UNIT?: string; WIND_SPEED_UNIT?: string;
+  AIR_TEMP_UNIT?: string; TRACK_TEMP_UNIT?: string; PRESSURE_UNIT?: string;
+  WIND_SPEED_UNIT?: string;
 }
 
 const num = (v: string | undefined): number | null => {
@@ -44,9 +45,31 @@ const c = (v: number | null, unit?: string): number | null =>
 const kmh = (v: number | null, unit?: string): number | null =>
   v === null ? null : /mph/i.test(unit ?? "") ? v * 1.609344 : v;
 
+/// Имперский ли макет. У WEC юниты объявлены колонками; у IMSA юнит-колонок
+/// НЕТ ВООБЩЕ, а значения имперские (замерено: воздух 62°F, давление
+/// 30.1 inHg). Признак — давление: диапазоны inHg (25…35) и mbar (900…1100)
+/// не пересекаются, температура так не отличается (30° бывает в обоих мирах).
+export function looksImperial(rows: AkWeatherRow[]): boolean {
+  for (const row of rows) {
+    const p = num(row.PRESSURE);
+    if (p !== null) return p > 20 && p < 40;
+  }
+  return false;
+}
+
+const INHG_TO_HPA = 33.8639;
+/// Конверсия рождает хвосты (28.611099…°C из 83.5°F) — сенсорной точности
+/// выше 0.1 у источника нет, а веса и диффа хвосты добавляют.
+const r1 = (v: number | null): number | null =>
+  v === null ? null : Math.round(v * 10) / 10;
+
 /// Ряды CSV → выборки в осях f1/weather. Значения вне физических диапазонов
 /// (RANGES) отбрасываются ДО записи — как у openf1-нормализатора.
 export function normalizeAlKamel(rows: AkWeatherRow[]): WeatherSamples {
+  // Явные юнит-колонки побеждают; без них — имперская эвристика на весь файл
+  // (набор согласованный: F + inHg + MPH приходят вместе).
+  const imperial = looksImperial(rows);
+  const unitOr = (explicit: string | undefined, imp: string) => explicit ?? (imperial ? imp : "");
   const s: WeatherSamples = { t: [], airC: [], trackC: [], humidity: [],
                               pressureHpa: [], windKmh: [], windDeg: [], rain: [] };
   const ok = (v: number | null, r: readonly [number, number]) =>
@@ -55,11 +78,15 @@ export function normalizeAlKamel(rows: AkWeatherRow[]): WeatherSamples {
     const t = num(row.TIME_UTC_SECONDS);
     if (t === null || t <= 0) continue;
     s.t.push(Math.round(t));
-    s.airC.push(ok(c(num(row.AIR_TEMP), row.AIR_TEMP_UNIT), RANGES.airC));
-    s.trackC.push(ok(c(num(row.TRACK_TEMP), row.TRACK_TEMP_UNIT), RANGES.trackC));
+    s.airC.push(ok(r1(c(num(row.AIR_TEMP), unitOr(row.AIR_TEMP_UNIT, "F"))), RANGES.airC));
+    s.trackC.push(ok(r1(c(num(row.TRACK_TEMP), unitOr(row.TRACK_TEMP_UNIT, "F"))), RANGES.trackC));
     s.humidity.push(ok(num(row.HUMIDITY), RANGES.humidity));
-    s.pressureHpa.push(ok(num(row.PRESSURE), RANGES.pressureHpa));
-    s.windKmh.push(ok(kmh(num(row.WIND_SPEED), row.WIND_SPEED_UNIT), RANGES.windKmh));
+    const rawP = num(row.PRESSURE);
+    const hpa = rawP === null ? null
+      : /hg/i.test(unitOr(row.PRESSURE_UNIT, imperial ? "inHg" : ""))
+        ? rawP * INHG_TO_HPA : rawP;
+    s.pressureHpa.push(ok(hpa === null ? null : Math.round(hpa * 10) / 10, RANGES.pressureHpa));
+    s.windKmh.push(ok(r1(kmh(num(row.WIND_SPEED), unitOr(row.WIND_SPEED_UNIT, "MPH"))), RANGES.windKmh));
     s.windDeg.push(ok(num(row.WIND_DIRECTION), RANGES.windDeg));
   }
   return s;

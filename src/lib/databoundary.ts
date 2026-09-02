@@ -108,6 +108,9 @@ export const DATA_FAMILIES: DataFamily[] = [
     note: "То же, что у WEC." },
   { path: "imsa/fia", zone: "витрина", clientReads: true },
   { path: "imsa/winners", zone: "витрина", clientReads: true },
+  { path: "imsa/weather", zone: "витрина", clientReads: false,
+    note: "То же, что wec/weather: Al Kamel, юниты имперские без колонок — " +
+      "конверсия по эвристике давления (inHg против mbar)." },
   { path: "imsa/highlights", zone: "витрина", clientReads: true },
 
   // --- Справочники ---

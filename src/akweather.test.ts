@@ -24,7 +24,7 @@ test("нормализация: юниты из колонок, мусор за 
   assert.deepEqual(s.t.length, 2);
   assert.equal(s.airC[1]! - 25 < 0.01, true, "77°F → 25°C");
   assert.equal(s.trackC[1], null, "212°F = 100°C — за диапазоном полотна, отброшено");
-  assert.ok(Math.abs(s.windKmh[1]! - 16.09344) < 0.001, "10 MPH → 16.09 км/ч");
+  assert.equal(s.windKmh[1], 16.1, "10 MPH → 16.1 км/ч (сенсорное округление)");
   assert.deepEqual(s.rain, [], "RAIN Al Kamel непригоден — не пишется вовсе");
 });
 
@@ -68,4 +68,26 @@ test("write-once по final: запечатанный док не трогает
   const disk = JSON.parse(readFileSync(join(root, "wec", "weather", "wec-2031-imola.json"), "utf8"));
   assert.equal(disk.season, 2031);
   rmSync(root, { recursive: true, force: true });
+});
+
+/// IMSA-макет: юнит-колонок нет вовсе, значения имперские. Признак — давление
+/// в inHg (диапазоны 25…35 и 900…1100 не пересекаются).
+test("имперская эвристика: файл без юнит-колонок конвертируется целиком", () => {
+  const s = normalizeAlKamel([
+    { TIME_UTC_SECONDS: "1763128818", AIR_TEMP: "62.09996", TRACK_TEMP: "71.06",
+      HUMIDITY: "76", PRESSURE: "30.126017418", WIND_SPEED: "0.6",
+      WIND_DIRECTION: "342", RAIN: "-1" },
+  ] as never);
+  assert.equal(s.airC[0], 16.7, "62.1°F → 16.7°C");
+  assert.equal(s.trackC[0], 21.7);
+  assert.equal(s.pressureHpa[0], 1020.2, "30.126 inHg → hPa");
+  assert.equal(s.windKmh[0], 1, "0.6 MPH → 1 км/ч");
+
+  // Метрический файл без юнитов (гипотетический) НЕ конвертируется: давление
+  // сразу в mbar — эвристика молчит.
+  const m = normalizeAlKamel([
+    { TIME_UTC_SECONDS: "100", AIR_TEMP: "22", PRESSURE: "1010.7" },
+  ] as never);
+  assert.equal(m.airC[0], 22);
+  assert.equal(m.pressureHpa[0], 1010.7);
 });
