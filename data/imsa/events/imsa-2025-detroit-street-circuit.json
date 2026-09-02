@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.472Z",
+  "generatedAt": "2026-09-02T16:26:48.488Z",
   "series": "imsa",
   "season": 2025,
   "eventKey": "imsa-2025-detroit-street-circuit",
@@ -17,13 +17,13 @@
         "car": 14,
         "driver": "Vasser Sullivan Racing",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During post-Qualifying Technical Inspection, GTD PRO Car #14 was found to have a Ground Clearance less than the minimum per IWSC GTD PRO TR 7.4.5.a",
-        "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/11_Detroit%20Street%20Course/18_Penalties/TP%2025-15.pdf",
-        "publishedAt": "2025-05-30T23:48:27.000Z"
+        "publishedAt": "2025-05-30T23:48:27.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -44,6 +44,7 @@
   "highlights": {
     "season": 2025,
     "round": 5,
+    "final": true,
     "fastestLap": {
       "time": "1:06.641",
       "seconds": 66.641,

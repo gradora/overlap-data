@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.474Z",
+  "generatedAt": "2026-09-02T16:26:48.491Z",
   "series": "imsa",
   "season": 2025,
   "eventKey": "imsa-2025-michelin-raceway-road-atlanta",
@@ -17,13 +17,13 @@
         "car": 11,
         "driver": "TDS RACING",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During post-qualifying Technical Inspection, LMP2 Car #11 was found to have bodywork mass beyond the permitted Homologated limit.",
-        "decision": "Lap times are invalidated and the Car is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/21_Michelin%20Raceway%20Road%20Atlanta/18_Penalties/TP%2025-29.pdf",
-        "publishedAt": "2025-10-10T23:11:38.000Z"
+        "publishedAt": "2025-10-10T23:11:38.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -44,7 +44,7 @@
         "name": "BLOMQVIST / BRAUN / CASTRONEVES",
         "constructor": "Meyer Shank Racing w/ Curb Agajanian",
         "vehicle": "Acura ARX-06",
-        "winsHere": 1
+        "winsHere": 2
       },
       {
         "year": 2022,
@@ -72,6 +72,7 @@
   "highlights": {
     "season": 2025,
     "round": 11,
+    "final": true,
     "fastestLap": {
       "time": "1:12.276",
       "seconds": 72.276,

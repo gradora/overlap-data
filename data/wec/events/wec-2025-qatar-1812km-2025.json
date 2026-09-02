@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:47.838Z",
+  "generatedAt": "2026-09-02T16:26:48.225Z",
   "series": "wec",
   "season": 2025,
   "eventKey": "wec-2025-qatar-1812km-2025",
@@ -17,26 +17,24 @@
         "car": 88,
         "driver": "Stefano GATTUSO",
         "session": "FP1",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Not respecting double yellow flag",
-        "decision": "Cancellation of the times since the start of the session up to the time of the infrigement",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/014_Doc%2014%20-%20Decision%20no.%201%20-%20Car%2088.pdf",
-        "publishedAt": "2025-11-06T12:54:14.000Z"
+        "publishedAt": "2025-11-06T12:54:14.000Z",
+        "parser": 3
       },
       {
         "doc": 15,
         "car": 81,
         "driver": "Tom VAN ROMPUY",
         "session": "FP1",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Not respecting double yellow flag",
-        "decision": "Cancellation of the times since the start of the session up to the time of the infrigement",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/015_Doc%2015%20-%20Decision%20no.%202%20-%20Car%2081.pdf",
-        "publishedAt": "2025-11-06T13:13:38.000Z"
+        "publishedAt": "2025-11-06T13:13:38.000Z",
+        "parser": 3
       },
       {
         "doc": 17,
@@ -46,23 +44,22 @@
         "type": "fine",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 2000 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/017_Doc%2017%20-%20Decision%20no.%203%20-%20Car%2015.pdf",
-        "publishedAt": "2025-11-06T14:35:03.000Z"
+        "publishedAt": "2025-11-06T14:35:03.000Z",
+        "parser": 3,
+        "fineEur": 2000
       },
       {
         "doc": 26,
         "car": 46,
         "driver": "Kelvin VAN DER LINDE",
         "session": "FP2",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Not respecting double yellow flag",
-        "decision": "Cancellation of the times since the start of the session up to the time of the infrigement",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/026_Doc%2026%20-%20Decision%20no.%208%20-%20Car%2046.pdf",
-        "publishedAt": "2025-11-06T16:44:53.000Z"
+        "publishedAt": "2025-11-06T16:44:53.000Z",
+        "parser": 3
       },
       {
         "doc": 27,
@@ -72,10 +69,9 @@
         "type": "none",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Alleged contact between cars 15 and 92 at t12.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/027_Doc%2027%20-%20Decision%20no.%204%20-%20Car%2015.pdf",
-        "publishedAt": "2025-11-06T16:59:59.000Z"
+        "publishedAt": "2025-11-06T16:59:59.000Z",
+        "parser": 3
       },
       {
         "doc": 29,
@@ -85,49 +81,49 @@
         "type": "fine",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 2400 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/029_Doc%2029%20-%20Decision%20no.%209%20-%20Car%2092.pdf",
-        "publishedAt": "2025-11-07T09:10:00.000Z"
+        "publishedAt": "2025-11-07T09:10:00.000Z",
+        "parser": 3,
+        "fineEur": 2400
       },
       {
         "doc": 34,
         "car": 59,
         "driver": "James COTTINGHAM",
         "session": "FP3",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Not reducing speed during the red flag period.",
-        "decision": "5 minutes Stop and Go",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/034_Doc%2034%20-%20Decision%20no.%2010%20-%20Car%2059.pdf",
-        "publishedAt": "2025-11-07T11:07:25.000Z"
+        "publishedAt": "2025-11-07T11:07:25.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 35,
         "car": 46,
         "driver": "Ahmad AL HARTHY",
         "session": "FP3",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Not reducing speed during the red flag period.",
-        "decision": "5 minutes Stop and Go",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/035_Doc%2035%20-%20Decision%20no.%2011%20-%20Car%2046.pdf",
-        "publishedAt": "2025-11-07T10:55:27.000Z"
+        "publishedAt": "2025-11-07T10:55:27.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 36,
         "car": 93,
         "driver": "Jean-Éric VERGNE",
         "session": "FP3",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Not reducing speed during the red flag period.",
-        "decision": "5 minutes Stop and Go",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/036_Doc%2036%20-%20Decision%20no.%2012%20-%20Car%2093.pdf",
-        "publishedAt": "2025-11-07T11:01:04.000Z"
+        "publishedAt": "2025-11-07T11:01:04.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 37,
@@ -137,10 +133,9 @@
         "type": "none",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Unsafe rejoining the track at t2",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/037_Doc%2037%20-%20Decision%20no.%2014%20-%20Car%2051.pdf",
-        "publishedAt": "2025-11-07T11:25:33.000Z"
+        "publishedAt": "2025-11-07T11:25:33.000Z",
+        "parser": 3
       },
       {
         "doc": 38,
@@ -150,10 +145,9 @@
         "type": "none",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Alleged not respecting yellow flag",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/038_Doc%2038%20-%20Decision%20no.%2013%20-%20Car%2027.pdf",
-        "publishedAt": "2025-11-07T11:29:39.000Z"
+        "publishedAt": "2025-11-07T11:29:39.000Z",
+        "parser": 3
       },
       {
         "doc": 39,
@@ -163,23 +157,21 @@
         "type": "reprimand",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Contact between cars 77 and 35 at t10",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/039_Doc%2039%20-%20Decision%20no.%2015%20-%20Car%2077.pdf",
-        "publishedAt": "2025-11-07T11:32:59.000Z"
+        "publishedAt": "2025-11-07T11:32:59.000Z",
+        "parser": 3
       },
       {
         "doc": 42,
         "car": 54,
         "driver": "54 / VISTA AF CORSE",
         "session": "Qualifying LMGT3",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Not respecting the Qualifying procedures",
-        "decision": "Cancellation of the lap times set before the car entered its garage",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/042_Doc%2042%20-%20Decision%20no.%2016%20-%20Car%2054.pdf",
-        "publishedAt": "2025-11-07T13:32:35.000Z"
+        "publishedAt": "2025-11-07T13:32:35.000Z",
+        "parser": 3
       },
       {
         "doc": 46,
@@ -187,13 +179,12 @@
         "driver": "Sébastien BAUD",
         "session": "LMGT3 Hyperpole",
         "type": "grid",
-        "gridDrop": 3,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Impeding car 27 during a fast lap in LMGT3 Hyperpole session",
-        "decision": "Drop of 3 grid position for the race.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/046_Doc%2046%20-%20Decision%20no.%2017%20-%20Car%2059.pdf",
-        "publishedAt": "2025-11-07T14:58:31.000Z"
+        "publishedAt": "2025-11-07T14:58:31.000Z",
+        "parser": 3,
+        "gridDrop": 3
       },
       {
         "doc": 51,
@@ -203,10 +194,10 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 1000 €",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/051_Doc%2051%20-%20Decision%20no.%2018%20-%20Car%2083.pdf",
-        "publishedAt": "2025-11-08T10:18:00.000Z"
+        "publishedAt": "2025-11-08T10:18:00.000Z",
+        "parser": 3,
+        "fineEur": 1000
       },
       {
         "doc": 52,
@@ -216,10 +207,10 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Not modifying the transponder declaration",
-        "decision": "Fine of € 2000",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/052_Doc%2052%20-%20Decision%20no.%2019%20-%20Car%2088.pdf",
-        "publishedAt": "2025-11-08T11:05:19.000Z"
+        "publishedAt": "2025-11-08T11:05:19.000Z",
+        "parser": 3,
+        "fineEur": 2000
       },
       {
         "doc": 53,
@@ -229,10 +220,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged overtaking outside the track at t3",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/053_Doc%2053%20-%20Decision%20no.%2020%20-%20Car%2088.pdf",
-        "publishedAt": "2025-11-08T11:29:02.000Z"
+        "publishedAt": "2025-11-08T11:29:02.000Z",
+        "parser": 3
       },
       {
         "doc": 54,
@@ -242,10 +232,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 99, 36 and 35 at t7.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/054_Doc%2054%20-%20Decision%20no.%2021%20-%20Car%2099.pdf",
-        "publishedAt": "2025-11-08T11:40:29.000Z"
+        "publishedAt": "2025-11-08T11:40:29.000Z",
+        "parser": 3
       },
       {
         "doc": 55,
@@ -255,10 +244,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 85 and 54 at t11.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/055_Doc%2055%20-%20Decision%20no.%2022%20-%20Car%2085.pdf",
-        "publishedAt": "2025-11-08T11:49:44.000Z"
+        "publishedAt": "2025-11-08T11:49:44.000Z",
+        "parser": 3
       },
       {
         "doc": 57,
@@ -268,10 +256,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged unsafe rejoining the track at t1",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/057_Doc%2057%20-%20Decision%20no.%2023%20-%20Car%2060.pdf",
-        "publishedAt": "2025-11-08T12:31:50.000Z"
+        "publishedAt": "2025-11-08T12:31:50.000Z",
+        "parser": 3
       },
       {
         "doc": 58,
@@ -279,13 +266,12 @@
         "driver": "Yasser SHAHIN",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 31 and 85 at t1",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/058_Doc%2058%20-%20Decision%20no.%2024%20-%20Car%2031.pdf",
-        "publishedAt": "2025-11-08T12:39:55.000Z"
+        "publishedAt": "2025-11-08T12:39:55.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 59,
@@ -295,10 +281,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 5 and 54 at t5",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/059_Doc%2059%20-%20Decision%20no.%2025%20-%20Car%205.pdf",
-        "publishedAt": "2025-11-08T13:04:28.000Z"
+        "publishedAt": "2025-11-08T13:04:28.000Z",
+        "parser": 3
       },
       {
         "doc": 60,
@@ -308,10 +293,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged unsafe release in the pitlane",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/060_Doc%2060%20-%20Decision%20no.%2026%20-%20Car%2012.pdf",
-        "publishedAt": "2025-11-08T13:13:33.000Z"
+        "publishedAt": "2025-11-08T13:13:33.000Z",
+        "parser": 3
       },
       {
         "doc": 62,
@@ -321,10 +305,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 21 and 87 at t13.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/062_Doc%2062%20-%20Decision%20no.%2027%20-%20Car%2021.pdf",
-        "publishedAt": "2025-11-08T13:56:44.000Z"
+        "publishedAt": "2025-11-08T13:56:44.000Z",
+        "parser": 3
       },
       {
         "doc": 63,
@@ -332,13 +315,12 @@
         "driver": "Alex LYNN",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 12 and 6 at t1",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/063_Doc%2063%20-%20Decision%20no.%2028%20-%20Car%2012.pdf",
-        "publishedAt": "2025-11-08T14:16:25.000Z"
+        "publishedAt": "2025-11-08T14:16:25.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 65,
@@ -348,36 +330,33 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Maximum released powertrain power over the limit in lap 88.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/065_Doc%2065%20-%20Decision%20no.%2029%20-%20Car%2031.pdf",
-        "publishedAt": "2025-11-08T14:52:43.000Z"
+        "publishedAt": "2025-11-08T14:52:43.000Z",
+        "parser": 3
       },
       {
         "doc": 67,
         "car": 59,
         "driver": "Sébastien BAUD",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/067_Doc%2067%20-%20Decision%20no.%2030%20-%20Car%2059.pdf",
-        "publishedAt": "2025-11-08T15:20:45.000Z"
+        "publishedAt": "2025-11-08T15:20:45.000Z",
+        "parser": 3
       },
       {
         "doc": 69,
         "car": 8,
         "driver": "Sébastien BUEMI",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking cars 85 and 46 under Yellow flag after t3.",
-        "decision": "Drive through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/069_Doc%2069%20-%20Decision%20no.%2034%20-%20Car%208.pdf",
-        "publishedAt": "2025-11-08T15:49:05.000Z"
+        "publishedAt": "2025-11-08T15:49:05.000Z",
+        "parser": 3
       },
       {
         "doc": 70,
@@ -385,26 +364,24 @@
         "driver": "6 / PORSCHE PENSKE MOTORSPORT",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Unsafe release in the pit lane",
-        "decision": "10 seconds added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/070_Doc%2070%20-%20Decision%20no.%2033%20-%20Car%206.pdf",
-        "publishedAt": "2025-11-08T15:49:34.000Z"
+        "publishedAt": "2025-11-08T15:49:34.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 71,
         "car": 46,
         "driver": "Valentino ROSSI",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking car 85 under Yellow flag after t3.",
-        "decision": "Drive through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/071_Doc%2071%20-%20Decision%20no.%2035%20-%20Car%2046.pdf",
-        "publishedAt": "2025-11-08T15:51:19.000Z"
+        "publishedAt": "2025-11-08T15:51:19.000Z",
+        "parser": 3
       },
       {
         "doc": 74,
@@ -414,23 +391,22 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 54 and 33 at t6.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/074_Doc%2074%20-%20Decision%20no.%2036%20-%20Car%2054.pdf",
-        "publishedAt": "2025-11-08T18:01:56.000Z"
+        "publishedAt": "2025-11-08T18:01:56.000Z",
+        "parser": 3
       },
       {
         "doc": 75,
         "car": 38,
         "driver": "Jenson BUTTON",
         "session": "Race",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 38 and 54 after T3.",
-        "decision": "30 seconds Stop and go penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/075_Doc%2075%20-%20Decision%20no.%2037%20-%20Car%2038.pdf",
-        "publishedAt": "2025-11-08T17:33:40.000Z"
+        "publishedAt": "2025-11-08T17:33:40.000Z",
+        "parser": 3,
+        "seconds": 30
       },
       {
         "doc": 76,
@@ -438,13 +414,12 @@
         "driver": "Simon MANN",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 21 and 33 at t8",
-        "decision": "10 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/076_Doc%2076%20-%20Decision%20no.%2038%20-%20Car%2021.pdf",
-        "publishedAt": "2025-11-08T17:40:42.000Z"
+        "publishedAt": "2025-11-08T17:40:42.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 77,
@@ -454,10 +429,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Driving in a dangerous manner.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/077_Doc%2077%20-%20Decision%20no.%2039%20-%20Car%2050.pdf",
-        "publishedAt": "2025-11-08T17:50:29.000Z"
+        "publishedAt": "2025-11-08T17:50:29.000Z",
+        "parser": 3
       },
       {
         "doc": 78,
@@ -465,13 +439,12 @@
         "driver": "Augusto FARFUS",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Forcing another driver of the track at t10",
-        "decision": "5 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/078_Doc%2078%20-%20Decision%20no.%2040%20-%20Car%2031.pdf",
-        "publishedAt": "2025-11-08T18:01:01.000Z"
+        "publishedAt": "2025-11-08T18:01:01.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 80,
@@ -481,10 +454,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit stop infringement",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/080_Doc%2080%20-%20Decision%20no.%2041%20-%20Car%2012.pdf",
-        "publishedAt": "2025-11-08T18:20:03.000Z"
+        "publishedAt": "2025-11-08T18:20:03.000Z",
+        "parser": 3
       },
       {
         "doc": 81,
@@ -494,10 +466,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 8 and 5 at t11.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/081_Doc%2081%20-%20Decision%20no.%2042%20-%20Car%208.pdf",
-        "publishedAt": "2025-11-08T18:35:21.000Z"
+        "publishedAt": "2025-11-08T18:35:21.000Z",
+        "parser": 3
       },
       {
         "doc": 82,
@@ -505,13 +476,12 @@
         "driver": "007 / ASTON MARTIN THOR TEAM",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Presence of a wheel in the working area during the refueling",
-        "decision": "5 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/082_Doc%2082%20-%20Decision%20no.%2043%20-%20Car%20007.pdf",
-        "publishedAt": "2025-11-08T18:50:33.000Z"
+        "publishedAt": "2025-11-08T18:50:33.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 84,
@@ -521,10 +491,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 33 and 31 at t10.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/084_Doc%2084%20-%20Decision%20no.%2044%20-%20Car%2033.pdf",
-        "publishedAt": "2025-11-08T19:55:08.000Z"
+        "publishedAt": "2025-11-08T19:55:08.000Z",
+        "parser": 3
       },
       {
         "doc": 85,
@@ -534,10 +503,10 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Rude, disrespectful behaviour towards another driver",
-        "decision": "A fine of € 5.000 payable as follows: € 1.000 to be paid immediately € and 4.000 suspended provided that, by the end of the 2025 WEC season, the competitor does not commit a new offence of Article 12.2.1.l of FIA ISC.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/085_Doc%2085%20-%20Decision%20no.%2045%20-%20Car%2033.pdf",
-        "publishedAt": "2025-11-08T20:15:56.000Z"
+        "publishedAt": "2025-11-08T20:15:56.000Z",
+        "parser": 3,
+        "fineEur": 5000
       },
       {
         "doc": 87,
@@ -545,13 +514,12 @@
         "driver": "Benjamin BARKER",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 77 and 31 at t1",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/087_Doc%2087%20-%20Decision%20no.%2046%20-%20Car%2077.pdf",
-        "publishedAt": "2025-11-08T20:30:37.000Z"
+        "publishedAt": "2025-11-08T20:30:37.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 88,
@@ -561,10 +529,10 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Unsafe release in the pit lane",
-        "decision": "Fine of 5000 €",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/08_8%20Hours%20of%20Bahrain/088_Doc%2088%20-%20Decision%20no.%2047%20-%20Car%2015.pdf",
-        "publishedAt": "2025-11-08T21:25:10.000Z"
+        "publishedAt": "2025-11-08T21:25:10.000Z",
+        "parser": 3,
+        "fineEur": 5000
       }
     ]
   },
@@ -622,6 +590,7 @@
         "team": "TF Sport",
         "crew": "KEATING / EDGAR / JUNCADELLA"
       }
-    ]
+    ],
+    "final": true
   }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:47.841Z",
+  "generatedAt": "2026-09-02T16:26:48.229Z",
   "series": "wec",
   "season": 2025,
   "eventKey": "wec-2025-rolex-6-hours-of-sao-paulo-2025",
@@ -20,10 +20,10 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The driver did not attend the drivers' briefing.",
-        "decision": "Fine of € 500. The driver has to receive a specific driver briefing from the Race Director before taking part to any session.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/006_Doc%206%20-%20Decision%20no.%201%20-%20Car%2038.pdf",
-        "publishedAt": "2025-07-10T22:07:21.000Z"
+        "publishedAt": "2025-07-10T22:07:21.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 10,
@@ -33,10 +33,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 1500 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/010_Doc%2010%20-%20Decision%20no.%202%20-%20Car%208.pdf",
-        "publishedAt": "2025-07-11T14:36:30.000Z"
+        "publishedAt": "2025-07-11T14:36:30.000Z",
+        "parser": 3,
+        "fineEur": 1500
       },
       {
         "doc": 11,
@@ -46,10 +46,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 600 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/011_Doc%2011%20-%20Decision%20no.%203%20-%20Car%20007.pdf",
-        "publishedAt": "2025-07-11T15:41:42.000Z"
+        "publishedAt": "2025-07-11T15:41:42.000Z",
+        "parser": 3,
+        "fineEur": 600
       },
       {
         "doc": 12,
@@ -59,10 +59,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 1600 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/012_Doc%2012%20-%20Decision%20no.%204%20-%20Car%2083.pdf",
-        "publishedAt": "2025-07-11T15:53:34.000Z"
+        "publishedAt": "2025-07-11T15:53:34.000Z",
+        "parser": 3,
+        "fineEur": 1600
       },
       {
         "doc": 15,
@@ -72,10 +72,10 @@
         "type": "fine",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 600 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/015_Doc%2015%20-%20Decision%20no.%205%20-%20Car%2054.pdf",
-        "publishedAt": "2025-07-11T18:55:26.000Z"
+        "publishedAt": "2025-07-11T18:55:26.000Z",
+        "parser": 3,
+        "fineEur": 600
       },
       {
         "doc": 19,
@@ -85,10 +85,9 @@
         "type": "reprimand",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Contact between cars 20 and 54 at t9",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/019_Doc%2019%20-%20Decision%20no.%206%20-%20Car%2020.pdf",
-        "publishedAt": "2025-07-11T20:38:49.000Z"
+        "publishedAt": "2025-07-11T20:38:49.000Z",
+        "parser": 3
       },
       {
         "doc": 20,
@@ -98,36 +97,34 @@
         "type": "fine",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Modifying the transponder declaration after the beginning of the session",
-        "decision": "Fine of € 500",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/020_Doc%2020%20-%20Decision%20no.%207%20-%20Car%2078.pdf",
-        "publishedAt": "2025-07-11T20:47:18.000Z"
+        "publishedAt": "2025-07-11T20:47:18.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 21,
         "car": 87,
         "driver": "Clemens SCHMID",
         "session": "FP2",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Not respecting double yellow flag",
-        "decision": "Cancellation of the times since the start of the session up to the time of the infrigement",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/021_Doc%2021%20-%20Decision%20no.%208%20-%20Car%2087.pdf",
-        "publishedAt": "2025-07-11T21:16:24.000Z"
+        "publishedAt": "2025-07-11T21:16:24.000Z",
+        "parser": 3
       },
       {
         "doc": 22,
         "car": 78,
         "driver": "Yuichi NAKAYAMA",
         "session": "FP2",
-        "type": "other",
+        "type": "deleted_laps",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Not respecting double yellow flag",
-        "decision": "Cancellation of the times since the start of the session up to the time of the infrigement",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/022_Doc%2022%20-%20Decision%20no.%209%20-%20Car%2078.pdf",
-        "publishedAt": "2025-07-11T21:18:24.000Z"
+        "publishedAt": "2025-07-11T21:18:24.000Z",
+        "parser": 3
       },
       {
         "doc": 24,
@@ -137,10 +134,9 @@
         "type": "none",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/024_Doc%2024%20-%20Decision%20no.%2010%20-%20Car%2015.pdf",
-        "publishedAt": "2025-07-12T14:20:31.000Z"
+        "publishedAt": "2025-07-12T14:20:31.000Z",
+        "parser": 3
       },
       {
         "doc": 28,
@@ -150,10 +146,9 @@
         "type": "none",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Minimum safety clothing for Competitors’ personnel in the pit lane",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/028_Doc%2028%20-%20Decision%20no.%2012%20-%20Car%2088.pdf",
-        "publishedAt": "2025-07-12T15:03:17.000Z"
+        "publishedAt": "2025-07-12T15:03:17.000Z",
+        "parser": 3
       },
       {
         "doc": 31,
@@ -163,10 +158,10 @@
         "type": "fine",
         "appliesTo": "qualifying",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 600 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/031_Doc%2031%20-%20Decision%20no.%2013%20-%20Car%2060.pdf",
-        "publishedAt": "2025-07-12T18:05:52.000Z"
+        "publishedAt": "2025-07-12T18:05:52.000Z",
+        "parser": 3,
+        "fineEur": 600
       },
       {
         "doc": 32,
@@ -174,13 +169,12 @@
         "driver": "Sebastien BOURDAIS",
         "session": "Hypercar Qualifying session",
         "type": "grid",
-        "gridDrop": 1,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Impeding car 93 during a fast lap in Qualifying session",
-        "decision": "Drop of 1 grid position for the race.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/032_Doc%2032%20-%20Decision%20no.%2014%20-%20Car%2038.pdf",
-        "publishedAt": "2025-07-12T19:00:09.000Z"
+        "publishedAt": "2025-07-12T19:00:09.000Z",
+        "parser": 3,
+        "gridDrop": 1
       },
       {
         "doc": 33,
@@ -188,78 +182,76 @@
         "driver": "Nicolas VARRONE",
         "session": "Hypercar Qualifying session",
         "type": "grid",
-        "gridDrop": 1,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Impeding car 50 during a fast lap in Qualifying session",
-        "decision": "Drop of 1 grid position for the race.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/033_Doc%2033%20-%20Decision%20no.%2015%20-%20Car%2099.pdf",
-        "publishedAt": "2025-07-12T19:08:03.000Z"
+        "publishedAt": "2025-07-12T19:08:03.000Z",
+        "parser": 3,
+        "gridDrop": 1
       },
       {
         "doc": 41,
         "car": 51,
         "driver": "James CALADO",
         "session": "Race",
-        "type": "other",
+        "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 51 did not follow race director's briefing instructions",
-        "decision": "5 seconds to be added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/041_Doc%2041%20-%20Decision%20no.%2017%20-%20Car%2051.pdf",
-        "publishedAt": "2025-07-13T15:02:04.000Z"
+        "publishedAt": "2025-07-13T15:02:04.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 42,
         "car": 88,
         "driver": "Stefano GATTUSO",
         "session": "Race",
-        "type": "other",
+        "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 88 did not follow race director's briefing instructions",
-        "decision": "5 seconds to be added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/042_Doc%2042%20-%20Decision%20no.%2018%20-%20Car%2088.pdf",
-        "publishedAt": "2025-07-13T15:03:19.000Z"
+        "publishedAt": "2025-07-13T15:03:19.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 43,
         "car": 81,
         "driver": "Tom VAN ROMPUY",
         "session": "Race",
-        "type": "other",
+        "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 81 did not follow race director's briefing instructions",
-        "decision": "5 seconds to be added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/043_Doc%2043%20-%20Decision%20no.%2019%20-%20Car%2081.pdf",
-        "publishedAt": "2025-07-13T15:37:13.000Z"
+        "publishedAt": "2025-07-13T15:37:13.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 44,
         "car": 46,
         "driver": "Ahmad AL HARTHY",
         "session": "Race",
-        "type": "other",
+        "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 46 did not follow race director's briefing instructions",
-        "decision": "5 seconds to be added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/044_Doc%2044%20-%20Decision%20no.%2020%20-%20Car%2046.pdf",
-        "publishedAt": "2025-07-13T15:37:47.000Z"
+        "publishedAt": "2025-07-13T15:37:47.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 45,
         "car": 12,
         "driver": "12 / CADILLAC HERTZ TEAM JOTA",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car running with rear tyres pressure below the limit.",
-        "decision": "Drive through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/045_Doc%2045%20-%20Decision%20no.%2021%20-%20Car%2012.pdf",
-        "publishedAt": "2025-07-13T15:15:34.000Z"
+        "publishedAt": "2025-07-13T15:15:34.000Z",
+        "parser": 3
       },
       {
         "doc": 46,
@@ -269,10 +261,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/046_Doc%2046%20-%20Decision%20no.%2022%20-%20Car%207.pdf",
-        "publishedAt": "2025-07-13T15:30:01.000Z"
+        "publishedAt": "2025-07-13T15:30:01.000Z",
+        "parser": 3
       },
       {
         "doc": 47,
@@ -280,13 +271,12 @@
         "driver": "Ben KEATING",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 33 and 27 at t12.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/047_Doc%2047%20-%20Decision%20no.%2023%20-%20Car%2033.pdf",
-        "publishedAt": "2025-07-13T15:36:52.000Z"
+        "publishedAt": "2025-07-13T15:36:52.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 48,
@@ -294,13 +284,12 @@
         "driver": "Ferdinand HABSBURG",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 35 and 54 at t2/t3.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/048_Doc%2048%20-%20Decision%20no.%2024%20-%20Car%2035.pdf",
-        "publishedAt": "2025-07-13T15:42:22.000Z"
+        "publishedAt": "2025-07-13T15:42:22.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 49,
@@ -310,10 +299,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/049_Doc%2049%20-%20Decision%20no.%2025%20-%20Car%208.pdf",
-        "publishedAt": "2025-07-13T15:51:20.000Z"
+        "publishedAt": "2025-07-13T15:51:20.000Z",
+        "parser": 3
       },
       {
         "doc": 51,
@@ -323,10 +311,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 93 and 10 at t10.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/051_Doc%2051%20-%20Decision%20no.%2026%20-%20Car%2093.pdf",
-        "publishedAt": "2025-07-13T16:08:38.000Z"
+        "publishedAt": "2025-07-13T16:08:38.000Z",
+        "parser": 3
       },
       {
         "doc": 52,
@@ -336,10 +323,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/052_Doc%2052%20-%20Decision%20no.%2027%20-%20Car%2051.pdf",
-        "publishedAt": "2025-07-13T16:13:41.000Z"
+        "publishedAt": "2025-07-13T16:13:41.000Z",
+        "parser": 3
       },
       {
         "doc": 53,
@@ -349,10 +335,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/053_Doc%2053%20-%20Decision%20no.%2028%20-%20Car%2036.pdf",
-        "publishedAt": "2025-07-13T16:20:00.000Z"
+        "publishedAt": "2025-07-13T16:20:00.000Z",
+        "parser": 3
       },
       {
         "doc": 54,
@@ -362,23 +347,21 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 10 and 31 at t4.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/054_Doc%2054%20-%20Decision%20no.%2029%20-%20Car%2010.pdf",
-        "publishedAt": "2025-07-13T16:32:24.000Z"
+        "publishedAt": "2025-07-13T16:32:24.000Z",
+        "parser": 3
       },
       {
         "doc": 55,
         "car": 95,
         "driver": "95 / UNITED AUTOSPORTS",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car running with rear tyres pressure below the limit.",
-        "decision": "Drive through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/055_Doc%2055%20-%20Decision%20no.%2030%20-%20Car%2095.pdf",
-        "publishedAt": "2025-07-13T16:48:35.000Z"
+        "publishedAt": "2025-07-13T16:48:35.000Z",
+        "parser": 3
       },
       {
         "doc": 59,
@@ -388,10 +371,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 6 and 93 at t12.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/059_Doc%2059%20-%20Decision%20no.%2031%20-%20Car%206.pdf",
-        "publishedAt": "2025-07-13T17:05:29.000Z"
+        "publishedAt": "2025-07-13T17:05:29.000Z",
+        "parser": 3
       },
       {
         "doc": 60,
@@ -399,13 +381,12 @@
         "driver": "Andrew GILBERT",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 60 and 54 at t1.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/060_Doc%2060%20-%20Decision%20no.%2032%20-%20Car%2060.pdf",
-        "publishedAt": "2025-07-13T17:12:15.000Z"
+        "publishedAt": "2025-07-13T17:12:15.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 64,
@@ -415,10 +396,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/064_Doc%2064%20-%20Decision%20no.%2033%20-%20Car%2099.pdf",
-        "publishedAt": "2025-07-13T17:33:49.000Z"
+        "publishedAt": "2025-07-13T17:33:49.000Z",
+        "parser": 3
       },
       {
         "doc": 66,
@@ -426,13 +406,12 @@
         "driver": "Ben KEATING",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 33 and 50 at t3.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/066_Doc%2066%20-%20Decision%20no.%2034%20-%20Car%2033.pdf",
-        "publishedAt": "2025-07-13T17:46:36.000Z"
+        "publishedAt": "2025-07-13T17:46:36.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 68,
@@ -442,10 +421,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/068_Doc%2068%20-%20Decision%20no.%2039%20-%20Car%206.pdf",
-        "publishedAt": "2025-07-13T17:57:59.000Z"
+        "publishedAt": "2025-07-13T17:57:59.000Z",
+        "parser": 3
       },
       {
         "doc": 69,
@@ -455,23 +433,21 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Maximum released powertrain power over the limit in lap 73.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/069_Doc%2069%20-%20Decision%20no.%2040%20-%20Car%2095.pdf",
-        "publishedAt": "2025-07-13T18:01:31.000Z"
+        "publishedAt": "2025-07-13T18:01:31.000Z",
+        "parser": 3
       },
       {
         "doc": 70,
         "car": 87,
         "driver": "José María LÓPEZ",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/070_Doc%2070%20-%20Decision%20no.%2041%20-%20Car%2087.pdf",
-        "publishedAt": "2025-07-13T18:05:34.000Z"
+        "publishedAt": "2025-07-13T18:05:34.000Z",
+        "parser": 3
       },
       {
         "doc": 71,
@@ -481,23 +457,21 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 59 and 10 at t4.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/071_Doc%2071%20-%20Decision%20no.%2042%20-%20Car%2059.pdf",
-        "publishedAt": "2025-07-13T18:15:19.000Z"
+        "publishedAt": "2025-07-13T18:15:19.000Z",
+        "parser": 3
       },
       {
         "doc": 72,
         "car": 60,
         "driver": "Andrew GILBERT",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/072_Doc%2072%20-%20Decision%20no.%2043%20-%20Car%2060.pdf",
-        "publishedAt": "2025-07-13T18:17:41.000Z"
+        "publishedAt": "2025-07-13T18:17:41.000Z",
+        "parser": 3
       },
       {
         "doc": 73,
@@ -505,13 +479,12 @@
         "driver": "6 / PORSCHE PENSKE MOTORSPORT",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Presence of personnel in the working area when the car is leaving",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/073_Doc%2073%20-%20Decision%20no.%2044%20-%20Car%206.pdf",
-        "publishedAt": "2025-07-13T18:28:18.000Z"
+        "publishedAt": "2025-07-13T18:28:18.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 74,
@@ -521,23 +494,21 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 54 and 007 at t6.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/074_Doc%2074%20-%20Decision%20no.%2045%20-%20Car%2054.pdf",
-        "publishedAt": "2025-07-13T18:43:44.000Z"
+        "publishedAt": "2025-07-13T18:43:44.000Z",
+        "parser": 3
       },
       {
         "doc": 76,
         "car": 85,
         "driver": "Michelle GATTING",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding under FCY",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/076_Doc%2076%20-%20Decision%20no.%2046%20-%20Car%2085.pdf",
-        "publishedAt": "2025-07-13T19:08:34.000Z"
+        "publishedAt": "2025-07-13T19:08:34.000Z",
+        "parser": 3
       },
       {
         "doc": 77,
@@ -547,36 +518,34 @@
         "type": "warning",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 94 and 21 at t11.",
-        "decision": "Warning flag",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/077_Doc%2077%20-%20Decision%20no.%2047%20-%20Car%2094.pdf",
-        "publishedAt": "2025-07-13T19:27:48.000Z"
+        "publishedAt": "2025-07-13T19:27:48.000Z",
+        "parser": 3
       },
       {
         "doc": 80,
         "car": 59,
         "driver": "Grégoire SAUCY",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Ignored the blue flag.",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/080_Doc%2080%20-%20Decision%20no.%2048%20-%20Car%2059.pdf",
-        "publishedAt": "2025-07-13T20:04:11.000Z"
+        "publishedAt": "2025-07-13T20:04:11.000Z",
+        "parser": 3
       },
       {
         "doc": 81,
         "car": 95,
         "driver": "95 / UNITED AUTOSPORTS",
         "session": "Race",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Maximum released powertrain power over the limit in lap 185.",
-        "decision": "5 seconds Stop and go penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/081_Doc%2081%20-%20Decision%20no.%2049%20-%20Car%2095.pdf",
-        "publishedAt": "2025-07-13T20:06:40.000Z"
+        "publishedAt": "2025-07-13T20:06:40.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 82,
@@ -586,36 +555,33 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Not respecting the Full Course Yellow Procedure",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/082_Doc%2082%20-%20Decision%20no.%2050%20-%20Car%2061.pdf",
-        "publishedAt": "2025-07-13T20:21:26.000Z"
+        "publishedAt": "2025-07-13T20:21:26.000Z",
+        "parser": 3
       },
       {
         "doc": 83,
         "car": 51,
         "driver": "Alessandro PIER GUIDI",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Changing of direction to defend a position more than one time",
-        "decision": "Drive Through Penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/083_Doc%2083%20-%20Decision%20no.%2051%20-%20Car%2051.pdf",
-        "publishedAt": "2025-07-13T20:29:58.000Z"
+        "publishedAt": "2025-07-13T20:29:58.000Z",
+        "parser": 3
       },
       {
         "doc": 84,
         "car": 60,
         "driver": "Lorcan HANAFIN",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/05_6%20Hours%20of%20Sao%20Paulo/084_Doc%2084%20-%20Decision%20no.%2052%20-%20Car%2060.pdf",
-        "publishedAt": "2025-07-13T20:36:52.000Z"
+        "publishedAt": "2025-07-13T20:36:52.000Z",
+        "parser": 3
       }
     ]
   },
@@ -673,6 +639,7 @@
         "team": "Akkodis ASP Team",
         "crew": "UMBRARESCU / SCHMID / LOPEZ"
       }
-    ]
+    ],
+    "final": true
   }
 }

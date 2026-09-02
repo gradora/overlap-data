@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.471Z",
+  "generatedAt": "2026-09-02T16:26:48.488Z",
   "series": "imsa",
   "season": 2025,
   "eventKey": "imsa-2025-weathertech-raceway-laguna-seca",
@@ -17,26 +17,26 @@
         "car": 7,
         "driver": "Precision Racing LA",
         "session": "Technical",
-        "type": "other",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During Technical Inspection following Qualifying, TCR Car #7 was found to have a ground clearance lower than permitted per IMPC TB 25-11c1.",
-        "decision": "Qualifying times are invalidated, Car #7 is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/10_WeatherTech%20Raceway%20Laguna%20Seca/18_Penalties/TP%2025-13.pdf",
-        "publishedAt": "2025-05-10T02:28:32.000Z"
+        "publishedAt": "2025-05-10T02:28:32.000Z",
+        "parser": 3,
+        "backOfGrid": true
       },
       {
         "doc": 14,
         "car": 27,
         "driver": "",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During Technical Inspection following Qualifying, GTD Car # 27 was found to have a ground clearance below the minimum per IWSC GTD TR 7.4.5",
-        "decision": "Qualifying lap times are invalidated. Car is moved to the back of the Class",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/10_WeatherTech%20Raceway%20Laguna%20Seca/18_Penalties/TP%2025-14.pdf",
-        "publishedAt": "2025-05-11T00:54:45.000Z"
+        "publishedAt": "2025-05-11T00:54:45.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -85,6 +85,7 @@
   "highlights": {
     "season": 2025,
     "round": 4,
+    "final": true,
     "fastestLap": {
       "time": "1:14.637",
       "seconds": 74.637,

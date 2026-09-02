@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:48.472Z",
+  "generatedAt": "2026-09-02T16:26:48.489Z",
   "series": "imsa",
   "season": 2025,
   "eventKey": "imsa-2025-watkins-glen-international",
@@ -17,26 +17,26 @@
         "car": 21,
         "driver": "Af Corse",
         "session": "Technical",
-        "type": "deleted_laps",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During Qualifying, and verified during Technical Inspection, a mandatory sensor was unplugged on GTD Car #21.",
-        "decision": "Lap times are invalidated, Car is moved to the back of the Class.",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/14_Watkins%20Glen%20International/18_Penalties/TP%2025-18.pdf",
-        "publishedAt": "2025-06-21T20:40:19.000Z"
+        "publishedAt": "2025-06-21T20:40:19.000Z",
+        "parser": 3,
+        "backOfGrid": true
       },
       {
         "doc": 20,
         "car": 65,
         "driver": "Ford Multimatic Motorsports",
         "session": "Technical",
-        "type": "other",
+        "type": "grid",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "During post-Race technical inspection, GTD-PRO Car #65 was found to have cambers/pressures beyond the permitted limits per the matrix published in Michelin Technical Bulletin IWSC 25-12 (MMTB_IWSC_2025_12_GTDPro_GTD_Tire_usage_requirements_HighEnergyTracks)",
-        "decision": "Car is moved to the back of the Class",
         "url": "https://imsa.results.alkamelcloud.com/Results_NoticeBoard/25_2025/14_Watkins%20Glen%20International/18_Penalties/TP%2025-20.pdf",
-        "publishedAt": "2025-06-24T16:03:39.000Z"
+        "publishedAt": "2025-06-24T16:03:39.000Z",
+        "parser": 3,
+        "backOfGrid": true
       }
     ]
   },
@@ -71,7 +71,7 @@
         "name": "JARVIS / TINCKNELL / BOMARITO",
         "constructor": "Mazda Motorsports",
         "vehicle": "Mazda DPi",
-        "winsHere": 1
+        "winsHere": 2
       },
       {
         "year": 2019,
@@ -85,6 +85,7 @@
   "highlights": {
     "season": 2025,
     "round": 6,
+    "final": true,
     "fastestLap": {
       "time": "1:34.608",
       "seconds": 94.608,

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T18:42:47.840Z",
+  "generatedAt": "2026-09-02T16:26:48.227Z",
   "series": "wec",
   "season": 2025,
   "eventKey": "wec-2025-totalenergies-6-hours-of-spa-francorchamps-2025",
@@ -20,10 +20,9 @@
         "type": "other",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Non attendance at the Drivers Briefing",
-        "decision": "The driver has to attend a dedicated briefing from the Race Director prior to taking part in any track activity.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/005_Doc%205%20-%20Decision%20no.%201%20-%20Car%206.pdf",
-        "publishedAt": "2025-05-07T14:05:33.000Z"
+        "publishedAt": "2025-05-07T14:05:33.000Z",
+        "parser": 3
       },
       {
         "doc": 11,
@@ -33,10 +32,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 700 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/011_Doc%2011%20-%20Decision%20no.%202%20-%20Car%2087.pdf",
-        "publishedAt": "2025-05-08T10:05:20.000Z"
+        "publishedAt": "2025-05-08T10:05:20.000Z",
+        "parser": 3,
+        "fineEur": 700
       },
       {
         "doc": 12,
@@ -46,10 +45,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 100 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/012_Doc%2012%20-%20Decision%20no.%203%20-%20Car%2038.pdf",
-        "publishedAt": "2025-05-08T10:07:23.000Z"
+        "publishedAt": "2025-05-08T10:07:23.000Z",
+        "parser": 3,
+        "fineEur": 100
       },
       {
         "doc": 13,
@@ -59,10 +58,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 500 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/013_Doc%2013%20-%20Decision%20no.%204%20-%20Car%2012.pdf",
-        "publishedAt": "2025-05-08T10:09:46.000Z"
+        "publishedAt": "2025-05-08T10:09:46.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 14,
@@ -72,10 +71,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 100 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/014_Doc%2014%20-%20Decision%20no.%205%20-%20Car%2012.pdf",
-        "publishedAt": "2025-05-08T10:23:28.000Z"
+        "publishedAt": "2025-05-08T10:23:28.000Z",
+        "parser": 3,
+        "fineEur": 100
       },
       {
         "doc": 15,
@@ -85,10 +84,10 @@
         "type": "fine",
         "appliesTo": "Drivers Briefing",
         "corrected": false,
-        "fact": "The driver was late for the drivers' briefing",
-        "decision": "Fine of € 500",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/015_Doc%2015%20-%20Decision%20no.%206%20-%20Car%205.pdf",
-        "publishedAt": "2025-05-08T10:35:59.000Z"
+        "publishedAt": "2025-05-08T10:35:59.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 16,
@@ -98,10 +97,10 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 100 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/016_Doc%2016%20-%20Decision%20no.%207%20-%20Car%2012.pdf",
-        "publishedAt": "2025-05-08T10:39:03.000Z"
+        "publishedAt": "2025-05-08T10:39:03.000Z",
+        "parser": 3,
+        "fineEur": 100
       },
       {
         "doc": 17,
@@ -111,36 +110,36 @@
         "type": "fine",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 1900 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/017_Doc%2017%20-%20Decision%20no.%208%20-%20Car%20009.pdf",
-        "publishedAt": "2025-05-08T10:52:16.000Z"
+        "publishedAt": "2025-05-08T10:52:16.000Z",
+        "parser": 3,
+        "fineEur": 1900
       },
       {
         "doc": 18,
         "car": 85,
         "driver": "Célia MARTIN",
         "session": "FP1",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "5 minutes Stop and Go penalty.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/018_Doc%2018%20-%20Decision%20no.%209%20-%20Car%2085.pdf",
-        "publishedAt": "2025-05-08T10:58:52.000Z"
+        "publishedAt": "2025-05-08T10:58:52.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 19,
         "car": 77,
         "driver": "Bernardo SOUSA",
         "session": "FP1",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "5 minutes Stop and Go penalty.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/019_Doc%2019%20-%20Decision%20no.%2010%20-%20Car%2077.pdf",
-        "publishedAt": "2025-05-08T11:02:05.000Z"
+        "publishedAt": "2025-05-08T11:02:05.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 20,
@@ -150,36 +149,36 @@
         "type": "reprimand",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Wrong positioning of the car in working area during a pit stop",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/020_Doc%2020%20-%20Decision%20no.%2011%20-%20Car%2012.pdf",
-        "publishedAt": "2025-05-08T11:12:46.000Z"
+        "publishedAt": "2025-05-08T11:12:46.000Z",
+        "parser": 3
       },
       {
         "doc": 22,
         "car": 88,
         "driver": "Giammarco LEVORATO",
         "session": "FP1",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP1",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "5 minutes Stop and Go penalty to be served at the beginning of FP2.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/022_Doc%2022%20-%20Decision%20no.%2012%20-%20Car%2088.pdf",
-        "publishedAt": "2025-05-08T11:21:06.000Z"
+        "publishedAt": "2025-05-08T11:21:06.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 27,
         "car": 31,
         "driver": "Yasser SHAHIN",
         "session": "FP2",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Not reducing speed during the red flag period.",
-        "decision": "5 minutes Stop and Go and withdrawal of 2 penalty points.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/027_Doc%2027%20-%20Decision%20no.%2013%20-%20Car%2031.pdf",
-        "publishedAt": "2025-05-08T16:26:49.000Z"
+        "publishedAt": "2025-05-08T16:26:49.000Z",
+        "parser": 3,
+        "seconds": 300,
+        "licencePoints": 2
       },
       {
         "doc": 32,
@@ -189,10 +188,9 @@
         "type": "none",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Alleged contact between cars 35 and 36 at t12.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/032_Doc%2032%20-%20Decision%20no.%2014%20-%20Car%2035.pdf",
-        "publishedAt": "2025-05-08T16:54:32.000Z"
+        "publishedAt": "2025-05-08T16:54:32.000Z",
+        "parser": 3
       },
       {
         "doc": 35,
@@ -202,10 +200,9 @@
         "type": "none",
         "appliesTo": "FP2",
         "corrected": false,
-        "fact": "Alleged contact between cars 78 and 59 at t12.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/035_Doc%2035%20-%20Decision%20no.%2015%20-%20Car%2078.pdf",
-        "publishedAt": "2025-05-08T17:43:10.000Z"
+        "publishedAt": "2025-05-08T17:43:10.000Z",
+        "parser": 3
       },
       {
         "doc": 37,
@@ -215,10 +212,10 @@
         "type": "fine",
         "appliesTo": "Before the start of FP1",
         "corrected": false,
-        "fact": "Modifying the driver declaration without the approval of the Technical Delegates.",
-        "decision": "Fine of € 500",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/037_Doc%2037%20-%20Decision%20no.%2016%20-%20Car%2078.pdf",
-        "publishedAt": "2025-05-08T17:59:51.000Z"
+        "publishedAt": "2025-05-08T17:59:51.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 38,
@@ -228,10 +225,10 @@
         "type": "fine",
         "appliesTo": "Before the start of FP1",
         "corrected": false,
-        "fact": "Modifying the driver declaration without the approval of the Technical Delegates.",
-        "decision": "Fine of € 500",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/038_Doc%2038%20-%20Decision%20no.%2017%20-%20Car%2087.pdf",
-        "publishedAt": "2025-05-08T18:02:18.000Z"
+        "publishedAt": "2025-05-08T18:02:18.000Z",
+        "parser": 3,
+        "fineEur": 500
       },
       {
         "doc": 39,
@@ -241,10 +238,10 @@
         "type": "fine",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 100 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/039_Doc%2039%20-%20Decision%20no.%2018%20-%20Car%2015.pdf",
-        "publishedAt": "2025-05-09T09:26:48.000Z"
+        "publishedAt": "2025-05-09T09:26:48.000Z",
+        "parser": 3,
+        "fineEur": 100
       },
       {
         "doc": 40,
@@ -254,23 +251,23 @@
         "type": "fine",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 100 € and cancellation of the times set by the Driver during the practice session up to the time of the infringement.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/040_Doc%2040%20-%20Decision%20no.%2019%20-%20Car%2020.pdf",
-        "publishedAt": "2025-05-09T09:28:47.000Z"
+        "publishedAt": "2025-05-09T09:28:47.000Z",
+        "parser": 3,
+        "fineEur": 100
       },
       {
         "doc": 41,
         "car": 61,
         "driver": "Martin BERRY",
         "session": "FP3",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "5 minutes Stop and Go penalty.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/041_Doc%2041%20-%20Decision%20no.%2020%20-%20Car%2061.pdf",
-        "publishedAt": "2025-05-09T09:35:17.000Z"
+        "publishedAt": "2025-05-09T09:35:17.000Z",
+        "parser": 3,
+        "seconds": 300
       },
       {
         "doc": 45,
@@ -280,10 +277,9 @@
         "type": "reprimand",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Not following the Race Director Instructions",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/045_Doc%2045%20-%20Decision%20no.%2021%20-%20Car%206.pdf",
-        "publishedAt": "2025-05-09T11:17:02.000Z"
+        "publishedAt": "2025-05-09T11:17:02.000Z",
+        "parser": 3
       },
       {
         "doc": 46,
@@ -293,10 +289,9 @@
         "type": "none",
         "appliesTo": "FP3",
         "corrected": false,
-        "fact": "Contact between cars 51 and 46 at t2.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/046_Doc%2046%20-%20Decision%20no.%2022%20-%20Car%2051.pdf",
-        "publishedAt": "2025-05-09T11:32:32.000Z"
+        "publishedAt": "2025-05-09T11:32:32.000Z",
+        "parser": 3
       },
       {
         "doc": 49,
@@ -306,10 +301,9 @@
         "type": "reprimand",
         "appliesTo": "FP3",
         "corrected": true,
-        "fact": "Not following the Race Director Instructions",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/049_Doc%2049%20-%20Decision%20no.%2023%20-%20Amended%20(clerical%20error)%20-%20Car%206.pdf",
-        "publishedAt": "2025-05-09T15:38:57.000Z"
+        "publishedAt": "2025-05-09T15:38:57.000Z",
+        "parser": 3
       },
       {
         "doc": 54,
@@ -319,36 +313,35 @@
         "type": "fine",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Fine of 1300 €",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/054_Doc%2054%20-%20Decision%20no.%2024%20-%20Car%2099.pdf",
-        "publishedAt": "2025-05-10T11:42:02.000Z"
+        "publishedAt": "2025-05-10T11:42:02.000Z",
+        "parser": 3,
+        "fineEur": 1300
       },
       {
         "doc": 55,
         "car": 85,
         "driver": "Célia MARTIN",
         "session": "Race",
-        "type": "other",
+        "type": "time",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car 85 did not follow race director's briefing instructions",
-        "decision": "5 seconds to be added to the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/055_Doc%2055%20-%20Decision%20no.%2025%20-%20Car%2085.pdf",
-        "publishedAt": "2025-05-10T12:12:37.000Z"
+        "publishedAt": "2025-05-10T12:12:37.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 56,
         "car": 38,
         "driver": "Sebastien BOURDAIS",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 38 and 5 at t5.",
-        "decision": "Drive Through Penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/056_Doc%2056%20-%20Decision%20no.%2026%20-%20Car%2038.pdf",
-        "publishedAt": "2025-05-10T12:24:13.000Z"
+        "publishedAt": "2025-05-10T12:24:13.000Z",
+        "parser": 3
       },
       {
         "doc": 57,
@@ -356,91 +349,84 @@
         "driver": "Thomas FLOHR",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 54 and 92 at t1.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/057_Doc%2057%20-%20Decision%20no.%2027%20-%20Car%2054.pdf",
-        "publishedAt": "2025-05-10T12:42:40.000Z"
+        "publishedAt": "2025-05-10T12:42:40.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 59,
         "car": 10,
         "driver": "10 / RACING SPIRIT OF LÉMAN",
         "session": "",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Unsafe release in the pit lane",
-        "decision": "Drive through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/059_Doc%2059%20-%20Decision%20no.%2028%20-%20Car%2010.pdf",
-        "publishedAt": "2025-05-10T13:24:17.000Z"
+        "publishedAt": "2025-05-10T13:24:17.000Z",
+        "parser": 3
       },
       {
         "doc": 60,
         "car": 92,
         "driver": "Ryan HARDWICK",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Drive Through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/060_Doc%2060%20-%20Decision%20no.%2029%20-%20Car%2092.pdf",
-        "publishedAt": "2025-05-10T13:48:57.000Z"
+        "publishedAt": "2025-05-10T13:48:57.000Z",
+        "parser": 3
       },
       {
         "doc": 61,
         "car": 46,
         "driver": "Ahmad AL HARTHY",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Drive Through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/061_Doc%2061%20-%20Decision%20no.%2030%20-%20Car%2046.pdf",
-        "publishedAt": "2025-05-10T13:49:35.000Z"
+        "publishedAt": "2025-05-10T13:49:35.000Z",
+        "parser": 3
       },
       {
         "doc": 62,
         "car": 15,
         "driver": "Raffaele MARCIELLO",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Speeding in the pitlane",
-        "decision": "Drive Through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/062_Doc%2062%20-%20Decision%20no.%2031%20-%20Car%2015.pdf",
-        "publishedAt": "2025-05-10T13:50:23.000Z"
+        "publishedAt": "2025-05-10T13:50:23.000Z",
+        "parser": 3
       },
       {
         "doc": 63,
         "car": 77,
         "driver": "Bernardo SOUSA",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Constant abuse of track limits",
-        "decision": "Drive Through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/063_Doc%2063%20-%20Decision%20no.%2032%20-%20Car%2077.pdf",
-        "publishedAt": "2025-05-10T14:02:16.000Z"
+        "publishedAt": "2025-05-10T14:02:16.000Z",
+        "parser": 3
       },
       {
         "doc": 66,
         "car": 21,
         "driver": "21 / VISTA AF CORSE",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit stop infringement",
-        "decision": "Drive Through",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/066_Doc%2066%20-%20Decision%20no.%2035%20-%20Car%2021.pdf",
-        "publishedAt": "2025-05-10T14:20:11.000Z"
+        "publishedAt": "2025-05-10T14:20:11.000Z",
+        "parser": 3
       },
       {
         "doc": 67,
@@ -448,13 +434,12 @@
         "driver": "94 / PEUGEOT TOTALENERGIES",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Presence of personnel in the working area when the car is leaving",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/067_Doc%2067%20-%20Decision%20no.%2036%20-%20Car%2094.pdf",
-        "publishedAt": "2025-05-10T14:27:41.000Z"
+        "publishedAt": "2025-05-10T14:27:41.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 68,
@@ -462,13 +447,12 @@
         "driver": "12 / CADILLAC HERTZ TEAM JOTA",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Presence of personnel in the working area when the car is leaving",
-        "decision": "5 seconds added at the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/068_Doc%2068%20-%20Decision%20no.%2037%20-%20Car%2012.pdf",
-        "publishedAt": "2025-05-10T14:37:31.000Z"
+        "publishedAt": "2025-05-10T14:37:31.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 69,
@@ -476,13 +460,12 @@
         "driver": "Ryan HARDWICK",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 92 and 61 at t18.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/069_Doc%2069%20-%20Decision%20no.%2038%20-%20Car%2092.pdf",
-        "publishedAt": "2025-05-10T14:41:41.000Z"
+        "publishedAt": "2025-05-10T14:41:41.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 70,
@@ -492,10 +475,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "The car 54 did not serve the 10 seconds penalty added to the next pit stop correctly.",
-        "decision": "No Further Action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/070_Doc%2070%20-%20Decision%20no.%2039%20-%20Car%2054.pdf",
-        "publishedAt": "2025-05-10T14:51:47.000Z"
+        "publishedAt": "2025-05-10T14:51:47.000Z",
+        "parser": 3
       },
       {
         "doc": 71,
@@ -505,49 +487,47 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Overtaking on the outside of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/071_Doc%2071%20-%20Decision%20no.%2040%20-%20Car%2051.pdf",
-        "publishedAt": "2025-05-10T15:13:20.000Z"
+        "publishedAt": "2025-05-10T15:13:20.000Z",
+        "parser": 3
       },
       {
         "doc": 73,
         "car": 27,
         "driver": "27 / HEART OF RACING TEAM",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Car running with rear tyres pressure below the limit.",
-        "decision": "Drive through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/073_Doc%2073%20-%20Decision%20no.%2041%20-%20Car%2027.pdf",
-        "publishedAt": "2025-05-10T15:30:51.000Z"
+        "publishedAt": "2025-05-10T15:30:51.000Z",
+        "parser": 3
       },
       {
         "doc": 74,
         "car": 8,
         "driver": "Ryō HIRAKAWA",
         "session": "Race",
-        "type": "other",
+        "type": "warning",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Forcing another driver of the track at t15",
-        "decision": "Black and white flag",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/074_Doc%2074%20-%20Decision%20no.%2042%20-%20Car%208.pdf",
-        "publishedAt": "2025-05-10T15:49:24.000Z"
+        "publishedAt": "2025-05-10T15:49:24.000Z",
+        "parser": 3
       },
       {
         "doc": 75,
         "car": 60,
         "driver": "Matteo CAIROLI",
         "session": "Race",
-        "type": "other",
+        "type": "stop_go",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 60 and 95 at T7.",
-        "decision": "30 seconds Stop and go penalty and and withdrawal of 1 penalty point.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/075_Doc%2075%20-%20Decision%20no.%2043%20-%20Car%2060.pdf",
-        "publishedAt": "2025-05-10T18:45:08.000Z"
+        "publishedAt": "2025-05-10T18:45:08.000Z",
+        "parser": 3,
+        "seconds": 30,
+        "licencePoints": 1
       },
       {
         "doc": 76,
@@ -557,36 +537,33 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 31 and 54 at t18.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/076_Doc%2076%20-%20Decision%20no.%2044%20-%20Car%2031.pdf",
-        "publishedAt": "2025-05-10T16:14:48.000Z"
+        "publishedAt": "2025-05-10T16:14:48.000Z",
+        "parser": 3
       },
       {
         "doc": 78,
         "car": 78,
         "driver": "Finn GEHRSITZ",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Not respecting the Safety Car procedure",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/078_Doc%2078%20-%20Decision%20no.%2045%20-%20Car%2078.pdf",
-        "publishedAt": "2025-05-10T18:44:00.000Z"
+        "publishedAt": "2025-05-10T18:44:00.000Z",
+        "parser": 3
       },
       {
         "doc": 79,
         "car": 81,
         "driver": "Rui ANDRADE",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Not respecting the Safety Car procedure",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/079_Doc%2079%20-%20Decision%20no.%2046%20-%20Car%2081.pdf",
-        "publishedAt": "2025-05-10T16:30:20.000Z"
+        "publishedAt": "2025-05-10T16:30:20.000Z",
+        "parser": 3
       },
       {
         "doc": 81,
@@ -596,10 +573,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Forcing another driver of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/081_Doc%2081%20-%20Decision%20no.%2049%20-%20Car%2051.pdf",
-        "publishedAt": "2025-05-10T18:45:45.000Z"
+        "publishedAt": "2025-05-10T18:45:45.000Z",
+        "parser": 3
       },
       {
         "doc": 82,
@@ -609,10 +585,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Maximum released powertrain power over the limit in lap 92.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/082_Doc%2082%20-%20Decision%20no.%2050%20-%20Car%2085.pdf",
-        "publishedAt": "2025-05-10T16:49:33.000Z"
+        "publishedAt": "2025-05-10T16:49:33.000Z",
+        "parser": 3
       },
       {
         "doc": 83,
@@ -622,10 +597,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Maximum released powertrain power over the limit in lap 91.",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/083_Doc%2083%20-%20Decision%20no.%2051%20-%20Car%2092.pdf",
-        "publishedAt": "2025-05-10T16:51:28.000Z"
+        "publishedAt": "2025-05-10T16:51:28.000Z",
+        "parser": 3
       },
       {
         "doc": 84,
@@ -633,13 +607,12 @@
         "driver": "Eduardo BARRICHELLO",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Collision between cars 10 and 59 at t14.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/084_Doc%2084%20-%20Decision%20no.%2052%20-%20Car%2010.pdf",
-        "publishedAt": "2025-05-10T17:09:27.000Z"
+        "publishedAt": "2025-05-10T17:09:27.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 86,
@@ -649,23 +622,21 @@
         "type": "other",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Leaving the track and gaining a lasting advantage.",
-        "decision": "5 secondes to be added at the next pit stop.",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/086_Doc%2086%20-%20Decision%20no.%2053%20-%20Car%2061.pdf",
-        "publishedAt": "2025-05-10T17:25:11.000Z"
+        "publishedAt": "2025-05-10T17:25:11.000Z",
+        "parser": 3
       },
       {
         "doc": 87,
         "car": 59,
         "driver": "Sébastien BAUD",
         "session": "Race",
-        "type": "other",
+        "type": "drive_through",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Ignored the blue flag.",
-        "decision": "Drive Through penalty",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/087_Doc%2087%20-%20Decision%20no.%2055%20-%20Car%2059.pdf",
-        "publishedAt": "2025-05-10T17:38:48.000Z"
+        "publishedAt": "2025-05-10T17:38:48.000Z",
+        "parser": 3
       },
       {
         "doc": 88,
@@ -673,13 +644,12 @@
         "driver": "81 / TF SPORT",
         "session": "Race",
         "type": "time",
-        "seconds": 5,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Wrong positioning of the car in working area during a pit stop",
-        "decision": "5 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/088_Doc%2088%20-%20Decision%20no.%2056%20-%20Car%2081.pdf",
-        "publishedAt": "2025-05-10T17:50:05.000Z"
+        "publishedAt": "2025-05-10T17:50:05.000Z",
+        "parser": 3,
+        "seconds": 5
       },
       {
         "doc": 89,
@@ -689,10 +659,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 15 and 54 at t9.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/089_Doc%2089%20-%20Decision%20no.%2057%20-%20Car%2015.pdf",
-        "publishedAt": "2025-05-10T17:58:48.000Z"
+        "publishedAt": "2025-05-10T17:58:48.000Z",
+        "parser": 3
       },
       {
         "doc": 90,
@@ -700,13 +669,12 @@
         "driver": "Malthe JAKOBSEN",
         "session": "Race",
         "type": "time",
-        "seconds": 10,
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Contact between cars 94 and 20 at t5.",
-        "decision": "10 seconds added to the next pit stop",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/090_Doc%2090%20-%20Decision%20no.%2058%20-%20Car%2094.pdf",
-        "publishedAt": "2025-05-10T18:13:26.000Z"
+        "publishedAt": "2025-05-10T18:13:26.000Z",
+        "parser": 3,
+        "seconds": 10
       },
       {
         "doc": 93,
@@ -716,10 +684,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Alleged contact between cars 15 and 54 at t9.",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/093_Doc%2093%20-%20Decision%20no.%2054%20-%20Car%2015.pdf",
-        "publishedAt": "2025-05-10T18:41:42.000Z"
+        "publishedAt": "2025-05-10T18:41:42.000Z",
+        "parser": 3
       },
       {
         "doc": 94,
@@ -729,10 +696,9 @@
         "type": "none",
         "appliesTo": "race",
         "corrected": true,
-        "fact": "Forcing another driver of the track",
-        "decision": "No further action",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/094_Doc%2094%20-%20Decision%20no.%2049%20Amended%20-%20Car%2051.pdf",
-        "publishedAt": "2025-05-10T18:50:30.000Z"
+        "publishedAt": "2025-05-10T18:50:30.000Z",
+        "parser": 3
       },
       {
         "doc": 95,
@@ -742,10 +708,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane infrigement",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/095_Doc%2095%20-%20Decision%20no.%2061%20-%20Car%2050.pdf",
-        "publishedAt": "2025-05-10T20:32:42.000Z"
+        "publishedAt": "2025-05-10T20:32:42.000Z",
+        "parser": 3
       },
       {
         "doc": 96,
@@ -755,10 +720,9 @@
         "type": "reprimand",
         "appliesTo": "race",
         "corrected": false,
-        "fact": "Pit lane infrigement",
-        "decision": "Reprimand",
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/13_2025/03_6%20Hours%20of%20Spa/096_Doc%2096%20-%20Decision%20no.%2062%20-%20Car%2015.pdf",
-        "publishedAt": "2025-05-10T20:52:01.000Z"
+        "publishedAt": "2025-05-10T20:52:01.000Z",
+        "parser": 3
       }
     ]
   },
@@ -844,6 +808,7 @@
         "team": "Vista AF Corse",
         "crew": "HERIAU / MANN / ROVERA"
       }
-    ]
+    ],
+    "final": true
   }
 }
