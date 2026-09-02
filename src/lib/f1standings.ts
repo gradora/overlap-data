@@ -159,9 +159,16 @@ export function buildF1StandingsDoc(root: string, year: number): F1StandingsDoc 
   const played = [...new Set([...results, ...sprints].map((r) => num(r.round)))]
     .sort((a, b) => a - b);
   const schedule = season?.schedule ?? [];
-  const allRounds = schedule.length
-    ? schedule.map((r) => num(r.round)).sort((a, b) => a - b)
-    : played;
+  // union с played, а не голое расписание: раунд, живущий в результатах, но
+  // выпавший из расписания (перенумерация у источника), иначе дал бы очки в
+  // stages БЕЗ колонки — и сумма видимых колонок молча разошлась бы с итогом.
+  const scheduledRounds = schedule.map((r) => num(r.round));
+  const allRounds = [...new Set([...scheduledRounds, ...played])].sort((a, b) => a - b);
+  const orphanRounds = played.filter((r) => !scheduledRounds.includes(r));
+  if (schedule.length && orphanRounds.length) {
+    console.warn(`::warning::f1 standings ${year}: раунды [${orphanRounds.join(", ")}] ` +
+      "есть в результатах, но выпали из расписания — источник перенумеровал сезон");
+  }
   const localityByRound = new Map(
     schedule.map((r) => [num(r.round), r.Circuit?.Location?.locality]));
   // Спринт-этап: у будущего — блок Sprint в расписании, у прошедшего — результаты.
@@ -227,11 +234,34 @@ export function buildF1StandingsDoc(root: string, year: number): F1StandingsDoc 
 }
 
 /// Пишет документ; вернёт исход для лога.
+///
+/// Два предохранителя по прецедентам витрины календаря:
+/// - write-once замороженного сезона: комментарий «файл больше не изменится»
+///   обязан обеспечиваться кодом, а не дисциплиной — иначе любой рефакторинг
+///   молча дёргал бы архив (перебить руками — F1_STANDINGS_FORCE=1, смена
+///   версии схемы пересобирает сама);
+/// - kept-previous при опустении таблицы: jolpica, ответившая 200 с пустым
+///   списком ОДНОЙ из ручек, иначе перезаписала бы живой зачёт пустым — и
+///   клиентский фолбэк не сработал бы, промаха-то нет.
 export function writeF1StandingsFile(root: string, year: number): string {
   const doc = buildF1StandingsDoc(root, year);
   if (!doc) return `standings ${year}: зачётов в зеркале нет — пропуск`;
-  const changed = writeJSONWithEnvelope(
-    join(root, "f1", String(year), "standings.json"), doc, F1_STANDINGS_SCHEMA_VERSION);
+  const path = join(root, "f1", String(year), "standings.json");
+  const prev = readPrev<F1StandingsDoc & { schemaVersion?: number }>(path);
+
+  if (prev && doc.frozen && process.env.F1_STANDINGS_FORCE !== "1"
+    && prev.schemaVersion === F1_STANDINGS_SCHEMA_VERSION) {
+    return `standings ${year}: frozen`;
+  }
+  const emptied = (["drivers", "constructors"] as const).filter(
+    (k) => (prev?.[k]?.length ?? 0) > 0 && doc[k].length === 0);
+  if (emptied.length) {
+    console.warn(`::warning::f1 standings ${year}: таблица ${emptied.join("+")} ` +
+      "опустела при живом прежнем файле — оставляем предыдущий");
+    return `standings ${year}: kept-previous (${emptied.join("+")} опустели)`;
+  }
+
+  const changed = writeJSONWithEnvelope(path, doc, F1_STANDINGS_SCHEMA_VERSION);
   return `standings ${year}: ${changed ? "written" : "unchanged"} ` +
     `(${doc.drivers.length} пилотов, ${doc.constructors.length} команд, ${doc.rounds.length} этапов)`;
 }

@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildF1StandingsDoc } from "./lib/f1standings.js";
+import { buildF1StandingsDoc, writeF1StandingsFile } from "./lib/f1standings.js";
 
 function seed(root: string) {
   const dir = join(root, "f1", "jolpica");
@@ -119,4 +119,54 @@ test("боевые сезоны: раундовые суммы сходятся 
         `раунды дают ${total}, зачёт говорит ${row.points}`);
     }
   }
+});
+
+/// Предохранители записи — по прецедентам витрины календаря. Проверяются
+/// через writeF1StandingsFile на временном корне.
+test("запись: write-once замороженного сезона и kept-previous при опустении", () => {
+  const root = mkdtempSync(join(tmpdir(), "f1st-"));
+  seed(root);
+  // Заморозка приходит из витрины календаря.
+  mkdirSync(join(root, "f1", "calendar"), { recursive: true });
+  writeFileSync(join(root, "f1", "calendar", "2031.json"),
+    JSON.stringify({ schemaVersion: 2, frozen: true }));
+
+  assert.match(writeF1StandingsFile(root, 2031), /written/);
+  // Второй прогон замороженного сезона файла не трогает — даже если сборка
+  // теперь давала бы другой результат.
+  assert.match(writeF1StandingsFile(root, 2031), /frozen/);
+  // Ручной перебив работает.
+  process.env.F1_STANDINGS_FORCE = "1";
+  assert.match(writeF1StandingsFile(root, 2031), /unchanged|written/);
+  delete process.env.F1_STANDINGS_FORCE;
+
+  // Опустение одной таблицы при живом прежнем файле — kept-previous.
+  writeFileSync(join(root, "f1", "calendar", "2031.json"),
+    JSON.stringify({ schemaVersion: 2, frozen: false }));
+  const cs = join(root, "f1", "jolpica", "2031_constructorStandings.json");
+  writeFileSync(cs, JSON.stringify({ MRData: { StandingsTable: { season: "2031",
+    StandingsLists: [{ ConstructorStandings: [] }] } } }));
+  assert.match(writeF1StandingsFile(root, 2031), /kept-previous/);
+  const kept = JSON.parse(readFileSync(join(root, "f1", "2031", "standings.json"), "utf8"));
+  assert.equal(kept.constructors.length, 1, "живой зачёт перезаписан пустым");
+  rmSync(root, { recursive: true, force: true });
+});
+
+/// Раунд-сирота (в результатах, но не в расписании) получает колонку и
+/// warning, а не молча выпадает из таблицы.
+test("раунд из результатов вне расписания не теряет колонку", () => {
+  const root = mkdtempSync(join(tmpdir(), "f1st-"));
+  seed(root);
+  const rf = join(root, "f1", "jolpica", "2031_results.json_limit_100_offset_0");
+  const doc = JSON.parse(readFileSync(rf, "utf8"));
+  doc.MRData.RaceTable.Races.push({ season: "2031", round: "7", Results: [
+    { position: "1", positionText: "1", points: "25",
+      Driver: { driverId: "norris" }, Constructor: { constructorId: "mclaren" } }] });
+  writeFileSync(rf, JSON.stringify(doc));
+
+  const built = buildF1StandingsDoc(root, 2031)!;
+  assert.ok(built.rounds.some((r) => r.round === 7), "колонка сироты не построена");
+  assert.ok(built.drivers[0].stages.some((s) => s.round === 7),
+            "очки сироты выпали из stages");
+  rmSync(root, { recursive: true, force: true });
 });
