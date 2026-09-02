@@ -98,17 +98,17 @@ export const DATA_FAMILIES: DataFamily[] = [
       "Сессии в неё НЕ дублируются — у WEC файл события уже есть." },
   { path: "wec/fia", zone: "витрина", clientReads: true },
   { path: "wec/winners", zone: "витрина", clientReads: true },
-  { path: "wec/weather", zone: "витрина", clientReads: false,
+  { path: "wec/weather", zone: "витрина", clientReads: true,
     note: "Погода событий из Al Kamel (шаг 5.6): сенсорные ряды по сессиям + " +
       "сводки, время абсолютное. RAIN источника непригоден — дождь не пишется. " +
-      "Клиент подключит следующим шагом." },
+      "Клиент читает с 02.09.2026 (F1WeatherSource, путь по префиксу id)." },
   { path: "wec/highlights", zone: "витрина", clientReads: true },
   { path: "imsa/<год>", zone: "витрина", clientReads: true },
   { path: "imsa/events", zone: "витрина", clientReads: true,
     note: "То же, что у WEC." },
   { path: "imsa/fia", zone: "витрина", clientReads: true },
   { path: "imsa/winners", zone: "витрина", clientReads: true },
-  { path: "imsa/weather", zone: "витрина", clientReads: false,
+  { path: "imsa/weather", zone: "витрина", clientReads: true,
     note: "То же, что wec/weather: Al Kamel, юниты имперские без колонок — " +
       "конверсия по эвристике давления (inHg против mbar)." },
   { path: "imsa/highlights", zone: "витрина", clientReads: true },
