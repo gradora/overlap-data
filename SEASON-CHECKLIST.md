@@ -59,14 +59,14 @@ SEASON=N IMSA_WINNERS_BACKFILL=11 npm run imsawinners
 
 ## Август–сентябрь (публикация календарей)
 
-- [ ] **`SCHEDULE[N+1]` в `src/schedule.ts`** — календарь IMSA публикуют в
+- [ ] **`SCHEDULE[N+1]` в `src/lib/schedule.ts`** — календарь IMSA публикуют в
   августе (после Road America). Это единственный жёсткий блокер: без него
   продьюсер imsa падает с 1 января ежечасно (fail-loud задуман, но письма
   каждый час). Round/name/venue/даты; venue должен матчиться с будущими
   папками Al Kamel (`matchTrack`), а для карточных продьюсеров
   (imsafia/imsahighlights/imsawinners) — с `matchImsaTrack`
   (`src/alkamelimsa.ts`): новая трасса или переименование = новый алиас.
-- [ ] Проверить, что fiawec опубликовал `/en/season/N+1` (обычно к осени уже
+- [x] Проверить, что fiawec опубликовал `/en/season/N+1` (обычно к осени уже
   есть; в 2026 страница 2027 была live уже в июле) — тогда WEC-межсезонье
   пройдёт гладко само.
 - Зеркало сезона N+1 собирается КРОНОМ, ежесуточно (второй cron «37 3 * * *»,
