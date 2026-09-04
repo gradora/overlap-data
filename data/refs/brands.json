@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "note": "Курируемый справочник марок эндуранса для блока Records экрана команды. Семантика: wins — победы в ОБЩЕМ ЗАЧЁТЕ гонок серии машин марки (заводские и клиентские) в top class эры серии (WEC: LMP1/Hypercar с 2012; IMSA WSC: P/DPi/GTP с 2014); titles — манифактурные титулы top class; firstSeason — первый сезон марки В TOP CLASS эры серии. Числа на 04.09.2026 (включая сыгранные гонки), веб-ресёрч с перекрёстной верификацией (workflow wf_43b93e7a, все вердикты CONFIRMED). Обновлять после побед/титулов — правится без релиза.",
+  "brands": {
+    "wec": {
+      "toyota":       { "wins": 51, "titles": 4, "firstSeason": 2012 },
+      "ferrari":      { "wins": 7,  "titles": 1, "firstSeason": 2023 },
+      "porsche":      { "wins": 21, "titles": 3, "firstSeason": 2014 },
+      "bmw":          { "wins": 2,  "titles": 0, "firstSeason": 2024 },
+      "cadillac":     { "wins": 1,  "titles": 0, "firstSeason": 2023 },
+      "alpine":       { "wins": 3,  "titles": 0, "firstSeason": 2021 },
+      "peugeot":      { "wins": 0,  "titles": 0, "firstSeason": 2022 },
+      "aston-martin": { "wins": 0,  "titles": 0, "firstSeason": 2025 },
+      "genesis":      { "wins": 0,  "titles": 0, "firstSeason": 2026 }
+    },
+    "imsa": {
+      "cadillac":     { "wins": 36, "titles": 4, "firstSeason": 2017 },
+      "porsche":      { "wins": 14, "titles": 2, "firstSeason": 2023 },
+      "acura":        { "wins": 25, "titles": 3, "firstSeason": 2018 },
+      "bmw":          { "wins": 3,  "titles": 0, "firstSeason": 2023 },
+      "aston-martin": { "wins": 0,  "titles": 0, "firstSeason": 2025 },
+      "lamborghini":  { "wins": 0,  "titles": 0, "firstSeason": 2024 }
+    }
+  }
+}
