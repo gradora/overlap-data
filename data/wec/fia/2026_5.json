@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T19:43:03.494Z",
+  "generatedAt": "2026-09-04T22:26:10.722Z",
   "season": 2026,
   "round": 5,
   "event": "lone-star-le-mans-2026",
-  "updated": "2026-09-04T18:51:33.000Z",
+  "updated": "2026-09-04T22:12:33.000Z",
   "penalties": [
     {
       "doc": 9,
@@ -82,6 +82,83 @@
       "corrected": false,
       "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/018_Doc%2018%20-%20Decision%20no.%2012%20-%20Car%2092.pdf",
       "publishedAt": "2026-09-04T18:51:33.000Z"
+    },
+    {
+      "doc": 20,
+      "parser": 1,
+      "car": 92,
+      "driver": "92 / THE BEND MANTHEY",
+      "session": "FP1",
+      "type": "none",
+      "appliesTo": "FP1",
+      "corrected": true,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/020_Doc%2020%20-%20Decision%20no.%2012%20AMENDED%20-%20Car%2092.pdf",
+      "publishedAt": "2026-09-04T21:26:21.000Z"
+    },
+    {
+      "doc": 21,
+      "parser": 1,
+      "car": 34,
+      "driver": "Peter DEMPSEY",
+      "session": "FP2",
+      "type": "fine",
+      "appliesTo": "FP2",
+      "corrected": false,
+      "fineEur": 900,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/021_Doc%2021%20-%20Decision%20no.%2013%20-%20Car%2034.pdf",
+      "publishedAt": "2026-09-04T21:43:49.000Z"
+    },
+    {
+      "doc": 22,
+      "parser": 1,
+      "car": 34,
+      "driver": "Peter DEMPSEY",
+      "session": "FP2",
+      "type": "fine",
+      "appliesTo": "FP2",
+      "corrected": false,
+      "fineEur": 1000,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/022_Doc%2022%20-%20Decision%20no.%2014%20-%20Car%2034.pdf",
+      "publishedAt": "2026-09-04T21:51:08.000Z"
+    },
+    {
+      "doc": 23,
+      "parser": 1,
+      "car": 51,
+      "driver": "James CALADO",
+      "session": "FP2",
+      "type": "fine",
+      "appliesTo": "FP2",
+      "corrected": false,
+      "fineEur": 1600,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/023_Doc%2023%20-%20Decision%20no.%2015%20-%20Car%2051.pdf",
+      "publishedAt": "2026-09-04T22:04:23.000Z"
+    },
+    {
+      "doc": 24,
+      "parser": 1,
+      "car": 91,
+      "driver": "Timur BOGUSLAVSKIY",
+      "session": "FP2",
+      "type": "stop_go",
+      "seconds": 300,
+      "appliesTo": "FP2",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/024_Doc%2024%20-%20Decision%20no.%2016%20-%20Car%2091.pdf",
+      "publishedAt": "2026-09-04T22:07:51.000Z"
+    },
+    {
+      "doc": 25,
+      "parser": 1,
+      "car": 19,
+      "driver": "Paul-Loup CHATIN",
+      "session": "FP2",
+      "type": "fine",
+      "appliesTo": "FP2",
+      "corrected": false,
+      "fineEur": 500,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/025_Doc%2025%20-%20Decision%20no.%2017%20-%20Car%2019.pdf",
+      "publishedAt": "2026-09-04T22:12:33.000Z"
     }
   ]
 }
