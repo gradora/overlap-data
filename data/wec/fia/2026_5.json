@@ -1,8 +1,87 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T16:30:00.999Z",
+  "generatedAt": "2026-09-04T19:43:03.494Z",
   "season": 2026,
   "round": 5,
   "event": "lone-star-le-mans-2026",
-  "penalties": []
+  "updated": "2026-09-04T18:51:33.000Z",
+  "penalties": [
+    {
+      "doc": 9,
+      "parser": 1,
+      "car": 88,
+      "driver": "Logan SARGEANT",
+      "session": "FP1",
+      "type": "stop_go",
+      "seconds": 300,
+      "appliesTo": "FP1",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/009_Doc%209%20-%20Decision%20no.%201%20-%20Car%2088.pdf",
+      "publishedAt": "2026-09-04T17:19:56.000Z"
+    },
+    {
+      "doc": 10,
+      "parser": 1,
+      "car": 88,
+      "driver": "Logan SARGEANT",
+      "session": "FP1",
+      "type": "stop_go",
+      "seconds": 300,
+      "appliesTo": "FP1",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/010_Doc%2010%20-%20Decision%20no.%202%20-%20Car%2088.pdf",
+      "publishedAt": "2026-09-04T17:25:39.000Z"
+    },
+    {
+      "doc": 13,
+      "parser": 1,
+      "car": 61,
+      "driver": "Martin BERRY",
+      "session": "FP1",
+      "type": "stop_go",
+      "seconds": 300,
+      "appliesTo": "FP1",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/013_Doc%2013%20-%20Decision%20no.%209%20-%20Car%2061.pdf",
+      "publishedAt": "2026-09-04T18:01:07.000Z"
+    },
+    {
+      "doc": 14,
+      "parser": 1,
+      "car": 79,
+      "driver": "Johannes ZELGER",
+      "session": "FP1",
+      "type": "stop_go",
+      "seconds": 300,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/014_Doc%2014%20-%20Decision%20no.%2010%20-%20Car%2079.pdf",
+      "publishedAt": "2026-09-04T18:28:39.000Z"
+    },
+    {
+      "doc": 17,
+      "parser": 1,
+      "car": 19,
+      "driver": "19 / GENESIS MAGMA RACING",
+      "session": "FP1",
+      "type": "fine",
+      "appliesTo": "FP1",
+      "corrected": false,
+      "fineEur": 2000,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/017_Doc%2017%20-%20Decision%20no.%2011%20-%20Car%2019.pdf",
+      "publishedAt": "2026-09-04T18:46:44.000Z"
+    },
+    {
+      "doc": 18,
+      "parser": 1,
+      "car": 92,
+      "driver": "92 / THE BEND MANTHEY",
+      "session": "FP1",
+      "type": "none",
+      "appliesTo": "FP1",
+      "corrected": false,
+      "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/018_Doc%2018%20-%20Decision%20no.%2012%20-%20Car%2092.pdf",
+      "publishedAt": "2026-09-04T18:51:33.000Z"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-04T16:30:00.118Z",
+  "generatedAt": "2026-09-04T19:43:01.089Z",
   "series": "wec",
   "season": 2026,
   "round": 5,
@@ -9,7 +9,7 @@
   "venue": "Circuit des Amériques",
   "trackRef": "circuit-of-the-americas",
   "countryCode": "us",
-  "status": "EventScheduled",
+  "status": "EventInProgress",
   "start": "2026-09-04T00:00:00+02:00",
   "end": "2026-09-06T00:00:00+02:00",
   "frozen": false,
@@ -28,11 +28,250 @@
       "phase": null,
       "raceClass": "HYPERCAR",
       "start": "2026-09-04T11:30:00-05:00",
-      "status": "EventInProgress",
+      "status": "EventCompleted",
       "sourceIds": {
         "sessionId": 7815
       },
-      "rows": []
+      "rows": [
+        {
+          "position": 1,
+          "carNumber": "51",
+          "team": "FERRARI AF CORSE",
+          "laps": 39,
+          "totalTime": "1:53.824",
+          "gapFirst": "",
+          "status": "classified",
+          "drivers": [
+            "ALESSANDRO PIER GUIDI",
+            "ANTONIO GIOVINAZZI",
+            "JAMES CALADO"
+          ]
+        },
+        {
+          "position": 2,
+          "carNumber": "50",
+          "team": "FERRARI AF CORSE",
+          "laps": 37,
+          "totalTime": "1:54.029",
+          "gapFirst": "+0.205",
+          "status": "classified",
+          "drivers": [
+            "ANTONIO FUOCO",
+            "MIGUEL MOLINA",
+            "NICKLAS NIELSEN"
+          ]
+        },
+        {
+          "position": 3,
+          "carNumber": "36",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 39,
+          "totalTime": "1:54.223",
+          "gapFirst": "+0.399",
+          "status": "classified",
+          "drivers": [
+            "FRÉDÉRIC MAKOWIECKI",
+            "JULES GOUNON",
+            "VICTOR MARTINS"
+          ]
+        },
+        {
+          "position": 4,
+          "carNumber": "8",
+          "team": "TOYOTA RACING",
+          "laps": 42,
+          "totalTime": "1:54.321",
+          "gapFirst": "+0.497",
+          "status": "classified",
+          "drivers": [
+            "BRENDON HARTLEY",
+            "RYŌ HIRAKAWA",
+            "SÉBASTIEN BUEMI"
+          ]
+        },
+        {
+          "position": 5,
+          "carNumber": "35",
+          "team": "ALPINE ENDURANCE TEAM",
+          "laps": 36,
+          "totalTime": "1:54.336",
+          "gapFirst": "+0.512",
+          "status": "classified",
+          "drivers": [
+            "ANTÓNIO FÉLIX DA COSTA",
+            "CHARLES MILESI",
+            "FERDINAND HABSBURG"
+          ]
+        },
+        {
+          "position": 6,
+          "carNumber": "7",
+          "team": "TOYOTA RACING",
+          "laps": 40,
+          "totalTime": "1:54.395",
+          "gapFirst": "+0.571",
+          "status": "classified",
+          "drivers": [
+            "KAMUI KOBAYASHI",
+            "MIKE CONWAY",
+            "NYCK DE VRIES"
+          ]
+        },
+        {
+          "position": 7,
+          "carNumber": "38",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 37,
+          "totalTime": "1:54.427",
+          "gapFirst": "+0.603",
+          "status": "classified",
+          "drivers": [
+            "EARL BAMBER",
+            "SÉBASTIEN BOURDAIS",
+            "JACK AITKEN"
+          ]
+        },
+        {
+          "position": 8,
+          "carNumber": "009",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 39,
+          "totalTime": "1:54.571",
+          "gapFirst": "+0.747",
+          "status": "classified",
+          "drivers": [
+            "ALEX RIBERAS",
+            "MARCO SØRENSEN",
+            "ROMAN DE ANGELIS"
+          ]
+        },
+        {
+          "position": 9,
+          "carNumber": "19",
+          "team": "GENESIS MAGMA RACING",
+          "laps": 40,
+          "totalTime": "1:54.590",
+          "gapFirst": "+0.766",
+          "status": "classified",
+          "drivers": [
+            "DANIEL JUNCADELLA",
+            "MATHIEU JAMINET",
+            "PAUL-LOUP CHATIN"
+          ]
+        },
+        {
+          "position": 10,
+          "carNumber": "94",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 39,
+          "totalTime": "1:54.704",
+          "gapFirst": "+0.880",
+          "status": "classified",
+          "drivers": [
+            "LOÏC DUVAL",
+            "MALTHE JAKOBSEN",
+            "THÉO POURCHAIRE"
+          ]
+        },
+        {
+          "position": 11,
+          "carNumber": "83",
+          "team": "AF CORSE",
+          "laps": 39,
+          "totalTime": "1:54.773",
+          "gapFirst": "+0.949",
+          "status": "classified",
+          "drivers": [
+            "PHILIP HANSON",
+            "ROBERT KUBICA",
+            "YIFEI YE"
+          ]
+        },
+        {
+          "position": 12,
+          "carNumber": "007",
+          "team": "ASTON MARTIN THOR TEAM",
+          "laps": 38,
+          "totalTime": "1:54.814",
+          "gapFirst": "+0.990",
+          "status": "classified",
+          "drivers": [
+            "HARRY TINCKNELL",
+            "TOM GAMBLE",
+            "ROSS GUNN"
+          ]
+        },
+        {
+          "position": 13,
+          "carNumber": "93",
+          "team": "PEUGEOT TOTALENERGIES",
+          "laps": 35,
+          "totalTime": "1:54.899",
+          "gapFirst": "+1.075",
+          "status": "classified",
+          "drivers": [
+            "NICK CASSIDY",
+            "PAUL DI RESTA",
+            "STOFFEL VANDOORNE"
+          ]
+        },
+        {
+          "position": 14,
+          "carNumber": "17",
+          "team": "GENESIS MAGMA RACING",
+          "laps": 44,
+          "totalTime": "1:55.125",
+          "gapFirst": "+1.301",
+          "status": "classified",
+          "drivers": [
+            "ANDRÉ LOTTERER",
+            "LUIS FELIPE DERANI",
+            "MATHYS JAUBERT"
+          ]
+        },
+        {
+          "position": 15,
+          "carNumber": "15",
+          "team": "BMW M TEAM WRT",
+          "laps": 42,
+          "totalTime": "1:55.131",
+          "gapFirst": "+1.307",
+          "status": "classified",
+          "drivers": [
+            "KEVIN MAGNUSSEN",
+            "RAFFAELE MARCIELLO",
+            "DRIES VANTHOOR"
+          ]
+        },
+        {
+          "position": 16,
+          "carNumber": "12",
+          "team": "CADILLAC HERTZ TEAM JOTA",
+          "laps": 39,
+          "totalTime": "1:55.669",
+          "gapFirst": "+1.845",
+          "status": "classified",
+          "drivers": [
+            "NORMAN NATO",
+            "WILL STEVENS",
+            "LOUIS DELÉTRAZ"
+          ]
+        },
+        {
+          "position": 17,
+          "carNumber": "20",
+          "team": "BMW M TEAM WRT",
+          "laps": 41,
+          "totalTime": "1:55.700",
+          "gapFirst": "+1.876",
+          "status": "classified",
+          "drivers": [
+            "RENÉ RAST",
+            "ROBIN FRIJNS",
+            "SHELDON VAN DER LINDE"
+          ]
+        }
+      ]
     },
     {
       "kind": "practice",

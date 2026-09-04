@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T16:30:48.045Z",
+  "generatedAt": "2026-09-04T19:43:48.911Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-monza-1293",
@@ -766,7 +766,7 @@
     "season": 2026,
     "round": 13,
     "event": "italian_grand_prix",
-    "updated": "2026-09-04 18:22 CET",
+    "updated": "2026-09-04 19:29 CET",
     "penalties": [
       {
         "doc": 19,
@@ -806,6 +806,18 @@
         "fineEur": 100,
         "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_12_-_pit_lane_speeding.pdf",
         "publishedAt": "2026-09-04 18:22 CET"
+      },
+      {
+        "doc": 28,
+        "parser": 3,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Free Practice 2",
+        "type": "warning",
+        "appliesTo": "Free Practice 2",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_18_-_impeding_of_car_1.pdf",
+        "publishedAt": "2026-09-04 19:29 CET"
       }
     ]
   },
