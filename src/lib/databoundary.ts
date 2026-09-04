@@ -71,6 +71,13 @@ export const DATA_FAMILIES: DataFamily[] = [
       "(0.40 МБ, витрина на выходе побайтово та же). Читают 5 продьюсеров через " +
       "3 библиотеки; пишут двое — wec и weclive.",
   },
+  {
+    path: "f1/pitawards", zone: "заготовка", clientReads: false, producerReads: true,
+    note: "Факты наград DHL Fastest Pit Stop (этап/команда/секунды) со страницы " +
+      "formula1.com — ФОЛБЭК канала питстопов: с Венгрии-2026 openf1 перестал " +
+      "отдавать stop_duration. Продьюсер f1pitawards РУЧНОЙ (FOM-класс риска, " +
+      "из CI 403); читает f1beasts, только для раундов без данных openf1.",
+  },
 
   // --- Витрина ---
   { path: "f1/calendar", zone: "витрина", clientReads: true },

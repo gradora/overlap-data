@@ -1,7 +1,9 @@
 // Продьюсер «BEASTS OF THE SEASON» — сезонные лидерборды F1 для полки поиска:
 //  • biggest comeback — прирост позиций (grid − финиш) по всем гонкам и
 //    спринтам сезона, топ-3;
-//  • fastest pit stop — минимум стационарного пита по data/f1/highlights, топ-3.
+//  • fastest pit stop — минимум стационарного пита по data/f1/highlights,
+//    топ-3; раунды, где openf1 не отдал stop_duration, закрывает фолбэк
+//    наград DHL (data/f1/pitawards, ручной продьюсер f1pitawards).
 // Comeback считается из ЗЕРКАЛА Jolpica, которое тем же прогоном пишет f1.ts:
 // пер-раундовые слайсы <y>/<r>/results.json (writeRoundResultSlices) и
 // пагинация <y>/sprint.json (год-именованные копии current-алиасов) — grid
@@ -15,6 +17,10 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { mirrorSlug, writeJSONWithEnvelope } from "../lib/mirror.js";
+import {
+  matchAwardRound, awardTeamId, readPitAwards,
+  type AwardCalendarEvent, type PitAwardRow,
+} from "../lib/pitawards.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
@@ -116,6 +122,40 @@ export function sprintResultsByRound(pages: any[]): Map<number, any[]> {
     }
   }
   return byRound;
+}
+
+/// Строки pit-фолбэка из наград DHL: только сыгранные раунды и только НЕ
+/// закрытые openf1. Награда командная — пилота нет, code пустой (клиент
+/// показывает команду на его месте). Несматченный ярлык — предупреждение и
+/// пропуск: неверный раунд молча задвоил бы этап в лидерборде.
+export function awardPitRows(
+  awards: PitAwardRow[],
+  events: AwardCalendarEvent[],
+  doneRounds: Set<number>,
+  coveredRounds: Set<number>,
+  roundName: Map<number, string>,
+  constructors: { name: string; id: string }[],
+): (BeastRow & { seconds: number; round: number })[] {
+  const out: (BeastRow & { seconds: number; round: number })[] = [];
+  for (const a of awards) {
+    if (typeof a?.seconds !== "number") continue;
+    const round = matchAwardRound(a.event, events);
+    if (round == null) {
+      console.warn(`::warning::beasts: этап награды «${a.event}» не сматчился с календарём — пропуск`);
+      continue;
+    }
+    if (!doneRounds.has(round) || coveredRounds.has(round)) continue;
+    out.push({
+      value: a.seconds.toFixed(3),
+      event: roundName.get(round) ?? a.event,
+      code: "",
+      team: a.team,
+      teamId: awardTeamId(a.team, constructors),
+      seconds: a.seconds,
+      round,
+    });
+  }
+  return out;
 }
 
 function readHighlights(round: number): any | null {
@@ -251,7 +291,7 @@ async function main() {
 
   // Питы из локальных highlights, команда/код — по фамилии из результатов.
   const roundName = new Map(races.map((r) => [Number(r.round), r.raceName]));
-  const pits: (BeastRow & { seconds: number })[] = [];
+  const pits: (BeastRow & { seconds: number; round: number })[] = [];
   for (const r of done) {
     const round = Number(r.round);
     const pit = readHighlights(round)?.fastestPitStop;
@@ -266,7 +306,33 @@ async function main() {
       team: info?.team ?? "",
       teamId: info?.teamId ?? "",
       seconds: pit.seconds,
+      round,
     });
+  }
+
+  // Фолбэк: награды DHL (data/f1/pitawards, ручной продьюсер f1pitawards) —
+  // для раундов, где openf1 не дал стационарного времени (с Венгрии-2026 их
+  // пайплайн перестал его считать). Строго дырозакрыватель: раунды, закрытые
+  // openf1, награды не трогают — при выздоровлении источника фолбэк сам
+  // вытесняется его строками.
+  const awards = readPitAwards(join(process.cwd(), "data"), YEAR)?.rows ?? [];
+  if (awards.length) {
+    let events: AwardCalendarEvent[] = [];
+    try {
+      const cal = JSON.parse(readFileSync(
+        join(process.cwd(), "data", "f1", "calendar", `${YEAR}.json`), "utf8"));
+      events = (cal?.events ?? []).filter((e: any) => e.kind === "race");
+    } catch { /* витрины календаря нет — матчить не с чем, фолбэк молчит */ }
+    const teams = [...new Map([...drivers.values()]
+      .map((d) => [d.teamId, { name: d.team, id: d.teamId }] as const)).values()]
+      .filter((t) => t.id);
+    const fallback = awardPitRows(awards, events,
+      new Set(done.map((r) => Number(r.round))),
+      new Set(pits.map((p) => p.round)), roundName, teams);
+    if (fallback.length) {
+      console.log(`  pit-фолбэк DHL: ${fallback.map((p) => `${p.event} ${p.value}`).join(", ")}`);
+    }
+    pits.push(...fallback);
   }
 
   const strip = (r: BeastRow): BeastRow =>

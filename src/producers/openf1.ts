@@ -343,6 +343,21 @@ export function isRaceLike(name: unknown): boolean {
   return n.includes("race") || n.includes("sprint");
 }
 
+/// Пит-файл требует пересъёма: строки есть, а стационарного времени нет НИ У
+/// ОДНОЙ. Это сигнатура регрессии источника (с Венгрии-2026 stop_duration
+/// перестал считаться; поле дозаполняется задним числом) — а зеркало снимало
+/// pit один раз в день гонки, и дозаполнение иначе не долетело бы никогда.
+/// Пустой файл НЕ лечится: спринт без остановок — валидное состояние.
+export function pitNeedsHeal(rows: unknown): boolean {
+  return Array.isArray(rows) && rows.length > 0 &&
+    !rows.some((r: any) => typeof r?.stop_duration === "number");
+}
+
+/// Потолок пересъёмов за прогон: лечение не должно раздувать бюджет запросов
+/// (регрессия источника может длиться сезон — сейчас это 1 GET на битый раунд
+/// каждый прогон, кап держит худший случай в рамках).
+let pitHealBudget = 6;
+
 // Разовый добор файлов для замороженных раундов — ручек, добавленных ПОЗЖЕ
 // основного зеркала (pit, race_control, weather). Сессии читаем из УЖЕ
 // зеркалированного листинга (без сети), тянем только отсутствующие файлы.
@@ -369,6 +384,19 @@ async function backfillLateHandles(meetingKey: number) {
       if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
       console.log(`  backfill ${rel.split("?")[0]}: meeting ${meetingKey}, session ${s.session_key}`);
       await mirror(rel);
+    }
+    // Самолечение пита: существующий файл без единого stop_duration
+    // переснимаем, пока источник не дозаполнит (или не кончится кап прогона).
+    if (isRaceLike(s.session_name) && pitHealBudget > 0) {
+      const rel = `pit?session_key=${s.session_key}`;
+      try {
+        const rows = JSON.parse(readFileSync(join(OUT_DIR, mirrorSlug(rel)), "utf8"));
+        if (pitNeedsHeal(rows)) {
+          pitHealBudget--;
+          console.log(`  re-mirror pit (нет stop_duration): meeting ${meetingKey}, session ${s.session_key}`);
+          await mirror(rel);
+        }
+      } catch { /* файла нет или бит — это случай добора выше, не лечения */ }
     }
   }
 }

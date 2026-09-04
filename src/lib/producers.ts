@@ -180,6 +180,18 @@ export const PRODUCERS: ProducerSpec[] = [
     workflow: "вручную: npm run fomstatic",
     manual: "livetiming.formula1.com отдаёт 403 раннерам GitHub — снимать можно только локально",
   },
+
+  // Награды DHL Fastest Pit Stop — второй ручной, по той же причине класса
+  // источника (formula1.com блокирует раннеров GitHub) плюс осознанное
+  // решение НЕ скрейпить FOM из крона. Запуск владельцем после этапа, пока
+  // openf1 не отдаёт stop_duration; f1beasts подберёт файл обычным прогоном.
+  {
+    key: "f1pitawards",
+    script: "f1pitawards",
+    budgetDays: 3,
+    workflow: "вручную: npm run f1pitawards",
+    manual: "formula1.com режет раннеров GitHub; скрейп FOM из крона не заводим осознанно",
+  },
   {
     key: "weclive",
     script: "weclive",
