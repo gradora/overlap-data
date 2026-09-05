@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T12:40:28.678Z",
+  "generatedAt": "2026-09-05T15:33:10.220Z",
   "id": "f1-2026-13",
   "season": 2026,
   "parserVersion": 1,
@@ -937,6 +937,279 @@
         {
           "kind": "no_further_action",
           "car": 3
+        }
+      ]
+    },
+    {
+      "key": 11357,
+      "name": "Qualifying",
+      "events": [
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 14
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 1,
+          "reason": "track_limits",
+          "time": "1:39.935"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "finish",
+          "car": 41
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 81,
+          "reason": "track_limits",
+          "time": "1:47.848"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 8
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "investigation",
+          "car": 12
+        },
+        {
+          "kind": "investigation",
+          "car": 12
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 8
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "investigation",
+          "car": 81
+        },
+        {
+          "kind": "investigation",
+          "car": 81,
+          "reason": "impeding"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "no_further_action",
+          "car": 81
+        },
+        {
+          "kind": "finish",
+          "car": 16
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 30,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 2
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "flag",
+          "flag": "YELLOW",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 6
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "investigation",
+          "car": 81,
+          "reason": "impeding"
+        },
+        {
+          "kind": "investigation",
+          "car": 30
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 4
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 3
+        },
+        {
+          "kind": "flag",
+          "flag": "CLEAR",
+          "scope": "Sector",
+          "sector": 7
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "GREEN",
+          "scope": "Track"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 3,
+          "reason": "track_limits",
+          "time": "7:27.050"
+        },
+        {
+          "kind": "session_status"
+        },
+        {
+          "kind": "flag",
+          "flag": "CHEQUERED",
+          "scope": "Track"
+        },
+        {
+          "kind": "finish",
+          "car": 1
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 81,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "lap_deleted",
+          "car": 12,
+          "reason": "track_limits"
+        },
+        {
+          "kind": "no_further_action",
+          "car": 12
+        },
+        {
+          "kind": "no_further_action",
+          "car": 30
         }
       ]
     }
