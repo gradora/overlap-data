@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T15:45:55.962Z",
+  "generatedAt": "2026-09-05T17:54:25.160Z",
   "season": 2026,
   "round": 13,
   "event": "italian_grand_prix",
-  "updated": "2026-09-05 17:02 CET",
+  "updated": "2026-09-05 18:27 CET",
   "penalties": [
     {
       "doc": 19,
@@ -58,6 +58,19 @@
       "publishedAt": "2026-09-04 19:29 CET"
     },
     {
+      "doc": 32,
+      "parser": 3,
+      "car": 25,
+      "driver": "Colton Herta",
+      "session": "Free Practice 1",
+      "type": "fine",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fineEur": 30000,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_25_-_technical_non-conformity_cds.pdf",
+      "publishedAt": "2026-09-05 17:52 CET"
+    },
+    {
       "doc": 39,
       "parser": 3,
       "car": 23,
@@ -93,6 +106,19 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_30_-_change_to_pu_elements.pdf",
       "publishedAt": "2026-09-05 17:02 CET"
+    },
+    {
+      "doc": 47,
+      "parser": 3,
+      "car": 81,
+      "driver": "Oscar Piastri",
+      "session": "Qualifying",
+      "type": "grid",
+      "gridDrop": 3,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_81_-_impeding_of_car_30.pdf",
+      "publishedAt": "2026-09-05 18:27 CET"
     }
   ]
 }
