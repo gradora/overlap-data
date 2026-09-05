@@ -300,7 +300,6 @@ async function produceImsaWeather(wtSegments: string[], round: number, seal: boo
     series: "imsa",
     season: YEAR,
     eventId: `imsa-${YEAR}-${round}`,
-    source: "alkamel",
     parserVersion: AK_WEATHER_PARSER_VERSION,
     final: seal,
     timeAnchor: { method: "utc-column", confidenceSec: 0 },

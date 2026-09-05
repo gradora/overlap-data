@@ -86,7 +86,6 @@ export interface WeatherDoc {
   series: string;
   season: number;
   eventId: string;
-  source: string;
   parserVersion: number;
   /// Окно события закрылось и отстоялось — файл больше не пересобирается
   /// (кроме случая «версия разбора устарела»).

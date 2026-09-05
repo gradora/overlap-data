@@ -57,7 +57,7 @@ test("write-once по final: запечатанный док не трогает
   ] as never))!;
   const doc = {
     schemaVersion: WEATHER_SCHEMA_VERSION, series: "wec", season: 2031,
-    eventId: "wec-2031-imola", source: "alkamel", parserVersion: 1, final: true,
+    eventId: "wec-2031-imola", parserVersion: 1, final: true,
     timeAnchor: { method: "utc-column", confidenceSec: 0 },
     sessions: [sess], summary: summarizeEvent([sess]),
   };

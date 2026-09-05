@@ -105,7 +105,9 @@ const GOLDEN_MATCH_ROUND: Record<number, Record<string, number | null>> = {
     australian_grand_prix: 1, austrian_grand_prix: 8,
     "barcelona-catalunya_grand_prix": null, belgian_grand_prix: 10,
     british_grand_prix: 9, canadian_grand_prix: 5, chinese_grand_prix: 2,
-    dutch_grand_prix: 12, hungarian_grand_prix: 11, japanese_grand_prix: 3,
+    dutch_grand_prix: 12, hungarian_grand_prix: 11,
+    // Первые документы Монцы-2026 приехали 05.09 (гоночный уик-энд).
+    italian_grand_prix: 13, japanese_grand_prix: 3,
     miami_grand_prix: 4, monaco_grand_prix: 6,
   },
 };

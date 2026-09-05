@@ -121,7 +121,6 @@ function buildEvent(
     series: "f1",
     season,
     eventId: event.id,
-    source: "openf1",
     parserVersion: WEATHER_PARSER_VERSION,
     // Печать final — только после границы freeze И при полном зеркале:
     // дыра означает, что архив ещё можно дозаполнить.
@@ -138,10 +137,10 @@ function buildEvent(
     return { outcome: "kept-previous", reason: regression };
   }
 
-  const { series, season: y, eventId, source, parserVersion, final, timeAnchor,
+  const { series, season: y, eventId, parserVersion, final, timeAnchor,
           sessions: out, summary } = merged;
   const changed = writeJSONWithEnvelope(
-    path, { series, season: y, eventId, source, parserVersion, final, timeAnchor,
+    path, { series, season: y, eventId, parserVersion, final, timeAnchor,
             sessions: out, summary },
     WEATHER_SCHEMA_VERSION);
   return { outcome: changed ? "written" : "unchanged" };

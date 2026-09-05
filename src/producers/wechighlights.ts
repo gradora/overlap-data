@@ -295,7 +295,6 @@ async function produceWeather(slug: string, hrefs: string[], seal: boolean): Pro
     series: "wec",
     season: YEAR,
     eventId: `wec-${YEAR}-${slug}`,
-    source: "alkamel",
     parserVersion: AK_WEATHER_PARSER_VERSION,
     final: seal,
     // Время в CSV абсолютное (TIME_UTC_SECONDS) — якорь не вычисляется.

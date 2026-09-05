@@ -132,7 +132,7 @@ test("сводка события: ночь между сессиями не р�
 
 const doc = (sessions: WeatherSession[], over: Partial<WeatherDoc> = {}): WeatherDoc => ({
   schemaVersion: WEATHER_SCHEMA_VERSION, series: "f1", season: 2025, eventId: "f1-2025-1",
-  source: "openf1", parserVersion: WEATHER_PARSER_VERSION, final: false,
+  parserVersion: WEATHER_PARSER_VERSION, final: false,
   timeAnchor: { method: "native", confidenceSec: 0 },
   sessions, summary: summarizeEvent(sessions), ...over,
 });

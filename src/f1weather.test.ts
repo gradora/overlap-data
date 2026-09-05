@@ -74,7 +74,7 @@ test("сборка: погода события собирается из зер
     assert.deepEqual(weatherFiles(root), ["f1-2025-13.json"]);
     const doc = JSON.parse(readFileSync(join(root, "f1", "weather", "f1-2025-13.json"), "utf8"));
     assert.equal(doc.eventId, "f1-2025-13");
-    assert.equal(doc.source, "openf1");
+    assert.equal("source" in doc, false, "происхождение — кухня, в витрину не пишется");
     assert.equal(doc.sessions.length, 2);
     assert.equal(doc.sessions[0].samples.t.length, 10);
     assert.equal(doc.timeAnchor.method, "native", "берём только источник с абсолютным временем");
