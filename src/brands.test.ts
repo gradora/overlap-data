@@ -47,3 +47,20 @@ test("brands.json: числа в физических границах эры с
     }
   }
 });
+
+test("brands.json: разбивка по годам сходится с итогом и не врёт нулями", () => {
+  for (const [s, brands] of Object.entries(doc.brands)) {
+    for (const [slug, f] of Object.entries(brands as Record<string, any>)) {
+      const at = `${s}/${slug}`;
+      if (f.winsByYear == null) continue;
+      const values = Object.values(f.winsByYear) as number[];
+      assert.equal(values.reduce((a, b) => a + b, 0), f.wins,
+        `${at}: сумма winsByYear ≠ wins`);
+      // Нулевые сезоны в разбивку не пишутся — ячейка «×0» в UI не рисуется.
+      assert.ok(values.every((v) => Number.isInteger(v) && v > 0), `${at}: нули в winsByYear`);
+      for (const key of Object.keys(f.winsByYear)) {
+        assert.match(key, /^\d{4}(-\d{2})?$/, `${at}: ключ сезона «${key}»`);
+      }
+    }
+  }
+});

@@ -1,25 +1,157 @@
 {
   "schemaVersion": 1,
-  "note": "Курируемый справочник марок эндуранса для блока Records экрана команды. Семантика: wins — победы в ОБЩЕМ ЗАЧЁТЕ гонок серии машин марки (заводские и клиентские) в top class эры серии (WEC: LMP1/Hypercar с 2012; IMSA WSC: P/DPi/GTP с 2014); titles — манифактурные титулы top class; firstSeason — первый сезон марки В TOP CLASS эры серии. Числа на 04.09.2026 (включая сыгранные гонки), веб-ресёрч с перекрёстной верификацией (workflow wf_43b93e7a, все вердикты CONFIRMED). Обновлять после побед/титулов — правится без релиза.",
+  "note": "Курируемый справочник марок эндуранса для блока Records экрана команды. Семантика: wins — победы в ОБЩЕМ ЗАЧЁТЕ гонок серии машин марки (заводские и клиентские) в top class эры серии (WEC: LMP1/Hypercar с 2012; IMSA WSC: P/DPi/GTP с 2014); titles — манифактурные титулы top class; firstSeason — первый сезон марки В TOP CLASS эры серии. Числа на 04.09.2026 (включая сыгранные гонки), веб-ресёрч с перекрёстной верификацией (workflow wf_43b93e7a, все вердикты CONFIRMED). Обновлять после побед/титулов — правится без релиза. Поле winsByYear (только у марок с победами): разбивка wins по сезонам из тех же верифицированных заметок; ключ — сезон (суперсезоны WEC — строкой вида 2018-19); инвариант «сумма = wins» держит валидатор.",
   "brands": {
     "wec": {
-      "toyota":       { "wins": 51, "titles": 4, "firstSeason": 2012 },
-      "ferrari":      { "wins": 7,  "titles": 1, "firstSeason": 2023 },
-      "porsche":      { "wins": 21, "titles": 3, "firstSeason": 2014 },
-      "bmw":          { "wins": 2,  "titles": 0, "firstSeason": 2024 },
-      "cadillac":     { "wins": 1,  "titles": 0, "firstSeason": 2023 },
-      "alpine":       { "wins": 3,  "titles": 0, "firstSeason": 2021 },
-      "peugeot":      { "wins": 0,  "titles": 0, "firstSeason": 2022 },
-      "aston-martin": { "wins": 0,  "titles": 0, "firstSeason": 2025 },
-      "genesis":      { "wins": 0,  "titles": 0, "firstSeason": 2026 }
+      "toyota": {
+        "wins": 51,
+        "titles": 4,
+        "firstSeason": 2012,
+        "winsByYear": {
+          "2012": 3,
+          "2013": 2,
+          "2014": 5,
+          "2016": 1,
+          "2017": 5,
+          "2018-19": 7,
+          "2019-20": 6,
+          "2021": 6,
+          "2022": 4,
+          "2023": 6,
+          "2024": 3,
+          "2025": 1,
+          "2026": 2
+        }
+      },
+      "ferrari": {
+        "wins": 7,
+        "titles": 1,
+        "firstSeason": 2023,
+        "winsByYear": {
+          "2023": 1,
+          "2024": 2,
+          "2025": 4
+        }
+      },
+      "porsche": {
+        "wins": 21,
+        "titles": 3,
+        "firstSeason": 2014,
+        "winsByYear": {
+          "2014": 1,
+          "2015": 6,
+          "2016": 6,
+          "2017": 4,
+          "2024": 3,
+          "2025": 1
+        }
+      },
+      "bmw": {
+        "wins": 2,
+        "titles": 0,
+        "firstSeason": 2024,
+        "winsByYear": {
+          "2026": 2
+        }
+      },
+      "cadillac": {
+        "wins": 1,
+        "titles": 0,
+        "firstSeason": 2023,
+        "winsByYear": {
+          "2025": 1
+        }
+      },
+      "alpine": {
+        "wins": 3,
+        "titles": 0,
+        "firstSeason": 2021,
+        "winsByYear": {
+          "2022": 2,
+          "2025": 1
+        }
+      },
+      "peugeot": {
+        "wins": 0,
+        "titles": 0,
+        "firstSeason": 2022
+      },
+      "aston-martin": {
+        "wins": 0,
+        "titles": 0,
+        "firstSeason": 2025
+      },
+      "genesis": {
+        "wins": 0,
+        "titles": 0,
+        "firstSeason": 2026
+      }
     },
     "imsa": {
-      "cadillac":     { "wins": 36, "titles": 4, "firstSeason": 2017 },
-      "porsche":      { "wins": 14, "titles": 2, "firstSeason": 2023 },
-      "acura":        { "wins": 25, "titles": 3, "firstSeason": 2018 },
-      "bmw":          { "wins": 3,  "titles": 0, "firstSeason": 2023 },
-      "aston-martin": { "wins": 0,  "titles": 0, "firstSeason": 2025 },
-      "lamborghini":  { "wins": 0,  "titles": 0, "firstSeason": 2024 }
+      "cadillac": {
+        "wins": 36,
+        "titles": 4,
+        "firstSeason": 2017,
+        "winsByYear": {
+          "2017": 7,
+          "2018": 4,
+          "2019": 4,
+          "2020": 3,
+          "2021": 5,
+          "2022": 4,
+          "2023": 2,
+          "2024": 2,
+          "2025": 2,
+          "2026": 3
+        }
+      },
+      "porsche": {
+        "wins": 14,
+        "titles": 2,
+        "firstSeason": 2023,
+        "winsByYear": {
+          "2023": 3,
+          "2024": 4,
+          "2025": 4,
+          "2026": 3
+        }
+      },
+      "acura": {
+        "wins": 25,
+        "titles": 3,
+        "firstSeason": 2018,
+        "winsByYear": {
+          "2018": 1,
+          "2019": 3,
+          "2020": 4,
+          "2021": 3,
+          "2022": 6,
+          "2023": 3,
+          "2024": 2,
+          "2025": 2,
+          "2026": 1
+        }
+      },
+      "bmw": {
+        "wins": 3,
+        "titles": 0,
+        "firstSeason": 2023,
+        "winsByYear": {
+          "2023": 1,
+          "2024": 1,
+          "2025": 1
+        }
+      },
+      "aston-martin": {
+        "wins": 0,
+        "titles": 0,
+        "firstSeason": 2025
+      },
+      "lamborghini": {
+        "wins": 0,
+        "titles": 0,
+        "firstSeason": 2024
+      }
     }
   }
 }
