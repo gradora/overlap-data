@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T19:08:51.723Z",
+  "generatedAt": "2026-09-05T15:45:55.962Z",
   "season": 2026,
   "round": 13,
   "event": "italian_grand_prix",
-  "updated": "2026-09-04 19:29 CET",
+  "updated": "2026-09-05 17:02 CET",
   "penalties": [
     {
       "doc": 19,
@@ -56,6 +56,43 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_18_-_impeding_of_car_1.pdf",
       "publishedAt": "2026-09-04 19:29 CET"
+    },
+    {
+      "doc": 39,
+      "parser": 3,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Free Practice 3",
+      "type": "reprimand",
+      "appliesTo": "Free Practice 3",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_23_-_failure_to_slow_for_double_yellow_flags.pdf",
+      "publishedAt": "2026-09-05 16:20 CET"
+    },
+    {
+      "doc": 40,
+      "parser": 3,
+      "car": 55,
+      "driver": "Carlos Sainz",
+      "session": "Free Practice 3",
+      "type": "none",
+      "appliesTo": "Free Practice 3",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_55_-_failure_to_slow_for_double_yellow_flags.pdf",
+      "publishedAt": "2026-09-05 16:20 CET"
+    },
+    {
+      "doc": 41,
+      "parser": 3,
+      "car": 30,
+      "driver": "Liam Lawson",
+      "session": "Free Practice 3",
+      "type": "grid",
+      "gridDrop": 35,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_30_-_change_to_pu_elements.pdf",
+      "publishedAt": "2026-09-05 17:02 CET"
     }
   ]
 }
