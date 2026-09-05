@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T22:26:12.405Z",
+  "generatedAt": "2026-09-05T01:05:56.110Z",
   "series": "wec",
   "season": 2026,
   "eventKey": "wec-2026-lone-star-le-mans-2026",
@@ -10,7 +10,7 @@
     "season": 2026,
     "round": 5,
     "event": "lone-star-le-mans-2026",
-    "updated": "2026-09-04T22:12:33.000Z",
+    "updated": "2026-09-05T00:01:39.000Z",
     "penalties": [
       {
         "doc": 9,
@@ -165,6 +165,71 @@
         "fineEur": 500,
         "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/025_Doc%2025%20-%20Decision%20no.%2017%20-%20Car%2019.pdf",
         "publishedAt": "2026-09-04T22:12:33.000Z"
+      },
+      {
+        "doc": 27,
+        "parser": 1,
+        "car": 79,
+        "driver": "Johannes ZELGER",
+        "session": "FP2",
+        "type": "stop_go",
+        "seconds": 300,
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/027_Doc%2027%20-%20Decision%20no.%2020%20-%20Car%2079.pdf",
+        "publishedAt": "2026-09-04T22:41:32.000Z"
+      },
+      {
+        "doc": 29,
+        "parser": 1,
+        "car": 15,
+        "driver": "Kevin MAGNUSSEN",
+        "session": "FP2",
+        "type": "fine",
+        "appliesTo": "FP2",
+        "corrected": false,
+        "fineEur": 500,
+        "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/029_Doc%2029%20-%20Decision%20no.%2021%20-%20Car%2015.pdf",
+        "publishedAt": "2026-09-04T23:07:52.000Z"
+      },
+      {
+        "doc": 30,
+        "parser": 1,
+        "car": 23,
+        "driver": "Gray NEWELL",
+        "session": "FP1",
+        "type": "stop_go",
+        "seconds": 300,
+        "appliesTo": "FP1",
+        "corrected": false,
+        "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/030_Doc%2030%20-%20Decision%20no.%2022%20-%20Car%2023.pdf",
+        "publishedAt": "2026-09-04T23:52:07.000Z"
+      },
+      {
+        "doc": 31,
+        "parser": 1,
+        "car": 23,
+        "driver": "Gray NEWELL",
+        "session": "FP1",
+        "type": "stop_go",
+        "seconds": 300,
+        "appliesTo": "FP1",
+        "corrected": false,
+        "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/031_Doc%2031%20-%20Decision%20no.%2023%20-%20Car%2023.pdf",
+        "publishedAt": "2026-09-04T23:57:39.000Z"
+      },
+      {
+        "doc": 32,
+        "parser": 1,
+        "car": 23,
+        "driver": "Gray NEWELL",
+        "session": "FP1",
+        "type": "stop_go",
+        "seconds": 300,
+        "appliesTo": "FP1",
+        "corrected": false,
+        "url": "https://fiawec.alkamelsystems.com/Results_NoticeBoard/14_2026/06_Lone%20Star%20Le%20Mans/032_Doc%2032%20-%20Decision%20no.%2024%20-%20Car%2023.pdf",
+        "publishedAt": "2026-09-05T00:01:39.000Z"
       }
     ]
   },
