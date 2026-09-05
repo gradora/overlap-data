@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T19:29:24.213Z",
+  "generatedAt": "2026-09-05T21:39:17.606Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-monza-1293",
@@ -1408,7 +1408,7 @@
     "season": 2026,
     "round": 13,
     "event": "italian_grand_prix",
-    "updated": "2026-09-05 18:27 CET",
+    "updated": "2026-09-05 20:42 CET",
     "penalties": [
       {
         "doc": 19,
@@ -1524,7 +1524,126 @@
         "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_81_-_impeding_of_car_30.pdf",
         "publishedAt": "2026-09-05 18:27 CET"
       }
-    ]
+    ],
+    "startingGrid": {
+      "kind": "provisional",
+      "doc": 51,
+      "parser": 3,
+      "entries": [
+        {
+          "position": 1,
+          "car": 10
+        },
+        {
+          "position": 2,
+          "car": 63
+        },
+        {
+          "position": 3,
+          "car": 16
+        },
+        {
+          "position": 4,
+          "car": 44
+        },
+        {
+          "position": 5,
+          "car": 3
+        },
+        {
+          "position": 6,
+          "car": 81
+        },
+        {
+          "position": 7,
+          "car": 43
+        },
+        {
+          "position": 8,
+          "car": 1
+        },
+        {
+          "position": 9,
+          "car": 41
+        },
+        {
+          "position": 10,
+          "car": 5
+        },
+        {
+          "position": 11,
+          "car": 87
+        },
+        {
+          "position": 12,
+          "car": 27
+        },
+        {
+          "position": 13,
+          "car": 55
+        },
+        {
+          "position": 14,
+          "car": 31
+        },
+        {
+          "position": 15,
+          "car": 22
+        },
+        {
+          "position": 16,
+          "car": 77
+        },
+        {
+          "position": 17,
+          "car": 11
+        },
+        {
+          "position": 18,
+          "car": 14
+        },
+        {
+          "position": 19,
+          "car": 18
+        },
+        {
+          "position": 20,
+          "car": 12
+        },
+        {
+          "position": 21,
+          "car": 30
+        },
+        {
+          "position": 22,
+          "car": 23
+        }
+      ],
+      "penaltySummary": [
+        {
+          "car": 12,
+          "text": "30 place grid penalty - Additional power unit elements have been used",
+          "doc": 19
+        },
+        {
+          "car": 23,
+          "text": "20 place grid penalty - Additional power unit elements have been used",
+          "doc": 20
+        },
+        {
+          "car": 30,
+          "text": "35 place grid penalty - Additional power unit elements have been used",
+          "doc": 41
+        },
+        {
+          "car": 81,
+          "text": "3 place grid penalty - Impeding another driver",
+          "doc": 47
+        }
+      ],
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_provisional_starting_grid.pdf",
+      "publishedAt": "2026-09-05 20:42 CET"
+    }
   },
   "winners": {
     "season": 2026,
