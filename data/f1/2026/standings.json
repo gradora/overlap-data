@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:54:10.903Z",
+  "generatedAt": "2026-09-06T21:47:30.609Z",
   "series": "f1",
   "season": 2026,
   "frozen": false,
@@ -135,8 +135,8 @@
       "nationality": "Italian",
       "constructorId": "mercedes",
       "constructorName": "Mercedes",
-      "points": 242,
-      "wins": 6,
+      "points": 267,
+      "wins": 7,
       "stages": [
         {
           "round": 1,
@@ -241,6 +241,13 @@
             "points": 5,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 25,
+            "classified": true
+          }
         }
       ]
     },
@@ -254,7 +261,7 @@
       "nationality": "British",
       "constructorId": "mercedes",
       "constructorName": "Mercedes",
-      "points": 183,
+      "points": 201,
       "wins": 2,
       "stages": [
         {
@@ -360,6 +367,13 @@
             "points": 8,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 18,
+            "classified": true
+          }
         }
       ]
     },
@@ -373,7 +387,7 @@
       "nationality": "British",
       "constructorId": "ferrari",
       "constructorName": "Ferrari",
-      "points": 183,
+      "points": 191,
       "wins": 1,
       "stages": [
         {
@@ -479,6 +493,13 @@
             "points": 2,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
         }
       ]
     },
@@ -492,7 +513,7 @@
       "nationality": "British",
       "constructorId": "mclaren",
       "constructorName": "McLaren",
-      "points": 159,
+      "points": 171,
       "wins": 2,
       "stages": [
         {
@@ -596,6 +617,13 @@
           },
           "sprint": {
             "points": 6,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 12,
             "classified": true
           }
         }
@@ -717,6 +745,13 @@
             "points": 7,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
         }
       ]
     },
@@ -730,7 +765,7 @@
       "nationality": "Dutch",
       "constructorId": "red_bull",
       "constructorName": "Red Bull",
-      "points": 112,
+      "points": 127,
       "wins": 0,
       "stages": [
         {
@@ -836,6 +871,13 @@
             "points": 3,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
         }
       ]
     },
@@ -849,7 +891,7 @@
       "nationality": "Australian",
       "constructorId": "mclaren",
       "constructorName": "McLaren",
-      "points": 104,
+      "points": 116,
       "wins": 0,
       "stages": [
         {
@@ -902,7 +944,7 @@
         {
           "round": 6,
           "race": {
-            "points": 10,
+            "points": 12,
             "classified": true
           }
         },
@@ -955,6 +997,13 @@
             "points": 4,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 10,
+            "classified": true
+          }
         }
       ]
     },
@@ -968,7 +1017,7 @@
       "nationality": "French",
       "constructorId": "red_bull",
       "constructorName": "Red Bull",
-      "points": 68,
+      "points": 71,
       "wins": 0,
       "stages": [
         {
@@ -1021,7 +1070,7 @@
         {
           "round": 6,
           "race": {
-            "points": 12,
+            "points": 15,
             "classified": true
           }
         },
@@ -1076,7 +1125,7 @@
       "nationality": "New Zealander",
       "constructorId": "rb",
       "constructorName": "RB F1 Team",
-      "points": 49,
+      "points": 51,
       "wins": 0,
       "stages": [
         {
@@ -1129,7 +1178,7 @@
         {
           "round": 6,
           "race": {
-            "points": 8,
+            "points": 10,
             "classified": true
           }
         },
@@ -1179,6 +1228,13 @@
             "classified": true
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -1195,7 +1251,7 @@
       "nationality": "French",
       "constructorId": "alpine",
       "constructorName": "Alpine F1 Team",
-      "points": 44,
+      "points": 41,
       "wins": 0,
       "stages": [
         {
@@ -1248,7 +1304,7 @@
         {
           "round": 6,
           "race": {
-            "points": 15,
+            "points": 6,
             "classified": true
           }
         },
@@ -1299,6 +1355,13 @@
           },
           "sprint": {
             "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 6,
             "classified": true
           }
         }
@@ -1314,7 +1377,7 @@
       "nationality": "British",
       "constructorId": "rb",
       "constructorName": "RB F1 Team",
-      "points": 23,
+      "points": 29,
       "wins": 0,
       "stages": [
         {
@@ -1367,7 +1430,7 @@
         {
           "round": 6,
           "race": {
-            "points": 6,
+            "points": 8,
             "classified": true
           }
         },
@@ -1420,6 +1483,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 4,
+            "classified": true
+          }
         }
       ]
     },
@@ -1433,7 +1503,7 @@
       "nationality": "Argentine",
       "constructorId": "alpine",
       "constructorName": "Alpine F1 Team",
-      "points": 19,
+      "points": 21,
       "wins": 0,
       "stages": [
         {
@@ -1537,6 +1607,13 @@
           },
           "sprint": {
             "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 2,
             "classified": true
           }
         }
@@ -1655,6 +1732,13 @@
             "classified": false
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -1777,6 +1861,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
         }
       ]
     },
@@ -1896,6 +1987,13 @@
             "points": 0,
             "classified": false
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
         }
       ]
     },
@@ -2012,6 +2110,13 @@
             "classified": true
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -2134,6 +2239,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
         }
       ]
     },
@@ -2250,6 +2362,13 @@
             "classified": false
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -2372,6 +2491,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
         }
       ]
     },
@@ -2385,7 +2511,7 @@
       "nationality": "Japanese",
       "constructorId": "rb",
       "constructorName": "RB F1 Team",
-      "points": 0,
+      "points": 1,
       "wins": 0,
       "stages": [
         {
@@ -2396,6 +2522,13 @@
           },
           "sprint": {
             "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 1,
             "classified": true
           }
         }
@@ -2517,6 +2650,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
         }
       ]
     },
@@ -2633,6 +2773,13 @@
             "classified": false
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -2755,6 +2902,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
         }
       ]
     }
@@ -2765,8 +2919,8 @@
       "constructorId": "mercedes",
       "name": "Mercedes",
       "nationality": "German",
-      "points": 425,
-      "wins": 8,
+      "points": 468,
+      "wins": 9,
       "stages": [
         {
           "round": 1,
@@ -2871,6 +3025,13 @@
             "points": 13,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 43,
+            "classified": true
+          }
         }
       ]
     },
@@ -2879,7 +3040,7 @@
       "constructorId": "ferrari",
       "name": "Ferrari",
       "nationality": "Italian",
-      "points": 338,
+      "points": 346,
       "wins": 2,
       "stages": [
         {
@@ -2985,6 +3146,13 @@
             "points": 9,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 8,
+            "classified": true
+          }
         }
       ]
     },
@@ -2993,7 +3161,7 @@
       "constructorId": "mclaren",
       "name": "McLaren",
       "nationality": "British",
-      "points": 263,
+      "points": 287,
       "wins": 2,
       "stages": [
         {
@@ -3046,7 +3214,7 @@
         {
           "round": 6,
           "race": {
-            "points": 10,
+            "points": 12,
             "classified": true
           }
         },
@@ -3099,6 +3267,13 @@
             "points": 10,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 22,
+            "classified": true
+          }
         }
       ]
     },
@@ -3107,7 +3282,7 @@
       "constructorId": "red_bull",
       "name": "Red Bull",
       "nationality": "Austrian",
-      "points": 186,
+      "points": 204,
       "wins": 0,
       "stages": [
         {
@@ -3160,7 +3335,7 @@
         {
           "round": 6,
           "race": {
-            "points": 12,
+            "points": 15,
             "classified": true
           }
         },
@@ -3213,6 +3388,13 @@
             "points": 3,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 15,
+            "classified": true
+          }
         }
       ]
     },
@@ -3221,7 +3403,7 @@
       "constructorId": "rb",
       "name": "RB F1 Team",
       "nationality": "Italian",
-      "points": 66,
+      "points": 75,
       "wins": 0,
       "stages": [
         {
@@ -3274,7 +3456,7 @@
         {
           "round": 6,
           "race": {
-            "points": 14,
+            "points": 18,
             "classified": true
           }
         },
@@ -3327,6 +3509,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 5,
+            "classified": true
+          }
         }
       ]
     },
@@ -3335,7 +3524,7 @@
       "constructorId": "alpine",
       "name": "Alpine F1 Team",
       "nationality": "French",
-      "points": 63,
+      "points": 62,
       "wins": 0,
       "stages": [
         {
@@ -3388,7 +3577,7 @@
         {
           "round": 6,
           "race": {
-            "points": 15,
+            "points": 6,
             "classified": true
           }
         },
@@ -3439,6 +3628,13 @@
           },
           "sprint": {
             "points": 1,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 8,
             "classified": true
           }
         }
@@ -3552,6 +3748,13 @@
             "classified": false
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -3669,6 +3872,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": true
+          }
         }
       ]
     },
@@ -3780,6 +3990,13 @@
             "classified": true
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }
@@ -3897,6 +4114,13 @@
             "points": 0,
             "classified": true
           }
+        },
+        {
+          "round": 13,
+          "race": {
+            "points": 0,
+            "classified": false
+          }
         }
       ]
     },
@@ -4008,6 +4232,13 @@
             "classified": true
           },
           "sprint": {
+            "points": 0,
+            "classified": true
+          }
+        },
+        {
+          "round": 13,
+          "race": {
             "points": 0,
             "classified": true
           }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T16:58:29.306Z",
+  "generatedAt": "2026-09-06T21:42:02.981Z",
   "season": 2026,
   "records": [
     {
@@ -68,11 +68,11 @@
       "subject": "alonso",
       "header": "MILESTONE",
       "driver": "#14 F. Alonso",
-      "title": "437 GRANDS PRIX",
-      "note": "13 more for a landmark 450 — extending his own all-time record.",
-      "progress": 0.9711111111111111,
+      "title": "438 GRANDS PRIX",
+      "note": "12 more for a landmark 450 — extending his own all-time record.",
+      "progress": 0.9733333333333334,
       "teamId": "aston_martin",
-      "barLeft": "437",
+      "barLeft": "438",
       "barRight": "450",
       "dedupKey": "gp-450-alonso"
     },
@@ -93,11 +93,11 @@
       "subject": "max_verstappen",
       "header": "CHASING",
       "driver": "#3 M. Verstappen",
-      "title": "131 PODIUMS",
-      "note": "24 podiums from passing Michael Schumacher’s 155.",
-      "progress": 0.8451612903225807,
+      "title": "132 PODIUMS",
+      "note": "23 podiums from passing Michael Schumacher’s 155.",
+      "progress": 0.8516129032258064,
       "teamId": "red_bull",
-      "barLeft": "131",
+      "barLeft": "132",
       "barRight": "155"
     },
     {
@@ -118,11 +118,11 @@
       "header": "RECORD",
       "driver": "#44 L. Hamilton",
       "title": "207 PODIUMS",
-      "note": "On the podium in more than half of his 392 Grands Prix.",
-      "progress": 0.5280612244897959,
+      "note": "On the podium in more than half of his 393 Grands Prix.",
+      "progress": 0.5267175572519084,
       "teamId": "ferrari",
       "barLeft": "PODIUMS",
-      "barRight": "207/392"
+      "barRight": "207/393"
     }
   ],
   "bySubject": {
@@ -156,7 +156,7 @@
       "header": "CLOSING IN",
       "driver": "Aston Martin",
       "title": "9 PODIUMS",
-      "note": "Aston Martin sits 6th for podiums among the teams on the grid, 292 behind Red Bull.",
+      "note": "Aston Martin sits 6th for podiums among the teams on the grid, 294 behind Red Bull.",
       "progress": 0.9,
       "teamId": "aston_martin",
       "barLeft": "9",
@@ -186,6 +186,18 @@
       "barLeft": "23",
       "barRight": "25"
     },
+    "antonelli": {
+      "id": "near-antonelli-wins",
+      "subject": "antonelli",
+      "header": "CLOSING IN",
+      "driver": "#12 A. Antonelli",
+      "title": "7 WINS",
+      "note": "All seven of Andrea Kimi Antonelli’s wins have come this season.",
+      "progress": 0.7,
+      "teamId": "mercedes",
+      "barLeft": "7",
+      "barRight": "10"
+    },
     "russell": {
       "id": "near-russell-wins",
       "subject": "russell",
@@ -198,42 +210,6 @@
       "barLeft": "7",
       "barRight": "10"
     },
-    "team:alpine": {
-      "id": "near-team:alpine-podiums",
-      "subject": "team:alpine",
-      "header": "CLOSING IN",
-      "driver": "Alpine F1 Team",
-      "title": "7 PODIUMS",
-      "note": "Alpine F1 Team sits 7th for podiums among the teams on the grid, two behind Aston Martin.",
-      "progress": 0.7,
-      "teamId": "alpine",
-      "barLeft": "7",
-      "barRight": "10"
-    },
-    "antonelli": {
-      "id": "near-antonelli-poles",
-      "subject": "antonelli",
-      "header": "CLOSING IN",
-      "driver": "#12 A. Antonelli",
-      "title": "6 POLES",
-      "note": "All six of Andrea Kimi Antonelli’s poles have come this season.",
-      "progress": 0.6,
-      "teamId": "mercedes",
-      "barLeft": "6",
-      "barRight": "10"
-    },
-    "gasly": {
-      "id": "near-gasly-podiums",
-      "subject": "gasly",
-      "header": "CLOSING IN",
-      "driver": "#10 P. Gasly",
-      "title": "6 PODIUMS",
-      "note": "Pierre Gasly sits 12th for podiums on the current grid, seven behind Andrea Kimi Antonelli.",
-      "progress": 0.6,
-      "teamId": "alpine",
-      "barLeft": "6",
-      "barRight": "10"
-    },
     "perez": {
       "id": "near-perez-wins",
       "subject": "perez",
@@ -244,6 +220,30 @@
       "progress": 0.6,
       "teamId": "cadillac",
       "barLeft": "6",
+      "barRight": "10"
+    },
+    "team:alpine": {
+      "id": "near-team:alpine-podiums",
+      "subject": "team:alpine",
+      "header": "CLOSING IN",
+      "driver": "Alpine F1 Team",
+      "title": "6 PODIUMS",
+      "note": "Alpine F1 Team sits 7th for podiums among the teams on the grid, three behind Aston Martin.",
+      "progress": 0.6,
+      "teamId": "alpine",
+      "barLeft": "6",
+      "barRight": "10"
+    },
+    "gasly": {
+      "id": "near-gasly-podiums",
+      "subject": "gasly",
+      "header": "CLOSING IN",
+      "driver": "#10 P. Gasly",
+      "title": "5 PODIUMS",
+      "note": "Pierre Gasly sits 12th for podiums on the current grid, nine behind Andrea Kimi Antonelli.",
+      "progress": 0.5,
+      "teamId": "alpine",
+      "barLeft": "5",
       "barRight": "10"
     },
     "sainz": {
@@ -276,7 +276,7 @@
       "header": "CLOSING IN",
       "driver": "#31 E. Ocon",
       "title": "4 PODIUMS",
-      "note": "Esteban Ocon sits 13th for podiums on the current grid, two behind Pierre Gasly.",
+      "note": "Esteban Ocon sits 13th for podiums on the current grid, one behind Pierre Gasly.",
       "progress": 0.4,
       "teamId": "haas",
       "barLeft": "4",
@@ -311,11 +311,11 @@
       "subject": "hadjar",
       "header": "CLOSING IN",
       "driver": "#6 I. Hadjar",
-      "title": "1 PODIUMS",
-      "note": "Isack Hadjar sits 16th for podiums on the current grid, one behind Alexander Albon.",
-      "progress": 0.1,
+      "title": "2 PODIUMS",
+      "note": "Isack Hadjar sits 15th for podiums on the current grid, one behind Lance Stroll.",
+      "progress": 0.2,
       "teamId": "red_bull",
-      "barLeft": "1",
+      "barLeft": "2",
       "barRight": "10"
     },
     "hulkenberg": {
@@ -324,7 +324,7 @@
       "header": "CLOSING IN",
       "driver": "#27 N. Hülkenberg",
       "title": "1 PODIUMS",
-      "note": "Nico Hülkenberg sits 16th for podiums on the current grid, one behind Alexander Albon.",
+      "note": "Nico Hülkenberg sits 17th for podiums on the current grid, one behind Isack Hadjar.",
       "progress": 0.1,
       "teamId": "audi",
       "barLeft": "1",
@@ -336,7 +336,7 @@
       "header": "CLOSING IN",
       "driver": "RB F1 Team",
       "title": "1 PODIUMS",
-      "note": "RB F1 Team sits 8th for podiums among the teams on the grid, six behind Alpine F1 Team.",
+      "note": "RB F1 Team sits 8th for podiums among the teams on the grid, five behind Alpine F1 Team.",
       "progress": 0.1,
       "teamId": "rb",
       "barLeft": "1",
@@ -347,11 +347,11 @@
       "subject": "team:mercedes",
       "header": "CLOSING IN",
       "driver": "Mercedes",
-      "title": "139 WINS",
-      "note": "Eight of Mercedes’s 139 wins have come this season — the first of them back in 1954.",
-      "progress": 0.9266666666666666,
+      "title": "140 WINS",
+      "note": "Nine of Mercedes’s 140 wins have come this season — the first of them back in 1954.",
+      "progress": 0.9333333333333333,
       "teamId": "mercedes",
-      "barLeft": "139",
+      "barLeft": "140",
       "barRight": "150"
     },
     "team:red_bull": {
@@ -360,7 +360,7 @@
       "header": "CLOSING IN",
       "driver": "Red Bull",
       "title": "130 WINS",
-      "note": "Red Bull sits 4th for wins among the teams on the grid, nine behind Mercedes.",
+      "note": "Red Bull sits 4th for wins among the teams on the grid, ten behind Mercedes.",
       "progress": 0.8666666666666667,
       "teamId": "red_bull",
       "barLeft": "130",
@@ -384,7 +384,7 @@
       "header": "CLOSING IN",
       "driver": "Williams",
       "title": "316 PODIUMS",
-      "note": "Williams sits 4th for podiums among the teams on the grid, ten behind Mercedes.",
+      "note": "Williams sits 4th for podiums among the teams on the grid, 12 behind Mercedes.",
       "progress": 0.9028571428571428,
       "teamId": "williams",
       "barLeft": "316",
