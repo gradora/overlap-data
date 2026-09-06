@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T16:15:10.003Z",
+  "generatedAt": "2026-09-06T17:10:58.840Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-monza-1293",
@@ -1650,7 +1650,7 @@
     "season": 2026,
     "round": 13,
     "event": "italian_grand_prix",
-    "updated": "2026-09-06 16:04 CET",
+    "updated": "2026-09-06 17:02 CET",
     "penalties": [
       {
         "doc": 19,
@@ -1827,6 +1827,43 @@
         "corrected": false,
         "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_43_-_failure_to_follow_race_directors_instruction_-_practice_start.pdf",
         "publishedAt": "2026-09-06 16:04 CET"
+      },
+      {
+        "doc": 63,
+        "parser": 3,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_decision_-_car_30_-_turn_4_incident_with_car_27.pdf",
+        "publishedAt": "2026-09-06 16:43 CET"
+      },
+      {
+        "doc": 64,
+        "parser": 3,
+        "car": 11,
+        "driver": "Sergio Perez",
+        "session": "Race",
+        "type": "time",
+        "seconds": 5,
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_11_-_failure_to_follow_race_directors_instruction_-_turns_1_and_2.pdf",
+        "publishedAt": "2026-09-06 16:56 CET"
+      },
+      {
+        "doc": 65,
+        "parser": 3,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_decision_-_car_63_-_alleged_failure_to_slow_for_yellow_flags.pdf",
+        "publishedAt": "2026-09-06 17:02 CET"
       }
     ],
     "startingGrid": {
