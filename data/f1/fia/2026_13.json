@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T19:55:31.143Z",
+  "generatedAt": "2026-09-06T11:12:54.073Z",
   "season": 2026,
   "round": 13,
   "event": "italian_grand_prix",
-  "updated": "2026-09-05 20:42 CET",
+  "updated": "2026-09-06 13:01 CET",
   "penalties": [
     {
       "doc": 19,
@@ -119,6 +119,44 @@
       "corrected": false,
       "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_81_-_impeding_of_car_30.pdf",
       "publishedAt": "2026-09-05 18:27 CET"
+    },
+    {
+      "doc": 55,
+      "parser": 3,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Free Practice 3",
+      "type": "warning",
+      "appliesTo": "Free Practice 3",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_23_-_failure_to_follow_race_directors_instructions_.pdf",
+      "publishedAt": "2026-09-06 12:06 CET"
+    },
+    {
+      "doc": 56,
+      "parser": 3,
+      "car": 14,
+      "driver": "Fernando Alonso",
+      "session": "Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_14_-_pu_elements_changed_during_parc_ferme.pdf",
+      "publishedAt": "2026-09-06 12:54 CET"
+    },
+    {
+      "doc": 57,
+      "parser": 3,
+      "car": 30,
+      "driver": "Liam Lawson",
+      "session": "Qualifying",
+      "type": "grid",
+      "pitlane": true,
+      "appliesTo": "race",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_infringement_-_car_30_-_changes_made_under_parc_ferme.pdf",
+      "publishedAt": "2026-09-06 13:01 CET"
     }
   ],
   "startingGrid": {
