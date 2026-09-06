@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T11:12:54.073Z",
+  "generatedAt": "2026-09-06T13:44:57.447Z",
   "season": 2026,
   "round": 13,
   "event": "italian_grand_prix",
-  "updated": "2026-09-06 13:01 CET",
+  "updated": "2026-09-06 14:00 CET",
   "penalties": [
     {
       "doc": 19,
@@ -160,8 +160,8 @@
     }
   ],
   "startingGrid": {
-    "kind": "provisional",
-    "doc": 51,
+    "kind": "final",
+    "doc": 59,
     "parser": 3,
     "entries": [
       {
@@ -234,23 +234,19 @@
       },
       {
         "position": 18,
-        "car": 14
-      },
-      {
-        "position": 19,
         "car": 18
       },
       {
-        "position": 20,
+        "position": 19,
         "car": 12
       },
       {
-        "position": 21,
-        "car": 30
+        "position": 20,
+        "car": 23
       },
       {
-        "position": 22,
-        "car": 23
+        "position": 50,
+        "car": 30
       }
     ],
     "penaltySummary": [
@@ -273,9 +269,19 @@
         "car": 81,
         "text": "3 place grid penalty - Impeding another driver",
         "doc": 47
+      },
+      {
+        "car": 14,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions and additional power unit elements have been used",
+        "doc": 56
+      },
+      {
+        "car": 30,
+        "text": "Required to start from the pit lane - Car modified whilst under Parc Fermé conditions",
+        "doc": 57
       }
     ],
-    "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_provisional_starting_grid.pdf",
-    "publishedAt": "2026-09-05 20:42 CET"
+    "url": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_final_starting_grid.pdf",
+    "publishedAt": "2026-09-06 14:00 CET"
   }
 }
