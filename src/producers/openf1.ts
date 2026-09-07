@@ -11,12 +11,28 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
+import {
+  PIT_HEAL_SINCE_SEASON, factComplete, frozenMeetingComplete, isRaceLike,
+  openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
+} from "../lib/openf1facts.js";
+
+// Реэкспорт: isRaceLike/pitNeedsHeal переехали в lib/openf1facts.ts (матрица
+// полноты обязана считать race-like и здоровье пита той же функцией, что
+// писатель, а lib не может импортировать продьюсер). Импорты тестов и соседей
+// не меняются.
+export { isRaceLike, pitNeedsHeal };
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1 = "https://api.openf1.org/v1";
 const OUT_DIR = join(process.cwd(), "data", "f1", "openf1");
 const JOLPICA_DIR = join(process.cwd(), "data", "f1", "jolpica");
 const NOW = Date.now();
+
+// Манифест конвертации `_extractor` (этап 0: семейств в нём нет — всё сырьё,
+// оракул полноты живёт по existsSync; посемейная конвертация этапов 1–3 будет
+// добавлять записи). Читается раз на прогон — писатель манифест по ходу прогона
+// не меняет, кроме бейслайна дыр в предполёте.
+const MANIFEST = readOpenf1Manifest(OUT_DIR);
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -200,12 +216,16 @@ export function snapshotMode(year: number, currentYear: number): "historic" | "f
 
 const FUTURE = snapshotMode(YEAR, new Date().getUTCFullYear()) === "future";
 
-// Как mirror(), но при уже существующем файле читает его с диска без сети.
+// Как mirror(), но при уже ПОЛНОМ факте читает его с диска без сети. Пропуск —
+// через оракул, не existsSync (амендмент 5): после конвертации семейства
+// existsSync считал бы устаревший/битый файл собранным, и historic-добор
+// никогда бы его не перечитал. Для неконвертированных семейств оракул и есть
+// existsSync — поведение сегодняшнего сырья не меняется; бонус: битый JSON
+// теперь переснимается, а не возвращает null навсегда.
 async function mirrorIfMissing(relative: string): Promise<any | null> {
-  const f = join(OUT_DIR, mirrorSlug(relative));
-  if (existsSync(f)) {
+  if (factComplete(OUT_DIR, MANIFEST, relative)) {
     try {
-      return JSON.parse(readFileSync(f, "utf8"));
+      return JSON.parse(readFileSync(join(OUT_DIR, mirrorSlug(relative)), "utf8"));
     } catch {
       return null;
     }
@@ -216,6 +236,13 @@ async function mirrorIfMissing(relative: string): Promise<any | null> {
 async function historicBackfill(meetings: any[]) {
   for (const m of meetings) {
     const key = m.meeting_key;
+    // Отменённый митинг — вне целей добора целиком (то же решение, что в
+    // main): источник данных его сессий не отдаёт никогда, historic-прогон
+    // жёг бы по ~20 MISS-GET на каждый заход (Эмилия-Романья-2023).
+    if (m?.is_cancelled === true) {
+      console.log(`  historic meeting ${key} (${m.meeting_name ?? "?"}): отменён — пропуск`);
+      continue;
+    }
     const sessions = await mirrorIfMissing(`sessions?meeting_key=${key}`);
     await mirrorIfMissing(`drivers?meeting_key=${key}`);
     for (const s of Array.isArray(sessions) ? sessions : []) {
@@ -238,13 +265,31 @@ async function historicBackfill(meetings: any[]) {
 /// добавленная сегодня, никогда бы не появилась у архива. Здесь идём от
 /// листингов на диске, а не от календаря: что зеркалили, то и дозаполняем.
 async function backfillAllMirrored() {
+  // Кап добора здесь СНЯТ по умолчанию (в кроновом пути он остаётся):
+  // BACKFILL=late — ручной операторский прогон при гашёных кронах, его смысл —
+  // дообойти ВСЁ зеркало за раз (массовый бамп версии парсера, новая ручка в
+  // wanted); кроновые 40 GET растянули бы такую перекачку на месяцы прогонов.
+  // BACKFILL_GET_CAP=N — опция оператора ограничить прогон вручную.
+  const capEnv = Number(process.env.BACKFILL_GET_CAP);
+  backfillGetBudget = Number.isFinite(capEnv) && capEnv > 0 ? capEnv : Infinity;
+  const index = openf1MeetingIndex(OUT_DIR);
   const listings = readdirSync(OUT_DIR).filter((f: string) => f.startsWith("sessions_meeting_key_"));
-  console.log(`Добор поздних ручек по зеркалу: ${listings.length} митингов`);
+  console.log(`Добор поздних ручек по зеркалу: ${listings.length} митингов` +
+    (backfillGetBudget !== Infinity ? `, кап ${backfillGetBudget} GET` : ", без капа"));
   let done = 0;
   for (const file of listings) {
     const key = Number(file.replace("sessions_meeting_key_", ""));
     if (!Number.isFinite(key)) continue;
+    const meta = index.get(key);
+    // Отменённые — вне целей добора целиком (см. main). Листинг без строки
+    // митинга в meetings_year_* — аномалия (кандидат в сироты этапа 4), но
+    // добор по нему не запрещаем: неизвестность — не отменённость.
+    if (meta?.cancelled) continue;
     await backfillLateHandles(key);
+    // Лечение пита гейтится сезоном (PIT_HEAL_SINCE_SEASON): архив 2023–25
+    // источник не дозаполняет, жечь на нём кап лечения бессмысленно.
+    // Неизвестный год читаем как «архивный» — не лечим.
+    if ((meta?.year ?? 0) >= PIT_HEAL_SINCE_SEASON) await healMeetingPits(key);
     done++;
   }
   console.log(`Done (добор по ${done} митингам).`);
@@ -286,8 +331,6 @@ async function main() {
     const key = t.meeting.meeting_key;
     // Freeze по возрасту финиша (7д): в окне оседания результата ещё тянем
     // (штраф/апелляция могут поменять классификацию), после — не рескрейпим.
-    // Исключение — разовый добор pit/race_control из уже зеркалированного
-    // листинга (ручки добавили позже основного зеркала): существующие не тянем.
     // «Заморожено» обязано значить «не ПЕРЕскрейпливать», а не «не получить
     // вовсе». Митинг, которого в зеркале нет НИ ОДНОГО файла, не собран ни
     // разу — и гейт по возрасту закрывал ему дорогу навсегда: добор поздних
@@ -295,10 +338,30 @@ async function main() {
     // предсезонные тесты 2026 (митинги 1304/1305, февраль): у источника
     // сессии есть по сей день, а у нас их не было, и приложение показывало
     // прошедший этап как «уточняется».
+    //
+    // Заморозка меряется ПОЛНОТОЙ по оракулу, а не наличием листинга
+    // (амендмент 5): «заморожен И полон» → пропуск без единого обращения к
+    // диску источника; «заморожен, но дыряв/устарел/пит болен» → добор.
+    // Прежняя де-факто заморозка «по наличию листинга» и была источником дыр
+    // класса «session_result Японии-2026 нет, а прогон зелёный».
     const neverMirrored = !existsSync(join(OUT_DIR, mirrorSlug(`sessions?meeting_key=${key}`)));
     const frozen = isFrozen(t.finishMs, NOW);
+    // Отменённый замороженный митинг — вне матрицы полноты и вне целей добора
+    // ЦЕЛИКОМ: источник данных отменённых сессий не отдаёт никогда, и добор
+    // жёг бы кап перпетуальными MISS-GET (64 «вечные» дыры Эмилии-2023 и
+    // Бахрейна/Сауди-2026 голодали кап у живых дыр). Уже снятые файлы
+    // остаются лежать (этап 4: GC не должен посчитать их сиротами — их митинг
+    // жив в meetings_year_*). Оговорка: этап, отменённый ПОСЛЕ отгонявшихся
+    // сессий, теряет только хвосты добора — снятое живым путём (ветка ниже,
+    // пока не заморожен) остаётся.
+    if (frozen && t.meeting?.is_cancelled === true) continue;
     if (frozen && !neverMirrored) {
-      await backfillLateHandles(key);
+      if (!frozenMeetingComplete(OUT_DIR, MANIFEST, key)) await backfillLateHandles(key);
+      // Больной пит — не неполнота, лечение — отдельный канал со своим капом
+      // (иначе «полон → пропуск» выключил бы самолечение stop_duration у
+      // замороженных раундов). Кроновый путь ходит только по текущему сезону,
+      // поэтому гейт PIT_HEAL_SINCE_SEASON здесь — сравнение YEAR.
+      if (YEAR >= PIT_HEAL_SINCE_SEASON) await healMeetingPits(key);
       continue;
     }
     if (frozen) {
@@ -333,24 +396,18 @@ async function main() {
     }
     console.log(`  ${t.reason} meeting ${key} (${t.meeting.meeting_name ?? "?"}): ${Array.isArray(sessions) ? sessions.length : 0} sessions`);
   }
+  // Предполёт (амендмент 4) — ТРЕВОГА, не гейт коммита: throw красит шаг
+  // (в воркфлоу он с continue-on-error), гейт продьюсеров шлёт письмо, а
+  // данные прогона публикуются коммитом if: always(). Храповик — по-митинговая
+  // карта дыр + счёт замороженных по годам в манифесте; warning-канал
+  // (сплошной null keep-поля) печатается, но job не валит. Staleness дырой не
+  // считается — устаревшие факты добираются с капом GET выше.
+  const preflight = preflightOpenf1Holes(OUT_DIR, NOW);
+  for (const w of preflight.warnings) console.warn(`  предупреждение: ${w}`);
+  const mapped = Object.values(preflight.baseline.perMeeting).reduce((a, b) => a + b, 0);
+  console.log(`  предполёт: ${preflight.holes.length} дыр (карта бейслайна: ${mapped}` +
+    `${preflight.initialized ? ", записана впервые" : ""})`);
   console.log("Done.");
-}
-
-// «Race»/«Sprint» (но не Sprint Qualifying/Shootout).
-export function isRaceLike(name: unknown): boolean {
-  const n = String(name ?? "").toLowerCase();
-  if (n.includes("qual") || n.includes("shootout")) return false;
-  return n.includes("race") || n.includes("sprint");
-}
-
-/// Пит-файл требует пересъёма: строки есть, а стационарного времени нет НИ У
-/// ОДНОЙ. Это сигнатура регрессии источника (с Венгрии-2026 stop_duration
-/// перестал считаться; поле дозаполняется задним числом) — а зеркало снимало
-/// pit один раз в день гонки, и дозаполнение иначе не долетело бы никогда.
-/// Пустой файл НЕ лечится: спринт без остановок — валидное состояние.
-export function pitNeedsHeal(rows: unknown): boolean {
-  return Array.isArray(rows) && rows.length > 0 &&
-    !rows.some((r: any) => typeof r?.stop_duration === "number");
 }
 
 /// Потолок пересъёмов за прогон: лечение не должно раздувать бюджет запросов
@@ -358,9 +415,26 @@ export function pitNeedsHeal(rows: unknown): boolean {
 /// каждый прогон, кап держит худший случай в рамках).
 let pitHealBudget = 6;
 
-// Разовый добор файлов для замороженных раундов — ручек, добавленных ПОЗЖЕ
-// основного зеркала (pit, race_control, weather). Сессии читаем из УЖЕ
-// зеркалированного листинга (без сети), тянем только отсутствующие файлы.
+/// Суммарный кап GET добора на КРОНОВЫЙ прогон. Добор — фоновая починка, а не
+/// основной съём: массовый источник работы (бамп версии парсера всего
+/// семейства после этапов 1–3, новая ручка в wanted) не должен выжирать
+/// бюджет OpenF1 (~5 rps без ключа) и рейт-лимитить основной съём. 40 ≈ два
+/// митинга целиком (по ~21 файлу матрицы) ≈ минута сети при паузе 1.2с —
+/// большой добор растягивается на прогоны крона, каждый прогон продвигает
+/// архив и коммитит добранное. В режиме BACKFILL=late кап по умолчанию СНЯТ
+/// (backfillAllMirrored, опция BACKFILL_GET_CAP=N). Кап пит-лечения (6)
+/// отдельный: у лечения свой худший случай — регрессия источника длиной в
+/// сезон.
+const BACKFILL_GET_CAP = 40;
+let backfillGetBudget: number = BACKFILL_GET_CAP;
+
+// Разовый добор файлов для замороженных раундов — дыр матрицы полноты: ручек,
+// добавленных позже основного зеркала (pit, race_control, weather), и семейств,
+// которые до амендмента 5 не добирались вовсе (session_result, stints — живые
+// дыры Японии-2026), плюс drivers митинга. Отменённые митинги сюда не
+// попадают — вызывающие исключают их из целей добора целиком. Сессии читаем
+// из УЖЕ зеркалированного листинга (без сети), тянем только то, что оракул
+// полноты считает отсутствующим/устаревшим.
 //
 // Без этого добора новая ручка появлялась бы только у будущих уик-эндов:
 // замороженные митинги основной цикл пропускает целиком, и архив остался бы
@@ -374,30 +448,59 @@ async function backfillLateHandles(meetingKey: number) {
   } catch {
     return;   // листинга нет — раунд не зеркалился вовсе
   }
+  // Скип — по оракулу, не existsSync (амендмент 5): после конвертации
+  // семейства existsSync считал бы устаревший факт добранным навсегда.
+  const backfill = async (rel: string) => {
+    if (factComplete(OUT_DIR, MANIFEST, rel)) return;
+    if (backfillGetBudget <= 0) return;
+    backfillGetBudget--;
+    console.log(`  backfill ${rel.split("?")[0]}: meeting ${meetingKey}`);
+    await mirror(rel);
+  };
+  await backfill(`drivers?meeting_key=${meetingKey}`);
   for (const s of Array.isArray(sessions) ? sessions : []) {
+    if (backfillGetBudget <= 0) {
+      console.log(`  добор: кап GET исчерпан — остаток в следующий прогон`);
+      return;
+    }
     const wanted = [
+      `session_result?session_key=${s.session_key}`,
+      `stints?session_key=${s.session_key}`,
       ...(isRaceLike(s.session_name) ? [`pit?session_key=${s.session_key}`] : []),
       `race_control?session_key=${s.session_key}`,
       `weather?session_key=${s.session_key}`,
     ]
-    for (const rel of wanted) {
-      if (existsSync(join(OUT_DIR, mirrorSlug(rel)))) continue;
-      console.log(`  backfill ${rel.split("?")[0]}: meeting ${meetingKey}, session ${s.session_key}`);
-      await mirror(rel);
-    }
-    // Самолечение пита: существующий файл без единого stop_duration
-    // переснимаем, пока источник не дозаполнит (или не кончится кап прогона).
-    if (isRaceLike(s.session_name) && pitHealBudget > 0) {
-      const rel = `pit?session_key=${s.session_key}`;
-      try {
-        const rows = JSON.parse(readFileSync(join(OUT_DIR, mirrorSlug(rel)), "utf8"));
-        if (pitNeedsHeal(rows)) {
-          pitHealBudget--;
-          console.log(`  re-mirror pit (нет stop_duration): meeting ${meetingKey}, session ${s.session_key}`);
-          await mirror(rel);
-        }
-      } catch { /* файла нет или бит — это случай добора выше, не лечения */ }
-    }
+    for (const rel of wanted) await backfill(rel);
+  }
+}
+
+/// Самолечение пита — ОТДЕЛЬНЫЙ канал, не часть добора дыр: больной пит
+/// (строки без единого stop_duration) не считается неполнотой митинга, иначе
+/// 40 вечно больных архивных питов 2023–25 держали бы добор занятым навсегда.
+/// Существующий файл переснимаем, пока источник не дозаполнит (или не
+/// кончится кап pitHealBudget). Вызывающие гейтят канал сезоном
+/// PIT_HEAL_SINCE_SEASON — архив 2023–25 источник не дозаполняет.
+async function healMeetingPits(meetingKey: number) {
+  if (pitHealBudget <= 0) return;
+  let sessions: any[];
+  try {
+    sessions = JSON.parse(
+      readFileSync(join(OUT_DIR, mirrorSlug(`sessions?meeting_key=${meetingKey}`)), "utf8"),
+    );
+  } catch {
+    return;   // листинга нет — раунд не зеркалился, лечить нечего
+  }
+  for (const s of Array.isArray(sessions) ? sessions : []) {
+    if (!isRaceLike(s.session_name) || pitHealBudget <= 0) continue;
+    const rel = `pit?session_key=${s.session_key}`;
+    try {
+      const rows = JSON.parse(readFileSync(join(OUT_DIR, mirrorSlug(rel)), "utf8"));
+      if (pitNeedsHeal(rows)) {
+        pitHealBudget--;
+        console.log(`  re-mirror pit (нет stop_duration): meeting ${meetingKey}, session ${s.session_key}`);
+        await mirror(rel);
+      }
+    } catch { /* файла нет или бит — это случай добора, не лечения */ }
   }
 }
 
