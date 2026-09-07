@@ -1,0 +1,8 @@
+# Белый список входа docker-билда (deploy/railway/Dockerfile): образ собирается
+# ровно из четырёх файлов. Ни код, ни data/ в контекст не попадают — пуш данных
+# не меняет вход билда, и даже случайная авто-пересборка упрётся в кэш слоёв.
+*
+!package.json
+!package-lock.json
+!deploy/railway/Dockerfile
+!deploy/railway/entrypoint.sh
