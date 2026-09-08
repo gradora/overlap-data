@@ -9,7 +9,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PRODUCERS } from "./lib/producers.js";
-import { SNAPSHOT_CHAIN, SIMPLE_GROUPS } from "./orchestrator.js";
+import { SNAPSHOT_CHAIN, SIMPLE_GROUPS, stepExtraEnv } from "./orchestrator.js";
 
 const WORKFLOWS_DIR = ".github/workflows";
 
@@ -63,6 +63,21 @@ test("оркестратор: SNAPSHOT_CHAIN совпадает с послед�
   const ids = [...code.matchAll(/^\s+id: (\w+)$/gm)].map((m) => m[1]);
   assert.deepEqual(SNAPSHOT_CHAIN, ids,
     "цепочка оркестратора разошлась со snapshot.yml — обнови SNAPSHOT_CHAIN (или yml) и перечитай комментарии о порядке");
+});
+
+// Климатология прогноза — паритет каналов: в YAML env-флаг FORECAST_TYPICAL
+// зажигает суточное расписание, в оркестраторе — имя группы snapshot-daily.
+// Разъезд молчалив в обе стороны: без флага typical-файлы канала перестают
+// пересобираться, с флагом на часовом прогоне — 5 archive-запросов на каждое
+// дальнее событие каждый час.
+test("оркестратор: суточная группа включает климатологию прогноза, часовая — нет", () => {
+  assert.deepEqual(stepExtraEnv("forecast", true), { FORECAST_TYPICAL: "1" });
+  assert.deepEqual(stepExtraEnv("forecast", false), {});
+  assert.deepEqual(stepExtraEnv("f1", true), {}, "флаг адресован только шагу forecast");
+  // Вторая сторона паритета — сам yml (детали держит workflows.test.ts).
+  const code = workflowCode("snapshot.yml");
+  const step = (code.split(/^\s+id: forecast$/m)[1] ?? "").split(/^\s+- name: /m)[0];
+  assert.match(step, /FORECAST_TYPICAL/, "в snapshot.yml у шага forecast нет флага климатологии");
 });
 
 // Простые группы зовут те же скрипты в том же порядке, что их yml. `npm ci`

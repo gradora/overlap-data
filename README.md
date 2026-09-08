@@ -117,6 +117,17 @@ enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот
   `F1_WEATHER_FORCE=1`.
   Чего в файле НЕТ и не будет: миллиметров осадков, вероятности дождя,
   интенсивности и WMO-кода — у датчика есть только бинарный флаг.
+- `{f1,wec,imsa}/forecast/<id события>.json` и `weather/now.json` — ВИТРИННЫЙ
+  прогноз (фаза B, план §2, продьюсер `forecast`): почасовой блок Open-Meteo
+  формой 1:1 с клиентским `HourlyForecast` по событиям трёх серий плюс «сейчас
+  на трассе» одним файлом (мини-hourly −3ч…+6ч по всем трекам refs с coord).
+  Режим `forecast`/`archive`/`typical` считает бэк; отстоявшееся событие
+  пересобирается из Archive API (ERA5) и печатает `final` под гейтом полноты
+  (kept-previous при осечке, retry следующим прогоном); климатология дальних
+  событий — только суточный слот (`FORECAST_TYPICAL=1`). Данные Open-Meteo —
+  CC-BY 4.0, атрибуция «Weather data by Open-Meteo.com» — в About приложения.
+  Сенсорный `weather/` прогноз НЕ заменяет: recorded перекрывает forecast
+  построчно на клиенте, семейства сосуществуют.
 - `data/f1/records/catalog.json` — РУЧНОЙ каталог all-time рекордов
   (held/chases) для продьюсера f1records.
 
@@ -124,7 +135,7 @@ enwiki ──┘                       ├─ data/imsa/<year>/  (снапшот
 
 | Workflow | Расписание | Что | Гейт |
 |---|---|---|---|
-| `snapshot.yml` | каждый час (`17 * * * *`) | 25 продьюсеров + health | outcome всех шагов + свежесть по реестру |
+| `snapshot.yml` | каждый час (`17 * * * *`) | 26 продьюсеров + health | outcome всех шагов + свежесть по реестру |
 | `fia.yml` | `*/15` Пт–Вс | только штрафы FIA (своя concurrency-group — не дропается за snapshot) | exit-code |
 | `f1live.yml` | `*/15` Пт–Вс | идущий уик-энд F1: зеркало OpenF1, хайлайты, заявка сезона, файл события. Та же concurrency-group, что у snapshot | exit-code |
 | `weclive.yml` | `*/15` ежедневно | только ИДУЩИЙ этап WEC: его страницы + пересборка его файла. Нет этапа — прогон не касается сети. Своя concurrency-group | свежесть через маркер `wec/_live_health.json` |
@@ -204,6 +215,8 @@ OpenF1 (производные live timing без цепочки прав) — �
 | `FIA_FORCE` / `WEC_FIA_FORCE` / `IMSA_FIA_FORCE` | — | пересобрать даже замороженные |
 | `WEC_HL_FORCE` / `IMSA_HL_FORCE` | — | то же для хайлайтов |
 | `WEC_WINNERS_BACKFILL` / `IMSA_WINNERS_BACKFILL` | 1 | глубина бэкфилла победителей |
+| `FORECAST_TYPICAL` | — | суточный слот климатологии прогноза (в кроне выставляет расписание `37 3 * * *`) |
+| `FORECAST_FORCE` | — | пересобрать даже запечатанные файлы прогноза |
 | `TRACKS_ONLY=slug,slug` | — | ТОЛЬКО отладка: пишет index из перечисленных — коммитить нельзя |
 
 ## Данные

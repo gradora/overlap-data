@@ -166,6 +166,13 @@ export const PRODUCERS: ProducerSpec[] = [
   // живёт в общем воркфлоу — ручного проклятия fomstatic не наследует.
   { key: "f1weather", script: "f1weather", budgetDays: HOURLY, workflow: SNAPSHOT },
 
+  // Витринный прогноз погоды (фаза B, план §2): единственный сетевой выход —
+  // Open-Meteo, входы (календарь, сезонные индексы, координаты refs) уже на
+  // диске. Ежечасно обновляет forecast-файлы горизонта и weather/now.json;
+  // климатологию дальних событий пересобирает только суточный слот
+  // (FORECAST_TYPICAL=1 — env шага в snapshot.yml, как SEASON у «Сезона N+1»).
+  { key: "forecast", script: "forecast", budgetDays: HOURLY, workflow: SNAPSHOT },
+
   // Снапшот статики FOM — ЕДИНСТВЕННЫЙ ручной продьюсер. Не по лени: источник
   // отдаёт раннерам GitHub 403 (проверено прогоном 27.08.2026 — четыре года
   // подряд «индекс недоступен (403)», при том что с машины владельца те же

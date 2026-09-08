@@ -20,7 +20,7 @@ import { matchTrack } from "./lib/schedule.js";
 import { matchRound } from "./lib/fiadocs.js";
 import { slugify } from "./lib/slug.js";
 import { nameKey } from "./lib/imsastandings.js";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 
 // Карта читается один раз; её отсутствие — это уже провал валидатора
 // (fail-open — для рантайма потребителей, но не для CI).
@@ -175,6 +175,67 @@ test("refs: каждый circuitId текущего зеркала jolpica ес�
   }
 });
 
+// MARK: Координаты трасс (§5 дизайна витринного прогноза)
+// Диапазоны значений держит validateRefs (тест «ноль ошибок» выше); здесь —
+// ПОКРЫТИЕ витринных событий: прогноз без координат непредставим, поэтому
+// дыра обязана валить CI раньше, чем продьюсер forecast молча пропустит этап.
+
+test("refs: каждый trackRef витринных календарей F1 имеет coord", () => {
+  const dir = join(process.cwd(), "data", "f1", "calendar");
+  for (const file of readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    const doc = JSON.parse(readFileSync(join(dir, file), "utf8"));
+    for (const event of doc.events) {
+      // trackRef nullable по правилу 2 плана: неизвестная трасса — не дыра
+      // координат, её ловят сторожа календаря, а не этот тест.
+      if (!event.trackRef) continue;
+      const track = map().tracks.find((t) => t.slug === event.trackRef);
+      assert.ok(track,
+        `${file}: trackRef «${event.trackRef}» (${event.name}) отсутствует в карте`);
+      assert.ok(track!.coord,
+        `${file}: трасса «${event.trackRef}» (${event.name}) без coord`);
+    }
+  }
+});
+
+// У событийных файлов эндуранса (data/wec|imsa/events/*.json) трек-ссылки нет
+// вовсе — связь «событие → трасса» живёт этажом ниже, в сезонных индексах:
+// у WEC это trackRef (data/wec/<год>/index.json), у IMSA — только строка
+// venue, которую продьюсер резолвит через imsaVenue-алиасы карты. Покрытие
+// проверяем ровно по этим маппингам — тем же, какими пойдёт forecast.
+
+test("refs: каждый trackRef сезонных индексов WEC имеет coord", () => {
+  const base = join(process.cwd(), "data", "wec");
+  for (const year of readdirSync(base).filter((d) => /^\d{4}$/.test(d))) {
+    const path = join(base, year, "index.json");
+    if (!existsSync(path)) continue;
+    const doc = JSON.parse(readFileSync(path, "utf8"));
+    for (const event of doc.events) {
+      if (!event.trackRef) continue;
+      const track = map().tracks.find((t) => t.slug === event.trackRef);
+      assert.ok(track,
+        `wec/${year}: trackRef «${event.trackRef}» (${event.name}) отсутствует в карте`);
+      assert.ok(track!.coord,
+        `wec/${year}: трасса «${event.trackRef}» (${event.name}) без coord`);
+    }
+  }
+});
+
+test("refs: каждый venue сезонных индексов IMSA резолвится в трассу с coord", () => {
+  const base = join(process.cwd(), "data", "imsa");
+  for (const year of readdirSync(base).filter((d) => /^\d{4}$/.test(d))) {
+    const path = join(base, year, "index.json");
+    if (!existsSync(path)) continue;
+    const doc = JSON.parse(readFileSync(path, "utf8"));
+    for (const event of doc.events) {
+      const track = trackByAlias(map(), "imsaVenue", event.venue ?? "");
+      assert.ok(track,
+        `imsa/${year}: venue «${event.venue}» (${event.name}) не резолвится imsaVenue-алиасами`);
+      assert.ok(track!.coord,
+        `imsa/${year}: трасса «${track!.slug}» (${event.name}) без coord`);
+    }
+  }
+});
+
 // MARK: Fail-open загрузки
 
 test("refs: loadRefs — fail-open на отсутствие/битость/чужую схему", () => {
@@ -236,6 +297,21 @@ test("refs: мутация — пустой слаг/дубль id роняют 
   const m2 = clone();
   m2.f1Teams.push({ ...m2.f1Teams[0] });
   assert.ok(validateRefs(m2).some((e) => e.includes("дубль id")));
+});
+
+test("refs: мутация — coord вне диапазонов Земли роняет валидатор", () => {
+  // Классический промах ручной правки — lat и lon местами: у большинства
+  // трасс это даёт |lon| > 90 в поле lat. Валидатор обязан орать, а не
+  // отправлять прогноз в океан.
+  const m1 = clone();
+  m1.tracks[0].coord = { lat: 144.968, lon: -37.8497 };
+  assert.ok(validateRefs(m1).some((e) => e.includes("coord.lat")));
+  const m2 = clone();
+  m2.tracks[0].coord = { lat: 0, lon: -180.5 };
+  assert.ok(validateRefs(m2).some((e) => e.includes("coord.lon")));
+  const m3 = clone();
+  m3.tracks[0].coord = { lat: Number.NaN, lon: 0 };
+  assert.ok(validateRefs(m3).some((e) => e.includes("coord.lat")));
 });
 
 test("refs: мутация — openf1-имя у двух команд роняет валидатор", () => {

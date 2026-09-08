@@ -38,7 +38,8 @@ import { byKey, envKeyFor } from "./lib/producers.js";
 /// snapshot.yml. Порядок несёт смысл, а не историю: проекции (wecevents,
 /// imsaevents, f1events) стоят строго после своих семейств, f1teams — после
 /// f1 и openf1, f1overrides — после зеркал (GC до витрины), f1weather и
-/// f1entrylist — после обоих зеркал, f1events — последним из содержательных.
+/// f1entrylist — после обоих зеркал, forecast — после f1overrides (читает
+/// витрину календаря), f1events — последним из содержательных.
 /// Расхождение со snapshot.yml ловит src/orchestrator.test.ts: пока живы оба
 /// способа запуска, порядок обязан быть одним — иначе derived-файлы двух
 /// каналов собирались бы из данных разной свежести.
@@ -66,6 +67,7 @@ export const SNAPSHOT_CHAIN: string[] = [
   "nextseason",
   "f1overrides",
   "f1weather",
+  "forecast",
   "f1entrylist",
   "f1events",
 ];
@@ -132,6 +134,14 @@ function run(cmd: string, args: string[], extraEnv: Record<string, string> = {})
   });
   // null — процесс убит сигналом; для гейтов это то же падение.
   return r.status ?? 1;
+}
+
+/// Доп-env шага поверх наследуемого окружения — паритет с `env:` шагов
+/// snapshot.yml. Суточный слот включает климатологию прогноза
+/// (FORECAST_TYPICAL=1): в YAML флаг зажигает расписание `37 3 * * *`, здесь —
+/// имя группы snapshot-daily (тот же приём, что SEASON у шага «Сезон N+1»).
+export function stepExtraEnv(key: string, daily: boolean): Record<string, string> {
+  return key === "forecast" && daily ? { FORECAST_TYPICAL: "1" } : {};
 }
 
 /// Составной шаг «Сезон N+1» — дословно скрипт из snapshot.yml: те же четыре
@@ -293,7 +303,7 @@ function runSnapshot(daily: boolean, push: boolean): number {
       console.error(`ключ «${key}» из SNAPSHOT_CHAIN не имеет npm-скрипта в реестре`);
       continue;
     }
-    outcomes.set(key, run("npm", ["run", script]) === 0 ? "success" : "failure");
+    outcomes.set(key, run("npm", ["run", script], stepExtraEnv(key, daily)) === 0 ? "success" : "failure");
   }
 
   console.log("исходы прогона:");

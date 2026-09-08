@@ -47,6 +47,13 @@ export interface RefTrack {
   /// врёт только офсет, поэтому зона нужна, чтобы восстановить настоящий момент.
   /// Зона, а не смещение: летнее время меняется дважды в год.
   timezone: string;
+  /// Координаты площадки (курируемые, перенос из клиентского словаря
+  /// WeatherService.coordinates) — вход витринного прогноза (§5 дизайна
+  /// погоды). Точности «до города» хватает: сетка Open-Meteo грубее. Долгота
+  /// дополнительно кормит клиентский isNight (день/ночь по солнечному
+  /// времени). Опционально ТОЛЬКО ради fail-open чтения старых карт: покрытие
+  /// витринных событий держит валидатор refs.test.ts, не тип.
+  coord?: { lat: number; lon: number };
   aliases: Partial<Record<RefTrackAliasSource, string[]>>;
 }
 
@@ -244,6 +251,18 @@ export function validateRefs(refs: RefsMap): string[] {
     if (slugs.has(t.slug)) err(`tracks: дубль слага «${t.slug}»`);
     slugs.add(t.slug);
     if (!t.display) err(`tracks[${t.slug}]: пустой display`);
+    // Диапазоны координат — предохранитель ручной правки: значение за
+    // пределами Земли — это перепутанные lat/lon или потерянный минус,
+    // и прогноз молча уедет в другую точку планеты.
+    if (t.coord !== undefined) {
+      const { lat, lon } = t.coord;
+      if (typeof lat !== "number" || !Number.isFinite(lat) || lat < -90 || lat > 90) {
+        err(`tracks[${t.slug}]: coord.lat «${lat}» вне [-90..90]`);
+      }
+      if (typeof lon !== "number" || !Number.isFinite(lon) || lon < -180 || lon > 180) {
+        err(`tracks[${t.slug}]: coord.lon «${lon}» вне [-180..180]`);
+      }
+    }
   }
   // Внутри одного source-пространства алиас может принадлежать только одной
   // трассе — иначе резолв недетерминирован. Кросс-пространственные совпадения

@@ -92,6 +92,11 @@ export const DATA_FAMILIES: DataFamily[] = [
   { path: "f1/highlights", zone: "витрина", clientReads: true },
   { path: "f1/milestones", zone: "витрина", clientReads: true },
   { path: "f1/weather", zone: "витрина", clientReads: true },
+  { path: "f1/forecast", zone: "витрина", clientReads: true,
+    note: "Витринный прогноз события (фаза B): почасовой блок формой 1:1 с " +
+      "клиентским HourlyForecast, режим forecast/archive/typical считает бэк. " +
+      "Ключ = id витрины, как у weather/. Данные Open-Meteo (CC-BY 4.0) — " +
+      "лицензия позволяет держать их в витрине, атрибуция — в About приложения." },
   { path: "f1/racecontrol", zone: "витрина", clientReads: true,
     note: "Классифицированный рейс-контрол по id события (D4). Вербатима нет " +
       "по построению: kind + машина/круг/время/причина, строку собирает клиент." },
@@ -109,6 +114,9 @@ export const DATA_FAMILIES: DataFamily[] = [
     note: "Погода событий из Al Kamel (шаг 5.6): сенсорные ряды по сессиям + " +
       "сводки, время абсолютное. RAIN источника непригоден — дождь не пишется. " +
       "Клиент читает с 02.09.2026 (F1WeatherSource, путь по префиксу id)." },
+  { path: "wec/forecast", zone: "витрина", clientReads: true,
+    note: "То же, что f1/forecast (Open-Meteo CC-BY, атрибуция в About); " +
+      "ключ — `wec-<сезон>-<слаг>`, конвенция weather/." },
   { path: "wec/highlights", zone: "витрина", clientReads: true },
   { path: "imsa/<год>", zone: "витрина", clientReads: true },
   { path: "imsa/events", zone: "витрина", clientReads: true,
@@ -118,7 +126,15 @@ export const DATA_FAMILIES: DataFamily[] = [
   { path: "imsa/weather", zone: "витрина", clientReads: true,
     note: "То же, что wec/weather: Al Kamel, юниты имперские без колонок — " +
       "конверсия по эвристике давления (inHg против mbar)." },
+  { path: "imsa/forecast", zone: "витрина", clientReads: true,
+    note: "То же, что f1/forecast (Open-Meteo CC-BY, атрибуция в About); " +
+      "ключ — `imsa-<сезон>-<раунд>`, конвенция weather/." },
   { path: "imsa/highlights", zone: "витрина", clientReads: true },
+  { path: "weather", zone: "витрина", clientReads: true,
+    note: "«Сейчас на трассе» одним файлом (now.json): мини-hourly −3ч…+6ч по " +
+      "всем трекам refs с coord, ключи — asset-slug. Источник Open-Meteo " +
+      "(CC-BY 4.0, атрибуция в About). Один файл осознанно: 41 запись мельче " +
+      "GET-каскада, а ежечасный чёрн сосредоточен в одном коммите." },
 
   // --- Справочники ---
   { path: "refs", zone: "справочник", clientReads: true },

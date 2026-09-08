@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-26T14:05:10.000Z",
+  "generatedAt": "2026-09-08T11:08:43.635Z",
   "note": "Курируемая карта сущностей (фаза 2 DATA-PLAN). Правится руками; валидатор — src/refs.test.ts. Чтение — fail-open (src/lib/refs.ts): при расхождении со встроенной таблицей побеждает встроенная.",
   "tracks": [
     {
@@ -8,6 +8,10 @@
       "display": "Albert Park Circuit",
       "country": "Australia",
       "timezone": "Australia/Melbourne",
+      "coord": {
+        "lat": -37.8497,
+        "lon": 144.968
+      },
       "aliases": {
         "jolpica": [
           "albert_park"
@@ -28,6 +32,10 @@
       "display": "Bahrain International Circuit",
       "country": "Bahrain",
       "timezone": "Asia/Bahrain",
+      "coord": {
+        "lat": 26.0325,
+        "lon": 50.5106
+      },
       "aliases": {
         "jolpica": [
           "bahrain"
@@ -48,6 +56,10 @@
       "display": "Baku City Circuit",
       "country": "Azerbaijan",
       "timezone": "Asia/Baku",
+      "coord": {
+        "lat": 40.3725,
+        "lon": 49.8533
+      },
       "aliases": {
         "jolpica": [
           "baku"
@@ -68,6 +80,10 @@
       "display": "Circuit de Barcelona-Catalunya",
       "country": "Spain",
       "timezone": "Europe/Madrid",
+      "coord": {
+        "lat": 41.57,
+        "lon": 2.2611
+      },
       "aliases": {
         "jolpica": [
           "catalunya"
@@ -91,6 +107,10 @@
       "display": "Circuit of the Americas",
       "country": "USA",
       "timezone": "America/Chicago",
+      "coord": {
+        "lat": 30.1328,
+        "lon": -97.6411
+      },
       "aliases": {
         "jolpica": [
           "americas"
@@ -121,6 +141,10 @@
       "display": "Daytona International Speedway",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 29.185,
+        "lon": -81.07
+      },
       "aliases": {
         "alkamelImsa": [
           "rolex-24-at-daytona",
@@ -139,6 +163,10 @@
       "display": "Detroit Street Circuit",
       "country": "USA",
       "timezone": "America/Detroit",
+      "coord": {
+        "lat": 42.33,
+        "lon": -83.04
+      },
       "aliases": {
         "alkamelImsa": [
           "detroit-street-course"
@@ -156,6 +184,10 @@
       "display": "Fuji Speedway",
       "country": "Japan",
       "timezone": "Asia/Tokyo",
+      "coord": {
+        "lat": 35.3717,
+        "lon": 138.9267
+      },
       "aliases": {
         "wiki": [
           "Fuji Speedway"
@@ -167,6 +199,10 @@
       "display": "Circuit Gilles Villeneuve",
       "country": "Canada",
       "timezone": "America/Toronto",
+      "coord": {
+        "lat": 45.5,
+        "lon": -73.5228
+      },
       "aliases": {
         "jolpica": [
           "villeneuve"
@@ -190,6 +226,10 @@
       "display": "Hungaroring",
       "country": "Hungary",
       "timezone": "Europe/Budapest",
+      "coord": {
+        "lat": 47.5789,
+        "lon": 19.2486
+      },
       "aliases": {
         "jolpica": [
           "hungaroring"
@@ -207,6 +247,10 @@
       "display": "Imola Circuit",
       "country": "Italy",
       "timezone": "Europe/Rome",
+      "coord": {
+        "lat": 44.3439,
+        "lon": 11.7167
+      },
       "aliases": {
         "jolpica": [
           "imola"
@@ -227,6 +271,10 @@
       "display": "Indianapolis Motor Speedway",
       "country": "USA",
       "timezone": "America/Indiana/Indianapolis",
+      "coord": {
+        "lat": 39.795,
+        "lon": -86.235
+      },
       "aliases": {
         "alkamelImsa": [
           "indianapolis-motor-speedway-rc",
@@ -245,6 +293,10 @@
       "display": "Autódromo José Carlos Pace",
       "country": "Brazil",
       "timezone": "America/Sao_Paulo",
+      "coord": {
+        "lat": -23.7036,
+        "lon": -46.6997
+      },
       "aliases": {
         "jolpica": [
           "interlagos"
@@ -262,6 +314,10 @@
       "display": "Jeddah Corniche Circuit",
       "country": "Saudi Arabia",
       "timezone": "Asia/Riyadh",
+      "coord": {
+        "lat": 21.6319,
+        "lon": 39.1044
+      },
       "aliases": {
         "jolpica": [
           "jeddah"
@@ -282,6 +338,10 @@
       "display": "Laguna Seca Raceway",
       "country": "USA",
       "timezone": "America/Los_Angeles",
+      "coord": {
+        "lat": 36.5847,
+        "lon": -121.753
+      },
       "aliases": {
         "alkamelImsa": [
           "mazda-raceway-laguna-seca"
@@ -302,6 +362,10 @@
       "display": "Las Vegas Strip Circuit",
       "country": "USA",
       "timezone": "America/Los_Angeles",
+      "coord": {
+        "lat": 36.1147,
+        "lon": -115.1728
+      },
       "aliases": {
         "jolpica": [
           "vegas"
@@ -322,6 +386,10 @@
       "display": "Circuit de la Sarthe",
       "country": "France",
       "timezone": "Europe/Paris",
+      "coord": {
+        "lat": 47.956,
+        "lon": 0.2074
+      },
       "aliases": {
         "wiki": [
           "Circuit de la Sarthe"
@@ -336,6 +404,10 @@
       "display": "Long Beach Street Circuit",
       "country": "USA",
       "timezone": "America/Los_Angeles",
+      "coord": {
+        "lat": 33.765,
+        "lon": -118.189
+      },
       "aliases": {
         "alkamelImsa": [
           "long-beach-street-circuit"
@@ -353,6 +425,10 @@
       "display": "Lusail International Circuit",
       "country": "Qatar",
       "timezone": "Asia/Qatar",
+      "coord": {
+        "lat": 25.49,
+        "lon": 51.4542
+      },
       "aliases": {
         "jolpica": [
           "losail"
@@ -379,6 +455,10 @@
       "display": "Madring",
       "country": "Spain",
       "timezone": "Europe/Madrid",
+      "coord": {
+        "lat": 40.4674,
+        "lon": -3.6162
+      },
       "aliases": {
         "jolpica": [
           "madring"
@@ -396,6 +476,10 @@
       "display": "Marina Bay Street Circuit",
       "country": "Singapore",
       "timezone": "Asia/Singapore",
+      "coord": {
+        "lat": 1.2914,
+        "lon": 103.864
+      },
       "aliases": {
         "jolpica": [
           "marina_bay"
@@ -416,6 +500,10 @@
       "display": "Autódromo Hermanos Rodríguez",
       "country": "Mexico",
       "timezone": "America/Mexico_City",
+      "coord": {
+        "lat": 19.4042,
+        "lon": -99.0907
+      },
       "aliases": {
         "jolpica": [
           "rodriguez"
@@ -436,6 +524,10 @@
       "display": "Miami International Autodrome",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 25.9581,
+        "lon": -80.2389
+      },
       "aliases": {
         "jolpica": [
           "miami"
@@ -453,6 +545,10 @@
       "display": "Circuit de Monaco",
       "country": "Monaco",
       "timezone": "Europe/Monaco",
+      "coord": {
+        "lat": 43.7347,
+        "lon": 7.4206
+      },
       "aliases": {
         "jolpica": [
           "monaco"
@@ -473,6 +569,10 @@
       "display": "Monza Circuit",
       "country": "Italy",
       "timezone": "Europe/Rome",
+      "coord": {
+        "lat": 45.6156,
+        "lon": 9.2811
+      },
       "aliases": {
         "jolpica": [
           "monza"
@@ -493,6 +593,10 @@
       "display": "Canadian Tire Motorsport Park",
       "country": "Canada",
       "timezone": "America/Toronto",
+      "coord": {
+        "lat": 44.05,
+        "lon": -78.6739
+      },
       "aliases": {
         "imsaVenue": [
           "Canadian Tire Motorsport Park"
@@ -510,6 +614,10 @@
       "display": "Red Bull Ring",
       "country": "Austria",
       "timezone": "Europe/Vienna",
+      "coord": {
+        "lat": 47.2197,
+        "lon": 14.7647
+      },
       "aliases": {
         "jolpica": [
           "red_bull_ring"
@@ -530,6 +638,10 @@
       "display": "Road America",
       "country": "USA",
       "timezone": "America/Chicago",
+      "coord": {
+        "lat": 43.7981,
+        "lon": -87.9989
+      },
       "aliases": {
         "imsaVenue": [
           "Road America"
@@ -544,6 +656,10 @@
       "display": "Michelin Raceway Road Atlanta",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 34.15,
+        "lon": -83.8161
+      },
       "aliases": {
         "alkamelImsa": [
           "motul-petit-le-mans",
@@ -562,6 +678,10 @@
       "display": "Sebring International Raceway",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 27.4547,
+        "lon": -81.3483
+      },
       "aliases": {
         "imsaVenue": [
           "Sebring International Raceway"
@@ -576,6 +696,10 @@
       "display": "Sepang International Circuit",
       "country": "Malaysia",
       "timezone": "Asia/Kuala_Lumpur",
+      "coord": {
+        "lat": 2.7608,
+        "lon": 101.7381
+      },
       "aliases": {
         "jolpica": [
           "sepang"
@@ -590,6 +714,10 @@
       "display": "Shanghai International Circuit",
       "country": "China",
       "timezone": "Asia/Shanghai",
+      "coord": {
+        "lat": 31.3389,
+        "lon": 121.22
+      },
       "aliases": {
         "jolpica": [
           "shanghai"
@@ -607,6 +735,10 @@
       "display": "Silverstone Circuit",
       "country": "UK",
       "timezone": "Europe/London",
+      "coord": {
+        "lat": 52.0733,
+        "lon": -1.0142
+      },
       "aliases": {
         "jolpica": [
           "silverstone"
@@ -624,6 +756,10 @@
       "display": "Circuit de Spa-Francorchamps",
       "country": "Belgium",
       "timezone": "Europe/Brussels",
+      "coord": {
+        "lat": 50.4372,
+        "lon": 5.9714
+      },
       "aliases": {
         "jolpica": [
           "spa"
@@ -641,6 +777,10 @@
       "display": "Suzuka Circuit",
       "country": "Japan",
       "timezone": "Asia/Tokyo",
+      "coord": {
+        "lat": 34.8431,
+        "lon": 136.541
+      },
       "aliases": {
         "jolpica": [
           "suzuka"
@@ -658,6 +798,10 @@
       "display": "Virginia International Raceway",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 36.56,
+        "lon": -79.205
+      },
       "aliases": {
         "imsaVenue": [
           "VIRginia International Raceway"
@@ -672,6 +816,10 @@
       "display": "Watkins Glen International",
       "country": "USA",
       "timezone": "America/New_York",
+      "coord": {
+        "lat": 42.3369,
+        "lon": -76.9272
+      },
       "aliases": {
         "alkamelImsa": [
           "weathertech-240-wgi"
@@ -689,6 +837,10 @@
       "display": "Yas Marina Circuit",
       "country": "UAE",
       "timezone": "Asia/Dubai",
+      "coord": {
+        "lat": 24.4672,
+        "lon": 54.6031
+      },
       "aliases": {
         "jolpica": [
           "yas_marina"
@@ -706,6 +858,10 @@
       "display": "Circuit Zandvoort",
       "country": "Netherlands",
       "timezone": "Europe/Amsterdam",
+      "coord": {
+        "lat": 52.3888,
+        "lon": 4.5409
+      },
       "aliases": {
         "jolpica": [
           "zandvoort"

@@ -92,7 +92,10 @@ test("длинное окно — только у продьюсеров реш�
   // Список поимённый: новый потребитель длинного окна должен появиться здесь
   // осознанно, а не «сам собой» вместе с чужой правкой.
   assert.deepEqual(short.sort(), [
-    "f1.ts", "f1beasts.ts", "f1milestones.ts", "f1weather.ts", "imsa.ts",
+    "f1.ts", "f1beasts.ts", "f1milestones.ts", "f1weather.ts",
+    // Прогноз: запечатывание события из Archive API после отстоя результата —
+    // то же короткое окно (7д заодно перекрывает лаг ERA5 ~5 дней).
+    "forecast.ts", "imsa.ts",
         // Два вызова: raced-гейт хайлайтов и weather-settle 5.6 (как у WEC).
     "imsahighlights.ts", "imsahighlights.ts", "openf1.ts", "wec.ts", "wec.ts", "wec.ts",
     // Два вызова: raced-гейт хайлайтов и weather-settle шага 5.6 — оба
