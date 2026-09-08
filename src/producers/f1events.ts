@@ -19,7 +19,7 @@ import { writeJSONWithEnvelope } from "../lib/mirror.js";
 import {
   EVENT_FILE_SCHEMA_VERSION, type EventEntryDriver, buildEventFile, eventFilePath,
 } from "../lib/eventfile.js";
-import { buildProtocolsBlock } from "../lib/f1protocols.js";
+import { buildProtocolsBlock, buildScheduleBlock } from "../lib/f1protocols.js";
 import { buildRaceControlDoc, writeRaceControl } from "../lib/racecontrolbuild.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
@@ -105,6 +105,7 @@ export async function main(): Promise<void> {
       eventId: e.id,
       round,
       entry: meetingKey != null ? entryForMeeting(entryList, meetingKey) : [],
+      schedule: meetingKey != null ? buildScheduleBlock(DATA_DIR, meetingKey) : null,
       protocols: meetingKey != null ? buildProtocolsBlock(DATA_DIR, meetingKey) : null,
       fia: family("fia"),
       winners: family("winners"),
@@ -112,8 +113,10 @@ export async function main(): Promise<void> {
       milestones: family("milestones"),
     });
     if (!file) {
-      // Оверлейные этапы (тесты, отмены) round-keyed семейств не имеют вовсе —
-      // собирать нечего. Пустой файл не пишем: см. buildEventFile.
+      // Событие без единого блока — обычно митинг, по которому источник ещё
+      // не отдал даже листинга сессий. Оверлейные этапы (тесты, отмены) С
+      // листингом файл ПОЛУЧАЮТ — из одного `schedule` (блокер Б1). Пустой
+      // файл не пишем: см. buildEventFile.
       empty++;
       continue;
     }

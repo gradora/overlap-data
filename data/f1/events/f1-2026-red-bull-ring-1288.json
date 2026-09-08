@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.571Z",
+  "generatedAt": "2026-09-08T13:06:55.346Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-red-bull-ring-1288",
@@ -304,6 +304,45 @@
       "teamColour": "F50537"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11308,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-06-26T11:30:00+00:00",
+        "end": "2026-06-26T12:30:00+00:00"
+      },
+      {
+        "key": 11309,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-06-26T15:00:00+00:00",
+        "end": "2026-06-26T16:00:00+00:00"
+      },
+      {
+        "key": 11310,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-06-27T10:30:00+00:00",
+        "end": "2026-06-27T11:30:00+00:00"
+      },
+      {
+        "key": 11311,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-06-27T14:00:00+00:00",
+        "end": "2026-06-27T15:00:00+00:00"
+      },
+      {
+        "key": 11315,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-06-28T13:00:00+00:00",
+        "end": "2026-06-28T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

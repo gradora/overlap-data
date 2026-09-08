@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.436Z",
+  "generatedAt": "2026-09-08T13:06:55.592Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-zandvoort-1267",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9913,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-08-29T10:30:00+00:00",
+        "end": "2025-08-29T11:30:00+00:00"
+      },
+      {
+        "key": 9914,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-08-29T14:00:00+00:00",
+        "end": "2025-08-29T15:00:00+00:00"
+      },
+      {
+        "key": 9915,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-08-30T09:30:00+00:00",
+        "end": "2025-08-30T10:30:00+00:00"
+      },
+      {
+        "key": 9916,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-08-30T13:00:00+00:00",
+        "end": "2025-08-30T14:00:00+00:00"
+      },
+      {
+        "key": 9920,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-08-31T13:00:00+00:00",
+        "end": "2025-08-31T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

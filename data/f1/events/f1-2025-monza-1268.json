@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.440Z",
+  "generatedAt": "2026-09-08T13:06:55.593Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-monza-1268",
@@ -246,6 +246,45 @@
       "teamColour": "F47600"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9905,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-09-05T11:30:00+00:00",
+        "end": "2025-09-05T12:30:00+00:00"
+      },
+      {
+        "key": 9906,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-09-05T15:00:00+00:00",
+        "end": "2025-09-05T16:00:00+00:00"
+      },
+      {
+        "key": 9907,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-09-06T10:30:00+00:00",
+        "end": "2025-09-06T11:30:00+00:00"
+      },
+      {
+        "key": 9908,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-09-06T14:00:00+00:00",
+        "end": "2025-09-06T15:00:00+00:00"
+      },
+      {
+        "key": 9912,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-09-07T13:00:00+00:00",
+        "end": "2025-09-07T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

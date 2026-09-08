@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.383Z",
+  "generatedAt": "2026-09-08T13:06:55.571Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-shanghai-1255",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9988,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-03-21T03:30:00+00:00",
+        "end": "2025-03-21T04:30:00+00:00"
+      },
+      {
+        "key": 9989,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2025-03-21T07:30:00+00:00",
+        "end": "2025-03-21T08:14:00+00:00"
+      },
+      {
+        "key": 9993,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2025-03-22T03:00:00+00:00",
+        "end": "2025-03-22T04:00:00+00:00"
+      },
+      {
+        "key": 9994,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-03-22T07:00:00+00:00",
+        "end": "2025-03-22T08:00:00+00:00"
+      },
+      {
+        "key": 9998,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-03-23T07:00:00+00:00",
+        "end": "2025-03-23T09:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

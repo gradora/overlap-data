@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.456Z",
+  "generatedAt": "2026-09-08T13:06:55.600Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-mexico-city-1272",
@@ -310,6 +310,45 @@
       "teamColour": "F47600"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9870,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-10-24T18:30:00+00:00",
+        "end": "2025-10-24T19:30:00+00:00"
+      },
+      {
+        "key": 9871,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-10-24T22:00:00+00:00",
+        "end": "2025-10-24T23:00:00+00:00"
+      },
+      {
+        "key": 9872,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-10-25T17:30:00+00:00",
+        "end": "2025-10-25T18:30:00+00:00"
+      },
+      {
+        "key": 9873,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-10-25T21:00:00+00:00",
+        "end": "2025-10-25T22:00:00+00:00"
+      },
+      {
+        "key": 9877,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-10-26T20:00:00+00:00",
+        "end": "2025-10-26T22:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

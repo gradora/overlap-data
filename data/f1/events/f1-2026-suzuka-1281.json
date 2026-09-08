@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-07T15:39:02.458Z",
+  "generatedAt": "2026-09-08T13:06:55.335Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-suzuka-1281",
@@ -259,6 +259,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11246,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-03-27T02:30:00+00:00",
+        "end": "2026-03-27T03:30:00+00:00"
+      },
+      {
+        "key": 11247,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-03-27T06:00:00+00:00",
+        "end": "2026-03-27T07:00:00+00:00"
+      },
+      {
+        "key": 11248,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-03-28T02:30:00+00:00",
+        "end": "2026-03-28T03:30:00+00:00"
+      },
+      {
+        "key": 11249,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-03-28T06:00:00+00:00",
+        "end": "2026-03-28T07:00:00+00:00"
+      },
+      {
+        "key": 11253,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-03-29T05:00:00+00:00",
+        "end": "2026-03-29T07:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

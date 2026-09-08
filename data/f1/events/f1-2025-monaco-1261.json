@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.407Z",
+  "generatedAt": "2026-09-08T13:06:55.580Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-monaco-1261",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9972,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-05-23T11:30:00+00:00",
+        "end": "2025-05-23T12:30:00+00:00"
+      },
+      {
+        "key": 9973,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-05-23T15:00:00+00:00",
+        "end": "2025-05-23T16:00:00+00:00"
+      },
+      {
+        "key": 9974,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-05-24T10:30:00+00:00",
+        "end": "2025-05-24T11:30:00+00:00"
+      },
+      {
+        "key": 9975,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-05-24T14:00:00+00:00",
+        "end": "2025-05-24T15:00:00+00:00"
+      },
+      {
+        "key": 9979,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-05-25T13:00:00+00:00",
+        "end": "2025-05-25T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

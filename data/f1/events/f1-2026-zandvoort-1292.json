@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.591Z",
+  "generatedAt": "2026-09-08T13:06:55.355Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-zandvoort-1292",
@@ -250,6 +250,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11343,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-08-21T10:30:00+00:00",
+        "end": "2026-08-21T11:30:00+00:00"
+      },
+      {
+        "key": 11344,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2026-08-21T14:30:00+00:00",
+        "end": "2026-08-21T15:14:00+00:00"
+      },
+      {
+        "key": 11348,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2026-08-22T10:00:00+00:00",
+        "end": "2026-08-22T11:00:00+00:00"
+      },
+      {
+        "key": 11349,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-08-22T14:00:00+00:00",
+        "end": "2026-08-22T15:00:00+00:00"
+      },
+      {
+        "key": 11353,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-08-23T13:00:00+00:00",
+        "end": "2026-08-23T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

@@ -19,7 +19,6 @@
 //
 // ЧЕГО ЗДЕСЬ НЕТ. Погода — отдельным файлом (решение владельца): она весит
 // 70 КБ в среднем против 7.3 КБ всех блоков вместе и грузится условно.
-// Протоколы сессий — поставка D4, им нужен курируемый слой личностей.
 //
 // У WEC И IMSA — ТОЛЬКО DERIVED, БЕЗ СЕССИЙ. У них файл события уже есть
 // (`<серия>/<год>/NN_<слаг>.json`, путь публикует сам индекс), и дублировать
@@ -76,7 +75,7 @@ export function stripEnvelope(doc: unknown): Record<string, unknown> | null {
 /// из ЗАЧЁТА, а для архивного события ради этого качал `<год>/driverStandings`
 /// целиком. Заодно уходит целый класс молчаливых подмен — угадывание по
 /// первым трём буквам фамилии (братья Леклеры).
-import type { ProtocolsBlock } from "./f1protocols.js";
+import type { ProtocolsBlock, ScheduleBlock } from "./f1protocols.js";
 
 export interface EventEntryDriver {
   driverId: string;
@@ -112,6 +111,11 @@ export interface EventFile {
   /// Заявка ЭТОГО события. Пусто/отсутствует — срез не собрался (нет ключа
   /// митинга или заявки сезона), и клиент резолвит прежним путём.
   entry?: EventEntryDriver[];
+  /// Расписание митинга — ВСЕ сессии листинга, включая будущие (Б1 плана
+  /// кухни): структура уик-энда теста и оверлей-этапа до него жила только
+  /// на кухне openf1. Имена сессий вербатим OpenF1 — по ним клиент джойнит
+  /// протоколы.
+  schedule?: ScheduleBlock;
   protocols?: ProtocolsBlock;
   fia?: Record<string, unknown>;
   winners?: Record<string, unknown>;
@@ -120,6 +124,10 @@ export interface EventFile {
 }
 
 export interface EventFileInput {
+  /// Расписание митинга. СЧИТАЕТСЯ КОНТЕНТОМ: будущий тест не имеет ни
+  /// round-keyed семейств, ни результатов, но его файл обязан существовать
+  /// ради Day 1/2/3 — иначе расписание живёт только на кухне.
+  schedule?: ScheduleBlock | null;
   /// Протоколы сессий (D4): позиции, гэпы, компаунды — джойн с `entry` по
   /// номеру машины делает клиент.
   protocols?: ProtocolsBlock | null;
@@ -137,10 +145,14 @@ export interface EventFileInput {
 }
 
 /// Сборка проекции. Возвращает null, если собирать нечего: у события нет ни
-/// одного блока (так выглядят оверлейные этапы — тесты и отмены, у которых
-/// раунда в источнике нет вовсе). Пустой файл писать нельзя: он неотличим от
-/// «данные есть, но пустые» и заставил бы клиента доверять пустоте.
+/// одного блока (так выглядит митинг, по которому источник ещё не отдал даже
+/// листинга сессий). Пустой файл писать нельзя: он неотличим от «данные
+/// есть, но пустые» и заставил бы клиента доверять пустоте.
+///
+/// Расписание — ТОЖЕ контент: будущий тест получает файл с одним `schedule`,
+/// и это ровно цель (Б1) — клиент перестаёт ходить за Day 1/2/3 в кухню.
 export function buildEventFile(input: EventFileInput): EventFile | null {
+  const schedule = input.schedule ?? null;
   const protocols = input.protocols ?? null;
   const blocks = {
     fia: stripEnvelope(input.fia),
@@ -149,8 +161,10 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     milestones: stripEnvelope(input.milestones),
   };
   const entry = input.entry ?? [];
-  // Пусто во ВСЕХ блоках, в заявке И в протоколах — собирать нечего.
-  if (Object.values(blocks).every((b) => b === null) && !entry.length && !protocols) return null;
+  // Пусто во ВСЕХ блоках, в заявке, в расписании И в протоколах — собирать
+  // нечего.
+  if (Object.values(blocks).every((b) => b === null) && !entry.length
+      && !schedule && !protocols) return null;
 
   return {
     schemaVersion: EVENT_FILE_SCHEMA_VERSION,
@@ -160,6 +174,7 @@ export function buildEventFile(input: EventFileInput): EventFile | null {
     eventId: input.eventId,
     round: input.round,
     ...(entry.length ? { entry } : {}),
+    ...(schedule ? { schedule } : {}),
     ...(protocols ? { protocols } : {}),
     ...(blocks.fia ? { fia: blocks.fia } : {}),
     ...(blocks.winners ? { winners: blocks.winners } : {}),

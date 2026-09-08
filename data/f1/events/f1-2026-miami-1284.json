@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.552Z",
+  "generatedAt": "2026-09-08T13:06:55.337Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-miami-1284",
@@ -250,6 +250,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11270,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-05-01T16:00:00+00:00",
+        "end": "2026-05-01T17:30:00+00:00"
+      },
+      {
+        "key": 11271,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-01T20:30:00+00:00",
+        "end": "2026-05-01T21:14:00+00:00"
+      },
+      {
+        "key": 11275,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2026-05-02T16:00:00+00:00",
+        "end": "2026-05-02T17:00:00+00:00"
+      },
+      {
+        "key": 11276,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-02T20:00:00+00:00",
+        "end": "2026-05-02T21:00:00+00:00"
+      },
+      {
+        "key": 11280,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-05-03T17:00:00+00:00",
+        "end": "2026-05-03T19:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

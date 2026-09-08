@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.378Z",
+  "generatedAt": "2026-09-08T13:06:55.568Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-albert-park-1254",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9686,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-03-14T01:30:00+00:00",
+        "end": "2025-03-14T02:30:00+00:00"
+      },
+      {
+        "key": 9687,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-03-14T05:00:00+00:00",
+        "end": "2025-03-14T06:00:00+00:00"
+      },
+      {
+        "key": 9688,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-03-15T01:30:00+00:00",
+        "end": "2025-03-15T02:30:00+00:00"
+      },
+      {
+        "key": 9689,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-03-15T05:00:00+00:00",
+        "end": "2025-03-15T06:00:00+00:00"
+      },
+      {
+        "key": 9693,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-03-16T04:00:00+00:00",
+        "end": "2025-03-16T06:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

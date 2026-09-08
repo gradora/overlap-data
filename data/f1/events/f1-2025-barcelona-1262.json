@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.411Z",
+  "generatedAt": "2026-09-08T13:06:55.582Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-barcelona-1262",
@@ -245,6 +245,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9964,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-05-30T11:30:00+00:00",
+        "end": "2025-05-30T12:30:00+00:00"
+      },
+      {
+        "key": 9965,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-05-30T15:00:00+00:00",
+        "end": "2025-05-30T16:00:00+00:00"
+      },
+      {
+        "key": 9966,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-05-31T10:30:00+00:00",
+        "end": "2025-05-31T11:30:00+00:00"
+      },
+      {
+        "key": 9967,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-05-31T14:00:00+00:00",
+        "end": "2025-05-31T15:00:00+00:00"
+      },
+      {
+        "key": 9971,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-06-01T13:00:00+00:00",
+        "end": "2025-06-01T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

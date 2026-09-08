@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.531Z",
+  "generatedAt": "2026-09-08T13:06:55.327Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-bahrain-testing-1304",
@@ -228,6 +228,31 @@
       "teamColour": "9C9FA2"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11465,
+        "name": "Day 1",
+        "type": "Practice",
+        "start": "2026-02-11T07:00:00+00:00",
+        "end": "2026-02-11T16:00:00+00:00"
+      },
+      {
+        "key": 11466,
+        "name": "Day 2",
+        "type": "Practice",
+        "start": "2026-02-12T07:00:00+00:00",
+        "end": "2026-02-12T16:00:00+00:00"
+      },
+      {
+        "key": 11467,
+        "name": "Day 3",
+        "type": "Practice",
+        "start": "2026-02-13T07:00:00+00:00",
+        "end": "2026-02-13T16:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

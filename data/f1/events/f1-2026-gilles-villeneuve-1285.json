@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.557Z",
+  "generatedAt": "2026-09-08T13:06:55.340Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-gilles-villeneuve-1285",
@@ -250,6 +250,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11281,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-05-22T16:30:00+00:00",
+        "end": "2026-05-22T17:30:00+00:00"
+      },
+      {
+        "key": 11282,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-22T20:30:00+00:00",
+        "end": "2026-05-22T21:14:00+00:00"
+      },
+      {
+        "key": 11286,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2026-05-23T16:00:00+00:00",
+        "end": "2026-05-23T17:00:00+00:00"
+      },
+      {
+        "key": 11287,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-23T20:00:00+00:00",
+        "end": "2026-05-23T21:00:00+00:00"
+      },
+      {
+        "key": 11291,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-05-24T20:00:00+00:00",
+        "end": "2026-05-24T22:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

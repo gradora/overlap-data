@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.464Z",
+  "generatedAt": "2026-09-08T13:06:55.604Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-las-vegas-strip-1274",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9851,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-11-21T00:30:00+00:00",
+        "end": "2025-11-21T01:30:00+00:00"
+      },
+      {
+        "key": 9852,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-11-21T04:00:00+00:00",
+        "end": "2025-11-21T05:00:00+00:00"
+      },
+      {
+        "key": 9853,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-11-22T00:30:00+00:00",
+        "end": "2025-11-22T01:30:00+00:00"
+      },
+      {
+        "key": 9854,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-11-22T04:00:00+00:00",
+        "end": "2025-11-22T05:00:00+00:00"
+      },
+      {
+        "key": 9858,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-11-23T04:00:00+00:00",
+        "end": "2025-11-23T06:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

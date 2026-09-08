@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.562Z",
+  "generatedAt": "2026-09-08T13:06:55.342Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-monaco-1286",
@@ -250,6 +250,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11292,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-06-05T11:30:00+00:00",
+        "end": "2026-06-05T12:30:00+00:00"
+      },
+      {
+        "key": 11293,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-06-05T15:00:00+00:00",
+        "end": "2026-06-05T16:00:00+00:00"
+      },
+      {
+        "key": 11294,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-06-06T10:30:00+00:00",
+        "end": "2026-06-06T11:30:00+00:00"
+      },
+      {
+        "key": 11295,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-06-06T14:00:00+00:00",
+        "end": "2026-06-06T15:00:00+00:00"
+      },
+      {
+        "key": 11299,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-06-07T13:00:00+00:00",
+        "end": "2026-06-07T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

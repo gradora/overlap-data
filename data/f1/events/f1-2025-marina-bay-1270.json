@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.449Z",
+  "generatedAt": "2026-09-08T13:06:55.597Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-marina-bay-1270",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9889,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-10-03T09:30:00+00:00",
+        "end": "2025-10-03T10:30:00+00:00"
+      },
+      {
+        "key": 9890,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2025-10-03T13:00:00+00:00",
+        "end": "2025-10-03T14:00:00+00:00"
+      },
+      {
+        "key": 9891,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2025-10-04T09:30:00+00:00",
+        "end": "2025-10-04T10:30:00+00:00"
+      },
+      {
+        "key": 9892,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-10-04T13:00:00+00:00",
+        "end": "2025-10-04T14:00:00+00:00"
+      },
+      {
+        "key": 9896,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-10-05T12:00:00+00:00",
+        "end": "2025-10-05T14:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

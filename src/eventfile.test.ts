@@ -65,6 +65,28 @@ test("событие без единого блока файла не получ
                "документ из одного конверта — тоже пусто");
 });
 
+/// Б1 плана кухни: у БУДУЩЕГО теста нет ни семейств, ни результатов — файл
+/// обязан существовать из одного расписания, иначе Day 1/2/3 живут только на
+/// кухне openf1 (живой хвост 401-гейтится в гоночные уик-энды).
+test("будущий тест: одно расписание — уже контент", () => {
+  const schedule = { sessions: [
+    { key: 11470, name: "Day 1", type: "Practice",
+      start: "2027-02-17T07:00:00+00:00", end: "2027-02-17T16:00:00+00:00" },
+  ] };
+  const file = buildEventFile({
+    season: 2027, eventKey: "f1-2027-bahrain-testing-1400",
+    eventId: "f1-meeting-1400", round: 0, schedule,
+  });
+  assert.ok(file, "без файла будущий тест остаётся на кухне — блокер Б1 не закрыт");
+  assert.deepEqual(file!.schedule, schedule, "блок переносится дословно");
+  assert.equal("protocols" in file!, false);
+  // А без расписания то же событие файла по-прежнему не получает.
+  assert.equal(buildEventFile({
+    season: 2027, eventKey: "f1-2027-bahrain-testing-1400",
+    eventId: "f1-meeting-1400", round: 0, schedule: null,
+  }), null);
+});
+
 test("идентичность файла лежит внутри него", () => {
   const file = buildEventFile(input())!;
   assert.equal(file.eventKey, "f1-2025-hungaroring-1266");

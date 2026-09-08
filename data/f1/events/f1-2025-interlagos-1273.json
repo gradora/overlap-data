@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:57.460Z",
+  "generatedAt": "2026-09-08T13:06:55.602Z",
   "series": "f1",
   "season": 2025,
   "eventKey": "f1-2025-interlagos-1273",
@@ -228,6 +228,45 @@
       "constructorId": "haas"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 9859,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2025-11-07T14:30:00+00:00",
+        "end": "2025-11-07T15:30:00+00:00"
+      },
+      {
+        "key": 9860,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2025-11-07T18:30:00+00:00",
+        "end": "2025-11-07T19:14:00+00:00"
+      },
+      {
+        "key": 9864,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2025-11-08T14:00:00+00:00",
+        "end": "2025-11-08T15:00:00+00:00"
+      },
+      {
+        "key": 9865,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2025-11-08T18:00:00+00:00",
+        "end": "2025-11-08T19:00:00+00:00"
+      },
+      {
+        "key": 9869,
+        "name": "Race",
+        "type": "Race",
+        "start": "2025-11-09T17:00:00+00:00",
+        "end": "2025-11-09T19:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {

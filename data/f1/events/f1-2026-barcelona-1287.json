@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T15:15:45.567Z",
+  "generatedAt": "2026-09-08T13:06:55.344Z",
   "series": "f1",
   "season": 2026,
   "eventKey": "f1-2026-barcelona-1287",
@@ -304,6 +304,45 @@
       "teamColour": "F50537"
     }
   ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11300,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-06-12T11:30:00+00:00",
+        "end": "2026-06-12T12:30:00+00:00"
+      },
+      {
+        "key": 11301,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-06-12T15:00:00+00:00",
+        "end": "2026-06-12T16:00:00+00:00"
+      },
+      {
+        "key": 11302,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-06-13T10:30:00+00:00",
+        "end": "2026-06-13T11:30:00+00:00"
+      },
+      {
+        "key": 11303,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-06-13T14:00:00+00:00",
+        "end": "2026-06-13T15:00:00+00:00"
+      },
+      {
+        "key": 11307,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-06-14T13:00:00+00:00",
+        "end": "2026-06-14T15:00:00+00:00"
+      }
+    ]
+  },
   "protocols": {
     "sessions": [
       {
