@@ -142,8 +142,10 @@ export const DATA_FAMILIES: DataFamily[] = [
   { path: "refs", zone: "справочник", clientReads: true },
   { path: "tracks", zone: "справочник", clientReads: true },
   {
-    path: "f1/overrides", zone: "справочник", clientReads: true,
-    note: "Курируемый календарь; правится руками, читается и клиентом, и GC.",
+    path: "f1/overrides", zone: "справочник", clientReads: false, producerReads: true,
+    note: "Курируемый календарь; правится руками. Клиент перестал читать в " +
+      "0.6.6 (оверлей-мердж снят — слой вливает f1overrides в календарь v2); " +
+      "читатели — продьюсер календаря и GC.",
   },
 ];
 
