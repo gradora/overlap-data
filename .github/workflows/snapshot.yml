@@ -24,11 +24,6 @@ permissions:
 
 jobs:
   build:
-    # ГАШЕНИЕ НА ОКНО КОНВЕРТАЦИИ ОПЕNF1 (этапы 1–3 заготовки, 09.09.2026):
-    # if: false вместо комментирования расписания — сторож workflows.test
-    # «каждый продьюсер в кроне» остаётся зелёным, прогоны скипаются.
-    # СНЯТЬ строку после раскатки конвертации (см. docs/f1-kitchen-plan.md §1).
-    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
