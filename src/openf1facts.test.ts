@@ -19,9 +19,10 @@ import {
   OPENF1_FACTS_SCHEMA_VERSION, OPENF1_FIELDS, OPENF1_MANIFEST_NAME,
   OPENF1_MANIFEST_V, OPENF1_MAX_FILE_BYTES, OPENF1_MAX_STRING,
   OPENF1_WEATHER_FACT_VERSION, PIT_HEAL_SINCE_SEASON,
-  countOpenf1Holes, expectedMeetingHandles, extractClassA, factComplete,
-  factTextError, familyOfFile, familyOfRelative, frozenMeetingComplete, openf1MeetingIndex,
-  openf1NullFieldWarnings, pitNeedsHeal, preflightOpenf1Holes,
+  countOpenf1Holes, expectedMeetingHandles, extractClassA, extractWeatherFact,
+  factComplete, factTextError, familyOfFile, familyOfRelative,
+  frozenMeetingComplete, openf1MeetingIndex, openf1NullFieldWarnings,
+  parseWeatherFact, pitNeedsHeal, preflightOpenf1Holes,
   readOpenf1Manifest, writeOpenf1Manifest,
   type Openf1ClassAFamily, type Openf1Manifest,
 } from "./lib/openf1facts.js";
@@ -194,15 +195,20 @@ test("extractClassA: сторож-throw — не-массив, не-объект
     "вербатим-длина в keep-значении не должна пролезть в запись даже одним прогоном");
 });
 
-/// Пин состояния этапа 1: шесть семейств конвертированы и помечены. Без этой
-/// проверки walk-тест «гейтится манифестом» превращался бы в вакуум — стёртый
-/// манифест делал бы весь каталог «сырьём» и walk молчал бы про любой откат.
-test("живой манифест: шесть семейств класса А помечены конвертированными", () => {
+/// Пин состояния этапов 1–2: семь семейств конвертированы и помечены (шесть
+/// класса А + weather). Без этой проверки walk-тест «гейтится манифестом»
+/// превращался бы в вакуум — стёртый манифест делал бы весь каталог «сырьём»
+/// и walk молчал бы про любой откат.
+test("живой манифест: семь семейств помечены конвертированными", () => {
   const manifest = readOpenf1Manifest(DATA_DIR);
   for (const family of Object.keys(OPENF1_FIELDS) as Openf1ClassAFamily[]) {
     assert.deepEqual(manifest?.families?.[family], { parser: OPENF1_FACTS_SCHEMA_VERSION },
       `${family}: нет пометки в _extractor — оракул и walk-тест не проверяют его форму`);
   }
+  // У класса Б версия семейства — версия его ПАРСЕРА (Openf1FamilyEntry):
+  // конвертер этапа 2 пишет ровно её, оракул сверяет с WEATHER_PARSER_VERSION.
+  assert.deepEqual(manifest?.families?.weather, { parser: WEATHER_PARSER_VERSION },
+    "weather: нет пометки в _extractor — оракул и walk-тест не проверяют его форму");
 });
 
 // MARK: - Сторожа формы (§2.2/§2.4)
@@ -254,7 +260,88 @@ test("weather: конверт с текущими v+parser; reject-маркер 
   // отставший entry.parser объявляет устаревшим ВСЁ семейство разом.
   const stale = manifestWith({ weather: { parser: WEATHER_PARSER_VERSION - 1 } });
   assert.equal(factComplete(dir, stale, "weather?session_key=1"), false);
+
+  // Сырьё (массив строк) и конверт без samples/reject фактами не являются:
+  // возврат сырья после этапа 2 ловится формой, как у класса А.
+  put(dir, "weather?session_key=4", [{ date: "2030-05-03T10:00:00Z" }]);
+  assert.equal(factComplete(dir, manifest, "weather?session_key=4"), false);
+  assert.match(String(factTextError("weather", { parser: WEATHER_PARSER_VERSION },
+    JSON.stringify({ v: OPENF1_WEATHER_FACT_VERSION, kind: "weather",
+      parser: WEATHER_PARSER_VERSION }))), /без samples и без reject/);
   rmSync(dir, { recursive: true, force: true });
+});
+
+// MARK: - Экстракция weather (этап 2)
+
+test("extractWeatherFact: конверт с выходом normalizeOpenF1, канонично, \\n", () => {
+  // Дубль таймстампа отбрасывается (берётся первый), ряд сортируется, время —
+  // unix-секунды, ветер м/с → км/ч: samples РОВНО выход normalizeOpenF1.
+  const row = (date: string, air: number, rain: number) => ({
+    date, air_temperature: air, track_temperature: 30, humidity: 50,
+    pressure: 1010, wind_speed: 2, wind_direction: 200, rainfall: rain,
+  });
+  const text = extractWeatherFact([
+    row("1970-01-01T00:02:00Z", 21, 0),
+    row("1970-01-01T00:01:00Z", 20, 1),
+    row("1970-01-01T00:01:00.000Z", 99, 1),   // дубль — отброшен
+  ]);
+  assert.equal(text,
+    `{"v":${OPENF1_WEATHER_FACT_VERSION},"kind":"weather","parser":${WEATHER_PARSER_VERSION},` +
+    '"samples":{"t":[60,120],"airC":[20,21],"trackC":[30,30],"humidity":[50,50],' +
+    '"pressureHpa":[1010,1010],"windKmh":[7.2,7.2],"windDeg":[200,200],"rain":[1,0]}}\n');
+  // Выход проходит оракул формы — писатель, конвертер и walk-тест смотрят
+  // одной проверкой.
+  assert.equal(factTextError("weather", { parser: WEATHER_PARSER_VERSION }, text), null);
+  // Читатель видит те же samples: круг запись → чтение без потерь.
+  const parsed = parseWeatherFact(text);
+  assert.ok(parsed !== null && "samples" in parsed);
+  assert.deepEqual(parsed.samples.t, [60, 120]);
+});
+
+test("extractWeatherFact: пустое/непригодное сырьё — reject-маркер, не ошибка", () => {
+  const rejectOf = (rows: unknown) => {
+    const doc = JSON.parse(extractWeatherFact(rows));
+    assert.equal(doc.samples, undefined);
+    return doc.reject as string;
+  };
+  // Причины — те же строки normalizeOpenF1, что раньше печатал варнинг
+  // читателя: счёт holes и текст варнингов у f1weather не меняются.
+  assert.equal(rejectOf([]), "нет отсчётов");
+  // Не-массив коэрсится в [], как делал читатель до переезда.
+  assert.equal(rejectOf({ detail: "объект вместо массива" }), "нет отсчётов");
+  assert.equal(rejectOf([{ date: "не дата" }]), "ни одной разбираемой метки времени");
+  assert.match(rejectOf([{ date: "2030-05-03T10:00:00Z", air_temperature: 999 }]),
+    /airC=999 вне диапазона/);
+  // Reject-маркер — валидный факт: проходит оракул (им живёт учёт holes).
+  assert.equal(factTextError("weather", { parser: WEATHER_PARSER_VERSION },
+    extractWeatherFact([])), null);
+  // НЕ идемпотентна над собственным выходом: конверт — не массив строк, и
+  // повторная экстракция дала бы reject. Потому конвертер обязан опознавать
+  // уже-факт оракулом и пропускать, а не перегонять через экстракцию.
+  assert.equal(JSON.parse(extractWeatherFact(JSON.parse(extractWeatherFact([])))).reject,
+    "нет отсчётов");
+});
+
+test("parseWeatherFact: samples/reject/не-факт — три исхода читателя", () => {
+  const fact = { v: OPENF1_WEATHER_FACT_VERSION, kind: "weather",
+    parser: WEATHER_PARSER_VERSION, samples: { t: [60], airC: [20], trackC: [30],
+      humidity: [50], pressureHpa: [1010], windKmh: [7.2], windDeg: [200], rain: [0] } };
+  const okay = parseWeatherFact(JSON.stringify(fact));
+  assert.ok(okay !== null && "samples" in okay && okay.samples.airC[0] === 20);
+
+  const reject = parseWeatherFact(JSON.stringify(
+    { v: OPENF1_WEATHER_FACT_VERSION, kind: "weather",
+      parser: WEATHER_PARSER_VERSION, reject: "нет отсчётов" }));
+  assert.deepEqual(reject, { reject: "нет отсчётов" });
+
+  // Всё прочее — null (дыра читателя): битый текст, сырьё, чужой конверт,
+  // устаревший parser, конверт без samples и reject.
+  assert.equal(parseWeatherFact("не json"), null);
+  assert.equal(parseWeatherFact(JSON.stringify([{ date: "2030-05-03T10:00:00Z" }])), null);
+  assert.equal(parseWeatherFact(JSON.stringify({ ...fact, kind: "racecontrol" })), null);
+  assert.equal(parseWeatherFact(JSON.stringify({ ...fact, parser: WEATHER_PARSER_VERSION + 1 })),
+    null, "устаревший факт = дыра — так бамп парсера сам зовёт добор");
+  assert.equal(parseWeatherFact(JSON.stringify({ ...fact, samples: undefined })), null);
 });
 
 test("race_control (R1): массив, версия парсера — пер-строчным ключом", () => {

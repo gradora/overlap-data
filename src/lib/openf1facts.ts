@@ -28,7 +28,10 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeIfChanged } from "./mirror.js";
-import { WEATHER_PARSER_VERSION } from "./weather.js";
+import {
+  WEATHER_PARSER_VERSION, normalizeOpenF1,
+  type OpenF1WeatherRow, type WeatherSamples,
+} from "./weather.js";
 import { RACECONTROL_PARSER_VERSION } from "./racecontrol.js";
 
 /// Версия экстракции класса А. Поднимать при любой правке реестра keep-полей.
@@ -47,12 +50,19 @@ import { RACECONTROL_PARSER_VERSION } from "./racecontrol.js";
 /// пуше (openf1facts.test.ts) — PR с бампом без конвертации не пройдёт CI.
 export const OPENF1_FACTS_SCHEMA_VERSION = 1;
 
-/// Версия конверта weather — на будущее (этап 2), в этапе 0 семейство не
-/// конвертировано. `v` — версия ФОРМЫ конверта; версия ПАРСЕРА живёт в
-/// weather.ts — оракул сверяет обе. У race_control (вариант R1) конверта НЕТ:
+/// Версия конверта weather (этап 2). `v` — версия ФОРМЫ конверта; версия
+/// ПАРСЕРА живёт в weather.ts — оракул сверяет обе. У race_control (вариант R1) конверта НЕТ:
 /// файл остаётся массивом ради Swift-декода каскада 2023–24, его версия — в
 /// манифесте семейства и пер-строчным ключом `parser`; конвертная константа
 /// понадобилась бы только при переходе на R2.
+///
+/// БАМП ЛЮБОЙ ИЗ ВЕРСИЙ КЛАССА Б (v конверта или WEATHER_PARSER_VERSION) —
+/// та же ручная 4-шаговая процедура, что у OPENF1_FACTS_SCHEMA_VERSION выше:
+/// samples нормализованы С ПОТЕРЯМИ, пересчитать их из факта нельзя — пересъём
+/// только из живого API (BACKFILL=late) или из raw-зеркала приватного репо;
+/// кроновый путь НЕ сходится (манифест продвигает только конвертер, а оракул
+/// сверяет entry.parser раньше пер-файлового) — доказано симуляцией в ревью
+/// этапа 2. Забытый конвертер ловит тот же пин-тест манифеста.
 export const OPENF1_WEATHER_FACT_VERSION = 1;
 
 // MARK: - Реестр полей (класс А)
@@ -171,6 +181,64 @@ export function extractClassA(family: Openf1ClassAFamily, rows: unknown): string
   const err = factTextError(family, { parser: OPENF1_FACTS_SCHEMA_VERSION }, text);
   if (err) throw new Error(`extractClassA: ${err}`);
   return text;
+}
+
+// MARK: - Экстракция weather (класс Б, этап 2)
+
+/// Сырые строки ручки weather → канонический текст факта-конверта (дизайн §1):
+///   { "v": 1, "kind": "weather", "parser": N, "samples": WeatherSamples }
+/// где samples — РОВНО выход normalizeOpenF1 (колоночная форма, unix-секунды,
+/// км/ч, дедуп таймстампов): нормализация переезжает с чтения на запись.
+/// Пустой/непригодный источник → reject-маркер { …, "reject": "<причина>" } —
+/// это ВАЛИДНЫЙ факт («нет отсчётов» — знание), им живёт счёт holes у
+/// f1weather: «первый seal требует полного зеркала» продолжает работать.
+///
+/// Не-массив коэрсится в [] ровно как делал читатель до переезда
+/// (normalizeOpenF1(Array.isArray ? rows : []) в f1weather) — причина reject
+/// байт-в-байт совпадает с прежним варнингом витрины.
+///
+/// НЕ идемпотентна над собственным выходом (конверт — не массив строк →
+/// reject): писатель зовёт её только на 200-ответ API, а конвертер обязан
+/// отличать уже-конверт от сырья (см. convert-openf1-weather.ts).
+///
+/// Выход прогоняется через оракул формы — писатель, конвертер и walk-тест
+/// смотрят одной проверкой; клиент weather-файлы не читает вовсе (К4),
+/// лок-степ с приложением не нужен.
+export function extractWeatherFact(rows: unknown): string {
+  const { samples, reject } = normalizeOpenF1(
+    Array.isArray(rows) ? (rows as OpenF1WeatherRow[]) : []);
+  const fact = reject === null
+    ? { v: OPENF1_WEATHER_FACT_VERSION, kind: "weather",
+        parser: WEATHER_PARSER_VERSION, samples }
+    : { v: OPENF1_WEATHER_FACT_VERSION, kind: "weather",
+        parser: WEATHER_PARSER_VERSION, reject };
+  const text = JSON.stringify(fact) + "\n";
+  const err = factTextError("weather", { parser: WEATHER_PARSER_VERSION }, text);
+  if (err) throw new Error(`extractWeatherFact: ${err}`);
+  return text;
+}
+
+/// Разбор факта погоды читателем (f1weather):
+/// - { samples } — пригодная сессия;
+/// - { reject } — валидный reject-маркер (дыра С прежним варнингом);
+/// - null — НЕ факт текущих версий: битый текст, сырьё, чужой конверт,
+///   устаревший parser. Для читателя это дыра БЕЗ варнинга, как «файла нет» —
+///   ровно прежний счёт holes; устаревший факт как дыра держит правило
+///   «первый seal требует полного зеркала», а добор писателя перечитает файл.
+export function parseWeatherFact(
+  text: string,
+): { samples: WeatherSamples } | { reject: string } | null {
+  let doc: any;
+  try {
+    doc = JSON.parse(text);
+  } catch {
+    return null;
+  }
+  if (doc?.v !== OPENF1_WEATHER_FACT_VERSION || doc?.kind !== "weather" ||
+      doc?.parser !== WEATHER_PARSER_VERSION) return null;
+  if (typeof doc.reject === "string") return { reject: doc.reject };
+  if (!Array.isArray(doc.samples?.t)) return null;   // конверт без samples и без reject
+  return { samples: doc.samples as WeatherSamples };
 }
 
 // MARK: - Сторожа формы (дизайн §2.2/§2.4)
@@ -363,6 +431,11 @@ export function factTextError(
     if (d?.v !== OPENF1_WEATHER_FACT_VERSION) return "weather: чужая версия конверта";
     if (d?.parser !== WEATHER_PARSER_VERSION) return "weather: устаревший парсер";
     if (d?.kind !== "weather") return "weather: чужой вид факта";
+    // Конверт обязан нести либо samples (колоночная ось t), либо reject-маркер:
+    // сырьё (массив строк) и пустой объект не притворяются фактом.
+    if (typeof d.reject !== "string" && !Array.isArray(d.samples?.t)) {
+      return "weather: конверт без samples и без reject";
+    }
     return null;
   }
   if (family === "race_control") {

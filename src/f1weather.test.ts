@@ -9,6 +9,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { buildF1Weather } from "./producers/f1weather.js";
 import { mirrorSlug } from "./lib/mirror.js";
+import { extractWeatherFact } from "./lib/openf1facts.js";
+import { WEATHER_PARSER_VERSION } from "./lib/weather.js";
 
 const RACE_DAY = "2025-07-27";
 /// Через месяц после гонки: окно закрылось И отстоялось (freeze 7 суток).
@@ -53,8 +55,10 @@ function seed(events: EventSpec[], opts: { season?: number; declared?: number; h
                   JSON.stringify(sessions));
     for (const s of sessions) {
       if ((opts.holes ?? []).includes(String(s.session_key))) continue;
+      // Этап 2 заготовки: зеркало хранит факт-конверт, не сырьё — фикстура
+      // пишет той же экстракцией, что писатель/конвертер.
       writeFileSync(join(root, "f1", "openf1", mirrorSlug(`weather?session_key=${s.session_key}`)),
-                    JSON.stringify(weatherRows(10, `${RACE_DAY}T12:00:00Z`)));
+                    extractWeatherFact(weatherRows(10, `${RACE_DAY}T12:00:00Z`)));
     }
   }
   return root;
@@ -160,9 +164,9 @@ test("дыра до отстоя: пишем неполным, но не зап�
     assert.equal(doc.final, false, "дыра означает «архив ещё можно дозаполнить»");
     assert.equal(doc.sessions.length, 1);
 
-    // Дозаполнение: дыра закрылась — сессия доехала, файл запечатался.
+    // Дозаполнение: дыра закрылась — факт сессии доехал, файл запечатался.
     writeFileSync(join(root, "f1", "openf1", mirrorSlug("weather?session_key=12501")),
-                  JSON.stringify(weatherRows(10, `${RACE_DAY}T09:00:00Z`)));
+                  extractWeatherFact(weatherRows(10, `${RACE_DAY}T09:00:00Z`)));
     buildF1Weather(root, NOW, () => {});
     const after = JSON.parse(readFileSync(join(root, "f1", "weather", "f1-2025-1.json"), "utf8"));
     assert.equal(after.sessions.length, 2);
@@ -172,13 +176,57 @@ test("дыра до отстоя: пишем неполным, но не зап�
   }
 });
 
+/// Переезд читателя (этап 2): reject-маркер в факте — дыра С ПРЕЖНИМ
+/// варнингом. Причину («нет отсчётов» и т.п.) записал в файл писатель на
+/// экстракции — читатель её только доносит, счёт holes не меняется:
+/// отстоявшееся событие с reject-сессией не запечатывается урезанным.
+test("reject-маркер факта — дыра с прежним варнингом, seal не проходит", () => {
+  const root = seed([{ id: "f1-2025-1", round: 1, meetingKey: 1250 }]);
+  try {
+    writeFileSync(join(root, "f1", "openf1", mirrorSlug("weather?session_key=12501")),
+                  extractWeatherFact([]));
+    const warnings: string[] = [];
+    assert.match(buildF1Weather(root, NOW, (m) => warnings.push(m)), /skipped 1/);
+    assert.equal(warnings.length, 1);
+    assert.match(warnings[0], /сессия 12501 отброшена — нет отсчётов/);
+    assert.deepEqual(weatherFiles(root), [], "reject-сессия держит «первый seal требует полного зеркала»");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+/// «Не факт текущей версии» — тоже дыра, но С ВАРНИНГОМ (в отличие от
+/// «файла нет»): существующий-но-непригодный файл — это порча зеркала или
+/// недоконвертация, и она не должна быть невидимой в логе продьюсера (до
+/// этапа 2 её озвучивал reject «нет отсчётов»). Файл перечитает добор
+/// писателя, а событие ждёт полного зеркала, не запечатываясь.
+test("сырьё и устаревший факт в зеркале — дыра, а не молчаливый разбор", () => {
+  for (const poison of [
+    JSON.stringify(weatherRows(10, `${RACE_DAY}T12:00:00Z`)),   // сырьё как до этапа 2
+    extractWeatherFact(weatherRows(10, `${RACE_DAY}T12:00:00Z`))
+      .replace(`"parser":${WEATHER_PARSER_VERSION}`, `"parser":${WEATHER_PARSER_VERSION + 1}`),
+  ]) {
+    const root = seed([{ id: "f1-2025-1", round: 1, meetingKey: 1250 }]);
+    try {
+      writeFileSync(join(root, "f1", "openf1", mirrorSlug("weather?session_key=12501")), poison);
+      const warnings: string[] = [];
+      assert.match(buildF1Weather(root, NOW, (m) => warnings.push(m)), /skipped 1/);
+      assert.equal(warnings.length, 1, "порча зеркала обязана быть видимой в логе");
+      assert.match(warnings[0], /не факт текущей версии/);
+      assert.deepEqual(weatherFiles(root), []);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  }
+});
+
 test("запечатанное событие той же версии разбора не пересобирается", () => {
   const root = seed([{ id: "f1-2025-1", round: 1, meetingKey: 1250 }]);
   try {
     buildF1Weather(root, NOW, () => {});
     // Зеркало «испортилось» — но запечатанный файл трогать нельзя.
     writeFileSync(join(root, "f1", "openf1", mirrorSlug("weather?session_key=12502")),
-                  JSON.stringify(weatherRows(2, `${RACE_DAY}T12:00:00Z`)));
+                  extractWeatherFact(weatherRows(2, `${RACE_DAY}T12:00:00Z`)));
     assert.match(buildF1Weather(root, NOW, () => {}), /unchanged 1/);
     const doc = JSON.parse(readFileSync(join(root, "f1", "weather", "f1-2025-1.json"), "utf8"));
     assert.equal(doc.sessions.find((s: any) => s.key === "12502").samples.t.length, 10,

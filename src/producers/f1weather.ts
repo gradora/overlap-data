@@ -17,10 +17,11 @@ import { mirrorSlug, writeJSONWithEnvelope } from "../lib/mirror.js";
 import { isFrozen } from "../lib/freeze.js";
 import { envFlag } from "../lib/env.js";
 import {
-  normalizeOpenF1, summarize, summarizeEvent, mergeWeatherEvent, weatherRegression,
+  summarize, summarizeEvent, mergeWeatherEvent, weatherRegression,
   WEATHER_SCHEMA_VERSION, WEATHER_PARSER_VERSION,
   type WeatherDoc, type WeatherSession,
 } from "../lib/weather.js";
+import { parseWeatherFact } from "../lib/openf1facts.js";
 
 const DATA_DIR = join(process.cwd(), "data");
 const NOW = Date.now();
@@ -87,15 +88,36 @@ function buildEvent(
   for (const s of listing) {
     const key = String(s?.session_key ?? "");
     if (key === "") continue;
+    // Этап 2 заготовки: зеркало хранит не сырьё, а ФАКТ-конверт с уже
+    // нормализованными samples (нормализация переехала с чтения на запись,
+    // extractWeatherFact в писателе/конвертере). Счёт holes прежний:
+    // «файла нет» — дыра без варнинга; reject-маркер — дыра с тем же
+    // варнингом, что раньше давал normalizeOpenF1 (причина записана в факт);
+    // существующий-но-непригодный файл (порча, сырьё, чужой parser) — дыра
+    // С ВАРНИНГОМ: порча зеркала не должна стать невидимой в логе (до
+    // этапа 2 её озвучивал reject «нет отсчётов»); добор писателя перечитает,
+    // «первый seal требует полного зеркала» работает во всех трёх случаях.
     const file = join(mirrorDir, mirrorSlug(`weather?session_key=${key}`));
-    if (!existsSync(file)) { holes++; continue; }
-    const rows = readJSON<any[]>(file);
-    const { samples, reject } = normalizeOpenF1(Array.isArray(rows) ? rows : []);
-    if (reject) {
+    let fact: ReturnType<typeof parseWeatherFact> = null;
+    let fileExists = false;
+    try {
+      const text = readFileSync(file, "utf8");
+      fileExists = true;
+      fact = parseWeatherFact(text);
+    } catch { /* файла нет — дыра */ }
+    if (fact === null) {
+      if (fileExists) {
+        log(`::warning::f1 weather ${event.id}: сессия ${key} — файл зеркала не факт текущей версии`);
+      }
       holes++;
-      log(`::warning::f1 weather ${event.id}: сессия ${key} отброшена — ${reject}`);
       continue;
     }
+    if ("reject" in fact) {
+      holes++;
+      log(`::warning::f1 weather ${event.id}: сессия ${key} отброшена — ${fact.reject}`);
+      continue;
+    }
+    const { samples } = fact;
     sessions.push({
       key,
       name: String(s?.session_name ?? "?"),

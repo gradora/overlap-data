@@ -12,9 +12,9 @@ import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
-  OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, factComplete,
-  familyOfRelative, frozenMeetingComplete, isRaceLike, openf1MeetingIndex,
-  pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
+  OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, extractWeatherFact,
+  factComplete, familyOfRelative, frozenMeetingComplete, isRaceLike,
+  openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
   type Openf1ClassAFamily,
 } from "../lib/openf1facts.js";
 
@@ -48,8 +48,12 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 // внутри экстракции, амендмент 6: вербатим/чужая схема не должны
 // закоммититься даже одним прогоном). Безусловно, без гейта манифестом:
 // манифест гейтит ЧТЕНИЕ переходного состояния (оракул/walk-тест), а писатель
-// после этапа 1 сырья класса А не производит вовсе. weather/race_control —
-// по-прежнему сырьё, их конвертация — этапы 2–3.
+// после этапа 1 сырья класса А не производит вовсе.
+//
+// weather (этап 2) пишется извлечённым фактом-конвертом (extractWeatherFact):
+// нормализация переезжает с чтения на запись, непригодный источник — reject-
+// маркером (валидный факт, им живёт счёт holes у f1weather). race_control —
+// по-прежнему сырьё, его конвертация — этап 3.
 async function mirror(relative: string): Promise<any | null> {
   const family = familyOfRelative(relative);
   const classA: Openf1ClassAFamily | null =
@@ -62,6 +66,15 @@ async function mirror(relative: string): Promise<any | null> {
         // Битый JSON у 200-ответа класса А — throw, не тихий null: записать
         // нечего, а молчаливый пропуск маскировал бы поломку источника.
         const fact = extractClassA(classA, JSON.parse(res.text));
+        writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), fact);
+        return JSON.parse(fact);
+      }
+      if (family === "weather") {
+        // Экстракция на записи, этап 2: факт-конверт вместо сырья. Битый JSON
+        // у 200 — throw, как у класса А; непригодные строки нормализация
+        // превращает в reject-маркер сама, а не в ошибку — «нет отсчётов» у
+        // источника это знание, зеркалу нужен именно маркер (счёт holes).
+        const fact = extractWeatherFact(JSON.parse(res.text));
         writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), fact);
         return JSON.parse(fact);
       }
