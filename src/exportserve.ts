@@ -187,7 +187,8 @@ function assertSafeDest(dest: string): void {
   }
 }
 
-/// Полная очистка dest (кроме .git и README.md serve-репо) + копирование
+/// Полная очистка dest (кроме .git и служебного keep-набора serve-репо:
+/// README/LICENSE/NOTICE/.gitattributes/.gitignore) + копирование
 /// состава = rsync -a --delete на весь манифест разом: исчезнувший год или
 /// событие исчезает и из serve, каталоги, переставшие проходить критерий,
 /// prune-ятся сами — отдельной логики удаления не нужно.
@@ -195,7 +196,14 @@ export function writeServe(destArg: string, entries: ExportEntry[]): void {
   const dest = resolve(destArg);
   assertSafeDest(dest);
   mkdirSync(dest, { recursive: true });
-  const keep = new Set([".git", "README.md"]);
+  // Keep-набор шире, чем {.git, README.md}: LICENSE/NOTICE с атрибуциями
+  // (Open-Meteo CC-BY — прямое требование правового чеклиста) владелец
+  // добавит в serve-репо первым делом, и крон не имеет права молча снести
+  // их следующим «data update».
+  const keep = new Set([
+    ".git", "README.md", "LICENSE", "LICENSE.md", "NOTICE", "NOTICE.md",
+    ".gitattributes", ".gitignore",
+  ]);
   for (const name of readdirSync(dest)) {
     if (keep.has(name)) continue;
     rmSync(join(dest, name), { recursive: true });

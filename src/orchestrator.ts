@@ -19,20 +19,25 @@
 //    Railway-аккаунта, ловит расхождения с YAML заранее;
 //  - --push — то же плюс git add/commit/push, боевой режим крона.
 //
+// Поверх паритета с YAML при --push живут два шага фазы C (docs/railway.md):
+//  - serve-шаг: после пуша в origin — экспорт витрины exportserve-механикой в
+//    клон serve-репо по env SERVE_REPO_URL и push нейтральным «data update»;
+//  - нотификатор: после гейтов, при провале — POST в env NOTIFY_WEBHOOK_URL.
+// Оба выключены отсутствием своего env — локальный --push без переменных
+// ведёт себя как раньше.
+//
 // Что здесь ОСОЗНАННО не живёт (придёт со связкой Railway, см. DATA-PLAN):
 //  - межгрупповой lock — замена concurrency-групп GitHub («snapshot+f1live+
 //    tracks сериализуются, fia и weclive бегут независимо, лишний pending
 //    дропается»); локально и в одиночном кроне он не нужен, а городить flock
-//    без общего volume — гадание;
-//  - алертинг: в CI гейт валил job и GitHub слал письмо, на Railway падение
-//    крона само по себе письма не шлёт — нотификатор будет отдельным шагом.
-//    Гейты здесь честно выходят ненулём, канал доставки — забота обёртки;
-//  - push в отдельный serve-репо по deploy key с нейтральным «data update» —
-//    пока push идёт туда же, откуда чекаут, с теми же префиксами, что в YAML.
+//    без общего volume — гадание.
 
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { byKey, envKeyFor } from "./lib/producers.js";
+import { buildManifest, writeServe } from "./exportserve.js";
 
 /// Порядок snapshot-цепочки — ДОСЛОВНО последовательность `id:`-шагов
 /// snapshot.yml. Порядок несёт смысл, а не историю: проекции (wecevents,
@@ -144,13 +149,20 @@ export function stepExtraEnv(key: string, daily: boolean): Record<string, string
   return key === "forecast" && daily ? { FORECAST_TYPICAL: "1" } : {};
 }
 
+/// Зеркала шага «Сезон N+1». Витрина календаря N+1 собирается из ДВУХ зеркал
+/// (тесты и отмены есть только в листинге OpenF1) — неполный список ломал бы
+/// следующий год молча. Экспорт — ради сторожа в orchestrator.test.ts: после
+/// сплита yml-половина этого инварианта (workflows.test.ts) умирает вместе с
+/// snapshot.yml, а «убрали зеркало на время» должен ловить хоть кто-то.
+export const NEXTSEASON_SCRIPTS = ["f1", "openf1", "wec", "imsa"];
+
 /// Составной шаг «Сезон N+1» — дословно скрипт из snapshot.yml: те же четыре
 /// зеркала с SEASON=N+1, каждый под `|| FAIL=1` (упавший не мешает остальным,
 /// но шаг в целом отчитывается failure).
 function runNextSeason(): StepOutcome {
   const next = String(new Date().getUTCFullYear() + 1);
   let fail = false;
-  for (const script of ["f1", "openf1", "wec", "imsa"]) {
+  for (const script of NEXTSEASON_SCRIPTS) {
     if (run("npm", ["run", script], { SEASON: next }) !== 0) fail = true;
   }
   return fail ? "failure" : "success";
@@ -211,15 +223,175 @@ function commitStep(push: boolean, paths: string, messagePrefix: string): boolea
 }
 
 // ---------------------------------------------------------------------------
+// serve-шаг — публикация витрины в публичный serve-репо (railway.md §2/§7).
+// Стоит ПОСЛЕ commit-push в origin и ДО гейтов по той же причине, по которой
+// коммит стоит до гейтов: тревога свежести не должна блокировать публикацию
+// уже собранных данных. URL приходит из env SERVE_REPO_URL (в контейнере его
+// собирает entrypoint из ssh-алиаса github-serve); в НАШИ строки лога ни URL,
+// ни ключи не попадают — гигиена railway.md §3.
+// ---------------------------------------------------------------------------
+
+/// git serve-шага — с ПЕРЕХВАТОМ stdio: git печатает URL в собственный stderr
+/// («fatal: unable to access '<URL>'», «To <URL>» у отбитого push — даже с
+/// --quiet), а URL serve-репо в контейнере несёт ssh-алиас и путь. Глушим
+/// целиком и печатаем свою строку без URL; цена — потеря git-диагностики в
+/// логе, но провал шага и так виден кодом и нотификатором.
+function runGitQuiet(dir: string | null, args: string[]): number {
+  const full = dir ? ["-C", dir, ...args] : args;
+  const r = spawnSync("git", full, { stdio: ["ignore", "ignore", "ignore"] });
+  const code = r.status ?? 1;
+  if (code !== 0) console.error(`serve: git ${args[0]} — код ${code}`);
+  return code;
+}
+
+/// Клон serve-репо → экспорт витрины → нейтральный коммит → push с retry.
+/// Экспортируется ради юнит-репетиции в orchestrator.test.ts: bare-репо по
+/// file:// — легальный URL (голый путь игнорировал бы --depth), поэтому шаг
+/// проверяется целиком без сети и без Railway-аккаунта.
+export function pushServe(serveUrl: string): boolean {
+  const tmp = mkdtempSync(join(tmpdir(), "overlap-serve-"));
+  try {
+    // --depth 1: истории витрины прогону не нужно, нужен только HEAD.
+    if (runGitQuiet(null, ["clone", "--quiet", "--depth", "1", serveUrl, tmp]) !== 0) {
+      console.error("serve: клон serve-репо не удался");
+      return false;
+    }
+    // Механика exportserve: состав строго по DATA_FAMILIES, запись с
+    // --write-семантикой (keep-набор служебных файлов — в exportserve.ts).
+    // Сторожа exportserve БРОСАЮТ по дизайну (путь без зоны, пустое семейство,
+    // разъезд карты с диском) — ловим здесь: провал границы данных обязан
+    // доехать до гейтов и нотификатора, а не убить прогон unhandled rejection.
+    try {
+      writeServe(tmp, buildManifest());
+    } catch (e) {
+      console.error(`serve: экспорт витрины отказал (${(e as Error).name}: ` +
+        `${(e as Error).message}) — сторож границы данных`);
+      return false;
+    }
+    if (runGitQuiet(tmp, ["add", "-A"]) !== 0) return false;
+    if (spawnSync("git", ["-C", tmp, "diff", "--cached", "--quiet"]).status === 0) {
+      console.log("serve: нет изменений");
+      return true;
+    }
+    // Сообщение нейтральное и БЕЗ таймстемпа/имён продьюсеров: публичная
+    // история не должна выдавать ни кухню, ни каденс кронов (railway.md).
+    if (runGitQuiet(tmp, [...GIT_IDENT, "commit", "-q", "-m", "data update"]) !== 0) return false;
+    for (let attempt = 1; attempt <= 5; attempt++) {
+      if (runGitQuiet(tmp, ["push", "--quiet", "origin", "HEAD"]) === 0) {
+        console.log(`serve: push ок с попытки ${attempt}`);
+        return true;
+      }
+      console.warn(`serve: push не удался (попытка ${attempt}/5), повтор через 10с`);
+      // Гонка с другим крон-сервисом: replay нашего «data update» поверх
+      // уехавшего remote — тот же rebase-retry, что в commitPush. Идентичность
+      // нужна rebase по той же причине (replay = новый коммит).
+      spawnSync("git", ["-C", tmp, "rebase", "--abort"], { stdio: "ignore" });
+      runGitQuiet(tmp, [...GIT_IDENT, "pull", "--quiet", "--rebase", "origin"]);
+      spawnSync("sleep", ["10"]);
+    }
+    console.error("serve: push не удался после 5 попыток");
+    return false;
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+/// Шаг serve обеих веток. Без --push публикации нет (как и коммита); с --push,
+/// но без SERVE_REPO_URL — штатный пропуск: пока serve-репо не создан, кроны
+/// наполняют только приват, и это норма, а не провал.
+///
+/// Гейт на commitOk: публикуем только зафиксированное приватом. Контейнер
+/// эфемерен — витрина, ушедшая наружу при провале origin-пуша, существовала бы
+/// только в публичном репо и не воспроизводилась бы из приватной истории.
+function serveStep(push: boolean, commitOk: boolean): boolean {
+  if (!push) return true;
+  const url = process.env.SERVE_REPO_URL;
+  if (!url) {
+    console.log("serve-шаг пропущен (нет SERVE_REPO_URL)");
+    return true;
+  }
+  if (!commitOk) {
+    console.warn("serve-шаг пропущен: пуш в origin не удался — наружу едет только зафиксированное приватом");
+    return false;
+  }
+  return pushServe(url);
+}
+
+// ---------------------------------------------------------------------------
+// Нотификатор — слой 2 алертинга railway.md §4: платформонезависимый POST в
+// вебхук владельца при провале прогона. Осечка самого вебхука — warning, а не
+// второй провал: алерт не имеет права ронять то, о чём алертит, и на exit-код
+// не влияет (вердикт уже вынесен гейтами).
+// ---------------------------------------------------------------------------
+
+export interface FailureReport {
+  group: string;
+  /// Ключи упавших продьюсеров (у простой группы — упавший скрипт).
+  failed: string[];
+  /// Строки-нарушения свежести из freshnessViolations.
+  stale: string[];
+  /// Исход serve-шага: false — пуш витрины не удался (или пропущен из-за commit).
+  serve: boolean;
+  /// Исход commit-push в origin: самый вероятный продакшен-отказ (гонка
+  /// пушей, протухший deploy key) — ради него retry и существует; провал
+  /// ТОЛЬКО этого шага тоже обязан доехать до вебхука.
+  commit: boolean;
+  /// Исход шага health (heartbeat свежести): у простых групп его нет — true.
+  health: boolean;
+  /// UTC-таймстемп прогона.
+  at: string;
+}
+
+export async function notifyFailure(url: string, report: FailureReport, timeoutMs = 10_000): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(report),
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    if (!res.ok) {
+      console.warn(`нотификатор: вебхук ответил ${res.status} — алерт не доставлен`);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    // URL в лог не пишем (гигиена §3) — и ТОЛЬКО ИМЯ КЛАССА ошибки: undici
+    // кладёт полный URL в message («Failed to parse URL from <URL>»), а URL
+    // вебхука — секрет (токен телеграм-бота живёт в пути).
+    console.warn(`нотификатор: вебхук недоступен (${(e as Error).name}) — алерт не доставлен`);
+    return false;
+  }
+}
+
+/// Отправка при заданном env и ЛЮБОМ слагаемом ненулевого exit — продьюсеры,
+/// свежесть, health, commit-push в origin, serve-пуш: канал существует, чтобы
+/// падение крона не молчало, и не имеет права выбирать «достойные» причины.
+async function notifyStep(report: FailureReport): Promise<void> {
+  const url = process.env.NOTIFY_WEBHOOK_URL;
+  if (!url) return;
+  // Кривой URL (лишняя кавычка/пробел из env-UI) отсекаем ДО fetch — иначе
+  // undici напечатал бы его целиком в message TypeError.
+  try {
+    new URL(url);
+  } catch {
+    console.warn("нотификатор: NOTIFY_WEBHOOK_URL не парсится — алерт не настроен");
+    return;
+  }
+  const green = report.failed.length === 0 && report.stale.length === 0 &&
+    report.serve && report.commit && report.health;
+  if (green) return;
+  await notifyFailure(url, report);
+}
+
+// ---------------------------------------------------------------------------
 // Гейты snapshot — та же логика, что YAML-шаги «Проверка продьюсеров» и
 // «Проверка свежести данных», но stderr + ненулевой exit вместо ::error::.
 // Оба обязаны отработать даже при падениях выше (эффект `if: always()`),
 // поэтому не выходят сами, а возвращают вердикт — exit решает main.
 // ---------------------------------------------------------------------------
 
-function producersGate(outcomes: Map<string, StepOutcome>): boolean {
-  // skipped падением не считается — это штатный nextseason часового прогона.
-  const failed = [...outcomes.entries()].filter(([, o]) => o === "failure").map(([k]) => k);
+function producersGate(failed: string[]): boolean {
   if (failed.length > 0) {
     console.error(`упали продьюсеры: ${failed.join(" ")} — см. data/health.json`);
     return false;
@@ -259,7 +431,9 @@ export function freshnessViolations(readHealth: () => string): string[] {
   return lines;
 }
 
-function freshnessGate(): boolean {
+/// Возвращает строки-нарушения (пусто = гейт зелёный): их же нотификатор
+/// кладёт в поле stale отчёта, второго чтения health.json не нужно.
+function freshnessGate(): string[] {
   const lines = freshnessViolations(() => readFileSync("data/health.json", "utf8"));
   if (lines.length > 0) {
     console.error("проверка свежести не пройдена:");
@@ -269,10 +443,10 @@ function freshnessGate(): boolean {
         "(ключ в SNAPSHOT_CHAIN или своя группа в SIMPLE_GROUPS) и что он не падает; " +
         "реестр и бюджеты — src/lib/producers.ts, накопленные отметки — data/health.json → lastSuccess/firstSeen",
     );
-    return false;
+  } else {
+    console.log("свежесть ОК");
   }
-  console.log("свежесть ОК");
-  return true;
+  return lines;
 }
 
 // ---------------------------------------------------------------------------
@@ -280,10 +454,10 @@ function freshnessGate(): boolean {
 // ---------------------------------------------------------------------------
 
 /// snapshot / snapshot-daily: продьюсеры с continue-on-error (исход в map, а не
-/// в exit) → health с env `<KEY>_OUTCOME` → коммит → оба гейта. Порядок «сначала
-/// коммит, потом гейты» намеренный, как в YAML: падение гейтов не задерживает
-/// публикацию собранного.
-function runSnapshot(daily: boolean, push: boolean): number {
+/// в exit) → health с env `<KEY>_OUTCOME` → коммит → serve → оба гейта →
+/// нотификатор. Порядок «сначала коммит и serve, потом гейты» намеренный, как
+/// в YAML: падение гейтов не задерживает публикацию собранного.
+async function runSnapshot(daily: boolean, push: boolean): Promise<number> {
   const outcomes = new Map<string, StepOutcome>();
 
   for (const key of SNAPSHOT_CHAIN) {
@@ -317,18 +491,31 @@ function runSnapshot(daily: boolean, push: boolean): number {
   if (!healthOk) console.error("шаг health упал — heartbeat этого прогона не записан");
 
   const commitOk = commitStep(push, "data", "snapshot");
+  const serveOk = serveStep(push, commitOk);
 
   // Оба гейта отрабатывают независимо от исходов друг друга (`if: always()`).
-  const gate1Ok = producersGate(outcomes);
-  const gate2Ok = freshnessGate();
+  // skipped падением не считается — это штатный nextseason часового прогона.
+  const failed = [...outcomes.entries()].filter(([, o]) => o === "failure").map(([k]) => k);
+  const gate1Ok = producersGate(failed);
+  const stale = freshnessGate();
 
-  return healthOk && commitOk && gate1Ok && gate2Ok ? 0 : 1;
+  await notifyStep({
+    group: daily ? "snapshot-daily" : "snapshot",
+    failed,
+    stale,
+    serve: serveOk,
+    commit: commitOk,
+    health: healthOk,
+    at: new Date().toISOString(),
+  });
+
+  return healthOk && commitOk && serveOk && gate1Ok && stale.length === 0 ? 0 : 1;
 }
 
 /// f1live / fia / weclive / tracks: шаги БЕЗ continue-on-error — первый упавший
 /// прекращает остальные (в YAML падение шага валит job сразу), но коммит, как
 /// `if: always()`, публикует то, что успело собраться до падения.
-function runSimple(name: string, group: SimpleGroup, push: boolean): number {
+async function runSimple(name: string, group: SimpleGroup, push: boolean): Promise<number> {
   let failedScript: string | null = null;
   for (const script of group.scripts) {
     if (run("npm", ["run", script]) !== 0) {
@@ -339,7 +526,19 @@ function runSimple(name: string, group: SimpleGroup, push: boolean): number {
   if (failedScript) console.error(`шаг «npm run ${failedScript}» упал — остальные шаги группы ${name} пропущены`);
 
   const commitOk = commitStep(push, group.commitPaths, group.messagePrefix);
-  return failedScript === null && commitOk ? 0 : 1;
+  const serveOk = serveStep(push, commitOk);
+
+  await notifyStep({
+    group: name,
+    failed: failedScript ? [failedScript] : [],
+    stale: [],
+    serve: serveOk,
+    commit: commitOk,
+    health: true,
+    at: new Date().toISOString(),
+  });
+
+  return failedScript === null && commitOk && serveOk ? 0 : 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -353,12 +552,17 @@ function usage(): void {
   console.error("--run — прогнать продьюсеры и гейты без git; --push — то же плюс git add/commit/push");
 }
 
+/// «serve» в цепочке плана — с оговоркой: шаг существует только при --push и
+/// только с SERVE_REPO_URL, но видеть его в плане обязан и локальный прогон —
+/// иначе публикация витрины была бы невидимым шагом крона.
 function printPlan(name: string, scripts: string[], mode: "plan" | "run" | "push"): void {
   const label = mode === "plan" ? " (план, ничего не запущено)" : mode === "run" ? " (без git)" : "";
   console.log(`группа ${name}${label}: ${scripts.join(" → ")}`);
 }
 
-function main(): number {
+const SERVE_PLAN_STEP = "serve-шаг (витрина → SERVE_REPO_URL, только при --push)";
+
+async function main(): Promise<number> {
   const args = process.argv.slice(2);
   const push = args.includes("--push");
   const mode: "plan" | "run" | "push" = push ? "push" : args.includes("--run") ? "run" : "plan";
@@ -374,7 +578,7 @@ function main(): number {
     const scripts = SNAPSHOT_CHAIN.map((k) =>
       k === "nextseason" ? (daily ? "сезон N+1 (f1/openf1/wec/imsa)" : "сезон N+1 (skipped)") : byKey(k)?.script ?? k,
     );
-    printPlan(group, [...scripts, "health", "commit", "гейты"], mode);
+    printPlan(group, [...scripts, "health", "commit", SERVE_PLAN_STEP, "гейты"], mode);
     if (mode === "plan") return 0;
     return runSnapshot(daily, push);
   }
@@ -385,13 +589,21 @@ function main(): number {
     usage();
     return 2;
   }
-  printPlan(group, [...simple.scripts, "commit"], mode);
+  printPlan(group, [...simple.scripts, "commit", SERVE_PLAN_STEP], mode);
   if (mode === "plan") return 0;
   return runSimple(group, simple, push);
 }
 
 // main только при прямом запуске — иначе импорт из тестов запускал бы
-// продьюсеров (тот же приём, что в health.ts).
+// продьюсеров (тот же приём, что в health.ts). catch обязателен: без него
+// исключение (например, сторож exportserve вне пойманного пути) давало бы
+// unhandled rejection — exit случайно ненулевой, но гейты и нотификатор
+// уже не бегут, и падение молчит в вебхук.
 if (import.meta.url === `file://${process.argv[1]}`) {
-  process.exit(main());
+  main()
+    .then((code) => process.exit(code))
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    });
 }
