@@ -12,7 +12,8 @@ import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
-  OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, extractWeatherFact,
+  OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, extractRaceControlFact,
+  extractWeatherFact,
   factComplete, familyOfRelative, frozenMeetingComplete, isRaceLike,
   openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
   type Openf1ClassAFamily,
@@ -52,8 +53,9 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 //
 // weather (этап 2) пишется извлечённым фактом-конвертом (extractWeatherFact):
 // нормализация переезжает с чтения на запись, непригодный источник — reject-
-// маркером (валидный факт, им живёт счёт holes у f1weather). race_control —
-// по-прежнему сырьё, его конвертация — этап 3.
+// маркером (валидный факт, им живёт счёт holes у f1weather). race_control
+// (этап 3, вариант R1) — массивом классифицированных строк с синтезированным
+// message: вербатим FIA не переживает запись.
 async function mirror(relative: string): Promise<any | null> {
   const family = familyOfRelative(relative);
   const classA: Openf1ClassAFamily | null =
@@ -66,6 +68,16 @@ async function mirror(relative: string): Promise<any | null> {
         // Битый JSON у 200-ответа класса А — throw, не тихий null: записать
         // нечего, а молчаливый пропуск маскировал бы поломку источника.
         const fact = extractClassA(classA, JSON.parse(res.text));
+        writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), fact);
+        return JSON.parse(fact);
+      }
+      if (family === "race_control") {
+        // Экстракция на записи, этап 3 (R1): classifyRaceControl построчно +
+        // синтез message из фактов; шум отбрасывается, пусто — строка-маркер.
+        // Сторож шаблонов — в предполёте писателя (амендмент 6): message вне
+        // множества шаблонов синтезатора = throw ВНУТРИ экстракции, до
+        // записи — вербатим FIA не может закоммититься даже одним прогоном.
+        const fact = extractRaceControlFact(JSON.parse(res.text));
         writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), fact);
         return JSON.parse(fact);
       }

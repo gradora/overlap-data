@@ -19,7 +19,8 @@ import {
   OPENF1_FACTS_SCHEMA_VERSION, OPENF1_FIELDS, OPENF1_MANIFEST_NAME,
   OPENF1_MANIFEST_V, OPENF1_MAX_FILE_BYTES, OPENF1_MAX_STRING,
   OPENF1_WEATHER_FACT_VERSION, PIT_HEAL_SINCE_SEASON,
-  countOpenf1Holes, expectedMeetingHandles, extractClassA, extractWeatherFact,
+  countOpenf1Holes, expectedMeetingHandles, extractClassA, extractRaceControlFact,
+  extractWeatherFact,
   factComplete, factTextError, familyOfFile, familyOfRelative,
   frozenMeetingComplete, openf1MeetingIndex, openf1NullFieldWarnings,
   parseWeatherFact, pitNeedsHeal, preflightOpenf1Holes,
@@ -195,20 +196,23 @@ test("extractClassA: сторож-throw — не-массив, не-объект
     "вербатим-длина в keep-значении не должна пролезть в запись даже одним прогоном");
 });
 
-/// Пин состояния этапов 1–2: семь семейств конвертированы и помечены (шесть
-/// класса А + weather). Без этой проверки walk-тест «гейтится манифестом»
-/// превращался бы в вакуум — стёртый манифест делал бы весь каталог «сырьём»
-/// и walk молчал бы про любой откат.
-test("живой манифест: семь семейств помечены конвертированными", () => {
+/// Пин состояния этапов 1–3: все восемь семейств конвертированы и помечены.
+/// Без этой проверки walk-тест «гейтится манифестом» превращался бы в
+/// вакуум — стёртый манифест делал бы весь каталог «сырьём» и walk молчал бы
+/// про любой откат. Это же ловит забытый конвертер после бампа версии:
+/// «версия кода == parser манифеста» краснеет на первом пуше.
+test("живой манифест: все восемь семейств помечены конвертированными", () => {
   const manifest = readOpenf1Manifest(DATA_DIR);
   for (const family of Object.keys(OPENF1_FIELDS) as Openf1ClassAFamily[]) {
     assert.deepEqual(manifest?.families?.[family], { parser: OPENF1_FACTS_SCHEMA_VERSION },
       `${family}: нет пометки в _extractor — оракул и walk-тест не проверяют его форму`);
   }
   // У класса Б версия семейства — версия его ПАРСЕРА (Openf1FamilyEntry):
-  // конвертер этапа 2 пишет ровно её, оракул сверяет с WEATHER_PARSER_VERSION.
+  // конвертеры этапов 2–3 пишут ровно её, оракул сверяет с константой кода.
   assert.deepEqual(manifest?.families?.weather, { parser: WEATHER_PARSER_VERSION },
     "weather: нет пометки в _extractor — оракул и walk-тест не проверяют его форму");
+  assert.deepEqual(manifest?.families?.race_control, { parser: RACECONTROL_PARSER_VERSION },
+    "race_control: нет пометки в _extractor — оракул и walk-тест не проверяют его форму");
 });
 
 // MARK: - Сторожа формы (§2.2/§2.4)
@@ -366,6 +370,77 @@ test("race_control (R1): массив, версия парсера — пер-с
   assert.match(String(factTextError("race_control",
     { parser: RACECONTROL_PARSER_VERSION }, "[]")), /маркер/);
   rmSync(dir, { recursive: true, force: true });
+});
+
+// MARK: - Экстракция race_control (этап 3, R1)
+
+test("extractRaceControlFact: классификация+синтез на записи, шум долой, пусто — маркер", () => {
+  const raw = [
+    { meeting_key: 1219, session_key: 9158, date: "2023-09-15T09:15:06+00:00",
+      driver_number: null, lap_number: 12, category: "Flag", flag: "YELLOW",
+      scope: "Sector", sector: 7, qualifying_phase: null,
+      message: "YELLOW IN TRACK SECTOR 7" },
+    { category: "SafetyCar", message: "VIRTUAL SAFETY CAR DEPLOYED",
+      date: "2023-09-15T10:00:00+00:00", session_key: 9158 },
+    { message: "PINK HEAD PADDING MATERIAL MUST BE USED" },   // шум — не сохраняется
+  ];
+  const text = extractRaceControlFact(raw);
+  assert.equal(text,
+    `[{"parser":${RACECONTROL_PARSER_VERSION},"kind":"flag","lap":12,` +
+    `"flag":"YELLOW","scope":"Sector","sector":7,"category":"Flag",` +
+    `"lap_number":12,"message":"Yellow flag in sector 7"},` +
+    `{"parser":${RACECONTROL_PARSER_VERSION},"kind":"safety_car",` +
+    `"virtual":true,"deployed":true,"category":"SafetyCar",` +
+    `"message":"Virtual safety car deployed"}]\n`,
+    "R1-строка: parser + факт-ключи порядком классификатора + legacy + синтез");
+  // Выход проходит оракул формы — писатель, конвертер и walk-тест смотрят
+  // одной проверкой; вербатим FIA из сырья в текст не перенёсся.
+  assert.equal(factTextError("race_control", { parser: RACECONTROL_PARSER_VERSION }, text), null);
+  assert.ok(!text.includes("YELLOW IN TRACK SECTOR"), "вербатим пролез в запись");
+
+  // Сессия целиком из шума и пустая сессия — маркер с parser (амендмент 11).
+  const markerText = `[{"parser":${RACECONTROL_PARSER_VERSION},"kind":"empty"}]\n`;
+  assert.equal(extractRaceControlFact([]), markerText);
+  assert.equal(extractRaceControlFact([{ message: "PINK HEAD PADDING MATERIAL MUST BE USED" }]),
+    markerText);
+  assert.equal(factTextError("race_control", { parser: RACECONTROL_PARSER_VERSION }, markerText), null);
+
+  // Сторож-throw: не-массив и строка-не-объект — громко, не тихий пропуск.
+  assert.throws(() => extractRaceControlFact({ rows: [] }), /не массив/);
+  assert.throws(() => extractRaceControlFact([42]), /не объект/);
+});
+
+/// Сторожа R1 в оракуле (§2.4 п.3): именно они делают walk-тест «ни одного
+/// вербатима» — сырьё краснеет ключами, чужой текст — шаблонами.
+test("оракул race_control: сырьё, чужой kind и не-шаблонный message — не факт", () => {
+  const entry = { parser: RACECONTROL_PARSER_VERSION };
+  const ok = { parser: RACECONTROL_PARSER_VERSION, kind: "flag", flag: "RED",
+    category: "Flag", message: "Red flag" };
+  assert.equal(factTextError("race_control", entry, JSON.stringify([ok])), null);
+
+  // Сырьё вернулось: ключи источника (date/session_key) вне белого списка.
+  const rawish = { ...ok, date: "2023-09-15T09:15:06+00:00", session_key: 9158 };
+  assert.match(String(factTextError("race_control", entry, JSON.stringify([rawish]))),
+    /сырьё вернулось/);
+
+  // kind вне закрытого множества классификатора.
+  assert.match(String(factTextError("race_control", entry,
+    JSON.stringify([{ parser: RACECONTROL_PARSER_VERSION, kind: "chatter" }]))),
+    /kind вне закрытого множества/);
+
+  // message не из шаблонов синтезатора — вербатим не переживает walk-тест.
+  assert.match(String(factTextError("race_control", entry,
+    JSON.stringify([{ ...ok, message: "RED FLAG DUE TO DEBRIS ON THE MAIN STRAIGHT" }]))),
+    /не из шаблонов/);
+
+  // Маркер валиден только ОДИН и ОДИН ЕДИНСТВЕННЫЙ: маркер рядом с событиями —
+  // ошибка писателя, а не «пустая сессия».
+  const marker = { parser: RACECONTROL_PARSER_VERSION, kind: "empty" };
+  assert.equal(factTextError("race_control", entry, JSON.stringify([marker])), null);
+  assert.match(String(factTextError("race_control", entry, JSON.stringify([marker, ok]))),
+    /не единственная строка/);
+  assert.match(String(factTextError("race_control", entry, JSON.stringify(["строка"]))),
+    /не объект/);
 });
 
 // MARK: - Матрица полноты митинга

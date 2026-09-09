@@ -9,6 +9,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { classifyRaceControl } from "./lib/racecontrol.js";
 import { buildRaceControlDoc } from "./lib/racecontrolbuild.js";
+import { extractRaceControlFact } from "./lib/openf1facts.js";
 import { buildProtocolsBlock, buildScheduleBlock, compoundsByCar, orderResults }
   from "./lib/f1protocols.js";
 
@@ -58,12 +59,22 @@ test("сборка: сессии без событий и события без 
   writeFileSync(join(dir, "sessions_meeting_key_9"),
     JSON.stringify([{ session_key: 70, session_name: "Race" }]));
   assert.equal(buildRaceControlDoc(root, 2026, "x", 9), null, "нет лент — нет файла");
+  // Зеркало с этапа 3 хранит R1-факты — файл пишет та же экстракция, что у
+  // писателя: объявление без структурной ценности отброшено уже ЗАПИСЬЮ.
   writeFileSync(join(dir, "race_control_session_key_70"),
-    JSON.stringify([{ category: "Flag", flag: "GREEN", scope: "Track" },
-                    { message: "PINK HEAD PADDING MATERIAL MUST BE USED" }]));
+    extractRaceControlFact([{ category: "Flag", flag: "GREEN", scope: "Track" },
+                            { message: "PINK HEAD PADDING MATERIAL MUST BE USED" }]));
   const doc = buildRaceControlDoc(root, 2026, "f1-2026-1", 9)!;
   assert.equal(doc.sessions.length, 1);
   assert.equal(doc.sessions[0].events.length, 1, "объявление просочилось в витрину");
+  // Факт витрины — ровно выход classifyRaceControl, как при классификации на
+  // чтении: legacy-ключи, parser и синтез message в витрину не переносятся.
+  assert.deepEqual(doc.sessions[0].events[0], { kind: "flag", flag: "GREEN", scope: "Track" });
+  // Сессия из одного маркера (все строки источника — шум) файла не даёт.
+  writeFileSync(join(dir, "race_control_session_key_70"),
+    extractRaceControlFact([{ message: "PINK HEAD PADDING MATERIAL MUST BE USED" }]));
+  assert.equal(buildRaceControlDoc(root, 2026, "x", 9), null,
+    "маркер пустой сессии просочился в витрину");
   rmSync(root, { recursive: true, force: true });
 });
 

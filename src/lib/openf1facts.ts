@@ -33,6 +33,10 @@ import {
   type OpenF1WeatherRow, type WeatherSamples,
 } from "./weather.js";
 import { RACECONTROL_PARSER_VERSION } from "./racecontrol.js";
+import {
+  R1_ALLOWED_KEYS, R1_EMPTY_KIND, R1_KINDS, matchedTemplates, r1EmptyMarker,
+  toR1Row,
+} from "./racecontrolsynth.js";
 
 /// Версия экстракции класса А. Поднимать при любой правке реестра keep-полей.
 ///
@@ -239,6 +243,41 @@ export function parseWeatherFact(
   if (typeof doc.reject === "string") return { reject: doc.reject };
   if (!Array.isArray(doc.samples?.t)) return null;   // конверт без samples и без reject
   return { samples: doc.samples as WeatherSamples };
+}
+
+// MARK: - Экстракция race_control (класс Б, вариант R1, этап 3)
+
+/// Сырые строки ручки race_control → канонический текст R1-факта: JSON-МАССИВ
+/// строк (конверта нет — Swift-декод [RaceControlEvent] клиентского каскада
+/// 2023–24 жив), построчно classifyRaceControl + синтез message из фактов
+/// (racecontrolsynth.ts). Шум (null классификатора) не сохраняется — витрина
+/// его и так отбрасывает; вербатим FIA не переживает запись по построению.
+/// Пустых фактов не бывает (амендмент 11): ноль классифицированных строк →
+/// массив из одной строки-маркера с parser.
+///
+/// Сторож шаблонов — В ПРЕДПОЛЁТЕ писателя (амендмент 6): выход прогоняется
+/// через оракул формы (message ⇒ ровно один шаблон синтезатора), не прошёл —
+/// throw ДО записи: вербатим не может закоммититься даже одним прогоном.
+///
+/// НЕ идемпотентна над собственным выходом (classifyRaceControl над синтезом
+/// дал бы вторичную разметку): писатель зовёт её только на 200-ответ API, а
+/// конвертер опознаёт уже-факт оракулом (см. convert-openf1-racecontrol.ts).
+export function extractRaceControlFact(rows: unknown): string {
+  if (!Array.isArray(rows)) {
+    throw new Error(`extractRaceControlFact: источник — не массив строк (${typeof rows})`);
+  }
+  const out: Record<string, unknown>[] = [];
+  rows.forEach((row, i) => {
+    if (typeof row !== "object" || row === null || Array.isArray(row)) {
+      throw new Error(`extractRaceControlFact: строка ${i} — не объект`);
+    }
+    const r1 = toR1Row(row);
+    if (r1 !== null) out.push(r1);
+  });
+  const text = JSON.stringify(out.length > 0 ? out : [r1EmptyMarker()]) + "\n";
+  const err = factTextError("race_control", { parser: RACECONTROL_PARSER_VERSION }, text);
+  if (err) throw new Error(`extractRaceControlFact: ${err}`);
+  return text;
 }
 
 // MARK: - Сторожа формы (дизайн §2.2/§2.4)
@@ -454,8 +493,33 @@ export function factTextError(
       return "race_control: пустой массив — писатель обязан класть строку-маркер с parser";
     }
     for (let i = 0; i < doc.length; i++) {
-      if ((doc[i] as any)?.parser !== RACECONTROL_PARSER_VERSION) {
+      const row = doc[i];
+      if (typeof row !== "object" || row === null || Array.isArray(row)) {
+        return `race_control: строка ${i} — не объект`;
+      }
+      const r = row as Record<string, unknown>;
+      if (r.parser !== RACECONTROL_PARSER_VERSION) {
         return `race_control: строка ${i} — устаревший/отсутствующий parser`;
+      }
+      // Сторожа R1 (§2.4 п.3): kind — из закрытого множества классификатора;
+      // ключи — по белому списку (сырьё несёт date/session_key/meeting_key —
+      // краснеет на первом же); message — только из шаблонов синтезатора,
+      // причём ровно одного: вербатим FIA не матчится ни одним по построению.
+      if (typeof r.kind !== "string" || !R1_KINDS.has(r.kind)) {
+        return `race_control: строка ${i} — kind вне закрытого множества`;
+      }
+      if (r.kind === R1_EMPTY_KIND && doc.length !== 1) {
+        return `race_control: строка ${i} — маркер пустой сессии не единственная строка файла`;
+      }
+      const extra = Object.keys(r).filter((k) => !R1_ALLOWED_KEYS.has(k));
+      if (extra.length) {
+        return `race_control: строка ${i} — ключи вне реестра (${extra.join(", ")}): сырьё вернулось`;
+      }
+      if (r.message !== undefined) {
+        if (typeof r.message !== "string" || matchedTemplates(r.message) !== 1) {
+          return `race_control: строка ${i} — message не из шаблонов синтезатора ` +
+            `(«${String(r.message).slice(0, 40)}…»)`;
+        }
       }
     }
     return null;
