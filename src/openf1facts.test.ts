@@ -19,8 +19,8 @@ import {
   OPENF1_FACTS_SCHEMA_VERSION, OPENF1_FIELDS, OPENF1_MANIFEST_NAME,
   OPENF1_MANIFEST_V, OPENF1_MAX_FILE_BYTES, OPENF1_MAX_STRING,
   OPENF1_WEATHER_FACT_VERSION, PIT_HEAL_SINCE_SEASON,
-  countOpenf1Holes, expectedMeetingHandles, factComplete, factTextError,
-  familyOfFile, familyOfRelative, frozenMeetingComplete, openf1MeetingIndex,
+  countOpenf1Holes, expectedMeetingHandles, extractClassA, factComplete,
+  factTextError, familyOfFile, familyOfRelative, frozenMeetingComplete, openf1MeetingIndex,
   openf1NullFieldWarnings, pitNeedsHeal, preflightOpenf1Holes,
   readOpenf1Manifest, writeOpenf1Manifest,
   type Openf1ClassAFamily, type Openf1Manifest,
@@ -159,6 +159,50 @@ test("класс А: точное равенство множества keep-к�
   const bumped = manifestWith({ stints: { parser: OPENF1_FACTS_SCHEMA_VERSION + 1 } });
   assert.equal(factComplete(dir, bumped, "stints?session_key=1"), false);
   rmSync(dir, { recursive: true, force: true });
+});
+
+// MARK: - Экстракция класса А (этап 1)
+
+test("extractClassA: keep-фильтр, null-дополнение, канонический порядок, \\n", () => {
+  // Ключи источника вперемешку и с лишними (meeting_key, lap_start) — на
+  // выходе только keep, в порядке реестра; отсутствующий compound — явным null
+  // (амендмент 2), иначе оракул точного равенства множеств звал бы добор вечно.
+  const raw = [
+    { compound: "SOFT", lap_start: 1, stint_number: 2, driver_number: 44, meeting_key: 9 },
+    { driver_number: 81, stint_number: 1 },
+  ];
+  const text = extractClassA("stints", raw);
+  assert.equal(text,
+    '[{"driver_number":44,"stint_number":2,"compound":"SOFT"},' +
+    '{"driver_number":81,"stint_number":1,"compound":null}]\n');
+  // Идемпотентность конвертера держится здесь: экстракция уже извлечённого —
+  // те же байты, writeIfChanged на повторном прогоне молчит.
+  assert.equal(extractClassA("stints", JSON.parse(text)), text);
+  // Пустой массив — валидный факт (спринт без питстопов).
+  assert.equal(extractClassA("pit", []), "[]\n");
+  // Выход проходит оракул формы конвертированного семейства — писатель и
+  // walk-тест смотрят одной проверкой.
+  assert.equal(factTextError("stints", { parser: OPENF1_FACTS_SCHEMA_VERSION }, text), null);
+});
+
+test("extractClassA: сторож-throw — не-массив, не-объект, вербатим-длина", () => {
+  assert.throws(() => extractClassA("stints", { detail: "объект вместо массива" }), /не массив/);
+  assert.throws(() => extractClassA("stints", [42]), /не объект/);
+  const verbatim = { driver_number: 1, stint_number: 1,
+    compound: "В".repeat(OPENF1_MAX_STRING + 1) };
+  assert.throws(() => extractClassA("stints", [verbatim]), /длиннее/,
+    "вербатим-длина в keep-значении не должна пролезть в запись даже одним прогоном");
+});
+
+/// Пин состояния этапа 1: шесть семейств конвертированы и помечены. Без этой
+/// проверки walk-тест «гейтится манифестом» превращался бы в вакуум — стёртый
+/// манифест делал бы весь каталог «сырьём» и walk молчал бы про любой откат.
+test("живой манифест: шесть семейств класса А помечены конвертированными", () => {
+  const manifest = readOpenf1Manifest(DATA_DIR);
+  for (const family of Object.keys(OPENF1_FIELDS) as Openf1ClassAFamily[]) {
+    assert.deepEqual(manifest?.families?.[family], { parser: OPENF1_FACTS_SCHEMA_VERSION },
+      `${family}: нет пометки в _extractor — оракул и walk-тест не проверяют его форму`);
+  }
 });
 
 // MARK: - Сторожа формы (§2.2/§2.4)

@@ -31,10 +31,20 @@ import { mirrorSlug, writeIfChanged } from "./mirror.js";
 import { WEATHER_PARSER_VERSION } from "./weather.js";
 import { RACECONTROL_PARSER_VERSION } from "./racecontrol.js";
 
-/// Версия экстракции класса А. Поднимать при любой правке реестра keep-полей:
-/// манифест с прежней версией делает семейство «устаревшим», оракул отвечает
-/// «не полон», и добор перечитывает архив сам, прогонами (механика isCurrent
-/// у WEC). Без версии расширение реестра не доехало бы до архива никогда.
+/// Версия экстракции класса А. Поднимать при любой правке реестра keep-полей.
+///
+/// ПРОЦЕДУРА БАМПА — ручная, одним PR (у класса А версия живёт в манифесте
+/// СЕМЕЙСТВА, и кроновый писатель её не продвигает — механика isCurrent WEC
+/// здесь НЕ работает: после бампа без конвертера каждый прогон пережигал бы
+/// кап добора на одни и те же «вечно устаревшие» файлы без прогресса):
+///   1. гашение кронов коммитом (if: false на job, как окно этапов 1–3);
+///   2. BACKFILL=late без капа — перекачка сырья по расширенному реестру
+///      (источник жив; поля сверх прежнего keep берутся из живого API,
+///      страховка на его смерть — raw-зеркало в приватном репо);
+///   3. src/convert-openf1-a.ts — конвертация + новая версия в манифесте;
+///   4. данные + код одним коммитом, расгашение кронов.
+/// Забытый шаг 3 ловит тест «версия кода == parser манифеста» на первом же
+/// пуше (openf1facts.test.ts) — PR с бампом без конвертации не пройдёт CI.
 export const OPENF1_FACTS_SCHEMA_VERSION = 1;
 
 /// Версия конверта weather — на будущее (этап 2), в этапе 0 семейство не
@@ -85,11 +95,16 @@ export const OPENF1_FIELDS: Record<Openf1ClassAFamily, Openf1FieldSpec> = {
   sessions: {
     // session_type сборкой не потребляется, но обязателен клиенту (OpenF1Session
     // non-optional) — карта потребления его резала, дизайн вернул.
+    // is_cancelled — тоже возврат, но уже НА ЭТАПЕ 1: карта потребления
+    // снималась 07.09, а 08.09 появился Б1-блок schedule (f1protocols.
+    // buildScheduleBlock читает s.is_cancelled — пилюля «Cancelled» у сессий
+    // отменённых Бахрейна/Джидды-2026). Дроп по таблице дизайна ронял эталон
+    // витрины: flag cancelled пропадал из файлов событий.
     keep: ["session_key", "session_name", "session_type", "meeting_key",
-      "date_start", "date_end"],
+      "date_start", "date_end", "is_cancelled"],
     clientRequired: ["session_key", "session_name", "session_type", "meeting_key"],
     drop: ["circuit_key", "circuit_short_name", "country_code", "country_key",
-      "country_name", "location", "gmt_offset", "year", "is_cancelled"],
+      "country_name", "location", "gmt_offset", "year"],
   },
   drivers: {
     keep: ["driver_number", "name_acronym", "first_name", "last_name",
@@ -121,6 +136,42 @@ export const OPENF1_FIELDS: Record<Openf1ClassAFamily, Openf1FieldSpec> = {
       "meeting_key", "session_key"],
   },
 };
+
+// MARK: - Экстракция класса А (этап 1)
+
+/// Строки источника → канонический текст факта. Правила: лишние ключи источника
+/// молча отбрасываются (осознанный drop держит тест реестра «union покрыт
+/// keep ∪ drop»), ВСЕ keep-ключи кладутся КАЖДОЙ строке — отсутствующие явным
+/// null (амендмент 2: иначе пропажа поля у источника означала бы вечную
+/// перекачку «неполон → добор»); порядок ключей — порядок реестра keep;
+/// сериализация компактная, завершающий \n. «Ответ API как есть» перестаёт
+/// существовать: и набор полей, и байтовая форма — наши.
+///
+/// Сторож — throw, не тихий пропуск: результат прогоняется через оракул формы
+/// (factTextError), и строка, не прошедшая его ПОСЛЕ экстракции (вербатим-длина
+/// в keep-значении, не-объект в массиве, разлив сверх потолка семейства), не
+/// записывается вовсе. Писатель и разовый конвертер зовут ОДНУ эту функцию —
+/// «как пишем» и «как проверяем» не могут разъехаться.
+export function extractClassA(family: Openf1ClassAFamily, rows: unknown): string {
+  if (!Array.isArray(rows)) {
+    throw new Error(`extractClassA ${family}: источник — не массив строк (${typeof rows})`);
+  }
+  const keep = OPENF1_FIELDS[family].keep;
+  const extracted = rows.map((row, i) => {
+    if (typeof row !== "object" || row === null || Array.isArray(row)) {
+      throw new Error(`extractClassA ${family}: строка ${i} — не объект`);
+    }
+    const fact: Record<string, unknown> = {};
+    // undefined → null явно: JSON.stringify выбросил бы undefined-ключ, и
+    // оракул точного равенства множеств счёл бы файл битым.
+    for (const k of keep) fact[k] = (row as any)[k] === undefined ? null : (row as any)[k];
+    return fact;
+  });
+  const text = JSON.stringify(extracted) + "\n";
+  const err = factTextError(family, { parser: OPENF1_FACTS_SCHEMA_VERSION }, text);
+  if (err) throw new Error(`extractClassA: ${err}`);
+  return text;
+}
 
 // MARK: - Сторожа формы (дизайн §2.2/§2.4)
 

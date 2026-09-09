@@ -1,6 +1,25 @@
 {
   "v": 1,
-  "families": {},
+  "families": {
+    "meetings": {
+      "parser": 1
+    },
+    "sessions": {
+      "parser": 1
+    },
+    "drivers": {
+      "parser": 1
+    },
+    "session_result": {
+      "parser": 1
+    },
+    "stints": {
+      "parser": 1
+    },
+    "pit": {
+      "parser": 1
+    }
+  },
   "holesBaseline": {
     "perMeeting": {
       "1141": 1,

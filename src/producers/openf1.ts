@@ -12,8 +12,10 @@ import { join } from "node:path";
 import { isFrozen } from "../lib/freeze.js";
 import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
-  PIT_HEAL_SINCE_SEASON, factComplete, frozenMeetingComplete, isRaceLike,
-  openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
+  OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, factComplete,
+  familyOfRelative, frozenMeetingComplete, isRaceLike, openf1MeetingIndex,
+  pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
+  type Openf1ClassAFamily,
 } from "../lib/openf1facts.js";
 
 // Реэкспорт: isRaceLike/pitNeedsHeal переехали в lib/openf1facts.ts (матрица
@@ -39,11 +41,30 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 // Тянем OpenF1-относительный путь (после /v1/), кладём под f1/openf1/<slug>.
 // Базовая пауза 1.2с; на 429 (рейт-лимит) — ретрай с backoff. Возвращает JSON
 // или null (тогда приложение падает на прямой OpenF1 для этого файла).
+//
+// ЭКСТРАКЦИЯ НА ЗАПИСИ (этап 1): семейства класса А пишутся НЕ «как есть», а
+// через extractClassA — только keep-поля реестра, канонической формой; сырьё
+// с ключами вне белого списка физически не пролезает в запись (сторож-throw
+// внутри экстракции, амендмент 6: вербатим/чужая схема не должны
+// закоммититься даже одним прогоном). Безусловно, без гейта манифестом:
+// манифест гейтит ЧТЕНИЕ переходного состояния (оракул/walk-тест), а писатель
+// после этапа 1 сырья класса А не производит вовсе. weather/race_control —
+// по-прежнему сырьё, их конвертация — этапы 2–3.
 async function mirror(relative: string): Promise<any | null> {
+  const family = familyOfRelative(relative);
+  const classA: Openf1ClassAFamily | null =
+    family !== null && family in OPENF1_FIELDS ? (family as Openf1ClassAFamily) : null;
   for (let attempt = 0; attempt <= 3; attempt++) {
     await sleep(attempt === 0 ? 1200 : 8000 * attempt); // 1.2с; backoff 8/16/24с
     const res = await fetchText(`${OPENF1}/${relative}`);
     if (res?.status === 200) {
+      if (classA !== null) {
+        // Битый JSON у 200-ответа класса А — throw, не тихий null: записать
+        // нечего, а молчаливый пропуск маскировал бы поломку источника.
+        const fact = extractClassA(classA, JSON.parse(res.text));
+        writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), fact);
+        return JSON.parse(fact);
+      }
       writeIfChanged(join(OUT_DIR, mirrorSlug(relative)), res.text);
       try {
         return JSON.parse(res.text);
