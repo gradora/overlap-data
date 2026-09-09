@@ -14,8 +14,10 @@ import { fetchText, mirrorSlug, writeIfChanged } from "../lib/mirror.js";
 import {
   OPENF1_FIELDS, PIT_HEAL_SINCE_SEASON, extractClassA, extractRaceControlFact,
   extractWeatherFact,
+  OPENF1_MAX_PRUNE_PER_RUN,
   factComplete, familyOfRelative, frozenMeetingComplete, isRaceLike,
-  openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, readOpenf1Manifest,
+  openf1MeetingIndex, pitNeedsHeal, preflightOpenf1Holes, pruneOpenf1Orphans,
+  readOpenf1Manifest,
   type Openf1ClassAFamily,
 } from "../lib/openf1facts.js";
 
@@ -448,11 +450,35 @@ async function main() {
   // карта дыр + счёт замороженных по годам в манифесте; warning-канал
   // (сплошной null keep-поля) печатается, но job не валит. Staleness дырой не
   // считается — устаревшие факты добираются с капом GET выше.
+  //
+  // ПОРЯДОК НЕСЁТ СМЫСЛ: предполёт стоит ПЕРЕД GC (находка ревью этапа 4).
+  // «Замороженный митинг выпал из meetings_year_*» — это одновременно и
+  // тревога предполёта («пропал из матрицы»/«год усох»), и сирота для GC:
+  // GC до предполёта успел бы снести файлы раньше письма, обойдя ритуал
+  // OPENF1_ACCEPT_HOLES. Тревога (throw) — GC прогона не бежит вовсе:
+  // диску, которому предполёт не верит, нельзя доверять и уборку.
   const preflight = preflightOpenf1Holes(OUT_DIR, NOW);
   for (const w of preflight.warnings) console.warn(`  предупреждение: ${w}`);
   const mapped = Object.values(preflight.baseline.perMeeting).reduce((a, b) => a + b, 0);
   console.log(`  предполёт: ${preflight.holes.length} дыр (карта бейслайна: ${mapped}` +
     `${preflight.initialized ? ", записана впервые" : ""})`);
+  // GC осиротевших (этап 4): митинг выпал из meetings_year_* (перенос года,
+  // фантом источника) — его листинг, drivers и сессионные файлы больше никто
+  // не обновит и не прочитает; сессия выпала из живого листинга — её файлы
+  // туда же. Отменённые митинги ЖИВЫ в meetings_year_* и сиротами НЕ
+  // считаются (амендмент 9: сиротство меряется по meetings_year_*, не по
+  // матрице добора). Бежит только штатным путём текущего сезона — meetings
+  // этого прогона уже сняты выше, historic/future/backfill вышли раньше, а
+  // предполёт выше отработал БЕЗ тревоги (throw не пустил бы сюда).
+  // Отказ (битый вход сиротства или единиц больше капа) — тревога варнингом,
+  // файлы не тронуты: обрезанный листинг не должен снести пол-архива.
+  const pruned = pruneOpenf1Orphans(OUT_DIR);
+  if ("refused" in pruned) {
+    console.warn(`::warning::openf1 GC (кап ${OPENF1_MAX_PRUNE_PER_RUN}): ${pruned.refused}`);
+  } else {
+    for (const f of pruned.removed) console.log(`  prune ${f} (сирота зеркала)`);
+    console.log(`  GC: сирот ${pruned.removed.length}`);
+  }
   console.log("Done.");
 }
 

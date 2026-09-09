@@ -17,13 +17,15 @@ import { WEATHER_PARSER_VERSION } from "./lib/weather.js";
 import { RACECONTROL_PARSER_VERSION } from "./lib/racecontrol.js";
 import {
   OPENF1_FACTS_SCHEMA_VERSION, OPENF1_FIELDS, OPENF1_MANIFEST_NAME,
-  OPENF1_MANIFEST_V, OPENF1_MAX_FILE_BYTES, OPENF1_MAX_STRING,
+  OPENF1_MANIFEST_V, OPENF1_MAX_FILE_BYTES, OPENF1_MAX_PRUNE_PER_RUN,
+  OPENF1_MAX_STRING,
   OPENF1_WEATHER_FACT_VERSION, PIT_HEAL_SINCE_SEASON,
   countOpenf1Holes, expectedMeetingHandles, extractClassA, extractRaceControlFact,
   extractWeatherFact,
   factComplete, factTextError, familyOfFile, familyOfRelative,
   frozenMeetingComplete, openf1MeetingIndex, openf1NullFieldWarnings,
-  parseWeatherFact, pitNeedsHeal, preflightOpenf1Holes,
+  openf1Orphans,
+  parseWeatherFact, pitNeedsHeal, preflightOpenf1Holes, pruneOpenf1Orphans,
   readOpenf1Manifest, writeOpenf1Manifest,
   type Openf1ClassAFamily, type Openf1Manifest,
 } from "./lib/openf1facts.js";
@@ -565,6 +567,147 @@ test("индекс митингов: год из имени файла, отме
   rmSync(dir, { recursive: true, force: true });
 });
 
+// MARK: - GC осиротевших (этап 4)
+
+/// Сессионные файлы одного session_key — все пять семейств.
+const SESSION_FILES = ["session_result", "stints", "race_control", "weather", "pit"];
+const putSessionFiles = (dir: string, sk: number) => {
+  for (const f of SESSION_FILES) put(dir, `${f}?session_key=${sk}`, []);
+};
+
+/// Каталог с живым митингом 7 (сессия 11), ОТМЕНЁННЫМ митингом 9 (сессия 91,
+/// файлы сняты до отмены) и манифестом. Всё это GC трогать не имеет права.
+function putGcBaseline(dir: string) {
+  put(dir, "meetings?year=2030", [
+    { meeting_key: 7, meeting_name: "Testland GP" },
+    { meeting_key: 9, meeting_name: "Cancelled GP", is_cancelled: true },
+  ]);
+  put(dir, "sessions?meeting_key=7", [{ session_key: 11, session_name: "Race" }]);
+  put(dir, "drivers?meeting_key=7", [{ driver_number: 1 }]);
+  putSessionFiles(dir, 11);
+  put(dir, "sessions?meeting_key=9", [{ session_key: 91, session_name: "Race" }]);
+  put(dir, "drivers?meeting_key=9", [{ driver_number: 1 }]);
+  putSessionFiles(dir, 91);
+  writeOpenf1Manifest(dir, manifestWith({}));
+}
+
+const survivors = (dir: string) => readdirSync(dir).sort();
+
+test("GC: сирота-митинг сносится с листингом, drivers и сессиями; россыпь — тоже", () => {
+  const dir = sandbox();
+  putGcBaseline(dir);
+  // Митинг 6 пропал из meetings_year_* (перенос года): листинг, drivers и
+  // файлы его сессии 66 — сироты. Плюс россыпь: session_result сессии 500,
+  // которой нет ни в одном листинге (выпала из живого при перескрейпе).
+  put(dir, "sessions?meeting_key=6", [{ session_key: 66, session_name: "Race" }]);
+  put(dir, "drivers?meeting_key=6", [{ driver_number: 1 }]);
+  putSessionFiles(dir, 66);
+  put(dir, "session_result?session_key=500", []);
+
+  const scan = openf1Orphans(dir);
+  assert.ok(!("refused" in scan));
+  assert.deepEqual(scan, { meetings: ["6"], sessions: ["500"], listedByOrphans: ["66"] });
+
+  const before = survivors(dir);
+  const pruned = pruneOpenf1Orphans(dir);
+  assert.ok("removed" in pruned, `отказ вместо уборки: ${JSON.stringify(pruned)}`);
+  assert.deepEqual(pruned.removed.sort(), [
+    "drivers_meeting_key_6",
+    "pit_session_key_66",
+    "race_control_session_key_66",
+    "session_result_session_key_500",
+    "session_result_session_key_66",
+    "sessions_meeting_key_6",
+    "stints_session_key_66",
+    "weather_session_key_66",
+  ]);
+  // Выжили ровно не-сироты: живой митинг 7, ОТМЕНЁННЫЙ митинг 9 (амендмент 9:
+  // его строка жива в meetings_year_*, снятые до отмены файлы — не мусор)
+  // и манифест _extractor (вне восьми семейств — GC его не видит).
+  assert.deepEqual(survivors(dir),
+    before.filter((n) => !pruned.removed.includes(n)));
+  assert.ok(existsSync(join(dir, mirrorSlug("sessions?meeting_key=9"))), "отменённый снесён");
+  assert.ok(existsSync(join(dir, mirrorSlug("weather?session_key=91"))), "сессия отменённого снесена");
+  assert.ok(existsSync(join(dir, OPENF1_MANIFEST_NAME)), "манифест снесён");
+  // Повторный прогон — нулевая уборка: GC идемпотентен.
+  assert.deepEqual(pruneOpenf1Orphans(dir), { removed: [] });
+  rmSync(dir, { recursive: true, force: true });
+});
+
+/// Пол уборки, как у WEC: обрезанный (читаемый, но усечённый) meetings_year_*
+/// осиротил бы десятки митингов разом — свыше капа GC отказывается целиком.
+test("GC: сирот больше капа — отказ, ничего не удалено", () => {
+  const dir = sandbox();
+  putGcBaseline(dir);
+  for (const key of [3, 4, 5]) {
+    put(dir, `sessions?meeting_key=${key}`, [{ session_key: key * 100, session_name: "Race" }]);
+  }
+  const scan = openf1Orphans(dir);
+  assert.ok(!("refused" in scan) && scan.meetings.length > OPENF1_MAX_PRUNE_PER_RUN);
+  const before = survivors(dir);
+  const pruned = pruneOpenf1Orphans(dir);
+  assert.ok("refused" in pruned && /капе/.test(pruned.refused), "кап не сработал");
+  assert.deepEqual(survivors(dir), before, "отказ обязан не удалять НИЧЕГО");
+  // Ровно на капе (два митинга) — штатная перекройка, сносится.
+  rmSync(join(dir, mirrorSlug("sessions?meeting_key=5")));
+  const ok = pruneOpenf1Orphans(dir);
+  assert.ok("removed" in ok);
+  assert.deepEqual(ok.removed.sort(),
+    ["sessions_meeting_key_3", "sessions_meeting_key_4"]);
+  rmSync(dir, { recursive: true, force: true });
+});
+
+/// Fail-closed на порчу входов сиротства: битый meetings_year_* «осиротил» бы
+/// весь год, битый листинг — сессии своего митинга россыпью. GC не верит
+/// такому диску целиком — даже настоящие сироты ждут починки.
+test("GC: битый meetings_year_* или листинг отменяет уборку целиком", () => {
+  const dir = sandbox();
+  putGcBaseline(dir);
+  put(dir, "sessions?meeting_key=6", [{ session_key: 66, session_name: "Race" }]);   // сирота
+  writeFileSync(join(dir, mirrorSlug("meetings?year=2031")), "{битый json");
+  const before = survivors(dir);
+  const broken = pruneOpenf1Orphans(dir);
+  assert.ok("refused" in broken && /meetings_year_2031 бит/.test(broken.refused));
+  assert.deepEqual(survivors(dir), before, "порча года не имеет права ничего снести");
+
+  rmSync(join(dir, mirrorSlug("meetings?year=2031")));
+  writeFileSync(join(dir, mirrorSlug("sessions?meeting_key=7")), "{битый json");
+  const beforeListing = survivors(dir);
+  const badListing = pruneOpenf1Orphans(dir);
+  assert.ok("refused" in badListing && /sessions_meeting_key_7 бит/.test(badListing.refused));
+  assert.deepEqual(survivors(dir), beforeListing, "порча листинга не имеет права ничего снести");
+
+  // Без единого meetings_year_* сиротство неизмеримо вовсе — тоже отказ.
+  const bare = sandbox();
+  put(bare, "sessions?meeting_key=6", []);
+  const bareScan = openf1Orphans(bare);
+  assert.ok("refused" in bareScan && /ни одного meetings_year_/.test(bareScan.refused));
+  rmSync(bare, { recursive: true, force: true });
+  rmSync(dir, { recursive: true, force: true });
+});
+
+/// Валидный ПУСТОЙ год — порча тише битого JSON: глитч «[]» источника
+/// осиротил бы все митинги года разом, и в раннем сезоне (1–2 митинга) кап
+/// единиц такое пропустил бы. Но январский meetings?year=N+1 честно пуст —
+/// поэтому отказ ровно по СОЧЕТАНИЮ «пустой год + кандидаты в сироты».
+test("GC: пустой год при кандидатах в сироты — отказ; без кандидатов — норма", () => {
+  const dir = sandbox();
+  putGcBaseline(dir);
+  // Межсезонный кейс: пустой год N+1 при чистом диске — GC живёт как обычно.
+  put(dir, "meetings?year=2032", []);
+  const clean = pruneOpenf1Orphans(dir);
+  assert.ok("removed" in clean && clean.removed.length === 0,
+    `пустой будущий год без сирот не должен пугать GC: ${JSON.stringify(clean)}`);
+
+  // Глитч-кейс: появился кандидат в сироты — пустому году больше не верим.
+  put(dir, "sessions?meeting_key=6", [{ session_key: 66, session_name: "Race" }]);
+  const before = survivors(dir);
+  const refused = pruneOpenf1Orphans(dir);
+  assert.ok("refused" in refused && /пустому году не верим/.test(refused.refused));
+  assert.deepEqual(survivors(dir), before, "отказ обязан не удалять НИЧЕГО");
+  rmSync(dir, { recursive: true, force: true });
+});
+
 /// Амендмент 4 дословно: staleness — НЕ дыра. Устаревший факт стоит в очереди
 /// добора (с капом GET), но предполёт из-за него не тревожится — иначе
 /// массовый бамп парсера красил бы каждый прогон до конца перекачки.
@@ -729,6 +872,18 @@ test("walk: боевой корпус проходит оракул формы (
     if (err) offenders.push(`${name}: ${err}`);
   }
   assert.deepEqual(offenders, [], "конвертированное семейство откатилось в сырьё (или чужак в каталоге)");
+});
+
+/// Боевой каталог сирот не содержит (проверено сухим сканом 09.09.2026:
+/// 101 митинг, 0 сирот). Появились — это либо GC перестал вызываться/удалять
+/// (кроновый путь его зовёт в конце прогона), либо новый класс потери связи
+/// «файл ↔ листинг», и его надо разобрать, а не молча грандфазерить.
+/// Разведка read-only — тест на боевых данных ничего не удаляет.
+test("боевой корпус: сирот нет, вход сиротства читается", () => {
+  const scan = openf1Orphans(DATA_DIR);
+  assert.ok(!("refused" in scan), `вход GC бит: ${JSON.stringify(scan)}`);
+  assert.deepEqual(scan, { meetings: [], sessions: [], listedByOrphans: [] },
+    "в боевом каталоге появились сироты — разберись, прежде чем GC их снесёт");
 });
 
 /// Поведенческая приёмка этапа 0: «прогон не хочет сети по замороженному

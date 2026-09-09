@@ -24,7 +24,7 @@
 // поэтому: матрица полноты и гейт заморозки обязаны считать race-like и
 // здоровье пита ОДНОЙ функцией с писателем, а лежать при этом в lib.
 
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeIfChanged } from "./mirror.js";
@@ -336,16 +336,23 @@ function findLongString(value: unknown): string | null {
 /// session_result_* длиннее и проверяется ДО sessions_* — иначе протокол
 /// опознался бы как листинг.
 const MEETINGS_PREFIX = "meetings_year_";
+const SESSIONS_PREFIX = "sessions_meeting_key_";
+const DRIVERS_PREFIX = "drivers_meeting_key_";
 const FAMILY_PREFIXES: ReadonlyArray<readonly [Openf1Family, string]> = [
   ["session_result", "session_result_session_key_"],
-  ["sessions", "sessions_meeting_key_"],
+  ["sessions", SESSIONS_PREFIX],
   ["meetings", MEETINGS_PREFIX],
-  ["drivers", "drivers_meeting_key_"],
+  ["drivers", DRIVERS_PREFIX],
   ["stints", "stints_session_key_"],
   ["pit", "pit_session_key_"],
   ["race_control", "race_control_session_key_"],
   ["weather", "weather_session_key_"],
 ];
+
+/// Семейства, адресуемые session_key, — их файлы GC сносит вслед за сессией.
+const SESSION_KEY_PREFIXES = FAMILY_PREFIXES
+  .filter(([, prefix]) => prefix.includes("_session_key_"))
+  .map(([, prefix]) => prefix);
 
 /// Семейство по имени файла зеркала, или null для чужака. Чужак в каталоге —
 /// повод уронить walk-тест: имён вне восьми семейств (плюс манифест) там быть
@@ -624,6 +631,177 @@ export function openf1MeetingIndex(
     }
   }
   return index;
+}
+
+// MARK: - GC осиротевших (этап 4)
+//
+// У зеркала OpenF1 уборки не было ВОВСЕ: файл митинга, выпавшего из
+// meetings_year_* (перенос в другой год, фантом источника), никто больше не
+// обновит и не прочитает — он лежал бы навсегда. «Как пишем» и «как ищем,
+// чтобы удалить» держатся в одном модуле намеренно — урок WEC (pruneOrphans
+// в wecfacts.ts): предикат имени в другом файле разъезжается с записью молча.
+//
+// ГРАНИЦА СИРОТСТВА (амендмент 9): сиротство меряется по meetings_year_* и
+// листингам, НЕ по матрице добора. Файлы ОТМЕНЁННЫХ митингов — не сироты: их
+// митинг жив в meetings_year_* (is_cancelled — свойство строки, не отсутствие),
+// их сессии живы в листинге. Манифест `_extractor` — вне восьми семейств
+// (familyOfFile → null), GC его не видит по построению.
+
+/// Кап уборки — «единиц» за прогон. Единица — осиротевший МИТИНГ (листинг +
+/// drivers + сессионные файлы из листинга сносятся вместе) ЛИБО осиротевший
+/// session_key россыпью (сессия выпала из живого листинга). Обрезанный, но
+/// читаемый meetings_year_* осиротил бы десятки митингов, обрезанный листинг —
+/// хвост своих сессий; свыше капа GC не удаляет НИЧЕГО и возвращает отказ —
+/// вызывающий обязан прокричать (образец — fail-closed pruneOrphans WEC).
+/// Реальная перекройка календаря — один-два митинга, больше — порча.
+export const OPENF1_MAX_PRUNE_PER_RUN = 2;
+
+export interface Openf1OrphanScan {
+  /// meeting_key с файлами на диске (листинг/drivers), которых нет ни в одном
+  /// meetings_year_*.
+  meetings: string[];
+  /// session_key россыпью: сессионные файлы, чьего ключа нет ни в одном
+  /// листинге (живом или осиротевшем).
+  sessions: string[];
+  /// session_key из листингов осиротевших митингов — сносятся вслед за своим
+  /// митингом, в кап единиц не входят (это части единицы-митинга).
+  listedByOrphans: string[];
+}
+
+/// Разведка сирот БЕЗ удаления — ей же живёт CI-тест «боевой каталог сирот не
+/// содержит». Отказ вместо скана — на любую порчу входов сиротства: битый
+/// meetings_year_* «осиротил» бы целый год, битый листинг — сессии своего
+/// митинга россыпью; GC обязан не верить такому диску целиком, а не удалять
+/// то, что успел понять (форму вообще-то держит walk-тест, но уборка со
+/// сносом файлов не имеет права полагаться на чужой зелёный).
+export function openf1Orphans(dir: string): Openf1OrphanScan | { refused: string } {
+  const empty: Openf1OrphanScan = { meetings: [], sessions: [], listedByOrphans: [] };
+  if (!existsSync(dir)) return empty;
+  const names = readdirSync(dir);
+
+  const meetingFiles = names.filter((n) => familyOfFile(n) === "meetings");
+  if (meetingFiles.length === 0) {
+    return { refused: "ни одного meetings_year_* — состав митингов неизвестен, мерить сиротство нечем" };
+  }
+  // Валидный ПУСТОЙ год (глитч «[]» или массив без meeting_key) — порча тише
+  // битого JSON: он «осиротил» бы все митинги своего года разом, и в раннем
+  // сезоне (1–2 митинга) кап единиц такое пропустил бы. Но пустой год И
+  // ЛЕГИТИМЕН в межсезонье (январский meetings?year=N+1 честно пуст), поэтому
+  // отказ — только по СОЧЕТАНИЮ «пустой год + найдены кандидаты в сироты»
+  // (см. конец функции): без кандидатов пустому году верить безопасно.
+  const emptyYears: string[] = [];
+  const knownMeetings = new Set<string>();
+  for (const name of meetingFiles) {
+    let doc: unknown;
+    try {
+      doc = JSON.parse(readFileSync(join(dir, name), "utf8"));
+    } catch {
+      doc = null;
+    }
+    if (!Array.isArray(doc)) {
+      return { refused: `${name} бит — одна порча «осиротила» бы весь год, GC отменён целиком` };
+    }
+    const before = knownMeetings.size;
+    for (const m of doc) {
+      const key = (m as any)?.meeting_key;
+      if (key != null) knownMeetings.add(String(key));
+    }
+    if (knownMeetings.size === before) emptyYears.push(name);
+  }
+
+  // Два прохода по листингам: сперва живые (их сессии — «известные»), потом
+  // осиротевшие. Сессия, числящаяся И в живом листинге, останется жить —
+  // защита от теоретического дубля session_key между митингами.
+  const orphanMeetings = new Set<string>();
+  const knownSessions = new Set<string>();
+  const orphanListed = new Set<string>();
+  const listings: Array<{ meetingKey: string; sessionKeys: string[] }> = [];
+  for (const name of names) {
+    const family = familyOfFile(name);
+    if (family === "drivers" && !knownMeetings.has(name.slice(DRIVERS_PREFIX.length))) {
+      orphanMeetings.add(name.slice(DRIVERS_PREFIX.length));
+    }
+    if (family !== "sessions") continue;
+    let doc: unknown;
+    try {
+      doc = JSON.parse(readFileSync(join(dir, name), "utf8"));
+    } catch {
+      doc = null;
+    }
+    if (!Array.isArray(doc)) {
+      return { refused: `${name} бит — сессии митинга неперечислимы, GC отменён целиком` };
+    }
+    listings.push({
+      meetingKey: name.slice(SESSIONS_PREFIX.length),
+      sessionKeys: doc.map((s) => (s as any)?.session_key)
+        .filter((sk) => sk != null).map(String),
+    });
+  }
+  for (const l of listings) {
+    if (knownMeetings.has(l.meetingKey)) {
+      for (const sk of l.sessionKeys) knownSessions.add(sk);
+    } else {
+      orphanMeetings.add(l.meetingKey);
+    }
+  }
+  for (const l of listings) {
+    if (knownMeetings.has(l.meetingKey)) continue;
+    for (const sk of l.sessionKeys) {
+      if (!knownSessions.has(sk)) orphanListed.add(sk);
+    }
+  }
+
+  const looseSessions = new Set<string>();
+  for (const name of names) {
+    const prefix = SESSION_KEY_PREFIXES.find((p) => name.startsWith(p));
+    if (!prefix) continue;
+    const sk = name.slice(prefix.length);
+    if (!knownSessions.has(sk) && !orphanListed.has(sk)) looseSessions.add(sk);
+  }
+
+  // Сочетание «пустой год + кандидаты в сироты» — не верим ни тому, ни
+  // другому: вероятнее глитч «[]» источника, чем массовый легитимный выбыв.
+  if (emptyYears.length > 0 &&
+      (orphanMeetings.size > 0 || looseSessions.size > 0 || orphanListed.size > 0)) {
+    return { refused: `${emptyYears.join(", ")} не назвал ни одного meeting_key ` +
+      `при найденных кандидатах в сироты — пустому году не верим, GC отменён` };
+  }
+
+  return {
+    meetings: [...orphanMeetings].sort(),
+    sessions: [...looseSessions].sort(),
+    listedByOrphans: [...orphanListed].sort(),
+  };
+}
+
+/// Убрать сирот: файлы выбывшего митинга (листинг, drivers и его сессии — как
+/// WEC подметает E5/E6 по raceId) и сессионные файлы россыпью. Возвращает
+/// список удалённых; при отказе разведки или превышении капа не удаляет
+/// НИЧЕГО — вызывающий обязан прокричать тревогу-предупреждение.
+export function pruneOpenf1Orphans(dir: string): { removed: string[] } | { refused: string } {
+  const scan = openf1Orphans(dir);
+  if ("refused" in scan) return scan;
+  const units = scan.meetings.length + scan.sessions.length;
+  if (units > OPENF1_MAX_PRUNE_PER_RUN) {
+    return { refused: `сирот ${units} единиц при капе ${OPENF1_MAX_PRUNE_PER_RUN} ` +
+      `(митинги: ${scan.meetings.join(", ") || "—"}; сессии: ` +
+      `${scan.sessions.join(", ") || "—"}) — похоже на обрезанный листинг, ` +
+      "не перекройку календаря; ничего не удалено" };
+  }
+  const removed: string[] = [];
+  const rmIfExists = (name: string) => {
+    if (!existsSync(join(dir, name))) return;
+    rmSync(join(dir, name));
+    removed.push(name);
+  };
+  for (const key of scan.meetings) {
+    rmIfExists(`${SESSIONS_PREFIX}${key}`);
+    rmIfExists(`${DRIVERS_PREFIX}${key}`);
+  }
+  for (const sk of [...scan.listedByOrphans, ...scan.sessions]) {
+    for (const prefix of SESSION_KEY_PREFIXES) rmIfExists(`${prefix}${sk}`);
+  }
+  return { removed };
 }
 
 // MARK: - Матрица ожидаемых файлов замороженного митинга

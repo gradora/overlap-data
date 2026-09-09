@@ -18,7 +18,8 @@ const NOISE = new Set([".DS_Store", ".gitkeep"]);
 const visible = (dir: string) => readdirSync(dir).filter((n) => !NOISE.has(n));
 import { join } from "node:path";
 import {
-  DATA_FAMILIES, DATA_FILES, classify, matchesFamily, readyToMove, splitBlockers,
+  DATA_FAMILIES, DATA_FILES, classify, clientReadStagings, matchesFamily,
+  readyToMove, splitBlockers,
 } from "./lib/databoundary.js";
 
 const DATA_DIR = join(process.cwd(), "data");
@@ -69,13 +70,32 @@ test("плейсхолдер года совпадает только с год�
 /// Он обязан быть коротким и осознанным — если сюда попадёт новая кухня,
 /// которую читает клиент, сплит отодвинется, и это должно быть видно.
 test("блокеры сплита названы поимённо", () => {
+  // 09–10.09.2026 f1/openf1 ушёл из блокеров: сырьё конвертировано в факты
+  // in-place (этапы 1–3 плана кухни), зона — «заготовка». Клиентская
+  // зависимость при этом НЕ исчезла — её держит следующий инвариант.
   const blockers = splitBlockers().map((f) => f.path).sort();
-  assert.deepEqual(blockers, ["f1/jolpica", "f1/openf1"],
+  assert.deepEqual(blockers, ["f1/jolpica"],
     "изменился список кухни, которую читает приложение — это прямо двигает срок " +
     "репо-сплита, и менять его можно только осознанно");
   for (const f of splitBlockers()) {
     assert.ok(f.note && f.note.length > 20,
               `${f.path}: блокер сплита обязан объяснять, чем он держится`);
+  }
+});
+
+/// Небывалое сочетание «заготовка + clientReads» заведено ровно для f1/openf1:
+/// правовой предмет извлечён (не блокер сплита), но каскад архива 2023–24
+/// клиента жив (SnapshotMirror.openF1Path). Экспорт serve заготовки не
+/// публикует — если фаза 6 забудет этот хвост, каскад ослепнет молча. Поэтому
+/// список поимённый: снять clientReads можно только вместе с уходом каскада
+/// на витрину, добавить новый путь — только осознанно.
+test("заготовки, которые читает клиент, названы поимённо", () => {
+  assert.deepEqual(clientReadStagings().map((f) => f.path).sort(), ["f1/openf1"],
+    "изменился список заготовок с клиентскими чтениями — это хвост фазы 6, " +
+    "его нельзя ни потерять, ни пополнить молча");
+  for (const f of clientReadStagings()) {
+    assert.ok(f.note && f.note.length > 20,
+              `${f.path}: запись обязана объяснять, чем держится клиентское чтение`);
   }
 });
 
