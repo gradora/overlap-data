@@ -85,11 +85,20 @@ export const DATA_FAMILIES: DataFamily[] = [
       "3 библиотеки; пишут двое — wec и weclive.",
   },
   {
+    path: "f1/pitstops", zone: "заготовка", clientReads: false, producerReads: true,
+    note: "Стационарные и пит-лейн времена стопов, извлечённые из статики live " +
+      "timing (PitStopSeries + кросс-чек PitLaneTimeCollection): машина, круг, " +
+      "секунды, UTC. Сырьё .jsonStream НЕ сохраняется — разбор в памяти, как у " +
+      "wec/facts. Ключ файла — eventKey витрины, сшивка с источником по mk. " +
+      "Читают f1highlights, f1teams и f1beasts ПЕРВЫМ приоритетом; продьюсер " +
+      "f1pitstops РУЧНОЙ (livetiming отдаёт раннерам GitHub 403).",
+  },
+  {
     path: "f1/pitawards", zone: "заготовка", clientReads: false, producerReads: true,
     note: "Факты наград DHL Fastest Pit Stop (этап/команда/секунды) со страницы " +
-      "formula1.com — ФОЛБЭК канала питстопов: с Венгрии-2026 openf1 перестал " +
-      "отдавать stop_duration. Продьюсер f1pitawards РУЧНОЙ (FOM-класс риска, " +
-      "из CI 403); читает f1beasts, только для раундов без данных openf1.",
+      "formula1.com — ПОСЛЕДНИЙ фолбэк канала питстопов (f1/pitstops → openf1 " +
+      "stop_duration → награды). Продьюсер f1pitawards РУЧНОЙ (FOM-класс риска, " +
+      "из CI 403); читает f1beasts, только для раундов без данных выше.",
   },
 
   // --- Витрина ---

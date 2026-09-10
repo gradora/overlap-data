@@ -25,6 +25,7 @@ import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
 import { groupById } from "./f1records.js";
+import { readSeasonPitstops, type EventPitstops } from "../lib/fompitstops.js";
 
 const fetchJSON = (url: string) => httpJSON(url, { backoffMs: 8000 });
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -300,22 +301,47 @@ export function buildComebacks(form: TeamDriverForm[], races: any[]): TeamBeast[
     .map(({ gain: _gain, ...rest }) => rest);
 }
 
+/// Стационарные времена стопов раунда по номерам машин — из НАШЕГО факта
+/// f1/pitstops (статика FOM, задача 3a). Пустой массив = факта на раунд нет,
+/// вызывающий уходит на фолбэк openf1.
+///
+/// Визиты без стационарного времени сюда не едут: карточка «лучший пит пилота»
+/// показывает ИЗМЕРЕНИЕ, а свидетельство визита измерением не является.
+export function factPitsForRound(doc: EventPitstops | null): { car: number; seconds: number }[] {
+  if (!doc) return [];
+  return doc.sessions.flatMap((s) => s.stops
+    .filter((x) => typeof x.stationarySec === "number" && x.stationarySec > 0)
+    .map((x) => ({ car: x.car, seconds: x.stationarySec as number })));
+}
+
 /// Лучший пит-стоп КАЖДОГО пилота. highlights хранят только самый быстрый пит
 /// этапа — одну строку на гонку, поэтому команда, чей пилот ни разу не был
-/// лучшим, оставалась без карточки. Берём исходник: зеркало OpenF1 держит все
-/// питы гонки со `stop_duration` — стационарным временем, той же метрикой, что
-/// показывают highlights (у Jolpica в `pitstops` лежит полное время в
-/// пит-лейне, 18–27 секунд, — это про другое).
+/// лучшим, оставалась без карточки. Нужен исходник со ВСЕМИ стопами гонки.
 ///
-/// null — зеркало OpenF1 недоступно: это «не знаем», а не «питов нет», и
-/// вызывающий переносит карточки из прежнего файла.
+/// ДВА ИСТОЧНИКА, порядок жёсткий:
+///  1. `f1/pitstops` — наш факт из статики FOM. Он же закрывает 10 сессий 2026,
+///     где openf1 отдаёт `stop_duration: null` у всех строк и уже не дозаполнит;
+///  2. зеркало OpenF1 (`pit?session_key=`) — фолбэк для сезонов до 2025 и для
+///     сессий, где статика отдаёт 403 (топик PitStopSeries родился на US GP
+///     2024). У Jolpica в `pitstops` лежит полное время в пит-лейне, 18–27
+///     секунд, — это про другое, и источником пита он не был никогда.
+///
+/// null — НИ ОДИН источник не доступен: это «не знаем», а не «питов нет», и
+/// вызывающий переносит карточки из прежнего файла. Появление факта эту
+/// развилку не отменяет: год без факта и без зеркала обязан остаться «не знаем».
 export function buildPits(
   form: TeamDriverForm[], rounds: SeasonRound[], year: number,
   raceDates: Map<number, string>,
   read: (relative: string) => any | null = readOpenF1,
+  facts: Map<number, EventPitstops> = new Map(),
 ): TeamBeast[] | null {
   const meetings = read(`meetings?year=${year}`);
-  if (!Array.isArray(meetings)) return null;
+  // «Знаем» — только когда покрыт КАЖДЫЙ раунд: либо живым зеркалом, либо
+  // фактом. Достаточность «хоть одного факта» превращала бы «не знаем» в
+  // «знаем частично»: stale.pits становился false, прежние карточки не
+  // переносились, а раунды без факта при мёртвом зеркале молча исчезали
+  // вместе с карточками пилотов (ревью канала питстопов).
+  if (!Array.isArray(meetings) && rounds.some((r) => !facts.has(r.round))) return null;
   const byNumber = new Map(form.filter((f) => f.number).map((f) => [Number(f.number), f]));
   if (!byNumber.size) return [];
   // Номер машины переезжает вместе с пилотом: у сменившего команду по ходу
@@ -325,13 +351,16 @@ export function buildPits(
   const own = roundsByDriver(form);
   const best = new Map<string, TeamBeast & { seconds: number }>();
 
-  for (const r of rounds) {
-    const date = raceDates.get(r.round);
-    if (!date) continue;
+  /// Стопы раунда из зеркала OpenF1 — фолбэк.
+  const openf1PitsForRound = (round: number): { car: number; seconds: number }[] => {
+    if (!Array.isArray(meetings)) return [];
+    const date = raceDates.get(round);
+    if (!date) return [];
     const meeting = matchMeeting(meetings, date);
-    if (!meeting) continue;
+    if (!meeting) return [];
     const sessions = read(`sessions?meeting_key=${meeting.meeting_key}`);
-    if (!Array.isArray(sessions)) continue;
+    if (!Array.isArray(sessions)) return [];
+    const out: { car: number; seconds: number }[] = [];
     for (const session of sessions) {
       // Только гоночные сессии: в свободных заездах пит-стоп ничего не значит.
       if (!/race|sprint/i.test(String(session.session_name ?? ""))) continue;
@@ -340,16 +369,25 @@ export function buildPits(
       for (const row of pits) {
         const seconds = row?.stop_duration;
         if (typeof seconds !== "number" || seconds <= 0) continue;
-        const f = byNumber.get(Number(row?.driver_number));
-        if (!f) continue;
-        if (!own.get(f.driverId)?.has(r.round)) continue;
-        const prev = best.get(f.driverId);
-        if (prev && prev.seconds <= seconds) continue;
-        best.set(f.driverId, {
-          driverId: f.driverId, code: f.code, name: f.name,
-          value: seconds.toFixed(3), event: r.race, seconds,
-        });
+        out.push({ car: Number(row?.driver_number), seconds });
       }
+    }
+    return out;
+  };
+
+  for (const r of rounds) {
+    const fact = factPitsForRound(facts.get(r.round) ?? null);
+    const stops = fact.length ? fact : openf1PitsForRound(r.round);
+    for (const stop of stops) {
+      const f = byNumber.get(stop.car);
+      if (!f) continue;
+      if (!own.get(f.driverId)?.has(r.round)) continue;
+      const prev = best.get(f.driverId);
+      if (prev && prev.seconds <= stop.seconds) continue;
+      best.set(f.driverId, {
+        driverId: f.driverId, code: f.code, name: f.name,
+        value: stop.seconds.toFixed(3), event: r.race, seconds: stop.seconds,
+      });
     }
   }
   return form.map((f) => best.get(f.driverId)).filter((x): x is TeamBeast & { seconds: number } => !!x)
@@ -763,6 +801,12 @@ async function main() {
     console.log("::warning::teams: расписание сезона не прочиталось — раунды и питы из прежнего файла");
   }
 
+  // Питстопы: ПЕРВЫЙ приоритет — наш факт f1/pitstops (статика FOM, задача
+  // 3a), зеркало OpenF1 остаётся фолбэком. Карта строится один раз на прогон,
+  // а не на команду: внутри резолв «раунд → eventKey» по витрине календаря.
+  const pitFacts = readSeasonPitstops(join(process.cwd(), "data"), YEAR);
+  console.log(`  факт питстопов: раундов ${pitFacts.size}`);
+
   // Зачёт конструкторов даёт и состав, и место с очками, и отпечаток для кэша.
   let rows: any[] = [];
   let fingerprint = "";
@@ -945,10 +989,11 @@ async function main() {
       driverRecords.push({ driverId: d.driverId, name: d.name, wins: wins ?? 0 });
     }
 
-    const pits = buildPits(form, rounds, YEAR, raceDates);
+    const pits = buildPits(form, rounds, YEAR, raceDates, readOpenF1, pitFacts);
     if (pits == null) {
       failed++;
-      console.log(`::warning::teams: ${id} — зеркало OpenF1 не прочиталось, питы из прежнего файла`);
+      console.log(`::warning::teams: ${id} — ни факта питстопов, ни зеркала OpenF1, ` +
+        `питы из прежнего файла`);
     }
 
     const merged = carryStale({

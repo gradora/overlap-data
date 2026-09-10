@@ -36,7 +36,8 @@
     "fomstatic": "tsx src/producers/fomstatic.ts",
     "f1weather": "tsx src/producers/f1weather.ts",
     "forecast": "tsx src/producers/forecast.ts",
-    "f1pitawards": "tsx src/producers/f1pitawards.ts"
+    "f1pitawards": "tsx src/producers/f1pitawards.ts",
+    "f1pitstops": "tsx src/producers/f1pitstops.ts"
   },
   "engines": {
     "node": ">=20"

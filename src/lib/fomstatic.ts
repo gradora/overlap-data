@@ -56,6 +56,19 @@ export interface FomSession {
   path: string;
   meeting: string;
   name: string;
+  /// `Meeting.Key` индекса. ЭТО РОВНО `mk` витрины календаря (проверено на
+  /// 2026: Monza Meeting.Key 1293 == mk события `f1-2026-monza-1`), то есть
+  /// сшивка «путь FOM → наше событие» — прямой lookup, а не матчинг по датам.
+  /// null — индекс ключа не дал (в снимке 2018–2021 он есть везде, но поле
+  /// источника необязательным быть не перестаёт).
+  meetingKey: number | null;
+  /// `Session.Key` индекса — то же пространство, что `session_key` openf1.
+  sessionKey: number | null;
+  /// `Session.Type`: «Practice» | «Qualifying» | «Race». ВНИМАНИЕ: у спринта
+  /// Type тоже «Race», а спринт от гонки отличает только `Name` («Sprint»).
+  /// Отдельного типа у источника нет — фильтровать по Type и разбирать по
+  /// Name это не оплошность, а форма индекса.
+  type: string;
 }
 
 /// Путь сессии пригоден к записи на диск.
@@ -73,6 +86,9 @@ export function isSafeSessionPath(path: string): boolean {
   if (path.split("/").some((seg) => seg === "..")) return false;
   return /^\d{4}$/.test(path.split("/")[0]);
 }
+
+const numOrNull = (v: unknown): number | null =>
+  typeof v === "number" && Number.isFinite(v) ? v : null;
 
 /// Разбор `<год>/Index.json`.
 ///
@@ -99,10 +115,26 @@ export function parseIndex(raw: string, log?: (m: string) => void): FomSession[]
         path: session.Path.endsWith("/") ? session.Path : `${session.Path}/`,
         meeting: String(meeting?.Name ?? "?"),
         name: String(session?.Name ?? "?"),
+        meetingKey: numOrNull(meeting?.Key),
+        sessionKey: numOrNull(session?.Key),
+        type: String(session?.Type ?? ""),
       });
     }
   }
   return out;
+}
+
+/// URL индекса сезона. Одна формула на всех потребителей архива: продьюсер
+/// снимка и продьюсер питстопов ходят по одному и тому же каскаду.
+export function indexURL(year: number): string {
+  return `${FOM_BASE}${year}/Index.json`;
+}
+
+/// URL среза сессии. Топик здесь — ЛЮБАЯ строка, а не `Slice`: SLICES это
+/// список того, что снимает снимок, а канал питстопов читает `PitStopSeries`
+/// и `PitLaneTimeCollection` в память, ничего не сохраняя (§правовая граница).
+export function topicURL(sessionPath: string, topic: string): string {
+  return `${FOM_BASE}${sessionPath}${topic}.jsonStream`;
 }
 
 /// Путь снятого индекса года ОТНОСИТЕЛЬНО data/.
@@ -169,7 +201,7 @@ export async function runFomSnapshot(input: {
   let missingTotal = 0;
 
   for (const year of years) {
-    const indexRes = await fetch(`${FOM_BASE}${year}/Index.json`);
+    const indexRes = await fetch(indexURL(year));
     if (!indexRes || indexRes.status !== 200) {
       // 403 — это не поломка, а известное состояние архива (2017, 2022).
       log(`  ${year}: индекс недоступен (${indexRes?.status ?? "сеть"}) — пропуск`);
@@ -191,7 +223,7 @@ export async function runFomSnapshot(input: {
 
     for (const { session, slice } of missing) {
       if (fetched >= budget) break;
-      const res = await fetch(`${FOM_BASE}${session.path}${slice}.jsonStream`);
+      const res = await fetch(topicURL(session.path, slice));
       if (!res || res.status !== 200 || res.text === "") {
         failed++;
         log(`    MISS ${slice} ${session.path} (${res?.status ?? "сеть"})`);

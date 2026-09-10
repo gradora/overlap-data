@@ -9,6 +9,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { mirrorSlug, scheduleMirrorFile, writeJSONWithEnvelope } from "../lib/mirror.js";
+import { readSeasonPitstops, type EventPitstops } from "../lib/fompitstops.js";
 
 const YEAR = Number(process.env.SEASON ?? new Date().getUTCFullYear());
 const OPENF1_DIR = join(process.cwd(), "data", "f1", "openf1");
@@ -24,7 +25,7 @@ export interface FastestLap {
 }
 
 export interface FastestPitStop {
-  time: string;      // «2.3» (stop_duration OpenF1 — стационарное время)
+  time: string;      // «2.3» — стационарное время (машина на домкратах)
   seconds: number;
   driver: string;    // «C. Leclerc»
   tag: string;       // «R» | «SPR»
@@ -33,6 +34,20 @@ export interface FastestPitStop {
 export interface MedianPitStop {
   time: string;      // «2.4» — медиана стационарных стопов гонки
   seconds: number;
+  /// Признак неполноты: сколько стопов гонки ИЗМЕРЕНО из скольких ИЗВЕСТНО.
+  /// Без него метрика молча врёт — PitStopSeries теряет стопы (Венгрия 34 из
+  /// 46, Монако 29 из 70), и медиана по измеренным смещается. У фолбэка
+  /// openf1 сравнивать не с чем — там известны ровно измеренные, covered==total.
+  covered?: number;
+  total?: number;
+}
+
+/// Стоп уик-энда в форме, общей для ОБОИХ источников: наш факт f1/pitstops и
+/// pit-факт openf1 сводятся сюда, дальше метрики их не различают.
+export interface WeekendStop {
+  car: number;               // driver_number
+  seconds: number | null;    // стационарное; null — визит известен, времени нет
+  tag: string;               // «R» | «SPR»
 }
 
 export interface RoundHighlights {
@@ -128,43 +143,100 @@ export function raceTag(name: string): string | null {
   return null;
 }
 
-// Быстрейший питстоп уик-энда: минимум stop_duration (стационарное время
-// OpenF1) по гоночным сессиям.
-export function computeFastestPitStop(
+/// Стопы уик-энда из pit-фактов OpenF1 — ФОЛБЭК канала. Живой до 2025-го
+/// включительно и для двух спринтов 2025, где статика FOM отдаёт 403; с
+/// Канады-2026 источник ломается вразнобой и `stop_duration` приходит null у
+/// всех строк сессии (10 сессий сезона), поэтому основным он быть перестал.
+export function openf1Stops(
   sessions: { session_key: number; session_name: string }[],
   pitBySession: Map<number, any[]>,
-  drivers: any[],
-): FastestPitStop | null {
-  const byNumber = new Map<number, any>(drivers.map((d) => [d.driver_number, d]));
-  let best: FastestPitStop | null = null;
+): WeekendStop[] {
+  const out: WeekendStop[] = [];
   for (const s of sessions) {
     const tag = raceTag(s.session_name);
     if (!tag) continue;
     for (const row of pitBySession.get(s.session_key) ?? []) {
-      const sec = row.stop_duration;
-      if (typeof sec !== "number" || sec <= 0 || (best && sec >= best.seconds)) continue;
-      const d = byNumber.get(row.driver_number);
-      best = {
-        time: String(sec),
-        seconds: sec,
-        driver: shortDriver(d?.first_name, d?.last_name, d?.broadcast_name),
-        tag,
-      };
+      const sec = row?.stop_duration;
+      // Строка без времени в этом источнике не факт визита, а пустая ячейка:
+      // круга и пит-лейна у неё тоже нет, знать о ней нечего.
+      if (typeof sec !== "number" || sec <= 0) continue;
+      out.push({ car: Number(row?.driver_number), seconds: sec, tag });
     }
+  }
+  return out;
+}
+
+/// Стопы уик-энда из НАШЕГО факта f1/pitstops — первый приоритет. Визиты без
+/// стационарного времени едут сюда с `seconds: null`: «быстрейший» их
+/// игнорирует, медиана считает по ним свою полноту.
+export function pitstopsFactStops(doc: EventPitstops | null): WeekendStop[] {
+  if (!doc) return [];
+  return doc.sessions.flatMap((s) =>
+    s.stops.map((x) => ({ car: x.car, seconds: x.stationarySec, tag: s.tag })));
+}
+
+/// Строки С ИЗМЕРЕНИЕМ. Каскад источников гейтуется по ним, а не по длине
+/// списка: факт, где ВСЕ визиты пришли только из PitLaneTimeCollection
+/// (stationarySec:null у каждого), непуст — но бесполезен, и фолбэк openf1
+/// обязан включиться. Это не гипотеза, а состояние архива: PitStopSeries
+/// родился на US GP 2024, до него 403 при живом PitLaneTimeCollection.
+const measuredStops = (rows: WeekendStop[]): WeekendStop[] =>
+  rows.filter((r) => typeof r.seconds === "number" && r.seconds > 0);
+
+/// Быстрейший питстоп уик-энда: минимум стационарного времени по гоночным
+/// сессиям. `preferred` непуст — считаем по нему, иначе по фолбэку openf1:
+/// порядок источников живёт ЗДЕСЬ, одной строкой, а не размазан по вызовам.
+export function computeFastestPitStop(
+  sessions: { session_key: number; session_name: string }[],
+  pitBySession: Map<number, any[]>,
+  drivers: any[],
+  preferred: WeekendStop[] = [],
+): FastestPitStop | null {
+  const rows = measuredStops(preferred).length
+    ? preferred : openf1Stops(sessions, pitBySession);
+  const byNumber = new Map<number, any>(drivers.map((d) => [d.driver_number, d]));
+  let best: FastestPitStop | null = null;
+  for (const row of rows) {
+    const sec = row.seconds;
+    if (typeof sec !== "number" || sec <= 0 || (best && sec >= best.seconds)) continue;
+    const d = byNumber.get(row.car);
+    best = {
+      time: String(sec),
+      seconds: sec,
+      driver: shortDriver(d?.first_name, d?.last_name, d?.broadcast_name),
+      tag: row.tag,
+    };
   }
   return best;
 }
 
 /// Медиана всех стационарных стопов ГЛАВНОЙ гонки (не спринта): один
 /// быстрый стоп бывает удачей, медиана — качество работы бригад уик-энда.
+///
+/// Источники в том же порядке, что у быстрейшего. Отличие одно и оно важное:
+/// медиана обязана НЕСТИ СВОЮ ПОЛНОТУ. Из нашего факта известно, сколько
+/// стопов гонки источник потерял (визит есть, стационарного нет), и молчать об
+/// этом нельзя — на Монако измерено 29 стопов из 70, и «медиана гонки» по ним
+/// это медиана удачно записанной трети.
 export function computeMedianPitStop(
   sessions: { session_key: number; session_name: string }[],
   pitBySession: Map<number, any[]>,
+  preferred: WeekendStop[] = [],
 ): MedianPitStop | null {
-  const race = sessions.find((s) => raceTag(s.session_name) === "R");
-  if (!race) return null;
-  const secs = (pitBySession.get(race.session_key) ?? [])
-    .map((r) => r.stop_duration)
+  // Гейт — по измеренным стопам ГОНКИ (тот же принцип, что у быстрейшего, но
+  // фильтр по tag обязан идти ПЕРВЫМ: измерения спринта про полноту гонки
+  // ничего не говорят).
+  let rows: WeekendStop[];
+  const preferredRace = preferred.filter((r) => r.tag === "R");
+  if (measuredStops(preferredRace).length) {
+    rows = preferredRace;
+  } else {
+    const race = sessions.find((s) => raceTag(s.session_name) === "R");
+    if (!race) return null;
+    rows = openf1Stops([race], pitBySession);
+  }
+  const secs = rows
+    .map((r) => r.seconds)
     .filter((x): x is number => typeof x === "number" && x > 0)
     .sort((a, b) => a - b);
   if (!secs.length) return null;
@@ -172,7 +244,7 @@ export function computeMedianPitStop(
     ? secs[(secs.length - 1) / 2]
     : (secs[secs.length / 2 - 1] + secs[secs.length / 2]) / 2;
   const rounded = Math.round(mid * 10) / 10;
-  return { time: rounded.toFixed(1), seconds: rounded };
+  return { time: rounded.toFixed(1), seconds: rounded, covered: secs.length, total: rows.length };
 }
 
 export function computeFastestLap(
@@ -228,6 +300,13 @@ async function main() {
     console.warn("highlights: нет зеркала meetings — пропускаем");
     return;
   }
+  // Питстопы: ПЕРВЫЙ приоритет — наш факт f1/pitstops (статика FOM, задача
+  // 3a), openf1 остаётся фолбэком. Карта строится один раз на прогон: внутри
+  // резолв «раунд → eventKey» по витрине календаря, и повторять его на каждом
+  // раунде значило бы перечитывать календарь два десятка раз.
+  const factByRound = readSeasonPitstops(join(process.cwd(), "data"), YEAR);
+  if (factByRound.size) console.log(`  факт питстопов: раундов ${factByRound.size}`);
+
   // Деривация чисто офлайн (сеть не трогаем) → пересчитываем ВСЕ прошедшие
   // раунды каждый прогон: writeIfChanged держит git чистым, а обновление
   // формата/зеркала само доезжает до старых файлов.
@@ -259,8 +338,9 @@ async function main() {
         readFileSync(join(JOLPICA_DIR, `${YEAR}_${round}_results.json`), "utf8"));
     } catch { /* протокола нет — не беда */ }
     const raceLap = raceResults ? computeRaceFastestLap(raceResults) : null;
-    const stop = computeFastestPitStop(sessions, pits, drivers);
-    const median = computeMedianPitStop(sessions, pits);
+    const preferred = pitstopsFactStops(factByRound.get(round) ?? null);
+    const stop = computeFastestPitStop(sessions, pits, drivers, preferred);
+    const median = computeMedianPitStop(sessions, pits, preferred);
     const out: RoundHighlights = {
       season: YEAR,
       round,
@@ -273,7 +353,9 @@ async function main() {
     console.log(
       `  R${round}: ${lap ? `${lap.time} ${lap.driver} (${lap.tag})` : "нет круга"}` +
       `${raceLap ? `, гонка ${raceLap.time} ${raceLap.driver}` : ""}` +
-      `${stop ? `, пит ${stop.time} ${stop.driver}` : ""} → ${changed ? "записано" : "без изменений"}`,
+      `${stop ? `, пит ${stop.time} ${stop.driver} [${preferred.length ? "f1/pitstops" : "openf1"}]` : ""}` +
+      `${median ? `, медиана ${median.time} (${median.covered}/${median.total})` : ""}` +
+      ` → ${changed ? "записано" : "без изменений"}`,
     );
   }
   console.log("Done.");

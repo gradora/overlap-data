@@ -1,9 +1,10 @@
 // Продьюсер «BEASTS OF THE SEASON» — сезонные лидерборды F1 для полки поиска:
 //  • biggest comeback — прирост позиций (grid − финиш) по всем гонкам и
 //    спринтам сезона, топ-3;
-//  • fastest pit stop — минимум стационарного пита по data/f1/highlights,
-//    топ-3; раунды, где openf1 не отдал stop_duration, закрывает фолбэк
-//    наград DHL (data/f1/pitawards, ручной продьюсер f1pitawards).
+//  • fastest pit stop — минимум стационарного пита, топ-3. Источники в
+//    порядке: наш факт data/f1/pitstops (статика FOM, задача 3a) → строка
+//    data/f1/highlights → награды DHL (data/f1/pitawards). Первые два несут
+//    пилота, последний — только команду, поэтому он и последний.
 // Comeback считается из ЗЕРКАЛА Jolpica, которое тем же прогоном пишет f1.ts:
 // пер-раундовые слайсы <y>/<r>/results.json (writeRoundResultSlices) и
 // пагинация <y>/sprint.json (год-именованные копии current-алиасов) — grid
@@ -21,6 +22,7 @@ import {
   matchAwardRound, awardTeamId, readPitAwards,
   type AwardCalendarEvent, type PitAwardRow,
 } from "../lib/pitawards.js";
+import { readSeasonPitstops, timedStops, type EventPitstops } from "../lib/fompitstops.js";
 import { scheduleSeasonMismatch } from "../lib/season.js";
 import { fetchJSON as httpJSON } from "../lib/http.js";
 import { JOLPICA } from "../lib/sources.js";
@@ -102,6 +104,57 @@ export function driverMap(results: any[]): Map<string, DriverInfo> {
 export function familyKey(shortName: string): string {
   const parts = shortName.trim().split(/\s+/);
   return (parts[parts.length - 1] ?? "").toLowerCase();
+}
+
+/// Карта «номер машины» → {code, team, teamId} из результатов гонки. Нужна
+/// НАШЕМУ факту питстопов: он знает пилота номером машины (то же пространство,
+/// что `driver_number` openf1), а не фамилией. Номер берём из строки протокола
+/// (`number`), а не из `permanentNumber` пилота: у резервиста они расходятся.
+export function numberMap(results: any[]): Map<number, DriverInfo> {
+  const map = new Map<number, DriverInfo>();
+  for (const r of results) {
+    const car = Number(r?.number ?? r?.Driver?.permanentNumber);
+    if (!Number.isInteger(car) || map.has(car)) continue;
+    map.set(car, {
+      code: driverCode(r?.Driver),
+      team: r?.Constructor?.name ?? "",
+      teamId: r?.Constructor?.constructorId ?? "",
+    });
+  }
+  return map;
+}
+
+/// Быстрейший стоп раунда из НАШЕГО факта f1/pitstops — ПЕРВЫЙ приоритет
+/// канала. null — факта на раунд нет либо в нём ни одного измеренного
+/// стационарного времени (визит без времени «быстрейшим» быть не может).
+///
+/// В отличие от фолбэка наград DHL строка приезжает С ПИЛОТОМ: награда
+/// командная и `code` у неё пустой, а здесь номер машины резолвится в код и
+/// команду по протоколу гонки.
+export function factPitRow(
+  doc: EventPitstops | null, event: string, byCar: Map<number, DriverInfo>, round: number,
+): (BeastRow & { seconds: number; round: number }) | null {
+  let best: { car: number; sec: number } | null = null;
+  for (const s of timedStops(doc)) {
+    const sec = s.stationarySec as number;
+    if (!best || sec < best.sec) best = { car: s.car, sec };
+  }
+  if (!best) return null;
+  const info = byCar.get(best.car);
+  // Номер машины не разрешился (протокол раунда не прочитался из зеркала) —
+  // это НЕ повод занять раунд пустой строкой: она заглушила бы нижние
+  // источники, у которых имя команды хотя бы есть. Честный null уводит раунд
+  // следующему источнику, как и «факта нет».
+  if (!info) return null;
+  return {
+    value: best.sec.toFixed(3),
+    event,
+    code: info.code,
+    team: info.team,
+    teamId: info.teamId,
+    seconds: best.sec,
+    round,
+  };
 }
 
 
@@ -236,6 +289,11 @@ async function main() {
   const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
   const comebacks: (BeastRow & { gain: number })[] = [];
   const drivers = new Map<string, DriverInfo>();
+  const carsByRound = new Map<number, Map<number, DriverInfo>>();
+
+  // Питстопы: ПЕРВЫЙ приоритет — наш факт f1/pitstops (статика FOM, задача 3a).
+  // Читается один раз на прогон; внутри резолв «раунд → eventKey» по витрине.
+  const pitFacts = readSeasonPitstops(join(process.cwd(), "data"), YEAR);
 
   // Спринты сезона — из зеркальной пагинации одним чтением на весь прогон.
   // Дыра в пагинации = зеркало не писалось (бэкфилл не гонялся) — уходим в
@@ -262,6 +320,10 @@ async function main() {
     const results = race?.MRData?.RaceTable?.Races?.[0]?.Results;
     if (Array.isArray(results)) {
       for (const [family, info] of driverMap(results)) drivers.set(family, info);
+      // Номера машин — ПО РАУНДАМ, а не одной картой на сезон: номер уезжает
+      // вместе с пилотом (Лоусон 2026: rb → red_bull), и сезонная карта
+      // приписала бы стоп прежней команде.
+      carsByRound.set(round, numberMap(results));
       for (const res of results) {
         const row = comebackRow(res, r.raceName);
         if (row) comebacks.push(row);
@@ -289,16 +351,30 @@ async function main() {
   }
   console.log(`  источник: зеркало, живых запросов ${liveFetches}`);
 
-  // Питы из локальных highlights, команда/код — по фамилии из результатов.
+  // Питы. Порядок источников на раунд ЖЁСТКИЙ и объявлен здесь целиком:
+  //   1) наш факт f1/pitstops (статика FOM) — все стопы гонки и спринта,
+  //      пилот резолвится по номеру машины из протокола раунда;
+  //   2) highlights раунда (там внутри тот же порядок: наш факт, иначе
+  //      stop_duration openf1) — пилот по фамилии;
+  //   3) награды DHL ниже — командная строка без пилота.
+  // Первый ответивший закрывает раунд; следующие его не трогают.
   const roundName = new Map(races.map((r) => [Number(r.round), r.raceName]));
   const pits: (BeastRow & { seconds: number; round: number })[] = [];
+  let fromFact = 0;
   for (const r of done) {
     const round = Number(r.round);
+    const fact = factPitRow(pitFacts.get(round) ?? null, roundName.get(round) ?? r.raceName,
+      carsByRound.get(round) ?? new Map(), round);
+    if (fact) {
+      pits.push(fact);
+      fromFact++;
+      continue;
+    }
     const pit = readHighlights(round)?.fastestPitStop;
     if (!pit || typeof pit.seconds !== "number") continue;
     const info = drivers.get(familyKey(String(pit.driver ?? "")));
     pits.push({
-      // Формат до тысячных как в макете; stop_duration OpenF1 приходит до
+      // Формат до тысячных как в макете; стационарное время приходит до
       // десятых — недостающие разряды добиваются нулями.
       value: Number(pit.seconds).toFixed(3),
       event: roundName.get(round) ?? "",
@@ -309,12 +385,22 @@ async function main() {
       round,
     });
   }
+  console.log(`  пит-источники: факт f1/pitstops ${fromFact}, highlights ${pits.length - fromFact}`);
 
-  // Фолбэк: награды DHL (data/f1/pitawards, ручной продьюсер f1pitawards) —
-  // для раундов, где openf1 не дал стационарного времени (с Венгрии-2026 их
-  // пайплайн перестал его считать). Строго дырозакрыватель: раунды, закрытые
-  // openf1, награды не трогают — при выздоровлении источника фолбэк сам
-  // вытесняется его строками.
+  // ПОСЛЕДНИЙ фолбэк: награды DHL (data/f1/pitawards, ручной продьюсер
+  // f1pitawards) — для раундов, которых не закрыли ни наш факт, ни openf1.
+  // Строго дырозакрыватель: закрытые раунды награды не трогают, и с приходом
+  // факта статики строки-суррогаты без пилота вытесняются сами.
+  //
+  // И ЭТО НЕ ПОТЕРЯ ТОЧНОСТИ, хотя выглядит ею: награда по Венгрии-2026 —
+  // 1.990, а наш факт даёт 2.100. Сверка 10.09.2026 показала, что дело не в
+  // потерянном стопе, а в РАЗНЫХ ИЗМЕРЕНИЯХ. На Майами наш факт совпал с
+  // pit-фактом openf1 мультимножеством 1:1 (19 из 19), оба дают минимум 2.2 —
+  // и та же награда DHL говорит 2.080. Смещение системное (0.03–0.12 с на
+  // шести проверенных этапах) и одностороннее: DHL меряет своим хронометражем
+  // до тысячных, FOM округляет до десятых. Прежняя витрина складывала в ОДИН
+  // топ-3 числа обеих систем (1.990 DHL против 2.000 openf1) — то есть
+  // сравнивала несравнимое. Теперь все три строки из одного измерения.
   const awards = readPitAwards(join(process.cwd(), "data"), YEAR)?.rows ?? [];
   if (awards.length) {
     let events: AwardCalendarEvent[] = [];
@@ -344,8 +430,12 @@ async function main() {
     .sort((a, b) => b.gain - a.gain || a.event.localeCompare(b.event))
     .slice(0, 3)
     .map(strip);
+  // Тай-брейк — РАУНД, а не имя этапа: FOM печатает стационарное с точностью
+  // 0.1 с, и совпадения времён теперь массовые (в 2026 четыре раунда сели
+  // ровно на 2.1). Алфавит названий этапов в такой ситуации — случайность,
+  // выдающая себя за рейтинг; более ранний раунд выше хотя бы осмыслен.
   const topPits = pits
-    .sort((a, b) => a.seconds - b.seconds || a.event.localeCompare(b.event))
+    .sort((a, b) => a.seconds - b.seconds || a.round - b.round)
     .slice(0, 3)
     .map(strip);
 

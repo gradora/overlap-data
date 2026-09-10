@@ -24,10 +24,11 @@ import {
 const INDEX = {
   Year: 2018,
   Meetings: [{
+    Key: 1001,
     Name: "Chinese Grand Prix",
     Sessions: [
-      { Key: 5081, Name: "Practice 1" },                       // без Path
-      { Key: 5082, Name: "Race", Path: "2018/2018-04-15_Chinese_Grand_Prix/2018-04-15_Race/" },
+      { Key: 5081, Type: "Practice", Name: "Practice 1" },      // без Path
+      { Key: 5082, Type: "Race", Name: "Race", Path: "2018/2018-04-15_Chinese_Grand_Prix/2018-04-15_Race/" },
     ],
   }],
 };
@@ -36,6 +37,9 @@ const SESSION = {
   path: "2018/2018-04-15_Chinese_Grand_Prix/2018-04-15_Race/",
   meeting: "Chinese Grand Prix",
   name: "Race",
+  meetingKey: 1001,
+  sessionKey: 5082,
+  type: "Race",
 };
 
 function tempData(): string {
