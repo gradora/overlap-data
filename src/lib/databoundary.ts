@@ -73,9 +73,13 @@ export const DATA_FAMILIES: DataFamily[] = [
     path: "f1/openf1", zone: "заготовка", clientReads: true, producerReads: true,
     note: "Факты вместо сырья с 09–10.09.2026 (этапы 1–3 плана кухни): " +
       "keep-подмножество класса А + факт-конверты weather + R1 race_control, " +
-      "вербатима FIA нет. clientReads держит каскад архива 2023–24 " +
-      "(SnapshotMirror.openF1Path) — снимет его фаза 6 / витрина календаря " +
-      "2023–24; из свежего у клиента только фолбэк loadSessions до 0.6.6/0.6.7.",
+      "вербатима FIA нет. Каскад архива 2023–24 СНЯТ этапом 4 (10.09) — " +
+      "глубина архива приложения теперь 2025+. clientReads держат три " +
+      "оставшихся читателя (см. шапку OpenF1Service.swift): loadSessions " +
+      "(оговорка N+1 — тест февраля следующего сезона до 1 января), фолбэки " +
+      "оверлей-событий (тесты/отмены без файла витрины) и карточка Last " +
+      "Event на Home. Первый закрывается календарём, два других — срезом " +
+      "0.6.7; тогда же флип clientReads в false.",
   },
   {
     path: "wec/facts", zone: "заготовка", clientReads: false, producerReads: true,
