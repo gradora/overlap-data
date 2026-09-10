@@ -58,8 +58,10 @@ export function readMeetingRows(year: number, dir = OPENF1_DIR): Map<number, Ope
 /// `meetingKey` → (`driverId` → `constructorId`) по протоколам гонок.
 ///
 /// Митинг сопоставляется раунду через витрину календаря: она единственная
-/// знает эту связь и уже держит её в `sourceIds.openf1.meetingKey`. Спринт
-/// читаем тоже — пилот мог проехать спринт и сойти в гонке.
+/// знает эту связь и уже держит её в паре топ-полей `mk` + `round` (round
+/// подтверждённой гонки — это и есть раунд jolpica; у tbc-событий он
+/// сентинел 0 и сюда не попадает). Спринт читаем тоже — пилот мог проехать
+/// спринт и сойти в гонке.
 export function constructorsByMeeting(year: number, dataDir = DATA_DIR): Map<number, Map<string, string>> {
   const out = new Map<number, Map<string, string>>();
   const cal = readJSON(join(dataDir, "f1", "calendar", `${year}.json`));
@@ -67,9 +69,9 @@ export function constructorsByMeeting(year: number, dataDir = DATA_DIR): Map<num
   if (!Array.isArray(events)) return out;
 
   for (const e of events) {
-    const mk = e?.sourceIds?.openf1?.meetingKey;
-    const round = e?.sourceIds?.jolpica?.round;
-    if (typeof mk !== "number" || typeof round !== "number") continue;
+    const mk = e?.mk;
+    const round = e?.status === "confirmed" ? e?.round : undefined;
+    if (typeof mk !== "number" || typeof round !== "number" || round < 1) continue;
     const byDriver = new Map<string, string>();
     for (const kind of ["results", "sprint"]) {
       const doc = readJSON(join(dataDir, "f1", "jolpica", `${year}_${round}_${kind}.json`));

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:34.296Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.775Z",
   "series": "wec",
   "season": 2025,
   "round": 7,
@@ -14,12 +14,6 @@
   "end": "2025-09-28T00:00:00+02:00",
   "frozen": true,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "6-hours-of-fuji-2025",
-      "raceId": 4936
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-26T10:15:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7591
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,
@@ -223,9 +215,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-26T14:30:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7592
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -417,9 +407,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-27T09:50:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7593
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -611,9 +599,7 @@
       "raceClass": "LMGT3",
       "start": "2025-09-27T14:20:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7594
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -805,9 +791,7 @@
       "raceClass": "LMGT3",
       "start": "2025-09-27T14:40:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7595
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -919,9 +903,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-27T15:00:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7596
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -1113,9 +1095,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-27T15:20:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7597
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1227,9 +1207,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-09-28T11:00:00+09:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7598
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,

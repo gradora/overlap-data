@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-27T14:35:57.568Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-10T08:58:53.780Z",
   "series": "wec",
   "season": 2027,
   "frozen": false,
@@ -16,13 +16,7 @@
       "start": "2027-03-23T12:00:00+01:00",
       "end": "2027-03-27T12:00:00+01:00",
       "resultsPath": "wec/2027/01_qatar-1812km-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "qatar-1812km-2027",
-          "raceId": 5043,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 2,
@@ -35,13 +29,7 @@
       "start": "2027-04-05T12:00:00+02:00",
       "end": "2027-04-11T12:00:00+02:00",
       "resultsPath": "wec/2027/02_6-hours-of-imola-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "6-hours-of-imola-2027",
-          "raceId": 5044,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 3,
@@ -54,13 +42,7 @@
       "start": "2027-04-19T12:00:00+02:00",
       "end": "2027-04-25T12:00:00+02:00",
       "resultsPath": "wec/2027/03_6-hours-of-silverstone-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "6-hours-of-silverstone-2027",
-          "raceId": 5055,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 4,
@@ -73,13 +55,7 @@
       "start": "2027-05-10T12:00:00+02:00",
       "end": "2027-05-15T12:00:00+02:00",
       "resultsPath": "wec/2027/04_totalenergies-6-hours-of-spa-francorchamps-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "totalenergies-6-hours-of-spa-francorchamps-2027",
-          "raceId": 5045,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 5,
@@ -92,13 +68,7 @@
       "start": "2027-06-07T12:00:00+02:00",
       "end": "2027-06-13T12:00:00+02:00",
       "resultsPath": "wec/2027/05_24-hours-of-le-mans-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "24-hours-of-le-mans-2027",
-          "raceId": 5051,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 6,
@@ -111,13 +81,7 @@
       "start": "2027-07-05T12:00:00+02:00",
       "end": "2027-07-11T12:00:00+02:00",
       "resultsPath": "wec/2027/06_rolex-6-hours-of-sao-paulo-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "rolex-6-hours-of-sao-paulo-2027",
-          "raceId": 5049,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 7,
@@ -130,13 +94,7 @@
       "start": "2027-09-06T12:00:00+02:00",
       "end": "2027-09-12T12:00:00+02:00",
       "resultsPath": "wec/2027/07_lone-star-le-mans-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "lone-star-le-mans-2027",
-          "raceId": 5047,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 8,
@@ -149,13 +107,7 @@
       "start": "2027-09-20T12:00:00+02:00",
       "end": "2027-09-26T12:00:00+02:00",
       "resultsPath": "wec/2027/08_6-hours-of-fuji-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "6-hours-of-fuji-2027",
-          "raceId": 5046,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     },
     {
       "round": 9,
@@ -168,13 +120,7 @@
       "start": "2027-11-01T12:00:00+01:00",
       "end": "2027-11-06T12:00:00+01:00",
       "resultsPath": "wec/2027/09_bapco-energies-8-hours-of-bahrain-2027.json",
-      "sourceIds": {
-        "fiawec": {
-          "slug": "bapco-energies-8-hours-of-bahrain-2027",
-          "raceId": 5048,
-          "sessions": []
-        }
-      }
+      "hasResults": true
     }
   ]
 }

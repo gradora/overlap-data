@@ -40,8 +40,7 @@ function seed(events: EventSpec[], opts: { season?: number; declared?: number; h
       venue: "V", country: "C", trackRef: null, assetSlug: "a",
       dates: { start: null, race: e.race === undefined ? RACE_DAY : e.race, raceTime: null },
       sprintWeekend: false,
-      sourceIds: { jolpica: null, openf1: e.meetingKey == null ? null : { meetingKey: e.meetingKey },
-                   override: false },
+      mk: e.meetingKey,
     })),
   }));
 
@@ -93,10 +92,10 @@ test("сборка: погода события собирается из зер
 /// погода теста легла бы под отмену.
 test("имя файла: события с сентинелом round = 0 не схлопываются", () => {
   const root = seed([
-    { id: "f1-meeting-1304", round: 0, meetingKey: 1304 },
-    { id: "f1-meeting-1305", round: 0, meetingKey: 1305 },
-    { id: "f1-meeting-1282", round: 0, meetingKey: 1282 },
-    { id: "f1-meeting-1283", round: 0, meetingKey: 1283 },
+    { id: "f1-2026-bahrain-testing-1", round: 0, meetingKey: 1304 },
+    { id: "f1-2026-bahrain-testing-2", round: 0, meetingKey: 1305 },
+    { id: "f1-2026-bahrain-1", round: 0, meetingKey: 1282 },
+    { id: "f1-2026-jeddah-1", round: 0, meetingKey: 1283 },
   ]);
   try {
     buildF1Weather(root, NOW, () => {});

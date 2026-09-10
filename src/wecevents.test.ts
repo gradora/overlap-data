@@ -75,7 +75,7 @@ const indexEvent = (over: Partial<WecIndexEvent> = {}): WecIndexEvent => ({
   start: "2031-04-17T00:00:00+02:00",
   end: "2031-04-19T00:00:00+02:00",
   resultsPath: "wec/2031/01_6-hours-of-imola-2031.json",
-  sourceIds: { fiawec: { slug: "6-hours-of-imola-2031", raceId: 41, sessions: [] } },
+  hasResults: true,
   ...over,
 });
 
@@ -206,19 +206,16 @@ test("buildWecEventDoc: расписание — костяк, протокол�
   const event = indexEvent({
     round: 4, slug: "24-hours-of-le-mans-2031-1", name: "24 Hours of Le Mans",
     start: "2031-06-11T00:00:00+02:00", end: "2031-06-15T00:00:00+02:00",
-    sourceIds: {
-      fiawec: {
-        slug: "24-hours-of-le-mans-2031-1", raceId: 42,
-        sessions: [
-          // Порядок и id как у fiawec: RACE выдан раньше, id не по времени.
-          { id: 7608, label: "RACE" },
-          { id: 7616, label: "FREE PRACTICE 1" },
-          { id: 7623, label: "HYPERPOLE 1 - HYPERCAR" },
-          { id: 7624, label: "HYPERPOLE 2 - HYPERCAR" },
-        ],
-      },
-    },
   });
+  // Дропдаун результатов — теперь вход сборки из фактов кухни, не поле
+  // индекса (D-лайт). Порядок и id как у fiawec: RACE выдан раньше, id не
+  // по времени.
+  const sessionRefs = [
+    { id: 7608, label: "RACE" },
+    { id: 7616, label: "FREE PRACTICE 1" },
+    { id: 7623, label: "HYPERPOLE 1 - HYPERCAR" },
+    { id: 7624, label: "HYPERPOLE 2 - HYPERCAR" },
+  ];
   const rowsBySessionId = new Map([
     [7608, [{ position: 1, carNumber: "83", team: "AF CORSE", laps: 387, totalTime: "24:02:53.332", gapFirst: "", status: "classified" as const }]],
     [7616, [{ position: 1, carNumber: "38", team: "CADILLAC HERTZ TEAM JOTA", laps: 31, totalTime: "3:25.148", gapFirst: "", status: "classified" as const }]],
@@ -228,6 +225,7 @@ test("buildWecEventDoc: расписание — костяк, протокол�
   const doc = buildWecEventDoc({
     season: 2031,
     event,
+    sessionRefs,
     schedule: [
       { name: "Race", start: "2031-06-14T16:00:00+02:00", status: "EventCompleted" },
       { name: "Free Practice 1", start: "2031-06-11T14:00:00+02:00", status: "EventCompleted" },
@@ -254,8 +252,12 @@ test("buildWecEventDoc: расписание — костяк, протокол�
   assert.deepEqual(doc.sessions[1].rows.map((r) => r.carNumber), ["311"]);
   assert.deepEqual(doc.sessions[2].rows.map((r) => r.carNumber), ["12"]);
   // Warm-up есть в расписании, но не в дропдауне результатов — без протокола.
-  assert.equal(doc.sessions[3].sourceIds.sessionId, null);
+  assert.equal(doc.sessions[3].seq, null);
   assert.deepEqual(doc.sessions[3].rows, []);
+  // seq — ранг в порядке источника (по возрастанию его id), не сам id:
+  // тай-брейк фаз хайперполя у клиента сохраняется 1:1.
+  assert.deepEqual(doc.sessions.map((x) => x.seq), [1, 2, 3, null, 0],
+    "ранги: RACE — самый ранний id источника");
   assert.equal(doc.sessions[3].raceClass, null);
   // Экипаж подставлен по номеру машины; незнакомая машина — пустой список.
   assert.deepEqual(doc.sessions[4].rows[0].drivers, ["R. KUBICA", "P. HANSON", "Y. YE"]);
@@ -266,16 +268,10 @@ test("buildWecEventDoc: расписание — костяк, протокол�
 });
 
 test("buildWecEventDoc: сессия результатов без расписания не теряется", () => {
-  const event = indexEvent({
-    sourceIds: {
-      fiawec: {
-        slug: "6-hours-of-imola-2031", raceId: 41,
-        sessions: [{ id: 51, label: "RACE" }, { id: 52, label: "QUALIFYING - LMGT3" }],
-      },
-    },
-  });
+  const event = indexEvent({});
   const doc = buildWecEventDoc({
     season: 2031, event,
+    sessionRefs: [{ id: 51, label: "RACE" }, { id: 52, label: "QUALIFYING - LMGT3" }],
     schedule: [{ name: "Race", start: "2031-04-19T13:00:00+02:00", status: "EventCompleted" }],
     rowsBySessionId: new Map([[52, [
       { position: 1, carNumber: "34", team: "RACING TEAM TURKEY BY TF", laps: 6, totalTime: "1:41.642", gapFirst: "", status: "classified" as const },
@@ -299,12 +295,11 @@ function eventDoc(over: Partial<WecEventDoc> = {}): WecEventDoc {
     name: "6 Hours of Imola", venue: "Imola", trackRef: "imola", countryCode: "it",
     status: "EventCompleted", start: "2031-04-17T00:00:00+02:00",
     end: "2031-04-19T00:00:00+02:00", frozen: false, crewSource: "seasonStandings",
-    sourceIds: { fiawec: { slug: "6-hours-of-imola-2031", raceId: 41 } },
     sessions: [
       {
         kind: "race", name: "Race", number: null, phase: null, raceClass: "HYPERCAR",
         start: "2031-04-19T13:00:00+02:00", status: "EventCompleted",
-        sourceIds: { sessionId: 51 },
+        seq: 1,
         rows: [
           { position: 1, carNumber: "8", team: "TOYOTA RACING", drivers: ["B. HARTLEY"], laps: 213, totalTime: "6:00:10.939", gapFirst: "", status: "classified" },
           { position: 2, carNumber: "51", team: "FERRARI AF CORSE", drivers: ["J. CALADO"], laps: 213, totalTime: "6:00:24.291", gapFirst: "13.352", status: "classified" },
@@ -346,7 +341,7 @@ test("writeWecEvent: деградация не затирает прежний �
     grown.sessions.push({
       kind: "qualifying", name: "Qualifying - HYPERCAR", number: null, phase: null,
       raceClass: "HYPERCAR", start: "2031-04-18T15:10:00+02:00", status: "EventCompleted",
-      sourceIds: { sessionId: 50 }, rows: [],
+      seq: 0, rows: [],
     });
     assert.equal(writeWecEvent(path, grown), "written");
   } finally {
@@ -415,18 +410,14 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
     const seasonDir = join(root, "wec", "2031");
     mkdirSync(seasonDir, { recursive: true });
 
-    const sessions = [{ id: 50, label: "QUALIFYING - HYPERCAR" }, { id: 51, label: "RACE" }];
     writeFileSync(join(seasonDir, "index.json"), JSON.stringify({
-      schemaVersion: 1, series: "wec", season: 2031, frozen: false,
+      schemaVersion: 2, series: "wec", season: 2031, frozen: false,
       events: [
-        {
-          ...indexEvent({ sourceIds: { fiawec: { slug: "6-hours-of-imola-2031", raceId: 41, sessions } } }),
-        },
+        indexEvent({}),
         indexEvent({
           round: 0, slug: "official-prologue-imola-2031", name: "Official Prologue - IMOLA",
           start: "2031-04-14T00:00:00+02:00", end: "2031-04-14T12:00:00+02:00",
           resultsPath: "wec/2031/test_official-prologue-imola-2031.json",
-          sourceIds: { fiawec: { slug: "official-prologue-imola-2031", raceId: 40, sessions: [] } },
         }),
       ],
     }));
@@ -453,6 +444,10 @@ test("buildWecEventFiles: полный цикл из зеркала, идемп�
       end: "2031-04-14T12:00:00+02:00", raceId: 40,
       sessions: [{ name: "MORNING SESSION", start: "2031-04-14T09:00:00+02:00" }],
     }));
+    // Адресация источника (raceId, дропдаун сессий) — из фактов кухни:
+    // индекс её больше не несёт (D-лайт).
+    putPage(root, "/en/page/resultats-1?raceId=41",
+      '<select><option value="50">QUALIFYING - HYPERCAR</option><option value="51">RACE</option></select>');
     putPage(root, "/en/page/resultats-1?raceId=41&sessionId=51",
       sessionHTML(RACE_HEADERS, [
         { cells: ["1", "#8", "TOYOTA RACING", "213", "6:00:10.939", "-", "-", "180.37", "1:32.490", "88"] },
@@ -504,15 +499,15 @@ test("buildWecEventFiles: архивный сезон без зачёта — ф
     const seasonDir = join(root, "wec", "2031");
     mkdirSync(seasonDir, { recursive: true });
     writeFileSync(join(seasonDir, "index.json"), JSON.stringify({
-      schemaVersion: 1, series: "wec", season: 2031, frozen: true,
-      events: [indexEvent({
-        sourceIds: { fiawec: { slug: "6-hours-of-imola-2031", raceId: 41, sessions: [{ id: 51, label: "RACE" }] } },
-      })],
+      schemaVersion: 2, series: "wec", season: 2031, frozen: true,
+      events: [indexEvent({})],
     }));
     putPage(root, "/en/race/6-hours-of-imola-2031", racePageHTML({
       name: "WEC 6 Hours of Imola 2031", raceId: 41,
       sessions: [{ name: "Race", start: "2031-04-19T13:00:00+02:00" }],
     }));
+    putPage(root, "/en/page/resultats-1?raceId=41",
+      '<select><option value="51">RACE</option></select>');
     putPage(root, "/en/page/resultats-1?raceId=41&sessionId=51",
       sessionHTML(RACE_HEADERS, [
         { cells: ["1", "#8", "TOYOTA RACING", "213", "6:00:10.939", "-", "-", "180.37", "1:32.490", "88"] },
@@ -555,15 +550,13 @@ test("сборка: момент сессии пересобирается по 
     const seasonDir = join(root, "wec", "2031");
     mkdirSync(seasonDir, { recursive: true });
 
-    const sessions = [{ id: 70, label: "RACE" }];
     writeFileSync(join(seasonDir, "index.json"), JSON.stringify({
-      schemaVersion: 1, series: "wec", season: 2031, frozen: false,
+      schemaVersion: 2, series: "wec", season: 2031, frozen: false,
       events: [indexEvent({
         round: 1, slug: "6-hours-of-fuji-2031", name: "6 Hours of Fuji",
         venue: "Fuji Speedway", trackRef: "fuji", countryCode: "jp",
         start: "2031-09-26T00:00:00+02:00", end: "2031-09-28T00:00:00+02:00",
         resultsPath: "wec/2031/01_6-hours-of-fuji-2031.json",
-        sourceIds: { fiawec: { slug: "6-hours-of-fuji-2031", raceId: 70, sessions } },
       })],
     }));
     // Страница события: расписание с ЛОЖНЫМ парижским офсетом — ровно как у

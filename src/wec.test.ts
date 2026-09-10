@@ -120,7 +120,7 @@ test("eventInfo: даты и страна из первого РАЗБИРАЕМ
 });
 
 /// Дропдаун сессий — вход для протоколов. Пустой список тихо обнуляет
-/// sourceIds.fiawec.sessions у этапа, и витрина теряет уик-энд целиком.
+/// сессии этапа в фактах кухни, и витрина теряет уик-энд целиком.
 test("sessionOptions/raceOptions: сессии отделены от годов, классов и этапов", () => {
   const opt = (id: number, label: string) => `<option value="${id}">${label}</option>`;
   const html = [

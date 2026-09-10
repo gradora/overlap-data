@@ -75,7 +75,7 @@ test("будущий тест: одно расписание — уже конт
   ] };
   const file = buildEventFile({
     season: 2027, eventKey: "f1-2027-bahrain-testing-1400",
-    eventId: "f1-meeting-1400", round: 0, schedule,
+    eventId: "f1-2026-bahrain-testing-1", round: 0, schedule,
   });
   assert.ok(file, "без файла будущий тест остаётся на кухне — блокер Б1 не закрыт");
   assert.deepEqual(file!.schedule, schedule, "блок переносится дословно");
@@ -83,7 +83,7 @@ test("будущий тест: одно расписание — уже конт
   // А без расписания то же событие файла по-прежнему не получает.
   assert.equal(buildEventFile({
     season: 2027, eventKey: "f1-2027-bahrain-testing-1400",
-    eventId: "f1-meeting-1400", round: 0, schedule: null,
+    eventId: "f1-2026-bahrain-testing-1", round: 0, schedule: null,
   }), null);
 });
 

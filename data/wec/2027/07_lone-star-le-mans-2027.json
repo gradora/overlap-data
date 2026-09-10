@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:46.388Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.780Z",
   "series": "wec",
   "season": 2027,
   "round": 7,
@@ -14,12 +14,6 @@
   "end": "2027-09-12T12:00:00+02:00",
   "frozen": false,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "lone-star-le-mans-2027",
-      "raceId": 5047
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": null,
       "start": "2027-09-10T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -42,9 +34,7 @@
       "raceClass": null,
       "start": "2027-09-10T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -55,9 +45,7 @@
       "raceClass": null,
       "start": "2027-09-11T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -68,9 +56,7 @@
       "raceClass": "HYPERCAR",
       "start": "2027-09-11T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -81,9 +67,7 @@
       "raceClass": "LMGT3",
       "start": "2027-09-11T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -94,9 +78,7 @@
       "raceClass": "HYPERCAR",
       "start": "2027-09-11T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -107,9 +89,7 @@
       "raceClass": "LMGT3",
       "start": "2027-09-11T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -120,9 +100,7 @@
       "raceClass": null,
       "start": "2027-09-12T12:00:00-05:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     }
   ]

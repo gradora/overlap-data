@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:46.390Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.781Z",
   "series": "wec",
   "season": 2027,
   "round": 9,
@@ -14,12 +14,6 @@
   "end": "2027-11-06T12:00:00+01:00",
   "frozen": false,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "bapco-energies-8-hours-of-bahrain-2027",
-      "raceId": 5048
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": null,
       "start": "2027-11-04T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -42,9 +34,7 @@
       "raceClass": null,
       "start": "2027-11-04T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -55,9 +45,7 @@
       "raceClass": null,
       "start": "2027-11-05T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -68,9 +56,7 @@
       "raceClass": "HYPERCAR",
       "start": "2027-11-05T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -81,9 +67,7 @@
       "raceClass": "LMGT3",
       "start": "2027-11-05T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -94,9 +78,7 @@
       "raceClass": "HYPERCAR",
       "start": "2027-11-05T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -107,9 +89,7 @@
       "raceClass": "LMGT3",
       "start": "2027-11-05T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -120,9 +100,7 @@
       "raceClass": null,
       "start": "2027-11-06T12:00:00+03:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     }
   ]

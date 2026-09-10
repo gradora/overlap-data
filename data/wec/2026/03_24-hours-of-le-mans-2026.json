@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:20.728Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.778Z",
   "series": "wec",
   "season": 2026,
   "round": 3,
@@ -14,12 +14,6 @@
   "end": "2026-06-14T00:00:00+02:00",
   "frozen": true,
   "crewSource": "seasonStandings",
-  "sourceIds": {
-    "fiawec": {
-      "slug": "24-hours-of-le-mans-2026",
-      "raceId": 4951
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-10T14:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7859
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -291,9 +283,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2026-06-10T18:45:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7862
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -495,9 +485,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-10T19:30:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7863
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -757,9 +745,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-10T22:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7860
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -1019,9 +1005,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-11T14:45:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7861
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -1281,9 +1265,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2026-06-11T20:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7864
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1445,9 +1427,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2026-06-11T20:35:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7865
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,
@@ -1559,9 +1539,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-11T21:05:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7866
-      },
+      "seq": 8,
       "rows": [
         {
           "position": 1,
@@ -1779,9 +1757,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-11T21:40:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7867
-      },
+      "seq": 9,
       "rows": [
         {
           "position": 1,
@@ -1929,9 +1905,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-11T23:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7868
-      },
+      "seq": 10,
       "rows": [
         {
           "position": 1,
@@ -2191,9 +2165,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-13T12:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7869
-      },
+      "seq": 11,
       "rows": [
         {
           "position": 1,
@@ -2453,9 +2425,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-06-13T16:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7709
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T08:57:56.891Z",
+  "series": "f1",
+  "season": 2026,
+  "eventKey": "f1-2026-yas-marina-1",
+  "eventId": "f1-2026-23",
+  "round": 23,
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11429,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-12-04T09:30:00+00:00",
+        "end": "2026-12-04T10:30:00+00:00"
+      },
+      {
+        "key": 11430,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-12-04T13:00:00+00:00",
+        "end": "2026-12-04T14:00:00+00:00"
+      },
+      {
+        "key": 11431,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-12-05T10:30:00+00:00",
+        "end": "2026-12-05T11:30:00+00:00"
+      },
+      {
+        "key": 11432,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-12-05T14:00:00+00:00",
+        "end": "2026-12-05T15:00:00+00:00"
+      },
+      {
+        "key": 11436,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-12-06T13:00:00+00:00",
+        "end": "2026-12-06T15:00:00+00:00"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2026,
+    "round": 23,
+    "circuitId": "yas_marina",
+    "winners": [
+      {
+        "year": 2025,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 5
+      },
+      {
+        "year": 2024,
+        "code": "NOR",
+        "name": "Lando Norris",
+        "constructor": "McLaren",
+        "winsHere": 1
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 4
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2021,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      }
+    ]
+  },
+  "milestones": {
+    "season": 2026,
+    "round": 23,
+    "achievements": [
+      {
+        "driver": "A. Albon",
+        "given": "Alexander",
+        "count": 150
+      },
+      {
+        "driver": "O. Bearman",
+        "given": "Oliver",
+        "count": 50
+      },
+      {
+        "driver": "P. Gasly",
+        "given": "Pierre",
+        "count": 200
+      }
+    ]
+  }
+}

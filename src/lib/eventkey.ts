@@ -1,17 +1,23 @@
 // Стабильный ключ события — имя файла семейства `<series>/events/`.
 //
-// ЗАЧЕМ ОТДЕЛЬНЫЙ КЛЮЧ. Файл события — новое семейство, и класть его на
+// ЗАЧЕМ ОТДЕЛЬНЫЙ КЛЮЧ. Файл события — отдельное семейство, и класть его на
 // существующие идентификаторы нельзя: они дрейфуют. Раунд едет при отмене
 // этапа, дата — при переносе, слаг трассы совпадает (в 2026 два события
 // `bahrain-testing` — предсезонки 11–13 и 18–20 февраля, имя у обеих
-// буквально «Pre-Season Testing»), порядковый номер внутри группы едет при
-// вставке более раннего события. Стабильно только то, что присвоил ИСТОЧНИК:
-// `meeting_key` OpenF1 не перенумеровывается, а слаги WEC/IMSA — это пути их
-// собственных URL, то есть тоже ключи источника.
+// буквально «Pre-Season Testing»).
 //
-// ФОРМАТ: `<серия>-<сезон>-<читаемая часть>-<ключ источника>`. Читаемая часть
-// — чтобы имя файла было понятно человеку; ключ источника — чтобы оно не
-// менялось никогда. Решение владельца 28.08.2026.
+// ФОРМАТ (D-лайт): `f1-<сезон>-<assetSlug>-<n>`, где n — порядковый номер
+// ВНУТРИ группы (сезон, assetSlug), присвоенный В МОМЕНТ ЧЕКАНКИ по
+// возрастанию meeting_key. До D-лайт суффиксом был сам ключ источника
+// (meeting_key / ovr<дата> / r<round>) — из витрины чужие идентификаторы
+// ушли, а стабильность теперь держат два механизма вместе:
+//   1) НАСЛЕДОВАНИЕ: раз присвоенный ключ переиспользуется на каждом прогоне
+//      (сопоставление с прошлым опубликованным файлом по mk, затем по id);
+//      свежую нумерацию получают только события, которых прежде не было, и
+//      всегда СЛЕДУЮЩИМ номером — номер умершего события не переиспользуется
+//      (иначе файлы чужой истории достались бы новичку);
+//   2) СТОРОЖ ДРЕЙФА (checkEventKeys): смена ключа у события с файлами —
+//      fatal, витрина не пишется.
 //
 // ПОЧЕМУ СУФФИКС У ВСЕХ, А НЕ ТОЛЬКО У СТОЛКНУВШИХСЯ. «Добавлять, когда
 // нужно» означало бы, что ключ события зависит от его СОСЕДЕЙ: появился
@@ -19,45 +25,82 @@
 // привязан к виду события: `bahrain` и `jeddah` в 2026 уже сменили вид на
 // «отменён», и ключ уехал бы вместе с ним.
 //
-// ПОРЯДОК ИМЁН НИЧЕГО НЕ ЗНАЧИТ, и это нормально. Ключи митингов не
-// хронологичны в принципе: февральские тесты 2026 — 1304 и 1305, мартовский
-// Альберт-парк — 1279 (OpenF1 регистрирует тесты позже гонок). Хронология
-// живёт в витрине календаря, она и есть оглавление; каталог `data/` —
-// хранилище. Существующее семейство штрафов уже лежит как `2026_1, 2026_10,
-// 2026_11, 2026_12, 2026_2`, и ни один потребитель от порядка не зависит.
+// ПОРЯДОК ИМЁН НИЧЕГО НЕ ЗНАЧИТ, и это нормально: хронология живёт в витрине
+// календаря, она и есть оглавление; каталог `data/` — хранилище.
 
 /// Символы, безопасные для имени файла и для пути URL зеркала.
 function sanitize(part: string): string {
   return part.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-/// Разделитель источника у F1: `meeting_key` OpenF1, а при его отсутствии —
-/// осознанно худший вариант с пометкой в самом ключе.
-export type F1KeySource =
-  | { kind: "meeting"; meetingKey: number }
-  /// Курируемый этап (`overrides/calendar.json`): пары в OpenF1 нет вовсе.
-  /// Идентичность такому событию задаёт куратор, и она же — дата.
-  | { kind: "override"; date: string }
-  /// Гонка jolpica без пары в OpenF1. Встречается, когда день гонки накрыт
-  /// оверлеем: бэкенд НАМЕРЕННО не отдаёт ей чужой ключ. Раунд дрейфует, но
-  /// другого различителя у такого события нет — вызывающий обязан
-  /// залогировать это громко (см. F1_KEY_UNSTABLE).
-  | { kind: "round"; round: number };
-
-/// Пометка в ключе, по которой видно, что различитель нестабилен.
-export const F1_KEY_UNSTABLE = "r";
-
-export function f1SourceSuffix(src: F1KeySource): string {
-  switch (src.kind) {
-    case "meeting":  return String(src.meetingKey);
-    case "override": return `ovr${src.date.replace(/-/g, "")}`;
-    case "round":    return `${F1_KEY_UNSTABLE}${src.round}`;
-  }
+/// База ключа события F1 — всё, кроме порядкового суффикса.
+export function f1KeyBase(season: number, assetSlug: string): string {
+  return `f1-${season}-${sanitize(assetSlug)}`;
 }
 
-/// Ключ события F1: `f1-2026-bahrain-testing-1304`.
-export function f1EventKey(season: number, assetSlug: string, src: F1KeySource): string {
-  return `f1-${season}-${sanitize(assetSlug)}-${f1SourceSuffix(src)}`;
+/// Событие на входе чеканки. `id` — прежняя идентичность витрины (у оверлея
+/// её на этапе чеканки ещё нет — id оверлея И ЕСТЬ ключ, допустима пустая
+/// строка: наследование у него идёт по mk). `mk` — нейтральный числовой ключ
+/// события в семействах кухни; null — ключа нет (курируемый этап, гонка без
+/// пары).
+export interface F1MintEntry {
+  id: string;
+  base: string;
+  mk: number | null;
+}
+
+const parseKey = (key: string): { base: string; n: number } | null => {
+  const m = /^(.+)-(\d+)$/.exec(key);
+  return m ? { base: m[1], n: Number(m[2]) } : null;
+};
+
+/// Чеканка ключей событий F1. Возвращает массив, выровненный со входом.
+///
+/// Наследование — сперва по mk (митинг не перенумеровывается никогда; ключ
+/// переживает и превращение оверлея в подтверждённую гонку), затем по id
+/// (курируемый этап и гонка без пары: id у них стабильнее ключа). Прежний
+/// ключ с ЧУЖОЙ базой не наследуется — переименование трассы честно дойдёт
+/// до сторожа дрейфа fatal-ом, а не спрячется.
+///
+/// Свежая чеканка — по возрастанию mk (события без mk — после, в порядке
+/// входа), каждому — СЛЕДУЮЩИЙ свободный номер базы поверх максимума из
+/// прошлого файла: номер умершего события не переиспользуется.
+export function mintF1EventKeys(
+  entries: F1MintEntry[],
+  previous: { id: string; eventKey?: string; mk?: number | null }[] | null,
+): string[] {
+  const maxN = new Map<string, number>();
+  const byMk = new Map<number, string>();
+  const byId = new Map<string, string>();
+  for (const p of previous ?? []) {
+    if (!p.eventKey) continue;
+    const parsed = parseKey(p.eventKey);
+    if (parsed) maxN.set(parsed.base, Math.max(maxN.get(parsed.base) ?? 0, parsed.n));
+    if (p.mk != null) byMk.set(p.mk, p.eventKey);
+    if (p.id) byId.set(p.id, p.eventKey);
+  }
+
+  const out = new Array<string | null>(entries.length).fill(null);
+  entries.forEach((e, i) => {
+    const inherited =
+      (e.mk != null ? byMk.get(e.mk) : undefined) ?? (e.id ? byId.get(e.id) : undefined);
+    if (inherited && parseKey(inherited)?.base === e.base) out[i] = inherited;
+  });
+
+  const fresh = entries
+    .map((e, i) => ({ e, i }))
+    .filter(({ i }) => out[i] === null)
+    .sort((a, b) => {
+      if (a.e.mk != null && b.e.mk != null && a.e.mk !== b.e.mk) return a.e.mk - b.e.mk;
+      if ((a.e.mk == null) !== (b.e.mk == null)) return a.e.mk == null ? 1 : -1;
+      return a.i - b.i;
+    });
+  for (const { e, i } of fresh) {
+    const n = (maxN.get(e.base) ?? 0) + 1;
+    maxN.set(e.base, n);
+    out[i] = `${e.base}-${n}`;
+  }
+  return out as string[];
 }
 
 /// Ключ события WEC: `wec-2026-6-hours-of-imola-2026`. Слаг fiawec — путь его
@@ -83,18 +126,21 @@ export interface KeyCheck {
 }
 
 /// Сторож идентичности. Проверяет ровно две вещи, и обе — про то, чего
-/// сегодня не проверяет НИ ОДНО семейство:
+/// не проверяет НИ ОДНО другое семейство:
 ///
 /// 1. УНИКАЛЬНОСТЬ. Два события с одним ключом — это молчаливая потеря файла:
 ///    второй перезапишет первый, и заметить это будет негде.
 /// 2. НЕИЗМЕННОСТЬ. Ключ события, у которого уже есть файлы, не должен
 ///    меняться между прогонами. Сменился — значит поехал различитель
-///    (переименовали трассу, сменился вид события), и старый файл осиротел, а
-///    новый начал историю с нуля. Сопоставляем по `id` витрины: он и есть
-///    прежняя идентичность, и меняется реже ключа.
+///    (переименовали трассу, поехала чеканка), и старый файл осиротел, а
+///    новый начал историю с нуля. Сопоставление ДВУМЯ путями:
+///    по `id` витрины (прежняя идентичность) и по `mk` (переживает смену id
+///    «оверлей стал подтверждённой гонкой» — а вместе с id у оверлея id-шные
+///    файлы погоды/прогноза/рейс-контрола, поэтому дрейф ключа при живом mk
+///    обязан кричать даже когда id уже другой).
 export function checkEventKeys(
-  current: { id: string; eventKey: string }[],
-  previous: { id: string; eventKey: string }[] | null,
+  current: { id: string; eventKey: string; mk?: number | null }[],
+  previous: { id: string; eventKey: string; mk?: number | null }[] | null,
 ): KeyCheck {
   const fatal: string[] = [];
   const warnings: string[] = [];
@@ -104,20 +150,21 @@ export function checkEventKeys(
     const clash = seen.get(e.eventKey);
     if (clash) fatal.push(`ключ события не уникален: «${e.eventKey}» у ${clash} и ${e.id}`);
     else seen.set(e.eventKey, e.id);
-    if (new RegExp(`-${F1_KEY_UNSTABLE}\\d+$`).test(e.eventKey)) {
-      warnings.push(
-        `${e.id}: у события нет ключа источника, различитель — раунд (${e.eventKey}); ` +
-        `он поедет при отмене этапа — проверь, почему пара в OpenF1 не нашлась`,
-      );
-    }
   }
 
   const before = new Map((previous ?? []).map((e) => [e.id, e.eventKey]));
+  const beforeByMk = new Map(
+    (previous ?? []).flatMap((e) => (e.mk != null ? [[e.mk, e] as const] : [])));
   for (const e of current) {
     const was = before.get(e.id);
     if (was && was !== e.eventKey) {
       fatal.push(`ключ события ДРЕЙФАНУЛ: ${e.id} был «${was}», стал «${e.eventKey}» — ` +
                  `файлы прежнего ключа осиротеют`);
+    }
+    const wasMk = e.mk != null ? beforeByMk.get(e.mk) : undefined;
+    if (wasMk && wasMk.eventKey !== e.eventKey && wasMk.id !== e.id) {
+      fatal.push(`ключ события ДРЕЙФАНУЛ (mk ${e.mk}): был «${wasMk.eventKey}» у ${wasMk.id}, ` +
+                 `стал «${e.eventKey}» у ${e.id} — файлы прежнего ключа осиротеют`);
     }
   }
   return { fatal, warnings };

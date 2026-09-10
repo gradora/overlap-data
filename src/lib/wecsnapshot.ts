@@ -32,7 +32,10 @@ import { loadRefs, type RefsMap } from "./refs.js";
 // Своя версия на каждый файл (прецедент STANDINGS_SCHEMA_VERSION фазы 1):
 // index и standings — независимые контракты, связка версий делала бы бамп
 // одного «тихой сменой» схемы другого.
-export const WEC_INDEX_SCHEMA_VERSION = 1;
+// v2 (10.09.2026, D-лайт): sourceIds.fiawec ушёл из контракта целиком; вместо
+// raceId-гейта клиента — нейтральное поле hasResults. Адресация страниц
+// источника (raceId, id сессий) осталась кухне — факты wec/facts.
+export const WEC_INDEX_SCHEMA_VERSION = 2;
 export const WEC_STANDINGS_SCHEMA_VERSION = 1;
 
 /// Клиентское окно «событие завершено»: WECEvent.completedAfter = endDate+24ч.
@@ -70,13 +73,11 @@ export interface WecIndexEvent {
   /// несвязанным TS↔Swift-стыком — ровно тем, что фаза 3 закрывает.
   /// Аддитивное поле схемы v1 (клиент 3a игнорирует незнакомые ключи).
   resultsPath: string;
-  sourceIds: {
-    fiawec: {
-      slug: string;
-      raceId: number | null;
-      sessions: WecSessionRef[];
-    };
-  };
+  /// У события есть страница результатов в системе источника (на кухне —
+  /// raceId != null). Клиентские гейты «нет завершённой гонки» / «экран
+  /// события пуст» живут на этом флаге; сам raceId — кухонная адресация и в
+  /// витрину не пишется (D-лайт).
+  hasResults: boolean;
 }
 
 /// Имя файла сессий события: этап — «NN_<слаг>.json» (образец IMSA), пролог
@@ -325,7 +326,6 @@ export function assembleIndexEvents(
   races: AssembleInput[],
   tests: AssembleInput[],
   refs: RefsMap | undefined,
-  sessionsByRaceId: Map<number, WecSessionRef[]>,
 ): WecIndexEvent[] {
   const toEvent = (e: AssembleInput, round: number): WecIndexEvent => ({
     round,
@@ -342,13 +342,7 @@ export function assembleIndexEvents(
     // ходил за 1.5 МБ HTML. Пустой файл невозможен: index собирается только
     // из распарсенных страниц (fail-closed выше).
     resultsPath: `wec/${season}/${wecEventFileName(round, e.slug)}`,
-    sourceIds: {
-      fiawec: {
-        slug: e.slug,
-        raceId: e.page.raceId,
-        sessions: e.page.raceId !== null ? sessionsByRaceId.get(e.page.raceId) ?? [] : [],
-      },
-    },
+    hasResults: e.page.raceId !== null,
   });
   const byDate = (a: AssembleInput, b: AssembleInput): number => {
     const da = a.page.startMs;
@@ -1018,7 +1012,7 @@ export function buildWecSnapshot(
   }
 
   const refs = loadRefs();
-  const events = assembleIndexEvents(year, races, testPages, refs, sessionsByRaceId);
+  const events = assembleIndexEvents(year, races, testPages, refs);
   const raceEvents = events.filter((e) => e.round >= 1);
   const ends = raceEvents
     .map((e) => (e.end ? Date.parse(e.end) : NaN))
@@ -1052,8 +1046,11 @@ export function buildWecSnapshot(
   const completedRaces = raceEvents.filter((e) => isCompleted(e, now));
   const last = completedRaces[completedRaces.length - 1]; // события уже по датам
   let classificationRows: WecRaceTeamRow[] = [];
-  if (last && last.sourceIds.fiawec.raceId !== null) {
-    const raceId = last.sourceIds.fiawec.raceId;
+  // raceId последнего этапа — внутренний шаг сборки: в витрину он не пишется
+  // (D-лайт), но со страницы события никуда не делся.
+  const lastRaceId = last ? races.find((r) => r.slug === last.slug)?.page.raceId ?? null : null;
+  if (last && lastRaceId !== null) {
+    const raceId = lastRaceId;
     const raceSession = (sessionsByRaceId.get(raceId) ?? [])
       .find((s) => s.label.toUpperCase() === "RACE");
     if (raceSession) {

@@ -11,7 +11,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { DATA_FAMILIES } from "./lib/databoundary.js";
+import { DATA_FAMILIES, DATA_FILES } from "./lib/databoundary.js";
 
 const DATA = join(process.cwd(), "data");
 
@@ -20,11 +20,13 @@ const MARKERS =
 
 /// Поимённые исключения: regex пути → причина. Совпавший файл проверяется
 /// лишь на то, что маркер действительно есть (страховка от протухания).
+// D-лайт (10.09.2026): исключения на f1/calendar (sourceIds jolpica/openf1)
+// и wec/<год> (sourceIds.fiawec) сняты — этих маркеров в витрине больше нет.
 const ALLOWED: { path: RegExp; reason: string }[] = [
-  { path: /^f1\/calendar\/\d{4}\.json$/,
-    reason: "sourceIds jolpica/openf1 — сшивка клиента; уходит опаковыми id в фазе D" },
-  { path: /^wec\/\d{4}\/.*\.json$/,
-    reason: "sourceIds.fiawec — живое окно клиента; уходит в фазе D" },
+  { path: /^health\.json$/,
+    reason: "ops-телеметрия с именами продьюсеров (openf1 и др.): в serve не " +
+      "едет (exportserve исключает поимённо), клиентское чтение — дебаг-экран " +
+      "SnapshotHealthView, который умирает со сплитом фазы C" },
   { path: /^(f1|wec|imsa)\/fia\/.*\.json$/,
     reason: "url официальных PDF решений — осознанная фича «открыть документ»" },
   { path: /^(wec|imsa)\/events\/.*\.json$/,
@@ -74,11 +76,27 @@ function clientDirs(): string[] {
   return out;
 }
 
+/// Одиночные клиентские файлы из DATA_FILES — тем же фильтром, что каталоги.
+/// Ревью D-лайт вскрыло структурную слепоту: health.json (витрина,
+/// clientReads) жил вне скана вовсе, и «зелёный сторож» на нём ничего не
+/// доказывал — маркер «openf1» в ключах продьюсеров не был ни пойман, ни
+/// исключён осознанно.
+function clientFiles(): string[] {
+  return DATA_FILES
+    .filter((f) => (f.zone === "витрина" || f.zone === "справочник") && f.clientReads)
+    .map((f) => f.path)
+    .filter((p) => existsSync(join(DATA, p)));
+}
+
 test("витрина не выдаёт источники текстовыми маркерами", () => {
   const hits: string[] = [];
   const matchedAllowed = new Set<number>();
-  for (const dir of clientDirs()) {
-    for (const file of walk(join(DATA, dir))) {
+  const targets = [
+    ...clientDirs().flatMap((dir) => [...walk(join(DATA, dir))]),
+    ...clientFiles().map((p) => join(DATA, p)),
+  ];
+  for (const file of targets) {
+    {
       const rel = file.slice(DATA.length + 1);
       const body = readFileSync(file, "utf8");
       const m = MARKERS.exec(body);

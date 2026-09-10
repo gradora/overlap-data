@@ -1,0 +1,2397 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T08:57:56.880Z",
+  "series": "f1",
+  "season": 2026,
+  "eventKey": "f1-2026-gilles-villeneuve-1",
+  "eventId": "f1-2026-5",
+  "round": 5,
+  "entry": [
+    {
+      "driverId": "norris",
+      "acronym": "NOR",
+      "givenName": "Lando",
+      "familyName": "Norris",
+      "nationality": "British",
+      "car": 1,
+      "team": "McLaren",
+      "teamColour": "F47600",
+      "constructorId": "mclaren"
+    },
+    {
+      "driverId": "max_verstappen",
+      "acronym": "VER",
+      "givenName": "Max",
+      "familyName": "Verstappen",
+      "nationality": "Dutch",
+      "car": 3,
+      "team": "Red Bull Racing",
+      "teamColour": "4781D7",
+      "constructorId": "red_bull"
+    },
+    {
+      "driverId": "bortoleto",
+      "acronym": "BOR",
+      "givenName": "Gabriel",
+      "familyName": "Bortoleto",
+      "nationality": "Brazilian",
+      "car": 5,
+      "team": "Audi",
+      "teamColour": "F50537",
+      "constructorId": "audi"
+    },
+    {
+      "driverId": "hadjar",
+      "acronym": "HAD",
+      "givenName": "Isack",
+      "familyName": "Hadjar",
+      "nationality": "French",
+      "car": 6,
+      "team": "Red Bull Racing",
+      "teamColour": "4781D7",
+      "constructorId": "red_bull"
+    },
+    {
+      "driverId": "gasly",
+      "acronym": "GAS",
+      "givenName": "Pierre",
+      "familyName": "Gasly",
+      "nationality": "French",
+      "car": 10,
+      "team": "Alpine",
+      "teamColour": "00A1E8",
+      "constructorId": "alpine"
+    },
+    {
+      "driverId": "perez",
+      "acronym": "PER",
+      "givenName": "Sergio",
+      "familyName": "Pérez",
+      "nationality": "Mexican",
+      "car": 11,
+      "team": "Cadillac",
+      "teamColour": "909090",
+      "constructorId": "cadillac"
+    },
+    {
+      "driverId": "antonelli",
+      "acronym": "ANT",
+      "givenName": "Andrea Kimi",
+      "familyName": "Antonelli",
+      "nationality": "Italian",
+      "car": 12,
+      "team": "Mercedes",
+      "teamColour": "00D7B6",
+      "constructorId": "mercedes"
+    },
+    {
+      "driverId": "alonso",
+      "acronym": "ALO",
+      "givenName": "Fernando",
+      "familyName": "Alonso",
+      "nationality": "Spanish",
+      "car": 14,
+      "team": "Aston Martin",
+      "teamColour": "229971",
+      "constructorId": "aston_martin"
+    },
+    {
+      "driverId": "leclerc",
+      "acronym": "LEC",
+      "givenName": "Charles",
+      "familyName": "Leclerc",
+      "nationality": "Monegasque",
+      "car": 16,
+      "team": "Ferrari",
+      "teamColour": "ED1131",
+      "constructorId": "ferrari"
+    },
+    {
+      "driverId": "stroll",
+      "acronym": "STR",
+      "givenName": "Lance",
+      "familyName": "Stroll",
+      "nationality": "Canadian",
+      "car": 18,
+      "team": "Aston Martin",
+      "teamColour": "229971",
+      "constructorId": "aston_martin"
+    },
+    {
+      "driverId": "albon",
+      "acronym": "ALB",
+      "givenName": "Alexander",
+      "familyName": "Albon",
+      "nationality": "Thai",
+      "car": 23,
+      "team": "Williams",
+      "teamColour": "1868DB",
+      "constructorId": "williams"
+    },
+    {
+      "driverId": "hulkenberg",
+      "acronym": "HUL",
+      "givenName": "Nico",
+      "familyName": "Hülkenberg",
+      "nationality": "German",
+      "car": 27,
+      "team": "Audi",
+      "teamColour": "F50537",
+      "constructorId": "audi"
+    },
+    {
+      "driverId": "lawson",
+      "acronym": "LAW",
+      "givenName": "Liam",
+      "familyName": "Lawson",
+      "nationality": "New Zealander",
+      "car": 30,
+      "team": "Racing Bulls",
+      "teamColour": "6C98FF",
+      "constructorId": "rb"
+    },
+    {
+      "driverId": "ocon",
+      "acronym": "OCO",
+      "givenName": "Esteban",
+      "familyName": "Ocon",
+      "nationality": "French",
+      "car": 31,
+      "team": "Haas F1 Team",
+      "teamColour": "9C9FA2",
+      "constructorId": "haas"
+    },
+    {
+      "driverId": "arvid_lindblad",
+      "acronym": "LIN",
+      "givenName": "Arvid",
+      "familyName": "Lindblad",
+      "nationality": "British",
+      "car": 41,
+      "team": "Racing Bulls",
+      "teamColour": "6C98FF",
+      "constructorId": "rb"
+    },
+    {
+      "driverId": "colapinto",
+      "acronym": "COL",
+      "givenName": "Franco",
+      "familyName": "Colapinto",
+      "nationality": "Argentine",
+      "car": 43,
+      "team": "Alpine",
+      "teamColour": "00A1E8",
+      "constructorId": "alpine"
+    },
+    {
+      "driverId": "hamilton",
+      "acronym": "HAM",
+      "givenName": "Lewis",
+      "familyName": "Hamilton",
+      "nationality": "British",
+      "car": 44,
+      "team": "Ferrari",
+      "teamColour": "ED1131",
+      "constructorId": "ferrari"
+    },
+    {
+      "driverId": "sainz",
+      "acronym": "SAI",
+      "givenName": "Carlos",
+      "familyName": "Sainz",
+      "nationality": "Spanish",
+      "car": 55,
+      "team": "Williams",
+      "teamColour": "1868DB",
+      "constructorId": "williams"
+    },
+    {
+      "driverId": "russell",
+      "acronym": "RUS",
+      "givenName": "George",
+      "familyName": "Russell",
+      "nationality": "British",
+      "car": 63,
+      "team": "Mercedes",
+      "teamColour": "00D7B6",
+      "constructorId": "mercedes"
+    },
+    {
+      "driverId": "bottas",
+      "acronym": "BOT",
+      "givenName": "Valtteri",
+      "familyName": "Bottas",
+      "nationality": "Finnish",
+      "car": 77,
+      "team": "Cadillac",
+      "teamColour": "909090",
+      "constructorId": "cadillac"
+    },
+    {
+      "driverId": "piastri",
+      "acronym": "PIA",
+      "givenName": "Oscar",
+      "familyName": "Piastri",
+      "nationality": "Australian",
+      "car": 81,
+      "team": "McLaren",
+      "teamColour": "F47600",
+      "constructorId": "mclaren"
+    },
+    {
+      "driverId": "bearman",
+      "acronym": "BEA",
+      "givenName": "Oliver",
+      "familyName": "Bearman",
+      "nationality": "British",
+      "car": 87,
+      "team": "Haas F1 Team",
+      "teamColour": "9C9FA2",
+      "constructorId": "haas"
+    }
+  ],
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11281,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-05-22T16:30:00+00:00",
+        "end": "2026-05-22T17:30:00+00:00"
+      },
+      {
+        "key": 11282,
+        "name": "Sprint Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-22T20:30:00+00:00",
+        "end": "2026-05-22T21:14:00+00:00"
+      },
+      {
+        "key": 11286,
+        "name": "Sprint",
+        "type": "Race",
+        "start": "2026-05-23T16:00:00+00:00",
+        "end": "2026-05-23T17:00:00+00:00"
+      },
+      {
+        "key": 11287,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-05-23T20:00:00+00:00",
+        "end": "2026-05-23T21:00:00+00:00"
+      },
+      {
+        "key": 11291,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-05-24T20:00:00+00:00",
+        "end": "2026-05-24T22:00:00+00:00"
+      }
+    ]
+  },
+  "protocols": {
+    "sessions": [
+      {
+        "key": 11281,
+        "name": "Practice 1",
+        "start": "2026-05-22T16:30:00+00:00",
+        "results": [
+          {
+            "car": 12,
+            "position": 1,
+            "laps": 33,
+            "best": 73.402,
+            "gap": 0,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 63,
+            "position": 2,
+            "laps": 35,
+            "best": 73.544,
+            "gap": 0.142,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 3,
+            "laps": 36,
+            "best": 74.176,
+            "gap": 0.774,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 4,
+            "laps": 36,
+            "best": 74.355,
+            "gap": 0.953,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 5,
+            "laps": 31,
+            "best": 74.366,
+            "gap": 0.964,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 6,
+            "laps": 32,
+            "best": 74.799,
+            "gap": 1.397,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 7,
+            "laps": 32,
+            "best": 74.963,
+            "gap": 1.561,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 8,
+            "laps": 33,
+            "best": 75.452,
+            "gap": 2.05,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 9,
+            "laps": 28,
+            "best": 75.698,
+            "gap": 2.296,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 10,
+            "laps": 31,
+            "best": 75.863,
+            "gap": 2.461,
+            "compounds": [
+              "HARD",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 11,
+            "laps": 33,
+            "best": 76.214,
+            "gap": 2.812,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 12,
+            "laps": 29,
+            "best": 76.253,
+            "gap": 2.851,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 13,
+            "laps": 32,
+            "best": 76.497,
+            "gap": 3.095,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 14,
+            "laps": 15,
+            "best": 76.642,
+            "gap": 3.24,
+            "compounds": [
+              "HARD"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 15,
+            "laps": 36,
+            "best": 76.66,
+            "gap": 3.258,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 16,
+            "laps": 29,
+            "best": 76.809,
+            "gap": 3.407,
+            "compounds": [
+              "HARD",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 17,
+            "laps": 30,
+            "best": 76.978,
+            "gap": 3.576,
+            "compounds": [
+              "HARD",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 18,
+            "laps": 5,
+            "best": 77.431,
+            "gap": 4.029,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 19,
+            "laps": 26,
+            "best": 77.77,
+            "gap": 4.368,
+            "compounds": [
+              "HARD",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 20,
+            "laps": 28,
+            "best": 77.868,
+            "gap": 4.466,
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 21,
+            "laps": 28,
+            "best": 77.926,
+            "gap": 4.524,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 22,
+            "laps": 1,
+            "compounds": [
+              "HARD"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 11282,
+        "name": "Sprint Qualifying",
+        "start": "2026-05-22T20:30:00+00:00",
+        "results": [
+          {
+            "car": 63,
+            "position": 1,
+            "laps": 19,
+            "best": [
+              74.772,
+              73.026,
+              72.965
+            ],
+            "gap": [
+              0.883,
+              0,
+              0
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 2,
+            "laps": 16,
+            "best": [
+              74.01,
+              73.551,
+              73.033
+            ],
+            "gap": [
+              0.121,
+              0.525,
+              0.068
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 3,
+            "laps": 15,
+            "best": [
+              74.265,
+              73.957,
+              73.28
+            ],
+            "gap": [
+              0.376,
+              0.931,
+              0.315
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 4,
+            "laps": 15,
+            "best": [
+              74.665,
+              73.858,
+              73.299
+            ],
+            "gap": [
+              0.776,
+              0.832,
+              0.334
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 5,
+            "laps": 23,
+            "best": [
+              73.889,
+              73.465,
+              73.326
+            ],
+            "gap": [
+              0,
+              0.439,
+              0.361
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 6,
+            "laps": 19,
+            "best": [
+              75.006,
+              73.554,
+              73.41
+            ],
+            "gap": [
+              1.117,
+              0.528,
+              0.445
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 7,
+            "laps": 15,
+            "best": [
+              74.028,
+              74.412,
+              73.504
+            ],
+            "gap": [
+              0.139,
+              1.386,
+              0.539
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 8,
+            "laps": 17,
+            "best": [
+              74.541,
+              74.239,
+              73.605
+            ],
+            "gap": [
+              0.652,
+              1.213,
+              0.64
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 9,
+            "laps": 19,
+            "best": [
+              74.517,
+              74.14,
+              73.737
+            ],
+            "gap": [
+              0.628,
+              1.114,
+              0.772
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 10,
+            "laps": 24,
+            "best": [
+              75.5,
+              74.547,
+              74.536
+            ],
+            "gap": [
+              1.611,
+              1.521,
+              1.571
+            ],
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 11,
+            "laps": 14,
+            "best": [
+              75.673,
+              74.595,
+              null
+            ],
+            "gap": [
+              1.784,
+              1.569,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 12,
+            "laps": 14,
+            "best": [
+              75.801,
+              74.627,
+              null
+            ],
+            "gap": [
+              1.912,
+              1.601,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 13,
+            "laps": 16,
+            "best": [
+              75.484,
+              74.702,
+              null
+            ],
+            "gap": [
+              1.595,
+              1.676,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 14,
+            "laps": 17,
+            "best": [
+              75.76,
+              74.928,
+              null
+            ],
+            "gap": [
+              1.871,
+              1.902,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 15,
+            "laps": 17,
+            "best": [
+              75.872,
+              75.197,
+              null
+            ],
+            "gap": [
+              1.983,
+              2.171,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 16,
+            "laps": 7,
+            "best": [
+              75.76,
+              null,
+              null
+            ],
+            "gap": [
+              1.871,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 17,
+            "laps": 8,
+            "best": [
+              76.002,
+              null,
+              null
+            ],
+            "gap": [
+              2.113,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 18,
+            "laps": 9,
+            "best": [
+              76.354,
+              null,
+              null
+            ],
+            "gap": [
+              2.465,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 19,
+            "laps": 8,
+            "best": [
+              76.642,
+              null,
+              null
+            ],
+            "gap": [
+              2.753,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 20,
+            "laps": 8,
+            "best": [
+              76.866,
+              null,
+              null
+            ],
+            "gap": [
+              2.977,
+              null,
+              null
+            ],
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 11286,
+        "name": "Sprint",
+        "start": "2026-05-23T16:00:00+00:00",
+        "results": [
+          {
+            "car": 63,
+            "position": 1,
+            "laps": 23,
+            "best": 1730.951,
+            "gap": 0,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 2,
+            "laps": 23,
+            "best": 1732.223,
+            "gap": 1.272,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 3,
+            "laps": 23,
+            "best": 1732.794,
+            "gap": 1.843,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 4,
+            "laps": 23,
+            "best": 1740.748,
+            "gap": 9.797,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 5,
+            "laps": 23,
+            "best": 1740.88,
+            "gap": 9.929,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 6,
+            "laps": 23,
+            "best": 1741.496,
+            "gap": 10.545,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 7,
+            "laps": 23,
+            "best": 1746.886,
+            "gap": 15.935,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 8,
+            "laps": 23,
+            "best": 1760.661,
+            "gap": 29.71,
+            "compounds": [
+              "HARD"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 9,
+            "laps": 23,
+            "best": 1762.572,
+            "gap": 31.621,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 10,
+            "laps": 23,
+            "best": 1767.744,
+            "gap": 36.793,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 11,
+            "laps": 23,
+            "best": 1792.295,
+            "gap": 61.344,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 12,
+            "laps": 23,
+            "best": 1792.765,
+            "gap": 61.814,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 13,
+            "laps": 23,
+            "best": 1795.16,
+            "gap": 64.209,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 14,
+            "laps": 23,
+            "best": 1801.353,
+            "gap": 70.402,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 15,
+            "laps": 23,
+            "best": 1803.109,
+            "gap": 72.158,
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 16,
+            "laps": 22,
+            "gap": "+1 LAP",
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 17,
+            "laps": 22,
+            "gap": "+1 LAP",
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 18,
+            "laps": 22,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 19,
+            "laps": 22,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 20,
+            "laps": 22,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 21,
+            "laps": 20,
+            "gap": "+3 LAPS",
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "laps": 15,
+            "dnf": true,
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 11287,
+        "name": "Qualifying",
+        "start": "2026-05-23T20:00:00+00:00",
+        "results": [
+          {
+            "car": 63,
+            "position": 1,
+            "laps": 24,
+            "best": [
+              73.953,
+              73.079,
+              72.578
+            ],
+            "gap": [
+              0.573,
+              0.104,
+              0
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 12,
+            "position": 2,
+            "laps": 24,
+            "best": [
+              73.38,
+              73.076,
+              72.646
+            ],
+            "gap": [
+              0,
+              0.101,
+              0.068
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 1,
+            "position": 3,
+            "laps": 28,
+            "best": [
+              73.503,
+              73.049,
+              72.729
+            ],
+            "gap": [
+              0.123,
+              0.074,
+              0.151
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 4,
+            "laps": 29,
+            "best": [
+              73.559,
+              73.285,
+              72.781
+            ],
+            "gap": [
+              0.179,
+              0.31,
+              0.203
+            ],
+            "compounds": [
+              "SOFT",
+              "UNKNOWN"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 5,
+            "laps": 27,
+            "best": [
+              73.767,
+              73.041,
+              72.868
+            ],
+            "gap": [
+              0.387,
+              0.066,
+              0.29
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 6,
+            "laps": 23,
+            "best": [
+              74.067,
+              73.479,
+              72.907
+            ],
+            "gap": [
+              0.687,
+              0.504,
+              0.329
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 7,
+            "laps": 22,
+            "best": [
+              73.654,
+              72.975,
+              72.935
+            ],
+            "gap": [
+              0.274,
+              0,
+              0.357
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 8,
+            "laps": 29,
+            "best": [
+              73.825,
+              73.496,
+              72.976
+            ],
+            "gap": [
+              0.445,
+              0.521,
+              0.398
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 41,
+            "position": 9,
+            "laps": 28,
+            "best": [
+              73.895,
+              73.548,
+              73.28
+            ],
+            "gap": [
+              0.515,
+              0.573,
+              0.702
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 10,
+            "laps": 27,
+            "best": [
+              74.466,
+              73.857,
+              73.697
+            ],
+            "gap": [
+              1.086,
+              0.882,
+              1.119
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 11,
+            "laps": 21,
+            "best": [
+              74.562,
+              73.886,
+              null
+            ],
+            "gap": [
+              1.182,
+              0.911,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 12,
+            "laps": 22,
+            "best": [
+              74.346,
+              73.897,
+              null
+            ],
+            "gap": [
+              0.966,
+              0.922,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 22,
+            "best": [
+              74.775,
+              74.071,
+              null
+            ],
+            "gap": [
+              1.395,
+              1.096,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 14,
+            "laps": 20,
+            "best": [
+              74.698,
+              74.187,
+              null
+            ],
+            "gap": [
+              1.318,
+              1.212,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 15,
+            "laps": 21,
+            "best": [
+              74.276,
+              74.273,
+              null
+            ],
+            "gap": [
+              0.896,
+              1.298,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 16,
+            "laps": 22,
+            "best": [
+              74.449,
+              74.416,
+              null
+            ],
+            "gap": [
+              1.069,
+              1.441,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 17,
+            "laps": 12,
+            "best": [
+              74.845,
+              null,
+              null
+            ],
+            "gap": [
+              1.465,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "position": 18,
+            "laps": 13,
+            "best": [
+              74.851,
+              null,
+              null
+            ],
+            "gap": [
+              1.471,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "position": 19,
+            "laps": 11,
+            "best": [
+              75.196,
+              null,
+              null
+            ],
+            "gap": [
+              1.816,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 11,
+            "position": 20,
+            "laps": 11,
+            "best": [
+              75.429,
+              null,
+              null
+            ],
+            "gap": [
+              2.049,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 21,
+            "laps": 10,
+            "best": [
+              76.195,
+              null,
+              null
+            ],
+            "gap": [
+              2.815,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 22,
+            "laps": 10,
+            "best": [
+              76.272,
+              null,
+              null
+            ],
+            "gap": [
+              2.892,
+              null,
+              null
+            ],
+            "compounds": [
+              "SOFT"
+            ]
+          }
+        ]
+      },
+      {
+        "key": 11291,
+        "name": "Race",
+        "start": "2026-05-24T20:00:00+00:00",
+        "results": [
+          {
+            "car": 12,
+            "position": 1,
+            "laps": 68,
+            "best": 5295.758,
+            "gap": 0,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 44,
+            "position": 2,
+            "laps": 68,
+            "best": 5306.526,
+            "gap": 10.768,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 3,
+            "position": 3,
+            "laps": 68,
+            "best": 5307.034,
+            "gap": 11.276,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 16,
+            "position": 4,
+            "laps": 68,
+            "best": 5339.909,
+            "gap": 44.151,
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 6,
+            "position": 5,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 43,
+            "position": 6,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 30,
+            "position": 7,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 10,
+            "position": 8,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "MEDIUM",
+              "HARD"
+            ]
+          },
+          {
+            "car": 55,
+            "position": 9,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 87,
+            "position": 10,
+            "laps": 67,
+            "gap": "+1 LAP",
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 81,
+            "position": 11,
+            "laps": 66,
+            "gap": "+2 LAPS",
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM",
+              "SOFT"
+            ]
+          },
+          {
+            "car": 27,
+            "position": 12,
+            "laps": 66,
+            "gap": "+2 LAPS",
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 5,
+            "position": 13,
+            "laps": 66,
+            "gap": "+2 LAPS",
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 31,
+            "position": 14,
+            "laps": 66,
+            "gap": "+2 LAPS",
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 18,
+            "position": 15,
+            "laps": 64,
+            "gap": "+4 LAPS",
+            "compounds": [
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 77,
+            "position": 16,
+            "laps": 64,
+            "gap": "+4 LAPS",
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 11,
+            "laps": 39,
+            "dnf": true,
+            "compounds": [
+              "INTERMEDIATE",
+              "SOFT",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 1,
+            "laps": 38,
+            "dnf": true,
+            "compounds": [
+              "INTERMEDIATE",
+              "MEDIUM"
+            ]
+          },
+          {
+            "car": 63,
+            "laps": 29,
+            "dnf": true,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 14,
+            "laps": 23,
+            "dnf": true,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 23,
+            "laps": 11,
+            "dnf": true,
+            "compounds": [
+              "SOFT"
+            ]
+          },
+          {
+            "car": 41,
+            "laps": 0,
+            "dns": true,
+            "compounds": [
+              "MEDIUM"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fia": {
+    "season": 2026,
+    "round": 5,
+    "event": "canadian_grand_prix",
+    "updated": "2026-05-29 16:49 CET",
+    "penalties": [
+      {
+        "doc": 18,
+        "parser": 3,
+        "car": 16,
+        "driver": "Charles Leclerc",
+        "session": "Free Practice 1",
+        "type": "fine",
+        "appliesTo": "Free Practice 1",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_16_-_pit_lane_speeding.pdf",
+        "publishedAt": "2026-05-22 19:34 CET",
+        "fineEur": 1000
+      },
+      {
+        "doc": 22,
+        "parser": 3,
+        "car": 31,
+        "driver": "Esteban Ocon",
+        "session": "Free Practice 1",
+        "type": "none",
+        "appliesTo": "Free Practice 1",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_31_-_leaving_the_pitlane_after_the_end_of_the_session.pdf",
+        "publishedAt": "2026-05-22 20:31 CET"
+      },
+      {
+        "doc": 26,
+        "parser": 3,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Free Practice 1",
+        "type": "fine",
+        "appliesTo": "Free Practice 1",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_30_-_breach_of_article_c9.3.pdf",
+        "publishedAt": "2026-05-22 23:24 CET",
+        "fineEur": 30000
+      },
+      {
+        "doc": 38,
+        "parser": 3,
+        "car": 12,
+        "driver": "Kimi Antonelli",
+        "session": "Sprint Qualifying",
+        "type": "warning",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_12_-_failure_to_follow_race_directors_instructions_sc2-sc1_time.pdf",
+        "publishedAt": "2026-05-23 15:09 CET"
+      },
+      {
+        "doc": 46,
+        "parser": 3,
+        "car": 77,
+        "driver": "Valtteri Bottas",
+        "session": "Sprint Qualifying",
+        "type": "grid",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_77_-_parc_ferme.pdf",
+        "publishedAt": "2026-05-23 17:14 CET",
+        "pitlane": true
+      },
+      {
+        "doc": 47,
+        "parser": 3,
+        "car": 87,
+        "driver": "Oliver Bearman",
+        "session": "Sprint Qualifying",
+        "type": "grid",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_87_-_parc_ferme.pdf",
+        "publishedAt": "2026-05-23 17:14 CET",
+        "pitlane": true
+      },
+      {
+        "doc": 48,
+        "parser": 3,
+        "car": 10,
+        "driver": "Pierre Gasly",
+        "session": "Sprint Qualifying",
+        "type": "grid",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_10_-_parc_ferme.pdf",
+        "publishedAt": "2026-05-23 17:17 CET",
+        "pitlane": true
+      },
+      {
+        "doc": 49,
+        "parser": 3,
+        "car": 23,
+        "driver": "Alexander Albon",
+        "session": "Sprint Qualifying",
+        "type": "grid",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_23_-_parc_ferme.pdf",
+        "publishedAt": "2026-05-23 17:18 CET",
+        "pitlane": true
+      },
+      {
+        "doc": 54,
+        "parser": 3,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Sprint",
+        "type": "none",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_starting_procedure_infringement.pdf",
+        "publishedAt": "2026-05-23 19:49 CET"
+      },
+      {
+        "doc": 55,
+        "parser": 3,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Sprint",
+        "type": "time",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2026-05-23 19:49 CET",
+        "seconds": 10
+      },
+      {
+        "doc": 56,
+        "parser": 3,
+        "car": 11,
+        "driver": "Sergio Perez",
+        "session": "Sprint",
+        "type": "time",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_11_-_forcing_car_30_off_track.pdf",
+        "publishedAt": "2026-05-23 19:50 CET",
+        "seconds": 10
+      },
+      {
+        "doc": 57,
+        "parser": 3,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Sprint",
+        "type": "none",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_44_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf",
+        "publishedAt": "2026-05-23 19:50 CET"
+      },
+      {
+        "doc": 64,
+        "parser": 3,
+        "car": 31,
+        "driver": "Esteban Ocon",
+        "session": "Sprint",
+        "type": "none",
+        "appliesTo": "sprint",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_31_-_alleged_procedural_infringement.pdf",
+        "publishedAt": "2026-05-23 21:53 CET"
+      },
+      {
+        "doc": 76,
+        "parser": 3,
+        "car": 14,
+        "driver": "Fernando Alonso",
+        "session": "Qualifying",
+        "type": "fine",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_14_-_unsafe_release_from_garage.pdf",
+        "publishedAt": "2026-05-24 01:05 CET",
+        "fineEur": 5000
+      },
+      {
+        "doc": 77,
+        "parser": 3,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Qualifying",
+        "type": "fine",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_released_in_an_unsafe_condition.pdf",
+        "publishedAt": "2026-05-24 01:10 CET",
+        "fineEur": 7500
+      },
+      {
+        "doc": 80,
+        "parser": 3,
+        "car": 11,
+        "driver": "Sergio Perez",
+        "session": "Qualifying",
+        "type": "reprimand",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_11_-_failing_to_follow_race_directors_event_notes.pdf",
+        "publishedAt": "2026-05-24 01:22 CET"
+      },
+      {
+        "doc": 81,
+        "parser": 3,
+        "car": 44,
+        "driver": "Lewis Hamilton",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_44_-_alleged_impeding_of_car_10.pdf",
+        "publishedAt": "2026-05-24 01:23 CET"
+      },
+      {
+        "doc": 82,
+        "parser": 3,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Qualifying",
+        "type": "none",
+        "appliesTo": "qualifying",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_18_-_allegedly_impeded_car_27.pdf",
+        "publishedAt": "2026-05-24 01:23 CET"
+      },
+      {
+        "doc": 89,
+        "parser": 3,
+        "car": 18,
+        "driver": "Lance Stroll",
+        "session": "Race",
+        "type": "grid",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_18_-_pu_elements_changed_under_parc_ferme.pdf",
+        "publishedAt": "2026-05-24 19:08 CET",
+        "pitlane": true
+      },
+      {
+        "doc": 96,
+        "parser": 3,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Race",
+        "type": "time",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_pit_lane_speeding.pdf",
+        "publishedAt": "2026-05-25 00:52 CET",
+        "seconds": 5
+      },
+      {
+        "doc": 97,
+        "parser": 3,
+        "car": 77,
+        "driver": "Valtteri Bottas",
+        "session": "Race",
+        "type": "time",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_77_-_pit_lane_speeding.pdf",
+        "publishedAt": "2026-05-25 01:57 CET",
+        "seconds": 5
+      },
+      {
+        "doc": 98,
+        "parser": 3,
+        "car": 5,
+        "driver": "Gabriel Bortoleto",
+        "session": "Race",
+        "type": "time",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_5_-_driving_unnecessarily_slowly_during_vsc.pdf",
+        "publishedAt": "2026-05-25 01:59 CET",
+        "seconds": 5
+      },
+      {
+        "doc": 99,
+        "parser": 3,
+        "car": 27,
+        "driver": "Nico Hulkenberg",
+        "session": "Race",
+        "type": "stop_go",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_27_-_starting_procedure_infringement.pdf",
+        "publishedAt": "2026-05-25 02:08 CET"
+      },
+      {
+        "doc": 100,
+        "parser": 3,
+        "car": 81,
+        "driver": "Oscar Piastri",
+        "session": "Race",
+        "type": "time",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_81_-_collision_with_car_23.pdf",
+        "publishedAt": "2026-05-25 02:09 CET",
+        "seconds": 10
+      },
+      {
+        "doc": 101,
+        "parser": 3,
+        "car": 6,
+        "driver": "Isack Hadjar",
+        "session": "Race",
+        "type": "time",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_6_-_more_than_one_change_of_direction.pdf",
+        "publishedAt": "2026-05-29 16:49 CET",
+        "seconds": 10
+      },
+      {
+        "doc": 102,
+        "parser": 3,
+        "car": 11,
+        "driver": "Sergio Perez",
+        "session": "Race",
+        "type": "none",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_decision_-_car_11_-_ignoring_blue_flags.pdf",
+        "publishedAt": "2026-05-25 02:11 CET"
+      },
+      {
+        "doc": 103,
+        "parser": 3,
+        "car": 30,
+        "driver": "Liam Lawson",
+        "session": "Race",
+        "type": "reprimand",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_30_-_starting_procedure_infringement.pdf",
+        "publishedAt": "2026-05-25 02:12 CET"
+      },
+      {
+        "doc": 104,
+        "parser": 3,
+        "car": 63,
+        "driver": "George Russell",
+        "session": "Race",
+        "type": "fine",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_63_-_unsafe_act.pdf",
+        "publishedAt": "2026-05-25 02:22 CET",
+        "fineEur": 5000
+      },
+      {
+        "doc": 106,
+        "parser": 3,
+        "car": 6,
+        "driver": "Isack Hadjar",
+        "session": "Race",
+        "type": "stop_go",
+        "appliesTo": "race",
+        "corrected": false,
+        "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_infringement_-_car_6_-_failing_to_slow_for_yellow_flags.pdf",
+        "publishedAt": "2026-05-25 02:25 CET",
+        "seconds": 10
+      }
+    ],
+    "startingGrid": {
+      "kind": "final",
+      "doc": 91,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 63
+        },
+        {
+          "position": 2,
+          "car": 12
+        },
+        {
+          "position": 3,
+          "car": 1
+        },
+        {
+          "position": 4,
+          "car": 81
+        },
+        {
+          "position": 5,
+          "car": 44
+        },
+        {
+          "position": 6,
+          "car": 3
+        },
+        {
+          "position": 7,
+          "car": 6
+        },
+        {
+          "position": 8,
+          "car": 16
+        },
+        {
+          "position": 9,
+          "car": 41
+        },
+        {
+          "position": 10,
+          "car": 43
+        },
+        {
+          "position": 11,
+          "car": 27
+        },
+        {
+          "position": 12,
+          "car": 30
+        },
+        {
+          "position": 13,
+          "car": 5
+        },
+        {
+          "position": 14,
+          "car": 10
+        },
+        {
+          "position": 15,
+          "car": 55
+        },
+        {
+          "position": 16,
+          "car": 87
+        },
+        {
+          "position": 17,
+          "car": 31
+        },
+        {
+          "position": 18,
+          "car": 23
+        },
+        {
+          "position": 19,
+          "car": 14
+        },
+        {
+          "position": 20,
+          "car": 11
+        },
+        {
+          "position": 21,
+          "car": 77
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_final_starting_grid.pdf",
+      "publishedAt": "2026-05-24 21:00 CET"
+    },
+    "sprintStartingGrid": {
+      "kind": "final",
+      "doc": 50,
+      "parser": 2,
+      "entries": [
+        {
+          "position": 1,
+          "car": 63
+        },
+        {
+          "position": 2,
+          "car": 12
+        },
+        {
+          "position": 3,
+          "car": 1
+        },
+        {
+          "position": 4,
+          "car": 81
+        },
+        {
+          "position": 5,
+          "car": 44
+        },
+        {
+          "position": 6,
+          "car": 16
+        },
+        {
+          "position": 7,
+          "car": 3
+        },
+        {
+          "position": 8,
+          "car": 6
+        },
+        {
+          "position": 9,
+          "car": 41
+        },
+        {
+          "position": 10,
+          "car": 55
+        },
+        {
+          "position": 11,
+          "car": 27
+        },
+        {
+          "position": 12,
+          "car": 5
+        },
+        {
+          "position": 13,
+          "car": 43
+        },
+        {
+          "position": 14,
+          "car": 31
+        },
+        {
+          "position": 15,
+          "car": 14
+        },
+        {
+          "position": 16,
+          "car": 11
+        },
+        {
+          "position": 17,
+          "car": 18
+        },
+        {
+          "position": 18,
+          "car": 30
+        },
+        {
+          "position": 42,
+          "car": 77
+        },
+        {
+          "position": 66,
+          "car": 23
+        },
+        {
+          "position": 97,
+          "car": 10
+        }
+      ],
+      "penaltySummary": [],
+      "url": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_final_sprint_starting_grid.pdf",
+      "publishedAt": "2026-05-23 17:26 CET"
+    }
+  },
+  "winners": {
+    "season": 2026,
+    "round": 5,
+    "circuitId": "villeneuve",
+    "winners": [
+      {
+        "year": 2025,
+        "code": "RUS",
+        "name": "George Russell",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      },
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2022,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2019,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 7
+      }
+    ]
+  },
+  "highlights": {
+    "season": 2026,
+    "round": 5,
+    "fastestLap": {
+      "time": "1:12.578",
+      "seconds": 72.578,
+      "driver": "G. Russell",
+      "tag": "Q"
+    },
+    "fastestLapRace": {
+      "time": "1:14.210",
+      "seconds": 74.21000000000001,
+      "driver": "A. Antonelli",
+      "tag": "R"
+    }
+  },
+  "milestones": {
+    "season": 2026,
+    "round": 5,
+    "achievements": []
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:34.304Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.776Z",
   "series": "wec",
   "season": 2025,
   "round": 8,
@@ -14,12 +14,6 @@
   "end": "2025-11-08T00:00:00+01:00",
   "frozen": true,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "bapco-energies-8-hours-of-bahrain-2025",
-      "raceId": 4937
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-06T12:15:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7599
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,
@@ -223,9 +215,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-06T17:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7600
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -417,9 +407,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-07T12:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7601
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -611,9 +599,7 @@
       "raceClass": "LMGT3",
       "start": "2025-11-07T16:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7602
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -805,9 +791,7 @@
       "raceClass": "LMGT3",
       "start": "2025-11-07T16:20:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7603
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -919,9 +903,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-07T16:40:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7604
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -1113,9 +1095,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-07T17:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7605
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1227,9 +1207,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-11-08T14:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7606
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,

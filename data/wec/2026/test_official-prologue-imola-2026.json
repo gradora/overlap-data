@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:20.699Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.779Z",
   "series": "wec",
   "season": 2026,
   "round": 0,
@@ -14,12 +14,6 @@
   "end": "2026-04-14T12:00:00+02:00",
   "frozen": true,
   "crewSource": "seasonStandings",
-  "sourceIds": {
-    "fiawec": {
-      "slug": "official-prologue-imola-2026",
-      "raceId": 5042
-    }
-  },
   "sessions": [
     {
       "kind": "other",
@@ -29,9 +23,7 @@
       "raceClass": null,
       "start": "2026-04-14T09:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -42,9 +34,7 @@
       "raceClass": null,
       "start": "2026-04-14T14:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     }
   ]

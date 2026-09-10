@@ -1,12 +1,12 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-09-01T16:12:27.243Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:57:56.851Z",
   "series": "f1",
   "season": 2026,
   "frozen": false,
   "events": [
     {
-      "id": "f1-meeting-1304",
+      "id": "f1-2026-bahrain-testing-1",
       "round": 0,
       "kind": "testing",
       "status": "tbc",
@@ -21,17 +21,11 @@
         "raceTime": null
       },
       "sprintWeekend": false,
-      "sourceIds": {
-        "jolpica": null,
-        "openf1": {
-          "meetingKey": 1304
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-bahrain-testing-1304"
+      "mk": 1304,
+      "eventKey": "f1-2026-bahrain-testing-1"
     },
     {
-      "id": "f1-meeting-1305",
+      "id": "f1-2026-bahrain-testing-2",
       "round": 0,
       "kind": "testing",
       "status": "tbc",
@@ -46,14 +40,8 @@
         "raceTime": null
       },
       "sprintWeekend": false,
-      "sourceIds": {
-        "jolpica": null,
-        "openf1": {
-          "meetingKey": 1305
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-bahrain-testing-1305"
+      "mk": 1305,
+      "eventKey": "f1-2026-bahrain-testing-2"
     },
     {
       "id": "f1-2026-1",
@@ -91,17 +79,8 @@
           "time": "05:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 1
-        },
-        "openf1": {
-          "meetingKey": 1279
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-albert-park-1279"
+      "mk": 1279,
+      "eventKey": "f1-2026-albert-park-1"
     },
     {
       "id": "f1-2026-2",
@@ -139,17 +118,8 @@
           "time": "03:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 2
-        },
-        "openf1": {
-          "meetingKey": 1280
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-shanghai-1280"
+      "mk": 1280,
+      "eventKey": "f1-2026-shanghai-1"
     },
     {
       "id": "f1-2026-3",
@@ -187,20 +157,11 @@
           "time": "06:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 3
-        },
-        "openf1": {
-          "meetingKey": 1281
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-suzuka-1281"
+      "mk": 1281,
+      "eventKey": "f1-2026-suzuka-1"
     },
     {
-      "id": "f1-meeting-1282",
+      "id": "f1-2026-bahrain-1",
       "round": 0,
       "kind": "cancelled",
       "status": "tbc",
@@ -215,17 +176,11 @@
         "raceTime": null
       },
       "sprintWeekend": false,
-      "sourceIds": {
-        "jolpica": null,
-        "openf1": {
-          "meetingKey": 1282
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-bahrain-1282"
+      "mk": 1282,
+      "eventKey": "f1-2026-bahrain-1"
     },
     {
-      "id": "f1-meeting-1283",
+      "id": "f1-2026-jeddah-1",
       "round": 0,
       "kind": "cancelled",
       "status": "tbc",
@@ -240,14 +195,8 @@
         "raceTime": null
       },
       "sprintWeekend": false,
-      "sourceIds": {
-        "jolpica": null,
-        "openf1": {
-          "meetingKey": 1283
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-jeddah-1283"
+      "mk": 1283,
+      "eventKey": "f1-2026-jeddah-1"
     },
     {
       "id": "f1-2026-4",
@@ -285,17 +234,8 @@
           "time": "16:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 4
-        },
-        "openf1": {
-          "meetingKey": 1284
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-miami-1284"
+      "mk": 1284,
+      "eventKey": "f1-2026-miami-1"
     },
     {
       "id": "f1-2026-5",
@@ -333,17 +273,8 @@
           "time": "16:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 5
-        },
-        "openf1": {
-          "meetingKey": 1285
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-gilles-villeneuve-1285"
+      "mk": 1285,
+      "eventKey": "f1-2026-gilles-villeneuve-1"
     },
     {
       "id": "f1-2026-6",
@@ -381,17 +312,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 6
-        },
-        "openf1": {
-          "meetingKey": 1286
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-monaco-1286"
+      "mk": 1286,
+      "eventKey": "f1-2026-monaco-1"
     },
     {
       "id": "f1-2026-7",
@@ -429,17 +351,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 7
-        },
-        "openf1": {
-          "meetingKey": 1287
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-barcelona-1287"
+      "mk": 1287,
+      "eventKey": "f1-2026-barcelona-1"
     },
     {
       "id": "f1-2026-8",
@@ -477,17 +390,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 8
-        },
-        "openf1": {
-          "meetingKey": 1288
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-red-bull-ring-1288"
+      "mk": 1288,
+      "eventKey": "f1-2026-red-bull-ring-1"
     },
     {
       "id": "f1-2026-9",
@@ -525,17 +429,8 @@
           "time": "11:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 9
-        },
-        "openf1": {
-          "meetingKey": 1289
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-silverstone-1289"
+      "mk": 1289,
+      "eventKey": "f1-2026-silverstone-1"
     },
     {
       "id": "f1-2026-10",
@@ -573,17 +468,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 10
-        },
-        "openf1": {
-          "meetingKey": 1290
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-spa-francorchamps-1290"
+      "mk": 1290,
+      "eventKey": "f1-2026-spa-francorchamps-1"
     },
     {
       "id": "f1-2026-11",
@@ -621,17 +507,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 11
-        },
-        "openf1": {
-          "meetingKey": 1291
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-hungaroring-1291"
+      "mk": 1291,
+      "eventKey": "f1-2026-hungaroring-1"
     },
     {
       "id": "f1-2026-12",
@@ -669,17 +546,8 @@
           "time": "10:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 12
-        },
-        "openf1": {
-          "meetingKey": 1292
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-zandvoort-1292"
+      "mk": 1292,
+      "eventKey": "f1-2026-zandvoort-1"
     },
     {
       "id": "f1-2026-13",
@@ -717,17 +585,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 13
-        },
-        "openf1": {
-          "meetingKey": 1293
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-monza-1293"
+      "mk": 1293,
+      "eventKey": "f1-2026-monza-1"
     },
     {
       "id": "f1-2026-14",
@@ -765,17 +624,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 14
-        },
-        "openf1": {
-          "meetingKey": 1294
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-madring-1294"
+      "mk": 1294,
+      "eventKey": "f1-2026-madring-1"
     },
     {
       "id": "f1-2026-15",
@@ -813,17 +663,8 @@
           "time": "12:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 15
-        },
-        "openf1": {
-          "meetingKey": 1295
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-baku-1295"
+      "mk": 1295,
+      "eventKey": "f1-2026-baku-1"
     },
     {
       "id": "f1-2026-16",
@@ -861,17 +702,8 @@
           "time": "08:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 16
-        },
-        "openf1": {
-          "meetingKey": 1308
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-sepang-1308"
+      "mk": 1308,
+      "eventKey": "f1-2026-sepang-1"
     },
     {
       "id": "f1-2026-17",
@@ -909,17 +741,8 @@
           "time": "09:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 17
-        },
-        "openf1": {
-          "meetingKey": 1296
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-marina-bay-1296"
+      "mk": 1296,
+      "eventKey": "f1-2026-marina-bay-1"
     },
     {
       "id": "f1-2026-18",
@@ -957,17 +780,8 @@
           "time": "21:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 18
-        },
-        "openf1": {
-          "meetingKey": 1297
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-circuit-of-the-americas-1297"
+      "mk": 1297,
+      "eventKey": "f1-2026-circuit-of-the-americas-1"
     },
     {
       "id": "f1-2026-19",
@@ -1005,17 +819,8 @@
           "time": "21:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 19
-        },
-        "openf1": {
-          "meetingKey": 1298
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-mexico-city-1298"
+      "mk": 1298,
+      "eventKey": "f1-2026-mexico-city-1"
     },
     {
       "id": "f1-2026-20",
@@ -1053,17 +858,8 @@
           "time": "18:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 20
-        },
-        "openf1": {
-          "meetingKey": 1299
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-interlagos-1299"
+      "mk": 1299,
+      "eventKey": "f1-2026-interlagos-1"
     },
     {
       "id": "f1-2026-21",
@@ -1101,17 +897,8 @@
           "time": "04:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 21
-        },
-        "openf1": {
-          "meetingKey": 1300
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-las-vegas-strip-1300"
+      "mk": 1300,
+      "eventKey": "f1-2026-las-vegas-strip-1"
     },
     {
       "id": "f1-2026-22",
@@ -1149,17 +936,8 @@
           "time": "18:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 22
-        },
-        "openf1": {
-          "meetingKey": 1301
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-losail-1301"
+      "mk": 1301,
+      "eventKey": "f1-2026-losail-1"
     },
     {
       "id": "f1-2026-23",
@@ -1197,17 +975,8 @@
           "time": "14:00:00Z"
         }
       },
-      "sourceIds": {
-        "jolpica": {
-          "season": 2026,
-          "round": 23
-        },
-        "openf1": {
-          "meetingKey": 1302
-        },
-        "override": false
-      },
-      "eventKey": "f1-2026-yas-marina-1302"
+      "mk": 1302,
+      "eventKey": "f1-2026-yas-marina-1"
     }
   ]
 }

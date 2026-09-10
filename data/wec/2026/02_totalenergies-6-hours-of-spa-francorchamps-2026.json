@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:20.718Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.777Z",
   "series": "wec",
   "season": 2026,
   "round": 2,
@@ -14,12 +14,6 @@
   "end": "2026-05-09T00:00:00+02:00",
   "frozen": true,
   "crewSource": "seasonStandings",
-  "sourceIds": {
-    "fiawec": {
-      "slug": "totalenergies-6-hours-of-spa-francorchamps-2026",
-      "raceId": 4949
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-07T11:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7805
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,
@@ -281,9 +273,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-07T15:40:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7806
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -533,9 +523,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-08T10:10:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7807
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -785,9 +773,7 @@
       "raceClass": "LMGT3",
       "start": "2026-05-08T14:30:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7808
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -1055,9 +1041,7 @@
       "raceClass": "LMGT3",
       "start": "2026-05-08T14:55:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7809
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -1210,9 +1194,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-08T15:20:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7810
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -1462,9 +1444,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-08T15:45:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7811
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1616,9 +1596,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-05-09T14:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7812
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,

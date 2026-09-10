@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T08:57:56.889Z",
+  "series": "f1",
+  "season": 2026,
+  "eventKey": "f1-2026-las-vegas-strip-1",
+  "eventId": "f1-2026-21",
+  "round": 21,
+  "schedule": {
+    "sessions": [
+      {
+        "key": 11413,
+        "name": "Practice 1",
+        "type": "Practice",
+        "start": "2026-11-20T00:30:00+00:00",
+        "end": "2026-11-20T01:30:00+00:00"
+      },
+      {
+        "key": 11414,
+        "name": "Practice 2",
+        "type": "Practice",
+        "start": "2026-11-20T04:00:00+00:00",
+        "end": "2026-11-20T05:00:00+00:00"
+      },
+      {
+        "key": 11415,
+        "name": "Practice 3",
+        "type": "Practice",
+        "start": "2026-11-21T00:30:00+00:00",
+        "end": "2026-11-21T01:30:00+00:00"
+      },
+      {
+        "key": 11416,
+        "name": "Qualifying",
+        "type": "Qualifying",
+        "start": "2026-11-21T04:00:00+00:00",
+        "end": "2026-11-21T05:00:00+00:00"
+      },
+      {
+        "key": 11420,
+        "name": "Race",
+        "type": "Race",
+        "start": "2026-11-22T04:00:00+00:00",
+        "end": "2026-11-22T06:00:00+00:00"
+      }
+    ]
+  },
+  "winners": {
+    "season": 2026,
+    "round": 21,
+    "circuitId": "losail",
+    "winners": [
+      {
+        "year": 2025,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 3
+      },
+      {
+        "year": 2024,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 2
+      },
+      {
+        "year": 2023,
+        "code": "VER",
+        "name": "Max Verstappen",
+        "constructor": "Red Bull",
+        "winsHere": 1
+      },
+      {
+        "year": 2021,
+        "code": "HAM",
+        "name": "Lewis Hamilton",
+        "constructor": "Mercedes",
+        "winsHere": 1
+      }
+    ]
+  },
+  "milestones": {
+    "season": 2026,
+    "round": 21,
+    "achievements": [
+      {
+        "driver": "C. Sainz",
+        "given": "Carlos",
+        "count": 250
+      }
+    ]
+  }
+}

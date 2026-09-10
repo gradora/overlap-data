@@ -293,7 +293,7 @@ test("now.json: полоска −3ч…+6ч по трекам с coord; осе�
 test("привязка: IMSA-venue через imsaVenue-алиас; отмена и трасса без coord — мимо сети", async () => {
   const root = seed({
     f1: [
-      f1Event("f1-meeting-1282", "2026-09-11", "2026-09-13", { kind: "cancelled" }),
+      f1Event("f1-2026-bahrain-1", "2026-09-11", "2026-09-13", { kind: "cancelled" }),
       f1Event("f1-2026-x", "2026-09-18", "2026-09-20", { trackRef: "phantom" }),
     ],
     imsa: [{ round: 11, slug: "monza", name: "Monza IMSA", venue: "Monza International Speedway",
@@ -308,7 +308,7 @@ test("привязка: IMSA-venue через imsaVenue-алиас; отмена
     assert.equal(doc.eventId, "imsa-2026-11", "ключ IMSA — раунд, конвенция weather/");
     // Отменённый этап и трасса без координат не породили ни файлов, ни
     // запросов: 1 событие + 2 now-трека.
-    assert.equal(existsSync(join(root, "f1", "forecast", "f1-meeting-1282.json")), false);
+    assert.equal(existsSync(join(root, "f1", "forecast", "f1-2026-bahrain-1.json")), false);
     assert.equal(existsSync(join(root, "f1", "forecast", "f1-2026-x.json")), false);
     assert.equal(calls.length, 1 + 2);
   } finally {

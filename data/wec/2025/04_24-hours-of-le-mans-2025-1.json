@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:34.270Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.774Z",
   "series": "wec",
   "season": 2025,
   "round": 4,
@@ -14,12 +14,6 @@
   "end": "2025-06-15T00:00:00+02:00",
   "frozen": true,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "24-hours-of-le-mans-2025-1",
-      "raceId": 4933
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-11T14:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7616
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -253,9 +245,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2025-06-11T18:45:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7619
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 2,
@@ -427,9 +417,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-11T19:30:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7620
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -651,9 +639,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-11T22:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7617
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -875,9 +861,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-12T14:45:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7618
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -1099,9 +1083,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2025-06-12T20:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7621
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1223,9 +1205,7 @@
       "raceClass": "LMP2 & LMGT3",
       "start": "2025-06-12T20:35:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7622
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,
@@ -1307,9 +1287,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-12T21:05:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7623
-      },
+      "seq": 8,
       "rows": [
         {
           "position": 1,
@@ -1471,9 +1449,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-12T21:40:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7624
-      },
+      "seq": 9,
       "rows": [
         {
           "position": 1,
@@ -1585,9 +1561,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-12T23:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7625
-      },
+      "seq": 10,
       "rows": [
         {
           "position": 1,
@@ -1809,9 +1783,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-14T12:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7626
-      },
+      "seq": 11,
       "rows": [
         {
           "position": 1,
@@ -2033,9 +2005,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-06-14T16:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7608
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,

@@ -20,7 +20,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { extractFacts } from "./wecextract.js";
-import { wecResultsPath, wecSessionsPath, writeFacts } from "./wecfacts.js";
+import { readFacts, wecRacePath, wecResultsPath, wecSessionsPath, writeFacts } from "./wecfacts.js";
 import { fetchText, writeIfChanged } from "./mirror.js";
 import { WECLIVE_MARKER } from "./producers.js";
 import { utcDay } from "./freshness.js";
@@ -30,11 +30,12 @@ import { buildWecSnapshot } from "./wecsnapshot.js";
 
 const FIAWEC = "https://www.fiawec.com";
 
-/// Этап индекса — ровно те поля, что нужны окну и адресации.
+/// Этап индекса — ровно те поля, что нужны окну. Адресация источника
+/// (raceId) в витрине больше не живёт (D-лайт) — она читается из фактов
+/// кухни по слагу, см. liveRaceId.
 export interface LiveCandidate {
   slug: string;
   round: number;
-  raceId: number | null;
   startMs: number | null;
   endMs: number | null;
 }
@@ -66,10 +67,18 @@ export function liveCandidates(dataDir: string, year: number): LiveCandidate[] {
   return (Array.isArray(events) ? events : []).map((e: any) => ({
     slug: String(e?.slug ?? ""),
     round: Number(e?.round ?? 0),
-    raceId: e?.sourceIds?.fiawec?.raceId ?? null,
     startMs: e?.start ? Date.parse(e.start) : null,
     endMs: e?.end ? Date.parse(e.end) : null,
   })).filter((e: LiveCandidate) => e.slug !== "");
+}
+
+/// raceId идущего этапа — из ФАКТОВ кухни (страница события лежит рядом с
+/// index: её снял полный прогон wec.ts). Витрина адресацию источника больше
+/// не несёт — это единственный потребитель, которому raceId нужен и после
+/// D-лайт, и он остаётся кухонным.
+export function liveRaceId(dataDir: string, slug: string): number | null {
+  const fact = readFacts(dataDir, wecRacePath(slug), "race");
+  return fact?.page?.raceId ?? fact?.raceId ?? null;
 }
 
 /// Этап, который идёт прямо сейчас. Если их вдруг несколько (наложение дат в
@@ -129,15 +138,16 @@ export async function runWecLive(
                  JSON.stringify({ lastSuccess: utcDay(new Date(now)) }) + "\n");
   const event = liveEvent(dataDir, year, now);
   if (!event) return `wec live: идущих этапов нет (${year}) — прогон вхолостую`;
-  if (event.raceId == null) {
+  const raceId = liveRaceId(dataDir, event.slug);
+  if (raceId == null) {
     return `wec live: ${event.slug} идёт, но raceId ещё нет — ждём полный прогон`;
   }
 
-  const written = await refreshEvent(dataDir, event.raceId);
+  const written = await refreshEvent(dataDir, raceId);
   // Витрина пересобирается из ТОЛЬКО ЧТО снятых фактов — тем же прогоном и в
   // том же порядке, что у полного продьюсера (index → файлы событий).
   const snapshot = buildWecSnapshot(year, now, dataDir);
   const events = buildWecEventFiles(year, now, dataDir);
-  return `wec live: ${event.slug} (raceId ${event.raceId}), факты ${written} файлов; ` +
+  return `wec live: ${event.slug} (raceId ${raceId}), факты ${written} файлов; ` +
     `${snapshot}; ${events}`;
 }

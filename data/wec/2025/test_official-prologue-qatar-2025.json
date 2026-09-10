@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:34.224Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.776Z",
   "series": "wec",
   "season": 2025,
   "round": 0,
@@ -14,12 +14,6 @@
   "end": "2025-02-22T00:00:00+01:00",
   "frozen": true,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "official-prologue-qatar-2025",
-      "raceId": 4928
-    }
-  },
   "sessions": [
     {
       "kind": "other",
@@ -29,9 +23,7 @@
       "raceClass": null,
       "start": "2025-02-21T13:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -42,9 +34,7 @@
       "raceClass": null,
       "start": "2025-02-21T18:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -55,9 +45,7 @@
       "raceClass": null,
       "start": "2025-02-22T12:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     },
     {
@@ -68,9 +56,7 @@
       "raceClass": null,
       "start": "2025-02-22T17:00:00+03:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": null
-      },
+      "seq": null,
       "rows": []
     }
   ]

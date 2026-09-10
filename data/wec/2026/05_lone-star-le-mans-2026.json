@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-09-08T14:39:55.026Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.779Z",
   "series": "wec",
   "season": 2026,
   "round": 5,
@@ -14,12 +14,6 @@
   "end": "2026-09-06T00:00:00+02:00",
   "frozen": false,
   "crewSource": "seasonStandings",
-  "sourceIds": {
-    "fiawec": {
-      "slug": "lone-star-le-mans-2026",
-      "raceId": 4953
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-04T11:30:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7815
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,
@@ -281,9 +273,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-04T16:00:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7816
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -533,9 +523,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-05T11:00:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7817
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -785,9 +773,7 @@
       "raceClass": "LMGT3",
       "start": "2026-09-05T15:00:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7818
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -1055,9 +1041,7 @@
       "raceClass": "LMGT3",
       "start": "2026-09-05T15:20:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7819
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -1210,9 +1194,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-05T15:40:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7820
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -1462,9 +1444,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-05T16:00:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7821
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1616,9 +1596,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-06T13:00:00-05:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7822
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,

@@ -3,7 +3,7 @@
 //
 // Продьюсер БЕССЕТЕВОЙ, как витрина календаря: всё, что нужно, уже лежит на
 // диске после прогона openf1 — листинг сессий митинга и погода каждой сессии.
-// Сшивка идёт через `sourceIds.openf1.meetingKey` витрины календаря, то есть
+// Сшивка идёт через нейтральное топ-поле `mk` витрины календаря, то есть
 // нового пространства идентичности не заводится: имя файла — это `id` события
 // витрины, тот самый, на котором у клиента висит вечный кэш погоды.
 //
@@ -39,7 +39,7 @@ interface CalendarEvent {
   round: number;
   name: string;
   dates: { start: string | null; race: string | null; raceTime: string | null };
-  sourceIds: { openf1: { meetingKey: number } | null };
+  mk: number | null;
 }
 
 interface CalendarDoc { schemaVersion?: number; season?: number; events?: CalendarEvent[] }
@@ -188,7 +188,7 @@ export function buildF1Weather(
     }
     const tally: Record<string, number> = {};
     for (const event of doc.events ?? []) {
-      const meetingKey = event.sourceIds?.openf1?.meetingKey;
+      const meetingKey = event.mk;
       if (meetingKey == null) { tally.noKey = (tally.noKey ?? 0) + 1; continue; }
       const r = buildEvent(dataDir, year, event, meetingKey, now, log);
       tally[r.outcome] = (tally[r.outcome] ?? 0) + 1;

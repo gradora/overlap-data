@@ -181,7 +181,7 @@ test("overlay: ночная гонка дедуплится по календа�
     meetings: [vegas],
   });
   assert.equal(doc.events.length, 1, "этап нарисован дважды");
-  assert.deepEqual(doc.events[0].sourceIds.openf1, { meetingKey: 1300 });
+  assert.equal(doc.events[0].mk, 1300);
   assert.equal(doc.events[0].venue, "Las Vegas Strip");
   assert.equal(doc.events[0].assetSlug, "las-vegas-strip");
 });
@@ -309,7 +309,10 @@ test("override: событие получает id по дате, round 0 и с�
   assert.equal(e.country, "Malaysia");
   assert.equal(e.dates.race, "2026-10-04");
   assert.equal(e.dates.start, "2026-10-02");
-  assert.deepEqual(e.sourceIds, { jolpica: null, openf1: null, override: true });
+  // Курируемость выводится, отдельного поля нет: tbc И mk == null (у оверлея
+  // mk есть всегда) — клиент ветвится ровно так же.
+  assert.equal(e.mk, null);
+  assert.equal("sourceIds" in e, false, "sourceIds ушёл из контракта в D-лайт");
 });
 
 /// «Sepang International Circuit» → «Sepang» → слаг «sepang»: те же факты,
@@ -403,7 +406,6 @@ test("документ: гонка jolpica — confirmed с раундом и к
   assert.equal(e.id, "f1-2026-1");
   assert.equal(e.status, "confirmed");
   assert.equal(e.round, 1);
-  assert.deepEqual(e.sourceIds.jolpica, { season: 2026, round: 1 });
   assert.equal(e.dates.start, "2026-03-06", "старт уик-энда — день гонки минус два");
   assert.equal(e.dates.raceTime, "13:00:00Z");
 });
@@ -420,19 +422,19 @@ test("документ: спринт-уик-энд виден и по сесси
 });
 
 /// Митинг, съеденный дедупом, обязан найтись у СВОЕЙ гонки: «пропал из ленты»
-/// и «потерял meeting_key» не имеют права разъехаться.
+/// и «потерял mk» не имеют права разъехаться.
 test("документ: съеденный дедупом митинг отдаёт ключ своей гонке", () => {
   const doc = docOf({
     schedule: [race("1", { date: "2026-03-08" })],
     meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
   });
   assert.equal(doc.events.length, 1, "митинг не должен добавлять второе событие");
-  assert.deepEqual(doc.events[0].sourceIds.openf1, { meetingKey: 1279 });
+  assert.equal(doc.events[0].mk, 1279);
   assert.deepEqual(crossCheckCalendar(doc, [meeting("Melbourne", "2026-03-06", "2026-03-08",
     { key: 1279 })]).warnings, []);
 });
 
-test("документ: оверлей-событие несёт свой meeting_key и сентинел 0", () => {
+test("документ: оверлей-событие несёт свой mk, сентинел 0 и id == eventKey", () => {
   const doc = docOf({
     schedule: [race("1", { date: "2026-03-08" })],
     meetings: [
@@ -441,11 +443,14 @@ test("документ: оверлей-событие несёт свой meetin
     ],
   });
   const testing = doc.events.find((e) => e.kind === "testing")!;
-  assert.equal(testing.id, "f1-meeting-1304");
+  // D-лайт: чужой идентификатор из id ушёл — id оверлея чеканный и равен
+  // ключу события (два имени одной сущности слились).
+  assert.equal(testing.id, "f1-2026-bahrain-testing-1");
+  assert.equal(testing.id, testing.eventKey);
+  assert.equal(testing.mk, 1304);
   assert.equal(testing.round, 0);
   assert.equal(testing.status, "tbc");
   assert.equal(testing.assetSlug, "bahrain-testing");
-  assert.equal(testing.sourceIds.jolpica, null);
 });
 
 test("документ: события отсортированы по дню, тест впереди первой гонки", () => {
@@ -466,12 +471,20 @@ test("документ: сезон морозится, когда последн
 
 // MARK: - Кросс-чек ключей (расширение guard 0.3)
 
-test("кросс-чек: ключ jolpica за чужой сезон — фатал", () => {
+test("кросс-чек: расписание jolpica за чужой сезон — фатал (химера)", () => {
+  // Пара (season, round) из контракта ушла (D-лайт), и сторож химеры переехал
+  // на ВХОД сборки: jolpica-снимок сверяется с сезоном файла напрямую.
   const doc = docOf({ schedule: [race("1", { date: "2026-03-08" })] });
-  doc.events[0].sourceIds.jolpica = { season: 2025, round: 1 };   // мутация: химера
-  const check = crossCheckCalendar(doc, []);
-  assert.equal(check.fatal.length, 1);
-  assert.match(check.fatal[0], /химера сезонов/);
+  const check = crossCheckCalendar(doc, [], null,
+    [{ season: "2025", round: "1" }]);   // вход: расписание чужого сезона
+  assert.ok(check.fatal.length >= 1, check.fatal.join(" | "));
+  assert.match(check.fatal.join(" "), /химера сезонов/);
+  // Совпадающий сезон — чисто.
+  assert.deepEqual(crossCheckCalendar(doc, [], null,
+    [{ season: "2026", round: "1" }]).fatal, []);
+  // Confirmed-событие без раунда в расписании — тоже фатал (раунд-фантом).
+  assert.match(crossCheckCalendar(doc, [], null, [{ season: "2026", round: "2" }])
+    .fatal.join(" "), /без раунда в расписании jolpica/);
 });
 
 test("кросс-чек: tbc с ненулевым раундом — фатал (сентинел потерян)", () => {
@@ -480,13 +493,13 @@ test("кросс-чек: tbc с ненулевым раундом — фатал
   assert.match(crossCheckCalendar(doc, []).fatal.join(" "), /сентинел 0 потерян/);
 });
 
-test("кросс-чек: один meeting_key у двух событий — фатал", () => {
+test("кросс-чек: один mk у двух событий — фатал", () => {
   const doc = docOf({
     schedule: [race("1", { date: "2026-03-08" })],
     meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
   });
   doc.events.push({ ...doc.events[0], id: "f1-2026-99", round: 99,
-    sourceIds: { jolpica: { season: 2026, round: 99 }, openf1: { meetingKey: 1279 }, override: false } });
+    eventKey: "f1-2026-albert-park-99", mk: 1279 });
   assert.match(crossCheckCalendar(doc, []).fatal.join(" "), /выдан двум событиям/);
 });
 
@@ -541,13 +554,13 @@ test("предохранитель: ОТМЕНА этапа посреди се�
                "законная отмена не имеет права заморозить витрину");
 });
 
-test("предохранитель: пропажа привязки к митингам OpenF1", () => {
+test("предохранитель: пропажа привязки к митингам кухни", () => {
   const prev = docOf({
     schedule: [race("1", { date: "2026-03-08" })],
     meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
   });
   const next = docOf({ schedule: [race("1", { date: "2026-03-08" })] });
-  assert.match(f1CalendarRegression(prev, next)!, /привязка к митингам OpenF1 пропала/);
+  assert.match(f1CalendarRegression(prev, next)!, /привязка к митингам кухни пропала/);
 });
 
 test("запись: конверт, идемпотентность, заморозка и предохранители", () => {
@@ -576,7 +589,7 @@ test("запись: конверт, идемпотентность, заморо
 
     // Фатал кросс-чека — тоже fail-closed.
     const broken = docOf({ schedule: [race("1", { date: "2026-12-06" }), race("2", { date: "2026-12-13" }), race("3", { date: "2026-12-20" })] });
-    broken.events[0].sourceIds.jolpica = { season: 2025, round: 1 };
+    broken.events[0].round = 0;   // мутация: confirmed без номера раунда
     assert.equal(writeF1Calendar(path, broken, crossCheckCalendar(broken, [])), "kept-previous");
     assert.equal(JSON.parse(readFileSync(path, "utf8")).events.length, 2);
   } finally {
@@ -626,8 +639,8 @@ test("ключ митинга: одна гонка — один ключ, пов
     meetings: [meeting("Melbourne", "2026-03-06", "2026-03-15", { key: 1279 })],
   });
   const keys = doc.events
-    .filter((e) => e.sourceIds.jolpica)
-    .map((e) => e.sourceIds.openf1?.meetingKey ?? null);
+    .filter((e) => e.status === "confirmed")
+    .map((e) => e.mk);
   assert.deepEqual(keys, [1279, null], "второй гонке тот же ключ не достаётся");
   assert.deepEqual(crossCheckCalendar(doc, []).fatal, []);
 });
@@ -639,12 +652,12 @@ test("ключ митинга: гонка без своего митинга о�
     meetings: [meeting("Shanghai", "2026-03-13", "2026-03-15", { key: 1280 })],
   });
   const byId = new Map(doc.events.map((e) => [e.id, e]));
-  assert.equal(byId.get("f1-2026-1")!.sourceIds.openf1, null, "чужой ключ не подставляется");
-  assert.deepEqual(byId.get("f1-2026-2")!.sourceIds.openf1, { meetingKey: 1280 });
+  assert.equal(byId.get("f1-2026-1")!.mk, null, "чужой ключ не подставляется");
+  assert.equal(byId.get("f1-2026-2")!.mk, 1280);
   // Без дня сопоставлять не с чем — «первый попавшийся» здесь был бы уже не
   // догадкой, а порчей контракта: клиент пошёл бы за сессиями чужого этапа.
   assert.equal(byId.get("f1-2026-3")!.dates.race, null);
-  assert.equal(byId.get("f1-2026-3")!.sourceIds.openf1, null);
+  assert.equal(byId.get("f1-2026-3")!.mk, null);
 });
 
 test("ключ митинга: оверлейный митинг свой ключ гонке не отдаёт", () => {
@@ -657,8 +670,9 @@ test("ключ митинга: оверлейный митинг свой клю
     meetings: [meeting("Pre-Season Testing", "2026-03-06", "2026-03-08", { key: 1304 })],
   });
   const byId = new Map(doc.events.map((e) => [e.id, e]));
-  assert.equal(byId.get("f1-2026-1")!.sourceIds.openf1, null);
-  assert.equal(byId.get("f1-meeting-1304")!.kind, "testing");
+  assert.equal(byId.get("f1-2026-1")!.mk, null);
+  const testing = doc.events.find((e) => e.kind === "testing")!;
+  assert.equal(testing.mk, 1304);
   assert.deepEqual(crossCheckCalendar(doc, []).fatal, []);
 });
 
@@ -698,15 +712,15 @@ test("оркестрация: собирает файл сезона из зер
     const doc = JSON.parse(readFileSync(join(root, "f1", "calendar", "2026.json"), "utf8"));
     assert.equal(doc.schemaVersion, F1_CALENDAR_SCHEMA_VERSION);
     assert.deepEqual(doc.events.map((e: any) => e.id),
-      ["f1-meeting-1304", "f1-2026-1", "f1-2026-2", "f1-override-2026-10-04"]);
-    // Курируемый этап жив: его уик-энд источники ещё не заняли.
-    const ov = doc.events.find((e: any) => e.sourceIds.override);
+      ["f1-2026-bahrain-testing-1", "f1-2026-1", "f1-2026-2", "f1-override-2026-10-04"]);
+    // Курируемый этап жив: его уик-энд источники ещё не заняли. Отдельного
+    // поля курируемости нет — она выводится: tbc + mk == null.
+    const ov = doc.events.find((e: any) => e.status === "tbc" && e.mk === null);
+    assert.equal(ov.id, "f1-override-2026-10-04");
     assert.equal(ov.round, 0);
-    assert.equal(ov.status, "tbc");
     // Спринт доехал обоими путями, ключ митинга привязан к гонке.
     assert.equal(doc.events.find((e: any) => e.id === "f1-2026-2").sprintWeekend, true);
-    assert.deepEqual(doc.events.find((e: any) => e.id === "f1-2026-1").sourceIds.openf1,
-      { meetingKey: 1279 });
+    assert.equal(doc.events.find((e: any) => e.id === "f1-2026-1").mk, 1279);
     // Второй прогон — идемпотентность.
     assert.match(buildF1CalendarFiles(NOW, root), /2026: unchanged/);
   } finally {
@@ -855,10 +869,10 @@ test("ключ события: дрейф относительно опубли�
     schedule: [race("1", { date: "2026-03-08" })],
     meetings: [meeting("Melbourne", "2026-03-06", "2026-03-08", { key: 1279 })],
   });
-  const published = { events: [{ id: doc.events[0].id, eventKey: "f1-2026-melbourne-1279" }] };
+  const published = { events: [{ id: doc.events[0].id, eventKey: "f1-2026-melbourne-1", mk: 1279 }] };
   const check = crossCheckCalendar(doc, [], published);
-  assert.equal(check.fatal.length, 1, "дрейф ключа обязан быть fatal");
-  assert.match(check.fatal[0], /ДРЕЙФАНУЛ/);
+  assert.ok(check.fatal.length >= 1, "дрейф ключа обязан быть fatal");
+  assert.match(check.fatal.join(" "), /ДРЕЙФАНУЛ/);
 
   // И fatal обязан ОСТАНОВИТЬ запись, а не только напечататься. Сезон берём
   // НЕзамороженный: у замороженного запись и так не идёт, и проверка fatal до
@@ -869,7 +883,7 @@ test("ключ события: дрейф относительно опубли�
     now: Date.parse("2026-03-09T00:00:00Z"),
   });
   const liveCheck = crossCheckCalendar(live, [],
-    { events: [{ id: live.events[0].id, eventKey: "f1-2026-melbourne-1279" }] });
+    { events: [{ id: live.events[0].id, eventKey: "f1-2026-melbourne-1", mk: 1279 }] });
   assert.equal(live.frozen, false, "сезон обязан быть незамороженным для этой половины");
   const dir = mkdtempSync(join(tmpdir(), "f1cal-key-"));
   const path = join(dir, "2026.json");
@@ -928,9 +942,10 @@ test("контракт: ключи события витрины запинен�
   }] });
   const e = doc.events[0] as unknown as Record<string, unknown>;
   const required = ["id", "round", "kind", "status", "name", "venue", "country",
-    "trackRef", "assetSlug", "dates", "sprintWeekend", "sourceIds", "eventKey",
+    "trackRef", "assetSlug", "dates", "sprintWeekend", "mk", "eventKey",
     "locality", "circuit", "sessions"];
   for (const k of required) assert.ok(k in e, `ключ «${k}» пропал из события витрины`);
+  assert.equal("sourceIds" in e, false, "sourceIds вернулся в витрину — D-лайт сломан");
   assert.deepEqual(Object.keys(e.sessions as object).sort(),
     ["fp1", "qualifying", "sprint"], "ключи sessions уехали от клиентских");
   assert.deepEqual(Object.keys((e.dates as object)).sort(), ["race", "raceTime", "start"]);

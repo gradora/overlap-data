@@ -18,8 +18,8 @@ function seed(events: unknown[]): string {
   const root = mkdtempSync(join(tmpdir(), "weclive-"));
   mkdirSync(join(root, "wec", "2026"), { recursive: true });
   writeFileSync(join(root, "wec", "2026", "index.json"), JSON.stringify({
-    schemaVersion: 1,
-    payload: { schemaVersion: 1, series: "wec", season: 2026, frozen: false, events },
+    schemaVersion: 2,
+    payload: { schemaVersion: 2, series: "wec", season: 2026, frozen: false, events },
   }));
   return root;
 }
@@ -28,7 +28,7 @@ const event = (over: Record<string, unknown> = {}) => ({
   round: 5, slug: "lone-star-le-mans-2026", name: "Lone Star Le Mans",
   venue: "COTA", trackRef: null, status: "EventScheduled", countryCode: "us",
   start: START, end: END, resultsPath: "wec/2026/05_lone-star-le-mans-2026.json",
-  sourceIds: { fiawec: { slug: "lone-star-le-mans-2026", raceId: 4953, sessions: [] } },
+  hasResults: true,
   ...over,
 });
 
@@ -108,11 +108,36 @@ test("нет индекса сезона — тоже холостой прог�
 });
 
 test("этап идёт, но raceId ещё не найден — ждём полный прогон", async () => {
-  const root = seed([event({ sourceIds: { fiawec: { slug: "x", raceId: null, sessions: [] } } })]);
+  // raceId живёт в фактах кухни (D-лайт), не в индексе: фактов страницы
+  // события нет — продьюсер честно ждёт полный прогон и в сеть не ходит.
+  const root = seed([event({ hasResults: false })]);
   try {
     const log = await runWecLive(Date.parse("2026-09-05T12:00:00Z"), root);
     assert.match(log, /raceId ещё нет/);
     assert.equal(existsSync(wecFactsDir(root)), false, "в сеть без raceId не ходим");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+/// Положительная ветка нового join D-лайт «slug → факт кухни → raceId»
+/// (ревью: без неё дрейф формы факта/конверта оставил бы live-продьюсер
+/// молча ждать «полного прогона» весь уик-энд при живом этапе).
+test("liveRaceId: факт страницы события отдаёт raceId по слагу", async () => {
+  const { writeFacts } = await import("./lib/wecfacts.js");
+  const { liveRaceId } = await import("./lib/weclive.js");
+  const root = seed([event()]);
+  try {
+    writeFacts(root, "/en/race/lone-star-le-mans-2026", {
+      kind: "race",
+      page: { name: "Lone Star Le Mans", venue: "COTA", status: "EventCompleted",
+        iso2: "us", start: START, end: END,
+        startMs: Date.parse(START), endMs: Date.parse(END),
+        raceId: 4953, sessions: [] },
+    } as never);
+    assert.equal(liveRaceId(root, "lone-star-le-mans-2026"), 4953);
+    // Чужой слаг — честный null, не чужой raceId.
+    assert.equal(liveRaceId(root, "prologue-2026"), null);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

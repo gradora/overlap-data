@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-09-09T15:23:55.533Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.779Z",
   "series": "wec",
   "season": 2026,
   "round": 6,
@@ -14,12 +14,6 @@
   "end": "2026-09-27T00:00:00+02:00",
   "frozen": false,
   "crewSource": "seasonStandings",
-  "sourceIds": {
-    "fiawec": {
-      "slug": "6-hours-of-fuji-2026",
-      "raceId": 4954
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-25T10:15:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7823
-      },
+      "seq": 0,
       "rows": []
     },
     {
@@ -42,9 +34,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-25T14:30:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7824
-      },
+      "seq": 1,
       "rows": []
     },
     {
@@ -55,9 +45,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-26T09:30:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7825
-      },
+      "seq": 2,
       "rows": []
     },
     {
@@ -68,9 +56,7 @@
       "raceClass": "LMGT3",
       "start": "2026-09-26T14:00:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7826
-      },
+      "seq": 3,
       "rows": []
     },
     {
@@ -81,9 +67,7 @@
       "raceClass": "LMGT3",
       "start": "2026-09-26T14:20:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7827
-      },
+      "seq": 4,
       "rows": []
     },
     {
@@ -94,9 +78,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-26T14:40:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7828
-      },
+      "seq": 5,
       "rows": []
     },
     {
@@ -107,9 +89,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-26T15:00:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7829
-      },
+      "seq": 6,
       "rows": []
     },
     {
@@ -120,9 +100,7 @@
       "raceClass": "HYPERCAR",
       "start": "2026-09-27T11:00:00+09:00",
       "status": "EventScheduled",
-      "sourceIds": {
-        "sessionId": 7830
-      },
+      "seq": 7,
       "rows": []
     }
   ]

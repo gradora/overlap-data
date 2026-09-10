@@ -37,7 +37,7 @@
 //     отдаётся; страховка — старый HTML в истории git, пока она жива).
 
 import { readdirSync, readFileSync, rmSync } from "node:fs";
-import { readFacts, wecRacePath, wecResultsPath } from "./wecfacts.js";
+import { readFacts, wecRacePath, wecResultsPath, wecSessionsPath } from "./wecfacts.js";
 import { join } from "node:path";
 import { envFlag } from "./env.js";
 import { isFrozen } from "./freeze.js";
@@ -46,7 +46,7 @@ import { loadRefs } from "./refs.js";
 import { reanchorToZone } from "./zonedtime.js";
 import {
   wecEventFileName, type WecIndexEvent, type WecScheduledSession,
-  type WecSeasonIndexDoc, type WecStandingsDoc,
+  type WecSeasonIndexDoc, type WecSessionRef, type WecStandingsDoc,
 } from "./wecsnapshot.js";
 
 /// Своя версия у семейства (прецедент 3a: index и standings — независимые
@@ -59,7 +59,12 @@ import {
 /// ровно тот случай, ради которого версия и существует: файлы прошлых сезонов
 /// заморожены, и без бампа гейт заморозки не дал бы им пересобраться, оставив
 /// архив с ложным временем навсегда.
-export const WEC_EVENT_SCHEMA_VERSION = 2;
+///
+/// 3 (10.09.2026, D-лайт) — sourceIds ушёл из контракта: у документа целиком
+/// (мёртвый декод обеих сторон), у сессии sessionId заменён нейтральным
+/// `seq` — рангом сессии в порядке источника (тай-брейк фаз хайперполя у
+/// клиента сохраняется 1:1, id источника растут хронологически).
+export const WEC_EVENT_SCHEMA_VERSION = 3;
 
 // MARK: - Типы контракта
 
@@ -112,7 +117,11 @@ export interface WecEventSession {
   /// расписании страницы.
   start: string | null;
   status: string | null; // EventScheduled / EventInProgress / EventCompleted
-  sourceIds: { sessionId: number | null };
+  /// Ранг сессии в порядке СИСТЕМЫ ИСТОЧНИКА (0-базный): бывший тай-брейк по
+  /// sessionId, у которого id росли хронологически — ранг сохраняет тот же
+  /// порядок, не неся чужого идентификатора (D-лайт). null — у сессии нет
+  /// страницы протокола (расписание без результатов).
+  seq: number | null;
   rows: WecEventResultRow[];
 }
 
@@ -137,7 +146,6 @@ export interface WecEventDoc {
   /// ЭТОГО сезона; null — источника нет (у архивных сезонов страницы зачёта
   /// не существует, fiawec держит только текущий) и drivers пусты.
   crewSource: "seasonStandings" | null;
-  sourceIds: { fiawec: { slug: string; raceId: number | null } };
   sessions: WecEventSession[];
 }
 
@@ -322,6 +330,9 @@ export interface EventBuildInput {
   /// Событие из index.json — единственный источник round/слага/площадки/ref
   /// (нумерация раундов присвоена там же, шаг 3a).
   event: WecIndexEvent;
+  /// Сессии дропдауна результатов (id + подпись) — из ФАКТОВ кухни, не из
+  /// витрины: index больше не несёт адресации источника (D-лайт).
+  sessionRefs: WecSessionRef[];
   /// Расписание со страницы события (subEvent JSON-LD).
   schedule: WecScheduledSession[];
   /// Классификации по sessionId: id → строки протокола ([] — протокола нет).
@@ -339,8 +350,12 @@ const joinKey = (s: string): string => s.replace(/\s+/g, " ").trim().toUpperCase
 
 export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
   const { season, event, schedule, rowsBySessionId, crewByCar, crewSource, now } = input;
-  const refs = event.sourceIds.fiawec.sessions;
+  const refs = input.sessionRefs;
   const byKey = new Map(refs.map((s) => [joinKey(s.label), s]));
+  // Ранг сессии по возрастанию id источника: id растут хронологически, и ранг
+  // сохраняет их порядок, не публикуя сам id.
+  const seqById = new Map(
+    [...refs].sort((a, b) => a.id - b.id).map((r, i) => [r.id, i] as const));
 
   // ОФСЕТ ИСТОЧНИКА ВРЁТ. fiawec штампует расписанию ПАРИЖСКИЙ офсет
   // независимо от места этапа: у Фудзи стоит «10:15+02:00» вместо «+09:00»
@@ -371,7 +386,7 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
       raceClass: sessionClassOf(label, sessionId !== null),
       start: fixOffset(sched?.start ?? null),
       status: sched?.status ?? null,
-      sourceIds: { sessionId },
+      seq: sessionId !== null ? seqById.get(sessionId) ?? null : null,
       rows: rows.map((r) => ({ ...r, drivers: crewByCar.get(r.carNumber) ?? [] })),
     };
   };
@@ -392,8 +407,8 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
     if (usedIds.has(ref.id)) continue;
     sessions.push(make(ref.label, ref.label, null, ref.id));
   }
-  // Хронологический порядок; без времени — в хвост, тай-брейк по sessionId
-  // (id fiawec растут хронологически), затем по имени.
+  // Хронологический порядок; без времени — в хвост, тай-брейк по порядку
+  // источника (seq — ранг id, а id росли хронологически), затем по имени.
   sessions.sort((a, b) => {
     const ta = a.start ? Date.parse(a.start) : NaN;
     const tb = b.start ? Date.parse(b.start) : NaN;
@@ -401,8 +416,8 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
     const vb = Number.isFinite(tb);
     if (va && vb && ta !== tb) return ta - tb;
     if (va !== vb) return va ? -1 : 1;
-    const ia = a.sourceIds.sessionId ?? Number.MAX_SAFE_INTEGER;
-    const ib = b.sourceIds.sessionId ?? Number.MAX_SAFE_INTEGER;
+    const ia = a.seq ?? Number.MAX_SAFE_INTEGER;
+    const ib = b.seq ?? Number.MAX_SAFE_INTEGER;
     if (ia !== ib) return ia - ib;
     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
   });
@@ -422,7 +437,6 @@ export function buildWecEventDoc(input: EventBuildInput): WecEventDoc {
     end: event.end,
     frozen: isFrozen(Number.isFinite(endMs) ? endMs : null, now),
     crewSource,
-    sourceIds: { fiawec: { slug: event.sourceIds.fiawec.slug, raceId: event.sourceIds.fiawec.raceId } },
     sessions,
   };
 }
@@ -498,10 +512,10 @@ export function writeWecEvent(path: string, next: WecEventDoc): EventWriteOutcom
     return "kept-previous";
   }
   const { series, season, round, slug, name, venue, trackRef, countryCode, status,
-    start, end, frozen, crewSource, sourceIds, sessions } = next;
+    start, end, frozen, crewSource, sessions } = next;
   return writeJSONWithEnvelope(path, {
     series, season, round, slug, name, venue, trackRef, countryCode, status,
-    start, end, frozen, crewSource, sourceIds, sessions,
+    start, end, frozen, crewSource, sessions,
   }, WEC_EVENT_SCHEMA_VERSION) ? "written" : "unchanged";
 }
 
@@ -550,11 +564,17 @@ export function buildWecEventFiles(
   for (const event of index.events) {
     const file = wecEventFileName(event.round, event.slug);
     expected.add(file);
-    const page = readFacts(root, wecRacePath(event.slug), "race")?.page ?? null;
-    const raceId = event.sourceIds.fiawec.raceId;
+    // Адресация источника (raceId, id сессий) — из ФАКТОВ кухни: витрина её
+    // больше не несёт (D-лайт), а страница события и дропдаун лежат рядом.
+    const raceFact = readFacts(root, wecRacePath(event.slug), "race");
+    const page = raceFact?.page ?? null;
+    const raceId = page?.raceId ?? raceFact?.raceId ?? null;
+    const sessionRefs = raceId !== null
+      ? readFacts(root, wecSessionsPath(raceId), "sessions")?.sessions ?? []
+      : [];
     const rowsBySessionId = new Map<number, Omit<WecEventResultRow, "drivers">[]>();
     if (raceId !== null) {
-      for (const ref of event.sourceIds.fiawec.sessions) {
+      for (const ref of sessionRefs) {
         const e6 = readFacts(root, wecResultsPath(raceId, ref.id), "results");
         // Фактов нет — сессия ещё не сыграна (fiawec отдаёт для будущих
         // пустую страницу, и wec.ts такие не сохраняет). Пустой протокол ≠ дыра.
@@ -562,7 +582,7 @@ export function buildWecEventFiles(
       }
     }
     const doc = buildWecEventDoc({
-      season: year, event, schedule: page?.sessions ?? [],
+      season: year, event, sessionRefs, schedule: page?.sessions ?? [],
       rowsBySessionId, crewByCar, crewSource, now,
     });
     counts[writeWecEvent(join(outDir, file), doc)]++;

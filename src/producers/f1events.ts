@@ -39,7 +39,8 @@ interface ShowcaseEvent {
   id: string;
   eventKey?: string;
   round: number;
-  sourceIds?: { openf1?: { meetingKey?: number } | null };
+  /// Нейтральный ключ события в кухне (бывший sourceIds.openf1.meetingKey).
+  mk?: number | null;
 }
 
 export function readShowcase(season: number, dataDir = DATA_DIR): ShowcaseEvent[] {
@@ -94,7 +95,7 @@ export async function main(): Promise<void> {
     const family = (name: string) =>
       round >= 1 ? readJSON(join(DATA_DIR, "f1", name, `${YEAR}_${round}.json`)) : null;
 
-    const meetingKey = e.sourceIds?.openf1?.meetingKey;
+    const meetingKey = e.mk;
     if (meetingKey != null) {
       const rc = buildRaceControlDoc(DATA_DIR, YEAR, e.id, meetingKey);
       if (rc && writeRaceControl(DATA_DIR, rc)) rcWritten++;

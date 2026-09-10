@@ -40,7 +40,7 @@ import { envFlag } from "./env.js";
 import { isFrozen } from "./freeze.js";
 import { mirrorSlug, writeJSONWithEnvelope } from "./mirror.js";
 import { loadRefs, pinFor, trackByAlias, type RefsMap } from "./refs.js";
-import { checkEventKeys, f1EventKey } from "./eventkey.js";
+import { checkEventKeys, f1KeyBase, mintF1EventKeys } from "./eventkey.js";
 
 /// Своя версия у семейства (прецедент 3a/3b: каждая витрина — независимый
 /// контракт). Связать её с чужой — значит молча «менять» схему календаря
@@ -49,7 +49,12 @@ import { checkEventKeys, f1EventKey } from "./eventkey.js";
 // трассы команды живёт на нём), +sessions (времена уик-энда). Этим витрина
 // закрывает последний контракт raceDetails и расписания сезона — лента и
 // экран события перестают читать кухню jolpica.
-export const F1_CALENDAR_SCHEMA_VERSION = 2;
+// v3 (10.09.2026, D-лайт): sourceIds ушёл из контракта целиком — вместо него
+// нейтральное топ-поле mk; id оверлея и eventKey сменили форму на
+// `f1-<сезон>-<assetSlug>-<n>`. Бамп обязателен: замороженный 2025 без него
+// не пересобрался бы (гейт заморозки ключуется версией), а fail-closed
+// клиента ломать нечем — 0.6.6 никому не роздан.
+export const F1_CALENDAR_SCHEMA_VERSION = 3;
 
 /// Нижняя граница охвата — ПАРНО с SeasonBrowser.earliestYear (2025): раньше
 /// приложение сезон просто не показывает (нет derived-карточек, у IMSA нет
@@ -75,9 +80,10 @@ export type F1EventStatus = "confirmed" | "tbc";
 export interface F1CalendarEvent {
   /// Идентификатор события — ПАРНО с CalendarItem.id. На нём висит ВЕЧНЫЙ кэш
   /// погоды клиента (`weather.v2.<id>`), поэтому он часть контракта, а не
-  /// украшение: «f1-<сезон>-<раунд>» у гонки jolpica, «f1-meeting-<key>» у
-  /// оверлея, «f1-override-<дата>» у курируемого этапа (по ДАТЕ, иначе id
-  /// столкнулся бы с одноимённым раундом jolpica).
+  /// украшение: «f1-<сезон>-<раунд>» у подтверждённой гонки; у оверлея id
+  /// РАВЕН eventKey («f1-<сезон>-<assetSlug>-<n>» — два имени одной сущности
+  /// слились в D-лайт); «f1-override-<дата>» у курируемого этапа (по ДАТЕ,
+  /// иначе id столкнулся бы с одноимённым раундом jolpica).
   id: string;
   /// Стабильный ключ файла события (семейство `events/`, фаза 6). Отдельный
   /// от `id`, потому что `id` гонки jolpica содержит РАУНД, а он дрейфует при
@@ -134,25 +140,18 @@ export interface F1CalendarEvent {
     sprintQualifying?: F1SessionTime; qualifying?: F1SessionTime;
     sprint?: F1SessionTime;
   };
-  /// ПОЛНАЯ карта ключей события во всех источниках. Это не украшение, а
-  /// системный кросс-чек, расширяющий guard 0.3 («round файла ↔ round
-  /// документов») с одного семейства на стык источников:
-  ///  • пара (season, round) jolpica лежит РЯДОМ с сезоном файла — химера
-  ///    январского лага («расписание нового года, результаты прошлого»)
-  ///    становится видимой в данных, а не только в глазах;
-  ///  • meetingKey избавляет продьюсеров OpenF1 от повторного вывода «какой
-  ///    митинг соответствует раунду N» по датам: сегодня это правило живёт
-  ///    ещё и в openf1.ts (matchMeeting), и разъехаться им нечем помешать;
-  ///  • FIA-продьюсеры матчат документы страна-префиксом слага события —
-  ///    им нужна не своя таблица, а trackRef + refs.aliases.fiaDocPrefix;
-  ///  • override:true честно говорит, что этап держится на курируемой ручке,
-  ///    а не на источнике — фазе 6 не придётся угадывать, почему у события
-  ///    нет ни одного ключа.
-  sourceIds: {
-    jolpica: { season: number; round: number } | null;
-    openf1: { meetingKey: number } | null;
-    override: boolean;
-  };
+  /// Нейтральный числовой ключ события в семействах кухни (D-лайт: бывший
+  /// sourceIds.openf1.meetingKey, семантика 1:1). null — «иди прежним путём»:
+  /// у события нет пары в кухне (курируемый этап; гонка, чей митинг не
+  /// нашёлся). Число остаётся в контракте до D-финала — его держит клиентский
+  /// каскад архива 2023–24 (roadmap §4); имени источника поле не несёт.
+  ///
+  /// Остальное из прежнего sourceIds ВЫВОДИТСЯ из топ-полей и потому удалено:
+  ///  • jolpica {season, round}: season == doc.season и round == e.round
+  ///    гарантированы сторожами сборки; confirmed ⇔ «ключ jolpica есть»;
+  ///  • override: курируемый этап = status «tbc» && mk == null (у оверлея mk
+  ///    есть всегда) — клиент ветвится ровно так же.
+  mk: number | null;
 }
 
 export interface F1CalendarDoc {
@@ -621,6 +620,10 @@ export interface BuildInput {
   now: number;
   /// null — явное «без карты» (тесты), undefined — карта по умолчанию.
   refs?: RefsMap | null;
+  /// События ПРЕЖДЕ опубликованной витрины — вход чеканки ключей: раз
+  /// присвоенный `-<n>` наследуется, а не пересчитывается (см. eventkey.ts).
+  /// null/пусто — первый сбор сезона, чеканка с нуля по возрастанию mk.
+  prevEvents?: { id: string; eventKey?: string; mk?: number | null }[] | null;
 }
 
 export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
@@ -707,22 +710,24 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
         const sess = sessionsOf(race);
         return sess ? { sessions: sess } : {};
       })(),
-      sourceIds: {
-        jolpica: { season: Number(race.season) || season, round },
-        openf1: meetingKey === null ? null : { meetingKey },
-        override: false,
-      },
-      eventKey: f1EventKey(season, assetSlugFor(venue, "race"),
-        meetingKey === null ? { kind: "round", round } : { kind: "meeting", meetingKey }),
+      mk: meetingKey,
+      // Ключ чеканится ниже одним проходом по всем событиям (mintF1EventKeys):
+      // порядковому суффиксу нужна вся группа (сезон, assetSlug) сразу.
+      eventKey: "",
     });
   }
 
+  // Индексы оверлей-событий: их id присваивается ПОСЛЕ чеканки (id == eventKey).
+  const overlayIdx: number[] = [];
   for (const { meeting, kind } of overlay) {
     const venue = trackNameMeeting(meeting);
     const startDay = dayOf(meeting.date_start);
     const endDay = dayOf(meeting.date_end ?? meeting.date_start);
+    overlayIdx.push(events.length);
     events.push({
-      id: `f1-meeting-${meeting.meeting_key}`,
+      // id оверлея == eventKey (D-лайт): чужой идентификатор из витрины ушёл,
+      // а держать ДВА своих имени у события без раунда незачем.
+      id: "",
       // Раунда у оверлея нет — сентинел 0 (round-keyed фетчи его не дёргают).
       round: 0,
       kind,
@@ -735,13 +740,8 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
       assetSlug: assetSlugFor(venue, kind),
       dates: { start: startDay, race: endDay ?? startDay, raceTime: null },
       sprintWeekend: false,
-      sourceIds: {
-        jolpica: null,
-        openf1: { meetingKey: meeting.meeting_key },
-        override: false,
-      },
-      eventKey: f1EventKey(season, assetSlugFor(venue, kind),
-                           { kind: "meeting", meetingKey: meeting.meeting_key }),
+      mk: meeting.meeting_key,
+      eventKey: "",
     });
   }
 
@@ -767,15 +767,21 @@ export function buildF1CalendarDoc(input: BuildInput): F1CalendarDoc {
         raceTime: null,
       },
       sprintWeekend: false,
-      // jolpica-ключа НЕТ намеренно: провизорный round записи ключом не
-      // является, а сентинел 0 в источнике не существует.
-      sourceIds: { jolpica: null, openf1: null, override: true },
-      // Пары в OpenF1 у курируемого этапа нет вовсе — различитель задаёт
-      // куратор, и это дата, та же что в `id`.
-      eventKey: f1EventKey(season, assetSlugFor(venue, "race"),
-                           { kind: "override", date: entry.date }),
+      // Пары в кухне у курируемого этапа нет вовсе: mk == null при status tbc
+      // и ЕСТЬ признак курируемости (прежний sourceIds.override).
+      mk: null,
+      eventKey: "",
     });
   }
+
+  // Чеканка ключей: наследование от прошлого файла + порядковые номера для
+  // новичков (обоснование — lib/eventkey.ts).
+  const minted = mintF1EventKeys(
+    events.map((e) => ({ id: e.id, base: f1KeyBase(season, e.assetSlug), mk: e.mk })),
+    input.prevEvents ?? null,
+  );
+  events.forEach((e, i) => { e.eventKey = minted[i]; });
+  for (const i of overlayIdx) events[i].id = events[i].eventKey;
 
   events.sort(compareEvents);
 
@@ -815,10 +821,13 @@ export interface CrossCheck {
 /// Проверяем ровно то, что раньше было видно только глазами на ленте:
 ///  • id уникальны (дубль id = недетерминированный ForEach и общий вечный
 ///    кэш погоды у двух событий);
-///  • пара (season, round) jolpica уникальна и её СЕЗОН совпадает с сезоном
-///    файла — материализованная защита от химеры январского лага;
 ///  • confirmed ⇔ round ≥ 1, tbc ⇔ round == 0 (сентинел не «улучшается»);
-///  • meeting_key не выдан дважды;
+///  • раунд confirmed-гонки уникален, существует в расписании jolpica и то
+///    расписание — за СЕЗОН файла. До D-лайт это же проверялось по паре
+///    sourceIds.jolpica ВНУТРИ документа; пара из контракта ушла, и сторож
+///    химеры январского лага переехал на ВХОД сборки — jolpica-снимок в этот
+///    момент ещё в руках (параметр `jolpica`);
+///  • mk не выдан дважды;
 ///  • каждый митинг сезона представлен: либо своим оверлей-событием, либо
 ///    ключом у гонки. Непредставленный митинг — это ровно класс Sepang-2026
 ///    («был у источника, исчез из ленты»), только теперь он кричит.
@@ -828,45 +837,59 @@ export function crossCheckCalendar(
   /// дрейф ключа виден лишь в сравнении с тем, под каким именем файлы уже
   /// лежат. Нет предыдущей (первый сбор сезона) — проверяется одна
   /// уникальность.
-  prev?: { events: { id: string; eventKey?: string }[] } | null,
+  prev?: { events: { id: string; eventKey?: string; mk?: number | null }[] } | null,
+  /// Расписание jolpica, из которого документ собран (сырые строки зеркала).
+  /// undefined — проверка стыка с источником не выполняется (юнит без входа).
+  jolpica?: Pick<JolpicaRace, "season" | "round">[],
 ): CrossCheck {
   const fatal: string[] = [];
   const warnings: string[] = [];
 
   const ids = new Set<string>();
-  const jolpicaKeys = new Set<string>();
+  const rounds = new Set<number>();
   const meetingKeys = new Set<number>();
   for (const e of doc.events) {
     if (ids.has(e.id)) fatal.push(`дубль id «${e.id}»`);
     ids.add(e.id);
 
-    if (e.sourceIds.jolpica) {
-      const k = `${e.sourceIds.jolpica.season}/${e.sourceIds.jolpica.round}`;
-      if (jolpicaKeys.has(k)) fatal.push(`дубль ключа jolpica ${k}`);
-      jolpicaKeys.add(k);
-      if (e.sourceIds.jolpica.season !== doc.season) {
-        fatal.push(`${e.id}: ключ jolpica за сезон ${e.sourceIds.jolpica.season}, ` +
-          `а файл — за ${doc.season} (химера сезонов)`);
+    if (e.status === "confirmed") {
+      if (e.round < 1) fatal.push(`${e.id}: confirmed без номера раунда`);
+      else if (rounds.has(e.round)) fatal.push(`дубль раунда ${e.round}`);
+      rounds.add(e.round);
+      // Гонка без пары в кухне — не порча, но различитель её ключа держится
+      // на одном наследовании по id; говорим вслух (прежний класс r<round>).
+      if (e.mk === null) {
+        warnings.push(`${e.id}: у события нет ключа кухни (mk) — пара в OpenF1 не нашлась, ` +
+          `ключ «${e.eventKey}» держится на наследовании по id`);
       }
-      if (e.sourceIds.jolpica.round !== e.round) {
-        fatal.push(`${e.id}: round ${e.round} ≠ round ключа jolpica ${e.sourceIds.jolpica.round}`);
-      }
-    }
-
-    if (e.status === "confirmed" && e.round < 1) {
-      fatal.push(`${e.id}: confirmed без номера раунда`);
     }
     if (e.status === "tbc" && e.round !== 0) {
       fatal.push(`${e.id}: tbc с раундом ${e.round} — сентинел 0 потерян`);
     }
-    if (e.status === "confirmed" && !e.sourceIds.jolpica) {
-      fatal.push(`${e.id}: confirmed без ключа jolpica`);
-    }
 
-    const mk = e.sourceIds.openf1?.meetingKey;
-    if (mk !== undefined) {
-      if (meetingKeys.has(mk)) fatal.push(`meeting_key ${mk} выдан двум событиям`);
-      meetingKeys.add(mk);
+    if (e.mk !== null) {
+      if (meetingKeys.has(e.mk)) fatal.push(`meeting_key ${e.mk} выдан двум событиям`);
+      meetingKeys.add(e.mk);
+    }
+  }
+
+  // Стык с источником: химера январского лага и раунды-фантомы. Проверка на
+  // ВХОДЕ сборки (jolpica-снимок ещё в руках) — данные контракта её больше
+  // не несут, а класс ошибки никуда не делся.
+  if (jolpica) {
+    const srcRounds = new Set<number>();
+    for (const r of jolpica) {
+      if (String(r.season) !== String(doc.season)) {
+        fatal.push(`расписание jolpica несёт сезон ${r.season}, а файл — за ${doc.season} ` +
+          `(химера сезонов)`);
+        continue;
+      }
+      srcRounds.add(Number(r.round) || 0);
+    }
+    for (const e of doc.events) {
+      if (e.status === "confirmed" && !srcRounds.has(e.round)) {
+        fatal.push(`${e.id}: confirmed без раунда в расписании jolpica`);
+      }
     }
   }
 
@@ -881,8 +904,9 @@ export function crossCheckCalendar(
   // ключа. До него ни одно семейство не проверяло ни того, ни другого —
   // перенумерация раундов сломала бы четыре сразу и молча.
   const keys = checkEventKeys(
-    doc.events.map((e) => ({ id: e.id, eventKey: e.eventKey })),
-    prev ? prev.events.flatMap((e) => (e.eventKey ? [{ id: e.id, eventKey: e.eventKey }] : []))
+    doc.events.map((e) => ({ id: e.id, eventKey: e.eventKey, mk: e.mk })),
+    prev ? prev.events.flatMap((e) =>
+             (e.eventKey ? [{ id: e.id, eventKey: e.eventKey, mk: e.mk ?? null }] : []))
          : null,
   );
   fatal.push(...keys.fatal);
@@ -919,10 +943,10 @@ export function f1CalendarRegression(
   //
   // Поэтому смотрим ПОИМЁННО: этап, пропавший из confirmed, обязан быть
   // объяснён отменой. Идентичность при этом СМЕНИТСЯ — у раунда jolpica id
-  // «f1-<сезон>-<раунд>», а у оставшегося вместо него митинга OpenF1
-  // «f1-meeting-<key>», — поэтому сверяем по ДНЮ гонки: отменённое событие
-  // обязано стоять на том же дне. Пропажа без такой замены — деградация
-  // (не доехало зеркало jolpica), и витрину мы не трогаем.
+  // «f1-<сезон>-<раунд>», а у оставшегося вместо него митинга OpenF1 id
+  // чеканный («f1-<сезон>-<слаг>-<n>»), — поэтому сверяем по ДНЮ гонки:
+  // отменённое событие обязано стоять на том же дне. Пропажа без такой
+  // замены — деградация (не доехало зеркало jolpica), и витрину не трогаем.
   const nextIds = new Set((next.events ?? []).map((e) => e.id));
   const cancelledDays = new Set(
     (next.events ?? []).filter((e) => e.kind === "cancelled")
@@ -935,9 +959,9 @@ export function f1CalendarRegression(
     return `этапы исчезли из витрины неотменёнными (${ids.slice(0, 3).join(", ")}` +
       `${ids.length > 3 ? `, +${ids.length - 3}` : ""})`;
   }
-  const prevLinked = countBy(prev, (e) => e.sourceIds?.openf1 != null);
-  if (prevLinked > 0 && countBy(next, (e) => e.sourceIds?.openf1 != null) === 0) {
-    return `привязка к митингам OpenF1 пропала (${prevLinked} → 0)`;
+  const prevLinked = countBy(prev, (e) => e.mk != null);
+  if (prevLinked > 0 && countBy(next, (e) => e.mk != null) === 0) {
+    return `привязка к митингам кухни пропала (${prevLinked} → 0)`;
   }
   return null;
 }
@@ -1125,6 +1149,9 @@ export function buildF1CalendarFiles(
     }
     built.push(season);
     const meetings = readMeetings(root, season);
+    const calendarPath = join(root, "f1", "calendar", `${season}.json`);
+    const published = readPrev<{ payload?: F1CalendarDoc } & F1CalendarDoc>(calendarPath);
+    const prevDoc = published?.payload ?? published ?? null;
     const doc = buildF1CalendarDoc({
       season,
       schedule: jolpica.schedule,
@@ -1133,10 +1160,9 @@ export function buildF1CalendarFiles(
       meetings,
       overrides: readOverrides(root, season, currentYear),
       now,
+      prevEvents: prevDoc?.events ?? null,
     });
-    const calendarPath = join(root, "f1", "calendar", `${season}.json`);
-    const published = readPrev<{ payload?: F1CalendarDoc } & F1CalendarDoc>(calendarPath);
-    const check = crossCheckCalendar(doc, meetings, published?.payload ?? published ?? null);
+    const check = crossCheckCalendar(doc, meetings, prevDoc, jolpica.schedule);
     for (const w of check.warnings) console.warn(`::warning::f1 calendar ${season}: ${w}`);
     const outcome = writeF1Calendar(calendarPath, doc, check);
     parts.push(`${season}: ${outcome} (${doc.events.length} событий${doc.frozen ? ", frozen" : ""})`);

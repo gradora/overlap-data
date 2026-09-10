@@ -63,7 +63,7 @@ test("assembleIndexEvents: нумерация по дате старта, не �
   const imola = page("imola-2031", racePageHTML({ name: "WEC 6 Hours of Imola 2031", start: "2031-04-18T00:00:00+02:00", end: "2031-04-20T00:00:00+02:00" }));
   const tba = page("tba-2031", racePageHTML({ name: "WEC Mystery 2031" }));
   // Порядок страницы сезона нарочно «неправильный»: нумерует дата, не навигация.
-  const events = assembleIndexEvents(2031, [tba, spa, imola], [], undefined, new Map());
+  const events = assembleIndexEvents(2031, [tba, spa, imola], [], undefined);
   assert.deepEqual(events.map((e) => [e.round, e.slug]), [
     [1, "imola-2031"], [2, "spa-2031"], [3, "tba-2031"],
   ]);
@@ -74,14 +74,14 @@ test("assembleIndexEvents: нумерация по дате старта, не �
 test("assembleIndexEvents: ничья без дат — по слагу (клиентский тай-брейк)", () => {
   const a = page("b-race-2031", racePageHTML({ name: "B 2031" }));
   const b = page("a-race-2031", racePageHTML({ name: "A 2031" }));
-  const events = assembleIndexEvents(2031, [a, b], [], undefined, new Map());
+  const events = assembleIndexEvents(2031, [a, b], [], undefined);
   assert.deepEqual(events.map((e) => e.slug), ["a-race-2031", "b-race-2031"]);
 });
 
 test("прологи: round=0, впереди файла, нумерацию этапов не смещают", () => {
   const race = page("6-hours-of-imola-2031", racePageHTML({ name: "WEC 6 Hours of Imola 2031", start: "2031-04-18T00:00:00+02:00" }));
   const prologue = page("official-prologue-imola-2031", racePageHTML({ name: "WEC Official Prologue - IMOLA 2031", start: "2031-04-14T00:00:00+02:00" }));
-  const events = assembleIndexEvents(2031, [race], [prologue], undefined, new Map());
+  const events = assembleIndexEvents(2031, [race], [prologue], undefined);
   assert.deepEqual(events.map((e) => [e.round, e.slug]), [
     [0, "official-prologue-imola-2031"], [1, "6-hours-of-imola-2031"],
   ]);
@@ -418,7 +418,7 @@ test("buildWecSnapshot: полный цикл из зеркала; повтор 
     assert.match(buildWecSnapshot(2031, NOW, root), /index written; standings written/);
 
     const index = JSON.parse(readFileSync(join(root, "wec", "2031", "index.json"), "utf8"));
-    assert.equal(index.schemaVersion, 1);
+    assert.equal(index.schemaVersion, 2);
     assert.equal(index.series, "wec");
     assert.ok(index.frozen, "сезон завершён и отстоялся");
     // Пролог round=0 впереди; этапы пронумерованы ПО ДАТЕ, не по навигации
@@ -439,8 +439,10 @@ test("buildWecSnapshot: полный цикл из зеркала; повтор 
     assert.equal(leMans.trackRef, "le-mans", "числовой хвост слага Ле-Мана не мешает рефу");
     assert.equal(leMans.countryCode, "fr");
     assert.equal(leMans.start, "2031-06-11T00:00:00+02:00", "сырая ISO-строка с офсетом");
-    assert.deepEqual(leMans.sourceIds.fiawec,
-      { slug: "24-hours-of-le-mans-2031-1", raceId: 42, sessions: [{ id: 80, label: "RACE" }, { id: 81, label: "HYPERPOLE 1 - HYPERCAR" }] });
+    // D-лайт: адресация источника (raceId, id сессий) в витрину не пишется —
+    // клиентские гейты живут на нейтральном hasResults.
+    assert.equal(leMans.hasResults, true);
+    assert.equal("sourceIds" in leMans, false, "sourceIds вернулся в индекс — D-лайт сломан");
 
     const standings = JSON.parse(readFileSync(join(root, "wec", "2031", "standings.json"), "utf8"));
     assert.deepEqual(standings.rounds, ["BE", "FR"]);

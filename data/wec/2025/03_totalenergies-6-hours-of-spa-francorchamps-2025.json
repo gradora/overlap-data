@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-08-28T08:52:34.256Z",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-10T08:58:53.773Z",
   "series": "wec",
   "season": 2025,
   "round": 3,
@@ -14,12 +14,6 @@
   "end": "2025-05-10T00:00:00+02:00",
   "frozen": true,
   "crewSource": null,
-  "sourceIds": {
-    "fiawec": {
-      "slug": "totalenergies-6-hours-of-spa-francorchamps-2025",
-      "raceId": 4931
-    }
-  },
   "sessions": [
     {
       "kind": "practice",
@@ -29,9 +23,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-08T11:30:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7565
-      },
+      "seq": 0,
       "rows": [
         {
           "position": 1,
@@ -223,9 +215,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-08T16:30:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7566
-      },
+      "seq": 1,
       "rows": [
         {
           "position": 1,
@@ -417,9 +407,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-09T11:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7567
-      },
+      "seq": 2,
       "rows": [
         {
           "position": 1,
@@ -611,9 +599,7 @@
       "raceClass": "LMGT3",
       "start": "2025-05-09T14:40:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7568
-      },
+      "seq": 3,
       "rows": [
         {
           "position": 1,
@@ -805,9 +791,7 @@
       "raceClass": "LMGT3",
       "start": "2025-05-09T15:03:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7569
-      },
+      "seq": 4,
       "rows": [
         {
           "position": 1,
@@ -919,9 +903,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-09T15:25:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7570
-      },
+      "seq": 5,
       "rows": [
         {
           "position": 1,
@@ -1113,9 +1095,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-09T15:48:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7571
-      },
+      "seq": 6,
       "rows": [
         {
           "position": 1,
@@ -1227,9 +1207,7 @@
       "raceClass": "HYPERCAR",
       "start": "2025-05-10T14:00:00+02:00",
       "status": "EventCompleted",
-      "sourceIds": {
-        "sessionId": 7572
-      },
+      "seq": 7,
       "rows": [
         {
           "position": 1,
