@@ -114,18 +114,28 @@ test("не-success статусы GitHub отметку не двигают", ()
   }
 });
 
-test("skipped считается успехом ТОЛЬКО у шага, который штатно пропускается", () => {
-  // Суточный шаг «Сезон N+1» на ежечасных прогонах штатно skipped. Не считать
-  // это успехом — значит переворачивать его отметку в 03:37, тогда как `date`
-  // переворачивается в первом прогоне после полуночи: гарантированный ВТОРОЙ
-  // коммит health.json каждые сутки, то есть регресс дневной гранулярности.
-  const daily = byKey("nextseason")!;
-  const hourly = byKey("f1")!;
-  assert.equal(normalizeOutcome(daily, "skipped"), "success");
-  assert.equal(normalizeOutcome(hourly, "skipped"), "skipped", "у обычного шага skipped — не успех");
+test("skipped считается успехом только под флагом и только для skipped", () => {
+  const flagged = { key: "t", script: null, budgetDays: 3, workflow: "w", skippedIsSuccess: true };
+  const plain = byKey("f1")!;
+  assert.equal(normalizeOutcome(flagged, "skipped"), "success");
+  assert.equal(normalizeOutcome(plain, "skipped"), "skipped", "у обычного шага skipped — не успех");
   for (const o of ["failure", "cancelled", "unknown"] as Outcome[]) {
-    assert.equal(normalizeOutcome(daily, o), o, `${o} флаг подменять не должен`);
+    assert.equal(normalizeOutcome(flagged, o), o, `${o} флаг подменять не должен`);
   }
+});
+
+test("шаг «Сезон N+1» наблюдаем: его пропуск НЕ засчитывается успехом", () => {
+  // Шаг суточный, в часовых прогонах штатно skipped. Пока skipped приводился к
+  // успеху, упавший суточный прогон через час затирался часовым «успехом»:
+  // отметка свежести обновлялась вечно, и гейт не краснел НИКОГДА.
+  // После этапа 5.2 это единственный способ открыть в приложении следующий
+  // сезон — его тихая смерть означает, что сезон не откроется вовсе.
+  const daily = byKey("nextseason")!;
+  assert.equal(daily.skippedIsSuccess, undefined, "флаг вернулся — шаг снова ненаблюдаем");
+  assert.equal(normalizeOutcome(daily, "skipped"), "skipped");
+  // Бюджет суточный с запасом на один пропущенный день, а не часовой: иначе
+  // штатный суточный ритм сам по себе выглядел бы просрочкой.
+  assert.equal(daily.budgetDays, 2);
 });
 
 // MARK: - Границы бюджета
