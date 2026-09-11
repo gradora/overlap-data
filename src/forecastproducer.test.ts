@@ -184,19 +184,67 @@ test("переход forecast → freeze → seal: prev форекаст-фаз�
 
 // MARK: - Климатология
 
-test("климатология: отложена вне суточного слота; в слоте — 5 archive-лет и метка typical", async () => {
+test("климатология: вне суточного слота новая цель ДОГОНЯЕТСЯ, имеющая — откладывается", async () => {
+  const root = seed({
+    wec: [{ round: 8, slug: "6-hours-of-monza-2026", name: "6H Monza", trackRef: "monza",
+            start: "2026-11-06T00:00:00+01:00", end: "2026-11-08T23:59:00+01:00" }],
+  });
+  try {
+    // У цели файла нет вовсе. Раньше ежечасный прогон её откладывал, и до
+    // суточного слота страница погоды пустовала — пока клиент умел спросить
+    // Open-Meteo сам, это ничего не стоило; после снятия прямых запросов
+    // (этап 5.2) это до 24 часов пустоты у только что появившегося события.
+    const calls: string[] = [];
+    const first = await buildForecast({ dataDir: root, now: NOW, fetchHourly: stubFetch(calls), log: () => {} });
+    assert.equal(first.ok, true);
+    const path = join(root, "wec", "forecast", "wec-2026-6-hours-of-monza-2026.json");
+    assert.equal(existsSync(path), true, "новая цель не догнана вне суточного слота");
+    assert.equal(archiveCalls(calls).length, 5, "догон обязан стоить ровно 5 archive-лет");
+    assert.equal(readDoc(root, "wec", "forecast", "wec-2026-6-hours-of-monza-2026.json").regime, "typical");
+
+    // Файл появился — дальше ежечасный прогон к нему не прикасается и в сеть
+    // за ним не ходит: пересборка климатологии остаётся суточной.
+    const again: string[] = [];
+    await buildForecast({ dataDir: root, now: NOW, fetchHourly: stubFetch(again), log: () => {} });
+    assert.equal(archiveCalls(again).length, 0, "имеющаяся цель пересобиралась вне слота");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("климатология: потолок догонов за прогон бережёт бюджет запросов", async () => {
+  const root = seed({
+    wec: [
+      { round: 8, slug: "a-2026", name: "A", trackRef: "monza",
+        start: "2026-11-06T00:00:00+01:00", end: "2026-11-08T23:59:00+01:00" },
+      { round: 9, slug: "b-2026", name: "B", trackRef: "monza",
+        start: "2026-11-13T00:00:00+01:00", end: "2026-11-15T23:59:00+01:00" },
+      { round: 10, slug: "c-2026", name: "C", trackRef: "monza",
+        start: "2026-11-20T00:00:00+01:00", end: "2026-11-22T23:59:00+01:00" },
+    ],
+  });
+  const saved = process.env.FORECAST_CATCHUP_MAX;
+  process.env.FORECAST_CATCHUP_MAX = "2";
+  try {
+    // Три новые цели, потолок два: цель, которой archive стабильно не отдаёт
+    // данные, иначе жгла бы по пять запросов КАЖДЫЙ час.
+    const calls: string[] = [];
+    await buildForecast({ dataDir: root, now: NOW, fetchHourly: stubFetch(calls), log: () => {} });
+    assert.equal(archiveCalls(calls).length, 10, "потолок догонов не соблюдён");
+  } finally {
+    if (saved === undefined) delete process.env.FORECAST_CATCHUP_MAX;
+    else process.env.FORECAST_CATCHUP_MAX = saved;
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("климатология: в суточном слоте — 5 archive-лет и метка typical", async () => {
   const root = seed({
     wec: [{ round: 8, slug: "6-hours-of-monza-2026", name: "6H Monza", trackRef: "monza",
             start: "2026-11-06T00:00:00+01:00", end: "2026-11-08T23:59:00+01:00" }],
   });
   try {
     const calls: string[] = [];
-    // Ежечасный прогон: дальнее будущее не ходит в сеть и файла не создаёт.
-    const hourly = await buildForecast({ dataDir: root, now: NOW, fetchHourly: stubFetch(calls), log: () => {} });
-    assert.equal(hourly.ok, true);
-    assert.equal(existsSync(join(root, "wec", "forecast", "wec-2026-6-hours-of-monza-2026.json")), false);
-    assert.equal(archiveCalls(calls).length, 0);
-
     // Суточный слот: по одному archive-запросу на каждый из 5 прошлых лет.
     await buildForecast({ dataDir: root, now: NOW, typical: true, fetchHourly: stubFetch(calls), log: () => {} });
     assert.equal(archiveCalls(calls).length, 5);

@@ -232,8 +232,8 @@ type EventOutcome = "written" | "unchanged" | "kept-previous" | "skipped" | "def
 
 async function buildEventForecast(
   dataDir: string, t: Target, now: number, typical: boolean, force: boolean,
-  fetchHourly: FetchHourly, log: Log,
-): Promise<{ outcome: EventOutcome; horizon: boolean }> {
+  fetchHourly: FetchHourly, log: Log, catchUp = false,
+): Promise<{ outcome: EventOutcome; horizon: boolean; regimeTypical?: boolean }> {
   const path = join(dataDir, t.series, "forecast", `${t.eventId}.json`);
   // Гейт формы prev: битый/недописанный файл или чужая schemaVersion — это
   // «prev нет», а не сырьё для sealGate (prev.hourly.time там разыменовывается,
@@ -255,6 +255,8 @@ async function buildEventForecast(
   };
   let candidate: ForecastCandidate;
   let horizon = false;
+  /// Шла ли цель по климатологии — цикл списывает бюджет догона только за них.
+  let regimeTypical = false;
 
   if (isFrozen(t.window.endMs, now)) {
     // Отстоялось — финальный факт из Archive API (ERA5); запас ±1 день вокруг
@@ -265,7 +267,15 @@ async function buildEventForecast(
   } else if (forecastRegime(t.window, now) === "typical") {
     // Дальнее будущее: пересборка только в суточном слоте. deferred — штатный
     // исход ежечасного прогона, файл (если есть) просто не трогается.
-    if (!typical) return { outcome: "deferred", horizon: false };
+    //
+    // ИСКЛЮЧЕНИЕ — цель, у которой файла НЕТ ВОВСЕ (новый этап, открывшийся
+    // сезон). Пока клиент умел спросить Open-Meteo сам, дыра до суточного
+    // слота ничего не стоила; после снятия прямых запросов (этап 5.2) это до
+    // 24 часов пустой страницы погоды — ровно у события, которое только что
+    // появилось и потому интересно. Догон стоит ~5 archive-запросов на цель и
+    // ограничен сверху в вызывающем цикле.
+    if (!typical && (prev || !catchUp)) return { outcome: "deferred", horizon: false };
+    if (!typical) log(`forecast typical: догон новой цели ${t.series}/${t.eventId} вне суточного слота`);
     const blobs: TypicalBlob[] = [];
     for (let offset = 1; offset <= TYPICAL_YEARS; offset++) {
       const hourly = await fetchHourly(archiveURL(
@@ -278,6 +288,7 @@ async function buildEventForecast(
       ...base, regime: "typical", seal: false,
       hourly: makeTypical(blobs, t.window), typicalYears: blobs.length,
     };
+    regimeTypical = true;
   } else {
     horizon = true;
     const hourly = await fetchHourly(forecastURL(t.coord, t.window, now));
@@ -290,16 +301,16 @@ async function buildEventForecast(
       // doc уже несёт schemaVersion — конверт кладёт ту же версию, дубля
       // ключа в JSON не появляется (spread по одному имени).
       const changed = writeJSONWithEnvelope(path, d.doc, FORECAST_SCHEMA_VERSION);
-      return { outcome: changed ? "written" : "unchanged", horizon };
+      return { outcome: changed ? "written" : "unchanged", horizon, regimeTypical };
     }
     case "kept-previous":
       log(`::warning::forecast ${t.eventId}: ${d.reason}`);
-      return { outcome: "kept-previous", horizon };
+      return { outcome: "kept-previous", horizon, regimeTypical };
     case "skipped":
       log(`  ${t.eventId}: пропуск — ${d.reason}`);
-      return { outcome: "skipped", horizon };
+      return { outcome: "skipped", horizon, regimeTypical };
     case "unchanged":
-      return { outcome: "unchanged", horizon };
+      return { outcome: "unchanged", horizon, regimeTypical };
   }
 }
 
@@ -430,8 +441,16 @@ export async function buildForecast(
   // обязана отвечать каждый прогон, у seal/typical штатны паузы и retry.
   let horizonTotal = 0;
   let horizonAlive = 0;
+  // Потолок догонов за прогон: цель, которой archive стабильно не отдаёт
+  // данные, иначе жгла бы по пять запросов КАЖДЫЙ час. Две цели — это десяток
+  // запросов сверху, а новые события появляются поштучно и редко.
+  let catchUpLeft = typical ? 0 : Number(process.env.FORECAST_CATCHUP_MAX ?? 2);
   for (const t of targets) {
-    const r = await buildEventForecast(dataDir, t, now, typical, force, fetchHourly, log);
+    const wantCatchUp = catchUpLeft > 0;
+    const r = await buildEventForecast(dataDir, t, now, typical, force, fetchHourly, log, wantCatchUp);
+    // Списываем попытку только если догон реально состоялся: deferred и
+    // остальные исходы бюджет не трогают.
+    if (wantCatchUp && !typical && r.outcome !== "deferred" && r.regimeTypical) catchUpLeft--;
     tally[t.series][r.outcome]++;
     if (r.horizon) {
       horizonTotal++;
