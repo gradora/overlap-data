@@ -31,6 +31,17 @@ DEPS_DIR="${DEPS_DIR:-/opt/deps}"
 REPO_DIR="$WORK_DIR/repo"
 mkdir -p "$WORK_DIR"
 
+# Репетиция вне контейнера не должна иметь ФИЗИЧЕСКОЙ возможности дотянуться до
+# личных файлов: ниже скрипт перезаписывает ~/.ssh/config и глобальный git-конфиг
+# (в контейнере это и есть искомая идемпотентность, на машине разработчика —
+# молчаливая потеря настроек, вплоть до личных Host-блоков и identity коммитов).
+# Поэтому при переопределённом WORK_DIR HOME уводится внутрь него — забыть
+# подменить его вручную больше нельзя.
+if [ "$WORK_DIR" != "/work" ]; then
+  export HOME="$WORK_DIR/home"
+  mkdir -p "$HOME"
+fi
+
 # ФАКТ ПЛАТФОРМЫ (проверено 11.09 на живом сервисе): Railway по расписанию
 # ПЕРЕЗАПУСКАЕТ ТОТ ЖЕ контейнер, а не поднимает чистый. Файловая система
 # переживает прогон, поэтому всё, что ниже пишется «с нуля», обязано быть
@@ -51,9 +62,8 @@ else
   echo "flock недоступен — защиты от наложения тиков нет" >&2
 fi
 
-# Клон всегда в чистый каталог: хвост прошлого прогона — не кэш, а мина
-# (оркестратор считает состояние по git-статусу свежего клона).
-rm -rf "$REPO_DIR"
+# Чистка/переиспользование каталога клона — ниже, после того как собран
+# CLONE_URL: решение зависит от того, тот ли репозиторий там лежит.
 
 # Identity коммитов — из env: образ общий на все сервисы и ничего командного
 # не содержит. Дефолты повторяют commit-push из .github/actions.
@@ -154,13 +164,40 @@ if [ -n "${SERVE_REPO:-}" ] && [ -z "${SERVE_REPO_URL:-}" ]; then
   export SERVE_REPO_URL="git@github-serve:${SERVE_REPO}.git"
 fi
 
+# ЦЕНА КЛОНА (замер 11.09): shallow-клон репозитория = 3.8 МБ передачи. При
+# сотне тиков в сутки на сервис это ~1.3 ГБ в уик-энд на одни только клоны —
+# заметная доля месячного лимита трафика. Раз файловая система переживает тик
+# (см. врез выше), выгоднее обновлять уже лежащий клон: fetch приносит только
+# дельту с прошлого прогона (десятки-сотни КБ). Полный клон остаётся для
+# первого прогона, для чужого/битого каталога и для распухшего .git.
+#
+# GIT_MAX_MB: shallow-fetch копит в .git объекты, которые никто не пакует
+# (gc на каждом тике дороже экономии). Проще следить за размером и раз в
+# несколько суток переклонировать начисто.
+GIT_MAX_MB="${GIT_MAX_MB:-200}"
+reuse_clone() {
+  [ -d "$REPO_DIR/.git" ] || return 1
+  [ "$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null)" = "$CLONE_URL" ] || return 1
+  [ "$(du -sm "$REPO_DIR/.git" 2>/dev/null | cut -f1)" -lt "$GIT_MAX_MB" ] 2>/dev/null || return 1
+  git -C "$REPO_DIR" fetch --quiet --depth 1 origin "${CLONE_BRANCH:-main}" || return 1
+  git -C "$REPO_DIR" reset --quiet --hard FETCH_HEAD || return 1
+  # -e node_modules: симлинк на запечённые зависимости — рабочая оснастка, а не
+  # мусор. Всё остальное незакоммиченное — хвост прошлого прогона, ему не жить.
+  git -C "$REPO_DIR" clean -qfdx -e node_modules || return 1
+}
+
 # --depth 1: продьюсерам история не нужна, а полный клон с годами данных —
-# лишние секунды и трафик на каждом 15-минутном прогоне. Rebase-retry пуша
-# поверх мелкого клона работает: fetch дотягивает новые коммиты до имеющейся
-# верхушки, и merge-base для rebase есть (пока никто не делает force-push).
-echo "прогон группы ${GROUP}: клон ${CLONE_URL} (${CLONE_BRANCH:-main})"
-git clone --quiet --depth 1 --single-branch --branch "${CLONE_BRANCH:-main}" \
-  "$CLONE_URL" "$REPO_DIR"
+# лишние секунды и трафик. Rebase-retry пуша поверх мелкого клона работает:
+# fetch дотягивает новые коммиты до имеющейся верхушки, и merge-base для
+# rebase есть (пока никто не делает force-push).
+if reuse_clone; then
+  echo "прогон группы ${GROUP}: обновлён клон ${CLONE_URL} (${CLONE_BRANCH:-main})"
+else
+  rm -rf "$REPO_DIR"
+  echo "прогон группы ${GROUP}: клон ${CLONE_URL} (${CLONE_BRANCH:-main})"
+  git clone --quiet --depth 1 --single-branch --branch "${CLONE_BRANCH:-main}" \
+    "$CLONE_URL" "$REPO_DIR"
+fi
 cd "$REPO_DIR"
 
 # node_modules из образа подключаются симлинком ТОЛЬКО пока lock-файл клона
@@ -168,7 +205,8 @@ cd "$REPO_DIR"
 # версиях зависимостей. Разошлись — ставим на месте (медленно, но корректно)
 # и кричим в лог: это сигнал пересобрать образ, а не норма жизни.
 if cmp -s package-lock.json "$DEPS_DIR/package-lock.json"; then
-  ln -s "$DEPS_DIR/node_modules" node_modules
+  # -sfn: при переиспользовании каталога симлинк уже на месте, ln без него упал бы.
+  ln -sfn "$DEPS_DIR/node_modules" node_modules
 else
   echo "package-lock.json разошёлся с запечённым в образ — npm ci на этом прогоне; пересобери образ (deploy/railway/Dockerfile)" >&2
   npm ci --no-audit --no-fund
