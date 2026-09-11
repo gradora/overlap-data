@@ -8,14 +8,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createServer, type Server } from "node:http";
-import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { AddressInfo } from "node:net";
 import { PRODUCERS } from "./lib/producers.js";
 import {
   NEXTSEASON_SCRIPTS, SNAPSHOT_CHAIN, SIMPLE_GROUPS,
-  notifyFailure, pushServe, stepExtraEnv, type FailureReport,
+  commitPush, notifyFailure, pushServe, stepExtraEnv, type FailureReport,
 } from "./orchestrator.js";
 
 const WORKFLOWS_DIR = ".github/workflows";
@@ -242,5 +242,63 @@ test("нотификатор: молчащий вебхук отрезается
   } finally {
     server.closeAllConnections();
     server.close();
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Гонка двух сервисов за один файл: конфликт при rebase ожидаем и допустим
+// (прогон теряется громко), НЕДОПУСТИМО — оставить каталог клона отравленным.
+// Контейнер Railway переиспользует клон между тиками, поэтому брошенный
+// mid-rebase убивает не один прогон, а все последующие, причём молча.
+// ---------------------------------------------------------------------------
+
+test("commitPush: исчерпанные попытки не оставляют клон в mid-rebase", () => {
+  const tmp = mkdtempSync(join(tmpdir(), "push-race-"));
+  const cwd0 = process.cwd();
+  const sleep0 = process.env.PUSH_RETRY_SLEEP_SEC;
+  process.env.PUSH_RETRY_SLEEP_SEC = "0";
+  const ident = ["-c", "user.name=t", "-c", "user.email=t@t"];
+  try {
+    const bare = join(tmp, "private.git");
+    execFileSync("git", ["init", "--quiet", "--bare", "--initial-branch=main", bare]);
+    const seed = join(tmp, "seed");
+    execFileSync("git", ["clone", "--quiet", bare, seed], { stdio: "ignore" });
+    mkdirSync(join(seed, "data"));
+    writeFileSync(join(seed, "data", "x.json"), '{\n  "v": 0,\n  "generatedAt": "T0"\n}\n');
+    git(seed, "add", "-A");
+    git(seed, ...ident, "commit", "-q", "-m", "init");
+    git(seed, "push", "-q", "origin", "HEAD");
+
+    // Клон НАШЕГО прогона снимается ДО того, как конкурент уводит origin
+    // вперёд, — ровно как у сервиса, стартовавшего раньше чужого пуша.
+    const work = join(tmp, "work");
+    execFileSync("git", ["clone", "--quiet", bare, work], { stdio: "ignore" });
+
+    const other = join(tmp, "other");
+    execFileSync("git", ["clone", "--quiet", bare, other], { stdio: "ignore" });
+    writeFileSync(join(other, "data", "x.json"), '{\n  "v": 1,\n  "generatedAt": "T1"\n}\n');
+    git(other, "add", "-A");
+    git(other, ...ident, "commit", "-q", "-m", "other");
+    git(other, "push", "-q", "origin", "HEAD");
+
+    // Наш продьюсер пишет ТОТ ЖЕ файл иначе: конверт держит generatedAt в
+    // строке 3, поэтому расхождение двух писателей конфликтует гарантированно.
+    writeFileSync(join(work, "data", "x.json"), '{\n  "v": 2,\n  "generatedAt": "T2"\n}\n');
+    process.chdir(work);
+    assert.equal(commitPush("data", "test"), false, "конфликт обязан вернуть false");
+
+    assert.ok(!existsSync(join(work, ".git", "rebase-merge")) &&
+              !existsSync(join(work, ".git", "rebase-apply")),
+      "клон брошен в незавершённом rebase — следующий тик будет терять данные молча");
+    assert.equal(git(work, "symbolic-ref", "--quiet", "HEAD"), "refs/heads/main",
+      "HEAD отсоединён — push следующего тика упадёт «You are not currently on a branch»");
+    // Данные прогона остались в локальном коммите: потерян push, а не работа.
+    assert.match(readFileSync(join(work, "data", "x.json"), "utf8"), /"v": 2/,
+      "собранные данные выброшены из рабочего дерева");
+  } finally {
+    process.chdir(cwd0);
+    if (sleep0 === undefined) delete process.env.PUSH_RETRY_SLEEP_SEC;
+    else process.env.PUSH_RETRY_SLEEP_SEC = sleep0;
+    rmSync(tmp, { recursive: true, force: true });
   }
 });

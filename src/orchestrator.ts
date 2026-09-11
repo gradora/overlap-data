@@ -187,19 +187,48 @@ function currentBranch(): string {
   return name && name !== "HEAD" ? name : "main";
 }
 
-function commitPush(paths: string, messagePrefix: string): boolean {
+/// Снять незавершённый rebase и вернуть HEAD на ветку.
+///
+/// ПОЧЕМУ ЭТО ОБЯЗАТЕЛЬНО, а не гигиена: контейнер ПЕРЕИСПОЛЬЗУЕТ каталог клона
+/// между тиками (deploy/railway/entrypoint.sh), а `fetch` + `reset --hard` +
+/// `clean` не снимают `.git/rebase-merge` и не возвращают отсоединённый HEAD.
+/// Клон, брошенный в mid-rebase, отравляет ВСЕ следующие тики: push падает
+/// «You are not currently on a branch», а `rebase --abort` в начале цикла
+/// сбрасывает дерево на протухший orig-head, молча выбрасывая только что
+/// собранные данные. Один конфликт — и сервис мёртв навсегда, причём тихо:
+/// полный переклон не триггерится, `.git` не дорастает до GIT_MAX_MB.
+export function leaveRebase(branch: string): void {
+  spawnSync("git", ["rebase", "--abort"], { stdio: "ignore" });
+  // --quit на случай, когда abort не применим (например, rebase уже наполовину
+  // разобран): он снимает состояние, не трогая рабочее дерево.
+  spawnSync("git", ["rebase", "--quit"], { stdio: "ignore" });
+  if (spawnSync("git", ["symbolic-ref", "--quiet", "HEAD"], { stdio: "ignore" }).status !== 0) {
+    spawnSync("git", ["switch", "--force", branch], { stdio: "ignore" });
+  }
+}
+
+export function commitPush(paths: string, messagePrefix: string): boolean {
   // Код возврата add проверяется, как проверял бы bash -e в composite action:
   // упавший add (index.lock соседнего прогона, битый индекс) при пустом
   // индексе выглядел бы как «нет изменений» — тихий зелёный прогон без
   // публикации данных, ровно класс отказа, против которого стоит гейт свежести.
   if (run("git", ["add", ...paths.split(" ")]) !== 0) return false;
   if (spawnSync("git", ["diff", "--cached", "--quiet"]).status === 0) {
+    // Коммитить нечего — но дерево всё равно надо довести до origin. Иначе
+    // прогон уходит дальше со снимком, сделанным на момент клона, и ПУБЛИКУЕТ
+    // его: writeServe — полная перезапись манифеста, так что устаревшее дерево
+    // затирает чужую свежую публикацию целиком. Для weclive это не край case, а
+    // норма: вне этапа WEC подавляющее большинство тиков идёт именно здесь.
+    run("git", [...GIT_IDENT, "pull", "--rebase", "--autostash", "origin", currentBranch()]);
     console.log("нет изменений");
     return true;
   }
   // Тот же формат, что `date -u +%FT%TZ` в composite action.
   const stamp = new Date().toISOString().slice(0, 19) + "Z";
   if (run("git", [...GIT_IDENT, "commit", "-m", `${messagePrefix} ${stamp}`]) !== 0) return false;
+  // Ветку снимаем ДО цикла: внутри rebase HEAD отсоединён, и currentBranch()
+  // отдал бы фолбэк main вместо настоящей ветки чекаута.
+  const branch = currentBranch();
   for (let attempt = 1; attempt <= 5; attempt++) {
     spawnSync("git", ["rebase", "--abort"], { stdio: "ignore" });
     // Идентичность нужна и rebase: replay коммита на уехавший remote — это
@@ -213,15 +242,22 @@ function commitPush(paths: string, messagePrefix: string): boolean {
     // с рапортом «push ок». Ломалось бы ровно на первой гонке пушей — то есть
     // в том единственном случае, ради которого этот retry и написан.
     if (
-      run("git", [...GIT_IDENT, "pull", "--rebase", "--autostash", "origin", currentBranch()]) === 0 &&
+      run("git", [...GIT_IDENT, "pull", "--rebase", "--autostash", "origin", branch]) === 0 &&
       run("git", ["push"]) === 0
     ) {
       console.log(`push ок с попытки ${attempt}`);
       return true;
     }
-    console.warn(`push не удался (попытка ${attempt}/5), повтор через 10с`);
-    spawnSync("sleep", ["10"]);
+    // Пауза из env — ради юнит-репетиции гонки: пять пауз по 10 с сделали бы
+    // тест на восстановление после конфликта пятидесятисекундным.
+    const sleepSec = process.env.PUSH_RETRY_SLEEP_SEC ?? "10";
+    console.warn(`push не удался (попытка ${attempt}/5), повтор через ${sleepSec}с`);
+    spawnSync("sleep", [sleepSec]);
   }
+  // Выход из цикла = все пять попыток уперлись в один и тот же конфликт.
+  // Прогон потерян — это громко и ожидаемо; чего нельзя допустить, так это
+  // оставить каталог отравленным для СЛЕДУЮЩИХ тиков (см. leaveRebase).
+  leaveRebase(branch);
   console.error("push не удался после 5 попыток");
   return false;
 }
@@ -310,6 +346,23 @@ export function pushServe(serveUrl: string): boolean {
   }
 }
 
+/// Совпадает ли наше дерево с верхушкой origin.
+///
+/// Витрина собирается из ЛОКАЛЬНОГО data/, а публикация — полная перезапись,
+/// поэтому публиковать имеет право только прогон, чьё дерево = origin. Иначе
+/// сервис, стартовавший раньше чужого пуша, откатит публичную витрину назад:
+/// коммит «data update» уйдёт fast-forward, без конфликта и без ошибки, а
+/// дашборд останется зелёным.
+function syncedWithOrigin(): boolean {
+  const branch = currentBranch();
+  if (spawnSync("git", ["fetch", "--quiet", "--depth", "1", "origin", branch],
+    { stdio: "ignore" }).status !== 0) return false;
+  const at = (rev: string): string =>
+    (spawnSync("git", ["rev-parse", rev], { encoding: "utf8" }).stdout ?? "").trim();
+  const head = at("HEAD");
+  return head !== "" && head === at("FETCH_HEAD");
+}
+
 /// Шаг serve обеих веток. Без --push публикации нет (как и коммита); с --push,
 /// но без SERVE_REPO_URL — штатный пропуск: пока serve-репо не создан, кроны
 /// наполняют только приват, и это норма, а не провал.
@@ -327,6 +380,16 @@ function serveStep(push: boolean, commitOk: boolean): boolean {
   if (!commitOk) {
     console.warn("serve-шаг пропущен: пуш в origin не удался — наружу едет только зафиксированное приватом");
     return false;
+  }
+  // Последний рубеж против отката публичной витрины. Штатный путь дерево уже
+  // синхронизировал (успешный push либо pull в ветке «нет изменений»), так что
+  // сюда мы попадаем, когда чужой сервис допушил В ЭТОТ ЗАЗОР. Пропуск, а не
+  // провал: данные в приват уже уехали, опубликует их следующий тик — любой, у
+  // кого дерево актуально. Молчать нельзя: систематический пропуск здесь
+  // означал бы застой витрины, и это должно быть видно в логе.
+  if (!syncedWithOrigin()) {
+    console.warn("serve-шаг пропущен: дерево прогона отстало от origin — публикация откатила бы витрину назад");
+    return true;
   }
   return pushServe(url);
 }

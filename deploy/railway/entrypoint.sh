@@ -195,6 +195,14 @@ reuse_clone() {
   [ -d "$REPO_DIR/.git" ] || return 1
   [ "$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null)" = "$CLONE_URL" ] || return 1
   [ "$(du -sm "$REPO_DIR/.git" 2>/dev/null | cut -f1)" -lt "$GIT_MAX_MB" ] 2>/dev/null || return 1
+  # Каталог переживает тик и может достаться в НЕЗАВЕРШЁННОМ rebase: контейнер
+  # убили посреди операции, или прогон исчерпал попытки пуша. Ни fetch, ни
+  # reset, ни clean это состояние не снимают, а git в нём отказывается пушить
+  # («You are not currently on a branch») — один такой хвост отравил бы ВСЕ
+  # следующие тики. Оркестратор чистит за собой сам (leaveRebase), здесь —
+  # страховка на случай, когда чистить было некому.
+  git -C "$REPO_DIR" rebase --quit >/dev/null 2>&1 || true
+  git -C "$REPO_DIR" switch --force "${CLONE_BRANCH:-main}" >/dev/null 2>&1 || return 1
   git -C "$REPO_DIR" fetch --quiet --depth 1 origin "${CLONE_BRANCH:-main}" || return 1
   git -C "$REPO_DIR" reset --quiet --hard FETCH_HEAD || return 1
   # -e node_modules: симлинк на запечённые зависимости — рабочая оснастка, а не
