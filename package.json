@@ -37,7 +37,8 @@
     "f1weather": "tsx src/producers/f1weather.ts",
     "forecast": "tsx src/producers/forecast.ts",
     "f1pitawards": "tsx src/producers/f1pitawards.ts",
-    "f1pitstops": "tsx src/producers/f1pitstops.ts"
+    "f1pitstops": "tsx src/producers/f1pitstops.ts",
+    "serve:preview": "tsx src/servepreview.ts"
   },
   "engines": {
     "node": ">=20"

@@ -303,6 +303,40 @@ async function buildEventForecast(
   }
 }
 
+// MARK: - Справочник координат (refs/coords.json)
+
+const COORDS_SCHEMA_VERSION = 1;
+
+/// Координаты и часовые пояса трасс отдельным маленьким файлом.
+///
+/// Клиенту они нужны СИНХРОННО и на первом же кадре — тремя вопросами: грузить
+/// ли погоду для этого события, рисовать ли страницу и день сейчас на трассе
+/// или ночь (последнее считается по долготе, refs.ts это прямо предусматривал).
+/// Сегодня на них отвечает словарь, вкомпилированный в приложение; этап 5.2
+/// снимает его вместе с прямыми запросами в Open-Meteo, и заменить словарь
+/// нечем, пока карта не опубликована.
+///
+/// Почему не weather/now.json, где coord уже лежит: тот файл протухает (клиент
+/// прячет блок при возрасте больше трёх часов), весит 46 КБ и переписывается
+/// каждый час, а координаты не меняются годами — гейт РЕНДЕРА не имеет права
+/// зависеть от свежести погоды. Почему не сам refs/matching.json: наружу он не
+/// едет, в его aliases перечислены имена источников (вход сборки + sourceleak).
+export function buildCoords(dataDir: string, refs: RefsMap, log: Log): string {
+  const path = join(dataDir, "refs", "coords.json");
+  const tracks: Record<string, { lat: number; lon: number; timezone: string }> = {};
+  for (const t of refs.tracks) {
+    if (!t.coord) continue;
+    tracks[t.slug] = { lat: t.coord.lat, lon: t.coord.lon, timezone: t.timezone };
+  }
+  if (Object.keys(tracks).length === 0) {
+    // Пустую карту поверх рабочей не пишем — та же keep-семантика, что у now.
+    log("::warning::forecast coords: в refs нет ни одной трассы с coord — файл не тронут");
+    return "coords: пусто";
+  }
+  const changed = writeJSONWithEnvelope(path, { tracks }, COORDS_SCHEMA_VERSION);
+  return `coords: ${changed ? "written" : "unchanged"} (${Object.keys(tracks).length})`;
+}
+
 // MARK: - «Сейчас на трассе» (weather/now.json)
 
 async function buildNow(
@@ -408,6 +442,9 @@ export async function buildForecast(
   }
 
   const nowLine = await buildNow(dataDir, refs, now, fetchHourly, log);
+  // Без сети и почти бесплатно, поэтому живёт здесь, а не отдельным шагом:
+  // продьюсер уже держит в руках ровно ту карту, из которой выводится файл.
+  const coordsLine = buildCoords(dataDir, refs, log);
 
   let ok = true;
   if (horizonTotal > 0 && horizonAlive === 0) {
@@ -416,7 +453,7 @@ export async function buildForecast(
     ok = false;
   }
   const parts = (["f1", "wec", "imsa"] as const).map((s) => `${s}: ${fmtTally(tally[s])}`);
-  return { summary: `прогноз — ${parts.join("; ")}; ${nowLine}; запросов: ${fetchCount}`, ok };
+  return { summary: `прогноз — ${parts.join("; ")}; ${nowLine}; ${coordsLine}; запросов: ${fetchCount}`, ok };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

@@ -115,7 +115,10 @@ test("оркестратор: каждый продьюсер доходит д�
   const scripts = new Set(Object.keys(pkg.scripts ?? {}));
   // Не продьюсеры: проверки кода и heartbeat (health зовётся оркестратором
   // напрямую в runSnapshot, записи в реестре у него нет по построению).
-  const notProducers = new Set(["test", "typecheck", "health"]);
+  // serve:preview — инструмент разработчика (локальная раскладка витрины для
+  // замера клиентских запросов, src/servepreview.ts), а не продьюсер: данных
+  // он не производит и в кроне ему делать нечего.
+  const notProducers = new Set(["test", "typecheck", "health", "serve:preview"]);
 
   for (const file of readdirSync("src/producers").filter((f) => f.endsWith(".ts"))) {
     const name = file.replace(/\.ts$/, "");

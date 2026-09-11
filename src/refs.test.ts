@@ -320,3 +320,27 @@ test("refs: мутация — openf1-имя у двух команд роняе
   rb.openf1Names = [...(rb.openf1Names ?? []), "ferrari"];
   assert.ok(validateRefs(m).some((e) => e.includes("openf1-имя")));
 });
+
+/// Опубликованная карта координат (refs/coords.json) — производная курируемой
+/// карты, которую отдаёт продьюсер forecast. Проверяется ПАРИТЕТ и СОСТАВ ПОЛЕЙ:
+/// клиент отвечает по ней синхронно на первом кадре (грузить ли погоду, рисовать
+/// ли страницу, день на трассе или ночь — последнее по долготе), поэтому дыра
+/// здесь означает трассу без погоды и ночной градиент над дневной трассой,
+/// причём молча. Лишнее поле опасно иначе: сама refs/matching.json наружу не
+/// едет как раз потому, что несёт имена источников в aliases.
+test("coords: опубликованная карта покрывает все трассы refs с coord", () => {
+  assert.ok(refs, "карта не загрузилась");
+  const tracks = refs.tracks;
+  const published = JSON.parse(readFileSync(join("data", "refs", "coords.json"), "utf8"));
+  const expected = tracks.filter((t) => t.coord).map((t) => t.slug).sort();
+  assert.ok(expected.length > 0, "в refs нет ни одной трассы с coord — проверять нечего");
+  assert.deepEqual(Object.keys(published.tracks).sort(), expected,
+    "опубликованная карта координат разошлась с refs");
+  for (const [slug, entry] of Object.entries(published.tracks)) {
+    assert.deepEqual(Object.keys(entry as object).sort(), ["lat", "lon", "timezone"],
+      `${slug}: состав полей карты координат изменился — наружу могло уехать лишнее`);
+    const src = tracks.find((t) => t.slug === slug);
+    assert.deepEqual(entry, { lat: src?.coord?.lat, lon: src?.coord?.lon, timezone: src?.timezone },
+      `${slug}: значения разошлись с курируемой картой`);
+  }
+});

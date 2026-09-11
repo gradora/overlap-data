@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .DS_Store
+
+# Замерочный контур этапа 5 (npm run serve:preview) — локальная раскладка витрины.
+.serve-preview/
