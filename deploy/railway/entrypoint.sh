@@ -23,17 +23,48 @@ if [ -z "$GROUP" ]; then
   exit 2
 fi
 
-REPO_DIR=/work/repo
+# Оба пути с дефолтами боя: переопределяются только в локальной репетиции
+# (§8 docs/railway.md), где нет ни /work, ни /opt/deps, а HOME подменяется на
+# временный — иначе скрипт переписал бы ~/.ssh/config машины разработчика.
+WORK_DIR="${WORK_DIR:-/work}"
+DEPS_DIR="${DEPS_DIR:-/opt/deps}"
+REPO_DIR="$WORK_DIR/repo"
+mkdir -p "$WORK_DIR"
+
+# ФАКТ ПЛАТФОРМЫ (проверено 11.09 на живом сервисе): Railway по расписанию
+# ПЕРЕЗАПУСКАЕТ ТОТ ЖЕ контейнер, а не поднимает чистый. Файловая система
+# переживает прогон, поэтому всё, что ниже пишется «с нуля», обязано быть
+# идемпотентным: второй тик иначе падает на `destination path '/work/repo'
+# already exists`, а ~/.ssh/config и safe.directory тихо растут дублями.
+
+# Наложение тиков: в GitHub Actions сериализацию давала concurrency-группа, на
+# Railway её нет, а общая ФС делает пересечение прогонов разрушительным (чистка
+# REPO_DIR снесла бы репозиторий из-под работающего продьюсера). Лок снимается
+# ядром при любом завершении процесса, в том числе по kill.
+if command -v flock >/dev/null 2>&1; then
+  exec 9>"$WORK_DIR/.lock-$GROUP"
+  if ! flock -n 9; then
+    echo "прогон группы ${GROUP} ещё идёт — тик пропущен"
+    exit 0
+  fi
+else
+  echo "flock недоступен — защиты от наложения тиков нет" >&2
+fi
+
+# Клон всегда в чистый каталог: хвост прошлого прогона — не кэш, а мина
+# (оркестратор считает состояние по git-статусу свежего клона).
+rm -rf "$REPO_DIR"
 
 # Identity коммитов — из env: образ общий на все сервисы и ничего командного
 # не содержит. Дефолты повторяют commit-push из .github/actions.
 git config --global user.name  "${GIT_USER_NAME:-overlap-bot}"
 git config --global user.email "${GIT_USER_EMAIL:-overlap-bot@users.noreply.github.com}"
 
-# Контейнер одноразовый и однопользовательский — проверка dubious ownership
-# git здесь только мешает (dry-run клонирует из примонтированного хост-репо,
-# чей uid не совпадает с root контейнера).
-git config --global --add safe.directory '*'
+# Контейнер однопользовательский — проверка dubious ownership git здесь только
+# мешает (dry-run клонирует из примонтированного хост-репо, чей uid не совпадает
+# с root контейнера). --replace-all, а не --add: конфиг переживает рестарт
+# контейнера, и --add копил бы по строке на каждый тик.
+git config --global --replace-all safe.directory '*'
 
 # PEM в переменной окружения — главный источник боли этой связки: общие
 # переменные Railway правятся ОДНОСТРОЧНЫМ полем, переносы схлопываются в
@@ -54,7 +85,6 @@ decode_key() {
     printf '%s' "$raw" | tr -d ' \t\n\r' | base64 -d 2>/dev/null
     return
   fi
-  # Заголовок есть и перенос строки есть — значение доехало целым.
   # Заголовок есть и перенос есть — значение доехало целым; \r снимаем, потому
   # что PEM с CRLF openssh тоже не читает («invalid format»).
   case "$raw" in
@@ -75,10 +105,15 @@ decode_key() {
 # Два репозитория — два deploy-ключа — два SSH-алиаса одного github.com:
 # GitHub не позволяет повесить один ключ на два репо, а ssh сам не умеет
 # выбрать ключ по имени репозитория в URL.
+# ~/.ssh/config собирается заново каждый прогон: файл переживает рестарт
+# контейнера, и дописывание через >> копило бы дубли Host-блоков до бесконечности.
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+: > ~/.ssh/config
+chmod 600 ~/.ssh/config
+
 setup_key() {
   local alias="$1" key="$2" file="$3" var="$4"
   [ -n "$key" ] || return 0
-  mkdir -p ~/.ssh && chmod 700 ~/.ssh
   decode_key "$key" > ~/.ssh/"$file" || true
   chmod 600 ~/.ssh/"$file"
   # Валидация здесь, а не «когда-нибудь у git»: иначе прогон умирает в
@@ -132,8 +167,8 @@ cd "$REPO_DIR"
 # байт-в-байт совпадает с запечённым: иначе прогон молча работал бы на чужих
 # версиях зависимостей. Разошлись — ставим на месте (медленно, но корректно)
 # и кричим в лог: это сигнал пересобрать образ, а не норма жизни.
-if cmp -s package-lock.json /opt/deps/package-lock.json; then
-  ln -s /opt/deps/node_modules node_modules
+if cmp -s package-lock.json "$DEPS_DIR/package-lock.json"; then
+  ln -s "$DEPS_DIR/node_modules" node_modules
 else
   echo "package-lock.json разошёлся с запечённым в образ — npm ci на этом прогоне; пересобери образ (deploy/railway/Dockerfile)" >&2
   npm ci --no-audit --no-fund
