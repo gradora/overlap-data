@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T12:40:41.474Z",
+  "generatedAt": "2026-09-11T16:37:13.963Z",
   "season": 2026,
   "round": 14,
   "event": "spanish_grand_prix",
-  "updated": "2026-09-11 14:01 CET",
+  "updated": "2026-09-11 16:41 CET",
   "penalties": [
     {
       "doc": 12,
@@ -31,6 +31,18 @@
       "fineEur": 1000,
       "url": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_infringement_-_car_11_-_second_pit_lane_speeding.pdf",
       "publishedAt": "2026-09-11 14:01 CET"
+    },
+    {
+      "doc": 19,
+      "parser": 3,
+      "car": 23,
+      "driver": "Alexander Albon",
+      "session": "Free Practice 1",
+      "type": "warning",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "url": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_infringement_-_car_23_-_leaving_the_track_and_re-joining_unsafely_.pdf",
+      "publishedAt": "2026-09-11 16:41 CET"
     }
   ]
 }
