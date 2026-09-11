@@ -162,7 +162,7 @@ ci.yml — не крон и на Railway не переезжает, см. §6.
 | Переменная | Что это | Пример |
 |---|---|---|
 | `PRIVATE_REPO` | owner/name приватного репо (код + сырьё) | `gradora/overlap-data-private` |
-| `PRIVATE_REPO_SSH_KEY` | приватная половина deploy key приватного репо, **RW** | `-----BEGIN OPENSSH PRIVATE KEY-----…` |
+| `PRIVATE_REPO_SSH_KEY` | приватная половина deploy key приватного репо, **RW**; лучше в base64 (см. ниже) | `LS0tLS1CRUdJTiBPUEVOU1NI…` |
 | `SERVE_REPO` | owner/name публичного serve-репо (витрина) | `gradora/overlap-serve` |
 | `SERVE_REPO_SSH_KEY` | приватная половина deploy key serve-репо, **RW** | — |
 | `GIT_USER_NAME` / `GIT_USER_EMAIL` | identity коммитов | `overlap-bot` / `overlap-bot@users.noreply.github.com` |
@@ -181,7 +181,22 @@ ssh-keygen -t ed25519 -N "" -C railway-overlap-serve   -f overlap_serve_deploy
 ```
 
 Публичные половины — в Deploy keys соответствующих репо на GitHub с галкой
-«Allow write access»; приватные — целиком (многострочно) в переменные Railway.
+«Allow write access»; приватные — в переменные Railway **в base64**:
+
+```sh
+base64 < overlap_private_deploy | tr -d '\n' | pbcopy   # и вставить в переменную
+```
+
+Почему base64, а не PEM как есть (грабля, стоившая деплоя 11.09): общие
+переменные проекта Railway правятся ОДНОСТРОЧНЫМ полем и схлопывают переносы
+строк PEM в пробелы. Openssh такой ключ не читает — в логе
+`Load key "/root/.ssh/id_private": error in libcrypto`, дальше ssh молча идёт
+без ключа и ловит `Permission denied (publickey)`, из-за чего диагноз уводит в
+права доступа, а дело в формате. Entrypoint теперь принимает PEM, base64 и
+однострочный PEM (восстанавливает), снимает CRLF и **валидирует ключ
+`ssh-keygen -y` до клона** — испорченное значение падает с внятным текстом,
+а не с Permission denied. base64 всё равно предпочтителен: он не зависит от
+того, какое поле в UI попадётся.
 
 Почему оба RW:
 

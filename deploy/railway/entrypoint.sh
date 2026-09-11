@@ -35,15 +35,58 @@ git config --global user.email "${GIT_USER_EMAIL:-overlap-bot@users.noreply.gith
 # чей uid не совпадает с root контейнера).
 git config --global --add safe.directory '*'
 
+# PEM в переменной окружения — главный источник боли этой связки: общие
+# переменные Railway правятся ОДНОСТРОЧНЫМ полем, переносы схлопываются в
+# пробелы, и openssh падает «error in libcrypto» (а ssh молча идёт без ключа и
+# ловит Permission denied — диагноз по логу неочевиден). Поэтому ключ
+# принимается в трёх видах: готовым PEM, в base64 (рекомендуется — такое
+# значение ни один UI не испортит) и однострочным PEM, который восстанавливаем.
+# Ничего из содержимого ключа в лог не попадает — только имя переменной.
+decode_key() {
+  local raw="$1" head tail body
+  # Перенос строки переменной, а не $(printf '\n'): подстановка команды срезает
+  # завершающие переносы и вернула бы пустую строку — проверка ниже стала бы
+  # истинной всегда, и испорченный PEM уехал бы в файл нетронутым.
+  local nl='
+'
+  # Нет заголовка PEM — считаем, что это base64 от файла ключа.
+  if [ "${raw#*-----BEGIN}" = "$raw" ]; then
+    printf '%s' "$raw" | tr -d ' \t\n\r' | base64 -d 2>/dev/null
+    return
+  fi
+  # Заголовок есть и перенос строки есть — значение доехало целым.
+  # Заголовок есть и перенос есть — значение доехало целым; \r снимаем, потому
+  # что PEM с CRLF openssh тоже не читает («invalid format»).
+  case "$raw" in
+    *"$nl"*) printf '%s\n' "$raw" | tr -d '\r'; return ;;
+  esac
+  # Однострочный PEM: заголовок и футер фиксированы, тело режем обратно по 70.
+  head=$(printf '%s' "$raw" | sed -n 's/^.*\(-----BEGIN [A-Z0-9 ]*-----\).*$/\1/p')
+  tail=$(printf '%s' "$raw" | sed -n 's/^.*\(-----END [A-Z0-9 ]*-----\).*$/\1/p')
+  [ -n "$head" ] && [ -n "$tail" ] || return 1
+  body=${raw#*"$head"}
+  body=${body%"$tail"*}
+  # Через переменную, а не конвейером прямо в вывод: fold не ставит перенос
+  # после последней строки, и футер приклеивался бы к хвосту тела.
+  body=$(printf '%s' "$body" | tr -d ' \t\r\n' | fold -w 70)
+  printf '%s\n%s\n%s\n' "$head" "$body" "$tail"
+}
+
 # Два репозитория — два deploy-ключа — два SSH-алиаса одного github.com:
 # GitHub не позволяет повесить один ключ на два репо, а ssh сам не умеет
 # выбрать ключ по имени репозитория в URL.
 setup_key() {
-  local alias="$1" key="$2" file="$3"
+  local alias="$1" key="$2" file="$3" var="$4"
   [ -n "$key" ] || return 0
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
-  printf '%s\n' "$key" > ~/.ssh/"$file"
+  decode_key "$key" > ~/.ssh/"$file" || true
   chmod 600 ~/.ssh/"$file"
+  # Валидация здесь, а не «когда-нибудь у git»: иначе прогон умирает в
+  # Permission denied, и час уходит на поиски прав вместо испорченного PEM.
+  if ! ssh-keygen -y -f ~/.ssh/"$file" >/dev/null 2>&1; then
+    echo "переменная ${var} не читается как приватный ключ (испорченный PEM?): положи в неё вывод \`base64 < файл-ключа | tr -d '\\n'\`" >&2
+    exit 2
+  fi
   {
     echo "Host $alias"
     echo "  HostName github.com"
@@ -53,8 +96,8 @@ setup_key() {
   } >> ~/.ssh/config
   chmod 600 ~/.ssh/config
 }
-setup_key github-private "${PRIVATE_REPO_SSH_KEY:-}" id_private
-setup_key github-serve   "${SERVE_REPO_SSH_KEY:-}"   id_serve
+setup_key github-private "${PRIVATE_REPO_SSH_KEY:-}" id_private PRIVATE_REPO_SSH_KEY
+setup_key github-serve   "${SERVE_REPO_SSH_KEY:-}"   id_serve   SERVE_REPO_SSH_KEY
 # Ключи легли в файлы — из окружения убираем: оркестратору и его дочерним
 # процессам секреты не нужны, а меньше носителей — меньше путей утечки в лог.
 unset PRIVATE_REPO_SSH_KEY SERVE_REPO_SSH_KEY 2>/dev/null || true
