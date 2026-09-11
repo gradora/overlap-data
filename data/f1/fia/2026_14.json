@@ -1,8 +1,36 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-09T15:24:06.724Z",
+  "generatedAt": "2026-09-11T12:40:41.474Z",
   "season": 2026,
   "round": 14,
   "event": "spanish_grand_prix",
-  "penalties": []
+  "updated": "2026-09-11 14:01 CET",
+  "penalties": [
+    {
+      "doc": 12,
+      "parser": 3,
+      "car": 11,
+      "driver": "Sergio Perez",
+      "session": "Free Practice 1",
+      "type": "fine",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fineEur": 700,
+      "url": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_infringement_-_car_11_-_pit_lane_speeding.pdf",
+      "publishedAt": "2026-09-11 14:00 CET"
+    },
+    {
+      "doc": 13,
+      "parser": 3,
+      "car": 11,
+      "driver": "Sergio Perez",
+      "session": "Free Practice 1",
+      "type": "fine",
+      "appliesTo": "Free Practice 1",
+      "corrected": false,
+      "fineEur": 1000,
+      "url": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_infringement_-_car_11_-_second_pit_lane_speeding.pdf",
+      "publishedAt": "2026-09-11 14:01 CET"
+    }
+  ]
 }
