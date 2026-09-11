@@ -4,12 +4,13 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { run } from "./lib/seriesevents.js";
 import { EVENT_FILE_SCHEMA_VERSION, buildEventFile, eventFilePath, stripEnvelope }
   from "./lib/eventfile.js";
+import { imsaEventKey, wecEventKey } from "./lib/eventkey.js";
 
 const fia = {
   schemaVersion: 1, generatedAt: "2026-08-28T10:00:00.000Z", season: 2025, round: 14,
@@ -181,4 +182,62 @@ test("продьюсер серии пишет ИМЕННО свою серию"
   assert.equal(out.eventId, "6-hours-of-imola-2025");
   assert.equal(out.fia.penalties.length, 1);
   rmSync(root, { recursive: true, force: true });
+});
+
+// ---------------------------------------------------------------------------
+// Охват: файл события — это то, ЧЕМ клиент заменил прямые запросы к чужим API.
+// Пропущенный файл не ломает сборку и не виден на экране: клиент тихо уходит
+// на фолбэк, а после его снятия (этап 5.2) — на пустой экран. Поэтому полнота
+// обязана держаться проверкой, а не совпадением.
+// ---------------------------------------------------------------------------
+
+/// Ожидаемые ключи по витрине каждой серии. F1 несёт ключ прямо в событии
+/// календаря (чеканка с наследованием, lib/eventkey.ts), у WEC и IMSA он
+/// выводится из слага источника теми же функциями, что у продьюсеров.
+function expectedKeys(): Record<string, Set<string>> {
+  const out: Record<string, Set<string>> = { f1: new Set(), wec: new Set(), imsa: new Set() };
+  for (const f of readdirSync(join("data", "f1", "calendar"))) {
+    const doc = JSON.parse(readFileSync(join("data", "f1", "calendar", f), "utf8"));
+    for (const e of doc.events ?? []) if (e.eventKey) out.f1.add(e.eventKey);
+  }
+  for (const series of ["wec", "imsa"] as const) {
+    for (const dir of readdirSync(join("data", series)).filter((d) => /^\d{4}$/.test(d))) {
+      const path = join("data", series, dir, "index.json");
+      if (!existsSync(path)) continue;
+      const doc = JSON.parse(readFileSync(path, "utf8"));
+      const season = Number(dir);
+      for (const e of doc.events ?? []) {
+        if (!e.slug) continue;
+        // Файл собирается ТОЛЬКО из непустых блоков (см. тест «событие без
+        // единого блока файла не получает»), а блоки round-keyed. Поэтому
+        // ожидать файл можно ровно у тех событий, у кого хоть одно семейство
+        // на диске есть: у будущего этапа и у пролога (сентинел round 0) его
+        // нет ПО ДИЗАЙНУ, и требовать файл — значит держать сторож вечно
+        // красным, то есть бесполезным.
+        const round = Number(e.round);
+        if (!Number.isFinite(round) || round < 1) continue;
+        const hasFamily = ["fia", "winners", "highlights"].some((fam) =>
+          existsSync(join("data", series, fam, `${season}_${round}.json`)));
+        if (!hasFamily) continue;
+        out[series].add(series === "wec" ? wecEventKey(season, e.slug) : imsaEventKey(season, e.slug));
+      }
+    }
+  }
+  return out;
+}
+
+test("охват: у каждого события витрины есть файл, и осиротевших файлов нет", () => {
+  for (const [series, want] of Object.entries(expectedKeys())) {
+    const dir = join("data", series, "events");
+    const have = new Set(readdirSync(dir).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5)));
+    assert.ok(want.size > 0, `${series}: витрина не дала ни одного ключа — сторож ослеп`);
+    // Дыра: клиент по этому событию уходит на фолбэк, а после этапа 5.2 —
+    // на пустой экран, и заметит это только пользователь.
+    assert.deepEqual([...want].filter((k) => !have.has(k)).sort(), [],
+      `${series}: события витрины без файла`);
+    // Сирота: событие ушло из витрины, а файл остался — GC не отработал, и
+    // клиент может открыть страницу события, которого в календаре уже нет.
+    assert.deepEqual([...have].filter((k) => !want.has(k)).sort(), [],
+      `${series}: файлы без события в витрине`);
+  }
 });
