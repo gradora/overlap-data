@@ -38,6 +38,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { byKey, envKeyFor } from "./lib/producers.js";
 import { buildManifest, writeServe } from "./exportserve.js";
+import { acquireCronLock } from "./lib/cronlock.js";
 
 /// Порядок snapshot-цепочки — ДОСЛОВНО последовательность `id:`-шагов
 /// snapshot.yml. Порядок несёт смысл, а не историю: проекции (wecevents,
@@ -639,6 +640,31 @@ function printPlan(name: string, scripts: string[], mode: "plan" | "run" | "push
 
 const SERVE_PLAN_STEP = "serve-шаг (витрина → SERVE_REPO_URL, только при --push)";
 
+/// Прогон под межсервисным локом (src/lib/cronlock.ts).
+///
+/// Берётся только в боевом режиме: без --push в git никто не пишет, исключать
+/// нечего, а лишний сетевой ход в репозиторий на каждой репетиции — вред.
+///
+/// За флагом CRON_LOCK намеренно: включаем по одному сервису и смотрим, как
+/// ожидание ложится на реальные слоты, вместо того чтобы менять поведение всех
+/// шести разом в тот же день, когда гасятся GitHub Actions. Выключенный лок —
+/// сегодняшнее поведение, а не деградация.
+async function underCronLock(
+  group: string, push: boolean, body: () => Promise<number>,
+): Promise<number> {
+  if (!push || process.env.CRON_LOCK !== "1") return body();
+  const lock = acquireCronLock(group);
+  if (lock.held) console.log("лок: взят");
+  try {
+    return await body();
+  } finally {
+    // finally, а не после body(): прогон может уйти исключением (сторож границы
+    // данных бросает по дизайну), и невозвращённый лок задержал бы все
+    // остальные сервисы до самого TTL.
+    if (lock.held) lock.release();
+  }
+}
+
 async function main(): Promise<number> {
   const args = process.argv.slice(2);
   const push = args.includes("--push");
@@ -657,7 +683,7 @@ async function main(): Promise<number> {
     );
     printPlan(group, [...scripts, "health", "commit", SERVE_PLAN_STEP, "гейты"], mode);
     if (mode === "plan") return 0;
-    return runSnapshot(daily, push);
+    return underCronLock(group, push, () => runSnapshot(daily, push));
   }
 
   const simple = SIMPLE_GROUPS[group];
@@ -668,7 +694,7 @@ async function main(): Promise<number> {
   }
   printPlan(group, [...simple.scripts, "commit", SERVE_PLAN_STEP], mode);
   if (mode === "plan") return 0;
-  return runSimple(group, simple, push);
+  return underCronLock(group, push, () => runSimple(group, simple, push));
 }
 
 // main только при прямом запуске — иначе импорт из тестов запускал бы
