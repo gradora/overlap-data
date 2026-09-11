@@ -179,6 +179,14 @@ function runNextSeason(): StepOutcome {
 /// разницы нет.
 const GIT_IDENT = ["-c", "user.name=overlap-bot", "-c", "user.email=overlap-bot@users.noreply.github.com"];
 
+/// Имя ветки чекаута. Фолбэк `main` — для detached HEAD (у shallow-клона его не
+/// бывает, но пустая строка в аргументах git дала бы невнятный отказ).
+function currentBranch(): string {
+  const r = spawnSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], { encoding: "utf8" });
+  const name = (r.stdout || "").trim();
+  return name && name !== "HEAD" ? name : "main";
+}
+
 function commitPush(paths: string, messagePrefix: string): boolean {
   // Код возврата add проверяется, как проверял бы bash -e в composite action:
   // упавший add (index.lock соседнего прогона, битый индекс) при пустом
@@ -198,8 +206,14 @@ function commitPush(paths: string, messagePrefix: string): boolean {
     // новый коммит, и контейнер без глобального user.email падал бы здесь
     // «Please tell me who you are» все 5 попыток (на машине владельца
     // глобальный конфиг маскирует это — локальная репетиция не ловит).
+    // Ветка — ТЕКУЩАЯ, а не захардкоженный main: контейнер клонирует
+    // CLONE_BRANCH (deploy/railway/entrypoint.sh), и `pull --rebase origin main`
+    // на обкаточной ветке перебазировал бы её на боевую верхушку, после чего
+    // `git push` (push.default=simple) записал бы содержимое main в origin/<ветка>
+    // с рапортом «push ок». Ломалось бы ровно на первой гонке пушей — то есть
+    // в том единственном случае, ради которого этот retry и написан.
     if (
-      run("git", [...GIT_IDENT, "pull", "--rebase", "--autostash", "origin", "main"]) === 0 &&
+      run("git", [...GIT_IDENT, "pull", "--rebase", "--autostash", "origin", currentBranch()]) === 0 &&
       run("git", ["push"]) === 0
     ) {
       console.log(`push ок с попытки ${attempt}`);

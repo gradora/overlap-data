@@ -154,6 +154,14 @@ if [ -z "${CLONE_URL:-}" ]; then
     echo "не задан источник кода: PRIVATE_REPO (owner/name) или CLONE_URL" >&2
     exit 2
   fi
+  # Ключ обязателен, раз URL идёт через ssh-алиас. Пустая переменная раньше была
+  # тихим no-op в setup_key: Host-блок не появлялся, и git падал «Could not
+  # resolve hostname github-private» — диагноз уводил в сеть и права, хотя
+  # причина в незаданной (или не прилинкованной к сервису) переменной.
+  if [ ! -f ~/.ssh/id_private ]; then
+    echo "PRIVATE_REPO задан (${PRIVATE_REPO}), а PRIVATE_REPO_SSH_KEY пуст — клон по ssh невозможен: подпиши сервис на общую переменную проекта" >&2
+    exit 2
+  fi
   CLONE_URL="git@github-private:${PRIVATE_REPO}.git"
 fi
 
@@ -161,6 +169,14 @@ fi
 # SERVE_REPO_URL при --push. URL собирается здесь, потому что алиас
 # github-serve — деталь этого контейнера, оркестратор про неё знать не должен.
 if [ -n "${SERVE_REPO:-}" ] && [ -z "${SERVE_REPO_URL:-}" ]; then
+  # То же, что выше, и здесь цена промаха выше: git-вывод serve-шага глушится
+  # целиком (он печатает URL репо даже с --quiet), поэтому строка про
+  # неразрешимый хост в лог не попадёт вовсе — останется «serve: git clone —
+  # код 128» без причины, уже ПОСЛЕ того как данные уехали в origin.
+  if [ ! -f ~/.ssh/id_serve ]; then
+    echo "SERVE_REPO задан (${SERVE_REPO}), а SERVE_REPO_SSH_KEY пуст — публиковать витрину нечем" >&2
+    exit 2
+  fi
   export SERVE_REPO_URL="git@github-serve:${SERVE_REPO}.git"
 fi
 

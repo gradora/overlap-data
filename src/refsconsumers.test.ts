@@ -109,6 +109,10 @@ const GOLDEN_MATCH_ROUND: Record<number, Record<string, number | null>> = {
     // Первые документы Монцы-2026 приехали 05.09 (гоночный уик-энд).
     italian_grand_prix: 13, japanese_grand_prix: 3,
     miami_grand_prix: 4, monaco_grand_prix: 6,
+    // Мадрид приехал 11.09, за два дня до гонки. У FIA слаг прежний,
+    // испанский, но трасса и раунд другие: «barcelona-catalunya…» выше — это
+    // Барселона, которой в календаре 2026 уже нет (оттого и null).
+    spanish_grand_prix: 14,
   },
 };
 

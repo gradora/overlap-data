@@ -103,8 +103,13 @@ function collect(abs: string, rel: string, out: ExportFile[], used: Set<string>)
     }
     const childAbs = join(abs, name);
     const st = statSync(childAbs);
-    if (st.isDirectory()) { collect(childAbs, childRel, out, used); continue; }
+    // Маска служебного ДО проверки на каталог: `_state/holes.json` — такая же
+    // кухонная телеметрия, как `_state_2026.json`, но раньше каталог уходил в
+    // рекурсию до маски, и файлы внутри (их собственные имена без `_`) ехали
+    // в манифест. Последний рубеж classify() это не ловит: трёхсегментный путь
+    // не матчится с двухсегментным семейством и молча проходит зону.
     if (SERVICE_FILE.test(name)) continue;
+    if (st.isDirectory()) { collect(childAbs, childRel, out, used); continue; }
     const input = BUILD_INPUTS.find((b) => b.path === childRel);
     if (input) { used.add(input.path); continue; }
     out.push({ path: childRel, bytes: st.size });

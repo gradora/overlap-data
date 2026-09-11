@@ -6,6 +6,7 @@
 // публикация: снятый с serve файл из истории публичного репо не удалить.
 
 import { test } from "node:test";
+import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import assert from "node:assert/strict";
 import { buildManifest } from "./exportserve.js";
 import { classify } from "./lib/databoundary.js";
@@ -61,4 +62,23 @@ test("health.json и refs/matching.json не попадают", () => {
     "служебные _* попали в состав");
   assert.ok(!files.includes("f1/history/moments.json"),
     "вход сборки f1history попал в состав");
+});
+
+/// Конвенция `_*` живёт и на КАТАЛОГАХ, а не только на файлах. Тест ставит
+/// временный `_state/` внутрь экспортируемого семейства и пересобирает манифест:
+/// проверка на реальном data/ была бы ложно-зелёной — сейчас такого каталога
+/// просто нет, а первый же продьюсер, разложивший состояние по каталогу вместо
+/// `_state_<год>.json`, опубликовал бы кухонную телеметрию (classify её не
+/// ловит: трёхсегментный путь не матчится с двухсегментным семейством).
+test("служебный КАТАЛОГ `_*` не обходится рекурсивно", () => {
+  const dir = "data/f1/2026/_state";
+  mkdirSync(dir, { recursive: true });
+  try {
+    writeFileSync(`${dir}/holes.json`, '{"holes":[]}\n');
+    const paths = buildManifest().flatMap((e) => e.files.map((f) => f.path));
+    assert.deepEqual(paths.filter((p) => p.split("/").some((s) => s.startsWith("_"))), [],
+      "содержимое служебного каталога уехало бы в публичный serve");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
