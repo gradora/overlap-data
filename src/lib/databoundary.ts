@@ -61,11 +61,14 @@ export interface DataFamily {
 export const DATA_FAMILIES: DataFamily[] = [
   // --- Кухня ---
   {
-    path: "f1/jolpica", zone: "кухня", clientReads: true, producerReads: true,
-    note: "С 01.09.2026 у клиента ТОЛЬКО ФОЛБЭК: расписание — витрина " +
-      "календаря v2, зачёты — f1/<год>/standings.json, Last Event — файл " +
-      "события. Прямых чтений на горячем пути ноль; clientReads остаётся " +
-      "true, пока фолбэки живы.",
+    path: "f1/jolpica", zone: "кухня", clientReads: false, producerReads: true,
+    note: "КЛИЕНТ БОЛЬШЕ НЕ ЧИТАЕТ (этап 5.2, клиент 6c4a80b): фолбэки сняты " +
+      "целиком — расписание и зачёты приходят витриной, Last Event — файлом " +
+      "события, сезон N+1 — календарём витрины. Из F1RacingDataService ушли " +
+      "транспорт и baseURL, так что обращение физически невозможно, а сторож " +
+      "JolpicaReadersGuardTests ловит попытку по факту запроса. Зеркало живо " +
+      "и нужно ПРОДЬЮСЕРАМ (f1calendar, f1standings, f1winners, f1highlights, " +
+      "f1teams), поэтому producerReads: true; наружу не едет.",
   },
 
   // --- Заготовка ---
