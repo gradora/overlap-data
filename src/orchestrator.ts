@@ -39,6 +39,7 @@ import { join } from "node:path";
 import { byKey, envKeyFor } from "./lib/producers.js";
 import { buildManifest, writeServe } from "./exportserve.js";
 import { acquireCronLock } from "./lib/cronlock.js";
+import { publishR2, r2ConfigFromEnv } from "./lib/publishr2.js";
 
 /// Порядок snapshot-цепочки — ДОСЛОВНО последовательность `id:`-шагов
 /// snapshot.yml. Порядок несёт смысл, а не историю: проекции (wecevents,
@@ -371,11 +372,15 @@ function syncedWithOrigin(): boolean {
 /// Гейт на commitOk: публикуем только зафиксированное приватом. Контейнер
 /// эфемерен — витрина, ушедшая наружу при провале origin-пуша, существовала бы
 /// только в публичном репо и не воспроизводилась бы из приватной истории.
-function serveStep(push: boolean, commitOk: boolean): boolean {
+async function serveStep(push: boolean, commitOk: boolean): Promise<boolean> {
   if (!push) return true;
+  // Два канала публикации: объектное хранилище (решение по 7b — витрину
+  // раздаёт R2) и git-репо (прежний путь, живёт до переезда). Настроен
+  // R2 — он и выигрывает; не настроено НИЧЕГО — штатный пропуск, как было.
+  const r2 = r2ConfigFromEnv();
   const url = process.env.SERVE_REPO_URL;
-  if (!url) {
-    console.log("serve-шаг пропущен (нет SERVE_REPO_URL)");
+  if (!r2 && !url) {
+    console.log("serve-шаг пропущен (публикация не настроена)");
     return true;
   }
   if (!commitOk) {
@@ -392,7 +397,21 @@ function serveStep(push: boolean, commitOk: boolean): boolean {
     console.warn("serve-шаг пропущен: дерево прогона отстало от origin — публикация откатила бы витрину назад");
     return true;
   }
-  return pushServe(url);
+  if (r2) {
+    // Сторожа границы данных бросают по дизайну (путь без зоны, пустое
+    // семейство, разъезд карты с диском) — ловим здесь, как и у git-канала:
+    // провал границы обязан доехать до гейтов и нотификатора, а не убить
+    // прогон unhandled rejection.
+    try {
+      const r = await publishR2(r2, buildManifest());
+      console.log(`serve: R2 — залито ${r.put}, удалено ${r.deleted}, без изменений ${r.unchanged}`);
+      return true;
+    } catch (e) {
+      console.error(`serve: публикация в R2 отказала (${(e as Error).name}: ${(e as Error).message})`);
+      return false;
+    }
+  }
+  return pushServe(url as string);
 }
 
 // ---------------------------------------------------------------------------
@@ -569,7 +588,7 @@ async function runSnapshot(daily: boolean, push: boolean): Promise<number> {
   if (!healthOk) console.error("шаг health упал — heartbeat этого прогона не записан");
 
   const commitOk = commitStep(push, "data", "snapshot");
-  const serveOk = serveStep(push, commitOk);
+  const serveOk = await serveStep(push, commitOk);
 
   // Оба гейта отрабатывают независимо от исходов друг друга (`if: always()`).
   // skipped падением не считается — это штатный nextseason часового прогона.
@@ -604,7 +623,7 @@ async function runSimple(name: string, group: SimpleGroup, push: boolean): Promi
   if (failedScript) console.error(`шаг «npm run ${failedScript}» упал — остальные шаги группы ${name} пропущены`);
 
   const commitOk = commitStep(push, group.commitPaths, group.messagePrefix);
-  const serveOk = serveStep(push, commitOk);
+  const serveOk = await serveStep(push, commitOk);
 
   await notifyStep({
     group: name,

@@ -33,7 +33,10 @@ import {
   DATA_FAMILIES, DATA_FILES, classify, matchesFamily,
 } from "./lib/databoundary.js";
 
-const DATA_DIR = join(process.cwd(), "data");
+/// Экспортируется ради публикации в объектное хранилище (lib/publishr2.ts):
+/// состав витрины считает ТОЛЬКО этот модуль, и второй источник правды о том,
+/// где лежат данные, заводить нельзя.
+export const DATA_DIR = join(process.cwd(), "data");
 
 /// Известный шум macOS/git — тот же NOISE-сет, что в databoundary.test.ts:
 /// скипается молча. Любое ДРУГОЕ точечное имя — аборт, а не скип: скрытый
