@@ -15,7 +15,8 @@ import type { AddressInfo } from "node:net";
 import { PRODUCERS } from "./lib/producers.js";
 import {
   NEXTSEASON_SCRIPTS, SNAPSHOT_CHAIN, SIMPLE_GROUPS,
-  commitPush, notifyFailure, pushServe, stepExtraEnv, type FailureReport,
+  commitPush, heartbeatForTesting, notifyFailure, pushServe, stepExtraEnv,
+  type FailureReport,
 } from "./orchestrator.js";
 
 const WORKFLOWS_DIR = ".github/workflows";
@@ -303,5 +304,51 @@ test("commitPush: исчерпанные попытки не оставляют 
     if (sleep0 === undefined) delete process.env.PUSH_RETRY_SLEEP_SEC;
     else process.env.PUSH_RETRY_SLEEP_SEC = sleep0;
     rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// «Мёртвая рука»: сигнал успеха наружу. Нотификатор нем, когда прогон не
+// состоялся вовсе (контейнер не поднялся, ключ испорчен, платформа не
+// запустила расписание) — молчание там неотличимо от «всё хорошо». Поэтому
+// наружу уходит подтверждение УСПЕХА, а тревогу поднимает внешний наблюдатель.
+// ---------------------------------------------------------------------------
+
+test("heartbeat: зелёный прогон шлёт сигнал с именем группы, красный — молчит", async () => {
+  const seen: string[] = [];
+  const server = createServer((req, res) => {
+    seen.push(req.url ?? "");
+    res.writeHead(200);
+    res.end("ok");
+  });
+  const base = await listen(server);
+  const saved = process.env.HEARTBEAT_URL;
+  process.env.HEARTBEAT_URL = base.replace(/\/hook$/, "");
+  try {
+    await heartbeatForTesting("weclive", true);
+    assert.deepEqual(seen, ["/weclive"],
+      "сигнал не ушёл или потерял имя группы — наблюдатель не поймёт, кто именно молчит");
+
+    // Красный прогон сигнала НЕ шлёт: иначе «мёртвая рука» подтверждала бы
+    // жизнь ровно тогда, когда всё сломано, и тревога не сработала бы никогда.
+    await heartbeatForTesting("weclive", false);
+    assert.deepEqual(seen, ["/weclive"], "красный прогон отправил подтверждение успеха");
+  } finally {
+    if (saved === undefined) delete process.env.HEARTBEAT_URL;
+    else process.env.HEARTBEAT_URL = saved;
+    server.close();
+  }
+});
+
+test("heartbeat: недоступный наблюдатель не роняет прогон", async () => {
+  const saved = process.env.HEARTBEAT_URL;
+  // Порт, на котором заведомо никто не слушает: сторож не имеет права ронять
+  // то, что сторожит.
+  process.env.HEARTBEAT_URL = "http://127.0.0.1:9";
+  try {
+    await heartbeatForTesting("snapshot", true);   // не бросает — это и проверяем
+  } finally {
+    if (saved === undefined) delete process.env.HEARTBEAT_URL;
+    else process.env.HEARTBEAT_URL = saved;
   }
 });

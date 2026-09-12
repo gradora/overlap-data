@@ -481,6 +481,43 @@ async function notifyStep(report: FailureReport): Promise<void> {
   await notifyFailure(url, report);
 }
 
+/// Сигнал «прогон дошёл до конца и он зелёный» — «мёртвая рука».
+///
+/// ЗАЧЕМ ОТДЕЛЬНО ОТ НОТИФИКАТОРА. Тот живёт ВНУТРИ прогона и потому нем в
+/// самом опасном классе отказов: контейнер не поднялся, испортился ключ, упал
+/// клон, платформа не запустила расписание. Молчание в этих случаях
+/// неотличимо от «всё хорошо» — за первые сутки на Railway мы дважды узнавали
+/// о таких отказах только потому, что владелец смотрел в консоль.
+///
+/// Поэтому здесь обратная логика: наружу уходит подтверждение УСПЕХА, а
+/// тревогу поднимает внешний наблюдатель, когда подтверждения перестают
+/// приходить. Он живёт вне Railway, так что переживает смерть всей платформы.
+///
+/// Формат — GET с именем группы в пути: так устроены все dead-man's-switch
+/// сервисы, и такой же приёмник тривиально поднимается свой. Провал сигнала
+/// НЕ влияет на вердикт прогона: сторож не имеет права ронять то, что сторожит.
+export const heartbeatForTesting = (group: string, green: boolean): Promise<void> =>
+  heartbeat(group, green);
+
+async function heartbeat(group: string, green: boolean): Promise<void> {
+  const base = process.env.HEARTBEAT_URL;
+  if (!base || !green) return;
+  try {
+    new URL(base);
+  } catch {
+    console.warn("heartbeat: HEARTBEAT_URL не парсится — сторож не настроен");
+    return;
+  }
+  const url = `${base.replace(/\/$/, "")}/${encodeURIComponent(group)}`;
+  try {
+    await fetch(url, { method: "GET", signal: AbortSignal.timeout(10_000) });
+  } catch (e) {
+    // Имя класса, но не сообщение: undici кладёт в message полный URL, а он
+    // содержит секрет приёмника у большинства таких сервисов.
+    console.warn(`heartbeat: сигнал не ушёл (${(e as Error).name})`);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Гейты snapshot — та же логика, что YAML-шаги «Проверка продьюсеров» и
 // «Проверка свежести данных», но stderr + ненулевой exit вместо ::error::.
@@ -596,6 +633,8 @@ async function runSnapshot(daily: boolean, push: boolean): Promise<number> {
   const gate1Ok = producersGate(failed);
   const stale = freshnessGate();
 
+  await heartbeat(daily ? "snapshot-daily" : "snapshot",
+                  healthOk && commitOk && serveOk && gate1Ok && stale.length === 0);
   await notifyStep({
     group: daily ? "snapshot-daily" : "snapshot",
     failed,
@@ -625,6 +664,7 @@ async function runSimple(name: string, group: SimpleGroup, push: boolean): Promi
   const commitOk = commitStep(push, group.commitPaths, group.messagePrefix);
   const serveOk = await serveStep(push, commitOk);
 
+  await heartbeat(name, failedScript === null && commitOk && serveOk);
   await notifyStep({
     group: name,
     failed: failedScript ? [failedScript] : [],
